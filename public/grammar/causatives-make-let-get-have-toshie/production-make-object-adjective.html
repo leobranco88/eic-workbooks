@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EIC · Production · make + object + adjective</title><style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  :root { --ink:#0A0A0F; --paper:#FAFAF7; --muted:#6B7280; --accent:#E63946; --teal:#0F766E; --bg-light:#F3F4F6; --border:#D1D5DB; }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Inter',sans-serif; background:var(--ink); color:var(--ink); min-height:100vh; padding:0 0 60px; }
+  .topbar { background:var(--ink); color:var(--paper); padding:10px 24px; display:flex; justify-content:space-between;
+            align-items:center; position:sticky; top:0; z-index:100; border-bottom:2px solid var(--accent); }
+  .topbar-brand { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; }
+  .topbar-brand strong { font-size:15px; font-weight:900; display:block; line-height:1.1; }
+  .topbar-meta { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9CA3AF; text-align:right; }
+  .container { max-width:880px; margin:0 auto; background:var(--paper); min-height:100vh; }
+  .hero { padding:28px 36px 20px; border-bottom:2px solid var(--ink); }
+  .hero-meta { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
+  .hero h1 { font-size:28px; font-weight:900; letter-spacing:-0.03em; line-height:1.05; }
+  .hero h1 span { color:var(--accent); }
+  .hero-sub { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:0.08em; margin-top:8px; }
+  .section { padding:20px 36px; border-bottom:1px solid var(--border); }
+  .section:last-child { border-bottom:none; }
+  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:6px; border-bottom:1.5px solid var(--ink); }
+  .s-num { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:0.08em; flex-shrink:0; }
+  .s-title { font-size:13px; font-weight:800; flex:1; }
+  .s-pts { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); flex-shrink:0; }
+  .btn-reveal { background:transparent; border:1.5px solid var(--teal); color:var(--teal); font-family:'IBM Plex Mono',monospace;
+                font-size:9px; letter-spacing:0.1em; text-transform:uppercase; padding:4px 12px; cursor:pointer; flex-shrink:0; transition:all 0.15s; }
+  .btn-reveal:hover, .btn-reveal.active { background:var(--teal); color:var(--paper); }
+  .instruction { font-size:11.5px; color:#374151; font-style:italic; margin-bottom:14px; line-height:1.5; }
+  .pattern { border:1.5px solid var(--ink); padding:12px 14px; margin-bottom:14px; }
+  .pattern .pl { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:8px; }
+  .formula { font-size:17px; font-weight:900; letter-spacing:-0.02em; margin-bottom:4px; }
+  .formula .slot { color:var(--accent); }
+  .formula .adjw { color:var(--teal); }
+  .pnote { font-size:11.5px; color:#374151; line-height:1.6; margin-top:6px; }
+  .pnote b { color:var(--teal); }
+  .wrong { text-decoration:line-through; color:var(--accent); }
+  .q-item { display:flex; gap:10px; padding:7px 6px; margin-bottom:2px; align-items:flex-start; font-size:13px;
+            line-height:1.55; cursor:pointer; transition:background 0.15s; }
+  .q-item:hover { background:#F3F4F6; }
+  .q-num { font-family:'IBM Plex Mono',monospace; color:var(--accent); flex-shrink:0; min-width:20px; padding-top:2px; font-size:11px; }
+  .q-body { flex:1; }
+  .ctx { color:var(--muted); }
+  .adj { color:var(--teal); font-weight:800; }
+  .cue { font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--accent); }
+  .ans-open { display:none; padding:7px 10px; background:#ECFDF5; border-left:3px solid var(--teal); margin-top:5px; font-size:12px; line-height:1.55; }
+  .ans-open .ao-label { font-family:'IBM Plex Mono',monospace; font-size:8.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); display:block; margin-bottom:3px; }
+  .ans-open .ao-text { color:var(--teal); font-weight:700; display:block; }
+  .ans-open .ao-note { color:#374151; font-size:10.5px; font-style:italic; display:block; margin-top:4px; }
+  .q-item.revealed .ans-open { display:block; }
+  .writeline { border-bottom:1px solid var(--border); height:19px; margin-top:5px; }
+  .gl-grid { display:flex; flex-wrap:wrap; gap:4px; }
+  .gl-item { flex:1 1 168px; background:var(--bg-light); border-left:2px solid var(--border); padding:5px 8px; }
+  .gl-en { display:block; font-weight:800; font-size:12px; }
+  .gl-jp { display:block; font-size:10.5px; color:var(--teal); font-style:italic; }
+  .gl-pt { display:block; font-size:9.5px; color:var(--muted); }
+  .footer { padding:14px 36px; font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:0.06em; text-align:center; }
+  @media (max-width:600px) { .section { padding:16px 18px; } .hero { padding:20px 18px; } }
+
+  .cue-tense { color:#B45309; font-weight:800; border-bottom:2px solid #B45309; padding-bottom:1px; }
+  .cue-subj { color:var(--teal); font-weight:800; border-bottom:2px solid var(--teal); padding-bottom:1px; }
+  .cue-clause { border-bottom:2px solid var(--teal); padding-bottom:1px; }
+  .cue-verb { color:#B45309; font-weight:900; }
+  .tensetable { width:100%; border-collapse:collapse; font-size:12px; margin-top:10px; }
+  .tensetable th { background:var(--ink); color:var(--paper); padding:6px 8px; text-align:left; font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; }
+  .tensetable td { padding:7px 8px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .tensetable tr:nth-child(even) td { background:#F9FAFB; }
+  .tensetable .cue-word { color:var(--accent); font-weight:800; }
+  .tensetable .make-form { color:var(--teal); font-weight:800; font-family:'IBM Plex Mono',monospace; }
+  .worked { border:1.5px solid var(--teal); background:#ECFDF5; padding:12px 14px; margin:14px 0; }
+  .worked .wk-label { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal); display:block; margin-bottom:8px; }
+  .worked .wk-ctx { font-size:13.5px; margin-bottom:8px; }
+  .worked .wk-steps { font-size:12px; line-height:1.9; color:#374151; }
+  .worked .wk-steps b { color:var(--ink); }
+  .worked .wk-final { font-size:14px; font-weight:800; color:var(--teal); margin-top:8px; padding-top:8px; border-top:1px dashed var(--border); }
+  .legend { display:flex; gap:18px; font-size:11px; color:var(--muted); margin-top:10px; flex-wrap:wrap; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:middle; }
+  .adj-tag { font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#B45309; font-weight:700; }
+  .side-note { font-size:11px; color:#374151; background:var(--bg-light); border-left:2px solid var(--border); padding:6px 9px; margin-top:8px; }
+</style></head><body>
+<style>
+  .eic-nav{background:#050507;border-bottom:1px solid #2A2A35;padding:9px 20px;display:flex;gap:6px;
+    flex-wrap:wrap;align-items:center;font-family:'IBM Plex Mono',monospace;}
+  .eic-nav .lbl{color:#E63946;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0;}
+  .eic-nav a{color:#9CA3AF;font-size:10px;letter-spacing:.03em;text-decoration:none;padding:5px 10px;
+    border:1px solid #2A2A35;white-space:nowrap;}
+  .eic-nav a:hover{color:#FAFAF7;border-color:#0F766E;}
+  .eic-nav a.active{background:#0F766E;color:#FAFAF7;border-color:#0F766E;font-weight:700;}
+</style>
+<div class="eic-nav"><span class="lbl">Toshie · Lessons</span><a href="practice-make-object-adjective.html">01 · Pronoun + Adjective</a><a href="production-make-object-adjective.html" class="active">02 · Production</a><a href="neighbours-make-noun-verb.html">03 · Three Neighbours</a><a href="neighbours-homework.html">03 · Neighbours (Homework)</a><a href="chain-teacher.html">04 · Cause Chain</a><a href="causatives-make-let-get-have-help.html">05 · Make/Let/Get/Have/Help</a><a href="reading-lab-brazil-japan-classroom.html">06 · Reading Lab</a><a href="reading-lab-brazil-japan-homework.html">06 · Reading Lab (Homework)</a><a href="listening-lab-ryokan-checkin.html">07 · Listening Lab</a></div><div class="topbar"><div class="topbar-brand"><strong>EIC.</strong>PRODUCTION · B2 · MAKE + OBJECT + ADJECTIVE</div><div class="topbar-meta">GET &amp; MAKE · FREE PRODUCTION<br>CLIQUE NO ITEM PARA COMPARAR</div></div><div class="container"><div class="hero"><div style="display:flex;justify-content:space-between;align-items:flex-start;"><div><div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2</div><h1>Say it<br><span>the other way</span></h1><div class="hero-sub">30 ITEMS · REWRITE · COMBINE · WRITE YOUR OWN</div></div><div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;"><div style="font-size:38px;line-height:1;">書き換え</div><div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:0.1em;margin-top:4px;">kakikae · rewriting</div></div></div></div><div class="section"><div class="section-header"><span class="s-num">01</span><span class="s-title">Before You Write · Part A</span><span class="s-pts">reference</span></div><p class="instruction">Two things to check, every time: the tense cue, and the phrase that becomes your new subject.</p><table class="tensetable"><tr><th>Cue words</th><th>Use</th><th>Meaning</th></tr><tr><td><span class="cue-word">whenever / always / every time</span></td><td><span class="make-form">makes / make</span></td><td>a habit, a repeated pattern</td></tr>
+<tr><td><span class="cue-word">since / already / recently</span></td><td><span class="make-form">has made / have made</span></td><td>a change that is still true now</td></tr>
+<tr><td><span class="cue-word">a specific past moment (yesterday, last night, in 2019)</span></td><td><span class="make-form">made</span></td><td>one completed event, finished</td></tr>
+<tr><td><span class="cue-word">next time / from tomorrow / if&hellip; will</span></td><td><span class="make-form">will make</span></td><td>a prediction, something not yet true</td></tr></table><div class="worked"><span class="wk-label">worked example</span><div class="wk-ctx">Because of the constant rain, the streets <span class="cue-tense">have been</span> dangerous all week.</div><div class="wk-steps">1. <b>Tense cue:</b> "have been&hellip; all week" &rarr; present perfect &rarr; <i>has made</i><br>2. <b>Subject-to-be:</b> "the constant rain" &mdash; the cause, moved to the front<br>3. <b>Object + adjective:</b> the streets / dangerous</div><div class="wk-final">&rarr; The constant rain has made the streets dangerous.</div></div><div class="legend"><span><span class="dot" style="background:#B45309"></span>tense cue</span><span><span class="dot" style="background:var(--teal)"></span>becomes the subject</span></div></div><div class="section" id="secA"><div class="section-header"><span class="s-num">02</span><span class="s-title">Part A · Rewrite the Sentence</span><span class="s-pts">12 items</span><button class="btn-reveal" onclick="revealAll(this, '#secA')">Reveal all</button></div><p class="instruction">Rewrite each sentence as: subject + make + object + adjective. Underlined in red is your tense cue; underlined in teal is what becomes your subject.</p><div class="q-item" onclick="revealItem(this)"><span class="q-num">01</span><div class="q-body"><span class="cue-tense">Whenever</span> there's <span class="cue-subj">rain at night</span>, I feel sleepy.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The rain at night makes me sleepy.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">02</span><div class="q-body">My grandmother is <span class="cue-tense">always</span> happier because of <span class="cue-subj">our Sunday calls</span>.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">Our Sunday calls make her happier.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">03</span><div class="q-body"><span class="cue-tense">Every time</span> there's <span class="cue-subj">silence in the office after six</span>, I feel calmer.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The silence in the office after six makes me calmer.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">04</span><div class="q-body"><span class="cue-tense">Since</span> <span class="cue-subj">the new project</span>, my colleagues have been more stressed.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The new project has made them more stressed.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">05</span><div class="q-body">My father has been healthier <span class="cue-tense">lately</span>, because of <span class="cue-subj">his diet</span>.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">His diet has made him healthier.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">06</span><div class="q-body">My sister has <span class="cue-tense">already</span> felt more confident, since <span class="cue-subj">her promotion</span>.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">Her promotion has already made her more confident.</span><span class="ao-note">"Already" sits between <i>has</i> and the main verb: has <b>already</b> made.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">07</span><div class="q-body"><span class="cue-tense">Last night</span>, because of <span class="cue-subj">the strange noise</span>, I felt nervous.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The strange noise made me nervous last night.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">08</span><div class="q-body"><span class="cue-tense">In January</span>, after <span class="cue-subj">his terrible flu</span>, my brother felt weak for weeks.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">His terrible flu made him weak for weeks.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">09</span><div class="q-body">Because of <span class="cue-subj">the sudden storm</span>, we were anxious for hours <span class="cue-tense">yesterday</span>.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The sudden storm made us anxious for hours yesterday.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">10</span><div class="q-body"><span class="cue-tense">From tomorrow</span>, because of <span class="cue-subj">the new schedule</span>, the team will feel rushed.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The new schedule will make the team rushed.</span><span class="ao-note"><i>Will make</i> never changes form — no -s, whatever the subject.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">11</span><div class="q-body"><span class="cue-tense">Next time</span>, because of <span class="cue-subj">the traffic</span>, I'll probably be late again.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The traffic will make me late again.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">12</span><div class="q-body">Because of <span class="cue-subj">the long meeting</span>, my colleagues <span class="cue-tense">will be</span> irritated by lunchtime.<div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The long meeting will make them irritated by lunchtime.</span></div></div></div><div class="side-note" style="margin-top:12px;"><b>calm</b> or <b>calmer</b>? Both are correct — they say different things. <i>It makes me calm</i> describes the state she ends in. <i>It makes me calmer</i> describes a change of degree: she was already a little calm, and moved further. Choose on purpose, not by accident.</div></div><div class="section"><div class="section-header"><span class="s-num">03</span><span class="s-title">Before You Write · Part B</span><span class="s-pts">reference</span></div><p class="instruction">Sometimes the cause isn't a simple noun — it's an action. Turn the whole clause into the subject.</p><div class="worked"><span class="wk-label">worked example</span><div class="wk-ctx">My neighbour plays the piano at midnight.</div><div class="wk-steps">1. <b>Find the verb:</b> plays<br>2. <b>Remove the tense, add -ing:</b> playing<br>3. <b>The whole clause becomes the subject:</b> My neighbour playing the piano at midnight<br>4. <b>Add make + object + adjective</b></div><div class="wk-final">&rarr; My neighbour playing the piano at midnight makes me angry.</div><div class="side-note">The tense doesn't disappear — it moves onto <i>make</i>: <i>plays</i> (present) &rarr; <i>makes</i> &middot; <i>played</i> (past) &rarr; <i>made</i>. This is the same shape as the participle clauses you already know — a clause with no tense of its own, working as a noun.</div></div><div class="legend"><span><span class="dot" style="background:var(--teal)"></span>the whole clause becomes the subject</span><span><span class="dot" style="background:#B45309"></span>the verb that changes to -ing</span></div></div><div class="section" id="secB"><div class="section-header"><span class="s-num">04</span><span class="s-title">Part B · Turn the Verb into the Subject</span><span class="s-pts">8 items</span><button class="btn-reveal" onclick="revealAll(this, '#secB')">Reveal all</button></div><p class="instruction">Use the bracketed adjective. Keep the tense the same as the underlined verb — it moves onto make.</p><div class="q-item" onclick="revealItem(this)"><span class="q-num">13</span><div class="q-body"><span class="cue-clause">My neighbour <span class="cue-verb">plays</span> the piano at midnight</span>. <span class="adj-tag">[angry]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">My neighbour playing the piano at midnight makes me angry.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">14</span><div class="q-body"><span class="cue-clause">The teacher <span class="cue-verb">repeats</span> every instruction twice</span>. <span class="adj-tag">[confident]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The teacher repeating every instruction twice makes us confident.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">15</span><div class="q-body"><span class="cue-clause">My husband <span class="cue-verb">cooks</span> dinner when I get home late</span>. <span class="adj-tag">[grateful]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">My husband cooking dinner when I get home late makes me grateful.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">16</span><div class="q-body"><span class="cue-clause">The airline <span class="cue-verb">cancelled</span> our flight twice</span>. <span class="adj-tag">[stressed]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The airline cancelling our flight twice made us stressed.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">17</span><div class="q-body"><span class="cue-clause">My cousin <span class="cue-verb">studied</span> in London for two years</span>. <span class="adj-tag">[fluent]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">My cousin studying in London for two years made her fluent.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">18</span><div class="q-body"><span class="cue-clause">The airline <span class="cue-verb">delayed</span> the flight for six hours</span>. <span class="adj-tag">[furious]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The airline delaying the flight for six hours made the passengers furious.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">19</span><div class="q-body"><span class="cue-clause">The editor <span class="cue-verb">changed</span> the lighting in every photo</span>. <span class="adj-tag">[bright]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">The editor changing the lighting in every photo made them bright.</span></div></div></div>
+<div class="q-item" onclick="revealItem(this)"><span class="q-num">20</span><div class="q-body"><span class="cue-clause">My parents <span class="cue-verb">send</span> me photos of their garden every week</span>. <span class="adj-tag">[nostalgic]</span><div class="writeline"></div><div class="ans-open"><span class="ao-label">Suggested</span><span class="ao-text">My parents sending me photos of their garden every week makes me nostalgic.</span></div></div></div></div><div class="section"><div class="section-header"><span class="s-num">05</span><span class="s-title">Part C · Your Own Sentences</span><span class="s-pts">10 items</span></div><p class="instruction">Write one full sentence for each. Mix the two shapes — a plain noun subject (Part A) and a verb-turned-subject (Part B). No model answers here — these are yours, and we read them together in class.</p><div class="q-item" style="cursor:default"><span class="q-num">21</span><div class="q-body">Something you do at the end of the day.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">22</span><div class="q-body">A person in your family.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">23</span><div class="q-body">A place in Japan you haven't seen for a long time.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">24</span><div class="q-body">A kind of weather.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">25</span><div class="q-body">Something in your kitchen you change before you cook.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">26</span><div class="q-body">A song, or a piece of music.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">27</span><div class="q-body">Something your teacher does in class.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">28</span><div class="q-body">Something that happens on the road when you travel.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">29</span><div class="q-body">A smell from your childhood.<div class="writeline"></div></div></div>
+<div class="q-item" style="cursor:default"><span class="q-num">30</span><div class="q-body">Something you do to a room before guests arrive.<div class="writeline"></div></div></div></div><div class="footer">EIC · ESCOLA DE IDIOMAS E CULTURA · COTIA/SP · EICSCHOOL.COM.BR</div></div><script>
+  function revealItem(el) { el.classList.toggle('revealed'); }
+  function revealAll(btn, sel) {
+    var items = document.querySelectorAll(sel + ' .q-item');
+    var on = btn.textContent === 'Reveal all';
+    items.forEach(function (el) { el.classList.toggle('revealed', on); });
+    btn.textContent = on ? 'Hide all' : 'Reveal all';
+    btn.classList.toggle('active', on);
+  }
+</script></body></html>
