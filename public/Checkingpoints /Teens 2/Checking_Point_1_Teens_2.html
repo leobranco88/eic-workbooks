@@ -15,6 +15,7 @@
     --paper: #FFFFFF;
     --gray-line: #E4E4E7;
     --gray-text: #52525B;
+    --teacher: #534AB7;
   }
 
   * { box-sizing: border-box; }
@@ -258,6 +259,15 @@
     min-width: 90px;
   }
 
+  .blank-num {
+    font-weight: 800;
+    font-size: 11px;
+    color: var(--accent);
+    vertical-align: super;
+    line-height: 0;
+    margin-right: 1px;
+  }
+
   .photo-frame {
     margin: 12px 0 16px;
     border: 1px solid var(--gray-line);
@@ -410,6 +420,8 @@
     padding: 16px 56px 0;
     display: flex;
     justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   @media (max-width: 640px) {
@@ -448,6 +460,68 @@
     display: none;
   }
 
+  /* ANSWER KEY */
+  .ak {
+    display: none;
+    color: var(--teacher);
+    font-weight: 800;
+    font-size: 13.5px;
+    margin-left: 4px;
+  }
+
+  body.show-answers .ak {
+    display: inline;
+  }
+
+  body.show-answers .ak.ak-block {
+    display: block;
+  }
+
+  body.show-answers .mc-option.correct {
+    background: var(--teacher);
+    border-color: var(--teacher);
+    color: #FFFFFF;
+  }
+
+  body.show-answers .tf-options span.correct {
+    background: var(--teacher);
+    border-color: var(--teacher);
+    color: #FFFFFF;
+  }
+
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    color: var(--teacher);
+    border: 1.5px solid var(--teacher);
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .toggle-btn:hover {
+    background: var(--teacher);
+    color: #FFFFFF;
+  }
+
+  .toggle-btn.active {
+    background: var(--teacher);
+    color: #FFFFFF;
+  }
+
+  .toggle-btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
   @media print {
     body { background: var(--paper); }
     .toolbar { display: none; }
@@ -465,12 +539,19 @@
     .ex-head { break-after: avoid; }
     .listening-player { display: none; }
     .print-only { display: block; }
+    .ak { display: none !important; }
+    .mc-option.correct { background: none !important; border-color: var(--ink) !important; color: inherit !important; }
+    .tf-options span.correct { background: none !important; border-color: var(--gray-line) !important; color: inherit !important; }
   }
 </style>
 </head>
 <body>
 
 <div class="toolbar no-print">
+  <button class="toggle-btn" id="toggleAnswers" onclick="document.body.classList.toggle('show-answers'); this.classList.toggle('active'); this.querySelector('.btn-label').textContent = document.body.classList.contains('show-answers') ? 'Ocultar Gabarito' : 'Mostrar Gabarito';">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+    <span class="btn-label">Mostrar Gabarito</span>
+  </button>
   <a class="download-btn" href="Checking_Point_1_Teens_2.pdf" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
     Baixar PDF
@@ -505,7 +586,7 @@
       <div class="mc-item">
         <span class="item-num">1.</span>
         <div class="mc-body">
-          <div class="mc-options"><span class="mc-option">Her</span><span class="mc-option">She</span></div>
+          <div class="mc-options"><span class="mc-option correct">Her</span><span class="mc-option">She</span></div>
           <p class="mc-sentence"><span class="blank" style="min-width:80px;"></span> name is Chiara.</p>
         </div>
       </div>
@@ -513,7 +594,7 @@
       <div class="mc-item">
         <span class="item-num">2.</span>
         <div class="mc-body">
-          <div class="mc-options"><span class="mc-option">Mark</span><span class="mc-option">Mark&rsquo;s</span></div>
+          <div class="mc-options"><span class="mc-option">Mark</span><span class="mc-option correct">Mark&rsquo;s</span></div>
           <p class="mc-sentence">Who is <span class="blank" style="min-width:80px;"></span> mother?</p>
         </div>
       </div>
@@ -521,7 +602,7 @@
       <div class="mc-item">
         <span class="item-num">3.</span>
         <div class="mc-body">
-          <div class="mc-options"><span class="mc-option">I</span><span class="mc-option">My</span></div>
+          <div class="mc-options"><span class="mc-option">I</span><span class="mc-option correct">My</span></div>
           <p class="mc-sentence"><span class="blank" style="min-width:80px;"></span> name&rsquo;s Lily.</p>
         </div>
       </div>
@@ -529,7 +610,7 @@
       <div class="mc-item">
         <span class="item-num">4.</span>
         <div class="mc-body">
-          <div class="mc-options"><span class="mc-option">Their</span><span class="mc-option">They</span></div>
+          <div class="mc-options"><span class="mc-option correct">Their</span><span class="mc-option">They</span></div>
           <p class="mc-sentence"><span class="blank" style="min-width:80px;"></span> grandparents are quite young.</p>
         </div>
       </div>
@@ -537,7 +618,7 @@
       <div class="mc-item">
         <span class="item-num">5.</span>
         <div class="mc-body">
-          <div class="mc-options"><span class="mc-option">our</span><span class="mc-option">we</span></div>
+          <div class="mc-options"><span class="mc-option correct">our</span><span class="mc-option">we</span></div>
           <p class="mc-sentence">Lara is <span class="blank" style="min-width:80px;"></span> cousin.</p>
         </div>
       </div>
@@ -556,10 +637,10 @@
         <span>on</span><span>on the left</span><span>opposite</span>
       </div>
       <p class="ex-instructions" style="line-height:1.9;">
-        This is my apartment. There is a window on the right and a bed 1 <span class="blank"></span> the left.
-        There is a closet 2 <span class="blank"></span> of the room. There are books and a suitcase
-        3 <span class="blank"></span> the closet. There is a dining table 4 <span class="blank"></span> the bed.
-        There is a mirror 5 <span class="blank"></span> the window and the closet.
+        This is my apartment. There is a window on the right and a bed <span class="blank-num">1</span><span class="blank"></span><span class="ak">on</span> the left.
+        There is a closet <span class="blank-num">2</span><span class="blank"></span><span class="ak">in the middle</span> of the room. There are books and a suitcase
+        <span class="blank-num">3</span><span class="blank"></span><span class="ak">above</span> the closet. There is a dining table <span class="blank-num">4</span><span class="blank"></span><span class="ak">opposite</span> the bed.
+        There is a mirror <span class="blank-num">5</span><span class="blank"></span><span class="ak">between</span> the window and the closet.
       </p>
     </div>
 
@@ -572,11 +653,11 @@
         <span>are</span><span>aren&rsquo;t</span><span>is</span><span>is</span><span>isn&rsquo;t</span>
       </div>
       <ol class="item-list" style="list-style:none; padding-left:0;">
-        <li style="padding-left:26px;"><span class="item-num">A.</span> <span class="blank"></span> those your pictures?</li>
-        <li style="padding-left:26px;"><span class="item-num">B.</span> There <span class="blank"></span> any books on the desk.</li>
-        <li style="padding-left:26px;"><span class="item-num">C.</span> There <span class="blank"></span> a bathroom downstairs but there is one upstairs.</li>
-        <li style="padding-left:26px;"><span class="item-num">D.</span> <span class="blank"></span> there a plant in the living room?</li>
-        <li style="padding-left:26px;"><span class="item-num">E.</span> There <span class="blank"></span> a good movie showing at the movie theater this week.</li>
+        <li style="padding-left:26px;"><span class="item-num">A.</span> <span class="blank"></span><span class="ak">Are</span> those your pictures?</li>
+        <li style="padding-left:26px;"><span class="item-num">B.</span> There <span class="blank"></span><span class="ak">aren&rsquo;t</span> any books on the desk.</li>
+        <li style="padding-left:26px;"><span class="item-num">C.</span> There <span class="blank"></span><span class="ak">isn&rsquo;t</span> a bathroom downstairs but there is one upstairs.</li>
+        <li style="padding-left:26px;"><span class="item-num">D.</span> <span class="blank"></span><span class="ak">Is</span> there a plant in the living room?</li>
+        <li style="padding-left:26px;"><span class="item-num">E.</span> There <span class="blank"></span><span class="ak">is</span> a good movie showing at the movie theater this week.</li>
       </ol>
     </div>
   </section>
@@ -591,11 +672,11 @@
         <span class="score-tag">___ / 15</span>
       </div>
       <ol class="item-list" style="list-style:none; padding-left:0;">
-        <li style="padding-left:26px;"><span class="item-num">1.</span> Who is your daughter&rsquo;s son? <span class="blank"></span></li>
-        <li style="padding-left:26px;"><span class="item-num">2.</span> Who is your wife&rsquo;s mother? <span class="blank"></span></li>
-        <li style="padding-left:26px;"><span class="item-num">3.</span> Who is your husband&rsquo;s brother? <span class="blank"></span></li>
-        <li style="padding-left:26px;"><span class="item-num">4.</span> Who is your father&rsquo;s mother? <span class="blank"></span></li>
-        <li style="padding-left:26px;"><span class="item-num">5.</span> Who is your wife&rsquo;s sister? <span class="blank"></span></li>
+        <li style="padding-left:26px;"><span class="item-num">1.</span> Who is your daughter&rsquo;s son? <span class="blank"></span><span class="ak">grandson</span></li>
+        <li style="padding-left:26px;"><span class="item-num">2.</span> Who is your wife&rsquo;s mother? <span class="blank"></span><span class="ak">mother-in-law</span></li>
+        <li style="padding-left:26px;"><span class="item-num">3.</span> Who is your husband&rsquo;s brother? <span class="blank"></span><span class="ak">brother-in-law</span></li>
+        <li style="padding-left:26px;"><span class="item-num">4.</span> Who is your father&rsquo;s mother? <span class="blank"></span><span class="ak">grandmother</span></li>
+        <li style="padding-left:26px;"><span class="item-num">5.</span> Who is your wife&rsquo;s sister? <span class="blank"></span><span class="ak">sister-in-law</span></li>
       </ol>
     </div>
   </section>
@@ -612,11 +693,11 @@
         <span>blinds</span><span>carpet</span><span>lamp</span><span>pictures</span><span>sofa</span><span>television</span>
       </div>
       <ol class="item-list" style="list-style:none; padding-left:0;">
-        <li style="padding-left:26px;"><span class="item-num">A.</span> It&rsquo;s a little dark in here. Can you turn the <span class="blank"></span> on, please?</li>
-        <li style="padding-left:26px;"><span class="item-num">B.</span> My favorite program is on <span class="blank"></span> tonight.</li>
-        <li style="padding-left:26px;"><span class="item-num">C.</span> We have a lot of <span class="blank"></span> on the walls in our living room.</li>
-        <li style="padding-left:26px;"><span class="item-num">D.</span> I want to sit on the <span class="blank"></span> for half an hour and have a rest.</li>
-        <li style="padding-left:26px;"><span class="item-num">E.</span> We have a brown <span class="blank"></span> on the floor in our bedroom.</li>
+        <li style="padding-left:26px;"><span class="item-num">A.</span> It&rsquo;s a little dark in here. Can you turn the <span class="blank"></span><span class="ak">lamp</span> on, please?</li>
+        <li style="padding-left:26px;"><span class="item-num">B.</span> My favorite program is on <span class="blank"></span><span class="ak">television</span> tonight.</li>
+        <li style="padding-left:26px;"><span class="item-num">C.</span> We have a lot of <span class="blank"></span><span class="ak">pictures</span> on the walls in our living room.</li>
+        <li style="padding-left:26px;"><span class="item-num">D.</span> I want to sit on the <span class="blank"></span><span class="ak">sofa</span> for half an hour and have a rest.</li>
+        <li style="padding-left:26px;"><span class="item-num">E.</span> We have a brown <span class="blank"></span><span class="ak">carpet</span> on the floor in our bedroom.</li>
       </ol>
     </div>
 
@@ -630,11 +711,11 @@
       </div>
       <div class="dialogue">
         <p><span class="speaker">Chris:</span> Hello. I&rsquo;m Chris.</p>
-        <p><span class="speaker">Leena:</span> Hi Chris. 1 <span class="blank"></span> name&rsquo;s Leena. I&rsquo;m 2 <span class="blank"></span> New York.</p>
-        <p><span class="speaker">Chris:</span> Nice to 3 <span class="blank"></span> you, Leena. 4 <span class="blank"></span> is Ida. She&rsquo;s from Mexico City.</p>
+        <p><span class="speaker">Leena:</span> Hi Chris. 1 <span class="blank"></span><span class="ak">My</span> name&rsquo;s Leena. I&rsquo;m 2 <span class="blank"></span><span class="ak">from</span> New York.</p>
+        <p><span class="speaker">Chris:</span> Nice to 3 <span class="blank"></span><span class="ak">meet</span> you, Leena. 4 <span class="blank"></span><span class="ak">This</span> is Ida. She&rsquo;s from Mexico City.</p>
         <p><span class="speaker">Leena:</span> Hi Ida.</p>
         <p><span class="speaker">Ida:</span> Hi Leena! Nice to meet you.</p>
-        <p><span class="speaker">Chris:</span> Well it was nice meeting you, Leena. See you 5 <span class="blank"></span>.</p>
+        <p><span class="speaker">Chris:</span> Well it was nice meeting you, Leena. See you 5 <span class="blank"></span><span class="ak">later</span>.</p>
         <p><span class="speaker">Leena:</span> Bye.</p>
       </div>
     </div>
@@ -654,11 +735,11 @@
           <li>bad</li>
         </ol>
         <ol class="letters">
-          <li><span class="blank"></span> a) fast</li>
-          <li><span class="blank"></span> b) good</li>
-          <li><span class="blank"></span> c) modern</li>
-          <li><span class="blank"></span> d) large</li>
-          <li><span class="blank"></span> e) expensive</li>
+          <li><span class="blank"></span><span class="ak">c</span> a) fast</li>
+          <li><span class="blank"></span><span class="ak">a</span> b) good</li>
+          <li><span class="blank"></span><span class="ak">d</span> c) modern</li>
+          <li><span class="blank"></span><span class="ak">e</span> d) large</li>
+          <li><span class="blank"></span><span class="ak">b</span> e) expensive</li>
         </ol>
       </div>
     </div>
@@ -694,11 +775,11 @@
           <li>backpack</li>
         </ol>
         <ol class="letters">
-          <li>A) Melissa <span class="blank"></span></li>
-          <li>B) Elise <span class="blank"></span></li>
-          <li>C) Grace <span class="blank"></span></li>
-          <li>D) Hasan <span class="blank"></span></li>
-          <li>E) Tomasz <span class="blank"></span></li>
+          <li>A) Melissa <span class="blank"></span><span class="ak">4</span></li>
+          <li>B) Elise <span class="blank"></span><span class="ak">3</span></li>
+          <li>C) Grace <span class="blank"></span><span class="ak">5</span></li>
+          <li>D) Hasan <span class="blank"></span><span class="ak">8</span></li>
+          <li>E) Tomasz <span class="blank"></span><span class="ak">2</span></li>
         </ol>
       </div>
     </div>
@@ -722,27 +803,27 @@
       <ol class="item-list" style="list-style:none; padding-left:0;">
         <li style="padding-left:26px;"><span class="item-num">1.</span> Fair trade involves people in different countries.</li>
       </ol>
-      <div class="tf-options"><span>True</span><span>False</span><span>Not enough information</span></div>
+      <div class="tf-options"><span class="correct">True</span><span>False</span><span>Not enough information</span></div>
 
       <ol class="item-list" style="list-style:none; padding-left:0; margin-top:14px;">
         <li style="padding-left:26px;"><span class="item-num">2.</span> Fair trade doesn&rsquo;t operate in the U.S.</li>
       </ol>
-      <div class="tf-options"><span>True</span><span>False</span><span>Not enough information</span></div>
+      <div class="tf-options"><span>True</span><span>False</span><span class="correct">Not enough information</span></div>
 
       <ol class="item-list" style="list-style:none; padding-left:0; margin-top:14px;">
         <li style="padding-left:26px;"><span class="item-num">3.</span> Workers&rsquo; opinions aren&rsquo;t considered in the process.</li>
       </ol>
-      <div class="tf-options"><span>True</span><span>False</span><span>Not enough information</span></div>
+      <div class="tf-options"><span>True</span><span class="correct">False</span><span>Not enough information</span></div>
 
       <ol class="item-list" style="list-style:none; padding-left:0; margin-top:14px;">
         <li style="padding-left:26px;"><span class="item-num">4.</span> Fair-trade products are made in Europe.</li>
       </ol>
-      <div class="tf-options"><span>True</span><span>False</span><span>Not enough information</span></div>
+      <div class="tf-options"><span>True</span><span class="correct">False</span><span>Not enough information</span></div>
 
       <ol class="item-list" style="list-style:none; padding-left:0; margin-top:14px;">
         <li style="padding-left:26px;"><span class="item-num">5.</span> The Fair Trade Furniture Company makes furniture in Asia.</li>
       </ol>
-      <div class="tf-options"><span>True</span><span>False</span><span>Not enough information</span></div>
+      <div class="tf-options"><span class="correct">True</span><span>False</span><span>Not enough information</span></div>
     </div>
   </section>
 
@@ -771,6 +852,7 @@
         <div class="line"></div>
         <div class="line"></div>
       </div>
+      <p class="ak ak-block" style="margin-top:10px; font-size:13px;">Resposta pessoal do aluno &mdash; conferir se os 6 pontos do prompt foram atendidos.</p>
     </div>
   </section>
 
