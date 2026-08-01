@@ -95,7 +95,7 @@
   }
 
   section.block {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   h2.section-title {
@@ -107,11 +107,11 @@
     background: var(--ink);
     display: inline-block;
     padding: 6px 14px;
-    margin: 0 0 20px;
+    margin: 0 0 16px;
   }
 
   .exercise {
-    margin-bottom: 28px;
+    margin-bottom: 22px;
   }
 
   .exercise:last-child {
@@ -259,14 +259,18 @@
   }
 
   .photo-frame {
-    margin: 14px 0 18px;
+    margin: 12px 0 16px;
     border: 1px solid var(--gray-line);
+    text-align: center;
   }
 
   .photo-frame img {
     display: block;
-    width: 100%;
+    margin: 0 auto;
+    width: auto;
+    max-width: 100%;
     height: auto;
+    max-height: 300px;
   }
 
   .match-columns {
@@ -426,6 +430,7 @@
     font-weight: 700;
     letter-spacing: 0.02em;
     cursor: pointer;
+    text-decoration: none;
     transition: background 0.15s ease;
   }
 
@@ -447,14 +452,16 @@
     body { background: var(--paper); }
     .toolbar { display: none; }
     .page { box-shadow: none; padding: 0; max-width: 100%; }
-    .exercise { break-inside: avoid; }
+    section.block { margin-bottom: 22px; }
+    .exercise { margin-bottom: 16px; break-inside: avoid; }
     .mc-item { break-inside: avoid; }
     .reading-passage { break-inside: avoid; }
     .dialogue { break-inside: avoid; }
     .match-columns { break-inside: avoid; }
     .audio-card { break-inside: avoid; }
-    .photo-frame { break-inside: avoid; }
-    h2.section-title { break-after: avoid; }
+    .photo-frame { break-inside: avoid; max-height: 300px; }
+    h2.section-title { break-after: avoid; margin-bottom: 12px; }
+    h2.section-title + .exercise { break-before: avoid; }
     .ex-head { break-after: avoid; }
     .listening-player { display: none; }
     .print-only { display: block; }
@@ -464,10 +471,10 @@
 <body>
 
 <div class="toolbar no-print">
-  <button class="download-btn" onclick="window.print()">
+  <a class="download-btn" href="Checking_Point_1_Teens_2.pdf" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
     Baixar PDF
-  </button>
+  </a>
 </div>
 
 <div class="page">
