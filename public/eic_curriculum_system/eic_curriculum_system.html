@@ -11,19 +11,20 @@
     --teal:#0F766E; --purple:#534AB7; --line: rgba(10,10,15,0.14);
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);}
 
   .topbar{
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 28px;border-bottom:3px solid var(--ink);background:#fff;flex-shrink:0;
+    padding:16px 28px;border-bottom:3px solid var(--ink);background:#fff;
+    position:sticky;top:0;z-index:10;
   }
   .topbar h1{font-size:17px;font-weight:900;margin:0;letter-spacing:-0.01em;}
   .topbar .sub{font-size:11.5px;font-weight:600;color:rgba(10,10,15,0.5);}
 
   .tab-bar{
     display:flex;gap:6px;padding:12px 28px;background:#fff;border-bottom:1px solid var(--line);
-    flex-shrink:0;overflow-x:auto;
+    overflow-x:auto;position:sticky;top:57px;z-index:9;
   }
   .tab-btn{
     font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;
@@ -34,12 +35,11 @@
   .tab-btn:hover{border-color:var(--purple);color:var(--purple);}
   .tab-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 
-  .tab-content{flex:1;position:relative;overflow:hidden;}
-  .tab-panel{
-    display:none;position:absolute;top:0;left:0;width:100%;height:100%;
-  }
+  .tab-panel{display:none;}
   .tab-panel.active{display:block;}
-  .tab-panel iframe{width:100%;height:100%;border:none;}
+  .tab-panel iframe{width:100%;border:none;display:block;min-height:400px;}
+
+  .loading-msg{padding:60px;text-align:center;color:rgba(10,10,15,0.4);font-size:13px;font-weight:600;}
 </style>
 </head>
 <body>
@@ -70,14 +70,43 @@
   </div>
 
 <script>
+function resizeIframe(iframe) {
+  try {
+    var doc = iframe.contentWindow.document;
+    var h = Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight);
+    iframe.style.height = (h + 20) + 'px';
+  } catch (e) {
+    // cross-origin fallback (shouldn't happen when served from same domain)
+    iframe.style.height = '1200px';
+  }
+}
+
 function switchTab(id) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
-  const iframe = document.getElementById('iframe-' + id);
-  if (iframe && !iframe.getAttribute('src')) {
-    iframe.setAttribute('src', iframe.dataset.src);
+  var iframe = document.getElementById('iframe-' + id);
+  if (iframe) {
+    if (!iframe.getAttribute('src')) {
+      iframe.setAttribute('src', iframe.dataset.src);
+      iframe.addEventListener('load', function onload(){
+        resizeIframe(iframe);
+        iframe.removeEventListener('load', onload);
+      });
+    } else {
+      // already loaded — recalculate height now that it's visible again
+      requestAnimationFrame(function(){ resizeIframe(iframe); });
+    }
   }
+  window.scrollTo({top: 0, behavior: 'instant'});
 }
+
+// initial load of the first (default) tab
+window.addEventListener('DOMContentLoaded', function(){
+  var firstIframe = document.querySelector('.tab-panel.active iframe');
+  if (firstIframe) {
+    firstIframe.addEventListener('load', function(){ resizeIframe(firstIframe); });
+  }
+});
 </script>
 
 </body>
