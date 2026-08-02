@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Curriculum Map A1—C2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root{
+    --ink:#0A0A0F;
+    --paper:#FAFAF7;
+    --accent:#E63946;
+    --highlight:#FFE89C;
+    --teal:#0F766E;
+    --purple:#534AB7;
+    --line: rgba(10,10,15,0.10);
+    --line-strong: rgba(10,10,15,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .doc{max-width:1080px;margin:0 auto;padding:0 28px 120px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:72px 0 40px;
+    border-bottom:3px solid var(--ink);
+  }
+  .eyebrow{
+    display:flex;align-items:center;gap:10px;
+    font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--purple);
+    margin-bottom:20px;
+  }
+  .eyebrow::before{
+    content:"";width:22px;height:2px;background:var(--purple);display:inline-block;
+  }
+  h1{
+    font-size:clamp(34px,5vw,54px);
+    font-weight:900;
+    letter-spacing:-0.02em;
+    margin:0 0 14px;
+    line-height:1.05;
+  }
+  .hero p.lead{
+    font-size:18px;font-weight:500;color:rgba(10,10,15,0.72);
+    max-width:640px;margin:0;
+  }
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:22px;margin-top:28px;
+    font-size:13px;font-weight:600;color:rgba(10,10,15,0.55);
+  }
+  .meta-row span b{color:var(--ink);font-weight:800;}
+
+  /* ---------- SECTION LABELS ---------- */
+  .section{padding:56px 0;}
+  .section-label{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:28px;
+  }
+  .section-label .num{
+    font-size:13px;font-weight:900;color:var(--purple);
+    background:rgba(83,74,183,0.08);
+    border:1px solid rgba(83,74,183,0.25);
+    padding:3px 9px;border-radius:100px;
+  }
+  .section-label h2{
+    font-size:24px;font-weight:800;margin:0;letter-spacing:-0.01em;
+  }
+  .section-intro{
+    font-size:15.5px;color:rgba(10,10,15,0.72);max-width:760px;margin:0 0 28px;
+  }
+
+  /* ---------- THREE AXES CARDS ---------- */
+  .axes{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  .axis-card{
+    border:1px solid var(--line-strong);
+    border-radius:14px;
+    padding:22px 20px;
+    background:#fff;
+  }
+  .axis-card .tag{
+    font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+    padding:4px 9px;border-radius:100px;display:inline-block;margin-bottom:14px;
+  }
+  .axis-card.g .tag{background:rgba(230,57,70,0.10);color:var(--accent);}
+  .axis-card.l .tag{background:rgba(15,118,110,0.10);color:var(--teal);}
+  .axis-card.f .tag{background:rgba(83,74,183,0.10);color:var(--purple);}
+  .axis-card h3{font-size:17px;font-weight:800;margin:0 0 8px;}
+  .axis-card p{font-size:14px;color:rgba(10,10,15,0.68);margin:0;}
+
+  /* ---------- SPIRAL / RECYCLING BAR ---------- */
+  .spiral-wrap{
+    border:1px solid var(--line-strong);border-radius:16px;
+    padding:26px 24px 22px;background:#fff;
+  }
+  .spiral-title{font-size:15px;font-weight:800;margin:0 0 4px;}
+  .spiral-sub{font-size:13.5px;color:rgba(10,10,15,0.6);margin:0 0 20px;}
+  .chain{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:10px;
+  }
+  .chain-node{
+    position:relative;
+    border:1.5px solid var(--line-strong);
+    border-radius:12px;
+    padding:14px 12px 12px;
+    background:var(--paper);
+  }
+  .chain-node .lvl{
+    font-size:11px;font-weight:900;letter-spacing:.06em;color:#fff;
+    background:var(--ink);display:inline-block;padding:2px 8px;border-radius:100px;
+    margin-bottom:10px;
+  }
+  .chain-node .struct{font-size:13px;font-weight:700;margin:0 0 6px;}
+  .chain-node .new{font-size:12px;color:rgba(10,10,15,0.62);margin:0;}
+  .chain-node::after{
+    content:"→";position:absolute;right:-15px;top:50%;transform:translateY(-50%);
+    font-size:14px;color:var(--line-strong);font-weight:800;
+  }
+  .chain-node:last-child::after{content:"";}
+
+  /* ---------- LEVEL GRID (main table-like cards) ---------- */
+  .level-block{
+    border:1px solid var(--line-strong);border-radius:16px;
+    margin-bottom:16px;overflow:hidden;background:#fff;
+  }
+  .level-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 22px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(to right, rgba(83,74,183,0.05), transparent);
+  }
+  .level-head .lname{display:flex;align-items:center;gap:12px;}
+  .level-head .badge{
+    font-size:15px;font-weight:900;color:#fff;background:var(--ink);
+    padding:5px 12px;border-radius:8px;letter-spacing:.02em;
+  }
+  .level-head .can-do{font-size:13px;font-weight:600;color:rgba(10,10,15,0.6);font-style:italic;}
+  .level-body{
+    display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;
+  }
+  .level-col{
+    padding:18px 20px;border-right:1px solid var(--line);
+  }
+  .level-col:last-child{border-right:none;}
+  .level-col .col-label{
+    font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+    color:rgba(10,10,15,0.45);margin-bottom:8px;
+  }
+  .level-col ul{margin:0;padding-left:16px;}
+  .level-col li{font-size:13.5px;margin-bottom:5px;color:rgba(10,10,15,0.82);}
+  .level-col.recycle{background:rgba(255,232,156,0.18);}
+  .level-col.recycle li{color:rgba(10,10,15,0.78);}
+
+  @media (max-width:900px){
+    .axes{grid-template-columns:1fr;}
+    .chain{grid-template-columns:1fr 1fr 1fr;}
+    .chain-node::after{display:none;}
+    .level-body{grid-template-columns:1fr;}
+    .level-col{border-right:none;border-bottom:1px solid var(--line);}
+  }
+
+  /* ---------- PUBLISHER DOC SECTION ---------- */
+  .doc-types{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .doc-type{border:1px solid var(--line-strong);border-radius:14px;padding:20px;background:#fff;}
+  .doc-type h4{font-size:15px;font-weight:800;margin:0 0 8px;}
+  .doc-type p{font-size:13.5px;color:rgba(10,10,15,0.68);margin:0 0 10px;}
+  .doc-type .eic-note{
+    font-size:12.5px;font-weight:600;color:var(--purple);
+    background:rgba(83,74,183,0.06);border-left:2px solid var(--purple);
+    padding:8px 10px;border-radius:4px;
+  }
+
+  footer{
+    margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:12.5px;color:rgba(10,10,15,0.45);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="hero">
+    <div class="eyebrow">Material Interno · Coordenação Pedagógica</div>
+    <h1>Curriculum Map<br>A1 → C2</h1>
+    <p class="lead">Como estruturar o conteúdo da EIC por nível, cruzando gramática, tema e função — com a lógica de retomada cíclica (spiral curriculum) que sustenta o B1+ Method.</p>
+    <div class="meta-row">
+      <span>Base: <b>CEFR</b></span>
+      <span>Modelo: <b>Cambridge / Oxford / NatGeo Learning / Macmillan</b></span>
+      <span>Uso: <b>Coordenação · Professores</b></span>
+    </div>
+  </div>
+
+  <!-- SECTION 1 : THE THREE AXES -->
+  <div class="section">
+    <div class="section-label"><span class="num">01</span><h2>Os três eixos que formam cada nível</h2></div>
+    <p class="section-intro">Nenhuma editora séria pensa em "gramática por nível" isolada. Todo syllabus cruza três eixos ao mesmo tempo — e é esse cruzamento que dá o material real de sala de aula.</p>
+    <div class="axes">
+      <div class="axis-card g">
+        <span class="tag">Eixo Gramatical</span>
+        <h3>Estrutura</h3>
+        <p>As formas da língua, com complexidade crescente: tempos verbais, conectores, voz passiva, condicionais, discurso indireto.</p>
+      </div>
+      <div class="axis-card l">
+        <span class="tag">Eixo Temático / Lexical</span>
+        <h3>Mundo</h3>
+        <p>Os temas que carregam a gramática: de "minha família" (A1) até "dilemas éticos e abstrações" (C1/C2).</p>
+      </div>
+      <div class="axis-card f">
+        <span class="tag">Eixo Funcional</span>
+        <h3>Uso</h3>
+        <p>O que o aluno consegue <em>fazer</em>: pedir, comparar, discordar, negociar, argumentar, ironizar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 : SPIRAL EXAMPLE -->
+  <div class="section">
+    <div class="section-label"><span class="num">02</span><h2>A retomada em espiral · exemplo com Present Simple</h2></div>
+    <p class="section-intro">A mesma estrutura reaparece em vários níveis — mas nunca do mesmo jeito. A cada retomada, ela ganha uma camada nova de uso. É esse princípio que sustenta o auxiliary-as-pro-verb dentro do VP-ellipsis no B1+.</p>
+    <div class="spiral-wrap">
+      <p class="spiral-title">Present Simple através dos níveis</p>
+      <p class="spiral-sub">Mesma estrutura · função nova a cada retomada</p>
+      <div class="chain">
+        <div class="chain-node">
+          <span class="lvl">A1</span>
+          <p class="struct">Fatos, rotina, to be</p>
+          <p class="new">identidade, família</p>
+        </div>
+        <div class="chain-node">
+          <span class="lvl">A2</span>
+          <p class="struct">+ advérbios de frequência</p>
+          <p class="new">hábitos, comparação social</p>
+        </div>
+        <div class="chain-node">
+          <span class="lvl">B1</span>
+          <p class="struct">vs. Present Continuous (estado x ação)</p>
+          <p class="new">opiniões, tendências</p>
+        </div>
+        <div class="chain-node">
+          <span class="lvl">B1+</span>
+          <p class="struct">auxiliar como pro-verbo (ellipsis)</p>
+          <p class="new">hedging, discurso</p>
+        </div>
+        <div class="chain-node">
+          <span class="lvl">B2</span>
+          <p class="struct">historical present, generalização</p>
+          <p class="new">mídia, sociedade</p>
+        </div>
+        <div class="chain-node">
+          <span class="lvl">C1/C2</span>
+          <p class="struct">registro formal, verdades universais</p>
+          <p class="new">textos acadêmicos, filosofia</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 : FULL LEVEL GRID -->
+  <div class="section">
+    <div class="section-label"><span class="num">03</span><h2>Grid completo · A1 a C2</h2></div>
+    <p class="section-intro">Estrutura sugerida por nível: foco gramatical, mundo temático, função (can-do) e o que é retomado do nível anterior — a coluna destacada é o elo da espiral.</p>
+
+    <!-- A1 -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">A1</span></div>
+        <span class="can-do">"Consigo me apresentar e lidar com necessidades imediatas."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>to be / there is-are</li><li>Present Simple</li><li>artigos, plural</li><li>possessivos</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>identidade, família</li><li>rotina diária</li><li>comida, lugares</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>apresentar-se</li><li>pedir/dar informação básica</li><li>descrever rotina</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>ponto de partida da espiral</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- A2 -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">A2</span></div>
+        <span class="can-do">"Consigo me comunicar em tarefas simples e diretas do cotidiano."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>Past Simple</li><li>comparativos/superlativos</li><li>going to / will</li><li>advérbios de frequência</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>viagens, cidade</li><li>compras, planos</li><li>experiências passadas</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>narrar eventos simples</li><li>comparar opções</li><li>fazer planos</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>Present Simple + freq. adverbs</li><li>vocabulário de rotina expandido</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- B1 -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">B1</span></div>
+        <span class="can-do">"Consigo lidar com a maioria das situações e expressar opinião com justificativa simples."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>Present Perfect</li><li>1st/2nd conditional</li><li>Present Simple vs Continuous</li><li>modais de obrigação/dedução</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>trabalho, tecnologia</li><li>meio ambiente</li><li>opiniões sociais</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>opinar com justificativa</li><li>especular, hipotetizar</li><li>discutir tendências</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>Past Simple → Present Perfect (contraste)</li><li>Present Simple ganha contraste com Continuous</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- B1+ -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">B1+</span></div>
+        <span class="can-do">"Consigo argumentar, marcar posição com nuance e evitar repetição no discurso."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>VP-ellipsis (auxiliar como pro-verbo)</li><li>hedging language</li><li>binomial expressions</li><li>denominal verbs</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>liderança, turning points</li><li>discurso e persuasão</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>evitar repetição no discurso</li><li>suavizar posição (hedging)</li><li>economia na fala natural</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>todos auxiliares vistos até aqui viram pro-verbo</li><li>Present Simple/Perfect reaparecem na elipse</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- B2 -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">B2</span></div>
+        <span class="can-do">"Consigo interagir com fluência natural e defender um ponto de vista complexo."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>voz passiva (todos os tempos)</li><li>discurso indireto</li><li>3rd conditional</li><li>relative clauses (reduzidas)</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>mídia, ciência</li><li>ética, sociedade</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>relatar o que foi dito</li><li>criticar/avaliar informação</li><li>argumentar sobre hipóteses passadas</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>Present Simple no historical present</li><li>hedging expandido para registro formal</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- C1 -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">C1</span></div>
+        <span class="can-do">"Consigo usar a língua de forma flexível e eficaz para fins acadêmicos/profissionais."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>inversão enfática</li><li>cleft sentences</li><li>nominalização</li><li>discourse markers avançados</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>política, cultura</li><li>argumentação acadêmica</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>enfatizar com precisão</li><li>estruturar argumento longo</li><li>registrar nuance de tom</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>ellipsis + hedging viram registro formal</li><li>voz passiva ganha função retórica</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="level-block">
+      <div class="level-head">
+        <div class="lname"><span class="badge">C2</span></div>
+        <span class="can-do">"Consigo entender e me expressar com precisão total, inclusive nuance e ironia."</span>
+      </div>
+      <div class="level-body">
+        <div class="level-col">
+          <div class="col-label">Gramática</div>
+          <ul><li>consolidação de todo o sistema</li><li>jogo estilístico (ironia, understatement)</li><li>registro variável por contexto</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Mundo temático</div>
+          <ul><li>literatura, filosofia</li><li>especialização profissional</li></ul>
+        </div>
+        <div class="level-col">
+          <div class="col-label">Função</div>
+          <ul><li>jogar com registro e tom</li><li>ironizar, subentender</li><li>editar o próprio discurso em tempo real</li></ul>
+        </div>
+        <div class="level-col recycle">
+          <div class="col-label">Retomado de</div>
+          <ul><li>toda a espiral anterior, agora automatizada</li></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION 4 : HOW PUBLISHERS DOCUMENT THIS -->
+  <div class="section">
+    <div class="section-label"><span class="num">04</span><h2>Como as editoras documentam isso — e como aplicar na EIC</h2></div>
+    <p class="section-intro">Por trás de cada livro existem três documentos internos. Isso já bate com seu fluxo de abrir Curriculum Map / Word Bank / Chapter Spec antes de produzir — só falta consolidar num grid único.</p>
+    <div class="doc-types">
+      <div class="doc-type">
+        <h4>Syllabus Grid</h4>
+        <p>Grade mestra: unidade × gramática × léxico × função × skill. É o documento que vira índice do livro.</p>
+        <div class="eic-note">Na EIC: vira a base do Curriculum Map por nível.</div>
+      </div>
+      <div class="doc-type">
+        <h4>Recycling Map</h4>
+        <p>Mapa que mostra explicitamente onde cada item gramatical/lexical reaparece — a espinha dorsal da espiral.</p>
+        <div class="eic-note">Na EIC: é este próprio documento — a coluna "Retomado de" em cada nível.</div>
+      </div>
+      <div class="doc-type">
+        <h4>Can-do Statements</h4>
+        <p>Descritores CEFR por unidade, ligando o conteúdo à proficiência real do aluno.</p>
+        <div class="eic-note">Na EIC: vira o texto que abre cada unidade, falando COM o aluno — nunca sobre o método.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 : MICRO-RECYCLING MAPS INDEX -->
+  <div class="section">
+    <div class="section-label"><span class="num">05</span><h2>Micro-Recycling Maps · v2 (conciliado com NatGeo real)</h2></div>
+    <p class="section-intro">Cada mapa agora mostra a localização exata no NatGeo Life (Life X, Unidade Y) para cada estágio confirmado, e marca claramente o que é camada própria da EIC por cima do livro. Base: <a href="eic_life_curriculum_database.html" style="color:var(--purple);font-weight:700;">banco de dados curricular das 72 unidades</a>.</p>
+    <div class="doc-types" style="grid-template-columns:repeat(3,1fr);">
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_present_perfect.html">
+        <h4>Present Perfect</h4>
+        <p>Life 2 U10 → Life 3 U7 (for/since) → Life 4 U2 (already/yet/just) → Life 4 U8 (continuous) → Life 5 U1 (revisão) + camada EIC (ellipsis, formal).</p>
+        <div class="eic-note">5 estágios NatGeo + 2 camada EIC</div>
+      </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_conditionals.html">
+        <h4>Conditionals</h4>
+        <p>Life 3 U8 (0+1) → Life 3 U12 (2) → Life 4 U5 (1 retomado) → Life 4 U10 (2 retomado) → Life 4 U12 (3) → Life 5 U8 (mixed) → Life 6 U11 (inversão).</p>
+        <div class="eic-note">7 estágios, todos NatGeo</div>
+      </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_passive_voice.html">
+        <h4>Passive Voice</h4>
+        <p>Life 3 U9 → Life 4 U9 → Life 5 U2 (narrativa) → Life 5 U9 (reporting) → Life 6 U2 (perfect) → Life 6 U7 (nominalização).</p>
+        <div class="eic-note">6 estágios, todos NatGeo</div>
+      </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_modals_deduction.html">
+        <h4>Modals of Deduction</h4>
+        <p>Life 4 U6 → Life 6 U3 — só 2 pontos reais no livro inteiro. O resto (5 estágios) é reforço próprio da EIC.</p>
+        <div class="eic-note">2 estágios NatGeo + 5 camada EIC</div>
+      </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_reported_speech.html">
+        <h4>Reported Speech</h4>
+        <p>Life 3 U11 → Life 4 U11 → Life 5 U9 → Life 6 U7 — o detalhamento gramatical fino vira camada EIC por cima.</p>
+        <div class="eic-note">4 estágios NatGeo + 3 camada EIC</div>
+      </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_life_curriculum_database.html">
+        <h4>Banco de Dados Completo</h4>
+        <p>As 72 unidades de Life 1-6, pesquisáveis por estrutura, tema ou palavra — a fonte de tudo isso.</p>
+        <div class="eic-note">Ferramenta de busca</div>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>EIC — Escola de Idiomas e Cultura</span>
+    <span>Material de coordenação · não distribuir ao aluno</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var FILE_TO_TAB = {"eic_curriculum_map.html": "hub", "eic_micro_recycling_present_perfect.html": "pp", "eic_micro_recycling_conditionals.html": "cond", "eic_micro_recycling_passive_voice.html": "passive", "eic_micro_recycling_modals_deduction.html": "modals", "eic_micro_recycling_reported_speech.html": "reported", "eic_life_curriculum_database.html": "db"};
+  document.addEventListener('DOMContentLoaded', function(){
+    var inTabSystem = (window.parent !== window) && window.parent.switchTab;
+    if (!inTabSystem) return;
+    var links = document.querySelectorAll('a[href]');
+    links.forEach(function(a){
+      var href = a.getAttribute('href');
+      if (FILE_TO_TAB.hasOwnProperty(href)) {
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          window.parent.switchTab(FILE_TO_TAB[href]);
+        });
+        a.style.cursor = 'pointer';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

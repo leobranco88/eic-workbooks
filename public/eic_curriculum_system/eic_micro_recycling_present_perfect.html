@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Micro-Recycling Map · Present Perfect</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{
+    --ink:#0A0A0F; --paper:#FAFAF7; --accent:#E63946; --highlight:#FFE89C;
+    --teal:#0F766E; --purple:#534AB7; --line: rgba(10,10,15,0.10); --line-strong: rgba(10,10,15,0.18);
+  }
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{font-family:'Inter', sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .doc{max-width:1040px;margin:0 auto;padding:0 28px 120px;}
+  .hero{padding:72px 0 40px;border-bottom:3px solid var(--ink);}
+  .eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:20px;}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--purple);display:inline-block;}
+  h1{font-size:clamp(32px,5vw,50px);font-weight:900;letter-spacing:-0.02em;margin:0 0 14px;line-height:1.06;}
+  .hero p.lead{font-size:17.5px;font-weight:500;color:rgba(10,10,15,0.72);max-width:660px;margin:0;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:22px;margin-top:26px;font-size:13px;font-weight:600;color:rgba(10,10,15,0.55);}
+  .meta-row span b{color:var(--ink);font-weight:800;}
+  .backlink{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--purple);text-decoration:none;margin-top:22px;}
+  .backlink:hover{text-decoration:underline;}
+  .legend{display:flex;gap:18px;margin-top:20px;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:rgba(10,10,15,0.65);}
+  .legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block;}
+  .section{padding:52px 0;}
+  .section-label{display:flex;align-items:baseline;gap:14px;margin-bottom:24px;}
+  .section-label .num{font-size:13px;font-weight:900;color:var(--purple);background:rgba(83,74,183,0.08);border:1px solid rgba(83,74,183,0.25);padding:3px 9px;border-radius:100px;}
+  .section-label h2{font-size:23px;font-weight:800;margin:0;letter-spacing:-0.01em;}
+  .section-intro{font-size:15px;color:rgba(10,10,15,0.72);max-width:740px;margin:0 0 26px;}
+  .spine{position:relative;padding-left:36px;}
+  .spine::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom, var(--teal), var(--purple));}
+  .stage{position:relative;margin-bottom:22px;}
+  .stage:last-child{margin-bottom:0;}
+  .stage-dot{position:absolute;left:-36px;top:4px;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid var(--paper);}
+  .stage-dot.eic{background:var(--purple);}
+  .stage-card{border:1px solid var(--line-strong);border-radius:14px;background:#fff;padding:20px 22px;}
+  .stage-card.eic{background:rgba(83,74,183,0.03);border-color:rgba(83,74,183,0.3);border-style:dashed;}
+  .stage-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .stage-top h3{font-size:16.5px;font-weight:800;margin:0;}
+  .stage-tag{font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+  .stage-tag.natgeo{background:rgba(15,118,110,0.10);color:var(--teal);}
+  .stage-tag.eic{background:rgba(83,74,183,0.12);color:var(--purple);}
+  .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;}
+  .stage-block .lbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:rgba(10,10,15,0.45);margin-bottom:6px;}
+  .stage-block p, .stage-block ul{font-size:13.5px;color:rgba(10,10,15,0.82);margin:0;}
+  .stage-block ul{padding-left:16px;} .stage-block li{margin-bottom:4px;}
+  .ex{font-family:'Inter',sans-serif;font-style:italic;color:var(--ink);background:rgba(255,232,156,0.35);padding:2px 6px;border-radius:4px;font-size:13px;font-weight:600;}
+  .trap{margin-top:12px;font-size:13px;font-weight:600;color:var(--accent);background:rgba(230,57,70,0.06);border-left:2px solid var(--accent);padding:8px 10px;border-radius:4px;}
+  .trap b{font-weight:800;}
+  .divergence{margin-top:12px;font-size:12.5px;font-weight:600;color:var(--teal);background:rgba(15,118,110,0.06);border-left:2px solid var(--teal);padding:8px 10px;border-radius:4px;}
+  .divergence b{font-weight:800;}
+  @media (max-width:760px){.stage-grid{grid-template-columns:1fr;}}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:rgba(10,10,15,0.45);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hero">
+    <div class="eyebrow">Material Interno · Micro-Recycling Map · v2 (conciliado com NatGeo real)</div>
+    <h1>Present Perfect<br>etapa por etapa · v2</h1>
+    <p class="lead">Revisado com a sequência real do NatGeo Life. A ordem for/since → already/yet/just foi corrigida — estava invertida na v1.</p>
+    <div class="meta-row">
+      <span>Estrutura: <b>Present Perfect</b></span>
+      <span>Fonte: <b>NatGeo Life, Third Edition</b> + camada EIC</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--teal);"></span> Estágio confirmado no NatGeo Life (com localização exata)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--purple);"></span> Camada EIC (adição própria, não está no livro)</div>
+    </div>
+    <a class="backlink" href="eic_curriculum_map.html">&larr; Voltar ao Curriculum Map</a>
+  </div>
+  <div class="section">
+    <div class="section-label"><span class="num">01</span><h2>A espiral real, conciliada</h2></div>
+    <p class="section-intro">Cada estágio mostra se é confirmado pelo NatGeo Life (com unidade exata) ou se é uma camada que a EIC adiciona por cima. Onde a sequência real divergiu do que havíamos assumido antes, isso está marcado em "Nota de conciliação".</p>
+    <div class="spine">
+      
+      <div class="stage">
+        <div class="stage-dot">1</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Introdução — Present Perfect vs Past Simple</h3><span class="stage-tag natgeo">NATGEO · Life 2, U10 (Learning)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Contrastar uma ação com foco no resultado presente vs. um fato fechado no passado — contexto: aprendizado, experiências acumuladas.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">I've learned a lot this year. vs I learned to swim when I was five.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno tenta traduzir do português, que não distingue morfologicamente os dois tempos.</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot">2</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Duração — for / since</h3><span class="stage-tag natgeo">NATGEO · Life 3, U7 (Work)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Falar de quanto tempo uma situação dura, ligando passado a presente — contexto: vida profissional.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">I've worked here for six years. She's been a teacher since 2019.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> for + período vs since + ponto no tempo.</div>
+          <div class="divergence"><b>Nota de conciliação:</b> esta é a <b>primeira retomada real</b> — e ela entra com for/since, não com already/yet/just como eu tinha assumido antes.</div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot">3</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Conclusão e pendência — already / just / yet</h3><span class="stage-tag natgeo">NATGEO · Life 4, U2 (Performing)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Falar sobre o estado atual de uma tarefa ou evento — o que já foi feito, o que acabou de acontecer.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">I've already finished. Have you done it yet? She's just arrived.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> yet só em negativa/interrogativa, already só em afirmativa.</div>
+          <div class="divergence"><b>Nota de conciliação:</b> no NatGeo, isso vem <b>depois</b> de for/since (estágio 2), não antes — inverti a ordem no mapa original.</div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot">4</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Present Perfect Continuous + How long...?</h3><span class="stage-tag natgeo">NATGEO · Life 4, U8 (Travel)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Enfatizar a duração do processo em si, não só o resultado — contexto: experiências de viagem.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">I've been traveling for three months. How long have you been studying English?</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno usa Continuous com verbos de estado (know, believe).</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot">5</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Revisão consolidada entre tempos</h3><span class="stage-tag natgeo">NATGEO · Life 5, U1 (Relationships)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Integrar Present Perfect dentro do sistema completo de tempos verbais — presente simples, contínuo e perfeito lado a lado.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">I've known her for years, and we're still close. We've been friends since college.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno já deveria ter isso automatizado; se ainda travar aqui, é sinal de que um estágio anterior não consolidou.</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">6</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>have como pro-verbo — VP-ellipsis</h3><span class="stage-tag eic">CAMADA EIC · B1+ Method</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Evitar repetição no discurso natural — o auxiliar 'have' carrega o sentido do verbo principal, sem repeti-lo.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">"Have you finished?" "Yes, I have." · "I haven't seen it, but she has."</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno tenta repetir o verbo completo ('Yes, I have finished').</div>
+          <div class="divergence"><b>Nota de conciliação:</b> <b>não existe como unidade própria no NatGeo</b> — é a extensão que a EIC constrói por cima do sistema, ligando direto ao material 'It Doesn't Have to Repeat Itself'.</div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">7</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>Registro formal e retórico</h3><span class="stage-tag eic">CAMADA EIC · extensão C1</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Usar o Present Perfect para construir argumento acadêmico — tendências, relevância presente de fato histórico.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">Research has shown that... The policy has had a significant impact.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno recua para Past Simple em texto formal por insegurança.</div>
+          <div class="divergence"><b>Nota de conciliação:</b> o NatGeo Life (até o nível 6) não tem uma unidade dedicada a isso — é extensão EIC para preparar níveis acima do livro.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <span>EIC — Escola de Idiomas e Cultura</span>
+    <span>Material de coordenação · não distribuir ao aluno</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var FILE_TO_TAB = {"eic_curriculum_map.html": "hub", "eic_micro_recycling_present_perfect.html": "pp", "eic_micro_recycling_conditionals.html": "cond", "eic_micro_recycling_passive_voice.html": "passive", "eic_micro_recycling_modals_deduction.html": "modals", "eic_micro_recycling_reported_speech.html": "reported", "eic_life_curriculum_database.html": "db"};
+  document.addEventListener('DOMContentLoaded', function(){
+    var inTabSystem = (window.parent !== window) && window.parent.switchTab;
+    if (!inTabSystem) return;
+    var links = document.querySelectorAll('a[href]');
+    links.forEach(function(a){
+      var href = a.getAttribute('href');
+      if (FILE_TO_TAB.hasOwnProperty(href)) {
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          window.parent.switchTab(FILE_TO_TAB[href]);
+        });
+        a.style.cursor = 'pointer';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

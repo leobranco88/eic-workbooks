@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Micro-Recycling Map · Modals of Deduction</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root{
+    --ink:#0A0A0F; --paper:#FAFAF7; --accent:#E63946; --highlight:#FFE89C;
+    --teal:#0F766E; --purple:#534AB7; --line: rgba(10,10,15,0.10); --line-strong: rgba(10,10,15,0.18);
+  }
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{font-family:'Inter', sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .doc{max-width:1040px;margin:0 auto;padding:0 28px 120px;}
+  .hero{padding:72px 0 40px;border-bottom:3px solid var(--ink);}
+  .eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:20px;}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--purple);display:inline-block;}
+  h1{font-size:clamp(32px,5vw,50px);font-weight:900;letter-spacing:-0.02em;margin:0 0 14px;line-height:1.06;}
+  .hero p.lead{font-size:17.5px;font-weight:500;color:rgba(10,10,15,0.72);max-width:660px;margin:0;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:22px;margin-top:26px;font-size:13px;font-weight:600;color:rgba(10,10,15,0.55);}
+  .meta-row span b{color:var(--ink);font-weight:800;}
+  .backlink{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--purple);text-decoration:none;margin-top:22px;}
+  .backlink:hover{text-decoration:underline;}
+  .legend{display:flex;gap:18px;margin-top:20px;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:rgba(10,10,15,0.65);}
+  .legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block;}
+  .section{padding:52px 0;}
+  .section-label{display:flex;align-items:baseline;gap:14px;margin-bottom:24px;}
+  .section-label .num{font-size:13px;font-weight:900;color:var(--purple);background:rgba(83,74,183,0.08);border:1px solid rgba(83,74,183,0.25);padding:3px 9px;border-radius:100px;}
+  .section-label h2{font-size:23px;font-weight:800;margin:0;letter-spacing:-0.01em;}
+  .section-intro{font-size:15px;color:rgba(10,10,15,0.72);max-width:740px;margin:0 0 26px;}
+  .spine{position:relative;padding-left:36px;}
+  .spine::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom, var(--teal), var(--purple));}
+  .stage{position:relative;margin-bottom:22px;}
+  .stage:last-child{margin-bottom:0;}
+  .stage-dot{position:absolute;left:-36px;top:4px;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid var(--paper);}
+  .stage-dot.eic{background:var(--purple);}
+  .stage-card{border:1px solid var(--line-strong);border-radius:14px;background:#fff;padding:20px 22px;}
+  .stage-card.eic{background:rgba(83,74,183,0.03);border-color:rgba(83,74,183,0.3);border-style:dashed;}
+  .stage-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .stage-top h3{font-size:16.5px;font-weight:800;margin:0;}
+  .stage-tag{font-size:11px;font-weight:800;letter-spacing:.04em;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+  .stage-tag.natgeo{background:rgba(15,118,110,0.10);color:var(--teal);}
+  .stage-tag.eic{background:rgba(83,74,183,0.12);color:var(--purple);}
+  .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;}
+  .stage-block .lbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:rgba(10,10,15,0.45);margin-bottom:6px;}
+  .stage-block p, .stage-block ul{font-size:13.5px;color:rgba(10,10,15,0.82);margin:0;}
+  .stage-block ul{padding-left:16px;} .stage-block li{margin-bottom:4px;}
+  .ex{font-family:'Inter',sans-serif;font-style:italic;color:var(--ink);background:rgba(255,232,156,0.35);padding:2px 6px;border-radius:4px;font-size:13px;font-weight:600;}
+  .trap{margin-top:12px;font-size:13px;font-weight:600;color:var(--accent);background:rgba(230,57,70,0.06);border-left:2px solid var(--accent);padding:8px 10px;border-radius:4px;}
+  .trap b{font-weight:800;}
+  .divergence{margin-top:12px;font-size:12.5px;font-weight:600;color:var(--teal);background:rgba(15,118,110,0.06);border-left:2px solid var(--teal);padding:8px 10px;border-radius:4px;}
+  .divergence b{font-weight:800;}
+  @media (max-width:760px){.stage-grid{grid-template-columns:1fr;}}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:rgba(10,10,15,0.45);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="hero">
+    <div class="eyebrow">Material Interno · Micro-Recycling Map · v2 (conciliado com NatGeo real)</div>
+    <h1>Modals of Deduction<br>etapa por etapa · v2</h1>
+    <p class="lead">Revisado: o NatGeo trata isso em só 2 unidades — muito mais raro do que assumido. A maior parte da espiral agora é camada EIC.</p>
+    <div class="meta-row">
+      <span>Estrutura: <b>Modals of Deduction</b></span>
+      <span>Fonte: <b>NatGeo Life, Third Edition</b> + camada EIC</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--teal);"></span> Estágio confirmado no NatGeo Life (com localização exata)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--purple);"></span> Camada EIC (adição própria, não está no livro)</div>
+    </div>
+    <a class="backlink" href="eic_curriculum_map.html">&larr; Voltar ao Curriculum Map</a>
+  </div>
+  <div class="section">
+    <div class="section-label"><span class="num">01</span><h2>A espiral real, conciliada</h2></div>
+    <p class="section-intro">Cada estágio mostra se é confirmado pelo NatGeo Life (com unidade exata) ou se é uma camada que a EIC adiciona por cima. Onde a sequência real divergiu do que havíamos assumido antes, isso está marcado em "Nota de conciliação".</p>
+    <div class="spine">
+      
+      <div class="stage">
+        <div class="stage-dot">1</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Certeza e possibilidade no presente</h3><span class="stage-tag natgeo">NATGEO · Life 4, U6 (Mysteries)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Reagir a notícias/fatos surpreendentes com graus de certeza — contexto de mistérios e especulação.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">It must be a coincidence. It could be something else entirely.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno trata must/could/might como sinônimos perfeitos, sem perceber a escala de certeza.</div>
+          <div class="divergence"><b>Nota de conciliação:</b> <b>divergência importante:</b> a NatGeo trata modais de dedução de forma muito mais rarefeita do que assumi — só 2 pontos de retomada claros no índice inteiro (aqui e no estágio 2).</div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot">2</div>
+        <div class="stage-card">
+          <div class="stage-top"><h3>Modais no passado + probabilidade futura</h3><span class="stage-tag natgeo">NATGEO · Life 6, U3 (Innovation)</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Especular sobre o passado (dedução) e sobre o futuro (probabilidade) no contexto de inovação e tecnologia.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">This must have taken years to develop. This technology might become mainstream.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno esquece o particípio ou usa o infinitivo ('must has taken').</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">3</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>Escala de certeza consolidada (must → may/might/could → can't)</h3><span class="stage-tag eic">CAMADA EIC · reforço próprio</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Como o NatGeo trata isso em só 2 unidades, a EIC precisa reforçar a escala de certeza com prática extra distribuída pelos outros níveis.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">must (quase certeza) → may/might/could (possibilidade) → can't (quase certeza negativa)</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> sem reforço extra da EIC, o aluno só encontra isso 2 vezes no livro inteiro — insuficiente para automatizar.</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">4</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>Dedução no passado — must have / can't have / may have</h3><span class="stage-tag eic">CAMADA EIC · reforço próprio</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Extensão EIC para cobrir a lacuna: dedução sobre eventos passados com toda a escala de modais.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">She must have left already. He can't have finished. They might have forgotten.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno confunde com Third Conditional (mesma estrutura superficial).</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">5</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>Contraste dedução vs obrigação (must)</h3><span class="stage-tag eic">CAMADA EIC · reforço próprio</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Extensão EIC: perceber que 'must' muda de sentido conforme o contexto.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">You must wear a seatbelt. (obrigação) vs You must be exhausted. (dedução)</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> sem este contraste, o aluno trata todo 'must' como sinônimo de 'have to'.</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">6</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>Dedução em registro narrativo</h3><span class="stage-tag eic">CAMADA EIC · reforço próprio</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Extensão EIC: construir suspense e especulação em narrativas.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">The killer must have known the victim.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno usa modais de forma mecânica sem variar o grau de certeza.</div>
+          
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-dot eic">7</div>
+        <div class="stage-card eic">
+          <div class="stage-top"><h3>Dedução como hedging acadêmico</h3><span class="stage-tag eic">CAMADA EIC · reforço próprio</span></div>
+          <div class="stage-grid">
+            <div class="stage-block"><div class="lbl">Gatilho funcional</div><p>Extensão EIC: suavizar afirmações em textos acadêmicos.</p></div>
+            <div class="stage-block"><div class="lbl">Exemplo</div><p class="ex">This may indicate a broader trend.</p></div>
+          </div>
+          <div class="trap"><b>Armadilha:</b> aluno usa afirmações categóricas demais (over-claiming).</div>
+          <div class="divergence"><b>Nota de conciliação:</b> esta estrutura é a que mais precisa de reforço próprio da EIC — o NatGeo simplesmente não dá volume suficiente de prática.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <span>EIC — Escola de Idiomas e Cultura</span>
+    <span>Material de coordenação · não distribuir ao aluno</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var FILE_TO_TAB = {"eic_curriculum_map.html": "hub", "eic_micro_recycling_present_perfect.html": "pp", "eic_micro_recycling_conditionals.html": "cond", "eic_micro_recycling_passive_voice.html": "passive", "eic_micro_recycling_modals_deduction.html": "modals", "eic_micro_recycling_reported_speech.html": "reported", "eic_life_curriculum_database.html": "db"};
+  document.addEventListener('DOMContentLoaded', function(){
+    var inTabSystem = (window.parent !== window) && window.parent.switchTab;
+    if (!inTabSystem) return;
+    var links = document.querySelectorAll('a[href]');
+    links.forEach(function(a){
+      var href = a.getAttribute('href');
+      if (FILE_TO_TAB.hasOwnProperty(href)) {
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          window.parent.switchTab(FILE_TO_TAB[href]);
+        });
+        a.style.cursor = 'pointer';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
