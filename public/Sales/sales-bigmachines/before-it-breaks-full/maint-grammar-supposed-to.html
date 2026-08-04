@@ -209,6 +209,20 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 .simple-item{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:14px;max-width:640px}
 .simple-item-situation{font-size:13.5px;color:var(--ink);line-height:1.6;margin-bottom:10px}
 .simple-item-starter{font-size:12.5px;color:var(--teal);font-weight:700;margin-bottom:10px}
+
+/* ── WHY CHIP ── */
+.why-chip{display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:50%;background:var(--surface);
+  border:1.5px solid var(--border);color:var(--mid);font-size:10px;font-weight:900;
+  cursor:pointer;margin-left:8px;vertical-align:middle;flex-shrink:0;transition:all .15s;
+  font-family:Inter,sans-serif;line-height:1}
+.why-chip:hover{background:var(--teal);border-color:var(--teal);color:#fff}
+.why-note{display:none;margin-top:8px;padding:10px 13px;background:rgba(13,122,138,.07);
+  border-left:3px solid var(--teal);border-radius:0 8px 8px 0;font-size:12px;
+  color:var(--ink);line-height:1.6}
+.why-note.show{display:block}
+.why-note strong{color:var(--teal)}
+
 </style>
 </head>
 <body>
@@ -246,14 +260,26 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 <span class="hdr-badge">Grammar</span>
 </header>
 
-<button class="fab left" onclick="openPanel('gloss')">
-  <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-  <span class="fab-label">Glossary</span>
-</button>
-<button class="fab right" onclick="openPanel('verbs')">
-  <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-  <span class="fab-label">Verb Bank</span>
-</button>
+<div style="position:fixed;left:26px;bottom:26px;z-index:150;display:flex;flex-direction:column;gap:10px">
+  <button class="fab left" style="position:static" onclick="openPanel('gloss')">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span class="fab-label">Glossary</span>
+  </button>
+  <button class="fab left" style="position:static;background:var(--teal)" onclick="openPanel('questions')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span class="fab-label">Questions</span>
+  </button>
+</div>
+<div style="position:fixed;right:26px;bottom:26px;z-index:150;display:flex;flex-direction:column;gap:10px">
+  <button class="fab right" style="position:static" onclick="openPanel('verbs')">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span class="fab-label">Verb Bank</span>
+  </button>
+  <button class="fab right" style="position:static;background:var(--coral)" onclick="openPanel('negatives')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    <span class="fab-label">Negatives</span>
+  </button>
+</div>
 
 <section class="hero">
   <div class="hero-inner">
@@ -337,9 +363,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="num-list" id="ex-a">
 
-      <div class="num-item"><span class="num-item-n">01</span><p class="num-item-text">The Service Plan <select class="blank-sel" data-correct="is supposed to"><option value="">___</option><option value="is supposed to">is supposed to</option><option value="should">should</option><option value="must">must</option></select> cover two inspections a year, that's what the contract says.</p></div>
+      <div class="num-item"><span class="num-item-n">01</span><p class="num-item-text">The Service Plan <select class="blank-sel" data-correct="is supposed to"><option value="">___</option><option value="is supposed to">is supposed to</option><option value="should">should</option><option value="must">must</option></select> cover two inspections a year, that's what the contract says.<button class="why-chip" onclick="toggleWhy('why-m01')">?</button></p><div class="why-note" id="why-m01"><strong>Why not must?</strong> The contract established this as a mutual agreement between Ventix and the client. "Must" would imply a one-sided rule. "Is supposed to" = both parties agreed to this. / <em>O contrato estabeleceu isso como acordo m&#250;tuo. "Must" implicaria uma regra unilateral. "Is supposed to" = ambos concordaram.</em></div></div>
 
-      <div class="num-item"><span class="num-item-n">02</span><p class="num-item-text">Technicians <select class="blank-sel" data-correct="are supposed to"><option value="">___</option><option value="are supposed to">are supposed to</option><option value="should">should</option><option value="must">must</option></select> arrive within 24 hours, that's the agreement.</p></div>
+      <div class="num-item"><span class="num-item-n">02</span><p class="num-item-text">Technicians <select class="blank-sel" data-correct="are supposed to"><option value="">___</option><option value="are supposed to">are supposed to</option><option value="should">should</option><option value="must">must</option></select> arrive within 24 hours, that's the agreement.<button class="why-chip" onclick="toggleWhy('why-m02')">?</button></p><div class="why-note" id="why-m02"><strong>Why not must?</strong> "That's the agreement" is the clue — this was negotiated. "Must" = rule imposed by authority. "Are supposed to" = contractual expectation. Both sides know and accepted this. / <em>"That's the agreement" &#233; a pista &#8212; foi negociado. "Must" = regra imposta. "Are supposed to" = expectativa contratual aceita por ambos.</em></div></div>
 
       <div class="num-item"><span class="num-item-n">03</span><p class="num-item-text">In my opinion, Thiago <select class="blank-sel" data-correct="should"><option value="">___</option><option value="should">should</option><option value="is supposed to">is supposed to</option><option value="must">must</option></select> call Carla less often.</p></div>
 
@@ -349,7 +375,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
       <div class="num-item"><span class="num-item-n">06</span><p class="num-item-text">Marcelo <select class="blank-sel" data-correct="should"><option value="">___</option><option value="should">should</option><option value="is supposed to">is supposed to</option><option value="must">must</option></select> get approval before signing, that's just common sense.</p></div>
 
-      <div class="num-item"><span class="num-item-n">07</span><p class="num-item-text">The plan <select class="blank-sel" data-correct="is supposed to"><option value="">___</option><option value="is supposed to">is supposed to</option><option value="should">should</option><option value="must">must</option></select> prevent breakdowns, that's literally its purpose.</p></div>
+      <div class="num-item"><span class="num-item-n">07</span><p class="num-item-text">The plan <select class="blank-sel" data-correct="is supposed to"><option value="">___</option><option value="is supposed to">is supposed to</option><option value="should">should</option><option value="must">must</option></select> prevent breakdowns, that's literally its purpose.<button class="why-chip" onclick="toggleWhy('why-m07')">?</button></p><div class="why-note" id="why-m07"><strong>Why not must?</strong> "Its purpose" signals design intent, not an imposed rule. The plan was designed and agreed upon to do this job. "Is supposed to" captures that intended function. "Must" would sound like someone giving an order to an object. / <em>"Its purpose" indica inten&#231;&#227;o de design, n&#227;o uma regra imposta. "Is supposed to" captura essa fun&#231;&#227;o pretendida.</em></div></div>
 
       <div class="num-item"><span class="num-item-n">08</span><p class="num-item-text">The compressor <select class="blank-sel" data-correct="is supposed to"><option value="">___</option><option value="is supposed to">is supposed to</option><option value="should">should</option><option value="must">must</option></select> run continuously for at least a year without service.</p></div>
 
@@ -459,6 +485,114 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   </div>
 </section>
 
+
+<div class="side-panel left" id="questions-panel">
+  <div class="panel-hdr">
+    <div>
+      <div class="panel-hdr-label">Grammar Reference</div>
+      <div class="panel-hdr-title">Forming Questions</div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">&#x2715;</button>
+  </div>
+  <div class="panel-body" style="padding:20px">
+
+    <div style="margin-bottom:24px">
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px">Should</div>
+      <div style="background:var(--surface);border-radius:10px;padding:14px 16px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px">Structure</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);font-family:monospace">Should + subject + verb?</div>
+      </div>
+      <div style="font-size:13px;color:var(--ink);line-height:1.65;padding:0 2px">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"<strong>Should</strong> we ask for a revised quotation?" <span style="font-size:11px;color:var(--mid)">— Devemos pedir uma nova cotação?</span></div>
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"<strong>Should</strong> the legal team review this?" <span style="font-size:11px;color:var(--mid)">— O time jur&#237;dico deveria revisar isso?</span></div>
+        <div style="padding:6px 0">"What <strong>should</strong> we do about the delay?" <span style="font-size:11px;color:var(--mid)">— O que devemos fazer sobre o atraso?</span></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Be Supposed To</div>
+      <div style="background:var(--surface);border-radius:10px;padding:14px 16px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px">Structure</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);font-family:monospace">Is/Are/Was/Were + subject + supposed to + verb?</div>
+      </div>
+      <div style="font-size:13px;color:var(--ink);line-height:1.65;padding:0 2px">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"<strong>Is</strong> the invoice <strong>supposed to</strong> include the PO number?" <span style="font-size:11px;color:var(--mid)">— A nota fiscal deve incluir o n&#250;mero do PO?</span></div>
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"<strong>Was</strong> Hua Li <strong>supposed to</strong> deliver last week?" <span style="font-size:11px;color:var(--mid)">— A Hua Li deveria ter entregado na semana passada?</span></div>
+        <div style="padding:6px 0">"What <strong>are</strong> they <strong>supposed to</strong> send with each batch?" <span style="font-size:11px;color:var(--mid)">— O que eles devem enviar com cada lote?</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px">Must</div>
+      <div style="background:var(--surface);border-radius:10px;padding:14px 16px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px">Structure</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);font-family:monospace">Must + subject + verb? &#x2192; rare in questions</div>
+        <div style="font-size:11px;color:var(--mid);margin-top:6px;line-height:1.5">In practice, "must" questions are rare. We usually use "Do I have to" or "Is it required that" instead. / Na pr&#225;tica, perguntas com "must" s&#227;o raras. Usamos "Do I have to" ou "Is it required that".</div>
+      </div>
+      <div style="font-size:13px;color:var(--ink);line-height:1.65;padding:0 2px">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"<strong>Do</strong> I <strong>have to</strong> sign this today?" <span style="font-size:11px;color:var(--mid)">— Tenho que assinar isso hoje?</span></div>
+        <div style="padding:6px 0">"<strong>Is</strong> it <strong>required</strong> to include both signatures?" <span style="font-size:11px;color:var(--mid)">— &#201; obrigat&#243;rio incluir as duas assinaturas?</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="side-panel right" id="negatives-panel">
+  <div class="panel-hdr">
+    <div>
+      <div class="panel-hdr-label">Grammar Reference</div>
+      <div class="panel-hdr-title">Negative Forms</div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">&#x2715;</button>
+  </div>
+  <div class="panel-body" style="padding:20px">
+
+    <div style="margin-bottom:24px">
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px">Should</div>
+      <div style="background:var(--surface);border-radius:10px;padding:14px 16px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px">Structure</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);font-family:monospace">Subject + should not (shouldn&#39;t) + verb</div>
+      </div>
+      <div style="font-size:13px;color:var(--ink);line-height:1.65;padding:0 2px">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"We <strong>shouldn&#39;t</strong> accept a quotation without a lead time." <span style="font-size:11px;color:var(--mid)">— N&#227;o devemos aceitar uma cotação sem prazo.</span></div>
+        <div style="padding:6px 0">"The buyer <strong>shouldn&#39;t</strong> sign before the legal team reviews it." <span style="font-size:11px;color:var(--mid)">— O comprador n&#227;o deveria assinar antes da revis&#227;o jur&#237;dica.</span></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px">Be Supposed To</div>
+      <div style="background:var(--surface);border-radius:10px;padding:14px 16px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px">Structure</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);font-family:monospace">Subject + is/are/was/were + not supposed to + verb</div>
+      </div>
+      <div style="font-size:13px;color:var(--ink);line-height:1.65;padding:0 2px">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"Suppliers <strong>are not supposed to</strong> change the price after the PO is issued." <span style="font-size:11px;color:var(--mid)">— Os fornecedores n&#227;o devem alterar o pre&#231;o ap&#243;s o PO.</span></div>
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"The delivery <strong>was not supposed to</strong> arrive before Monday." <span style="font-size:11px;color:var(--mid)">— A entrega n&#227;o deveria chegar antes de segunda.</span></div>
+        <div style="padding:6px 0">"This clause <strong>is not supposed to</strong> apply to force majeure events." <span style="font-size:11px;color:var(--mid)">— Esta cl&#225;usula n&#227;o deve se aplicar a casos de for&#231;a maior.</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px">Must</div>
+      <div style="background:var(--surface);border-radius:10px;padding:14px 16px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px">Structure + Warning</div>
+        <div style="font-size:14px;font-weight:800;color:var(--ink);font-family:monospace">Subject + must not (mustn&#39;t) + verb</div>
+        <div style="font-size:11px;color:var(--coral);margin-top:6px;line-height:1.5;font-weight:700">&#9888;&#65039; "Must not" = prohibition, not just absence of obligation. Very strong. / "Must not" = proibi&#231;&#227;o, n&#227;o apenas aus&#234;ncia de obriga&#231;&#227;o. Muito forte.</div>
+      </div>
+      <div style="font-size:13px;color:var(--ink);line-height:1.65;padding:0 2px">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border)">"The supplier <strong>must not</strong> subcontract without written approval." <span style="font-size:11px;color:var(--mid)">— O fornecedor n&#227;o pode subcontratar sem aprova&#231;&#227;o escrita.</span></div>
+        <div style="padding:6px 0">"Confidential information <strong>must not</strong> be shared with third parties." <span style="font-size:11px;color:var(--mid)">— Informa&#231;&#245;es confidenciais n&#227;o devem ser compartilhadas.</span></div>
+      </div>
+      <div style="margin-top:10px;background:rgba(230,57,70,.08);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--coral);line-height:1.55">
+        "Don&#39;t have to" &#8800; "must not"<br>
+        <span style="color:var(--mid)">"You <strong>don&#39;t have to</strong> sign today" = no obligation, your choice. / sem obriga&#231;&#227;o, sua escolha.<br>
+        "You <strong>must not</strong> sign today" = it is forbidden. / &#233; proibido.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
 <footer class="footer">
 <svg class="footer-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
 <path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
@@ -491,11 +625,11 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 </footer>
 
 <!-- ============ GLOSSARY PANEL ============ -->
-<div class="panel-overlay" id="gloss-overlay" onclick="closePanel('gloss')"></div>
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
 <div class="side-panel left" id="gloss-panel">
   <div class="panel-hdr">
     <div><div class="panel-hdr-label">Vocabulary</div><div class="panel-hdr-title">Glossary</div></div>
-    <button class="panel-close" onclick="closePanel('gloss')">&times;</button>
+    <button class="panel-close" onclick="closePanel()">&times;</button>
   </div>
   <div class="bob-tabs">
     <button class="bob-tab active" id="glosstab-business" onclick="switchGlossTab('business')">Business Terms</button>
@@ -578,11 +712,11 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
 
 <!-- ============ VERB BANK PANEL ============ -->
-<div class="panel-overlay" id="verbs-overlay" onclick="closePanel('verbs')"></div>
+<div class="panel-overlay" id="verbs-overlay" onclick="closePanel()"></div>
 <div class="side-panel right" id="verbs-panel">
   <div class="panel-hdr">
     <div><div class="panel-hdr-label">This lesson's verbs</div><div class="panel-hdr-title">Verb Bank</div></div>
-    <button class="panel-close" onclick="closePanel('verbs')">&times;</button>
+    <button class="panel-close" onclick="closePanel()">&times;</button>
   </div>
   <div class="panel-body">
     <input class="gloss-search" id="verbs-search" placeholder="Search a verb..." oninput="filterVerbs()">
@@ -604,6 +738,12 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
 <script>
 (function() {
+
+  window.toggleWhy = function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.toggle('show');
+  };
+
 
   var TIPS = {
     "erapara": {pt: "era para eu ligar", def: "The natural instinct is to translate this word by word as \"it was to call\", but that's wrong. The correct form is \"I was supposed to call\"."}
@@ -636,15 +776,26 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
   // ── PANELS ──
   window.openPanel = function(name) {
-    document.getElementById(name + "-panel").classList.add("open");
-    document.getElementById(name + "-overlay").classList.add("open");
+    // close all panels first
+    ["gloss","verbs","questions","negatives"].forEach(function(n) {
+      var p = document.getElementById(n + "-panel");
+      if (p) p.classList.remove("open");
+    });
+    var panel = document.getElementById(name + "-panel");
+    var overlay = document.getElementById("panel-overlay");
+    if (panel) panel.classList.add("open");
+    if (overlay) overlay.classList.add("open");
   };
-  window.closePanel = function(name) {
-    document.getElementById(name + "-panel").classList.remove("open");
-    document.getElementById(name + "-overlay").classList.remove("open");
+  window.closePanel = function() {
+    ["gloss","verbs","questions","negatives"].forEach(function(n) {
+      var p = document.getElementById(n + "-panel");
+      if (p) p.classList.remove("open");
+    });
+    var overlay = document.getElementById("panel-overlay");
+    if (overlay) overlay.classList.remove("open");
   };
   document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") { closePanel("gloss"); closePanel("verbs"); }
+    if (e.key === "Escape") closePanel();
   });
 
   window.switchGlossTab = function(tab) {
