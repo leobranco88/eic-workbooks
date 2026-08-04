@@ -76,6 +76,14 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   font-size:12px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none;max-width:230px}
 #gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:3px}
 #gl-tip-def{font-size:11.5px;color:rgba(255,255,255,.82)}
+.q-reveal-btn{display:inline-flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:11.5px;font-weight:700;
+  color:var(--mid);background:none;border:none;padding:6px 0 0;cursor:pointer;
+  text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px}
+.q-reveal-btn:hover{color:var(--teal)}
+.q-reveal-model{display:none;background:var(--green-bg);border-left:3px solid var(--green);border-radius:0 8px 8px 0;
+  padding:11px 14px;margin-top:8px;font-size:12.5px;color:var(--ink);line-height:1.6}
+.q-reveal-model.show{display:block}
+.q-reveal-model-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -149,16 +157,42 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
     <div class="section-label">Warm-up</div>
     <h2 class="section-title">Talk about it, before you read Thiago's documents</h2>
     <div class="q-list">
-      <div class="q-item"><span class="q-n">01</span><p class="q-text">Have you ever paid for something <span class="tt" data-tip="inadvance">in advance</span> to avoid a bigger cost later? What was it?</p></div>
+      <div class="q-item"><span class="q-n">01</span><p class="q-text">Have you ever paid for something <span class="tt" data-tip="inadvance">in advance</span> to avoid a bigger cost later? What was it?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "Yes, I once paid for..." / "No, I usually..."</em><br>
+      <button class="q-reveal-btn" id="q1revealbtn" onclick="toggleQReveal('q1reveal','q1revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q1reveal"><span class="q-reveal-model-label">Example answer</span>"Yes, I paid for car insurance in advance every year. It felt expensive at the time, but it saved me a lot of money when I had an accident."</span></p></div>
       <div class="q-item"><span class="q-n">02</span><p class="q-text">Do you prefer to pay only when a machine breaks, or lock in a maintenance plan ahead of time? Why?<br><em style="font-weight:400;color:var(--mid);font-size:12.5px">Example: "A client only calls a technician when the compressor actually stops, that's reactive repair. Another client pays a fixed amount every year for scheduled visits, that's a service plan."</em></p></div>
-      <div class="q-item"><span class="q-n">03</span><p class="q-text">In your job, what happens if a machine doesn't <span class="tt" data-tip="meet">meet</span> the standard you expected?</p></div>
-      <div class="q-item"><span class="q-n">04</span><p class="q-text">Do most people think about risk before something <span class="tt" data-tip="gowrong">goes wrong</span>, or only after?</p></div>
-      <div class="q-item"><span class="q-n">05</span><p class="q-text">Have you ever signed a maintenance contract <span class="tt" data-tip="insteadof">instead of</span> paying for repairs one at a time? Why, or why not?</p></div>
-      <div class="q-item"><span class="q-n">06</span><p class="q-text">What's harder for you: convincing a new client to try a maintenance plan, or <span class="tt" data-tip="keepfrom">keeping</span> a client who already has one from cancelling?</p></div>
-      <div class="q-item"><span class="q-n">07</span><p class="q-text">If a repair costs more than a client expected, what do you usually say first?</p></div>
-      <div class="q-item"><span class="q-n">08</span><p class="q-text">Do you think a written contract makes clients <span class="tt" data-tip="counton">count on</span> a company more? Why, or why not?</p></div>
-      <div class="q-item"><span class="q-n">09</span><p class="q-text">Imagine a client's whole production depends on one machine. What would you do to protect that relationship?</p></div>
-      <div class="q-item"><span class="q-n">10</span><p class="q-text">Think about your own clients. Do you have more trouble convincing someone who doesn't believe in a plan yet, or keeping a client who already has one from leaving? Why?</p></div>
+      <div class="q-item"><span class="q-n">03</span><p class="q-text">In your job, what happens if a machine doesn't <span class="tt" data-tip="meet">meet</span> the standard you expected?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "If that happens, we usually..."</em><br>
+      <button class="q-reveal-btn" id="q3revealbtn" onclick="toggleQReveal('q3reveal','q3revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q3reveal"><span class="q-reveal-model-label">Example answer</span>"If that happens, we usually call the supplier right away and ask for a replacement or a repair, depending on the contract."</span></p></div>
+      <div class="q-item"><span class="q-n">04</span><p class="q-text">Do most people think about risk before something <span class="tt" data-tip="gowrong">goes wrong</span>, or only after?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "In my experience, most people..."</em><br>
+      <button class="q-reveal-btn" id="q4revealbtn" onclick="toggleQReveal('q4reveal','q4revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q4reveal"><span class="q-reveal-model-label">Example answer</span>"In my experience, most people only think about risk after something goes wrong. That's actually the whole reason insurance and maintenance plans exist."</span></p></div>
+      <div class="q-item"><span class="q-n">05</span><p class="q-text">Have you ever signed a maintenance contract <span class="tt" data-tip="insteadof">instead of</span> paying for repairs one at a time? Why, or why not?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "Yes, we signed a contract for..." / "No, we've never..."</em><br>
+      <button class="q-reveal-btn" id="q5revealbtn" onclick="toggleQReveal('q5reveal','q5revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q5reveal"><span class="q-reveal-model-label">Example answer</span>"Yes, my company signed a maintenance contract for our printers. It cost more upfront, but it saved us from unexpected repair bills later."</span></p></div>
+      <div class="q-item"><span class="q-n">06</span><p class="q-text">What's harder for you: convincing a new client to try a maintenance plan, or <span class="tt" data-tip="keepfrom">keeping</span> a client who already has one from cancelling?<br>
+      <button class="q-reveal-btn" id="q6revealbtn" onclick="toggleQReveal('q6reveal','q6revealbtn')">Show what business research says</button>
+      <span class="q-reveal-model" id="q6reveal"><span class="q-reveal-model-label">What the research says</span>Most studies agree: winning a new client is usually harder and more expensive than keeping one. A commonly cited figure from Harvard Business Review is that acquiring a new customer can cost 5 to 25 times more than retaining an existing one. That's why churn prevention, even though it feels stressful in the moment, is usually the better use of a salesperson's time.</span></p></div>
+      <div class="q-item"><span class="q-n">07</span><p class="q-text">If a repair costs more than a client expected, what do you usually say first?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "I usually start by..."</em><br>
+      <button class="q-reveal-btn" id="q7revealbtn" onclick="toggleQReveal('q7reveal','q7revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q7reveal"><span class="q-reveal-model-label">Example answer</span>"I usually start by explaining exactly what caused the extra cost, before I even mention the price itself."</span></p></div>
+      <div class="q-item"><span class="q-n">08</span><p class="q-text">Do you think a written contract makes clients <span class="tt" data-tip="counton">count on</span> a company more? Why, or why not?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "I think a contract..."</em><br>
+      <button class="q-reveal-btn" id="q8revealbtn" onclick="toggleQReveal('q8reveal','q8revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q8reveal"><span class="q-reveal-model-label">Example answer</span>"I think a written contract makes clients feel safer, because it turns a spoken promise into something they can point back to if something goes wrong."</span></p></div>
+      <div class="q-item"><span class="q-n">09</span><p class="q-text">Imagine a client's whole production depends on one machine. What would you do to protect that relationship?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "I would make sure..."</em><br>
+      <button class="q-reveal-btn" id="q9revealbtn" onclick="toggleQReveal('q9reveal','q9revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q9reveal"><span class="q-reveal-model-label">Example answer</span>"I would make sure that machine has priority in our service plan, with the fastest response time we offer, even if it costs more."</span></p></div>
+      <div class="q-item"><span class="q-n">10</span><p class="q-text">Think about your own clients. Do you have more trouble convincing someone who doesn't believe in a plan yet, or keeping a client who already has one from leaving? Why?<br>
+      <em style="font-weight:400;color:var(--mid);font-size:12.5px">Starter: "For me, it's harder to..."</em><br>
+      <button class="q-reveal-btn" id="q10revealbtn" onclick="toggleQReveal('q10reveal','q10revealbtn')">Show an example answer</button>
+      <span class="q-reveal-model" id="q10reveal"><span class="q-reveal-model-label">Example answer</span>"For me, it's harder to keep an existing client happy, because they expect the plan to work perfectly, and one small problem can make them doubt everything."</span></p></div>
     </div>
   </div>
 </section>
@@ -207,6 +241,13 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
     "gowrong": {pt: "dar errado", def: "When something fails or doesn't happen the way it should."},
     "insteadof": {pt: "em vez de", def: "Used to show that one thing replaces another."},
     "keepfrom": {pt: "impedir que, evitar que", def: "\"Keep someone from doing something\" means to stop them from doing it. Portuguese uses \"impedir que\" + a different verb form, so this doesn't translate word by word."}
+  };
+
+  window.toggleQReveal = function(id, btnId) {
+    var el = document.getElementById(id);
+    var btn = document.getElementById(btnId);
+    var open = el.classList.toggle("show");
+    if (btn) btn.textContent = open ? "Hide" : "Show what business research says";
   };
 
   function initTooltip() {
