@@ -275,6 +275,61 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
 .footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
 
+
+/* ── VOCAB PANEL ── */
+.vp-fab{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:150;
+  display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:24px;
+  background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:Inter,sans-serif;
+  font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 4px 20px rgba(0,0,0,.3);transition:all .2s}
+.vp-fab:hover{background:var(--teal);transform:translateX(-50%) translateY(-2px)}
+.vp-fab svg{flex-shrink:0}
+.vp-overlay{position:fixed;inset:0;z-index:200;background:rgba(7,16,32,.5);
+  opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(2px)}
+.vp-overlay.open{opacity:1;pointer-events:all}
+.vp-panel{position:fixed;right:0;top:0;bottom:0;z-index:300;width:400px;max-width:100vw;
+  background:#fff;display:flex;flex-direction:column;transform:translateX(100%);
+  transition:transform .3s cubic-bezier(.22,.1,.36,1);box-shadow:-8px 0 40px rgba(0,0,0,.15)}
+@media(max-width:500px){.vp-panel{width:100vw}}
+.vp-panel.open{transform:translateX(0)}
+.vp-panel-hdr{background:var(--dark);padding:20px 22px 16px;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0}
+.vp-panel-eyebrow{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.vp-panel-title{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.02em}
+.vp-panel-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .15s}
+.vp-panel-close:hover{background:rgba(255,255,255,.2)}
+.vp-filters{display:flex;gap:6px;padding:14px 14px 8px;flex-wrap:wrap;flex-shrink:0;border-bottom:1px solid var(--border)}
+.vp-filter{padding:4px 11px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:1.5px solid var(--border);background:transparent;color:var(--mid);cursor:pointer;font-family:Inter,sans-serif;transition:all .15s;white-space:nowrap}
+.vp-filter:hover{border-color:var(--ink);color:var(--ink)}
+.vp-filter.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vp-filter[data-filter]:not([data-filter="all"]).active{background:var(--cat-color,var(--teal));border-color:var(--cat-color,var(--teal))}
+.vp-count{font-weight:400;opacity:.7;margin-left:3px}
+.vp-search-wrap{padding:10px 14px 6px;flex-shrink:0}
+.vp-search{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;font-family:Inter,sans-serif;color:var(--ink);outline:none;transition:border-color .2s}
+.vp-search:focus{border-color:var(--teal)}
+.vp-cards{flex:1;overflow-y:auto;padding:8px 14px 40px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.vp-card{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.vp-card:hover{border-color:var(--teal)}
+.vp-card[style*="display:none"]{display:none!important}
+.vp-card-inner{padding:14px 16px}
+.vp-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-bottom:8px}
+.vp-term{font-size:16px;font-weight:900;color:var(--ink);letter-spacing:-.01em;margin-bottom:3px}
+.vp-pt{font-size:12px;color:var(--teal);font-style:italic;margin-bottom:6px}
+.vp-def{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:4px}
+.vp-ex{font-size:11px;color:var(--ink);border-left:2px solid var(--border);padding-left:8px;line-height:1.5;font-style:italic}
+
+
+.page-nav-row{display:flex;gap:10px;align-items:center;justify-content:space-between;
+  max-width:880px;margin:0 auto;padding:10px 48px}
+@media(max-width:720px){.page-nav-row{padding:10px 20px}}
+.page-nav-wrap{background:#fff;border-bottom:1px solid var(--border)}
+.page-nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+  border-radius:20px;font-family:Inter,sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:.04em;text-decoration:none;transition:all .15s;border:1.5px solid var(--border);
+  color:var(--mid);background:#fff}
+.page-nav-btn:hover{border-color:var(--ink);color:var(--ink)}
+.page-nav-btn.next{background:var(--teal);border-color:var(--teal);color:#fff}
+.page-nav-btn.next:hover{background:#0a6575}
+.page-nav-spacer{flex:1}
 </style>
 </head>
 <body>
@@ -312,14 +367,12 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 </header>
 <nav class="mod-nav"><div class="mod-nav-inner"><a href="./procurement-lead-in.html">Lead-in</a>
 <a href="./procurement-reading.html">Reading</a>
-<a href="./procurement-documents.html">Documents</a>
 <a href="./procurement-stakeholders.html">Stakeholders</a>
 <a href="./procurement-flow.html">Flow</a>
 <a href="./procurement-grammar-voice2.html" class="nav-active">Grammar: Voice</a>
 <a href="./procurement-grammar-supposed-to.html">Grammar: Supposed To</a>
 <a href="./procurement-grammar-who2.html">Neural English</a>
 <a href="./procurement-vocab.html">Vocab</a>
-<a href="./procurement-homework.html">Homework</a>
 </div></nav>
 <div class="hero">
   <div class="hero-inner">
@@ -1046,7 +1099,6 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 <path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
 <path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
 <path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
-  <div class="footer-nav-row"><a href="./procurement-flow.html" class="footer-nav-btn footer-nav-prev">← Flow</a><a href="./procurement-grammar-supposed-to.html" class="footer-nav-btn footer-nav-next">Grammar: Supposed To →</a></div>
 <p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
 </footer>
 
@@ -1159,6 +1211,468 @@ function resetErrors() {
     var fb = item.querySelector('.err-fb'); if (fb) { fb.className = 'err-fb'; fb.innerHTML = ''; }
   });
 }
+
+  // ── VOCAB PANEL ──
+  window.openVP = function() {
+    document.getElementById('vp-panel').classList.add('open');
+    document.getElementById('vp-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeVP = function() {
+    document.getElementById('vp-panel').classList.remove('open');
+    document.getElementById('vp-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeVP();
+  });
+
+  var vpCurrentFilter = 'all';
+  var vpCurrentSearch = '';
+
+  window.filterVP = function() {
+    vpCurrentSearch = document.getElementById('vp-search').value.toLowerCase();
+    applyVPFilter();
+  };
+
+  document.querySelectorAll('.vp-filter').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.vp-filter').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      vpCurrentFilter = btn.dataset.filter;
+      applyVPFilter();
+    });
+  });
+
+  function applyVPFilter() {
+    var cards = document.querySelectorAll('.vp-card');
+    var visible = 0;
+    cards.forEach(function(card) {
+      var catMatch = vpCurrentFilter === 'all' || card.dataset.cat === vpCurrentFilter;
+      var searchMatch = !vpCurrentSearch || card.textContent.toLowerCase().includes(vpCurrentSearch);
+      var show = catMatch && searchMatch;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+  }
+
 </script>
+
+<!-- VOCAB PANEL FAB -->
+<button class="vp-fab" id="vp-fab" onclick="openVP()" title="Vocabulary Practice">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    <line x1="10" y1="8" x2="16" y2="8"/><line x1="10" y1="12" x2="16" y2="12"/><line x1="10" y1="16" x2="14" y2="16"/>
+  </svg>
+  <span class="vp-fab-label">Vocab</span>
+</button>
+
+<!-- VOCAB PANEL OVERLAY -->
+<div class="vp-overlay" id="vp-overlay" onclick="closeVP()"></div>
+
+<!-- VOCAB PANEL -->
+<div class="vp-panel" id="vp-panel">
+  <div class="vp-panel-hdr">
+    <div>
+      <div class="vp-panel-eyebrow">Procurement · 42 terms</div>
+      <div class="vp-panel-title">Vocabulary</div>
+    </div>
+    <button class="vp-panel-close" onclick="closeVP()">&#x2715;</button>
+  </div>
+  <div class="vp-filters">
+    <button class="vp-filter active" data-filter="all">All <span class="vp-count">42</span></button>
+<button class="vp-filter" data-filter="Documents & Process" style="--cat-color:var(--teal)">Documents <span class="vp-count">13</span></button>
+<button class="vp-filter" data-filter="Legal & Contracts" style="--cat-color:var(--purple)">Legal <span class="vp-count">11</span></button>
+<button class="vp-filter" data-filter="Logistics & Operations" style="--cat-color:var(--orange)">Logistics <span class="vp-count">10</span></button>
+<button class="vp-filter" data-filter="Quality & Compliance" style="--cat-color:#059669">Quality <span class="vp-count">3</span></button>
+<button class="vp-filter" data-filter="Grammar & Usage" style="--cat-color:#BE185D">Grammar <span class="vp-count">5</span></button>
+
+  </div>
+  <div class="vp-search-wrap">
+    <input class="vp-search" type="text" placeholder="Search terms..." oninput="filterVP()" id="vp-search">
+  </div>
+  <div class="vp-cards" id="vp-cards">
+    <div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">penalty clause</div>
+    <div class="vp-pt">penalidade contratual</div>
+    <div class="vp-def">A financial consequence applied when one party fails to meet the contract terms — such as late delivery or quality failure.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">payment terms</div>
+    <div class="vp-pt">condições de pagamento</div>
+    <div class="vp-def">The agreed rules about when and how a buyer will pay the seller — for example, 30 days after the invoice date.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">force majeure</div>
+    <div class="vp-pt">força maior</div>
+    <div class="vp-def">A contract provision that frees both parties from obligations when extraordinary events — such as disasters or conflicts — make fulfilment impossible.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">acknowledge</div>
+    <div class="vp-pt">confirmar o recebimento / acusar o recibo</div>
+    <div class="vp-def">To formally confirm that a document was received and understood. 'Please acknowledge receipt of this PO.'</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Grammar & Usage">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
+    <div class="vp-term">supposed to</div>
+    <div class="vp-pt">era para / devia</div>
+    <div class="vp-def">Fixed expression for plans, agreements, or expectations. Not for personal opinions.</div>
+    <div class="vp-ex">""The delivery was supposed to arrive on Friday.""</div>
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Non-conforming goods</div>
+    <div class="vp-pt">Produtos Não Conformes</div>
+    <div class="vp-def">Goods that do not meet the specifications, quality standards, or requirements defined in the contract or purchase order. The buyer has the right to reject non-conforming goods and request replacement or a price reduction.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Grammar & Usage">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
+    <div class="vp-term">must</div>
+    <div class="vp-pt">deve / é obrigado a</div>
+    <div class="vp-def">Strong obligation — a rule, legal requirement, or non-negotiable condition.</div>
+    <div class="vp-ex">""All invoices must include the PO number.""</div>
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">stockout</div>
+    <div class="vp-pt">ruptura de estoque</div>
+    <div class="vp-def">When stock reaches zero and production or sales cannot continue. Every day of stockout has a direct financial cost.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">quotation</div>
+    <div class="vp-pt">cotação / orçamento formal</div>
+    <div class="vp-def">A formal document from a supplier stating the price, quantity, and conditions under which they will sell their goods.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">resubmit</div>
+    <div class="vp-pt">reenviar / submeter novamente</div>
+    <div class="vp-def">To send a corrected document again after an error was found. 'Please resubmit the invoice with the correct unit price.'</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Scope of supply</div>
+    <div class="vp-pt">Escopo de Fornecimento</div>
+    <div class="vp-def">The precise definition of what the supplier is responsible for delivering — including goods, services, documentation, packaging, and installation if applicable. A well-defined scope prevents disputes about what was and was not included in the contract price.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">Incoterm</div>
+    <div class="vp-pt">incoterm</div>
+    <div class="vp-def">Internationally recognised trade terms that define where responsibility transfers from seller to buyer, and who pays for shipping and insurance.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">vessel</div>
+    <div class="vp-pt">navio / embarcação</div>
+    <div class="vp-def">A ship used for transporting cargo. 'We have confirmed vessel booking' = space on the ship is reserved.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Arbitration</div>
+    <div class="vp-pt">Arbitragem</div>
+    <div class="vp-def">A private dispute resolution process where a neutral third party (arbitrator) makes a binding decision instead of a court. Common in international contracts because it avoids the complexity of litigating across different legal systems. The ICC (International Chamber of Commerce) is a leading arbitration institution.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">clause</div>
+    <div class="vp-pt">cláusula</div>
+    <div class="vp-def">A specific condition or requirement written into a contract or agreement.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">reorder</div>
+    <div class="vp-pt">reabastecer / fazer novo pedido</div>
+    <div class="vp-def">To place a new purchase order for a product that is running low. 'We need to reorder HX-44 immediately.'</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Quality & Compliance">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#059669;background:rgba(5,150,105,.1)">Quality & Compliance</div>
+    <div class="vp-term">compatibility</div>
+    <div class="vp-pt">compatibilidade</div>
+    <div class="vp-def">Whether a component will work correctly with the buyer's existing equipment or system.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Quality & Compliance">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#059669;background:rgba(5,150,105,.1)">Quality & Compliance</div>
+    <div class="vp-term">inspection</div>
+    <div class="vp-pt">inspeção</div>
+    <div class="vp-def">A physical check of goods — either at the factory before shipping (outgoing) or at the warehouse on arrival (incoming).</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">invoice</div>
+    <div class="vp-pt">fatura</div>
+    <div class="vp-def">A document from the supplier requesting payment for goods delivered. Must match the PO and GRN to be processed.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Request for Quotation (RFQ)</div>
+    <div class="vp-pt">Pedido de Cotação</div>
+    <div class="vp-def">A formal document sent by a buyer to one or more suppliers asking them to provide a price and delivery conditions for specific goods or services. It is not an order — it is a request for information.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Confidentiality clause</div>
+    <div class="vp-pt">Cláusula de Confidencialidade</div>
+    <div class="vp-def">A contract clause that prohibits one or both parties from disclosing sensitive information — such as pricing, technical specifications, or business plans — to third parties. Also known as an NDA (Non-Disclosure Agreement) when it is a standalone document.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Liability cap</div>
+    <div class="vp-pt">Limite de Responsabilidade</div>
+    <div class="vp-def">A contractual limit on the maximum financial compensation one party can claim from the other. Suppliers often propose low liability caps to protect themselves from large claims. Buyers should always check if the cap covers the full value of the order — and negotiate upward if necessary.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">freight</div>
+    <div class="vp-pt">frete / carga</div>
+    <div class="vp-def">The goods being transported, or the cost of transporting them. 'Freight costs' = the price of shipping.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Grammar & Usage">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
+    <div class="vp-term">should</div>
+    <div class="vp-pt">deveria / acho que</div>
+    <div class="vp-def">Use for advice or personal opinion. Not for agreements or contracts.</div>
+    <div class="vp-ex">""I think we should ask for better payment terms.""</div>
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">warehouse</div>
+    <div class="vp-pt">armazém / depósito</div>
+    <div class="vp-def">The physical location where goods are stored after arrival and before being used in production or distributed.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Net 30 / Net 60</div>
+    <div class="vp-pt">Pagamento em 30 / 60 dias</div>
+    <div class="vp-def">Standard payment terms meaning the buyer must pay within 30 (or 60) days of the invoice date. Net 60 is common in B2B procurement and gives the buyer more time to manage cash flow. Suppliers may offer early payment discounts (e.g. 2/10 Net 30 = 2% discount if paid within 10 days).</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Governing law</div>
+    <div class="vp-pt">Lei Aplicável / Foro</div>
+    <div class="vp-def">The jurisdiction whose laws will be used to interpret the contract and resolve disputes. In international procurement, this is critical — if a dispute goes to court orarbitrationA private dispute resolution process — a neutral arbitrator decides instead of a court. / Processo privado de resolução de disputas — um árbitro neutro decide em vez de um tribunal., the governing law determines the outcome. Always check with legal before accepting a foreign governing law.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Grammar & Usage">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
+    <div class="vp-term">certificate of conformance</div>
+    <div class="vp-pt">certificado de conformidade</div>
+    <div class="vp-def">A document from the supplier confirming goods meet the agreed specifications.</div>
+    <div class="vp-ex">""Every batch is supposed to come with a certificate of conformance.""</div>
+  </div>
+</div>
+<div class="vp-card" data-cat="Quality & Compliance">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#059669;background:rgba(5,150,105,.1)">Quality & Compliance</div>
+    <div class="vp-term">tolerance</div>
+    <div class="vp-pt">tolerância</div>
+    <div class="vp-def">The acceptable range of variation in a measurement. E.g. ±0.05mm means the part can be 0.05mm bigger or smaller than the target.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">batch</div>
+    <div class="vp-pt">lote</div>
+    <div class="vp-def">A group of products made in the same production run. Each batch has a unique reference for traceability — critical in chemicals and regulated industries.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">procurement</div>
+    <div class="vp-pt">compras / suprimentos</div>
+    <div class="vp-def">The full process of finding, evaluating, and buying goods or services for a business.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">lead time</div>
+    <div class="vp-pt">prazo de produção e entrega</div>
+    <div class="vp-def">The total time between placing an order and receiving the goods.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Logistics & Operations">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
+    <div class="vp-term">specification</div>
+    <div class="vp-pt">especificação técnica</div>
+    <div class="vp-def">The exact technical requirements for a product — dimensions, materials, purity, tolerances. The supplier must meet every point.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">MOQ (Minimum Order Quantity)</div>
+    <div class="vp-pt">quantidade mínima de pedido</div>
+    <div class="vp-def">The smallest quantity a supplier is willing to sell in a single order.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">Purchase Order (PO)</div>
+    <div class="vp-pt">ordem de compra</div>
+    <div class="vp-def">A formal document issued by a buyer to a supplier, confirming the purchase of specific goods at an agreed price and quantity.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">purchase agreement</div>
+    <div class="vp-pt">contrato de fornecimento</div>
+    <div class="vp-def">A formal legal document that defines the terms of an ongoing supply relationship between a buyer and a supplier.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Time is of the essence</div>
+    <div class="vp-pt">O prazo é essencial / fundamental</div>
+    <div class="vp-def">A legal phrase used in contracts meaning that meeting the deadline is a fundamental requirement, not a guideline. If a contract contains this phrase, a supplier who delivers even one day late can be heldin breach of contractWhen a party fails to fulfil a legal obligation under a contract. / Quando uma parte deixa de cumprir uma obrigação legal prevista em contrato..</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">Warranty</div>
+    <div class="vp-pt">Garantia</div>
+    <div class="vp-def">A supplier's formal commitment that goods will be free from defects for a defined period. The warranty period, start date (from delivery, installation, or first use), and what it covers are all negotiable and must be clearly specified in the contract.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Legal & Contracts">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
+    <div class="vp-term">In breach of contract</div>
+    <div class="vp-pt">Em descumprimento contratual</div>
+    <div class="vp-def">When a party fails to fulfil one or more of its contractual obligations. A breach can be minor (partial non-performance) or material (serious failure that entitles the other party to terminate and claim damages). Late delivery, non-conforming goods, and failure to pay are common examples.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">RFQ (Request for Quotation)</div>
+    <div class="vp-pt">pedido de cotação formal</div>
+    <div class="vp-def">A document sent to suppliers asking them to provide a price and delivery details for specific goods or services.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Documents & Process">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
+    <div class="vp-term">amendment</div>
+    <div class="vp-pt">aditivo / alteração de contrato</div>
+    <div class="vp-def">A formal written change made to an existing contract or purchase order after it has been signed.</div>
+    
+  </div>
+</div>
+<div class="vp-card" data-cat="Grammar & Usage">
+  <div class="vp-card-inner">
+    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
+    <div class="vp-term">Bill of Lading (B/L)</div>
+    <div class="vp-pt">Conhecimento de Embarque</div>
+    <div class="vp-def">A legal shipping document required for customs clearance at the destination port.</div>
+    <div class="vp-ex">""Hua Li was supposed to send the B/L within 24 hours of shipment.""</div>
+  </div>
+</div>
+  </div>
+</div>
+
+<!-- END VOCAB PANEL -->
 </body>
 </html>
