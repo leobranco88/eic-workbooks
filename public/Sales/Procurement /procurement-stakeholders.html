@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who's in the Deal? · Procurement · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;--hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;--mono:'IBM Plex Mono',monospace;--client:#0D7A8A;--provider:#7C3AED}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-logo{height:22px;width:auto;flex-shrink:0}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+
+.hero{background:var(--dark);padding:80px 56px 64px;margin-top:56px}
+.hero-inner{max-width:1040px;margin:0 auto}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.hero-eyebrow-line{width:24px;height:2px;background:var(--teal)}
+.hero-eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(32px,5vw,64px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:.95;margin-bottom:20px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.42);max-width:560px;line-height:1.7;margin-bottom:36px}
+.hero-legend{display:flex;gap:24px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+.stage{max-width:1040px;margin:0 auto;padding:56px 56px}
+.stage-label{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.stage-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px}
+.side-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:20px;display:inline-block;margin-bottom:20px}
+.side-client .side-label{background:rgba(13,122,138,.12);color:var(--client)}
+.side-provider .side-label{background:rgba(124,58,237,.12);color:var(--provider)}
+
+.sk-card{border-radius:14px;border:1.5px solid var(--border);background:#fff;margin-bottom:12px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s}
+.sk-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.08);transform:translateY(-1px)}
+.sk-card.open{box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.sk-top{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.sk-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.sk-info{flex:1;min-width:0}
+.sk-role{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.sk-dept{font-size:11px;font-weight:600;color:var(--mid);margin-top:2px}
+.sk-chevron{width:16px;height:16px;color:var(--mid);transition:transform .25s;flex-shrink:0}
+.sk-card.open .sk-chevron{transform:rotate(180deg)}
+.sk-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.sk-card.open .sk-body{max-height:600px}
+.sk-body-inner{padding:0 20px 20px}
+.sk-divider{height:1px;background:var(--border);margin-bottom:16px}
+.sk-wants-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.sk-wants{font-size:13px;color:#1a1a2e;line-height:1.7;margin-bottom:14px}
+.sk-quote-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.sk-quote{font-family:var(--mono);font-size:12px;line-height:1.75;padding:12px 14px;border-radius:8px;border-left:3px solid}
+.sk-vocab{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.sk-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+
+.connector{position:relative;display:flex;align-items:center;justify-content:center;padding:32px 0}
+.connector-line{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border)}
+.connector-badge{position:relative;background:var(--paper);border:1.5px solid var(--border);border-radius:20px;padding:6px 16px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+
+.reality-section{background:var(--dark);padding:56px}
+.reality-inner{max-width:1040px;margin:0 auto}
+.reality-title{font-size:clamp(20px,3vw,32px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:8px}
+.reality-title em{color:var(--teal);font-style:italic}
+.reality-sub{font-size:14px;color:rgba(255,255,255,.4);margin-bottom:32px;line-height:1.6}
+.reality-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.reality-q{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;cursor:default;transition:border-color .2s}
+.reality-q-text{font-size:14px;color:#fff;font-weight:600;line-height:1.55;margin-bottom:12px}
+.reality-reveal-btn{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:none;border:none;cursor:pointer;font-family:Inter,sans-serif;display:flex;align-items:center;gap:5px;padding:0}
+.reality-answer{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-top:12px;border-top:1px solid rgba(255,255,255,.08);padding-top:12px;display:none}
+.reality-answer.visible{display:block}
+
+.tip{border-bottom:1.5px dashed var(--teal);cursor:help;display:inline}
+#tip-global{display:none;position:fixed;background:var(--dark);color:#fff;border-radius:10px;padding:10px 14px;width:240px;font-size:12px;line-height:1.65;z-index:9999;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.45);font-family:Inter,sans-serif}
+#tip-global .tip-en{font-weight:700;color:var(--hi);font-size:11px;letter-spacing:.04em;display:block;margin-bottom:3px}
+#tip-global .tip-pt{font-size:10px;color:rgba(255,255,255,.45);display:block;margin-bottom:5px}
+#tip-global .tip-def{display:block}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-logo{height:20px;width:auto;opacity:.35;flex-shrink:0}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+
+.coll-fab{position:fixed;bottom:28px;right:28px;z-index:300;background:var(--orange);color:#fff;border:none;border-radius:14px;padding:12px 20px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:Inter,sans-serif;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(232,98,26,.4);transition:transform .15s,box-shadow .15s}
+.coll-fab:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,98,26,.45)}
+.coll-fab svg{flex-shrink:0}
+.coll-overlay{position:fixed;inset:0;background:rgba(7,16,32,.5);z-index:400;opacity:0;pointer-events:none;transition:opacity .25s}
+.coll-overlay.open{opacity:1;pointer-events:all}
+.coll-panel{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100vw;background:#fff;z-index:500;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden;box-shadow:-8px 0 40px rgba(0,0,0,.18)}
+.coll-panel.open{transform:translateX(0)}
+.coll-head{background:var(--dark);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.coll-head-title{font-size:16px;font-weight:900;color:#fff;letter-spacing:-.01em}
+.coll-head-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.coll-close{background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.6);width:32px;height:32px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.coll-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.coll-verb-nav{display:flex;gap:6px;padding:14px 24px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.coll-verb-nav::-webkit-scrollbar{display:none}
+.cv-btn{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--border);background:transparent;color:var(--mid);cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap;transition:all .15s}
+.cv-btn:hover{border-color:var(--ink);color:var(--ink)}
+.cv-btn.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.coll-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:0;min-height:0}
+.coll-verb-section{display:none;padding:20px 24px}
+.coll-verb-section.active{display:block}
+.cv-anchor{font-size:28px;font-weight:900;color:var(--orange);letter-spacing:-.03em;margin-bottom:4px}
+.cv-pt{font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px}
+.cv-note{font-size:13px;color:var(--mid);line-height:1.65;margin-bottom:20px;padding:12px 14px;background:var(--surface);border-radius:8px;border-left:3px solid var(--orange)}
+.coll-card{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.coll-card-top{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#fff;transition:background .15s}
+.coll-card-top:hover{background:var(--surface)}
+.coll-pair{font-size:14px;font-weight:800;color:var(--ink)}
+.coll-pair span{color:var(--orange)}
+.coll-pt-small{font-size:11px;color:var(--mid);margin-top:1px}
+.coll-chevron{width:14px;height:14px;color:var(--mid);transition:transform .2s;flex-shrink:0}
+.coll-card.open .coll-chevron{transform:rotate(180deg)}
+.coll-detail{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.coll-card.open .coll-detail{max-height:9999px}
+.coll-detail-inner{padding:0 16px 14px;border-top:1px solid var(--border)}
+.coll-wrong{font-size:11px;color:#991b1b;background:#fee2e2;border-radius:6px;padding:6px 10px;margin-top:10px;margin-bottom:8px;font-weight:600}
+.coll-wrong span{text-decoration:line-through;opacity:.7}
+.coll-ex{font-size:13px;color:#1a1a2e;line-height:1.7;font-family:'IBM Plex Mono',monospace;margin-top:8px;padding:10px 12px;background:var(--surface);border-radius:7px;border-left:2px solid var(--teal)}
+
+@media(max-width:900px){
+  .sides{grid-template-columns:1fr}
+  .stage{padding:36px 24px}
+  .hero{padding:60px 24px 48px}
+  .reality-section{padding:40px 24px}
+  .footer{padding:24px;flex-direction:column;text-align:center}
+  .footer-copy{text-align:center}
+}
+
+/* FOOTER NAV */
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+
+.mod-nav{position:sticky;top:56px;z-index:100;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.mod-nav::-webkit-scrollbar{display:none}
+.mod-nav-inner{display:flex;align-items:center;gap:0;min-width:max-content;padding:0 24px}
+.mod-nav a{display:inline-block;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.mod-nav a:hover{color:var(--ink)}
+.mod-nav a.nav-active{color:var(--teal);border-bottom-color:var(--teal)}
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <svg class="hdr-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <span class="hdr-meta">B1+ · MBA English · Procurement</span>
+  <span class="hdr-badge">Stakeholders</span>
+</header>
+<nav class="mod-nav"><div class="mod-nav-inner"><a href="./procurement-lead-in.html">Lead-in</a>
+<a href="./procurement-reading.html">Reading</a>
+<a href="./procurement-documents.html">Documents</a>
+<a href="./procurement-stakeholders.html" class="nav-active">Stakeholders</a>
+<a href="./procurement-flow.html">Flow</a>
+<a href="./procurement-grammar-voice2.html">Grammar: Voice</a>
+<a href="./procurement-grammar-supposed-to.html">Grammar: Supposed To</a>
+<a href="./procurement-grammar-who2.html">Neural English</a>
+<a href="./procurement-vocab.html">Vocab</a>
+<a href="./procurement-homework.html">Homework</a>
+</div></nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-text">B1+ · Buying Smart</span></div>
+    <h1 class="hero-title">Who's in<br><em>the Deal?</em></h1>
+    <p class="hero-sub">Before you read a Purchase Order or negotiate a contract, you need to know who the key people are — what they want, what they say, and why they matter in a procurement process.</p>
+    <div class="hero-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--client)"></div><span style="color:rgba(255,255,255,.55)">Buyer — Althea Industrial</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--provider)"></div><span style="color:rgba(255,255,255,.55)">Supplier — Hua Li Components, Taiwan</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--paper)">
+<div class="stage">
+  <div class="stage-label">The people involved</div>
+  <div class="sides">
+
+    <div class="side-client">
+      <div class="side-label">Buyer · Althea Industrial</div>
+      
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(13,122,138,.1);color:var(--client)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Procurement Manager</div>
+            <div class="sk-dept">Purchasing / Supply Chain</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">The best product at the best price — on time. They run the process from <span class="tip" data-tip="RFQ" onmouseenter="showTip(this,'RFQ')">RFQ</span> to <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">Purchase Order</span>, compare suppliers, negotiate terms, and own the <span class="tip" data-tip="supplier relationship" onmouseenter="showTip(this,'supplier relationship')">supplier relationship</span>. Their KPI is cost savings, <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> reduction, and zero <span class="tip" data-tip="stockout" onmouseenter="showTip(this,'stockout')">stockouts</span>.</div>
+          <div class="sk-quote-label" style="color:var(--client)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(13,122,138,.06);border-color:var(--client);color:var(--ink)">"We have three quotes on the table. <span class="tip" data-tip="Hua Li" onmouseenter="showTip(this,'Hua Li')">Hua Li</span> is 12% cheaper but their <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> is 60 days. GlobalParts is faster but we need to check their <span class="tip" data-tip="quality certification" onmouseenter="showTip(this,'quality certification')">quality certification</span>. Let's align before I send the <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">PO</span>."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">RFQ</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">Purchase Order</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">lead time</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">supplier evaluation</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">cost savings</span></div>
+        </div></div>
+      </div>
+
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(13,122,138,.1);color:var(--client)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Plant / Operations Manager</div>
+            <div class="sk-dept">Production / Manufacturing</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">No <span class="tip" data-tip="stockout" onmouseenter="showTip(this,'stockout')">stockouts</span>. No production stops. They do not care about the price negotiation — they care about the result: materials arriving on time, in the right quantity, and to the right specification. They are the ones who feel the pain when a supplier <span class="tip" data-tip="fails to deliver" onmouseenter="showTip(this,'fails to deliver')">fails to deliver</span>.</div>
+          <div class="sk-quote-label" style="color:var(--client)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(13,122,138,.06);border-color:var(--client);color:var(--ink)">"I don't care which supplier you choose. What I need is 2,000 units of HX-44 on the floor by the 15th or Line 3 stops. <span class="tip" data-tip="stockout" onmouseenter="showTip(this,'stockout')">Stockout</span> right now costs us R$40k a day. Make it happen."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">stockout</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">production stop</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">safety stock</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">lead time</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">on-time delivery</span></div>
+        </div></div>
+      </div>
+
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(13,122,138,.1);color:var(--client)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Finance / Accounts Payable</div>
+            <div class="sk-dept">Finance / Treasury</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">Correct documentation and predictable <span class="tip" data-tip="cash flow" onmouseenter="showTip(this,'cash flow')">cash flow</span>. They will only process a payment when the <span class="tip" data-tip="invoice" onmouseenter="showTip(this,'invoice')">invoice</span> matches the <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">Purchase Order</span> and the delivery receipt. A missing PO number or wrong quantity means the invoice goes back — and the supplier waits.</div>
+          <div class="sk-quote-label" style="color:var(--client)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(13,122,138,.06);border-color:var(--client);color:var(--ink)">"We cannot process this <span class="tip" data-tip="invoice" onmouseenter="showTip(this,'invoice')">invoice</span>. The amount does not match <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">PO</span> #BR-2024-0091. There is also no <span class="tip" data-tip="delivery receipt" onmouseenter="showTip(this,'delivery receipt')">delivery receipt</span> on file. Please resubmit with the correct documentation."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">invoice</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">payment terms</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">cash flow</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">delivery receipt</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">accounts payable</span></div>
+        </div></div>
+      </div>
+
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(13,122,138,.1);color:var(--client)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Legal / Compliance</div>
+            <div class="sk-dept">Legal Affairs</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">Protection. They review every clause before signing — looking for <span class="tip" data-tip="liability cap" onmouseenter="showTip(this,'liability cap')">liability caps</span>, <span class="tip" data-tip="penalty clause" onmouseenter="showTip(this,'penalty clause')">penalty clauses</span>, <span class="tip" data-tip="force majeure" onmouseenter="showTip(this,'force majeure')">force majeure</span> language, and <span class="tip" data-tip="governing law" onmouseenter="showTip(this,'governing law')">governing law</span>. They often slow things down — but they prevent bigger problems later.</div>
+          <div class="sk-quote-label" style="color:var(--client)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(13,122,138,.06);border-color:var(--client);color:var(--ink)">"We cannot sign the <span class="tip" data-tip="Purchase Agreement" onmouseenter="showTip(this,'Purchase Agreement')">Purchase Agreement</span> as written. Clause 11 has no <span class="tip" data-tip="liability cap" onmouseenter="showTip(this,'liability cap')">liability cap</span> and the <span class="tip" data-tip="governing law" onmouseenter="showTip(this,'governing law')">governing law</span> is Taiwan. We need both changed before this goes to management."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">liability cap</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">penalty clause</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">force majeure</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">governing law</span><span class="sk-tag" style="background:rgba(13,122,138,.06);color:var(--client)">Purchase Agreement</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="side-provider">
+      <div class="side-label">Supplier · Hua Li Components</div>
+      
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(124,58,237,.1);color:var(--provider)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Account Manager</div>
+            <div class="sk-dept">Sales / Commercial — Hua Li Components, Taiwan</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">To win the <span class="tip" data-tip="RFQ" onmouseenter="showTip(this,'RFQ')">RFQ</span> and build a long-term relationship with Althea Industrial. They defend price, manage <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> expectations, and keep the buyer happy enough to come back for the next order. Their biggest challenge is competing on value — not just price.</div>
+          <div class="sk-quote-label" style="color:var(--provider)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(124,58,237,.06);border-color:var(--provider);color:var(--ink)">"I understand price is a concern. But our <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> is 30 days versus 60 from the competitor — and we hold <span class="tip" data-tip="ISO 9001" onmouseenter="showTip(this,'ISO 9001')">ISO 9001</span> certification. The total cost of a <span class="tip" data-tip="stockout" onmouseenter="showTip(this,'stockout')">stockout</span> is much higher than our price difference."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">RFQ response</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">lead time</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">ISO 9001</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">total cost of ownership</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">relationship management</span></div>
+        </div></div>
+      </div>
+
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(124,58,237,.1);color:var(--provider)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M17.66 17.66l-1.41-1.41M6.34 17.66l1.41-1.41"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Sales / Applications Engineer</div>
+            <div class="sk-dept">Technical Sales — Hua Li Components, Taiwan</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">To confirm that their product meets the buyer's technical <span class="tip" data-tip="specification" onmouseenter="showTip(this,'specification')">specifications</span>. They review the <span class="tip" data-tip="RFQ" onmouseenter="showTip(this,'RFQ')">RFQ</span>, check <span class="tip" data-tip="tolerance" onmouseenter="showTip(this,'tolerance')">tolerances</span>, and confirm <span class="tip" data-tip="compatibility" onmouseenter="showTip(this,'compatibility')">compatibility</span>. They are the ones who say "yes, we can make it" — or "no, not with that spec".</div>
+          <div class="sk-quote-label" style="color:var(--provider)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(124,58,237,.06);border-color:var(--provider);color:var(--ink)">"I reviewed your <span class="tip" data-tip="specification" onmouseenter="showTip(this,'specification')">technical specification</span> for HX-44. The <span class="tip" data-tip="tolerance" onmouseenter="showTip(this,'tolerance')">tolerance</span> of ±0.05mm is achievable on our current line. However, the surface treatment you specified is non-standard — it will add 8 days to the <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> and USD 0.30 per unit."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">specification</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">tolerance</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">compatibility</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">lead time</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">non-conformance</span></div>
+        </div></div>
+      </div>
+
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(124,58,237,.1);color:var(--provider)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Logistics / Supply Chain Coordinator</div>
+            <div class="sk-dept">Operations — Hua Li Components, Taiwan</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">To ship on time, with the right documents. They manage <span class="tip" data-tip="production scheduling" onmouseenter="showTip(this,'production scheduling')">production scheduling</span>, book freight, and prepare the <span class="tip" data-tip="shipping documents" onmouseenter="showTip(this,'shipping documents')">shipping documents</span> — <span class="tip" data-tip="Bill of Lading" onmouseenter="showTip(this,'Bill of Lading')">Bill of Lading</span>, <span class="tip" data-tip="packing list" onmouseenter="showTip(this,'packing list')">packing list</span>, <span class="tip" data-tip="commercial invoice" onmouseenter="showTip(this,'commercial invoice')">commercial invoice</span>. A mistake here can hold a shipment at customs for weeks.</div>
+          <div class="sk-quote-label" style="color:var(--provider)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(124,58,237,.06);border-color:var(--provider);color:var(--ink)">"We have confirmed <span class="tip" data-tip="vessel" onmouseenter="showTip(this,'vessel')">vessel</span> booking for 14 November, <span class="tip" data-tip="ETD" onmouseenter="showTip(this,'ETD')">ETD</span> Shanghai. The <span class="tip" data-tip="Bill of Lading" onmouseenter="showTip(this,'Bill of Lading')">Bill of Lading</span> and <span class="tip" data-tip="packing list" onmouseenter="showTip(this,'packing list')">packing list</span> will be sent within 24 hours of departure. Please confirm the <span class="tip" data-tip="Incoterm" onmouseenter="showTip(this,'Incoterm')">Incoterm</span> — our records show CIF Santos."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">Bill of Lading</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">ETD</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">packing list</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">Incoterm</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">customs clearance</span></div>
+        </div></div>
+      </div>
+
+      <div class="sk-card" onclick="toggleCard(this)">
+        <div class="sk-top">
+          <div class="sk-icon" style="background:rgba(124,58,237,.1);color:var(--provider)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div class="sk-info">
+            <div class="sk-role">Quality Manager</div>
+            <div class="sk-dept">Quality Assurance — Hua Li Components, Taiwan</div>
+          </div>
+          <svg class="sk-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="sk-body"><div class="sk-body-inner">
+          <div class="sk-divider"></div>
+          <div class="sk-wants-label">What they want</div>
+          <div class="sk-wants">Zero <span class="tip" data-tip="non-conforming goods" onmouseenter="showTip(this,'non-conforming goods')">non-conformances</span>. They run <span class="tip" data-tip="inspection" onmouseenter="showTip(this,'inspection')">inspection</span> before shipment, issue <span class="tip" data-tip="certificate of conformance" onmouseenter="showTip(this,'certificate of conformance')">certificates of conformance</span>, and manage <span class="tip" data-tip="corrective action" onmouseenter="showTip(this,'corrective action')">corrective actions</span> when the buyer reports a defect. Their job is to make sure nothing leaves the factory that will come back as a complaint.</div>
+          <div class="sk-quote-label" style="color:var(--provider)">Typical phrase</div>
+          <div class="sk-quote" style="background:rgba(124,58,237,.06);border-color:var(--provider);color:var(--ink)">"All units passed <span class="tip" data-tip="outgoing inspection" onmouseenter="showTip(this,'outgoing inspection')">outgoing inspection</span> against your <span class="tip" data-tip="specification" onmouseenter="showTip(this,'specification')">technical specification</span> Rev.3. Please find attached the <span class="tip" data-tip="certificate of conformance" onmouseenter="showTip(this,'certificate of conformance')">certificate of conformance</span> and <span class="tip" data-tip="inspection report" onmouseenter="showTip(this,'inspection report')">inspection report</span> for batch #HX-2024-114."</div>
+          <div class="sk-vocab"><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">inspection</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">certificate of conformance</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">non-conformance</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">corrective action</span><span class="sk-tag" style="background:rgba(124,58,237,.06);color:var(--provider)">batch</span></div>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="connector">
+    <div class="connector-line"></div>
+    <div class="connector-badge">RFQ → Negotiation → PO → Delivery → Payment</div>
+  </div>
+
+</div>
+</div>
+
+<div class="reality-section">
+  <div class="reality-inner">
+    <h2 class="reality-title">Reality <em>check.</em></h2>
+    <p class="reality-sub">These questions are for discussion — in class or with yourself. There are no right answers.</p>
+    <div class="reality-grid">
+      
+      <div class="reality-q">
+        <div class="reality-q-text">In your company, who decides which supplier gets the order — procurement alone, or does operations or management have a say?</div>
+        <button class="reality-reveal-btn" onclick="toggleReality(this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg> Show prompt
+        </button>
+        <div class="reality-answer">Think about the last time a supplier was chosen or changed. Who was in the room?</div>
+      </div>
+
+      <div class="reality-q">
+        <div class="reality-q-text">Have you ever had a payment held up because of a missing document — a wrong PO number, no delivery receipt, or an invoice that didn't match?</div>
+        <button class="reality-reveal-btn" onclick="toggleReality(this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg> Show prompt
+        </button>
+        <div class="reality-answer">If yes: what was missing and how long did it take to resolve?</div>
+      </div>
+
+      <div class="reality-q">
+        <div class="reality-q-text">In your experience, does the legal team get involved in supplier contracts — or do procurement and management sign without legal review?</div>
+        <button class="reality-reveal-btn" onclick="toggleReality(this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg> Show prompt
+        </button>
+        <div class="reality-answer">Think about the risks of signing without legal input. Which clause would you want them to check first?</div>
+      </div>
+
+      <div class="reality-q">
+        <div class="reality-q-text">Has a supplier ever missed a delivery deadline that caused a problem for your production or operations team?</div>
+        <button class="reality-reveal-btn" onclick="toggleReality(this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg> Show prompt
+        </button>
+        <div class="reality-answer">What happened? Was there a penalty clause in the contract — and was it applied?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <svg class="footer-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <div class="footer-nav-row"><a href="./procurement-documents.html" class="footer-nav-btn footer-nav-prev">← Documents</a><a href="./procurement-flow.html" class="footer-nav-btn footer-nav-next">Flow →</a></div>
+<p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
+</footer>
+
+<div id="tip-global"><span class="tip-en"></span><span class="tip-pt"></span><span class="tip-def"></span></div>
+
+<div class="coll-overlay" id="coll-overlay" onclick="closeColl()"></div>
+<div class="coll-panel" id="coll-panel">
+  <div class="coll-head">
+    <div>
+      <div class="coll-head-title">Collocations</div>
+      <div class="coll-head-sub">Words that go together in procurement English</div>
+    </div>
+    <button class="coll-close" onclick="closeColl()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="coll-verb-nav"><button class="cv-btn active" onclick="showVerb('place',this)">place</button>
+<button class="cv-btn" onclick="showVerb('raise',this)">raise</button>
+<button class="cv-btn" onclick="showVerb('meet',this)">meet</button>
+<button class="cv-btn" onclick="showVerb('run',this)">run</button></div>
+  <div class="coll-body">
+    
+      <div class="coll-verb-section" id="cv-place">
+        <div class="cv-anchor">place</div>
+        <div class="cv-pt">fazer / emitir</div>
+        <div class="cv-note">In procurement, "place" collocates with order-related nouns. It means to formally issue or submit something.</div>
+        
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>place</span> + an order</div>
+              <div class="coll-pt-small">fazer um pedido</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>do an order</span></div>
+            <div class="coll-ex">"We will place an order once the price is confirmed."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>place</span> + a Purchase Order</div>
+              <div class="coll-pt-small">emitir uma ordem de compra</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>open a Purchase Order</span></div>
+            <div class="coll-ex">"Please place the Purchase Order before the supplier's deadline on Friday."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>place</span> + a bid</div>
+              <div class="coll-pt-small">fazer uma oferta / lance</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>put a bid</span></div>
+            <div class="coll-ex">"Three suppliers were invited to place a bid for the HX-44 contract."</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="coll-verb-section" id="cv-raise">
+        <div class="cv-anchor">raise</div>
+        <div class="cv-pt">emitir / levantar / escalar</div>
+        <div class="cv-note">"Raise" in procurement means to create a document or bring up a concern formally.</div>
+        
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>raise</span> + a Purchase Order</div>
+              <div class="coll-pt-small">emitir uma ordem de compra</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>open a PO</span></div>
+            <div class="coll-ex">"The system will not let me raise a PO without manager approval."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>raise</span> + a concern</div>
+              <div class="coll-pt-small">levantar uma preocupação</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>say a concern</span></div>
+            <div class="coll-ex">"I need to raise a concern about the supplier's lead time before we sign."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>raise</span> + an invoice</div>
+              <div class="coll-pt-small">emitir uma fatura</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>do an invoice</span></div>
+            <div class="coll-ex">"You can raise the invoice as soon as the delivery is confirmed."</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="coll-verb-section" id="cv-meet">
+        <div class="cv-anchor">meet</div>
+        <div class="cv-pt">cumprir / atender</div>
+        <div class="cv-note">"Meet" means to successfully fulfil a requirement, standard, or deadline. Very common in procurement and quality.</div>
+        
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>meet</span> + the deadline</div>
+              <div class="coll-pt-small">cumprir o prazo</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>respect the deadline</span></div>
+            <div class="coll-ex">"The supplier confirmed they will meet the delivery deadline."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>meet</span> + the specification</div>
+              <div class="coll-pt-small">atender à especificação</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>follow the specification</span></div>
+            <div class="coll-ex">"All units must meet the technical specification in Annex A."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>meet</span> + the MOQ</div>
+              <div class="coll-pt-small">atingir o pedido mínimo</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>arrive at the MOQ</span></div>
+            <div class="coll-ex">"Our current demand does not meet the MOQ — we need to consolidate orders."</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="coll-verb-section" id="cv-run">
+        <div class="cv-anchor">run</div>
+        <div class="cv-pt">fazer / conduzir / rodar</div>
+        <div class="cv-note">"Run" collocates with processes and checks in a procurement and quality context.</div>
+        
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>run</span> + an inspection</div>
+              <div class="coll-pt-small">fazer uma inspeção</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>make an inspection</span></div>
+            <div class="coll-ex">"We always run an inspection before the goods leave the factory."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>run</span> + a supplier evaluation</div>
+              <div class="coll-pt-small">conduzir uma avaliação de fornecedor</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>do a supplier evaluation</span></div>
+            <div class="coll-ex">"We run a supplier evaluation every six months to check on performance."</div>
+          </div></div>
+        </div>
+        <div class="coll-card" onclick="toggleColl(this)">
+          <div class="coll-card-top">
+            <div>
+              <div class="coll-pair"><span>run</span> + out of stock</div>
+              <div class="coll-pt-small">ficar sem estoque</div>
+            </div>
+            <svg class="coll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="coll-detail"><div class="coll-detail-inner">
+            <div class="coll-wrong">Not: <span>finish stock</span></div>
+            <div class="coll-ex">"If we don't reorder this week, we will run out of stock before the end of the month."</div>
+          </div></div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<button class="coll-fab" onclick="openColl()">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+  Collocations
+</button>
+
+<script>
+const TIPS = {
+  "RFQ": {en:"RFQ — Request for Quotation",pt:"Pedido de Cotação",def:"A formal document sent to suppliers asking for a price and delivery conditions for specific goods. Not an order — a request."},
+  "Purchase Order": {en:"Purchase Order (PO)",pt:"Ordem de Compra",def:"A formal document from the buyer confirming the purchase — price, quantity, and delivery date are now locked in."},
+  "lead time": {en:"lead time",pt:"prazo de entrega / lead time",def:"The total time between placing an order and receiving the goods. Includes production, quality checks, and shipping."},
+  "stockout": {en:"stockout",pt:"ruptura de estoque",def:"When a product runs out of stock and production or sales cannot continue. Every day of stockout has a cost."},
+  "supplier relationship": {en:"supplier relationship",pt:"relacionamento com fornecedor",def:"The ongoing commercial and operational connection between buyer and supplier — built on trust, performance, and communication."},
+  "Hua Li": {en:"Hua Li Components",pt:"Fornecedor fictício — Taiwan",def:"The fictional supplier used in this module. Represents a typical Asian component manufacturer in Althea Industrial's supply chain."},
+  "quality certification": {en:"quality certification",pt:"certificação de qualidade",def:"Official proof that a supplier's processes meet a recognised quality standard, such as ISO 9001."},
+  "PO": {en:"PO — Purchase Order",pt:"Ordem de Compra",def:"A formal document from the buyer confirming the purchase — price, quantity, and delivery date are locked in."},
+  "cash flow": {en:"cash flow",pt:"fluxo de caixa",def:"The movement of money in and out of a company. Late payments hurt cash flow — the company has less money available to operate."},
+  "invoice": {en:"invoice",pt:"fatura",def:"A document requesting payment for goods or services already delivered."},
+  "delivery receipt": {en:"delivery receipt",pt:"comprovante de entrega / nota de recebimento",def:"A document confirming that goods were physically received, in the right quantity and condition."},
+  "accounts payable": {en:"accounts payable",pt:"contas a pagar",def:"The department responsible for paying supplier invoices. They need the correct documentation before releasing any payment."},
+  "liability cap": {en:"liability cap",pt:"limite de responsabilidade",def:"A clause that limits the maximum financial exposure of a party. Without it, a supplier could face unlimited claims."},
+  "penalty clause": {en:"penalty clause",pt:"cláusula de multa",def:"A contract clause specifying financial compensation for non-performance — most commonly for late delivery."},
+  "force majeure": {en:"force majeure",pt:"força maior",def:"Events beyond anyone's control — natural disasters, war, strikes — that excuse non-performance under a contract."},
+  "governing law": {en:"governing law",pt:"lei aplicável / foro",def:"The jurisdiction whose laws govern the contract. Critical in international deals — always confirm with your legal team."},
+  "Purchase Agreement": {en:"Purchase Agreement",pt:"Contrato de Fornecimento",def:"A formal contract governing a longer-term supply relationship — includes warranty, penalties, and what happens when things go wrong."},
+  "ISO 9001": {en:"ISO 9001",pt:"Certificação ISO 9001",def:"An internationally recognised quality management standard. A supplier with ISO 9001 has proven, audited quality processes."},
+  "specification": {en:"specification / spec",pt:"especificação técnica",def:"The exact technical requirements for a product — dimensions, materials, tolerances. The supplier must meet every point."},
+  "tolerance": {en:"tolerance",pt:"tolerância",def:"The acceptable range of variation in a measurement. E.g. ±0.05mm means the part can be 0.05mm bigger or smaller than the target."},
+  "compatibility": {en:"compatibility",pt:"compatibilidade",def:"Whether a component will work correctly with the buyer's existing equipment or system."},
+  "non-conforming goods": {en:"non-conforming goods",pt:"produtos não conformes",def:"Goods that do not meet the agreed specifications or quality standards. The buyer has the right to reject them."},
+  "production scheduling": {en:"production scheduling",pt:"programação de produção",def:"Planning when and in what order products will be manufactured to meet delivery deadlines."},
+  "shipping documents": {en:"shipping documents",pt:"documentos de embarque",def:"The full set of documents required to ship goods internationally — Bill of Lading, packing list, commercial invoice, certificate of origin."},
+  "Bill of Lading": {en:"Bill of Lading (B/L)",pt:"Conhecimento de Embarque",def:"A legal document issued by the carrier confirming receipt of goods for shipment. Required for customs clearance."},
+  "packing list": {en:"packing list",pt:"romaneio / lista de embalagem",def:"A document listing exactly what is in each box or container — quantity, weight, dimensions. Must match the invoice."},
+  "commercial invoice": {en:"commercial invoice",pt:"fatura comercial",def:"The official invoice used in international trade for customs purposes — shows price, quantity, and origin of goods."},
+  "vessel": {en:"vessel",pt:"navio / embarcação",def:"A ship used for transporting cargo. 'We have confirmed vessel booking' = the space on the ship is reserved."},
+  "ETD": {en:"ETD — Estimated Time of Departure",pt:"Previsão de Partida",def:"The expected date and time when the vessel leaves the port of origin."},
+  "Incoterm": {en:"Incoterm",pt:"Incoterm",def:"International trade terms defining who pays for freight and insurance and who bears risk during transport. CIF = seller pays to destination port."},
+  "customs clearance": {en:"customs clearance",pt:"desembaraço aduaneiro",def:"The official process of getting government approval to import or export goods. Missing documents can cause weeks of delay."},
+  "inspection": {en:"inspection",pt:"inspeção",def:"A physical check of goods — either at the factory before shipping (outgoing) or at the warehouse on arrival (incoming)."},
+  "certificate of conformance": {en:"certificate of conformance",pt:"certificado de conformidade",def:"A document from the supplier confirming that the goods meet the required specifications and quality standards."},
+  "corrective action": {en:"corrective action",pt:"ação corretiva",def:"A formal response to a quality problem — identifying the root cause and implementing a fix to prevent recurrence."},
+  "outgoing inspection": {en:"outgoing inspection",pt:"inspeção de saída / pré-embarque",def:"A quality check done at the factory before goods are shipped. Catches defects before they reach the buyer."},
+  "inspection report": {en:"inspection report",pt:"relatório de inspeção",def:"A document recording the results of a quality inspection — what was checked, how many passed, and any issues found."},
+  "batch": {en:"batch",pt:"lote",def:"A group of products manufactured together in one production run. Each batch has a unique reference number for traceability."},
+  "fails to deliver": {en:"fails to deliver",pt:"deixa de entregar",def:"When a supplier does not meet the agreed delivery date or does not ship the correct goods."}
+};
+
+function showTip(el, key) {
+  const t = TIPS[key];
+  if (!t) return;
+  const box = document.getElementById('tip-global');
+  box.querySelector('.tip-en').textContent = t.en;
+  box.querySelector('.tip-pt').textContent = t.pt || '';
+  box.querySelector('.tip-def').textContent = t.def;
+  box.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const tw = 240;
+  let left = r.left + r.width/2 - tw/2;
+  if (left < 8) left = 8;
+  if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+  let top = r.top - box.offsetHeight - 8;
+  if (top < 8) top = r.bottom + 8;
+  box.style.left = left + 'px';
+  box.style.top = top + 'px';
+  el.addEventListener('mouseleave', () => { box.style.display = 'none'; }, {once:true});
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+function toggleReality(btn) {
+  const ans = btn.nextElementSibling;
+  const isOpen = ans.classList.contains('visible');
+  ans.classList.toggle('visible', !isOpen);
+  btn.innerHTML = isOpen
+    ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg> Show prompt'
+    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg> Hide';
+}
+
+function openColl() {
+  document.getElementById('coll-panel').classList.add('open');
+  document.getElementById('coll-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeColl() {
+  document.getElementById('coll-panel').classList.remove('open');
+  document.getElementById('coll-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function showVerb(id, btn) {
+  document.querySelectorAll('.coll-verb-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.cv-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('cv-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleColl(card) {
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>

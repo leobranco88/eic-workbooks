@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modal Verbs — Homework · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;--hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;--mono:'IBM Plex Mono',monospace;--purple:#5B21B6;--green:#065F46;--green-bg:#ECFDF5;--red:#991B1B;--red-bg:#FEF2F2}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-logo{height:22px;width:auto;flex-shrink:0}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--orange);padding:3px 12px;border-radius:20px}
+
+.hw-nav{position:sticky;top:56px;z-index:100;background:#fff;border-bottom:1px solid var(--border);padding:0 40px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;height:48px;align-items:center}
+.hw-nav::-webkit-scrollbar{display:none}
+.gnav-btn{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--mid);font-family:Inter,sans-serif;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.gnav-btn:hover{border-color:var(--ink);color:var(--ink)}
+.gnav-btn.active{background:var(--orange);border-color:var(--orange);color:#fff}
+
+.hero-bar{background:var(--dark);padding:48px 56px 40px;margin-top:104px}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.hero-eyebrow-line{width:24px;height:2px;background:var(--orange)}
+.hero-eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);opacity:.9}
+.hero-title{font-size:clamp(28px,4vw,52px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:12px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.42);max-width:620px;line-height:1.65}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;font-size:11px;color:rgba(255,255,255,.45)}
+.hero-chip strong{color:rgba(255,255,255,.7)}
+
+.hw-section{border-bottom:2px solid var(--border);background:#fff}
+.hw-section:nth-child(even){background:var(--paper)}
+.hw-inner{max-width:880px;margin:0 auto;padding:56px 56px}
+
+.sec-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sec-tag{font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--mid)}
+.sec-rule{flex:1;height:1px;background:var(--border)}
+.sec-title{font-size:28px;font-weight:900;letter-spacing:-.02em;color:var(--ink);margin-bottom:8px}
+.sec-title em{font-style:italic;color:var(--orange)}
+.sec-sub{font-size:15px;color:var(--mid);line-height:1.65;max-width:640px;margin-bottom:12px}
+.sec-sub-pt{font-size:13px;color:var(--mid);margin-bottom:32px;padding:10px 14px;background:rgba(232,98,26,.06);border-radius:8px;border-left:3px solid var(--orange)}
+.sec-sub-pt strong{color:var(--orange)}
+
+.ex-instruction{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:24px;padding:12px 16px;background:var(--surface);border-radius:8px;border-left:3px solid var(--orange)}
+.ex-instruction strong{color:var(--orange)}
+
+/* QUICK REF TABLE */
+.ref-table{width:100%;border-collapse:collapse;margin-bottom:32px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.ref-table thead tr{background:var(--dark)}
+.ref-table thead th{padding:12px 18px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:left}
+.ref-table thead th:first-child{color:#fff}
+.ref-table tbody tr{border-bottom:1px solid var(--border)}
+.ref-table tbody tr:last-child{border-bottom:none}
+.ref-table tbody tr:nth-child(odd){background:#fff}
+.ref-table tbody tr:nth-child(even){background:var(--paper)}
+.ref-table td{padding:12px 18px;font-size:13px;line-height:1.55;color:var(--ink);vertical-align:top}
+.ref-table td:first-child{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--purple);width:70px}
+.ref-pt{font-size:11px;color:var(--purple);font-weight:500;display:block;margin-top:2px}
+.mt-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:10px}
+.tag-obrig{background:rgba(91,33,182,.1);color:var(--purple)}
+.tag-perm{background:rgba(13,122,138,.1);color:var(--teal)}
+.tag-nec{background:rgba(232,98,26,.1);color:var(--orange)}
+.tag-rec{background:rgba(107,114,128,.1);color:var(--mid)}
+
+/* EXERCISE A — MULTIPLE CHOICE */
+.mc-item{margin-bottom:20px;padding:20px;background:#fff;border:1.5px solid var(--border);border-radius:12px;transition:border-color .2s}
+.mc-item.answered-ok{border-color:#10B981}
+.mc-item.answered-no{border-color:#F87171}
+.mc-num{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--orange);margin-bottom:6px}
+.mc-context{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.mc-sentence{font-size:15px;font-family:var(--mono);color:var(--ink);line-height:1.8;margin-bottom:14px;padding:10px 14px;background:var(--paper);border-radius:8px}
+.mc-blank{display:inline-block;border-bottom:2px solid var(--orange);min-width:72px;text-align:center;color:var(--orange);font-weight:700;padding:0 4px}
+.mc-opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.mc-opt{padding:6px 18px;border-radius:20px;font-size:12px;font-weight:700;border:1.5px solid var(--border);background:transparent;cursor:pointer;transition:all .2s;color:var(--ink);font-family:Inter,sans-serif}
+.mc-opt:hover{border-color:var(--orange);color:var(--orange)}
+.mc-opt.correct{background:var(--green-bg);border-color:#10B981;color:var(--green)}
+.mc-opt.wrong{background:var(--red-bg);border-color:#F87171;color:var(--red)}
+.mc-opt.dimmed{opacity:.35;pointer-events:none}
+.mc-fb{display:none;font-size:12px;padding:8px 12px;border-radius:8px;line-height:1.55;margin-top:4px}
+.mc-fb.show{display:block}
+.mc-fb.ok{background:var(--green-bg);color:var(--green)}
+.mc-fb.no{background:var(--red-bg);color:var(--red)}
+
+/* EXERCISE B — SPOT THE ERROR */
+.ste-item{margin-bottom:20px;padding:20px;background:#fff;border:1.5px solid var(--border);border-radius:12px}
+.ste-num{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--orange);margin-bottom:6px}
+.ste-context{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.ste-clause{font-size:14px;font-family:var(--mono);color:var(--ink);line-height:1.8;padding:12px 16px;background:var(--paper);border-radius:8px;margin-bottom:14px}
+.ste-clause .wrong-word{color:var(--red);font-weight:900;text-decoration:underline wavy var(--red)}
+.ste-opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.ste-opt{padding:6px 18px;border-radius:20px;font-size:12px;font-weight:700;border:1.5px solid var(--border);background:transparent;cursor:pointer;transition:all .2s;color:var(--ink);font-family:Inter,sans-serif}
+.ste-opt:hover{border-color:var(--orange);color:var(--orange)}
+.ste-opt.correct{background:var(--green-bg);border-color:#10B981;color:var(--green)}
+.ste-opt.wrong{background:var(--red-bg);border-color:#F87171;color:var(--red)}
+.ste-opt.dimmed{opacity:.35;pointer-events:none}
+.ste-fb{display:none;font-size:12px;padding:8px 12px;border-radius:8px;line-height:1.55;margin-top:4px}
+.ste-fb.show{display:block}
+.ste-fb.ok{background:var(--green-bg);color:var(--green)}
+.ste-fb.no{background:var(--red-bg);color:var(--red)}
+
+/* EXERCISE C — REWRITE */
+.rw-item{margin-bottom:24px;padding:20px;background:#fff;border:1.5px solid var(--border);border-radius:12px}
+.rw-num{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--orange);margin-bottom:6px}
+.rw-context{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.rw-original{font-size:14px;color:var(--mid);line-height:1.6;margin-bottom:12px;padding:10px 14px;background:var(--paper);border-radius:8px;font-style:italic}
+.rw-original strong{color:var(--orange);font-style:normal}
+.rw-field{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-family:var(--mono);color:var(--ink);background:#fff;resize:vertical;min-height:60px;outline:none;transition:border-color .2s;margin-bottom:10px}
+.rw-field:focus{border-color:var(--orange)}
+.reveal-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);background:var(--surface);cursor:pointer;font-family:Inter,sans-serif;transition:all .2s}
+.reveal-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.reveal-btn.open{background:var(--teal);color:#fff;border-color:var(--teal)}
+.reveal-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.reveal-btn.open svg{transform:rotate(180deg)}
+.rw-answer{display:none;margin-top:12px;padding:12px 14px;background:var(--green-bg);border-radius:8px;border-left:3px solid #10B981}
+.rw-answer-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#059669;margin-bottom:5px}
+.rw-answer-text{font-size:14px;font-family:var(--mono);color:var(--green);line-height:1.65}
+.rw-answer-note{font-size:12px;color:#047857;margin-top:6px;line-height:1.5}
+
+/* SCORE PANEL */
+.score-panel{border:2px solid var(--border);border-radius:16px;overflow:hidden;margin-top:8px}
+.score-panel-hdr{background:var(--dark);padding:20px 28px}
+.sp-title{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.sp-score{font-size:48px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
+.sp-score em{font-size:20px;font-weight:400;color:rgba(255,255,255,.35);font-style:normal}
+.score-panel-body{padding:20px 28px;background:#fff}
+.sp-bars{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.sp-bar-row{display:flex;align-items:center;gap:12px}
+.sp-bar-label{font-size:11px;font-weight:700;width:90px;color:var(--mid)}
+.sp-bar-track{flex:1;height:8px;background:var(--surface);border-radius:4px;overflow:hidden}
+.sp-bar-fill{height:100%;border-radius:4px;transition:width .6s ease;background:var(--purple)}
+.sp-bar-count{font-size:11px;font-weight:700;color:var(--mid);width:32px;text-align:right}
+.sp-msg{font-size:14px;color:var(--mid);line-height:1.65;padding:14px 16px;background:var(--paper);border-radius:8px}
+.sp-actions{display:flex;gap:10px;margin-top:16px}
+.sp-retry{padding:9px 20px;border-radius:20px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:none;background:var(--orange);color:#fff;cursor:pointer;font-family:Inter,sans-serif;transition:all .2s}
+.sp-retry:hover{background:#C4510F}
+
+/* RESET BTN */
+.reset-btn{padding:9px 20px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--border);background:transparent;color:var(--mid);cursor:pointer;font-family:Inter,sans-serif;transition:all .2s}
+.reset-btn:hover{border-color:var(--ink);color:var(--ink)}
+.reset-row{display:flex;justify-content:flex-end;margin-top:8px}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-logo{height:20px;width:auto;opacity:.35;flex-shrink:0}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+
+@media(max-width:900px){
+  .hw-inner{padding:36px 24px}
+  .hero-bar{padding:36px 24px 32px}
+  .footer{padding:24px;flex-direction:column;text-align:center}
+  .footer-copy{text-align:center}
+}
+
+/* FOOTER NAV */
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+
+.mod-nav{position:sticky;top:56px;z-index:100;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.mod-nav::-webkit-scrollbar{display:none}
+.mod-nav-inner{display:flex;align-items:center;gap:0;min-width:max-content;padding:0 24px}
+.mod-nav a{display:inline-block;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.mod-nav a:hover{color:var(--ink)}
+.mod-nav a.nav-active{color:var(--teal);border-bottom-color:var(--teal)}
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <svg class="hdr-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <span class="hdr-meta">B1+ · MBA English · Homework</span>
+  <span class="hdr-badge">Extra Practice</span>
+</header>
+<nav class="mod-nav"><div class="mod-nav-inner"><a href="./procurement-lead-in.html">Lead-in</a>
+<a href="./procurement-reading.html">Reading</a>
+<a href="./procurement-documents.html">Documents</a>
+<a href="./procurement-stakeholders.html">Stakeholders</a>
+<a href="./procurement-flow.html">Flow</a>
+<a href="./procurement-grammar-voice2.html">Grammar: Voice</a>
+<a href="./procurement-grammar-supposed-to.html">Grammar: Supposed To</a>
+<a href="./procurement-grammar-who2.html">Neural English</a>
+<a href="./procurement-vocab.html">Vocab</a>
+<a href="./procurement-homework.html" class="nav-active">Homework</a>
+</div></nav>
+<nav class="hw-nav">
+  <button class="gnav-btn active" onclick="scrollToSec('ref',this)">Quick Reference</button>
+  <button class="gnav-btn" onclick="scrollToSec('exA',this)">Exercise A · Multiple Choice</button>
+  <button class="gnav-btn" onclick="scrollToSec('exB',this)">Exercise B · Spot the Error</button>
+  <button class="gnav-btn" onclick="scrollToSec('exC',this)">Exercise C · Rewrite</button>
+  <button class="gnav-btn" onclick="scrollToSec('score',this)">My Score</button>
+</nav>
+
+<div class="hero-bar">
+  <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-text">Homework · B1+</span></div>
+  <h1 class="hero-title">Modal Verbs —<br><em>Extra Practice.</em></h1>
+  <p class="hero-sub">Three exercises using real situations from Sales, Procurement, and Logistics. Do this before your next class — bring your questions.</p>
+  <div class="hero-chips">
+    <div class="hero-chip"><strong>Sales</strong> · Negotiation &amp; Proposals</div>
+    <div class="hero-chip"><strong>Procurement</strong> · Purchase Orders &amp; Contracts</div>
+    <div class="hero-chip"><strong>Logistics</strong> · Delivery &amp; Compliance</div>
+  </div>
+</div>
+
+
+<!-- QUICK REFERENCE -->
+<section class="hw-section" id="ref">
+  <div class="hw-inner">
+    <div class="sec-eyebrow"><span class="sec-tag">Quick Reference</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title">Four modals. <em>One table.</em></h2>
+    <p class="sec-sub">Use this as your cheat sheet while you do the exercises. You can scroll back here at any time.</p>
+    <p class="sec-sub-pt"><strong>Em português:</strong> Use como referência enquanto faz os exercícios. Você pode voltar aqui a qualquer momento.</p>
+    <table class="ref-table">
+      <thead><tr><th>Modal</th><th>Level</th><th>Meaning in contracts</th><th>Quick example</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>shall<span class="ref-pt">obrigação</span></td>
+          <td><span class="mt-tag tag-obrig">Obligation</span></td>
+          <td>Mandatory — the party has no choice.<span class="ref-pt">Obrigatório — a parte não tem escolha.</span></td>
+          <td style="font-style:italic;font-size:12px;color:var(--mid)">"Supplier <strong>shall</strong> deliver by the date in the PO."</td>
+        </tr>
+        <tr>
+          <td>must<span class="ref-pt">necessidade</span></td>
+          <td><span class="mt-tag tag-nec">Necessity</span></td>
+          <td>Strong requirement — cannot be skipped.<span class="ref-pt">Requisito forte — não pode ser ignorado.</span></td>
+          <td style="font-style:italic;font-size:12px;color:var(--mid)">"The PO number <strong>must</strong> appear on all invoices."</td>
+        </tr>
+        <tr>
+          <td>may<span class="ref-pt">permissão</span></td>
+          <td><span class="mt-tag tag-perm">Permission</span></td>
+          <td>Option or right — the party can, but is not required.<span class="ref-pt">Opção ou direito — a parte pode, mas não é obrigada.</span></td>
+          <td style="font-style:italic;font-size:12px;color:var(--mid)">"Either party <strong>may</strong> terminate with 30 days notice."</td>
+        </tr>
+        <tr>
+          <td>should<span class="ref-pt">recomendação</span></td>
+          <td><span class="mt-tag tag-rec">Recommendation</span></td>
+          <td>Expected but not binding — good practice.<span class="ref-pt">Esperado, mas não vinculante — boa prática.</span></td>
+          <td style="font-style:italic;font-size:12px;color:var(--mid)">"Supplier <strong>should</strong> notify Buyer of any delays."</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- EXERCISE A — MULTIPLE CHOICE -->
+<section class="hw-section" id="exA">
+  <div class="hw-inner">
+    <div class="sec-eyebrow"><span class="sec-tag">Exercise A</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title">Choose <em>the right modal.</em></h2>
+    <p class="sec-sub">Six sentences from real business situations across Sales, Procurement and Logistics. Choose the correct modal verb — only one is right in each context.</p>
+    <p class="sec-sub-pt"><strong>Em português:</strong> Seis frases de situações reais de negócios em Vendas, Compras e Logística. Escolha o verbo modal correto — apenas um é correto em cada contexto.</p>
+    <div class="ex-instruction"><strong>How to answer:</strong> Click the option you think is correct. You will get immediate feedback. If you get it wrong, read the explanation and think about the level of obligation before moving on. <strong style="color:var(--orange)">/ Como responder:</strong> Clique na opção que você acha correta. Você receberá feedback imediato.</div>
+
+    <!-- A1 -->
+    <div class="mc-item" id="ma1">
+      <div class="mc-num">A1</div>
+      <div class="mc-context">Sales · Proposal to a new client</div>
+      <div class="mc-sentence">"All prices quoted in this proposal <span class="mc-blank" id="mab1">______</span> be confirmed in writing before they become binding."</div>
+      <div class="mc-opts">
+        <button class="mc-opt" onclick="checkMC(this,'ma1','mab1',false,'shall','&quot;May&quot; would make confirmation optional. But prices in a formal proposal need written confirmation — this is a standard requirement, not a choice. / &quot;May&quot; tornaria a confirmação opcional. Mas preços em uma proposta formal precisam de confirmação por escrito — isso é um requisito, não uma escolha.')">may</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma1','mab1',true,'shall','Correct. &quot;Shall&quot; makes written confirmation a binding obligation — both parties know the price is not locked until confirmed in writing. / Correto. &quot;Shall&quot; torna a confirmação por escrito uma obrigação vinculante.')">shall</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma1','mab1',false,'shall','&quot;Should&quot; would make confirmation a suggestion — too weak for a pricing clause in a formal proposal. / &quot;Should&quot; tornaria a confirmação uma sugestão — fraco demais para uma cláusula de preços em uma proposta formal.')">should</button>
+      </div>
+      <div class="mc-fb" id="mafb1"></div>
+    </div>
+
+    <!-- A2 -->
+    <div class="mc-item" id="ma2">
+      <div class="mc-num">A2</div>
+      <div class="mc-context">Logistics · Shipping instruction</div>
+      <div class="mc-sentence">"The freight forwarder <span class="mc-blank" id="mab2">______</span> send the Bill of Lading to the buyer within 24 hours of vessel departure."</div>
+      <div class="mc-opts">
+        <button class="mc-opt" onclick="checkMC(this,'ma2','mab2',false,'must','&quot;May&quot; would mean the forwarder has a choice — but this is a required step in the shipping process. Without the B/L, the buyer cannot clear customs. / &quot;May&quot; indicaria que o agente tem escolha — mas este é um passo obrigatório no processo de embarque.')">may</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma2','mab2',false,'must','&quot;Should&quot; is too weak here. Missing the B/L deadline causes real damage — customs delays, demurrage charges. This needs a stronger modal. / &quot;Should&quot; é fraco demais aqui. Atrasar o B/L causa danos reais — atrasos na alfândega, taxas de sobrestadia.')">should</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma2','mab2',true,'must','Correct. &quot;Must&quot; signals a non-negotiable process requirement. The 24-hour deadline is critical — without the B/L, the buyer cannot clear customs. / Correto. &quot;Must&quot; sinaliza um requisito de processo inegociável. O prazo de 24 horas é crítico.')">must</button>
+      </div>
+      <div class="mc-fb" id="mafb2"></div>
+    </div>
+
+    <!-- A3 -->
+    <div class="mc-item" id="ma3">
+      <div class="mc-num">A3</div>
+      <div class="mc-context">Procurement · Purchase Agreement, payment terms</div>
+      <div class="mc-sentence">"Buyer <span class="mc-blank" id="mab3">______</span> request an extension of the payment period if a force majeure event prevents normal processing."</div>
+      <div class="mc-opts">
+        <button class="mc-opt" onclick="checkMC(this,'ma3','mab3',false,'may','&quot;Shall&quot; would make requesting an extension mandatory — but requesting is a right the buyer can exercise, not a duty. / &quot;Shall&quot; tornaria o pedido de extensão obrigatório — mas pedir é um direito que o comprador pode exercer, não um dever.')">shall</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma3','mab3',true,'may','Correct. &quot;May&quot; signals a right the buyer can exercise in specific circumstances — a force majeure event. It is an option, not a requirement. / Correto. &quot;May&quot; sinaliza um direito que o comprador pode exercer em circunstâncias específicas. É uma opção, não uma obrigação.')">may</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma3','mab3',false,'may','&quot;Must&quot; would make the request obligatory — strange, since the buyer may prefer to pay on time even during force majeure. / &quot;Must&quot; tornaria o pedido obrigatório — estranho, pois o comprador pode preferir pagar no prazo mesmo durante força maior.')">must</button>
+      </div>
+      <div class="mc-fb" id="mafb3"></div>
+    </div>
+
+    <!-- A4 -->
+    <div class="mc-item" id="ma4">
+      <div class="mc-num">A4</div>
+      <div class="mc-context">Sales · Service Level Agreement</div>
+      <div class="mc-sentence">"The technical team <span class="mc-blank" id="mab4">______</span> respond to critical support tickets within four (4) business hours of receipt."</div>
+      <div class="mc-opts">
+        <button class="mc-opt" onclick="checkMC(this,'ma4','mab4',true,'shall','Correct. In an SLA, response times are binding commitments, not suggestions. &quot;Shall&quot; makes the 4-hour window an enforceable obligation. / Correto. Em um SLA, tempos de resposta são compromissos vinculantes, não sugestões. &quot;Shall&quot; torna a janela de 4 horas uma obrigação exigível.')">shall</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma4','mab4',false,'shall','&quot;Should&quot; would make the 4-hour response a recommendation — unacceptable in a formal SLA where clients expect guaranteed response times. / &quot;Should&quot; tornaria o tempo de resposta de 4 horas uma recomendação — inaceitável em um SLA formal.')">should</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma4','mab4',false,'shall','&quot;May&quot; would make response optional — the team might respond within 4 hours, or might not. That is not what an SLA guarantees. / &quot;May&quot; tornaria a resposta opcional — a equipe pode ou não responder em 4 horas. Isso não é o que um SLA garante.')">may</button>
+      </div>
+      <div class="mc-fb" id="mafb4"></div>
+    </div>
+
+    <!-- A5 -->
+    <div class="mc-item" id="ma5">
+      <div class="mc-num">A5</div>
+      <div class="mc-context">Logistics · Customs compliance</div>
+      <div class="mc-sentence">"Importers <span class="mc-blank" id="mab5">______</span> keep all customs documentation for a minimum of five (5) years after the date of import."</div>
+      <div class="mc-opts">
+        <button class="mc-opt" onclick="checkMC(this,'ma5','mab5',false,'must','&quot;May&quot; would make record-keeping optional — but customs authorities require it by law. This is a legal compliance requirement. / &quot;May&quot; tornaria o arquivamento opcional — mas as autoridades aduaneiras exigem isso por lei. Este é um requisito legal de conformidade.')">may</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma5','mab5',false,'must','&quot;Should&quot; is too weak for a legal requirement. Failing to keep customs records for 5 years can result in fines or loss of import licence. / &quot;Should&quot; é fraco demais para um requisito legal. Deixar de manter registros por 5 anos pode resultar em multas ou perda da licença de importação.')">should</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma5','mab5',true,'must','Correct. &quot;Must&quot; is the correct choice for a legal compliance requirement. This is not a suggestion — it is a statutory obligation. / Correto. &quot;Must&quot; é a escolha correta para um requisito legal de conformidade. Não é uma sugestão — é uma obrigação estatutária.')">must</button>
+      </div>
+      <div class="mc-fb" id="mafb5"></div>
+    </div>
+
+    <!-- A6 -->
+    <div class="mc-item" id="ma6">
+      <div class="mc-num">A6</div>
+      <div class="mc-context">Procurement · Supplier code of conduct</div>
+      <div class="mc-sentence">"Suppliers <span class="mc-blank" id="mab6">______</span> conduct their own internal audits at least once per year and share results with Buyer upon request."</div>
+      <div class="mc-opts">
+        <button class="mc-opt" onclick="checkMC(this,'ma6','mab6',false,'should','&quot;May&quot; would make audits optional and voluntary. In a supplier code of conduct, this is an expectation — but watch the second clause: sharing results upon request is also expected, not a right. / &quot;May&quot; tornaria as auditorias opcionais. Em um código de conduta de fornecedores, isso é uma expectativa.')">may</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma6','mab6',true,'should','Correct. &quot;Should&quot; signals a strong expectation in a code of conduct — expected behaviour that is not technically a hard legal obligation, but that buyers will monitor. / Correto. &quot;Should&quot; sinaliza uma forte expectativa em um código de conduta — comportamento esperado que os compradores monitorarão.')">should</button>
+        <button class="mc-opt" onclick="checkMC(this,'ma6','mab6',false,'should','&quot;Must&quot; would make annual audits a hard contractual requirement with legal consequences. Codes of conduct typically use &quot;should&quot; for behavioural expectations. / &quot;Must&quot; tornaria as auditorias anuais um requisito contratual rígido. Códigos de conduta geralmente usam &quot;should&quot; para expectativas comportamentais.')">must</button>
+      </div>
+      <div class="mc-fb" id="mafb6"></div>
+    </div>
+
+    <div class="reset-row"><button class="reset-btn" onclick="resetA()">Reset</button></div>
+  </div>
+</section>
+
+
+<!-- EXERCISE B — SPOT THE ERROR -->
+<section class="hw-section" id="exB">
+  <div class="hw-inner">
+    <div class="sec-eyebrow"><span class="sec-tag">Exercise B</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title">Spot <em>the error.</em></h2>
+    <p class="sec-sub">Each clause below contains the wrong modal verb. Identify what is wrong and choose the correct replacement.</p>
+    <p class="sec-sub-pt"><strong>Em português:</strong> Cada cláusula abaixo contém o verbo modal errado. Identifique o erro e escolha o substituto correto.</p>
+    <div class="ex-instruction"><strong>How to answer:</strong> Read the clause carefully — the underlined word is wrong. Choose the correct modal to replace it. <strong style="color:var(--orange)">/ Como responder:</strong> Leia a cláusula com atenção — a palavra sublinhada está errada. Escolha o modal correto para substituí-la.</div>
+
+    <!-- B1 -->
+    <div class="ste-item" id="sb1">
+      <div class="ste-num">B1</div>
+      <div class="ste-context">Logistics · Delivery obligation</div>
+      <div class="ste-clause">"Carrier <span class="wrong-word">may</span> deliver all shipments to the Delivery Point no later than the date specified in the shipping instruction. Time is of the essence."</div>
+      <p style="font-size:12px;color:var(--mid);margin-bottom:12px">What is wrong? <em>/ O que está errado?</em> Replace <strong style="color:var(--red)">"may"</strong> with:</p>
+      <div class="ste-opts">
+        <button class="ste-opt" onclick="checkSTE(this,'sb1',true,'shall','Correct. &quot;Time is of the essence&quot; signals that delivery is a hard obligation — not an option. &quot;Shall&quot; makes it binding. &quot;May&quot; would mean the carrier can deliver or not — clearly wrong. / Correto. &quot;Time is of the essence&quot; indica que a entrega é uma obrigação rígida. &quot;Shall&quot; a torna vinculante.')">shall</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb1',false,'shall','&quot;Should&quot; would make delivery a recommendation — still too weak. &quot;Time is of the essence&quot; signals a hard commitment, not good practice. / &quot;Should&quot; tornaria a entrega uma recomendação — ainda fraco demais. &quot;Time is of the essence&quot; sinaliza um compromisso firme.')">should</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb1',false,'shall','&quot;Must&quot; can work for strong requirements, but in a delivery obligation clause with a named party (Carrier), &quot;shall&quot; is the standard contractual choice. / &quot;Must&quot; pode funcionar, mas em uma cláusula de obrigação de entrega com parte nomeada, &quot;shall&quot; é a escolha contratual padrão.')">must</button>
+      </div>
+      <div class="ste-fb" id="sbfb1"></div>
+    </div>
+
+    <!-- B2 -->
+    <div class="ste-item" id="sb2">
+      <div class="ste-num">B2</div>
+      <div class="ste-context">Sales · Quotation validity</div>
+      <div class="ste-clause">"This quotation shall be valid for thirty (30) days. After this period, Buyer <span class="wrong-word">shall</span> request a new quotation if the original prices are no longer applicable."</div>
+      <p style="font-size:12px;color:var(--mid);margin-bottom:12px">What is wrong? <em>/ O que está errado?</em> Replace <strong style="color:var(--red)">"shall"</strong> (second use) with:</p>
+      <div class="ste-opts">
+        <button class="ste-opt" onclick="checkSTE(this,'sb2',false,'may','&quot;Must&quot; would force the buyer to request a new quotation — but they might simply walk away. Requesting a new quote is a right, not a duty. / &quot;Must&quot; obrigaria o comprador a pedir nova cotação — mas ele pode simplesmente desistir. Pedir nova cotação é um direito, não um dever.')">must</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb2',true,'may','Correct. After the 30-day window, requesting a new quotation is a right the buyer can exercise — not a binding obligation. &quot;May&quot; is the correct choice. / Correto. Após os 30 dias, pedir nova cotação é um direito que o comprador pode exercer — não uma obrigação. &quot;May&quot; é a escolha correta.')">may</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb2',false,'may','&quot;Should&quot; would make the request a recommendation — also not quite right. The issue is that requesting a new quote is an option (right), not an obligation or suggestion. / &quot;Should&quot; tornaria o pedido uma recomendação. O ponto é que pedir nova cotação é uma opção (direito), não uma obrigação ou sugestão.')">should</button>
+      </div>
+      <div class="ste-fb" id="sbfb2"></div>
+    </div>
+
+    <!-- B3 -->
+    <div class="ste-item" id="sb3">
+      <div class="ste-num">B3</div>
+      <div class="ste-context">Procurement · Invoice requirements</div>
+      <div class="ste-clause">"All invoices <span class="wrong-word">should</span> include the applicable Purchase Order number, the delivery address, and the bank details of the supplier. Invoices missing any of these fields will be returned unpaid."</div>
+      <p style="font-size:12px;color:var(--mid);margin-bottom:12px">What is wrong? <em>/ O que está errado?</em> Replace <strong style="color:var(--red)">"should"</strong> with:</p>
+      <div class="ste-opts">
+        <button class="ste-opt" onclick="checkSTE(this,'sb3',false,'must','&quot;Shall&quot; works for named-party obligations. Here the subject is &quot;all invoices&quot; (a document, not a person), so &quot;must&quot; is more natural for this kind of document requirement. / &quot;Shall&quot; funciona para obrigações de partes nomeadas. Aqui o sujeito é &quot;all invoices&quot; (um documento), então &quot;must&quot; é mais natural.')">shall</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb3',true,'must','Correct. The second sentence makes clear there is a consequence for non-compliance — invoices will be returned. This is not a suggestion. &quot;Must&quot; is the right choice for a document requirement with consequences. / Correto. A segunda frase deixa claro que há consequência. &quot;Must&quot; é a escolha certa para um requisito de documento com consequências.')">must</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb3',false,'must','&quot;May&quot; would make including the PO number optional — but the consequence clause says invoices missing these fields will be returned. Clearly not optional. / &quot;May&quot; tornaria a inclusão do número de PO opcional — mas a cláusula de consequência diz que faturas sem esses campos serão devolvidas. Claramente não é opcional.')">may</button>
+      </div>
+      <div class="ste-fb" id="sbfb3"></div>
+    </div>
+
+    <!-- B4 -->
+    <div class="ste-item" id="sb4">
+      <div class="ste-num">B4</div>
+      <div class="ste-context">Logistics · Delay communication</div>
+      <div class="ste-clause">"The supplier <span class="wrong-word">must</span> notify the buyer of any anticipated delay in shipment as soon as the risk becomes known. Failure to notify does not exempt the supplier from penalty obligations."</div>
+      <p style="font-size:12px;color:var(--mid);margin-bottom:12px">What is wrong? <em>/ O que está errado?</em> Replace <strong style="color:var(--red)">"must"</strong> with:</p>
+      <div class="ste-opts">
+        <button class="ste-opt" onclick="checkSTE(this,'sb4',false,'should','&quot;Shall&quot; would make notification a binding contractual obligation — but the second sentence says failure to notify does not exempt from penalties. If notification were binding (&quot;shall&quot;), failure would be an additional breach. The intent is a strong expectation, not a separate obligation. / &quot;Shall&quot; tornaria a notificação uma obrigação contratual vinculante — mas a segunda frase diz que a falta de notificação não isenta das penalidades.')">shall</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb4',true,'should','Correct. The second sentence is the key: &quot;failure to notify does not exempt from penalties.&quot; This means notification is strongly expected, but the main obligation is still delivery. &quot;Should&quot; captures expected-but-not-binding — consistent with the consequence clause. / Correto. A segunda frase é a chave. A notificação é fortemente esperada, mas a obrigação principal ainda é a entrega. &quot;Should&quot; captura isso.')">should</button>
+        <button class="ste-opt" onclick="checkSTE(this,'sb4',false,'should','&quot;May&quot; would make notification optional in the sense of permission — the supplier might or might not notify. But the clause expresses expectation, not a right. / &quot;May&quot; tornaria a notificação opcional no sentido de permissão. Mas a cláusula expressa expectativa, não um direito.')">may</button>
+      </div>
+      <div class="ste-fb" id="sbfb4"></div>
+    </div>
+
+    <div class="reset-row"><button class="reset-btn" onclick="resetB()">Reset</button></div>
+  </div>
+</section>
+
+
+<!-- EXERCISE C — REWRITE -->
+<section class="hw-section" id="exC">
+  <div class="hw-inner">
+    <div class="sec-eyebrow"><span class="sec-tag">Exercise C</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title">Rewrite <em>the sentence.</em></h2>
+    <p class="sec-sub">Each sentence below is informal — the way someone might say it in a meeting or WhatsApp. Rewrite it in formal business English using the correct modal verb. Type your answer, then reveal the model to compare.</p>
+    <p class="sec-sub-pt"><strong>Em português:</strong> Cada frase abaixo é informal — como alguém diria em uma reunião ou no WhatsApp. Reescreva em inglês comercial formal usando o verbo modal correto. Digite sua resposta e depois revele o modelo para comparar.</p>
+    <div class="ex-instruction"><strong>How to answer:</strong> Type your rewritten sentence in the box below each item. Then click &quot;Show model&quot; to compare. Focus on using the right modal — the rest of the sentence can stay similar to the original. <strong style="color:var(--orange)">/ Como responder:</strong> Digite sua frase reescrita na caixa abaixo de cada item. Depois clique em &quot;Mostrar modelo&quot; para comparar.</div>
+
+    <!-- C1 -->
+    <div class="rw-item" id="rc1">
+      <div class="rw-num">C1</div>
+      <div class="rw-context">Sales · Proposal</div>
+      <div class="rw-original">Informal: "We need the client to give us written approval before we start." <strong>(obligation — contractual)</strong></div>
+      <textarea class="rw-field" placeholder="Type your rewritten sentence here..."></textarea>
+      <button class="reveal-btn" onclick="revealRW('rc1',this)">Show model <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="rw-answer">
+        <div class="rw-answer-label">Model answer</div>
+        <div class="rw-answer-text">"The client <strong>shall</strong> provide written approval before work commences."</div>
+        <div class="rw-answer-note"><strong>Note:</strong> "Shall" makes the approval a contractual obligation on the client. "Need to" is informal and not suitable for a formal proposal or contract.<br><strong style="color:#047857">Nota:</strong> "Shall" torna a aprovação uma obrigação contratual do cliente. "Need to" é informal e inadequado para uma proposta ou contrato formal.</div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="rw-item" id="rc2">
+      <div class="rw-num">C2</div>
+      <div class="rw-context">Procurement · Supplier evaluation</div>
+      <div class="rw-original">Informal: "It would be a good idea if suppliers sent us their quality certificates every year." <strong>(recommendation — code of conduct)</strong></div>
+      <textarea class="rw-field" placeholder="Type your rewritten sentence here..."></textarea>
+      <button class="reveal-btn" onclick="revealRW('rc2',this)">Show model <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="rw-answer">
+        <div class="rw-answer-label">Model answer</div>
+        <div class="rw-answer-text">"Suppliers <strong>should</strong> submit updated quality certificates to Buyer on an annual basis."</div>
+        <div class="rw-answer-note"><strong>Note:</strong> "Should" is the right modal for a recommended practice in a supplier code of conduct — expected, but not a hard legal obligation. "It would be a good idea if" is far too informal.<br><strong style="color:#047857">Nota:</strong> "Should" é o modal correto para uma prática recomendada em um código de conduta de fornecedores. "It would be a good idea if" é informal demais.</div>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="rw-item" id="rc3">
+      <div class="rw-num">C3</div>
+      <div class="rw-context">Logistics · Import compliance</div>
+      <div class="rw-original">Informal: "All the product labels have to be in Portuguese or the shipment will be stopped at customs." <strong>(legal requirement)</strong></div>
+      <textarea class="rw-field" placeholder="Type your rewritten sentence here..."></textarea>
+      <button class="reveal-btn" onclick="revealRW('rc3',this)">Show model <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="rw-answer">
+        <div class="rw-answer-label">Model answer</div>
+        <div class="rw-answer-text">"All product labels <strong>must</strong> be in Portuguese, or the shipment will be held at customs."</div>
+        <div class="rw-answer-note"><strong>Note:</strong> "Must" is correct for a legal compliance requirement. "Have to" is informal — and "must" in the formal version also sounds more authoritative in a shipping instruction or compliance note.<br><strong style="color:#047857">Nota:</strong> "Must" é correto para um requisito legal de conformidade. "Have to" é informal — e "must" na versão formal também soa mais autoritário.</div>
+      </div>
+    </div>
+
+    <!-- C4 -->
+    <div class="rw-item" id="rc4">
+      <div class="rw-num">C4</div>
+      <div class="rw-context">Sales · Contract termination</div>
+      <div class="rw-original">Informal: "If the supplier keeps missing deadlines, we can cancel the contract." <strong>(right/option — formal)</strong></div>
+      <textarea class="rw-field" placeholder="Type your rewritten sentence here..."></textarea>
+      <button class="reveal-btn" onclick="revealRW('rc4',this)">Show model <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="rw-answer">
+        <div class="rw-answer-label">Model answer</div>
+        <div class="rw-answer-text">"If the supplier fails to meet the agreed delivery dates, Buyer <strong>may</strong> terminate this Agreement with immediate effect."</div>
+        <div class="rw-answer-note"><strong>Note:</strong> "May" makes termination a right — the buyer can exercise it but is not forced to. "Can" is informal and does not carry the same legal weight. "We can" is also too informal for a contract clause.<br><strong style="color:#047857">Nota:</strong> "May" torna a rescisão um direito — o comprador pode exercê-lo, mas não é obrigado. "Can" é informal e não tem o mesmo peso jurídico.</div>
+      </div>
+    </div>
+
+    <div class="reset-row"><button class="reset-btn" onclick="resetC()">Reset</button></div>
+  </div>
+</section>
+
+
+<!-- SCORE PANEL -->
+<section class="hw-section" id="score">
+  <div class="hw-inner">
+    <div class="sec-eyebrow"><span class="sec-tag">My Score</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title">How did <em>you do?</em></h2>
+    <p class="sec-sub">Your score updates automatically as you answer Exercise A and B. Exercise C is self-assessed — be honest!</p>
+    <p class="sec-sub-pt"><strong>Em português:</strong> Sua pontuação atualiza automaticamente conforme você responde os Exercícios A e B. O Exercício C é autoavaliado — seja honesto!</p>
+
+    <div class="score-panel">
+      <div class="score-panel-hdr">
+        <div class="sp-title">Total score — Exercises A &amp; B</div>
+        <div class="sp-score"><span id="totalScore">0</span> <em>/ 10</em></div>
+      </div>
+      <div class="score-panel-body">
+        <div class="sp-bars">
+          <div class="sp-bar-row">
+            <span class="sp-bar-label">Exercise A</span>
+            <div class="sp-bar-track"><div class="sp-bar-fill" id="barA" style="width:0%;background:var(--orange)"></div></div>
+            <span class="sp-bar-count" id="countA">0/6</span>
+          </div>
+          <div class="sp-bar-row">
+            <span class="sp-bar-label">Exercise B</span>
+            <div class="sp-bar-track"><div class="sp-bar-fill" id="barB" style="width:0%;background:var(--purple)"></div></div>
+            <span class="sp-bar-count" id="countB">0/4</span>
+          </div>
+        </div>
+        <div class="sp-msg" id="scoreMsg">Complete Exercises A and B to see your score here. / Conclua os Exercícios A e B para ver sua pontuação aqui.</div>
+        <div class="sp-actions">
+          <button class="sp-retry" onclick="retryAll()">Retry all exercises</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <svg class="footer-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <div class="footer-nav-row"><a href="./procurement-vocab.html" class="footer-nav-btn footer-nav-prev">← Vocab</a></div>
+<p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
+</footer>
+
+<script>
+// ── NAV HIGHLIGHT ──────────────────────────────────────────────────────────────
+var sections = ['ref','exA','exB','exC','score'];
+window.addEventListener('scroll', function() {
+  var btns = document.querySelectorAll('.gnav-btn');
+  var offset = 120;
+  var current = 0;
+  sections.forEach(function(id, i) {
+    var el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= offset) current = i;
+  });
+  btns.forEach(function(b, i) { b.classList.toggle('active', i === current); });
+});
+
+function scrollToSec(id, btn) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── SCORING ────────────────────────────────────────────────────────────────────
+var scoreA = 0, scoreB = 0;
+var answeredA = 0, answeredB = 0;
+
+function updateScore() {
+  var total = scoreA + scoreB;
+  document.getElementById('totalScore').textContent = total;
+  document.getElementById('countA').textContent = scoreA + '/6';
+  document.getElementById('countB').textContent = scoreB + '/4';
+  document.getElementById('barA').style.width = (scoreA/6*100) + '%';
+  document.getElementById('barB').style.width = (scoreB/4*100) + '%';
+  var pct = Math.round(total/10*100);
+  var msg = '';
+  if (answeredA + answeredB === 0) {
+    msg = 'Complete Exercises A and B to see your score here. / Conclua os Exercícios A e B para ver sua pontuação aqui.';
+  } else if (pct === 100) {
+    msg = 'Perfect score! You have a strong command of modal verbs in formal business English. Bring your Exercise C to class for teacher feedback. / Pontuação perfeita! Você domina os verbos modais no inglês formal de negócios.';
+  } else if (pct >= 70) {
+    msg = 'Good work — ' + total + '/10 correct. Review the questions you missed and pay attention to the difference between &quot;must&quot; (document requirement) and &quot;shall&quot; (named-party obligation). / Bom trabalho! Revise as questões que errou.';
+  } else if (pct >= 50) {
+    msg = 'You got ' + total + '/10. Focus on re-reading the Quick Reference — especially when to use &quot;may&quot; vs &quot;shall&quot;. These two cause the most confusion in contracts. / Você acertou ' + total + '/10. Revise a Quick Reference, especialmente &quot;may&quot; vs &quot;shall&quot;.';
+  } else {
+    msg = 'Keep practising — ' + total + '/10. Go back to the Quick Reference and re-do Exercise A before your next class. / Continue praticando — ' + total + '/10. Revise a Quick Reference e refaça o Exercício A.';
+  }
+  document.getElementById('scoreMsg').innerHTML = msg;
+}
+
+// ── EXERCISE A ─────────────────────────────────────────────────────────────────
+function checkMC(btn, itemId, blankId, correct, answer, explanation) {
+  var item = document.getElementById(itemId);
+  if (item.classList.contains('answered-ok') || item.classList.contains('answered-no')) return;
+  var opts = item.querySelectorAll('.mc-opt');
+  var blank = document.getElementById(blankId);
+  var fbId = 'mafb' + blankId.slice(3);
+  var fb = document.getElementById(fbId);
+  opts.forEach(function(o) { o.classList.add('dimmed'); });
+  btn.classList.remove('dimmed');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  blank.textContent = btn.textContent;
+  blank.style.color = correct ? 'var(--green)' : 'var(--red)';
+  fb.innerHTML = explanation;
+  fb.className = 'mc-fb show ' + (correct ? 'ok' : 'no');
+  item.classList.add(correct ? 'answered-ok' : 'answered-no');
+  if (correct) scoreA++;
+  answeredA++;
+  updateScore();
+}
+
+function resetA() {
+  scoreA = 0; answeredA = 0;
+  for (var i = 1; i <= 6; i++) {
+    var item = document.getElementById('ma' + i);
+    item.classList.remove('answered-ok','answered-no');
+    item.querySelectorAll('.mc-opt').forEach(function(o) {
+      o.classList.remove('correct','wrong','dimmed');
+    });
+    var fb = document.getElementById('mafb' + i);
+    if (fb) { fb.className = 'mc-fb'; fb.innerHTML = ''; }
+    var blank = document.getElementById('mab' + i);
+    if (blank) { blank.textContent = '______'; blank.style.color = ''; }
+  }
+  updateScore();
+}
+
+// ── EXERCISE B ─────────────────────────────────────────────────────────────────
+function checkSTE(btn, itemId, correct, answer, explanation) {
+  var item = document.getElementById(itemId);
+  if (item.dataset.answered) return;
+  var opts = item.querySelectorAll('.ste-opt');
+  var fbNum = itemId.slice(2);
+  var fb = document.getElementById('sbfb' + fbNum);
+  opts.forEach(function(o) { o.classList.add('dimmed'); });
+  btn.classList.remove('dimmed');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  fb.innerHTML = explanation;
+  fb.className = 'ste-fb show ' + (correct ? 'ok' : 'no');
+  if (correct) {
+    item.querySelector('.wrong-word').textContent = answer;
+    item.querySelector('.wrong-word').style.color = 'var(--green)';
+    item.querySelector('.wrong-word').style.textDecoration = 'none';
+    item.querySelector('.wrong-word').style.fontWeight = '900';
+  }
+  item.dataset.answered = '1';
+  if (correct) scoreB++;
+  answeredB++;
+  updateScore();
+}
+
+function resetB() {
+  scoreB = 0; answeredB = 0;
+  var wrongWords = ['may','shall','should','must'];
+  for (var i = 1; i <= 4; i++) {
+    var item = document.getElementById('sb' + i);
+    delete item.dataset.answered;
+    item.querySelectorAll('.ste-opt').forEach(function(o) {
+      o.classList.remove('correct','wrong','dimmed');
+    });
+    var fb = document.getElementById('sbfb' + i);
+    if (fb) { fb.className = 'ste-fb'; fb.innerHTML = ''; }
+    var ww = item.querySelector('.wrong-word');
+    if (ww) {
+      ww.textContent = wrongWords[i-1];
+      ww.style.color = '';
+      ww.style.textDecoration = '';
+      ww.style.fontWeight = '';
+    }
+  }
+  updateScore();
+}
+
+// ── EXERCISE C ─────────────────────────────────────────────────────────────────
+function revealRW(id, btn) {
+  var item = document.getElementById(id);
+  var answer = item.querySelector('.rw-answer');
+  var isOpen = answer.style.display === 'block';
+  answer.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+  btn.innerHTML = (isOpen ? 'Show model' : 'Hide model') + ' <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
+}
+
+function resetC() {
+  for (var i = 1; i <= 4; i++) {
+    var item = document.getElementById('rc' + i);
+    var answer = item.querySelector('.rw-answer');
+    var btn = item.querySelector('.reveal-btn');
+    var field = item.querySelector('.rw-field');
+    if (answer) answer.style.display = 'none';
+    if (field) field.value = '';
+    if (btn) {
+      btn.classList.remove('open');
+      btn.innerHTML = 'Show model <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
+    }
+  }
+}
+
+function retryAll() {
+  resetA(); resetB(); resetC();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Procurement Flow · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;--hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;--mono:'IBM Plex Mono',monospace;--purple:#5B21B6;--green:#065F46;--green-bg:#ECFDF5;--client:#0D7A8A;--provider:#7C3AED}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-logo{height:22px;width:auto;flex-shrink:0}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+
+.hero{background:var(--dark);padding:72px 56px 56px;margin-top:56px}
+.hero-inner{max-width:880px;margin:0 auto}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.hero-eyebrow-line{width:24px;height:2px;background:var(--teal)}
+.hero-eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(30px,5vw,60px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:.95;margin-bottom:20px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.42);max-width:560px;line-height:1.7}
+.hero-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* TIMELINE */
+.tl-wrap{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:56px;z-index:100;overflow-x:auto;scrollbar-width:none}
+.tl-wrap::-webkit-scrollbar{display:none}
+.tl-inner{display:flex;align-items:flex-start;gap:0;max-width:880px;margin:0 auto;padding:20px 40px 16px;position:relative}
+.tl-inner::before{content:'';position:absolute;top:32px;left:60px;right:60px;height:2px;background:var(--border);z-index:0}
+.tl-dot{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;cursor:pointer;position:relative;z-index:1;min-width:80px}
+.tl-dot-inner{width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--mid);transition:all .2s;flex-shrink:0}
+.tl-dot.active .tl-dot-inner{background:var(--teal);border-color:var(--teal);color:#fff;transform:scale(1.15)}
+.tl-dot.done .tl-dot-inner{background:var(--ink);border-color:var(--ink);color:#fff}
+.tl-dot-label{font-size:9px;font-weight:700;text-align:center;color:var(--mid);letter-spacing:.04em;text-transform:uppercase;line-height:1.3;max-width:72px}
+.tl-dot.active .tl-dot-label{color:var(--teal)}
+.tl-dot.done .tl-dot-label{color:var(--ink)}
+
+/* FLOW STEPS */
+.flow-wrap{max-width:880px;margin:0 auto;padding:40px 40px 80px}
+
+.flow-step{border:1.5px solid var(--border);border-radius:16px;background:#fff;margin-bottom:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.flow-step.open{border-color:var(--teal);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.flow-step.done{border-color:var(--ink)}
+
+.step-header{padding:18px 22px;display:flex;align-items:center;gap:16px;cursor:pointer;user-select:none}
+.step-num-wrap{position:relative;width:36px;height:36px;flex-shrink:0}
+.step-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;letter-spacing:.04em;transition:opacity .2s}
+.step-check{position:absolute;inset:0;border-radius:10px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.step-header-body{flex:1;min-width:0}
+.step-label{font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.step-who{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.who-tag{font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+.who-client{background:rgba(13,122,138,.1);color:var(--client)}
+.who-provider{background:rgba(124,58,237,.1);color:var(--provider)}
+.who-green{background:rgba(6,95,70,.1);color:var(--green)}
+.step-chevron{width:16px;height:16px;color:var(--mid);transition:transform .3s;flex-shrink:0}
+.flow-step.open .step-chevron{transform:rotate(180deg)}
+
+.step-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.flow-step.open .step-body{max-height:2000px}
+.step-body-inner{padding:0 22px 24px}
+
+.step-what{font-size:14px;color:var(--ink);line-height:1.75;margin-bottom:20px;padding-top:4px}
+
+.step-doc-box{background:var(--paper);border-radius:10px;padding:14px 16px;margin-bottom:16px;border-left:3px solid var(--border)}
+.step-doc-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:4px}
+.step-doc-name{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.step-doc-desc{font-size:12px;color:var(--mid);line-height:1.6}
+
+.step-phrase-box{background:var(--dark);border-radius:10px;padding:14px 18px;margin-bottom:16px}
+.step-phrase-who{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.step-phrase{font-family:var(--mono);font-size:12px;color:#fff;line-height:1.8}
+.step-phrase .tip{border-bottom-color:var(--teal);color:inherit}
+
+.step-watch{background:rgba(232,98,26,.06);border:1px solid rgba(232,98,26,.15);border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.step-watch-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
+.step-watch-title{font-size:12px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.step-watch-body{font-size:12px;color:var(--mid);line-height:1.65}
+.step-watch-body .wrong{color:var(--red,#991B1B);text-decoration:line-through}
+
+.step-vq{background:rgba(91,33,182,.04);border:1px solid rgba(91,33,182,.12);border-radius:10px;padding:16px}
+.step-vq-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+.step-vq-sent{font-size:13px;font-family:var(--mono);color:var(--ink);line-height:1.7;background:#fff;padding:10px 12px;border-radius:8px;margin-bottom:10px;border-left:3px solid var(--purple)}
+.step-vq-q{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.5}
+.step-vq-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
+.vq-opt{padding:9px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;background:#fff;cursor:pointer;text-align:left;color:var(--ink);font-family:Inter,sans-serif;transition:all .2s;line-height:1.4}
+.vq-opt:hover{border-color:var(--purple);color:var(--purple)}
+.vq-opt.correct{background:var(--green-bg);border-color:#10B981;color:var(--green);pointer-events:none}
+.vq-opt.wrong{background:#FEF2F2;border-color:#F87171;color:#991B1B}
+.vq-opt.dimmed{opacity:.38;pointer-events:none}
+.step-vq-fb{font-size:12px;padding:8px 12px;border-radius:8px;line-height:1.6;display:none}
+.step-vq-fb.ok{display:block;background:var(--green-bg);color:var(--green)}
+.step-vq-fb.no{display:block;background:#FEF2F2;color:#991B1B}
+
+.tip{border-bottom:1.5px dashed var(--teal);cursor:help;display:inline}
+#tip-global{display:none;position:fixed;background:var(--dark);color:#fff;border-radius:10px;padding:10px 14px;width:240px;font-size:12px;line-height:1.65;z-index:9999;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.45);font-family:Inter,sans-serif}
+#tip-global .tip-en{font-weight:700;color:var(--hi);font-size:11px;letter-spacing:.04em;display:block;margin-bottom:3px}
+#tip-global .tip-pt{font-size:10px;color:rgba(255,255,255,.45);display:block;margin-bottom:5px}
+#tip-global .tip-def{display:block}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-logo{height:20px;width:auto;opacity:.35;flex-shrink:0}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+
+@media(max-width:900px){
+  .flow-wrap{padding:24px 16px 60px}
+  .hero{padding:56px 24px 40px}
+  .tl-inner{padding:16px 16px 12px}
+  .footer{padding:24px;flex-direction:column;text-align:center}
+  .footer-copy{text-align:center}
+}
+
+/* FOOTER NAV */
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+
+.mod-nav{position:sticky;top:56px;z-index:100;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.mod-nav::-webkit-scrollbar{display:none}
+.mod-nav-inner{display:flex;align-items:center;gap:0;min-width:max-content;padding:0 24px}
+.mod-nav a{display:inline-block;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.mod-nav a:hover{color:var(--ink)}
+.mod-nav a.nav-active{color:var(--teal);border-bottom-color:var(--teal)}
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <svg class="hdr-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <span class="hdr-meta">B1+ · MBA English · Procurement</span>
+  <span class="hdr-badge">The Flow</span>
+</header>
+<nav class="mod-nav"><div class="mod-nav-inner"><a href="./procurement-lead-in.html">Lead-in</a>
+<a href="./procurement-reading.html">Reading</a>
+<a href="./procurement-documents.html">Documents</a>
+<a href="./procurement-stakeholders.html">Stakeholders</a>
+<a href="./procurement-flow.html" class="nav-active">Flow</a>
+<a href="./procurement-grammar-voice2.html">Grammar: Voice</a>
+<a href="./procurement-grammar-supposed-to.html">Grammar: Supposed To</a>
+<a href="./procurement-grammar-who2.html">Neural English</a>
+<a href="./procurement-vocab.html">Vocab</a>
+<a href="./procurement-homework.html">Homework</a>
+</div></nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-text">B1+ · Buying Smart</span></div>
+    <h1 class="hero-title">From Stock Alert<br><em>to Payment.</em></h1>
+    <p class="hero-sub">Eight steps. Every document, every person, every phrase — in the order they actually happen. Open each step, read, and answer the quick check before moving on.</p>
+    <div class="hero-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--client)"></div><span style="color:rgba(255,255,255,.55)">Buyer — Althea Industrial</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--provider)"></div><span style="color:rgba(255,255,255,.55)">Supplier — Hua Li Components</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="tl-wrap">
+  <div class="tl-inner">
+    <div class="tl-dot" id="tl-s1" onclick="jumpStep('s1')" title="Stock Alert"><div class="tl-dot-inner">01</div><div class="tl-dot-label">Stock Alert</div></div>
+<div class="tl-dot" id="tl-s2" onclick="jumpStep('s2')" title="Supplier Selection & RFQ"><div class="tl-dot-inner">02</div><div class="tl-dot-label">Supplier Selection & RFQ</div></div>
+<div class="tl-dot" id="tl-s3" onclick="jumpStep('s3')" title="Quotation & Comparison"><div class="tl-dot-inner">03</div><div class="tl-dot-label">Quotation & Comparison</div></div>
+<div class="tl-dot" id="tl-s4" onclick="jumpStep('s4')" title="Internal Approval"><div class="tl-dot-inner">04</div><div class="tl-dot-label">Internal Approval</div></div>
+<div class="tl-dot" id="tl-s5" onclick="jumpStep('s5')" title="Purchase Order"><div class="tl-dot-inner">05</div><div class="tl-dot-label">Purchase Order</div></div>
+<div class="tl-dot" id="tl-s6" onclick="jumpStep('s6')" title="Production & Shipment"><div class="tl-dot-inner">06</div><div class="tl-dot-label">Production & Shipment</div></div>
+<div class="tl-dot" id="tl-s7" onclick="jumpStep('s7')" title="Customs & Receiving"><div class="tl-dot-inner">07</div><div class="tl-dot-label">Customs & Receiving</div></div>
+<div class="tl-dot" id="tl-s8" onclick="jumpStep('s8')" title="Invoice & Payment"><div class="tl-dot-inner">08</div><div class="tl-dot-label">Invoice & Payment</div></div>
+  </div>
+</div>
+
+<div class="flow-wrap">
+  
+    <div class="flow-step" id="s1" data-idx="0">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--orange)">01</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Stock Alert</div>
+          <div class="step-who"><span class="who-tag who-client">Operations Manager</span><span class="who-tag who-client">Procurement Manager</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">The <span class="tip" data-tip="ERP system" onmouseenter="showTip(this,'ERP system')">ERP system</span> detects that <span class="tip" data-tip="stock level" onmouseenter="showTip(this,'stock level')">stock levels</span> of compound HX-44 have fallen below the <span class="tip" data-tip="reorder point" onmouseenter="showTip(this,'reorder point')">reorder point</span>. The system generates an automatic <span class="tip" data-tip="stock alert" onmouseenter="showTip(this,'stock alert')">stock alert</span>. The Operations Manager confirms the urgency and contacts Procurement.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Stock Alert / Reorder Request</div>
+            <div class="step-doc-desc">An internal system notification or form that triggers the procurement process. It includes the item code, current quantity, minimum required level, and the date by which stock must be replenished.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Operations Manager → Procurement Manager</div>
+            <div class="step-phrase">"Line 3 consumption is running 20% above forecast. We currently have 800 units of HX-44 — that is <span class="tip" data-tip="days of cover" onmouseenter="showTip(this,'days of cover')">11 days of cover</span> at current rate. We need to <span class="tip" data-tip="reorder" onmouseenter="showTip(this,'reorder')">reorder</span> immediately or we risk a <span class="tip" data-tip="stockout" onmouseenter="showTip(this,'stockout')">stockout</span> before the end of the month."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">run out of — not finish</div>
+            <div class="step-watch-body">"We are going to <strong>run out of</strong> HX-44 by the 20th." — Not: <span class='wrong'>finish the HX-44</span> or <span class='wrong'>end the stock</span>.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">The system shows 800 units remaining. At current consumption, that is <span class="tip" data-tip="days of cover" onmouseenter="showTip(this,'days of cover')">11 days of cover</span>.</div>
+            <div class="step-vq-q">What does "days of cover" mean here?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs1" data-fb-ok="Correct. Days of cover = how long the current stock will last. 800 units ÷ ~73 units/day = 11 days. After that: stockout. / Correto. Dias de cobertura = por quanto tempo o estoque atual vai durar." data-fb-no="Not quite. Days of cover tells you how long the remaining stock will last at the current rate of consumption — not when the next delivery is. / Não exatamente. Dias de cobertura dizem por quanto tempo o estoque vai durar na taxa atual de consumo." onclick="checkVQ(this)">The number of days since the last delivery</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs1" data-fb-ok="Correct. Days of cover = how long the current stock will last. 800 units ÷ ~73 units/day = 11 days. After that: stockout. / Correto. Dias de cobertura = por quanto tempo o estoque atual vai durar." data-fb-no="Not quite. Days of cover tells you how long the remaining stock will last at the current rate of consumption — not when the next delivery is. / Não exatamente. Dias de cobertura dizem por quanto tempo o estoque vai durar na taxa atual de consumo." onclick="checkVQ(this)">How many days the remaining stock will last at the current rate of use</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs1" data-fb-ok="Correct. Days of cover = how long the current stock will last. 800 units ÷ ~73 units/day = 11 days. After that: stockout. / Correto. Dias de cobertura = por quanto tempo o estoque atual vai durar." data-fb-no="Not quite. Days of cover tells you how long the remaining stock will last at the current rate of consumption — not when the next delivery is. / Não exatamente. Dias de cobertura dizem por quanto tempo o estoque vai durar na taxa atual de consumo." onclick="checkVQ(this)">The number of days before the next scheduled delivery</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs1"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s2" data-idx="1">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--teal)">02</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Supplier Selection & RFQ</div>
+          <div class="step-who"><span class="who-tag who-client">Procurement Manager</span><span class="who-tag who-provider">Account Manager</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">Procurement reviews the <span class="tip" data-tip="approved supplier list" onmouseenter="showTip(this,'approved supplier list')">approved supplier list</span> and selects two or three candidates. They prepare and send a formal <span class="tip" data-tip="RFQ" onmouseenter="showTip(this,'RFQ')">RFQ</span> — specifying the item, quantity, required <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span>, <span class="tip" data-tip="Incoterm" onmouseenter="showTip(this,'Incoterm')">Incoterm</span>, and <span class="tip" data-tip="payment terms" onmouseenter="showTip(this,'payment terms')">payment terms</span>. This is not an order — it is a request for information.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Request for Quotation (RFQ)</div>
+            <div class="step-doc-desc">A formal document sent to suppliers asking for price, lead time, MOQ, and delivery conditions. A well-written RFQ forces all suppliers to quote the same thing — making comparison fair and fast.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Procurement Manager → Supplier (Hua Li Components)</div>
+            <div class="step-phrase">"Dear Mr. Chen, please find attached our <span class="tip" data-tip="RFQ" onmouseenter="showTip(this,'RFQ')">RFQ</span> #BR-2024-088 for 2,000 units of compound HX-44. We require your quotation by 10 November including <span class="tip" data-tip="unit price" onmouseenter="showTip(this,'unit price')">unit price</span>, <span class="tip" data-tip="MOQ" onmouseenter="showTip(this,'MOQ')">MOQ</span>, <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> from <span class="tip" data-tip="PO confirmation" onmouseenter="showTip(this,'PO confirmation')">PO confirmation</span>, and <span class="tip" data-tip="payment terms" onmouseenter="showTip(this,'payment terms')">payment terms</span>. Please quote <span class="tip" data-tip="CIF Santos" onmouseenter="showTip(this,'CIF Santos')">CIF Santos</span>."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">send an RFQ — not open or do</div>
+            <div class="step-watch-body">"We <strong>sent an RFQ</strong> to three suppliers yesterday." — Not: <span class='wrong'>we opened an RFQ</span> or <span class='wrong'>we did an RFQ</span>.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">The RFQ specifies <span class="tip" data-tip="CIF Santos" onmouseenter="showTip(this,'CIF Santos')">CIF Santos</span> as the required <span class="tip" data-tip="Incoterm" onmouseenter="showTip(this,'Incoterm')">Incoterm</span>.</div>
+            <div class="step-vq-q">If the RFQ says "quote CIF Santos," who pays for shipping and insurance?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs2" data-fb-ok="Correct. CIF = Cost, Insurance, Freight. The supplier covers everything until the goods arrive at Santos port. After that, the buyer is responsible. / Correto. CIF = Custo, Seguro, Frete. O fornecedor cobre tudo até o porto de Santos." data-fb-no="Not quite. CIF = Cost, Insurance, Freight — the supplier pays for shipping and insurance to the named destination port. FOB would be the opposite: buyer pays from the port of origin. / CIF = o fornecedor paga frete e seguro até o porto de destino." onclick="checkVQ(this)">The buyer pays for everything from the supplier's factory</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs2" data-fb-ok="Correct. CIF = Cost, Insurance, Freight. The supplier covers everything until the goods arrive at Santos port. After that, the buyer is responsible. / Correto. CIF = Custo, Seguro, Frete. O fornecedor cobre tudo até o porto de Santos." data-fb-no="Not quite. CIF = Cost, Insurance, Freight — the supplier pays for shipping and insurance to the named destination port. FOB would be the opposite: buyer pays from the port of origin. / CIF = o fornecedor paga frete e seguro até o porto de destino." onclick="checkVQ(this)">The supplier pays for freight and insurance to Santos port</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs2" data-fb-ok="Correct. CIF = Cost, Insurance, Freight. The supplier covers everything until the goods arrive at Santos port. After that, the buyer is responsible. / Correto. CIF = Custo, Seguro, Frete. O fornecedor cobre tudo até o porto de Santos." data-fb-no="Not quite. CIF = Cost, Insurance, Freight — the supplier pays for shipping and insurance to the named destination port. FOB would be the opposite: buyer pays from the port of origin. / CIF = o fornecedor paga frete e seguro até o porto de destino." onclick="checkVQ(this)">Both parties split the cost equally</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs2"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s3" data-idx="2">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--purple)">03</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Quotation & Comparison</div>
+          <div class="step-who"><span class="who-tag who-client">Procurement Manager</span><span class="who-tag who-provider">Account Manager</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">Suppliers respond with their <span class="tip" data-tip="quotation" onmouseenter="showTip(this,'quotation')">quotations</span>. Procurement builds a <span class="tip" data-tip="comparison table" onmouseenter="showTip(this,'comparison table')">comparison table</span> — evaluating price, <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span>, <span class="tip" data-tip="MOQ" onmouseenter="showTip(this,'MOQ')">MOQ</span>, <span class="tip" data-tip="payment terms" onmouseenter="showTip(this,'payment terms')">payment terms</span>, and <span class="tip" data-tip="quality certification" onmouseenter="showTip(this,'quality certification')">quality certifications</span>. The cheapest option is not always the best: a lower price with a 60-day lead time may cost more than a higher price delivered in 30 days.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Quotation / Supplier Comparison Table</div>
+            <div class="step-doc-desc">The supplier's formal response to the RFQ — with price, lead time, and conditions. The comparison table puts all quotes side by side so Procurement can make a fair, documented decision.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Procurement Manager → Operations Manager</div>
+            <div class="step-phrase">"Hua Li is quoting USD 3.20/unit with a 30-day <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span>. GlobalParts is at USD 2.95 but <span class="tip" data-tip="lead time" onmouseenter="showTip(this,'lead time')">lead time</span> is 55 days and they do not hold <span class="tip" data-tip="ISO 9001" onmouseenter="showTip(this,'ISO 9001')">ISO 9001</span>. Given our current <span class="tip" data-tip="days of cover" onmouseenter="showTip(this,'days of cover')">days of cover</span>, I recommend Hua Li — the price difference does not justify the risk."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">compare quotes — not prices alone</div>
+            <div class="step-watch-body">Always evaluate <strong>total cost of ownership</strong> — price + lead time + quality risk + payment terms. The cheapest unit price often becomes the most expensive decision. / Sempre avalie o <strong>custo total</strong>, não só o preço unitário.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">GlobalParts quoted USD 2.95/unit but does not hold <span class="tip" data-tip="ISO 9001" onmouseenter="showTip(this,'ISO 9001')">ISO 9001</span> certification.</div>
+            <div class="step-vq-q">Why does the absence of ISO 9001 matter in a procurement decision?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs3" data-fb-ok="Correct. ISO 9001 means an independent body has audited and certified the supplier&#39;s quality management processes. Without it, the buyer takes on more quality risk — and non-conforming goods are expensive to return and replace. / Correto. ISO 9001 significa que os processos de qualidade foram auditados de forma independente." data-fb-no="ISO 9001 is a quality management standard — not an export licence or pricing guarantee. Its absence means higher quality risk: the supplier&#39;s processes have not been independently verified. / ISO 9001 é uma certificação de sistema de gestão da qualidade — sua ausência aumenta o risco de produtos não conformes." onclick="checkVQ(this)">It means the supplier cannot export to Brazil</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs3" data-fb-ok="Correct. ISO 9001 means an independent body has audited and certified the supplier&#39;s quality management processes. Without it, the buyer takes on more quality risk — and non-conforming goods are expensive to return and replace. / Correto. ISO 9001 significa que os processos de qualidade foram auditados de forma independente." data-fb-no="ISO 9001 is a quality management standard — not an export licence or pricing guarantee. Its absence means higher quality risk: the supplier&#39;s processes have not been independently verified. / ISO 9001 é uma certificação de sistema de gestão da qualidade — sua ausência aumenta o risco de produtos não conformes." onclick="checkVQ(this)">It means the supplier's quality processes have not been independently verified — higher risk of non-conforming goods</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs3" data-fb-ok="Correct. ISO 9001 means an independent body has audited and certified the supplier&#39;s quality management processes. Without it, the buyer takes on more quality risk — and non-conforming goods are expensive to return and replace. / Correto. ISO 9001 significa que os processos de qualidade foram auditados de forma independente." data-fb-no="ISO 9001 is a quality management standard — not an export licence or pricing guarantee. Its absence means higher quality risk: the supplier&#39;s processes have not been independently verified. / ISO 9001 é uma certificação de sistema de gestão da qualidade — sua ausência aumenta o risco de produtos não conformes." onclick="checkVQ(this)">It means the supplier's prices are not reliable</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs3"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s4" data-idx="3">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--teal)">04</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Internal Approval</div>
+          <div class="step-who"><span class="who-tag who-client">Procurement Manager</span><span class="who-tag who-client">Finance / AP</span><span class="who-tag who-client">Management</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">Before issuing a <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">Purchase Order</span>, Procurement needs internal sign-off. For orders above a certain value — typically defined in the company's <span class="tip" data-tip="procurement policy" onmouseenter="showTip(this,'procurement policy')">procurement policy</span> — Finance and Management must approve. This step protects the company from unauthorised spending.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Purchase Requisition / Approval Form</div>
+            <div class="step-doc-desc">An internal document requesting authorisation to spend. It includes the supplier chosen, the price, the justification, and the budget code. Without approval, no PO can be issued.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Procurement Manager → Finance</div>
+            <div class="step-phrase">"I am submitting the <span class="tip" data-tip="purchase requisition" onmouseenter="showTip(this,'purchase requisition')">purchase requisition</span> for 2,000 units of HX-44 from Hua Li Components at USD 3.20/unit — total value USD 6,400. This is within my <span class="tip" data-tip="approval threshold" onmouseenter="showTip(this,'approval threshold')">approval threshold</span> but I need Finance to confirm <span class="tip" data-tip="budget availability" onmouseenter="showTip(this,'budget availability')">budget availability</span> before I <span class="tip" data-tip="raise the PO" onmouseenter="showTip(this,'raise the PO')">raise the PO</span>."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">raise a PO — not open or create</div>
+            <div class="step-watch-body">"I will <strong>raise the PO</strong> as soon as Finance approves the budget." — Not: <span class='wrong'>open the PO</span> or <span class='wrong'>create the PO</span>. In procurement English, you <em>raise</em> or <em>issue</em> a Purchase Order.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">This order is within my <span class="tip" data-tip="approval threshold" onmouseenter="showTip(this,'approval threshold')">approval threshold</span> — I can approve it without going to the director.</div>
+            <div class="step-vq-q">What is an "approval threshold" in a procurement context?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs4" data-fb-ok="Correct. An approval threshold is a spending limit — below it, a procurement manager can approve alone. Above it, Finance or Management must sign off. This controls risk and prevents unauthorised spending. / Correto. É um limite de valor — abaixo dele, o gerente de compras pode aprovar sozinho." data-fb-no="An approval threshold is a financial control — it defines how much someone can spend or approve without needing a higher-level signature. It has nothing to do with supplier pricing or MOQ. / É um controle financeiro — define quanto alguém pode gastar sem precisar de aprovação superior." onclick="checkVQ(this)">The maximum discount a supplier can offer</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs4" data-fb-ok="Correct. An approval threshold is a spending limit — below it, a procurement manager can approve alone. Above it, Finance or Management must sign off. This controls risk and prevents unauthorised spending. / Correto. É um limite de valor — abaixo dele, o gerente de compras pode aprovar sozinho." data-fb-no="An approval threshold is a financial control — it defines how much someone can spend or approve without needing a higher-level signature. It has nothing to do with supplier pricing or MOQ. / É um controle financeiro — define quanto alguém pode gastar sem precisar de aprovação superior." onclick="checkVQ(this)">The maximum order value a person can approve without needing sign-off from a higher level</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs4" data-fb-ok="Correct. An approval threshold is a spending limit — below it, a procurement manager can approve alone. Above it, Finance or Management must sign off. This controls risk and prevents unauthorised spending. / Correto. É um limite de valor — abaixo dele, o gerente de compras pode aprovar sozinho." data-fb-no="An approval threshold is a financial control — it defines how much someone can spend or approve without needing a higher-level signature. It has nothing to do with supplier pricing or MOQ. / É um controle financeiro — define quanto alguém pode gastar sem precisar de aprovação superior." onclick="checkVQ(this)">The minimum order quantity required by the supplier</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs4"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s5" data-idx="4">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--purple)">05</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Purchase Order</div>
+          <div class="step-who"><span class="who-tag who-client">Procurement Manager</span><span class="who-tag who-provider">Account Manager</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">With approval confirmed, Procurement issues the <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">Purchase Order</span>. The PO is a legal commitment — it locks in the price, quantity, <span class="tip" data-tip="delivery date" onmouseenter="showTip(this,'delivery date')">delivery date</span>, and <span class="tip" data-tip="payment terms" onmouseenter="showTip(this,'payment terms')">payment terms</span>. The supplier must formally <span class="tip" data-tip="acknowledge" onmouseenter="showTip(this,'acknowledge')">acknowledge</span> and accept the PO before production begins. Any change after this point requires a formal <span class="tip" data-tip="amendment" onmouseenter="showTip(this,'amendment')">amendment</span>.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Purchase Order (PO)</div>
+            <div class="step-doc-desc">The formal commitment from buyer to supplier. Once accepted by the supplier, it is legally binding on both sides. It defines exactly what will be delivered, when, where, and at what price.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Procurement Manager → Hua Li Account Manager</div>
+            <div class="step-phrase">"Please find attached <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">Purchase Order</span> #BR-2024-0091 for 2,000 units of HX-44 at USD 3.20/unit <span class="tip" data-tip="CIF Santos" onmouseenter="showTip(this,'CIF Santos')">CIF Santos</span>, total USD 6,400. <span class="tip" data-tip="delivery date" onmouseenter="showTip(this,'delivery date')">Delivery</span> is required by 14 December 2024. Please <span class="tip" data-tip="confirm receipt and acceptance" onmouseenter="showTip(this,'confirm receipt and acceptance')">confirm receipt and acceptance</span> of this PO by return and advise your <span class="tip" data-tip="expected ship date" onmouseenter="showTip(this,'expected ship date')">expected ship date</span>."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">confirm receipt — not confirm you received</div>
+            <div class="step-watch-body">"Please <strong>confirm receipt</strong> of this PO." — Not: <span class='wrong'>confirm that you received</span>. In business English, "confirm receipt" is the standard formal phrase for acknowledging a document.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">Any change after the PO is issued requires a formal <span class="tip" data-tip="amendment" onmouseenter="showTip(this,'amendment')">amendment</span>.</div>
+            <div class="step-vq-q">The delivery date in the PO is 14 December, but the supplier calls and verbally agrees to extend it to 5 January. Is this enough?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs5" data-fb-ok="Correct. A verbal agreement is not enforceable. The original PO delivery date stands until a signed written amendment is issued by both parties. Without it, the supplier could still be held to 14 December. / Correto. Acordo verbal não tem validade. A data original permanece até que um aditivo assinado seja emitido." data-fb-no="Verbal agreements are not enforceable in a formal procurement relationship. The original PO date stands until a written amendment is signed by both parties — otherwise the supplier is still committed to 14 December. / Acordos verbais não são exigíveis. A data original permanece até um aditivo escrito assinado." onclick="checkVQ(this)">Yes — a verbal agreement between professionals is binding</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs5" data-fb-ok="Correct. A verbal agreement is not enforceable. The original PO delivery date stands until a signed written amendment is issued by both parties. Without it, the supplier could still be held to 14 December. / Correto. Acordo verbal não tem validade. A data original permanece até que um aditivo assinado seja emitido." data-fb-no="Verbal agreements are not enforceable in a formal procurement relationship. The original PO date stands until a written amendment is signed by both parties — otherwise the supplier is still committed to 14 December. / Acordos verbais não são exigíveis. A data original permanece até um aditivo escrito assinado." onclick="checkVQ(this)">No — the original date still stands until a signed amendment is issued</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs5" data-fb-ok="Correct. A verbal agreement is not enforceable. The original PO delivery date stands until a signed written amendment is issued by both parties. Without it, the supplier could still be held to 14 December. / Correto. Acordo verbal não tem validade. A data original permanece até que um aditivo assinado seja emitido." data-fb-no="Verbal agreements are not enforceable in a formal procurement relationship. The original PO date stands until a written amendment is signed by both parties — otherwise the supplier is still committed to 14 December. / Acordos verbais não são exigíveis. A data original permanece até um aditivo escrito assinado." onclick="checkVQ(this)">It depends on the value of the order</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs5"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s6" data-idx="5">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--orange)">06</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Production & Shipment</div>
+          <div class="step-who"><span class="who-tag who-provider">Sales Engineer</span><span class="who-tag who-provider">Quality Manager</span><span class="who-tag who-provider">Logistics Coordinator</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">The supplier produces the goods according to the agreed <span class="tip" data-tip="specification" onmouseenter="showTip(this,'specification')">specification</span>. Before shipping, the Quality Manager runs an <span class="tip" data-tip="outgoing inspection" onmouseenter="showTip(this,'outgoing inspection')">outgoing inspection</span> and issues a <span class="tip" data-tip="certificate of conformance" onmouseenter="showTip(this,'certificate of conformance')">certificate of conformance</span>. The Logistics Coordinator books <span class="tip" data-tip="freight" onmouseenter="showTip(this,'freight')">freight</span>, prepares <span class="tip" data-tip="shipping documents" onmouseenter="showTip(this,'shipping documents')">shipping documents</span>, and confirms the <span class="tip" data-tip="ETD" onmouseenter="showTip(this,'ETD')">ETD</span>.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Certificate of Conformance + Shipping Documents</div>
+            <div class="step-doc-desc">The certificate of conformance confirms the goods meet the spec. The shipping documents — Bill of Lading, packing list, commercial invoice — are required for customs clearance at the destination port.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Hua Li Logistics Coordinator → Althea Procurement</div>
+            <div class="step-phrase">"All 2,000 units of HX-44 passed <span class="tip" data-tip="outgoing inspection" onmouseenter="showTip(this,'outgoing inspection')">outgoing inspection</span> against your specification Rev.3. We have confirmed <span class="tip" data-tip="vessel" onmouseenter="showTip(this,'vessel')">vessel</span> booking for 18 November, <span class="tip" data-tip="ETD" onmouseenter="showTip(this,'ETD')">ETD</span> Shanghai. <span class="tip" data-tip="Bill of Lading" onmouseenter="showTip(this,'Bill of Lading')">Bill of Lading</span> and <span class="tip" data-tip="packing list" onmouseenter="showTip(this,'packing list')">packing list</span> will follow within 24 hours of departure. <span class="tip" data-tip="ETA" onmouseenter="showTip(this,'ETA')">ETA</span> Santos: 10 December."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">ETD vs ETA</div>
+            <div class="step-watch-body"><strong>ETD</strong> (Estimated Time of Departure) = when the ship leaves. <strong>ETA</strong> (Estimated Time of Arrival) = when it arrives. Confusing them causes real planning errors. / <strong>ETD</strong> = quando o navio parte. <strong>ETA</strong> = quando chega. Confundi-los causa erros reais de planejamento.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">The <span class="tip" data-tip="Bill of Lading" onmouseenter="showTip(this,'Bill of Lading')">Bill of Lading</span> will be sent within 24 hours of departure.</div>
+            <div class="step-vq-q">Why is the Bill of Lading critical for the buyer?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs6" data-fb-ok="Correct. The Bill of Lading is a legal title document — without it, the buyer cannot claim the goods at the port or clear customs. It is issued by the carrier (shipping company) and transferred to the buyer. / Correto. O B/L é um documento de título legal — sem ele, o comprador não pode retirar os produtos no porto." data-fb-no="The Bill of Lading is not about payment or quality — it is a legal shipping document issued by the carrier. It gives the holder the right to collect the goods. Without it, customs clearance is impossible. / O B/L é um documento legal de transporte emitido pela transportadora — necessário para o desembaraço aduaneiro." onclick="checkVQ(this)">It is proof that the supplier was paid</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs6" data-fb-ok="Correct. The Bill of Lading is a legal title document — without it, the buyer cannot claim the goods at the port or clear customs. It is issued by the carrier (shipping company) and transferred to the buyer. / Correto. O B/L é um documento de título legal — sem ele, o comprador não pode retirar os produtos no porto." data-fb-no="The Bill of Lading is not about payment or quality — it is a legal shipping document issued by the carrier. It gives the holder the right to collect the goods. Without it, customs clearance is impossible. / O B/L é um documento legal de transporte emitido pela transportadora — necessário para o desembaraço aduaneiro." onclick="checkVQ(this)">It is the legal document that gives the buyer the right to collect the goods at the destination port — required for customs clearance</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs6" data-fb-ok="Correct. The Bill of Lading is a legal title document — without it, the buyer cannot claim the goods at the port or clear customs. It is issued by the carrier (shipping company) and transferred to the buyer. / Correto. O B/L é um documento de título legal — sem ele, o comprador não pode retirar os produtos no porto." data-fb-no="The Bill of Lading is not about payment or quality — it is a legal shipping document issued by the carrier. It gives the holder the right to collect the goods. Without it, customs clearance is impossible. / O B/L é um documento legal de transporte emitido pela transportadora — necessário para o desembaraço aduaneiro." onclick="checkVQ(this)">It confirms that the goods passed quality inspection</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs6"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s7" data-idx="6">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--teal)">07</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Customs & Receiving</div>
+          <div class="step-who"><span class="who-tag who-client">Procurement Manager</span><span class="who-tag who-client">Operations / Warehouse</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">The shipment arrives at Santos port. The <span class="tip" data-tip="freight forwarder" onmouseenter="showTip(this,'freight forwarder')">freight forwarder</span> handles <span class="tip" data-tip="customs clearance" onmouseenter="showTip(this,'customs clearance')">customs clearance</span> using the <span class="tip" data-tip="Bill of Lading" onmouseenter="showTip(this,'Bill of Lading')">Bill of Lading</span>, <span class="tip" data-tip="commercial invoice" onmouseenter="showTip(this,'commercial invoice')">commercial invoice</span>, and <span class="tip" data-tip="packing list" onmouseenter="showTip(this,'packing list')">packing list</span>. Once cleared, goods are transported to Althea's warehouse. The warehouse team runs an <span class="tip" data-tip="incoming inspection" onmouseenter="showTip(this,'incoming inspection')">incoming inspection</span> — checking quantity, packaging, and visible condition before issuing a <span class="tip" data-tip="goods receipt" onmouseenter="showTip(this,'goods receipt')">goods receipt</span>.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Goods Receipt Note (GRN)</div>
+            <div class="step-doc-desc">An internal document confirming that goods were physically received, in the correct quantity and acceptable condition. The GRN is required by Finance before processing any invoice from the supplier.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Warehouse / Operations → Procurement</div>
+            <div class="step-phrase">"The shipment arrived at our <span class="tip" data-tip="warehouse" onmouseenter="showTip(this,'warehouse')">warehouse</span> this morning. Quantity confirmed: 2,000 units of HX-44, <span class="tip" data-tip="batch" onmouseenter="showTip(this,'batch')">batch</span> #HX-2024-114. Packaging intact. We have issued the <span class="tip" data-tip="goods receipt" onmouseenter="showTip(this,'goods receipt')">goods receipt</span> and sent a copy to Finance. The goods are now available for production."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">incoming inspection — not receiving inspection</div>
+            <div class="step-watch-body">The standard term is <strong>incoming inspection</strong> (also: <em>incoming quality control / IQC</em>). Not: <span class='wrong'>receiving inspection</span>. This is what happens when goods arrive — a check before they go into stock. / O termo padrão é <strong>incoming inspection</strong> ou IQC.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">Finance will not process the invoice until they receive the <span class="tip" data-tip="goods receipt" onmouseenter="showTip(this,'goods receipt')">goods receipt</span> note.</div>
+            <div class="step-vq-q">What is the main purpose of a goods receipt note in the procurement process?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs7" data-fb-ok="Correct. The GRN confirms physical receipt and is the trigger for payment. Finance will not process the supplier&#39;s invoice without it — it is the proof that the buyer actually received what they paid for. / Correto. O GRN confirma o recebimento físico e aciona o processo de pagamento." data-fb-no="The GRN is an internal receipt document — it confirms the goods arrived. Finance uses it to match against the supplier&#39;s invoice before releasing payment. Without it, the invoice stays on hold. / O GRN é um documento de recebimento interno — prova que os produtos chegaram." onclick="checkVQ(this)">To confirm the goods were shipped on time</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs7" data-fb-ok="Correct. The GRN confirms physical receipt and is the trigger for payment. Finance will not process the supplier&#39;s invoice without it — it is the proof that the buyer actually received what they paid for. / Correto. O GRN confirma o recebimento físico e aciona o processo de pagamento." data-fb-no="The GRN is an internal receipt document — it confirms the goods arrived. Finance uses it to match against the supplier&#39;s invoice before releasing payment. Without it, the invoice stays on hold. / O GRN é um documento de recebimento interno — prova que os produtos chegaram." onclick="checkVQ(this)">To document that goods were physically received — triggering the payment process</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs7" data-fb-ok="Correct. The GRN confirms physical receipt and is the trigger for payment. Finance will not process the supplier&#39;s invoice without it — it is the proof that the buyer actually received what they paid for. / Correto. O GRN confirma o recebimento físico e aciona o processo de pagamento." data-fb-no="The GRN is an internal receipt document — it confirms the goods arrived. Finance uses it to match against the supplier&#39;s invoice before releasing payment. Without it, the invoice stays on hold. / O GRN é um documento de recebimento interno — prova que os produtos chegaram." onclick="checkVQ(this)">To replace the invoice from the supplier</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs7"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step" id="s8" data-idx="7">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num-wrap">
+          <div class="step-check" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-num" style="background:var(--green)">08</div>
+        </div>
+        <div class="step-header-body">
+          <div class="step-label">Invoice & Payment</div>
+          <div class="step-who"><span class="who-tag who-client">Finance / AP</span><span class="who-tag who-provider">Account Manager</span></div>
+        </div>
+        <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+
+      <div class="step-body">
+        <div class="step-body-inner">
+
+          <div class="step-what">The supplier <span class="tip" data-tip="raise an invoice" onmouseenter="showTip(this,'raise an invoice')">raises the invoice</span> after the goods are delivered and accepted. Finance performs a <span class="tip" data-tip="three-way match" onmouseenter="showTip(this,'three-way match')">three-way match</span> — checking that the <span class="tip" data-tip="invoice" onmouseenter="showTip(this,'invoice')">invoice</span>, the <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">Purchase Order</span>, and the <span class="tip" data-tip="goods receipt" onmouseenter="showTip(this,'goods receipt')">goods receipt</span> all agree on quantity, price, and supplier details. If everything matches, payment is <span class="tip" data-tip="release payment" onmouseenter="showTip(this,'release payment')">released</span> within the agreed <span class="tip" data-tip="payment terms" onmouseenter="showTip(this,'payment terms')">payment terms</span>.</div>
+
+          <div class="step-doc-box">
+            <div class="step-doc-label">Key document</div>
+            <div class="step-doc-name">Invoice + Three-Way Match</div>
+            <div class="step-doc-desc">The supplier's payment request. Finance will only process it after matching it against the PO (what was ordered) and the GRN (what was received). Any discrepancy — wrong price, wrong quantity, missing PO number — puts the invoice on hold.</div>
+          </div>
+
+          <div class="step-phrase-box">
+            <div class="step-phrase-who">Finance / Accounts Payable → Hua Li Account Manager</div>
+            <div class="step-phrase">"This invoice cannot be processed. The unit price on the <span class="tip" data-tip="invoice" onmouseenter="showTip(this,'invoice')">invoice</span> is USD 3.25 but <span class="tip" data-tip="Purchase Order" onmouseenter="showTip(this,'Purchase Order')">PO</span> #BR-2024-0091 shows USD 3.20. Please <span class="tip" data-tip="resubmit" onmouseenter="showTip(this,'resubmit')">resubmit</span> with the correct amount or send a <span class="tip" data-tip="credit note" onmouseenter="showTip(this,'credit note')">credit note</span> for the difference. Payment will be <span class="tip" data-tip="release payment" onmouseenter="showTip(this,'release payment')">released</span> within Net 60 from receipt of the corrected invoice."</div>
+          </div>
+
+          <div class="step-watch">
+            <div class="step-watch-label">Watch your language</div>
+            <div class="step-watch-title">release payment — not liberate or free</div>
+            <div class="step-watch-body">"Finance will <strong>release payment</strong> once the three-way match is complete." — Not: <span class='wrong'>liberate the payment</span>. "Release" is the standard verb for authorising a payment to go through. / "Release" é o verbo padrão para autorizar um pagamento.</div>
+          </div>
+
+          <div class="step-vq">
+            <div class="step-vq-label">Quick check</div>
+            <div class="step-vq-sent">Finance performs a <span class="tip" data-tip="three-way match" onmouseenter="showTip(this,'three-way match')">three-way match</span> before releasing any payment.</div>
+            <div class="step-vq-q">What are the three documents in a "three-way match"?</div>
+            <div class="step-vq-opts"><button class="vq-opt" data-correct="0" data-qid="vqs8" data-fb-ok="Correct. The three-way match compares: (1) the Purchase Order — what was ordered, (2) the goods receipt note — what was actually received, and (3) the invoice — what the supplier is charging. All three must agree before payment is released. / Correto. Os três documentos são: PO, nota de recebimento e fatura." data-fb-no="The three-way match is a financial control: PO (ordered), GRN (received), invoice (charged). All three must match in quantity and price before Finance releases the payment. / O three-way match compara: PO, nota de recebimento (GRN) e fatura." onclick="checkVQ(this)">Invoice, bank transfer, and contract</button>
+<button class="vq-opt" data-correct="1" data-qid="vqs8" data-fb-ok="Correct. The three-way match compares: (1) the Purchase Order — what was ordered, (2) the goods receipt note — what was actually received, and (3) the invoice — what the supplier is charging. All three must agree before payment is released. / Correto. Os três documentos são: PO, nota de recebimento e fatura." data-fb-no="The three-way match is a financial control: PO (ordered), GRN (received), invoice (charged). All three must match in quantity and price before Finance releases the payment. / O three-way match compara: PO, nota de recebimento (GRN) e fatura." onclick="checkVQ(this)">Purchase Order, goods receipt note, and invoice</button>
+<button class="vq-opt" data-correct="0" data-qid="vqs8" data-fb-ok="Correct. The three-way match compares: (1) the Purchase Order — what was ordered, (2) the goods receipt note — what was actually received, and (3) the invoice — what the supplier is charging. All three must agree before payment is released. / Correto. Os três documentos são: PO, nota de recebimento e fatura." data-fb-no="The three-way match is a financial control: PO (ordered), GRN (received), invoice (charged). All three must match in quantity and price before Finance releases the payment. / O three-way match compara: PO, nota de recebimento (GRN) e fatura." onclick="checkVQ(this)">RFQ, quotation, and Purchase Order</button>
+</div>
+            <div class="step-vq-fb" id="fb-vqs8"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+<footer class="footer">
+  <svg class="footer-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <div class="footer-nav-row"><a href="./procurement-stakeholders.html" class="footer-nav-btn footer-nav-prev">← Stakeholders</a><a href="./procurement-grammar-voice2.html" class="footer-nav-btn footer-nav-next">Grammar: Voice →</a></div>
+<p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
+</footer>
+
+<div id="tip-global"><span class="tip-en"></span><span class="tip-pt"></span><span class="tip-def"></span></div>
+
+<script>
+const TIPS = {
+  "ERP system": {en:"ERP — Enterprise Resource Planning",pt:"Sistema de gestão empresarial",def:"Software that manages core business processes — inventory, purchasing, finance, production — in one integrated system. SAP and Oracle are common examples."},
+  "stock level": {en:"stock level",pt:"nível de estoque",def:"The current quantity of a product available in the warehouse. When it falls below the reorder point, procurement must act."},
+  "reorder point": {en:"reorder point",pt:"ponto de reposição",def:"The stock level at which a new order must be placed to avoid running out. Calculated based on lead time and average daily consumption."},
+  "stock alert": {en:"stock alert",pt:"alerta de estoque",def:"A system notification triggered when stock falls below the reorder point. The starting point of the procurement cycle."},
+  "days of cover": {en:"days of cover",pt:"dias de cobertura",def:"How many days the current stock will last at the current rate of consumption. 11 days of cover = stock runs out in 11 days."},
+  "reorder": {en:"to reorder",pt:"reabastecer / fazer novo pedido",def:"To place a new purchase order for a product that is running low. 'We need to reorder HX-44 immediately.'"},
+  "stockout": {en:"stockout",pt:"ruptura de estoque",def:"When stock reaches zero and production or sales cannot continue. Every day of stockout has a direct financial cost."},
+  "approved supplier list": {en:"approved supplier list",pt:"lista de fornecedores aprovados",def:"A pre-vetted list of suppliers that have passed the company's quality, financial, and compliance checks. Only approved suppliers can receive a PO."},
+  "RFQ": {en:"RFQ — Request for Quotation",pt:"Pedido de Cotação",def:"A formal document sent to suppliers asking for price, lead time, MOQ, and delivery conditions. Not an order — a request for information."},
+  "lead time": {en:"lead time",pt:"prazo de entrega / lead time",def:"The total time between placing an order and receiving the goods. Includes production, quality checks, and shipping."},
+  "Incoterm": {en:"Incoterm",pt:"Incoterm",def:"International trade terms defining who pays for freight and insurance and who bears risk during transport."},
+  "payment terms": {en:"payment terms",pt:"condições de pagamento",def:"When and how payment is made. E.g. Net 60 = buyer pays within 60 days of receiving a valid invoice."},
+  "unit price": {en:"unit price",pt:"preço unitário",def:"The cost of one single unit of a product. Total order value = unit price × quantity."},
+  "MOQ": {en:"MOQ — Minimum Order Quantity",pt:"Quantidade Mínima de Pedido",def:"The smallest quantity a supplier will sell in one order. If your demand is below the MOQ, you must either order more or find another supplier."},
+  "PO confirmation": {en:"PO confirmation",pt:"confirmação da ordem de compra",def:"The moment the supplier formally accepts the Purchase Order. Lead time typically starts from this date."},
+  "CIF Santos": {en:"CIF Santos",pt:"CIF Santos (porto)",def:"Cost, Insurance, Freight to Santos port. The supplier pays for shipping and insurance until the goods arrive at Santos. After that, the buyer is responsible."},
+  "quotation": {en:"quotation / quote",pt:"cotação / proposta comercial",def:"The supplier's formal response to an RFQ — stating price, lead time, and conditions. Not a commitment yet: both parties must agree before a PO is issued."},
+  "comparison table": {en:"comparison table",pt:"quadro comparativo",def:"A side-by-side analysis of multiple supplier quotations. Helps Procurement make a documented, objective decision based on price, lead time, quality, and terms."},
+  "quality certification": {en:"quality certification",pt:"certificação de qualidade",def:"Proof that a supplier's processes meet a recognised standard. ISO 9001 is the most common. Buyers use it to assess quality risk."},
+  "ISO 9001": {en:"ISO 9001",pt:"ISO 9001 — certificação de qualidade",def:"An internationally recognised quality management standard. A certified supplier has passed independent audits of their production and quality processes."},
+  "procurement policy": {en:"procurement policy",pt:"política de compras",def:"Internal company rules defining how purchases must be made — approval levels, preferred suppliers, documentation requirements."},
+  "purchase requisition": {en:"purchase requisition",pt:"requisição de compra",def:"An internal document requesting authorisation to purchase. Must be approved before a PO can be issued."},
+  "approval threshold": {en:"approval threshold",pt:"limite de alçada / valor de aprovação",def:"The maximum value a person can approve independently. Above this amount, a higher level of management must sign off."},
+  "budget availability": {en:"budget availability",pt:"disponibilidade orçamentária",def:"Confirmation that the money for this purchase exists in the approved budget. Without it, no PO can be raised."},
+  "raise the PO": {en:"raise the PO",pt:"emitir a ordem de compra",def:"To formally create and issue a Purchase Order in the system. 'Raise' and 'issue' are the standard verbs — not 'open' or 'create'."},
+  "Purchase Order": {en:"Purchase Order (PO)",pt:"Ordem de Compra",def:"A formal document from the buyer confirming the purchase. Once accepted by the supplier, it is legally binding on both sides."},
+  "delivery date": {en:"delivery date",pt:"prazo de entrega / data de entrega",def:"The agreed date by which the supplier must deliver the goods to the buyer's specified location."},
+  "acknowledge": {en:"to acknowledge",pt:"confirmar o recebimento / acusar o recibo",def:"To formally confirm that a document was received and understood. 'Please acknowledge receipt of this PO.'"},
+  "amendment": {en:"amendment",pt:"aditivo / emenda",def:"A formal written document that modifies an existing contract or PO. Verbal agreements are not enforceable — only written amendments count."},
+  "confirm receipt and acceptance": {en:"confirm receipt and acceptance",pt:"confirmar o recebimento e a aceitação",def:"Standard phrase used when sending a PO — asking the supplier to confirm they received it AND that they agree to the terms."},
+  "expected ship date": {en:"expected ship date",pt:"data prevista de embarque",def:"The date the supplier plans to hand the goods to the carrier. Different from ETA, which is when goods arrive at the buyer's port."},
+  "specification": {en:"specification / spec",pt:"especificação técnica",def:"The exact technical requirements for a product — dimensions, materials, purity, tolerances. The supplier must meet every point."},
+  "outgoing inspection": {en:"outgoing inspection",pt:"inspeção de saída / pré-embarque",def:"A quality check performed at the supplier's factory before goods are shipped. Catches defects before they reach the buyer."},
+  "certificate of conformance": {en:"certificate of conformance",pt:"certificado de conformidade",def:"A document from the supplier confirming that the goods meet the agreed specifications and quality standards."},
+  "freight": {en:"freight",pt:"frete / carga",def:"The goods being transported, or the cost of transporting them. 'Freight costs' = the price of shipping."},
+  "shipping documents": {en:"shipping documents",pt:"documentos de embarque",def:"The full set of documents required for international shipment — Bill of Lading, commercial invoice, packing list, certificate of origin."},
+  "ETD": {en:"ETD — Estimated Time of Departure",pt:"Data prevista de partida",def:"When the vessel leaves the port of origin. ETD Shanghai = the ship leaves Shanghai on this date."},
+  "vessel": {en:"vessel",pt:"navio / embarcação",def:"A ship used for transporting cargo. 'We have confirmed vessel booking' = space on the ship is reserved."},
+  "Bill of Lading": {en:"Bill of Lading (B/L)",pt:"Conhecimento de Embarque",def:"A legal document issued by the carrier confirming receipt of goods. The buyer needs it to claim the goods and clear customs at the destination port."},
+  "packing list": {en:"packing list",pt:"romaneio / lista de embalagem",def:"A document listing exactly what is in each box — quantity, weight, dimensions. Must match the commercial invoice exactly."},
+  "ETA": {en:"ETA — Estimated Time of Arrival",pt:"Previsão de chegada",def:"When the shipment is expected to arrive at the destination port. 'ETA Santos: 10 December.'"},
+  "freight forwarder": {en:"freight forwarder",pt:"agente de cargas / despachante",def:"A company that organises the shipment of goods on behalf of exporters or importers — booking freight, preparing documents, handling customs."},
+  "customs clearance": {en:"customs clearance",pt:"desembaraço aduaneiro",def:"The official process of getting government approval to import goods. Requires the correct documents — B/L, invoice, packing list, import licence."},
+  "commercial invoice": {en:"commercial invoice",pt:"fatura comercial",def:"The official invoice used in international trade for customs purposes. Shows price, quantity, origin, and description of goods."},
+  "incoming inspection": {en:"incoming inspection (IQC)",pt:"inspeção de recebimento",def:"A quality check performed when goods arrive at the buyer's warehouse — verifying quantity, packaging, and condition before accepting into stock."},
+  "goods receipt": {en:"goods receipt note (GRN)",pt:"nota de recebimento de mercadorias",def:"An internal document confirming physical receipt of goods. Finance needs the GRN to match against the invoice before releasing payment."},
+  "warehouse": {en:"warehouse",pt:"armazém / depósito",def:"The physical location where goods are stored after arrival and before being used in production or distributed."},
+  "batch": {en:"batch",pt:"lote",def:"A group of products made in the same production run. Each batch has a unique reference for traceability — critical in chemicals and regulated industries."},
+  "raise an invoice": {en:"raise an invoice",pt:"emitir uma fatura",def:"To formally create and send an invoice requesting payment. Standard procurement English: 'raise' or 'issue' an invoice — not 'make' or 'do'."},
+  "three-way match": {en:"three-way match",pt:"conferência triangular / three-way match",def:"A financial control: Finance matches the Purchase Order (ordered), goods receipt note (received), and invoice (charged). All three must agree before payment is released."},
+  "invoice": {en:"invoice",pt:"fatura",def:"A document from the supplier requesting payment for goods delivered. Must match the PO and GRN to be processed."},
+  "release payment": {en:"release payment",pt:"liberar o pagamento",def:"To authorise and process a payment to a supplier. Finance releases payment after the three-way match is complete."},
+  "resubmit": {en:"resubmit",pt:"reenviar / submeter novamente",def:"To send a corrected document again after an error was found. 'Please resubmit the invoice with the correct unit price.'"},
+  "credit note": {en:"credit note",pt:"nota de crédito",def:"A document issued by the supplier to reduce the amount owed — used when an invoice was overcharged or goods were returned."}
+};
+
+function showTip(el, key) {
+  const t = TIPS[key];
+  if (!t) return;
+  const box = document.getElementById('tip-global');
+  box.querySelector('.tip-en').textContent = t.en;
+  box.querySelector('.tip-pt').textContent = t.pt || '';
+  box.querySelector('.tip-def').textContent = t.def;
+  box.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const tw = 240;
+  let left = r.left + r.width/2 - tw/2;
+  if (left < 8) left = 8;
+  if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+  let top = r.top - 8;
+  if (box.offsetHeight) top = r.top - box.offsetHeight - 8;
+  if (top < 8) top = r.bottom + 8;
+  box.style.left = left + 'px';
+  box.style.top = top + 'px';
+  el.addEventListener('mouseleave', () => { box.style.display = 'none'; }, {once:true});
+}
+
+var currentOpen = null;
+
+function toggleStep(header) {
+  var step = header.closest('.flow-step');
+  var isOpen = step.classList.contains('open');
+  // close all
+  document.querySelectorAll('.flow-step.open').forEach(function(s) {
+    s.classList.remove('open');
+  });
+  if (!isOpen) {
+    step.classList.add('open');
+    currentOpen = step.id;
+    updateTimeline(step.id);
+    // smooth scroll
+    setTimeout(function() {
+      var top = step.getBoundingClientRect().top + window.scrollY - getOffset();
+      window.scrollTo({top: top, behavior: 'smooth'});
+    }, 80);
+  } else {
+    currentOpen = null;
+    updateTimeline(null);
+  }
+}
+
+function getOffset() {
+  var hdr = document.querySelector('.hdr');
+  var tl = document.querySelector('.tl-wrap');
+  return (hdr ? hdr.offsetHeight : 56) + (tl ? tl.offsetHeight : 80) + 12;
+}
+
+function jumpStep(id) {
+  var step = document.getElementById(id);
+  document.querySelectorAll('.flow-step.open').forEach(function(s) { s.classList.remove('open'); });
+  step.classList.add('open');
+  currentOpen = id;
+  updateTimeline(id);
+  setTimeout(function() {
+    var top = step.getBoundingClientRect().top + window.scrollY - getOffset();
+    window.scrollTo({top: top, behavior: 'smooth'});
+  }, 80);
+}
+
+function updateTimeline(activeId) {
+  var ids = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+  var activeIdx = activeId ? ids.indexOf(activeId) : -1;
+  ids.forEach(function(id, i) {
+    var dot = document.getElementById('tl-' + id);
+    var step = document.getElementById(id);
+    dot.classList.remove('active','done');
+    if (i === activeIdx) dot.classList.add('active');
+    else if (step.classList.contains('done')) dot.classList.add('done');
+  });
+}
+
+function checkVQ(btn) {
+  var qid = btn.dataset.qid;
+  var correct = btn.dataset.correct === '1';
+  var fb = document.getElementById('fb-' + qid);
+  if (fb.classList.contains('ok') || fb.classList.contains('no')) return;
+  var opts = btn.closest('.step-vq-opts').querySelectorAll('.vq-opt');
+  opts.forEach(function(o) { o.classList.add('dimmed'); });
+  btn.classList.remove('dimmed');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  fb.innerHTML = correct ? btn.dataset.fbOk : btn.dataset.fbNo;
+  fb.className = 'step-vq-fb ' + (correct ? 'ok' : 'no');
+  // mark step done if correct
+  if (correct) {
+    var step = btn.closest('.flow-step');
+    step.classList.add('done');
+    var check = step.querySelector('.step-check');
+    var num = step.querySelector('.step-num');
+    if (check && num) { check.style.display = 'flex'; num.style.opacity = '0'; }
+    updateTimeline(currentOpen);
+  }
+}
+
+// open first step on load
+window.addEventListener('DOMContentLoaded', function() {
+  var first = document.getElementById('s1');
+  first.classList.add('open');
+  currentOpen = 's1';
+  updateTimeline('s1');
+});
+</script>
+</body>
+</html>

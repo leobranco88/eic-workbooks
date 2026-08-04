@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHO or WHAT first? · Neural English · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;--purple:#5B21B6;--green:#065F46;--green-bg:#ECFDF5}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-logo{height:22px;width:auto;flex-shrink:0}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:#fff;padding:3px 12px;border-radius:20px}
+
+.hero{background:var(--dark);margin-top:56px;padding:56px 56px 48px}
+.hero-inner{max-width:880px;margin:0 auto}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.hero-eyebrow-line{width:24px;height:2px;background:var(--teal)}
+.hero-eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(28px,4.5vw,52px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:.95;margin-bottom:16px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.42);max-width:600px;line-height:1.75;margin-bottom:32px}
+.hero-question{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 24px}
+.hero-q-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px}
+.hero-q-text{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.4}
+.hero-q-text em{font-style:italic;color:var(--teal)}
+.hero-q-sub{font-size:13px;color:rgba(255,255,255,.35);margin-top:6px;line-height:1.6}
+
+.progress-bar-wrap{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.06);padding:14px 56px}
+.progress-bar-inner{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.progress-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.3);white-space:nowrap}
+.progress-track{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px}
+.progress-fill{height:100%;border-radius:2px;background:var(--teal);transition:width .4s ease;width:0%}
+.progress-count{font-size:11px;font-weight:800;color:rgba(255,255,255,.4);white-space:nowrap}
+
+.main{max-width:880px;margin:0 auto;padding:40px 56px 80px}
+
+/* SITUATION ITEMS */
+.sit-item{border:1.5px solid var(--border);border-radius:16px;background:#fff;margin-bottom:20px;overflow:hidden;transition:border-color .3s}
+.sit-item.chose-who{border-color:#BE185D}
+.sit-item.chose-what{border-color:#1D4ED8}
+
+.sit-header{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);background:var(--paper)}
+.sit-num{width:26px;height:26px;border-radius:7px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--mid);flex-shrink:0}
+.sit-item.chose-who .sit-num{background:rgba(236,72,153,.15);color:#BE185D}
+.sit-item.chose-what .sit-num{background:rgba(29,78,216,.12);color:#1D4ED8}
+.sit-topic{font-size:12px;font-weight:700;color:var(--ink);flex:1}
+.sit-coll{font-size:10px;font-weight:700;color:var(--mid);background:#fff;border:1px solid var(--border);padding:2px 9px;border-radius:20px}
+
+.sit-body{padding:20px 22px}
+
+/* PARAGRAPH */
+.sit-para-wrap{margin-bottom:20px}
+.sit-para-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:10px}
+.sit-para{font-size:15px;line-height:2.0;color:var(--ink);padding:16px 20px;background:var(--paper);border-radius:10px;margin-bottom:8px}
+.para-normal{color:var(--mid)}
+.para-target{color:var(--ink);font-weight:500}
+.para-who{color:#BE185D;font-weight:700;background:rgba(236,72,153,.12);padding:2px 6px;border-radius:4px}
+.para-what{color:#1D4ED8;font-weight:700;text-decoration:underline;text-decoration-color:rgba(29,78,216,.35);text-decoration-thickness:2px}
+.sit-para-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--mid)}
+.legend-who{color:#BE185D;font-weight:800;background:rgba(236,72,153,.12);padding:1px 6px;border-radius:4px}
+.legend-what{color:#1D4ED8;font-weight:700;text-decoration:underline;text-decoration-color:rgba(29,78,216,.4)}
+
+/* QUESTION */
+.sit-question-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:10px}
+
+/* OPTIONS */
+.sit-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0}
+.sit-opt{padding:16px 20px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;background:#fff;text-align:left;transition:all .2s;font-family:Inter,sans-serif;display:flex;align-items:flex-start;gap:12px}
+.sit-opt:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.sit-opt.who-opt:hover,.sit-opt.who-opt.chosen{border-color:#BE185D;background:rgba(236,72,153,.04)}
+.sit-opt.what-opt:hover,.sit-opt.what-opt.chosen{border-color:#1D4ED8;background:rgba(29,78,216,.04)}
+.sit-opt.chosen{pointer-events:none}
+.sit-opt.not-chosen{opacity:.35;pointer-events:none}
+.sit-opt-icon{color:var(--mid);margin-top:2px;flex-shrink:0}
+.who-opt .sit-opt-icon{color:#BE185D}
+.what-opt .sit-opt-icon{color:#1D4ED8}
+.sit-opt-main{font-size:14px;font-weight:800;color:var(--ink);display:block;margin-bottom:2px}
+.sit-opt-sub{font-size:11px;color:var(--mid);display:block}
+
+/* REVEAL */
+.sit-reveal{display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px}
+.both-valid-note{display:flex;align-items:flex-start;gap:8px;padding:10px 14px;background:var(--surface);border-radius:10px;border-left:3px solid var(--border);margin-bottom:14px;font-size:13px;color:var(--mid);line-height:1.55}
+.both-valid-note svg{color:var(--mid);flex-shrink:0;margin-top:1px}
+.both-valid-note strong{color:var(--ink)}
+.sit-reveal.show{display:block}
+
+.sit-versions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:600px){.sit-versions,.sit-opts{grid-template-columns:1fr}}
+.sit-version{border-radius:10px;padding:14px 16px;border:1.5px solid var(--border)}
+.sit-version.chosen-ver{border-color:var(--ink);background:var(--paper)}
+.sit-version.not-chosen-ver{opacity:.5}
+.ver-label{font-size:10px;font-weight:700;color:var(--mid);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.sit-version.chosen-ver .ver-label{color:var(--ink);font-weight:800}
+.who-ver.chosen-ver .ver-label{color:#BE185D}
+.what-ver.chosen-ver .ver-label{color:#1D4ED8}
+.ver-sent{font-size:14px;font-weight:600;color:var(--mid);line-height:1.6}
+.sit-version.chosen-ver .ver-sent{color:var(--ink)}
+
+/* FOCUS REVEAL */
+.sit-focus-reveal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:600px){.sit-focus-reveal{grid-template-columns:1fr}}
+.focus-row{padding:12px 14px;border-radius:10px;background:var(--paper)}
+.focus-row.highlighted{background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.2)}
+.focus-row.what-highlighted{background:rgba(29,78,216,.05);border:1px solid rgba(29,78,216,.18)}
+.focus-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.focus-row.highlighted .focus-label{color:#BE185D}
+.focus-row.what-highlighted .focus-label{color:#1D4ED8}
+.who-label{}
+.what-label{}
+.focus-exp{font-size:13px;color:var(--mid);line-height:1.65}
+.focus-row.highlighted .focus-exp,.focus-row.what-highlighted .focus-exp{color:var(--ink)}
+.focus-exp-pt{font-size:11px;color:var(--mid);line-height:1.55;margin-top:5px;font-style:italic;border-top:1px solid var(--border);padding-top:5px}
+
+/* INSIGHT */
+.sit-insight{background:var(--dark);border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.insight-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.insight-text{font-size:13px;color:#fff;line-height:1.7;font-weight:600;margin-bottom:6px}
+.insight-pt{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;border-top:1px solid rgba(255,255,255,.08);padding-top:6px}
+
+/* REFLECTION */
+.sit-reflect{margin-top:4px}
+.reflect-label{font-size:11px;font-weight:700;color:var(--mid);margin-bottom:6px}
+.reflect-field{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--ink);background:#fff;resize:none;height:52px;outline:none;transition:border-color .2s;font-family:Inter,sans-serif}
+.reflect-field:focus{border-color:var(--teal)}
+
+.reset-row{display:flex;justify-content:flex-end;margin-top:8px}
+.reset-btn{padding:9px 20px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--border);background:transparent;color:var(--mid);cursor:pointer;font-family:Inter,sans-serif;transition:all .2s}
+.reset-btn:hover{border-color:var(--ink);color:var(--ink)}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-logo{height:20px;width:auto;opacity:.35;flex-shrink:0}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+
+@media(max-width:900px){
+  .main{padding:28px 20px 60px}
+  .hero{padding:40px 24px 36px}
+  .progress-bar-wrap{padding:14px 24px}
+  .footer{padding:24px;flex-direction:column;text-align:center}
+  .footer-copy{text-align:center}
+}
+
+/* FOOTER NAV */
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+
+.mod-nav{position:sticky;top:56px;z-index:100;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.mod-nav::-webkit-scrollbar{display:none}
+.mod-nav-inner{display:flex;align-items:center;gap:0;min-width:max-content;padding:0 24px}
+.mod-nav a{display:inline-block;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.mod-nav a:hover{color:var(--ink)}
+.mod-nav a.nav-active{color:var(--teal);border-bottom-color:var(--teal)}
+.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
+.footer-nav-next{background:var(--teal);color:#fff}
+.footer-nav-next:hover{background:#0a6575}
+.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
+.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <svg class="hdr-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <span class="hdr-meta">B1+ · Neural English · Grammar</span>
+  <span class="hdr-badge">Think first</span>
+</header>
+<nav class="mod-nav"><div class="mod-nav-inner"><a href="./procurement-lead-in.html">Lead-in</a>
+<a href="./procurement-reading.html">Reading</a>
+<a href="./procurement-documents.html">Documents</a>
+<a href="./procurement-stakeholders.html">Stakeholders</a>
+<a href="./procurement-flow.html">Flow</a>
+<a href="./procurement-grammar-voice2.html">Grammar: Voice</a>
+<a href="./procurement-grammar-supposed-to.html">Grammar: Supposed To</a>
+<a href="./procurement-grammar-who2.html" class="nav-active">Neural English</a>
+<a href="./procurement-vocab.html">Vocab</a>
+<a href="./procurement-homework.html">Homework</a>
+</div></nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-text">Neural English · B1+</span></div>
+    <h1 class="hero-title">WHO first —<br><em>or WHAT?</em></h1>
+    <p class="hero-sub">There is no wrong answer here. This is about one decision: what do you want your reader to process first? Read the full paragraph, feel the context, and choose. Then see what changes.</p>
+    <div class="hero-question">
+      <div class="hero-q-label">The question before every sentence</div>
+      <div class="hero-q-text">What do I want the reader to <em>think about first</em>? Who did it, or what happened?</div>
+      <div class="hero-q-sub">Your answer shapes the sentence. Active puts WHO first. Passive puts WHAT first.</div>
+    </div>
+  </div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-inner">
+    <span class="progress-label">Progress</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 12</span>
+  </div>
+</div>
+
+<div class="main">
+  
+    <div class="sit-item" id="sit-w01">
+      <div class="sit-header">
+        <span class="sit-num">01</span>
+        <span class="sit-topic">Performance issue</span>
+        <span class="sit-coll">miss a deadline</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">The quarterly budget review was due at the end of March.</span> <span class="para-normal">It is now April and the report has still not arrived.</span> <span class="para-target"><span class="para-who">The finance team</span> <span class="para-what">missed the deadline</span> for the budget review.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w01" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w01" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w01">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w01">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The finance team missed the deadline for the budget review.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w01">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">The deadline for the budget review was missed.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w01">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">The reader knows who is responsible. This is useful when someone needs to fix the problem.</div>
+              <div class="focus-exp-pt">O leitor sabe quem é responsável. Isso é útil quando alguém precisa resolver o problema.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w01">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The reader knows something went wrong, but not who caused it. The tone is softer.</div>
+              <div class="focus-exp-pt">O leitor sabe que algo deu errado, mas não quem causou. O tom é mais suave.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">When there is a problem, it helps to say who is responsible. The active voice makes this clear.</div>
+            <div class="insight-pt">Quando há um problema, ajuda dizer quem é responsável. A voz ativa deixa isso claro.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w02">
+      <div class="sit-header">
+        <span class="sit-num">02</span>
+        <span class="sit-topic">Follow-up communication</span>
+        <span class="sit-coll">send a reminder</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">The HR team sent a company-wide email about the new remote work policy last Tuesday.</span> <span class="para-normal">The email explained the new rules and asked all employees to read the updated guidelines.</span> <span class="para-target">Two days later, the HR team will <span class="para-what">send a follow-up reminder</span> to anyone who has not responded.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w02" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w02" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w02">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w02">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">Two days later, the HR team will send a follow-up reminder to anyone who has not responded.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w02">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">Two days later, a follow-up reminder will be sent to anyone who has not responded.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w02">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">The HR team was already mentioned twice. Saying it again is not necessary and it sounds heavy.</div>
+              <div class="focus-exp-pt">O HR team já foi mencionado duas vezes. Repeti-lo não é necessário e soa pesado.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w02">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The reminder is the new information here. The reader already knows who sent it.</div>
+              <div class="focus-exp-pt">O lembrete é a informação nova aqui. O leitor já sabe quem enviou.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">When you already said who did it, the next sentence can focus on what will happen.</div>
+            <div class="insight-pt">Quando você já disse quem fez, a próxima frase pode focar no que vai acontecer.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w03">
+      <div class="sit-header">
+        <span class="sit-num">03</span>
+        <span class="sit-topic">New hire onboarding</span>
+        <span class="sit-coll">set up an account</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">Sara joined the operations team last Monday.</span> <span class="para-normal">She needs access to the project management platform before she can start contributing.</span> <span class="para-target"><span class="para-who">The IT department</span> will <span class="para-what">set up her account</span> within 24 hours.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w03" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w03" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w03">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w03">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The IT department will set up her account within 24 hours.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w03">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">Her account will be set up within 24 hours.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w03">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">Everyone knows IT sets up accounts. It is their job. Saying it again does not help Sara.</div>
+              <div class="focus-exp-pt">Todo mundo sabe que o TI configura contas. Dizer isso novamente não ajuda Sara.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w03">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The account and the deadline. That is what Sara wants to know.</div>
+              <div class="focus-exp-pt">A conta e o prazo. É isso que Sara quer saber.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">When the WHO is obvious (IT always does this), focus on the WHAT: the account and the deadline.</div>
+            <div class="insight-pt">Quando o WHO é óbvio (o TI sempre faz isso), foque no WHAT: a conta e o prazo.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w04">
+      <div class="sit-header">
+        <span class="sit-num">04</span>
+        <span class="sit-topic">Incident report</span>
+        <span class="sit-coll">delete files</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">There was a power cut in the building yesterday afternoon.</span> <span class="para-normal">Several computers shut down unexpectedly during the incident.</span> <span class="para-target"><span class="para-who">Someone</span> <span class="para-what">deleted three files</span> from the shared drive during the outage.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w04" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w04" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w04">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w04">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">Someone deleted three files from the shared drive during the outage.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w04">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">Three files were deleted from the shared drive during the outage.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w04">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">'Someone' is a very weak subject. It tells the reader you do not know who did it. That sounds bad in a report.</div>
+              <div class="focus-exp-pt">'Someone' é um sujeito muito fraco. Diz ao leitor que você não sabe quem fez. Isso soa mal em um relatório.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w04">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">Three files are missing. That is the important fact. The cause (the power cut) is already clear.</div>
+              <div class="focus-exp-pt">Três arquivos estão faltando. Esse é o fato importante. A causa (a queda de energia) já está clara.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">When you do not know who did it, do not say 'someone'. Use passive voice. It is more honest and more professional.</div>
+            <div class="insight-pt">Quando você não sabe quem fez, não diga 'someone'. Use a voz passiva. É mais honesto e mais profissional.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w05">
+      <div class="sit-header">
+        <span class="sit-num">05</span>
+        <span class="sit-topic">Board announcement</span>
+        <span class="sit-coll">review a presentation</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">The annual strategy review is scheduled for next Thursday.</span> <span class="para-normal">All department heads have been asked to prepare a ten-minute update on their team's progress.</span> <span class="para-target"><span class="para-who">The board</span> will <span class="para-what">review all department presentations</span> during the session.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w05" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w05" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w05">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w05">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The board will review all department presentations during the session.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w05">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">All department presentations will be reviewed during the session.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w05">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">Naming the board makes the meeting feel more important. It tells people that senior leaders will see their work.</div>
+              <div class="focus-exp-pt">Nomear o board torna a reunião mais importante. Diz às pessoas que os líderes sênior verão seu trabalho.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w05">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The presentations are what people need to prepare. Everyone knows it is a board meeting.</div>
+              <div class="focus-exp-pt">As apresentações são o que as pessoas precisam preparar. Todos sabem que é uma reunião de diretoria.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">Both are good here. Active = the board is important. Passive = the presentation is important. You decide.</div>
+            <div class="insight-pt">Ambas são boas aqui. Ativa = o board é importante. Passiva = a apresentação é importante. Você decide.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w06">
+      <div class="sit-header">
+        <span class="sit-num">06</span>
+        <span class="sit-topic">Client update</span>
+        <span class="sit-coll">send a contract</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">Our legal team reviewed the contract and found two clauses that needed revision.</span> <span class="para-normal">We sent the proposed changes to the client last Friday.</span> <span class="para-target"><span class="para-who">The legal team</span> will <span class="para-what">send the revised contract</span> to the client by end of day tomorrow.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w06" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w06" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w06">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w06">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The legal team will send the revised contract to the client by end of day tomorrow.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w06">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">The revised contract will be sent to the client by end of day tomorrow.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w06">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">'Our legal team' was already used to open the paragraph. Saying it again in the third sentence feels heavy.</div>
+              <div class="focus-exp-pt">'Our legal team' já foi usado para abrir o parágrafo. Repeti-lo na terceira frase soa pesado.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w06">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The contract and the deadline. That is what the client is waiting for.</div>
+              <div class="focus-exp-pt">O contrato e o prazo. É isso que o cliente está esperando.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">When you write to a client, focus on what they will receive and when. Not on who will send it.</div>
+            <div class="insight-pt">Quando você escreve para um cliente, foque no que ele vai receber e quando. Não em quem vai enviar.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w07">
+      <div class="sit-header">
+        <span class="sit-num">07</span>
+        <span class="sit-topic">Hiring announcement</span>
+        <span class="sit-coll">select a candidate</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">Three candidates were interviewed for the senior analyst position over the past two weeks.</span> <span class="para-normal">The process included a technical assessment and two rounds of interviews.</span> <span class="para-target"><span class="para-who">The hiring committee</span> <span class="para-what">selected Ana Souza</span> for the role.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w07" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w07" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w07">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w07">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The hiring committee selected Ana Souza for the role.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w07">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">Ana Souza was selected for the role.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w07">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">A committee made the decision. It was a formal process. This makes the choice feel fair and professional.</div>
+              <div class="focus-exp-pt">Um comitê tomou a decisão. Foi um processo formal. Isso torna a escolha justa e profissional.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w07">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">Ana Souza is the news. If the announcement is about her, start with her name.</div>
+              <div class="focus-exp-pt">Ana Souza é a notícia. Se o anúncio é sobre ela, comece com o nome dela.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">Both are good. Active = focus on the process. Passive = focus on Ana. Think about your audience first.</div>
+            <div class="insight-pt">Ambas são boas. Ativa = foco no processo. Passiva = foco na Ana. Pense no seu público primeiro.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w08">
+      <div class="sit-header">
+        <span class="sit-num">08</span>
+        <span class="sit-topic">Technical issue</span>
+        <span class="sit-coll">introduce a bug</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">The new software update caused several errors in the billing system.</span> <span class="para-normal">Customers started receiving incorrect invoices last week.</span> <span class="para-target"><span class="para-who">The development team</span> <span class="para-what">introduced a bug</span> in the update that triggered the billing errors.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w08" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w08" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w08">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w08">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The development team introduced a bug in the update that triggered the billing errors.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w08">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">A bug was introduced in the update that triggered the billing errors.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w08">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">If customers have a problem, someone needs to fix it. Naming the team makes it clear who is responsible.</div>
+              <div class="focus-exp-pt">Se clientes têm um problema, alguém precisa corrigi-lo. Nomear o time deixa claro quem é responsável.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w08">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The bug is the cause of the problem. This is useful in a technical report where everyone knows the team.</div>
+              <div class="focus-exp-pt">O bug é a causa do problema. Isso é útil em um relatório técnico onde todos conhecem o time.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">For customers: use active — say who is responsible. For an internal report: passive is often cleaner.</div>
+            <div class="insight-pt">Para clientes: use a ativa. Diga quem é responsável. Para um relatório interno: a passiva é frequentemente mais limpa.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w09">
+      <div class="sit-header">
+        <span class="sit-num">09</span>
+        <span class="sit-topic">Project update</span>
+        <span class="sit-coll">submit a deliverable</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">The project was running two weeks behind schedule due to delays in the design phase.</span> <span class="para-normal">The team worked extra hours last week to recover the lost time.</span> <span class="para-target"><span class="para-who">The project manager</span> <span class="para-what">submitted the final deliverable</span> to the client this morning.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w09" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w09" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w09">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w09">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The project manager submitted the final deliverable to the client this morning.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w09">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">The final deliverable was submitted to the client this morning.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w09">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">The project manager worked hard to finish on time. Naming them gives credit for the good result.</div>
+              <div class="focus-exp-pt">O gerente de projeto trabalhou muito para terminar a tempo. Nomeá-lo dá crédito pelo bom resultado.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w09">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The project is finished. That is the good news. That is what everyone wants to hear.</div>
+              <div class="focus-exp-pt">O projeto terminou. Essa é a boa notícia. É isso que todos querem ouvir.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">Both are fine. Active: give credit to the person. Passive: the milestone is the main news.</div>
+            <div class="insight-pt">Ambas estão certas. Ativa: dê crédito à pessoa. Passiva: o marco é a notícia principal.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w10">
+      <div class="sit-header">
+        <span class="sit-num">10</span>
+        <span class="sit-topic">Company profile</span>
+        <span class="sit-coll">establish an office</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">The company has been growing steadily since 2018.</span> <span class="para-normal">Today it operates in four countries across Latin America.</span> <span class="para-target"><span class="para-who">The company</span> <span class="para-what">established its first office</span> in Buenos Aires in 2020.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w10" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w10" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w10">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w10">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The company established its first international office in Buenos Aires in 2020.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w10">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">The first international office was established in Buenos Aires in 2020.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w10">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">'The company' is the subject of every sentence in this text. Repeating it here does not add new information.</div>
+              <div class="focus-exp-pt">'The company' é o sujeito de todas as frases neste texto. Repeti-lo aqui não acrescenta informação nova.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w10">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The office is the achievement. In a company profile, facts are more important than who made the decision.</div>
+              <div class="focus-exp-pt">O escritório é a conquista. Em um perfil empresarial, os fatos são mais importantes do que quem decidiu.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">In a company profile, focus on what was achieved. Not on who made the decision.</div>
+            <div class="insight-pt">Em um perfil empresarial, foque no que foi conquistado. Não em quem tomou a decisão.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w11">
+      <div class="sit-header">
+        <span class="sit-num">11</span>
+        <span class="sit-topic">Sales report</span>
+        <span class="sit-coll">present results</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">Q3 results exceeded targets for the third consecutive quarter.</span> <span class="para-normal">The sales team closed fourteen new accounts in September alone.</span> <span class="para-target"><span class="para-who">The regional director</span> <span class="para-what">presented the results</span> to the executive team yesterday.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w11" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w11" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w11">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w11">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The regional director presented the results to the executive team yesterday.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w11">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">The results were presented to the executive team yesterday.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w11">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">The regional director brought good news. Naming them gives them credit for the results.</div>
+              <div class="focus-exp-pt">O diretor regional trouxe boas notícias. Nomeá-lo dá crédito pelos resultados.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w11">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The results are the main story here. The paragraph is about the numbers, not about the person.</div>
+              <div class="focus-exp-pt">Os resultados são a história principal aqui. O parágrafo é sobre os números, não sobre a pessoa.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">Results hero: use passive. Person hero: use active. What is the main message of your text?</div>
+            <div class="insight-pt">Resultados em destaque: use a passiva. Pessoa em destaque: use a ativa. Qual é a mensagem principal do seu texto?</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sit-item" id="sit-w12">
+      <div class="sit-header">
+        <span class="sit-num">12</span>
+        <span class="sit-topic">Process documentation</span>
+        <span class="sit-coll">review and approve</span>
+      </div>
+      <div class="sit-body">
+
+        <div class="sit-para-wrap">
+          <div class="sit-para-label">Read the full paragraph. Then decide.</div>
+          <div class="sit-para"><span class="para-normal">All expense reports must be submitted by the last working day of each month.</span> <span class="para-normal">Late submissions will not be processed until the following cycle.</span> <span class="para-target"><span class="para-who">The finance department</span> <span class="para-what">reviews and approves all expense reports</span> within five business days.</span></div>
+          <div class="sit-para-legend">
+            <span class="legend-who">WHO</span> subject &nbsp;&middot;&nbsp;
+            <span class="legend-what">action / result</span>
+          </div>
+        </div>
+
+        <div class="sit-question-label">What do you want the reader to process first?</div>
+        <div class="sit-opts">
+          <button class="sit-opt who-opt" data-sid="w12" data-choice="who" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sit-opt-main">WHO did it</div>
+            <div class="sit-opt-sub">Use active voice</div>
+          </button>
+          <button class="sit-opt what-opt" data-sid="w12" data-choice="what" onclick="chooseFocus(this)">
+            <div class="sit-opt-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="sit-opt-main">WHAT happened</div>
+            <div class="sit-opt-sub">Use passive voice</div>
+          </button>
+        </div>
+
+        <div class="sit-reveal" id="rev-w12">
+          <div class="both-valid-note">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+  <span>Both versions are correct. This is <strong>your choice</strong> as a writer. This is not a grammar rule. / Ambas as versões estão corretas. Esta é <strong>sua escolha</strong> como escritor. Não é uma regra gramatical.</span>
+</div>
+<div class="sit-versions">
+            <div class="sit-version who-ver" id="ver-who-w12">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Active: WHO first
+              </div>
+              <div class="ver-sent">The finance department reviews and approves all expense reports within five business days.</div>
+            </div>
+            <div class="sit-version what-ver" id="ver-what-w12">
+              <div class="ver-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passive: WHAT first
+              </div>
+              <div class="ver-sent">All expense reports are reviewed and approved within five business days.</div>
+            </div>
+          </div>
+
+          <div class="sit-focus-reveal">
+            <div class="focus-row" id="focus-who-w12">
+              <div class="focus-label who-label">If WHO first:</div>
+              <div class="focus-exp">In a process document, the rules are more important than who follows them. The finance department is not the main point.</div>
+              <div class="focus-exp-pt">Em um documento de processo, as regras são mais importantes do que quem as segue. O departamento financeiro não é o ponto principal.</div>
+            </div>
+            <div class="focus-row" id="focus-what-w12">
+              <div class="focus-label what-label">If WHAT first:</div>
+              <div class="focus-exp">The reader wants to know when their expenses will be ready. Not who reviews them.</div>
+              <div class="focus-exp-pt">O leitor quer saber quando suas despesas estarão prontas. Não quem as revisa.</div>
+            </div>
+          </div>
+
+          <div class="sit-insight">
+            <div class="insight-label">The insight</div>
+            <div class="insight-text">In rules and process documents, the passive is often better. The rule is more important than who applies it.</div>
+            <div class="insight-pt">Em regras e documentos de processo, a passiva é frequentemente melhor. A regra é mais importante do que quem a aplica.</div>
+          </div>
+
+          <div class="sit-reflect">
+            <div class="reflect-label">Why did you choose that? (think it through. There are no wrong answers)</div>
+            <textarea class="reflect-field" placeholder="Write your reasoning here..."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <div class="reset-row"><button class="reset-btn" onclick="resetAll()">Reset all</button></div>
+</div>
+
+<footer class="footer">
+  <svg class="footer-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
+<path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/>
+<path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/>
+<path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/>
+<path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
+<path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
+  <div class="footer-nav-row"><a href="./procurement-grammar-supposed-to.html" class="footer-nav-btn footer-nav-prev">← Grammar: Supposed To</a><a href="./procurement-vocab.html" class="footer-nav-btn footer-nav-next">Vocab →</a></div>
+<p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
+</footer>
+
+<script>
+var TOTAL = 12;
+var answered = 0;
+
+function chooseFocus(btn) {
+  var sid = btn.dataset.sid;
+  var choice = btn.dataset.choice;
+  var item = document.getElementById('sit-' + sid);
+  if (item.classList.contains('chose-who') || item.classList.contains('chose-what')) return;
+
+  // mark item
+  item.classList.add('chose-' + choice);
+
+  // style buttons
+  var opts = item.querySelectorAll('.sit-opt');
+  opts.forEach(function(o) {
+    if (o.dataset.choice === choice) o.classList.add('chosen');
+    else o.classList.add('not-chosen');
+  });
+
+  // highlight chosen version
+  var whoVer = document.getElementById('ver-who-' + sid);
+  var whatVer = document.getElementById('ver-what-' + sid);
+  if (choice === 'who') {
+    whoVer.classList.add('chosen-ver');
+    whatVer.classList.add('not-chosen-ver');
+    document.getElementById('focus-who-' + sid).classList.add('highlighted');
+    document.getElementById('focus-what-' + sid).style.opacity = '.5';
+  } else {
+    whatVer.classList.add('chosen-ver');
+    whoVer.classList.add('not-chosen-ver');
+    document.getElementById('focus-what-' + sid).classList.add('what-highlighted');
+    document.getElementById('focus-who-' + sid).style.opacity = '.5';
+  }
+
+  // show reveal
+  var rev = document.getElementById('rev-' + sid);
+  rev.classList.add('show');
+
+  // progress
+  answered++;
+  var pct = answered / TOTAL * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = answered + ' / ' + TOTAL;
+
+  // scroll
+  setTimeout(function() {
+    var rect = rev.getBoundingClientRect();
+    if (rect.bottom > window.innerHeight) {
+      rev.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+  }, 150);
+}
+
+function resetAll() {
+  answered = 0;
+  document.querySelectorAll('.sit-item').forEach(function(item) {
+    item.className = 'sit-item';
+    item.querySelectorAll('.sit-opt').forEach(function(o) { o.classList.remove('chosen','not-chosen'); });
+    item.querySelectorAll('.sit-version').forEach(function(v) { v.classList.remove('chosen-ver','not-chosen-ver'); });
+    item.querySelectorAll('.focus-row').forEach(function(r) {
+      r.classList.remove('highlighted','what-highlighted');
+      r.style.opacity = '';
+    });
+    item.querySelectorAll('.sit-reveal').forEach(function(r) { r.classList.remove('show'); });
+    item.querySelectorAll('.reflect-field').forEach(function(f) { f.value = ''; });
+  });
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressCount').textContent = '0 / ' + TOTAL;
+}
+</script>
+</body>
+</html>
