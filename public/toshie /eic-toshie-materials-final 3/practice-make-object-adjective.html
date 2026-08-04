@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Practice · make + object + adjective</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { font-family: 'Inter', sans-serif; background: var(--ink); color: var(--ink); min-height: 100vh; padding: 0 0 60px; }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+
+  .container { max-width: 860px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.08em; margin-top: 8px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1.5px solid var(--ink); }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 13px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .btn-reveal {
+    background: transparent; border: 1.5px solid var(--teal); color: var(--teal);
+    font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px;
+    cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  }
+  .btn-reveal:hover, .btn-reveal.active { background: var(--teal); color: var(--paper); }
+
+  .instruction { font-size: 11.5px; color: #374151; font-style: italic; margin-bottom: 14px; line-height: 1.5; }
+
+  /* PATTERN BOX */
+  .pattern { border: 1.5px solid var(--ink); padding: 12px 14px; margin-bottom: 14px; }
+  .pattern .pl { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+  .formula { font-size: 17px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .formula .slot { color: var(--accent); }
+  .formula .adjw { color: var(--teal); }
+  .pattern .pnote { font-size: 11.5px; color: #374151; line-height: 1.55; margin-top: 6px; }
+  .pattern .pnote em { color: var(--teal); font-style: normal; font-weight: 700; }
+
+  .pr-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .pr-cell { flex: 1 1 108px; border: 1px solid var(--border); background: var(--bg-light); padding: 5px 7px; }
+  .pr-en { display: block; font-weight: 800; font-size: 12.5px; }
+  .pr-jp { display: block; font-size: 10px; color: var(--teal); font-style: italic; }
+  .pr-pt { display: block; font-size: 9.5px; color: var(--muted); }
+
+  /* ITEMS */
+  .q-item { display: flex; gap: 10px; padding: 7px 6px; margin-bottom: 2px; align-items: flex-start; font-size: 13px; line-height: 1.55; cursor: pointer; border-radius: 2px; transition: background 0.15s; }
+  .q-item:hover { background: #F3F4F6; }
+  .q-num { font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 2px; font-size: 11px; }
+  .q-body { flex: 1; }
+  .ctx { color: var(--muted); }
+  .adj { color: var(--teal); font-weight: 800; }
+
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 78px; margin: 0 2px; vertical-align: baseline; transition: all 0.2s; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 800; white-space: nowrap; padding: 0 4px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  /* GLOSSARY */
+  .gl-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+  .gl-item { flex: 1 1 168px; background: var(--bg-light); border-left: 2px solid var(--border); padding: 5px 8px; }
+  .gl-en { display: block; font-weight: 800; font-size: 12px; }
+  .gl-jp { display: block; font-size: 10.5px; color: var(--teal); font-style: italic; }
+  .gl-pt { display: block; font-size: 9.5px; color: var(--muted); }
+
+  /* KEY */
+  .keybox { display: none; border: 1.5px solid var(--teal); background: #ECFDF5; padding: 10px 12px; font-size: 12px; line-height: 2; }
+  .keybox.on { display: block; }
+  .keybox .k { margin-right: 10px; color: var(--teal); font-weight: 700; white-space: nowrap; }
+  .keybox .k b { font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--muted); font-size: 10px; }
+
+  .footer { padding: 14px 36px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.06em; text-align: center; }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<style>
+  .eic-nav{background:#050507;border-bottom:1px solid #2A2A35;padding:9px 20px;display:flex;gap:6px;
+    flex-wrap:wrap;align-items:center;font-family:'IBM Plex Mono',monospace;row-gap:8px;}
+  .eic-nav .lbl{color:#E63946;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0;}
+  .eic-nav a{color:#9CA3AF;font-size:10px;letter-spacing:.03em;text-decoration:none;padding:5px 10px;
+    border:1px solid #2A2A35;white-space:nowrap;}
+  .eic-nav a:hover{color:#FAFAF7;border-color:#0F766E;}
+  .eic-nav a.active{background:#0F766E;color:#FAFAF7;border-color:#0F766E;font-weight:700;}
+  .eic-pdf-bar{background:#0F1113;border-bottom:1px solid #2A2A35;padding:8px 20px;display:flex;justify-content:flex-end;}
+  .eic-pdf-bar .pdf-link{background:#E63946;color:#FAFAF7;border:1px solid #E63946;font-weight:700;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-decoration:none;padding:6px 14px;}
+  .eic-pdf-bar .pdf-link:hover{background:#C0392B;border-color:#C0392B;}
+</style>
+<div class="eic-nav"><span class="lbl">Toshie · Lessons</span><a href="practice-make-object-adjective.html" class="active">01 · Pronoun + Adjective</a><a href="production-make-object-adjective.html">02 · Production</a><a href="neighbours-make-noun-verb.html">03 · Three Neighbours</a><a href="neighbours-homework.html">03 · Neighbours (Homework)</a><a href="chain-teacher.html">04 · Cause Chain</a><a href="causatives-make-let-get-have-help.html">05 · Make/Let/Get/Have/Help</a><a href="causatives-practice.html">05 · Extra Practice</a><a href="have-get-practice.html">05 · Have vs Get</a><a href="reading-lab-brazil-japan-classroom.html">06 · Reading Lab</a><a href="reading-lab-brazil-japan-homework.html">06 · Reading Lab (Homework)</a><a href="listening-lab-ryokan-checkin.html">07 · Listening Lab</a></div><div class="eic-pdf-bar"><a class="pdf-link" href="practice-make-object-adjective.pdf" target="_blank" rel="noopener">&#8681; Download PDF</a></div>
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    PRACTICE · B2 · MAKE + OBJECT + ADJECTIVE
+  </div>
+  <div class="topbar-meta">
+    GET &amp; MAKE · CAUSATIVE STRUCTURES<br>
+    CLIQUE NO ITEM PARA REVELAR
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2</div>
+        <h1>Who does it<br><span>change?</span></h1>
+        <div class="hero-sub">30 ITEMS · MAKE + OBJECT PRONOUN + ADJECTIVE · CLIQUE EM CADA ITEM PARA VER A RESPOSTA</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:38px;line-height:1;">使役</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:0.1em;margin-top:4px;">shieki · causative</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 · PATTERN -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">The Pattern</span>
+      <span class="s-pts">reference</span>
+    </div>
+
+    <div class="pattern">
+      <span class="pl">structure</span>
+      <div class="formula">make + <span class="slot">object pronoun</span> + <span class="adjw">adjective</span></div>
+      <div class="pnote">
+        The adjective describes <em>the object</em>, not the subject. <em>Get</em> is what happens on its own — <em>the room got warm</em>.
+        <em>Make</em> is what someone or something causes — <em>the fire made the room warm</em>.<br>
+        The object pronoun goes between the two: never <span style="text-decoration:line-through;color:var(--accent)">makes calmer her</span>, always <strong>makes her calmer</strong>.
+      </div>
+      <div class="pr-grid">
+        <div class="pr-cell"><span class="pr-en">me</span><span class="pr-jp">私を・私に</span><span class="pr-pt">mim / me</span></div>
+        <div class="pr-cell"><span class="pr-en">you</span><span class="pr-jp">あなたを</span><span class="pr-pt">você / te</span></div>
+        <div class="pr-cell"><span class="pr-en">him</span><span class="pr-jp">彼を</span><span class="pr-pt">ele / o</span></div>
+        <div class="pr-cell"><span class="pr-en">her</span><span class="pr-jp">彼女を</span><span class="pr-pt">ela / a</span></div>
+        <div class="pr-cell"><span class="pr-en">it</span><span class="pr-jp">それを</span><span class="pr-pt">isso / o, a</span></div>
+        <div class="pr-cell"><span class="pr-en">us</span><span class="pr-jp">私たちを</span><span class="pr-pt">nós / nos</span></div>
+        <div class="pr-cell"><span class="pr-en">them</span><span class="pr-jp">彼らを・それらを</span><span class="pr-pt">eles, elas / os, as</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 · EXERCISE -->
+  <div class="section" id="sec-ex">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Who or What Changed?</span>
+      <span class="s-pts">30 items</span>
+      <button class="btn-reveal" onclick="revealAll(this)">Reveal all</button>
+    </div>
+    <p class="instruction">Read the first sentence. It tells you who or what changes. Then complete the second sentence with the correct object pronoun — me, you, him, her, it, us, them. Click an item to check that answer only.</p>
+
+    <div class="q-item" id="q1" onclick="revealItem(1)">
+      <span class="q-num">01</span>
+      <div class="q-body"><span class="ctx">My father helps my mom every day.</span> He makes <span class="blank"><span class="ans-inline">her</span></span> <strong class="adj">calmer</strong>.</div>
+    </div>
+    <div class="q-item" id="q2" onclick="revealItem(2)">
+      <span class="q-num">02</span>
+      <div class="q-body"><span class="ctx">I always drink a coffee before class.</span> It makes <span class="blank"><span class="ans-inline">me</span></span> <strong class="adj">alert</strong>.</div>
+    </div>
+    <div class="q-item" id="q3" onclick="revealItem(3)">
+      <span class="q-num">03</span>
+      <div class="q-body"><span class="ctx">My brother has trained every day for a year.</span> The gym has made <span class="blank"><span class="ans-inline">him</span></span> <strong class="adj">stronger</strong>.</div>
+    </div>
+    <div class="q-item" id="q4" onclick="revealItem(4)">
+      <span class="q-num">04</span>
+      <div class="q-body"><span class="ctx">The instructions were confusing.</span> A few examples made <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">clearer</strong>.</div>
+    </div>
+    <div class="q-item" id="q5" onclick="revealItem(5)">
+      <span class="q-num">05</span>
+      <div class="q-body"><span class="ctx">We didn't know the way.</span> The map made <span class="blank"><span class="ans-inline">us</span></span> <strong class="adj">confident</strong> again.</div>
+    </div>
+    <div class="q-item" id="q6" onclick="revealItem(6)">
+      <span class="q-num">06</span>
+      <div class="q-body"><span class="ctx">You've been working since six this morning.</span> Doesn't that make <span class="blank"><span class="ans-inline">you</span></span> <strong class="adj">tired</strong>?</div>
+    </div>
+    <div class="q-item" id="q7" onclick="revealItem(7)">
+      <span class="q-num">07</span>
+      <div class="q-body"><span class="ctx">The soup was bland.</span> I added a little salt to make <span class="blank"><span class="ans-inline">it</span></span> <strong class="adj">tastier</strong>.</div>
+    </div>
+    <div class="q-item" id="q8" onclick="revealItem(8)">
+      <span class="q-num">08</span>
+      <div class="q-body"><span class="ctx">My grandmother lives alone.</span> Our Sunday visits make <span class="blank"><span class="ans-inline">her</span></span> <strong class="adj">happier</strong>.</div>
+    </div>
+    <div class="q-item" id="q9" onclick="revealItem(9)">
+      <span class="q-num">09</span>
+      <div class="q-body"><span class="ctx">My colleagues were worried about the deadline.</span> The manager's email made <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">nervous</strong>.</div>
+    </div>
+    <div class="q-item" id="q10" onclick="revealItem(10)">
+      <span class="q-num">10</span>
+      <div class="q-body"><span class="ctx">This jacket is too big for my son.</span> The tailor will make <span class="blank"><span class="ans-inline">it</span></span> <strong class="adj">smaller</strong>.</div>
+    </div>
+    <div class="q-item" id="q11" onclick="revealItem(11)">
+      <span class="q-num">11</span>
+      <div class="q-body"><span class="ctx">My sister failed the exam twice.</span> The result made <span class="blank"><span class="ans-inline">her</span></span> <strong class="adj">angry</strong>.</div>
+    </div>
+    <div class="q-item" id="q12" onclick="revealItem(12)">
+      <span class="q-num">12</span>
+      <div class="q-body"><span class="ctx">My dogs hate storms.</span> Thunder makes <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">anxious</strong>.</div>
+    </div>
+    <div class="q-item" id="q13" onclick="revealItem(13)">
+      <span class="q-num">13</span>
+      <div class="q-body"><span class="ctx">My boss criticised me in front of everyone.</span> It made <span class="blank"><span class="ans-inline">me</span></span> <strong class="adj">uncomfortable</strong>.</div>
+    </div>
+    <div class="q-item" id="q14" onclick="revealItem(14)">
+      <span class="q-num">14</span>
+      <div class="q-body"><span class="ctx">The room was freezing.</span> We closed the window to make <span class="blank"><span class="ans-inline">it</span></span> <strong class="adj">warmer</strong>.</div>
+    </div>
+    <div class="q-item" id="q15" onclick="revealItem(15)">
+      <span class="q-num">15</span>
+      <div class="q-body"><span class="ctx">Our teacher explains everything twice.</span> That makes <span class="blank"><span class="ans-inline">us</span></span> <strong class="adj">calmer</strong> during the test.</div>
+    </div>
+    <div class="q-item" id="q16" onclick="revealItem(16)">
+      <span class="q-num">16</span>
+      <div class="q-body"><span class="ctx">My uncle stopped smoking last year.</span> The change has made <span class="blank"><span class="ans-inline">him</span></span> <strong class="adj">healthier</strong>.</div>
+    </div>
+    <div class="q-item" id="q17" onclick="revealItem(17)">
+      <span class="q-num">17</span>
+      <div class="q-body"><span class="ctx">Are you nervous about the interview?</span> Talking to a friend might make <span class="blank"><span class="ans-inline">you</span></span> <strong class="adj">calmer</strong>.</div>
+    </div>
+    <div class="q-item" id="q18" onclick="revealItem(18)">
+      <span class="q-num">18</span>
+      <div class="q-body"><span class="ctx">The coffee was too strong for my mother.</span> She added milk to make <span class="blank"><span class="ans-inline">it</span></span> <strong class="adj">milder</strong>.</div>
+    </div>
+    <div class="q-item" id="q19" onclick="revealItem(19)">
+      <span class="q-num">19</span>
+      <div class="q-body"><span class="ctx">My cousins had never travelled abroad.</span> Japan made <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">curious</strong> about other cultures.</div>
+    </div>
+    <div class="q-item" id="q20" onclick="revealItem(20)">
+      <span class="q-num">20</span>
+      <div class="q-body"><span class="ctx">My wife works twelve hours a day.</span> The new job has made <span class="blank"><span class="ans-inline">her</span></span> <strong class="adj">exhausted</strong>.</div>
+    </div>
+    <div class="q-item" id="q21" onclick="revealItem(21)">
+      <span class="q-num">21</span>
+      <div class="q-body"><span class="ctx">I hate flying.</span> Turbulence makes <span class="blank"><span class="ans-inline">me</span></span> <strong class="adj">anxious</strong>.</div>
+    </div>
+    <div class="q-item" id="q22" onclick="revealItem(22)">
+      <span class="q-num">22</span>
+      <div class="q-body"><span class="ctx">The photos were too dark.</span> The editor made <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">brighter</strong>.</div>
+    </div>
+    <div class="q-item" id="q23" onclick="revealItem(23)">
+      <span class="q-num">23</span>
+      <div class="q-body"><span class="ctx">My grandfather doesn't hear well.</span> We speak slowly to make <span class="blank"><span class="ans-inline">him</span></span> <strong class="adj">comfortable</strong>.</div>
+    </div>
+    <div class="q-item" id="q24" onclick="revealItem(24)">
+      <span class="q-num">24</span>
+      <div class="q-body"><span class="ctx">The kids were bored on the long drive.</span> The games made <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">happier</strong>.</div>
+    </div>
+    <div class="q-item" id="q25" onclick="revealItem(25)">
+      <span class="q-num">25</span>
+      <div class="q-body"><span class="ctx">This medicine doesn't cure the flu.</span> But it makes <span class="blank"><span class="ans-inline">it</span></span> <strong class="adj">milder</strong>.</div>
+    </div>
+    <div class="q-item" id="q26" onclick="revealItem(26)">
+      <span class="q-num">26</span>
+      <div class="q-body"><span class="ctx">My sister and I found our old photo album.</span> The pictures made <span class="blank"><span class="ans-inline">us</span></span> <strong class="adj">nostalgic</strong>.</div>
+    </div>
+    <div class="q-item" id="q27" onclick="revealItem(27)">
+      <span class="q-num">27</span>
+      <div class="q-body"><span class="ctx">Your presentation was very long.</span> Cutting three slides would make <span class="blank"><span class="ans-inline">it</span></span> <strong class="adj">shorter</strong>.</div>
+    </div>
+    <div class="q-item" id="q28" onclick="revealItem(28)">
+      <span class="q-num">28</span>
+      <div class="q-body"><span class="ctx">My neighbour lost his job in March.</span> The situation has made <span class="blank"><span class="ans-inline">him</span></span> <strong class="adj">bitter</strong>.</div>
+    </div>
+    <div class="q-item" id="q29" onclick="revealItem(29)">
+      <span class="q-num">29</span>
+      <div class="q-body"><span class="ctx">You read forty emails before nine every morning.</span> Does that make <span class="blank"><span class="ans-inline">you</span></span> <strong class="adj">irritated</strong>?</div>
+    </div>
+    <div class="q-item" id="q30" onclick="revealItem(30)">
+      <span class="q-num">30</span>
+      <div class="q-body"><span class="ctx">The company gave the staff two extra days off.</span> The decision made <span class="blank"><span class="ans-inline">them</span></span> <strong class="adj">grateful</strong>.</div>
+    </div>
+  </div>
+
+  <!-- 03 · GLOSSARY -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Glossary · 語彙</span>
+      <span class="s-pts">EN · JP · PT</span>
+    </div>
+    <div class="gl-grid">
+      <div class="gl-item"><span class="gl-en">alert</span><span class="gl-jp">意識がはっきりした</span><span class="gl-pt">alerta, desperto</span></div>
+      <div class="gl-item"><span class="gl-en">bland</span><span class="gl-jp">味が薄い</span><span class="gl-pt">sem sabor</span></div>
+      <div class="gl-item"><span class="gl-en">exhausted</span><span class="gl-jp">疲れ果てた</span><span class="gl-pt">exausto</span></div>
+      <div class="gl-item"><span class="gl-en">nostalgic</span><span class="gl-jp">懐かしい</span><span class="gl-pt">nostálgico</span></div>
+      <div class="gl-item"><span class="gl-en">bitter</span><span class="gl-jp">恨みっぽい</span><span class="gl-pt">amargurado</span></div>
+      <div class="gl-item"><span class="gl-en">grateful</span><span class="gl-jp">感謝している</span><span class="gl-pt">grato</span></div>
+      <div class="gl-item"><span class="gl-en">irritated</span><span class="gl-jp">いらいらした</span><span class="gl-pt">irritado</span></div>
+      <div class="gl-item"><span class="gl-en">anxious</span><span class="gl-jp">不安な</span><span class="gl-pt">ansioso</span></div>
+      <div class="gl-item"><span class="gl-en">curious</span><span class="gl-jp">好奇心のある</span><span class="gl-pt">curioso</span></div>
+      <div class="gl-item"><span class="gl-en">uncomfortable</span><span class="gl-jp">居心地の悪い</span><span class="gl-pt">desconfortável</span></div>
+      <div class="gl-item"><span class="gl-en">mild</span><span class="gl-jp">まろやかな</span><span class="gl-pt">suave</span></div>
+      <div class="gl-item"><span class="gl-en">tailor</span><span class="gl-jp">仕立て屋</span><span class="gl-pt">alfaiate</span></div>
+      <div class="gl-item"><span class="gl-en">thunder</span><span class="gl-jp">雷</span><span class="gl-pt">trovão</span></div>
+      <div class="gl-item"><span class="gl-en">turbulence</span><span class="gl-jp">乱気流</span><span class="gl-pt">turbulência</span></div>
+      <div class="gl-item"><span class="gl-en">deadline</span><span class="gl-jp">締め切り</span><span class="gl-pt">prazo</span></div>
+    </div>
+  </div>
+
+  <!-- 04 · ANSWER KEY -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">Answer Key</span>
+      <span class="s-pts">30 items</span>
+      <button class="btn-reveal" onclick="toggleKey(this)">Show key</button>
+    </div>
+    <div class="keybox" id="keybox"><span class="k"><b>01</b> her</span> · <span class="k"><b>02</b> me</span> · <span class="k"><b>03</b> him</span> · <span class="k"><b>04</b> them</span> · <span class="k"><b>05</b> us</span> · <span class="k"><b>06</b> you</span> · <span class="k"><b>07</b> it</span> · <span class="k"><b>08</b> her</span> · <span class="k"><b>09</b> them</span> · <span class="k"><b>10</b> it</span> · <span class="k"><b>11</b> her</span> · <span class="k"><b>12</b> them</span> · <span class="k"><b>13</b> me</span> · <span class="k"><b>14</b> it</span> · <span class="k"><b>15</b> us</span> · <span class="k"><b>16</b> him</span> · <span class="k"><b>17</b> you</span> · <span class="k"><b>18</b> it</span> · <span class="k"><b>19</b> them</span> · <span class="k"><b>20</b> her</span> · <span class="k"><b>21</b> me</span> · <span class="k"><b>22</b> them</span> · <span class="k"><b>23</b> him</span> · <span class="k"><b>24</b> them</span> · <span class="k"><b>25</b> it</span> · <span class="k"><b>26</b> us</span> · <span class="k"><b>27</b> it</span> · <span class="k"><b>28</b> him</span> · <span class="k"><b>29</b> you</span> · <span class="k"><b>30</b> them</span></div>
+  </div>
+
+  <div class="footer">EIC · ESCOLA DE IDIOMAS E CULTURA · COTIA/SP · EICSCHOOL.COM.BR</div>
+
+</div>
+
+<script>
+  function revealItem(n) {
+    document.getElementById('q' + n).classList.toggle('revealed');
+  }
+  function revealAll(btn) {
+    const items = document.querySelectorAll('#sec-ex .q-item');
+    const on = btn.textContent === 'Reveal all';
+    items.forEach(function (el) { el.classList.toggle('revealed', on); });
+    btn.textContent = on ? 'Hide all' : 'Reveal all';
+    btn.classList.toggle('active', on);
+  }
+  function toggleKey(btn) {
+    const box = document.getElementById('keybox');
+    const on = box.classList.toggle('on');
+    btn.textContent = on ? 'Hide key' : 'Show key';
+    btn.classList.toggle('active', on);
+  }
+</script>
+
+</body>
+</html>

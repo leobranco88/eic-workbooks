@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EIC · Cause Chain · make + object + adjective</title><style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  :root { --ink:#0A0A0F; --paper:#FAFAF7; --muted:#6B7280; --accent:#C0392B; --teal:#0F766E; --border:#D1D5DB; --panel:#F3F4F6; }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Inter',sans-serif; background:var(--paper); color:var(--ink); padding:0 0 80px; }
+  .topbar { background:var(--paper); border-bottom:2px solid var(--accent); padding:14px 40px;
+            display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:99; }
+  .tb-brand { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.1em; color:var(--muted); }
+  .tb-brand strong { display:block; font-size:22px; font-weight:900; color:var(--ink); letter-spacing:-0.02em; }
+  .tb-meta { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted); text-align:right; letter-spacing:0.06em; }
+  .wrap { max-width:1400px; margin:0 auto; padding:0 40px; }
+  .hero { padding:38px 0 26px; border-bottom:1px solid var(--border); }
+  .hero h1 { font-size:58px; font-weight:900; letter-spacing:-0.04em; line-height:1; color:var(--ink); }
+  .hero h1 span { color:var(--accent); }
+  .hero p { font-family:'IBM Plex Mono',monospace; font-size:15px; color:var(--muted); letter-spacing:0.08em; margin-top:12px; text-transform:uppercase; }
+
+  .tensebar { display:flex; align-items:center; gap:16px; margin-top:22px; padding:14px 18px; background:var(--panel); border:1px solid var(--border); }
+  .tensebar .tl { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); flex-shrink:0; }
+  .tense-btn { background:var(--paper); color:var(--ink); border:1.5px solid var(--border); font-family:'IBM Plex Mono',monospace;
+               font-size:15px; letter-spacing:0.06em; text-transform:uppercase; padding:9px 20px; cursor:pointer; }
+  .tense-btn:hover { border-color:var(--teal); color:var(--teal); }
+  .tense-btn.active { background:var(--teal); border-color:var(--teal); color:var(--paper); font-weight:700; }
+  .tensebar .note { font-size:14px; color:var(--muted); margin-left:auto; }
+
+  .panel { display:flex; gap:26px; margin:26px 0 10px; flex-wrap:wrap; }
+  .rules { flex:2 1 620px; }
+  .swaps { flex:1 1 300px; }
+  .plabel { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.14em; text-transform:uppercase;
+            color:var(--accent); margin-bottom:14px; display:block; }
+  .rule { display:flex; gap:16px; padding:11px 0; border-bottom:1px solid var(--border); }
+  .rule .rnum { font-family:'IBM Plex Mono',monospace; font-size:15px; color:var(--teal); flex-shrink:0; padding-top:3px; }
+  .rule b { display:block; font-size:22px; font-weight:800; letter-spacing:-0.02em; color:var(--ink); }
+  .rule div > span { display:block; font-size:17px; color:var(--muted); line-height:1.5; margin-top:3px; }
+  .rule i, .rule span b { color:var(--ink); }
+  .swap { display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--border); font-size:20px; }
+  .swap .bad { color:var(--accent); text-decoration:line-through; min-width:110px; }
+  .swap .ar { color:var(--muted); }
+  .swap .good { color:var(--teal); font-weight:800; }
+  .swapnote { font-size:16px; color:var(--muted); line-height:1.5; margin-top:12px; }
+
+  .chain { border:1px solid var(--border); background:var(--paper); padding:26px 30px 22px; margin-top:26px; }
+  .chain-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px; }
+  .ctheme { font-family:'IBM Plex Mono',monospace; font-size:14px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); }
+  .cprog { font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+  .seed { font-size:36px; font-weight:800; letter-spacing:-0.02em; line-height:1.25; color:var(--ink); }
+  .step { display:none; margin-top:16px; align-items:baseline; gap:16px; }
+  .step.on { display:flex; animation:fade 0.25s ease; }
+  .cue-label { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.14em; text-transform:uppercase;
+               color:var(--accent); border:1px solid var(--accent); padding:4px 10px; flex-shrink:0; }
+  .cue-pair { font-size:34px; font-weight:800; letter-spacing:-0.02em; color:var(--ink); }
+  .link span:last-child { font-size:32px; font-weight:700; letter-spacing:-0.02em; line-height:1.25; color:var(--teal); }
+  .link .arrow { color:var(--muted); font-size:28px; }
+  @keyframes fade { from { opacity:0; transform:translateY(-6px);} to { opacity:1; transform:translateY(0);} }
+  .chain-controls { margin-top:24px; display:flex; gap:12px; }
+  .btn-big { background:var(--teal); color:var(--paper); border:none; font-family:'IBM Plex Mono',monospace;
+             font-size:17px; letter-spacing:0.08em; text-transform:uppercase; padding:14px 30px; cursor:pointer; min-width:280px; }
+  .btn-big:hover { background:#0d5f59; }
+  .btn-big:disabled { background:#E5E7EB; color:#9CA3AF; cursor:default; }
+  .btn-ghost { background:var(--paper); color:var(--muted); border:1px solid var(--border);
+               font-family:'IBM Plex Mono',monospace; font-size:17px; letter-spacing:0.08em;
+               text-transform:uppercase; padding:14px 24px; cursor:pointer; }
+  .btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+  .foot { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted); letter-spacing:0.08em; text-align:center; padding-top:40px; }
+</style></head><body>
+<style>
+  .eic-nav{background:#050507;border-bottom:1px solid #2A2A35;padding:9px 20px;display:flex;gap:6px;
+    flex-wrap:wrap;align-items:center;font-family:'IBM Plex Mono',monospace;row-gap:8px;}
+  .eic-nav .lbl{color:#E63946;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px;flex-shrink:0;}
+  .eic-nav a{color:#9CA3AF;font-size:10px;letter-spacing:.03em;text-decoration:none;padding:5px 10px;
+    border:1px solid #2A2A35;white-space:nowrap;}
+  .eic-nav a:hover{color:#FAFAF7;border-color:#0F766E;}
+  .eic-nav a.active{background:#0F766E;color:#FAFAF7;border-color:#0F766E;font-weight:700;}
+  .eic-pdf-bar{background:#0F1113;border-bottom:1px solid #2A2A35;padding:8px 20px;display:flex;justify-content:flex-end;}
+  .eic-pdf-bar .pdf-link{background:#E63946;color:#FAFAF7;border:1px solid #E63946;font-weight:700;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;text-decoration:none;padding:6px 14px;}
+  .eic-pdf-bar .pdf-link:hover{background:#C0392B;border-color:#C0392B;}
+</style>
+<div class="eic-nav"><span class="lbl">Toshie · Lessons</span><a href="practice-make-object-adjective.html">01 · Pronoun + Adjective</a><a href="production-make-object-adjective.html">02 · Production</a><a href="neighbours-make-noun-verb.html">03 · Three Neighbours</a><a href="neighbours-homework.html">03 · Neighbours (Homework)</a><a href="chain-teacher.html" class="active">04 · Cause Chain</a><a href="causatives-make-let-get-have-help.html">05 · Make/Let/Get/Have/Help</a><a href="causatives-practice.html">05 · Extra Practice</a><a href="have-get-practice.html">05 · Have vs Get</a><a href="reading-lab-brazil-japan-classroom.html">06 · Reading Lab</a><a href="reading-lab-brazil-japan-homework.html">06 · Reading Lab (Homework)</a><a href="listening-lab-ryokan-checkin.html">07 · Listening Lab</a></div><div class="eic-pdf-bar"><a class="pdf-link" href="chain-student.pdf" target="_blank" rel="noopener">&#8681; Download PDF</a></div>
+<div class="topbar"><div class="tb-brand"><strong>EIC.</strong>CAUSE CHAIN · ORAL · B2</div><div class="tb-meta">MAKE + OBJECT + ADJECTIVE<br>USO DO PROFESSOR · TELA</div></div><div class="wrap"><div class="hero"><h1>One thing changes,<br><span>then everything does.</span></h1><p>5 chains · 5 links each · cue first, sentence after</p><div class="tensebar"><span class="tl">tense</span><button class="tense-btn active" onclick="setTense('past', this)">Past simple</button><button class="tense-btn" onclick="setTense('present', this)">Present simple</button><button class="tense-btn" onclick="setTense('future', this)">Future · will</button><span class="note">Same cues · switching resets progress</span></div></div><div class="panel"><div class="rules"><span class="plabel">The rules</span><div class="rule"><span class="rnum">01</span><div><b>The cue gives you the material — you build the sentence.</b><span>Each cue is a collocation: an object and the adjective it takes. Nothing else is given.</span></div></div>
+<div class="rule"><span class="rnum">02</span><div><b>The adjective is the bridge.</b><span>The adjective that closes one link opens the next: <b>slippery</b> &rarr; <i>the <b>slippery</b> streets made&hellip;</i></span></div></div>
+<div class="rule"><span class="rnum">03</span><div><b>Every link is make + object + adjective.</b><span>No other verb. No <i>because</i>, no <i>so</i>. One sentence per link.</span></div></div>
+<div class="rule"><span class="rnum">04</span><div><b>The chain ends on <i>me</i>.</b><span>However long the road, the last link arrives at the speaker.</span></div></div>
+<div class="rule"><span class="rnum">05</span><div><b>Change the tense, and it's a new chain.</b><span>Same cues, same objects and adjectives — but the verb form is the real challenge now.</span></div></div></div><div class="swaps"><span class="plabel">Adjectives that break the chain</span><div class="swap"><span class="bad">afraid</span><span class="ar">&rarr;</span><span class="good">frightened</span></div>
+<div class="swap"><span class="bad">alone</span><span class="ar">&rarr;</span><span class="good">lonely</span></div>
+<div class="swap"><span class="bad">asleep</span><span class="ar">&rarr;</span><span class="good">sleeping</span></div>
+<div class="swap"><span class="bad">ill</span><span class="ar">&rarr;</span><span class="good">sick</span></div>
+<div class="swap"><span class="bad">glad</span><span class="ar">&rarr;</span><span class="good">happy</span></div>
+<div class="swap"><span class="bad">upset</span><span class="ar">&rarr;</span><span class="good">unhappy</span></div><div class="swapnote">These sit after the verb but never before a noun. <i>The afraid children</i> is impossible — the chain has to swap them out.</div></div></div><div class="chain" id="chain1"><div class="chain-head"><span class="ctheme">Chain 01 · <span id="c1theme"></span></span><span class="cprog" id="prog1">seed</span></div><div class="seed" id="c1seed"></div><div class="steps"><div class="step" id="c1c1"><span class="cue-label">cue</span><span class="cue-pair" id="c1cuetext1"></span></div><div class="step link" id="c1l1"><span class="arrow">&rarr;</span><span id="c1linktext1"></span></div><div class="step" id="c1c2"><span class="cue-label">cue</span><span class="cue-pair" id="c1cuetext2"></span></div><div class="step link" id="c1l2"><span class="arrow">&rarr;</span><span id="c1linktext2"></span></div><div class="step" id="c1c3"><span class="cue-label">cue</span><span class="cue-pair" id="c1cuetext3"></span></div><div class="step link" id="c1l3"><span class="arrow">&rarr;</span><span id="c1linktext3"></span></div><div class="step" id="c1c4"><span class="cue-label">cue</span><span class="cue-pair" id="c1cuetext4"></span></div><div class="step link" id="c1l4"><span class="arrow">&rarr;</span><span id="c1linktext4"></span></div></div><div class="chain-controls"><button class="btn-big" id="btn1" onclick="step(1)">Show cue &rarr;</button><button class="btn-ghost" onclick="resetChain(1)">Reset</button></div></div>
+<div class="chain" id="chain2"><div class="chain-head"><span class="ctheme">Chain 02 · <span id="c2theme"></span></span><span class="cprog" id="prog2">seed</span></div><div class="seed" id="c2seed"></div><div class="steps"><div class="step" id="c2c1"><span class="cue-label">cue</span><span class="cue-pair" id="c2cuetext1"></span></div><div class="step link" id="c2l1"><span class="arrow">&rarr;</span><span id="c2linktext1"></span></div><div class="step" id="c2c2"><span class="cue-label">cue</span><span class="cue-pair" id="c2cuetext2"></span></div><div class="step link" id="c2l2"><span class="arrow">&rarr;</span><span id="c2linktext2"></span></div><div class="step" id="c2c3"><span class="cue-label">cue</span><span class="cue-pair" id="c2cuetext3"></span></div><div class="step link" id="c2l3"><span class="arrow">&rarr;</span><span id="c2linktext3"></span></div><div class="step" id="c2c4"><span class="cue-label">cue</span><span class="cue-pair" id="c2cuetext4"></span></div><div class="step link" id="c2l4"><span class="arrow">&rarr;</span><span id="c2linktext4"></span></div></div><div class="chain-controls"><button class="btn-big" id="btn2" onclick="step(2)">Show cue &rarr;</button><button class="btn-ghost" onclick="resetChain(2)">Reset</button></div></div>
+<div class="chain" id="chain3"><div class="chain-head"><span class="ctheme">Chain 03 · <span id="c3theme"></span></span><span class="cprog" id="prog3">seed</span></div><div class="seed" id="c3seed"></div><div class="steps"><div class="step" id="c3c1"><span class="cue-label">cue</span><span class="cue-pair" id="c3cuetext1"></span></div><div class="step link" id="c3l1"><span class="arrow">&rarr;</span><span id="c3linktext1"></span></div><div class="step" id="c3c2"><span class="cue-label">cue</span><span class="cue-pair" id="c3cuetext2"></span></div><div class="step link" id="c3l2"><span class="arrow">&rarr;</span><span id="c3linktext2"></span></div><div class="step" id="c3c3"><span class="cue-label">cue</span><span class="cue-pair" id="c3cuetext3"></span></div><div class="step link" id="c3l3"><span class="arrow">&rarr;</span><span id="c3linktext3"></span></div><div class="step" id="c3c4"><span class="cue-label">cue</span><span class="cue-pair" id="c3cuetext4"></span></div><div class="step link" id="c3l4"><span class="arrow">&rarr;</span><span id="c3linktext4"></span></div></div><div class="chain-controls"><button class="btn-big" id="btn3" onclick="step(3)">Show cue &rarr;</button><button class="btn-ghost" onclick="resetChain(3)">Reset</button></div></div>
+<div class="chain" id="chain4"><div class="chain-head"><span class="ctheme">Chain 04 · <span id="c4theme"></span></span><span class="cprog" id="prog4">seed</span></div><div class="seed" id="c4seed"></div><div class="steps"><div class="step" id="c4c1"><span class="cue-label">cue</span><span class="cue-pair" id="c4cuetext1"></span></div><div class="step link" id="c4l1"><span class="arrow">&rarr;</span><span id="c4linktext1"></span></div><div class="step" id="c4c2"><span class="cue-label">cue</span><span class="cue-pair" id="c4cuetext2"></span></div><div class="step link" id="c4l2"><span class="arrow">&rarr;</span><span id="c4linktext2"></span></div><div class="step" id="c4c3"><span class="cue-label">cue</span><span class="cue-pair" id="c4cuetext3"></span></div><div class="step link" id="c4l3"><span class="arrow">&rarr;</span><span id="c4linktext3"></span></div><div class="step" id="c4c4"><span class="cue-label">cue</span><span class="cue-pair" id="c4cuetext4"></span></div><div class="step link" id="c4l4"><span class="arrow">&rarr;</span><span id="c4linktext4"></span></div></div><div class="chain-controls"><button class="btn-big" id="btn4" onclick="step(4)">Show cue &rarr;</button><button class="btn-ghost" onclick="resetChain(4)">Reset</button></div></div>
+<div class="chain" id="chain5"><div class="chain-head"><span class="ctheme">Chain 05 · <span id="c5theme"></span></span><span class="cprog" id="prog5">seed</span></div><div class="seed" id="c5seed"></div><div class="steps"><div class="step" id="c5c1"><span class="cue-label">cue</span><span class="cue-pair" id="c5cuetext1"></span></div><div class="step link" id="c5l1"><span class="arrow">&rarr;</span><span id="c5linktext1"></span></div><div class="step" id="c5c2"><span class="cue-label">cue</span><span class="cue-pair" id="c5cuetext2"></span></div><div class="step link" id="c5l2"><span class="arrow">&rarr;</span><span id="c5linktext2"></span></div><div class="step" id="c5c3"><span class="cue-label">cue</span><span class="cue-pair" id="c5cuetext3"></span></div><div class="step link" id="c5l3"><span class="arrow">&rarr;</span><span id="c5linktext3"></span></div><div class="step" id="c5c4"><span class="cue-label">cue</span><span class="cue-pair" id="c5cuetext4"></span></div><div class="step link" id="c5l4"><span class="arrow">&rarr;</span><span id="c5linktext4"></span></div></div><div class="chain-controls"><button class="btn-big" id="btn5" onclick="step(5)">Show cue &rarr;</button><button class="btn-ghost" onclick="resetChain(5)">Reset</button></div></div><div class="foot">EIC · ESCOLA DE IDIOMAS E CULTURA · COTIA/SP · EICSCHOOL.COM.BR</div></div><script>
+  var CHAIN_DATA = [{"theme": "Weather", "cues": [["the drivers", "nervous"], ["the traffic", "slow"], ["the passengers", "impatient"], ["me", "late"]], "past": {"seed": "The rain made the streets slippery.", "links": ["The slippery streets made the drivers nervous.", "The nervous drivers made the traffic slow.", "The slow traffic made the passengers impatient.", "The impatient passengers made me late."]}, "present": {"seed": "The rain makes the streets slippery.", "links": ["The slippery streets make the drivers nervous.", "The nervous drivers make the traffic slow.", "The slow traffic makes the passengers impatient.", "The impatient passengers make me late."]}, "future": {"seed": "The rain will make the streets slippery.", "links": ["The slippery streets will make the drivers nervous.", "The nervous drivers will make the traffic slow.", "The slow traffic will make the passengers impatient.", "The impatient passengers will make me late."]}}, {"theme": "Kitchen", "cues": [["my father", "thirsty"], ["the water jug", "empty"], ["my mother", "annoyed"], ["me", "quiet"]], "past": {"seed": "The extra salt made the soup salty.", "links": ["The salty soup made my father thirsty.", "My thirsty father made the water jug empty.", "The empty jug made my mother annoyed.", "My annoyed mother made me quiet."]}, "present": {"seed": "The extra salt makes the soup salty.", "links": ["The salty soup makes my father thirsty.", "My thirsty father makes the water jug empty.", "The empty jug makes my mother annoyed.", "My annoyed mother makes me quiet."]}, "future": {"seed": "The extra salt will make the soup salty.", "links": ["The salty soup will make my father thirsty.", "My thirsty father will make the water jug empty.", "The empty jug will make my mother annoyed.", "My annoyed mother will make me quiet."]}}, {"theme": "Airport", "cues": [["the queues", "long"], ["the passengers", "tired"], ["the crew", "busy"], ["me", "invisible"]], "past": {"seed": "The delay made the airport crowded.", "links": ["The crowded airport made the queues long.", "The long queues made the passengers tired.", "The tired passengers made the crew busy.", "The busy crew made me invisible."]}, "present": {"seed": "The delay makes the airport crowded.", "links": ["The crowded airport makes the queues long.", "The long queues make the passengers tired.", "The tired passengers make the crew busy.", "The busy crew makes me invisible."]}, "future": {"seed": "The delay will make the airport crowded.", "links": ["The crowded airport will make the queues long.", "The long queues will make the passengers tired.", "The tired passengers will make the crew busy.", "The busy crew will make me invisible."]}}, {"theme": "Storm at home", "cues": [["the children", "frightened"], ["the dog", "restless"], ["the night", "long"], ["me", "exhausted"]], "past": {"seed": "The storm made the house dark.", "links": ["The dark house made the children frightened.", "The frightened children made the dog restless.", "The restless dog made the night long.", "The long night made me exhausted."]}, "present": {"seed": "The storm makes the house dark.", "links": ["The dark house makes the children frightened.", "The frightened children make the dog restless.", "The restless dog makes the night long.", "The long night makes me exhausted."]}, "future": {"seed": "The storm will make the house dark.", "links": ["The dark house will make the children frightened.", "The frightened children will make the dog restless.", "The restless dog will make the night long.", "The long night will make me exhausted."]}}, {"theme": "Office", "cues": [["the team", "silent"], ["the meetings", "short"], ["the decisions", "fast"], ["me", "anxious"]], "past": {"seed": "The new manager made the rules strict.", "links": ["The strict rules made the team silent.", "The silent team made the meetings short.", "The short meetings made the decisions fast.", "The fast decisions made me anxious."]}, "present": {"seed": "The new manager makes the rules strict.", "links": ["The strict rules make the team silent.", "The silent team makes the meetings short.", "The short meetings make the decisions fast.", "The fast decisions make me anxious."]}, "future": {"seed": "The new manager will make the rules strict.", "links": ["The strict rules will make the team silent.", "The silent team will make the meetings short.", "The short meetings will make the decisions fast.", "The fast decisions will make me anxious."]}}];
+  var currentTense = 'past';
+  var pos = {};
+
+  function cuePairHTML(obj, adj) {
+    return '<b>' + obj + '</b><span class="plus" style="color:#9CA3AF;font-weight:400;margin:0 14px;">+</span><em style="color:#C0392B;font-style:normal;">' + adj + '</em>';
+  }
+
+  function renderTense() {
+    for (var i = 0; i < CHAIN_DATA.length; i++) {
+      var c = i + 1;
+      var data = CHAIN_DATA[i];
+      document.getElementById('c' + c + 'theme').textContent = data.theme;
+      document.getElementById('c' + c + 'seed').textContent = data[currentTense].seed;
+      for (var li = 1; li <= 4; li++) {
+        var cue = data.cues[li - 1];
+        document.getElementById('c' + c + 'cuetext' + li).innerHTML = cuePairHTML(cue[0], cue[1]);
+        document.getElementById('c' + c + 'linktext' + li).textContent = data[currentTense].links[li - 1];
+      }
+    }
+  }
+
+  function setTense(t, btn) {
+    currentTense = t;
+    document.querySelectorAll('.tense-btn').forEach(function (el) { el.classList.remove('active'); });
+    btn.classList.add('active');
+    renderTense();
+    for (var c = 1; c <= CHAIN_DATA.length; c++) { resetChain(c); }
+  }
+
+  function step(c) {
+    var p = (pos[c] || 0) + 1;
+    pos[c] = p;
+    var link = Math.ceil(p / 2);
+    var showingCue = (p % 2 === 1);
+    var el = document.getElementById('c' + c + (showingCue ? 'c' : 'l') + link);
+    if (el) el.classList.add('on');
+    var btn = document.getElementById('btn' + c);
+    var prog = document.getElementById('prog' + c);
+    if (showingCue) {
+      btn.textContent = 'Show link ' + (link + 1) + ' \u2192';
+      prog.textContent = 'cue ' + (link + 1) + ' / 5 \u00b7 her turn';
+    } else {
+      btn.textContent = 'Show cue \u2192';
+      prog.textContent = 'link ' + (link + 1) + ' / 5';
+    }
+    if (p >= 8) { btn.disabled = true; btn.textContent = 'Chain complete'; }
+  }
+
+  function resetChain(c) {
+    pos[c] = 0;
+    document.querySelectorAll('#chain' + c + ' .step').forEach(function (el) { el.classList.remove('on'); });
+    var btn = document.getElementById('btn' + c);
+    btn.disabled = false;
+    btn.textContent = 'Show cue \u2192';
+    document.getElementById('prog' + c).textContent = 'seed';
+  }
+
+  document.addEventListener('DOMContentLoaded', renderTense);
+</script></body></html>
