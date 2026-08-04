@@ -145,11 +145,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.2);text-align:right}
 @media(max-width:640px){.footer{flex-direction:column;padding:24px;text-align:center}.footer-copy{text-align:center}}
 /* ── GRAMMAR RULE CARDS ── */
-.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px}
+@media(max-width:800px){.rule-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.rule-grid{grid-template-columns:1fr}}
 @media(max-width:640px){.rule-grid{grid-template-columns:1fr}}
 .rule-card{background:#fff;border-radius:16px;padding:22px 24px;border-top:4px solid var(--border)}
 .rule-card.planned{border-top-color:var(--teal)}
 .rule-card.spontaneous{border-top-color:var(--orange)}
+.rule-card.obligation{border-top-color:var(--coral)}
+.rule-card.obligation .rule-card-label{color:var(--coral)}
 .rule-card-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
 .rule-card.planned .rule-card-label{color:var(--teal)}
 .rule-card.spontaneous .rule-card-label{color:var(--orange)}
@@ -264,7 +268,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   <div class="pw">
     <div class="block-eyebrow"><span class="block-num">The Rule</span></div>
     <h2 class="block-title">Your opinion, or the plan?</h2>
-    <p class="block-terms">"Should" is what you think is right. "Be supposed to" is what was agreed, planned, or expected by someone else, or by a contract.</p>
+    <p class="block-terms"><strong>Should</strong> = your opinion. <strong>Be supposed to</strong> = the plan or agreement. <strong>Must</strong> = obligation, no exceptions. And "supposed to" changes meaning depending on the tense — present or past.</p>
 
     <div class="rule-grid">
       <div class="rule-card planned">
@@ -279,12 +283,48 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
         <p class="rule-card-def">Use it for what was arranged, expected, or written into a contract, not your personal opinion.</p>
         <div class="rule-card-ex">"The Service Plan <strong>is supposed to</strong> cover two inspections a year." (that's what the contract says)</div>
       </div>
+      <div class="rule-card obligation">
+        <div class="rule-card-label">Obligation — no choice</div>
+        <div class="rule-card-title">must</div>
+        <p class="rule-card-def">Use it for a strong requirement — a rule, a legal obligation, or something non-negotiable. There is no flexibility.</p>
+        <div class="rule-card-ex">"All equipment <strong>must</strong> be inspected before the contract ends." (company rule — no exceptions)</div>
+        <div class="rule-card-ex">"The supplier <strong>must</strong> respond within 24 hours." (legal obligation in the service plan)</div>
+      </div>
     </div>
 
     <div class="tricky-box">
       <div class="tricky-label">The trap for Portuguese speakers</div>
-      <p class="tricky-text">In Portuguese you say <span class="tt" data-tip="erapara">"era para eu ligar"</span>. The natural instinct is to translate this word by word into <strong>"it was to call"</strong>, but that is wrong, English doesn't work that way here. The correct form is <strong>"I was supposed to call."</strong> "Supposed to" is one fixed expression, it doesn't break apart the way "era para" does in Portuguese. And here's the part that trips people up even more: in the past, <strong>"was/were supposed to"</strong> often means something didn't happen as planned, but not always. Look at our own Document 05: <em>"it did exactly what it was supposed to do"</em>, here the expectation WAS met. The grammar itself is neutral, only the situation tells you if the plan worked out or not.</p>
+      <p class="tricky-text">In Portuguese you say <span class="tt" data-tip="erapara">"era para eu ligar"</span>. The instinct is to translate this as <strong>"it was to call"</strong> — but that is wrong. The correct form is <strong>"I was supposed to call."</strong> "Supposed to" is one fixed expression. It does not break apart the way "era para" does in Portuguese.</p>
     </div>
+
+    <div style="margin-bottom:32px">
+      <p style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">Supposed to: present vs. past</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+
+        <div style="background:#fff;border-radius:14px;border-top:4px solid var(--teal);padding:20px 22px">
+          <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px">Present — is / are supposed to</div>
+          <div style="font-size:15px;font-weight:900;color:var(--ink);margin-bottom:10px">Active expectation</div>
+          <p style="font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:14px">The plan or rule is still in place. The situation is ongoing or has not happened yet.</p>
+          <div class="rule-card-ex">"The service plan <strong>is supposed to</strong> cover two inspections a year." <span style="font-size:11px;color:var(--mid)">(essa é a regra — sempre)</span></div>
+          <div class="rule-card-ex">"The technician <strong>is supposed to</strong> arrive within 24 hours." <span style="font-size:11px;color:var(--mid)">(o plano ainda está ativo)</span></div>
+        </div>
+
+        <div style="background:#fff;border-radius:14px;border-top:4px solid var(--orange);padding:20px 22px">
+          <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px">Past — was / were supposed to</div>
+          <div style="font-size:15px;font-weight:900;color:var(--ink);margin-bottom:10px">Two possible outcomes</div>
+          <p style="font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:10px">The plan existed in the past. What happened? <strong>The grammar does not tell you.</strong> Only the context does.</p>
+          <div class="rule-card-ex" style="border-left:3px solid var(--coral);background:rgba(230,57,70,.06)">"Carla <strong>was supposed to</strong> call back — <span style="color:var(--coral);font-weight:700">but she never did.</span>" <span style="font-size:11px;color:var(--mid)">(o plano não aconteceu)</span></div>
+          <div class="rule-card-ex" style="border-left:3px solid var(--green);background:var(--green-bg);margin-top:8px">"The plan <strong>was supposed to</strong> prevent breakdowns — <span style="color:var(--green);font-weight:700">and it did.</span>" <span style="font-size:11px;color:var(--mid)">(o plano aconteceu)</span></div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:12px;background:var(--dark);border-radius:12px;padding:16px 20px">
+        <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7"><strong style="color:#fff">The key question for the past:</strong> did the plan work out? Look for clues in the sentence — "and it did", "but she didn't", "but it got postponed". If there is no clue, the context will tell you. The grammar itself stays neutral. / <span style="color:rgba(255,255,255,.4)"><strong style="color:rgba(255,255,255,.6)">A pergunta chave para o passado:</strong> o plano aconteceu? Procure pistas na frase — "and it did", "but she didn't", "but it got postponed". Se não houver pista, o contexto dirá. A gramática em si é neutra.</span></p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -293,7 +333,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   <div class="pw">
     <div class="block-eyebrow"><span class="block-num">Exercise A</span></div>
     <h2 class="block-title">Should, or supposed to?</h2>
-    <p class="block-terms">Present tense. One blank per sentence. Is it an opinion, or an agreed plan?</p>
+    <p class="block-terms">Present tense. One blank per sentence. Is it an opinion (should), an active plan or rule (is/are supposed to), or a strong obligation (must)?</p>
 
     <div class="num-list" id="ex-a">
 
@@ -333,7 +373,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   <div class="pw">
     <div class="block-eyebrow"><span class="block-num">Exercise B</span></div>
     <h2 class="block-title">Choose the verb, then complete "was supposed to"</h2>
-    <p class="block-terms">Each verb below is used exactly once. Read the whole sentence before you decide, some of these plans worked out, some didn't.</p>
+    <p class="block-terms">Past tense — <em>was/were supposed to</em>. Each verb is used exactly once. Read the full sentence carefully: some plans worked out, some didn't. The grammar is the same — only the context changes.</p>
 
     <div class="verb-bank-sticky">
       <span class="vb-word">arrive <em>chegar</em></span>
