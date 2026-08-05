@@ -718,6 +718,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="ex-controls">
       <button class="ex-btn" onclick="checkBlanks('doc1-body','doc1-fb')">Check answers</button>
+      <button class="ex-btn ghost" onclick="revealBlanks('doc1-body','doc1-fb')">Reveal all</button>
       <button class="ex-btn ghost" onclick="resetBlanks('doc1-body','doc1-fb')">Reset</button>
     </div>
     <div class="ex-feedback" id="doc1-fb"></div>
@@ -814,6 +815,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="ex-controls">
       <button class="ex-btn" onclick="checkBlanks('doc2-body','doc2-fb')">Check answers</button>
+      <button class="ex-btn ghost" onclick="revealBlanks('doc2-body','doc2-fb')">Reveal all</button>
       <button class="ex-btn ghost" onclick="resetBlanks('doc2-body','doc2-fb')">Reset</button>
     </div>
     <div class="ex-feedback" id="doc2-fb"></div>
@@ -952,6 +954,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="ex-controls">
       <button class="ex-btn" onclick="checkBlanks('doc3b-body','doc3b-fb')">Check answers</button>
+      <button class="ex-btn ghost" onclick="revealBlanks('doc3b-body','doc3b-fb')">Reveal all</button>
       <button class="ex-btn ghost" onclick="resetBlanks('doc3b-body','doc3b-fb')">Reset</button>
     </div>
     <div class="ex-feedback" id="doc3b-fb"></div>
@@ -982,6 +985,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="ex-controls">
       <button class="ex-btn" onclick="checkBlanks('doc3-body','doc3-fb')">Check answers</button>
+      <button class="ex-btn ghost" onclick="revealBlanks('doc3-body','doc3-fb')">Reveal all</button>
       <button class="ex-btn ghost" onclick="resetBlanks('doc3-body','doc3-fb')">Reset</button>
     </div>
     <div class="ex-feedback" id="doc3-fb"></div>
@@ -1061,6 +1065,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="ex-controls">
       <button class="ex-btn" onclick="checkBlanks('doc4-body','doc4-fb')">Check answers</button>
+      <button class="ex-btn ghost" onclick="revealBlanks('doc4-body','doc4-fb')">Reveal all</button>
       <button class="ex-btn ghost" onclick="resetBlanks('doc4-body','doc4-fb')">Reset</button>
     </div>
     <div class="ex-feedback" id="doc4-fb"></div>
@@ -1138,6 +1143,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 
     <div class="ex-controls">
       <button class="ex-btn" onclick="checkBlanks('doc5-body','doc5-fb')">Check answers</button>
+      <button class="ex-btn ghost" onclick="revealBlanks('doc5-body','doc5-fb')">Reveal all</button>
       <button class="ex-btn ghost" onclick="resetBlanks('doc5-body','doc5-fb')">Reset</button>
     </div>
     <div class="ex-feedback" id="doc5-fb"></div>
@@ -1533,6 +1539,17 @@ function initTooltip() {
     body.querySelectorAll(".blank-sel").forEach(function(s) {
       s.value = "";
       s.classList.remove("correct", "wrong");
+    });
+    var fb = document.getElementById(fbId);
+    fb.classList.remove("show");
+    fb.textContent = "";
+  };
+  window.revealBlanks = function(bodyId, fbId) {
+    var body = document.getElementById(bodyId);
+    body.querySelectorAll(".blank-sel").forEach(function(s) {
+      s.value = s.dataset.correct;
+      s.classList.remove("wrong");
+      s.classList.add("correct");
     });
     var fb = document.getElementById(fbId);
     fb.classList.remove("show");
