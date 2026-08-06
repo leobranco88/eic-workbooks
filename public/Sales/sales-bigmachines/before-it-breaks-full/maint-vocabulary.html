@@ -568,10 +568,32 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     else btn.textContent = "Tap to continue ›";
   }
 
+  var waAudioCtx = null;
+  function playWaPop() {
+    try {
+      if (!waAudioCtx) waAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      var ctx = waAudioCtx;
+      var t0 = ctx.currentTime;
+      [ [880, t0, 0.09], [1150, t0 + 0.09, 0.11] ].forEach(function(note) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = note[0];
+        gain.gain.setValueAtTime(0.0001, note[1]);
+        gain.gain.exponentialRampToValueAtTime(0.18, note[1] + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0001, note[1] + note[2]);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(note[1]);
+        osc.stop(note[1] + note[2] + 0.02);
+      });
+    } catch (e) { /* audio not available, fail silently */ }
+  }
+
   window.waModalNext = function() {
     var lines = DIALOGUES[waScene][waActive[waScene]].lines;
     if (waStep >= lines.length - 1) waStep = -1;
-    else waStep = waStep + 1;
+    else { waStep = waStep + 1; playWaPop(); }
     renderWaMessages();
   };
 
