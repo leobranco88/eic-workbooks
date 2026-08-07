@@ -96,23 +96,26 @@
   .ref-ex { color: #374151; }
 
   .q-item { display: flex; gap: 8px; margin-bottom: 11px; align-items: flex-start; font-size: 12.5px; line-height: 1.55; }
-  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; }
+  .q-num:hover { text-decoration: underline; }
   .q-body { flex: 1; }
 
   .blank {
     display: inline-block; border-bottom: 1.5px solid var(--ink);
-    min-width: 120px; margin: 0 2px; vertical-align: baseline; transition: all 0.2s;
+    min-width: 120px; margin: 0 2px; vertical-align: baseline; transition: all 0.2s; cursor: pointer;
   }
+  .blank:hover { background: #F3F4F6; }
   .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
-  .revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
-  .revealed .blank .ans-inline { display: inline; }
+  .q-item.revealed .blank, .blank.revealed { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline, .blank.revealed .ans-inline { display: inline; }
 
-  .mcq-item { margin-bottom: 12px; }
+  .mcq-item { margin-bottom: 12px; cursor: pointer; padding: 4px; margin: -4px -4px 8px -4px; border-radius: 4px; }
+  .mcq-item:hover { background: #F9FAFB; }
   .mcq-stem { font-size: 12.5px; margin-bottom: 6px; line-height: 1.4; }
   .mcq-options { display: flex; gap: 8px; flex-wrap: wrap; padding-left: 10px; }
   .mcq-opt { font-size: 11.5px; padding: 4px 10px; border: 1px solid var(--border); }
   .mcq-opt .letter { font-weight: 700; margin-right: 3px; }
-  .revealed .mcq-opt.correct-opt { background: #ECFDF5; border-color: var(--teal); color: var(--teal); font-weight: 700; }
+  .mcq-item.revealed .mcq-opt.correct-opt { background: #ECFDF5; border-color: var(--teal); color: var(--teal); font-weight: 700; }
 
   .speak-item { padding: 8px 10px; border-left: 3px solid var(--teal); background: #F9FAFB; margin-bottom: 8px; font-size: 12px; line-height: 1.5; }
 
@@ -172,7 +175,7 @@
   <div class="hero">
     <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Exam Prep</div>
     <h1>Exam Review<br><span>— Nominalisation, Word Families &amp; Causatives</span></h1>
-    <div class="hero-sub">CLIQUE EM "REVEAL" EM CADA SEÇÃO PARA MOSTRAR AS RESPOSTAS · SESSÃO EM CLASSE · RITMO RÁPIDO</div>
+    <div class="hero-sub">CLIQUE NO NÚMERO OU NA LINHA DE CADA ITEM PARA REVELAR SÓ AQUELA RESPOSTA · OU USE "REVEAL ALL" NA SEÇÃO · SESSÃO EM CLASSE · RITMO RÁPIDO</div>
   </div>
 
   <div class="section" style="padding-bottom:0;">
@@ -210,7 +213,7 @@
       <span class="s-num">01</span>
       <span class="s-title">Nominalisation Speed Round</span>
       <span class="s-pts">12 items</span>
-      <button class="btn-reveal" onclick="toggleSection('sec01', this)">Reveal</button>
+      <button class="btn-reveal" onclick="toggleSection('sec01', this)">Reveal All</button>
     </div>
     <p class="instruction">Complete each sentence with the correct noun form of the word in brackets. The clue in the sentence tells you which suffix fits.</p>
 
@@ -227,18 +230,18 @@
       <div class="ref-row"><span class="ref-suf">-al</span><span class="ref-ex">arrive → arrival · renew → renewal</span></div>
     </div>
 
-    <div class="q-item"><span class="q-num">1.</span><div class="q-body">The hotel manager needed to make a quick <em>(decide)</em> — three guests were already waiting in the rain. <span class="blank"><span class="ans-inline">decision</span></span></div></div>
-    <div class="q-item"><span class="q-num">2.</span><div class="q-body">After the renovation, the tea room's <em>(arrange)</em> was completely different — the low table now faced the garden instead of the wall. <span class="blank"><span class="ans-inline">arrangement</span></span></div></div>
-    <div class="q-item"><span class="q-num">3.</span><div class="q-body">Her <em>(kind)</em> toward the lost tourists — she walked fifteen minutes out of her way — is still mentioned in reviews. <span class="blank"><span class="ans-inline">kindness</span></span></div></div>
-    <div class="q-item"><span class="q-num">4.</span><div class="q-body">The old stone arch was twenty centimetres too narrow for the truck's <em>(wide)</em>. <span class="blank"><span class="ans-inline">width</span></span></div></div>
-    <div class="q-item"><span class="q-num">5.</span><div class="q-body">The trail closes for six months a year because of volcanic <em>(active)</em> near the summit. <span class="blank"><span class="ans-inline">activity</span></span></div></div>
-    <div class="q-item"><span class="q-num">6.</span><div class="q-body">The trip nearly ended in <em>(fail)</em> — the ferry to the island was cancelled twice before they finally reached the port. <span class="blank"><span class="ans-inline">failure</span></span></div></div>
-    <div class="q-item"><span class="q-num">7.</span><div class="q-body">Her <em>(arrive)</em> at the ryokan was delayed by four hours after the mountain pass flooded. <span class="blank"><span class="ans-inline">arrival</span></span></div></div>
-    <div class="q-item"><span class="q-num">8.</span><div class="q-body">The museum's new <em>(extend)</em> added three galleries devoted entirely to Edo-period ceramics. <span class="blank"><span class="ans-inline">extension</span></span></div></div>
-    <div class="q-item"><span class="q-num">9.</span><div class="q-body">The shrine's <em>(develop)</em> plan includes replacing all two hundred stone lanterns over the next decade. <span class="blank"><span class="ans-inline">development</span></span></div></div>
-    <div class="q-item"><span class="q-num">10.</span><div class="q-body">His <em>(calm)</em> during the earthquake — he simply finished pouring the tea before checking on the guests — became a small local legend. <span class="blank"><span class="ans-inline">calmness</span></span></div></div>
-    <div class="q-item"><span class="q-num">11.</span><div class="q-body">The waterfall's <em>(deep)</em> — nearly forty metres at its centre — makes it one of the most dangerous in the prefecture. <span class="blank"><span class="ans-inline">depth</span></span></div></div>
-    <div class="q-item"><span class="q-num">12.</span><div class="q-body">There was open <em>(curious)</em> among the villagers about why a foreigner had chosen to restore the abandoned inn. <span class="blank"><span class="ans-inline">curiosity</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">1.</span><div class="q-body">The hotel manager needed to make a quick <em>(decide)</em> — three guests were already waiting in the rain. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">decision</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">2.</span><div class="q-body">After the renovation, the tea room's <em>(arrange)</em> was completely different — the low table now faced the garden instead of the wall. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">arrangement</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">3.</span><div class="q-body">Her <em>(kind)</em> toward the lost tourists — she walked fifteen minutes out of her way — is still mentioned in reviews. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">kindness</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">4.</span><div class="q-body">The old stone arch was twenty centimetres too narrow for the truck's <em>(wide)</em>. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">width</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">5.</span><div class="q-body">The trail closes for six months a year because of volcanic <em>(active)</em> near the summit. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">activity</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">6.</span><div class="q-body">The trip nearly ended in <em>(fail)</em> — the ferry to the island was cancelled twice before they finally reached the port. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">failure</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">7.</span><div class="q-body">Her <em>(arrive)</em> at the ryokan was delayed by four hours after the mountain pass flooded. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">arrival</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">8.</span><div class="q-body">The museum's new <em>(extend)</em> added three galleries devoted entirely to Edo-period ceramics. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">extension</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">9.</span><div class="q-body">The shrine's <em>(develop)</em> plan includes replacing all two hundred stone lanterns over the next decade. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">development</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">10.</span><div class="q-body">His <em>(calm)</em> during the earthquake — he simply finished pouring the tea before checking on the guests — became a small local legend. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">calmness</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">11.</span><div class="q-body">The waterfall's <em>(deep)</em> — nearly forty metres at its centre — makes it one of the most dangerous in the prefecture. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">depth</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">12.</span><div class="q-body">There was open <em>(curious)</em> among the villagers about why a foreigner had chosen to restore the abandoned inn. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">curiosity</span></span></div></div>
   </div>
 
   <!-- ═══ 02 · WORD FAMILIES ═══ -->
@@ -247,7 +250,7 @@
       <span class="s-num">02</span>
       <span class="s-title">Word Families · Build the Verb</span>
       <span class="s-pts">12 items</span>
-      <button class="btn-reveal" onclick="toggleSection('sec02', this)">Reveal</button>
+      <button class="btn-reveal" onclick="toggleSection('sec02', this)">Reveal All</button>
     </div>
     <p class="instruction">Turn the adjective in brackets into a verb. Some need a suffix (-ize/-ise, -en, -ify) · some stay exactly the same (zero-suffix).</p>
 
@@ -261,18 +264,18 @@
       <div class="ref-row"><span class="ref-suf">zero-suffix</span><span class="ref-ex">warm → warm · calm → calm · cool → cool</span></div>
     </div>
 
-    <div class="q-item"><span class="q-num">1.</span><div class="q-body">The tea master will <em>(simple)</em> the ceremony for beginners, cutting the steps from twelve to five. <span class="blank"><span class="ans-inline">simplify</span></span></div></div>
-    <div class="q-item"><span class="q-num">2.</span><div class="q-body">As the sun set behind the mountain, the sky seemed to <em>(dark)</em> in stages — first orange, then deep violet. <span class="blank"><span class="ans-inline">darken</span></span></div></div>
-    <div class="q-item"><span class="q-num">3.</span><div class="q-body">The visitor centre aims to <em>(modern)</em> the way tourists experience the shrine, without changing the building itself. <span class="blank"><span class="ans-inline">modernize / modernise</span></span></div></div>
-    <div class="q-item"><span class="q-num">4.</span><div class="q-body">Please <em>(calm)</em> down before we start the ceremony — rushing spoils the whole ritual. <span class="blank"><span class="ans-inline">calm</span></span></div></div>
-    <div class="q-item"><span class="q-num">5.</span><div class="q-body">The onsen's mineral water is said to <em>(soft)</em> the skin after just one soak. <span class="blank"><span class="ans-inline">soften</span></span></div></div>
-    <div class="q-item"><span class="q-num">6.</span><div class="q-body">The guide had to <em>(clear)</em> his instructions twice — the fog made it hard to see the trail markers. <span class="blank"><span class="ans-inline">clarify</span></span></div></div>
-    <div class="q-item"><span class="q-num">7.</span><div class="q-body">The innkeeper will <em>(warm)</em> the futons before guests arrive, using a small heater under each mattress. <span class="blank"><span class="ans-inline">warm</span></span></div></div>
-    <div class="q-item"><span class="q-num">8.</span><div class="q-body">The council plans to <em>(wide)</em> the mountain road by two metres to let tour buses through. <span class="blank"><span class="ans-inline">widen</span></span></div></div>
-    <div class="q-item"><span class="q-num">9.</span><div class="q-body">Nothing could <em>(cool)</em> the tension between the two fishing villages after the border dispute. <span class="blank"><span class="ans-inline">cool</span></span></div></div>
-    <div class="q-item"><span class="q-num">10.</span><div class="q-body">The temple hopes to <em>(popular)</em> the lesser-known autumn festival, which draws far fewer visitors than the spring one. <span class="blank"><span class="ans-inline">popularize / popularise</span></span></div></div>
-    <div class="q-item"><span class="q-num">11.</span><div class="q-body">Years of salt wind had begun to <em>(weak)</em> the old wooden pier, and the council finally closed it. <span class="blank"><span class="ans-inline">weaken</span></span></div></div>
-    <div class="q-item"><span class="q-num">12.</span><div class="q-body">The chef tried to <em>(intense)</em> the broth's flavour by simmering the bones for eighteen hours instead of six. <span class="blank"><span class="ans-inline">intensify</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">1.</span><div class="q-body">The tea master will <em>(simple)</em> the ceremony for beginners, cutting the steps from twelve to five. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">simplify</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">2.</span><div class="q-body">As the sun set behind the mountain, the sky seemed to <em>(dark)</em> in stages — first orange, then deep violet. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">darken</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">3.</span><div class="q-body">The visitor centre aims to <em>(modern)</em> the way tourists experience the shrine, without changing the building itself. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">modernize / modernise</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">4.</span><div class="q-body">Please <em>(calm)</em> down before we start the ceremony — rushing spoils the whole ritual. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">calm</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">5.</span><div class="q-body">The onsen's mineral water is said to <em>(soft)</em> the skin after just one soak. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">soften</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">6.</span><div class="q-body">The guide had to <em>(clear)</em> his instructions twice — the fog made it hard to see the trail markers. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">clarify</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">7.</span><div class="q-body">The innkeeper will <em>(warm)</em> the futons before guests arrive, using a small heater under each mattress. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">warm</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">8.</span><div class="q-body">The council plans to <em>(wide)</em> the mountain road by two metres to let tour buses through. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">widen</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">9.</span><div class="q-body">Nothing could <em>(cool)</em> the tension between the two fishing villages after the border dispute. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">cool</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">10.</span><div class="q-body">The temple hopes to <em>(popular)</em> the lesser-known autumn festival, which draws far fewer visitors than the spring one. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">popularize / popularise</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">11.</span><div class="q-body">Years of salt wind had begun to <em>(weak)</em> the old wooden pier, and the council finally closed it. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">weaken</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">12.</span><div class="q-body">The chef tried to <em>(intense)</em> the broth's flavour by simmering the bones for eighteen hours instead of six. <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">intensify</span></span></div></div>
   </div>
 
   <!-- ═══ 03 · CAUSATIVES ═══ -->
@@ -281,7 +284,7 @@
       <span class="s-num">03</span>
       <span class="s-title">Causatives · Which Verb Fits?</span>
       <span class="s-pts">12 items</span>
-      <button class="btn-reveal" onclick="toggleSection('sec03', this)">Reveal</button>
+      <button class="btn-reveal" onclick="toggleSection('sec03', this)">Reveal All</button>
     </div>
     <p class="instruction">Fill each gap with the causative verb that matches the situation: <strong>make</strong> (force) · <strong>let</strong> (permission) · <strong>get</strong> (persuade, effort) · <strong>have</strong> (arrange, it's their role) · <strong>help</strong> (assist).</p>
 
@@ -296,18 +299,18 @@
       <div class="gloss-item"><b>raft</b> · <span class="gloss-jp">いかだ</span> · <span class="gloss-pt">jangada</span></div>
     </div></div>
 
-    <div class="q-item"><span class="q-num">1.</span><div class="q-body">The strict ryokan owner <span class="blank"><span class="ans-inline">makes</span></span> every guest remove their shoes before stepping onto the tatami — no exceptions, ever.</div></div>
-    <div class="q-item"><span class="q-num">2.</span><div class="q-body">She finally <span class="blank"><span class="ans-inline">let</span></span> her son stay up late for the fireworks festival, even though it was a school night.</div></div>
-    <div class="q-item"><span class="q-num">3.</span><div class="q-body">The concierge <span class="blank"><span class="ans-inline">had</span></span> the porter carry the bags up to the third floor — that's simply his job.</div></div>
-    <div class="q-item"><span class="q-num">4.</span><div class="q-body">It took three phone calls, but he finally <span class="blank"><span class="ans-inline">got</span></span> the airline to move his seat to the window.</div></div>
-    <div class="q-item"><span class="q-num">5.</span><div class="q-body">The old fisherman <span class="blank"><span class="ans-inline">helped</span></span> me carry the nets down to the boat — my hands were full and the path was steep.</div></div>
-    <div class="q-item"><span class="q-num">6.</span><div class="q-body">Nothing could <span class="blank"><span class="ans-inline">get</span></span> the toddler to fall asleep once the ferry started moving.</div></div>
-    <div class="q-item"><span class="q-num">7.</span><div class="q-body">The strong tide <span class="blank"><span class="ans-inline">made</span></span> the small boat drift nearly a kilometre off course before the fishermen noticed.</div></div>
-    <div class="q-item"><span class="q-num">8.</span><div class="q-body">My grandmother always <span class="blank"><span class="ans-inline">let</span></span> me choose the tea bowl myself — she believed the choice mattered more than the bowl.</div></div>
-    <div class="q-item"><span class="q-num">9.</span><div class="q-body">The hotel manager <span class="blank"><span class="ans-inline">had</span></span> the broken window fixed before the next guests arrived — she called the glazier that same morning.</div></div>
-    <div class="q-item"><span class="q-num">10.</span><div class="q-body">After twenty minutes of gentle persuasion, the guide finally <span class="blank"><span class="ans-inline">got</span></span> the nervous hiker to cross the rope bridge.</div></div>
-    <div class="q-item"><span class="q-num">11.</span><div class="q-body">The volunteers <span class="blank"><span class="ans-inline">helped</span></span> the elderly visitors carry their bags across the temple grounds, especially on the steep stone steps.</div></div>
-    <div class="q-item"><span class="q-num">12.</span><div class="q-body">The sudden hailstorm <span class="blank"><span class="ans-inline">made</span></span> everyone run for shelter under the shrine's wooden gate.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">1.</span><div class="q-body">The strict ryokan owner <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">makes</span></span> every guest remove their shoes before stepping onto the tatami — no exceptions, ever.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">2.</span><div class="q-body">She finally <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">let</span></span> her son stay up late for the fireworks festival, even though it was a school night.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">3.</span><div class="q-body">The concierge <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">had</span></span> the porter carry the bags up to the third floor — that's simply his job.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">4.</span><div class="q-body">It took three phone calls, but he finally <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">got</span></span> the airline to move his seat to the window.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">5.</span><div class="q-body">The old fisherman <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">helped</span></span> me carry the nets down to the boat — my hands were full and the path was steep.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">6.</span><div class="q-body">Nothing could <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">get</span></span> the toddler to fall asleep once the ferry started moving.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">7.</span><div class="q-body">The strong tide <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">made</span></span> the small boat drift nearly a kilometre off course before the fishermen noticed.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">8.</span><div class="q-body">My grandmother always <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">let</span></span> me choose the tea bowl myself — she believed the choice mattered more than the bowl.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">9.</span><div class="q-body">The hotel manager <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">had</span></span> the broken window fixed before the next guests arrived — she called the glazier that same morning.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">10.</span><div class="q-body">After twenty minutes of gentle persuasion, the guide finally <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">got</span></span> the nervous hiker to cross the rope bridge.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">11.</span><div class="q-body">The volunteers <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">helped</span></span> the elderly visitors carry their bags across the temple grounds, especially on the steep stone steps.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">12.</span><div class="q-body">The sudden hailstorm <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">made</span></span> everyone run for shelter under the shrine's wooden gate.</div></div>
   </div>
 
   <!-- ═══ 04 · MIXED INTEGRATION ═══ -->
@@ -316,20 +319,20 @@
       <span class="s-num">04</span>
       <span class="s-title">Mixed Integration · Transform</span>
       <span class="s-pts">8 items</span>
-      <button class="btn-reveal" onclick="toggleSection('sec04', this)">Reveal</button>
+      <button class="btn-reveal" onclick="toggleSection('sec04', this)">Reveal All</button>
     </div>
     <p class="instruction">Rewrite the idea using the structure asked for. This mixes all three areas — read carefully before answering.</p>
 
     <div class="teach-box"><b>Reminder ·</b> this section mixes all three grammar points from today. Read each sentence twice before choosing — the clue is usually in the word right before or after the gap.</div>
 
-    <div class="q-item"><span class="q-num">1.</span><div class="q-body">"The manager decided to close the pool early." → <em>Use a noun.</em> The manager's <span class="blank"><span class="ans-inline">decision</span></span> to close the pool early surprised the guests.</div></div>
-    <div class="q-item"><span class="q-num">2.</span><div class="q-body">"The road became wider after the construction." → <em>Use a verb.</em> The construction <span class="blank"><span class="ans-inline">widened</span></span> the road.</div></div>
-    <div class="q-item"><span class="q-num">3.</span><div class="q-body">"The guide forced the tourists to wear helmets." → <em>Use make.</em> The guide <span class="blank"><span class="ans-inline">made</span></span> the tourists <span class="blank"><span class="ans-inline">wear</span></span> helmets.</div></div>
-    <div class="q-item"><span class="q-num">4.</span><div class="q-body">"Her explanation became clearer once she used a map." → <em>Use a verb.</em> The map helped <span class="blank"><span class="ans-inline">clarify</span></span> her explanation.</div></div>
-    <div class="q-item"><span class="q-num">5.</span><div class="q-body">"The chef allowed the apprentice to taste the sauce." → <em>Use let.</em> The chef <span class="blank"><span class="ans-inline">let</span></span> the apprentice <span class="blank"><span class="ans-inline">taste</span></span> the sauce.</div></div>
-    <div class="q-item"><span class="q-num">6.</span><div class="q-body">"The volcano's activity became more intense." → <em>Use a verb.</em> The volcano's activity <span class="blank"><span class="ans-inline">intensified</span></span> over the past month.</div></div>
-    <div class="q-item"><span class="q-num">7.</span><div class="q-body">"The hotel arranged for a car to pick up the guests." → <em>Use have.</em> The hotel <span class="blank"><span class="ans-inline">had</span></span> a car <span class="blank"><span class="ans-inline">pick</span></span> the guests up.</div></div>
-    <div class="q-item"><span class="q-num">8.</span><div class="q-body">"The failure of the bridge closed the pass for a week." → <em>Use a verb.</em> The bridge <span class="blank"><span class="ans-inline">failed</span></span> so badly that the pass closed for a week.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">1.</span><div class="q-body">"The manager decided to close the pool early." → <em>Use a noun.</em> The manager's <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">decision</span></span> to close the pool early surprised the guests.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">2.</span><div class="q-body">"The road became wider after the construction." → <em>Use a verb.</em> The construction <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">widened</span></span> the road.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">3.</span><div class="q-body">"The guide forced the tourists to wear helmets." → <em>Use make.</em> The guide <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">made</span></span> the tourists <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">wear</span></span> helmets.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">4.</span><div class="q-body">"Her explanation became clearer once she used a map." → <em>Use a verb.</em> The map helped <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">clarify</span></span> her explanation.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">5.</span><div class="q-body">"The chef allowed the apprentice to taste the sauce." → <em>Use let.</em> The chef <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">let</span></span> the apprentice <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">taste</span></span> the sauce.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">6.</span><div class="q-body">"The volcano's activity became more intense." → <em>Use a verb.</em> The volcano's activity <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">intensified</span></span> over the past month.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">7.</span><div class="q-body">"The hotel arranged for a car to pick up the guests." → <em>Use have.</em> The hotel <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">had</span></span> a car <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">pick</span></span> the guests up.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">8.</span><div class="q-body">"The failure of the bridge closed the pass for a week." → <em>Use a verb.</em> The bridge <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">failed</span></span> so badly that the pass closed for a week.</div></div>
   </div>
 
   <!-- ═══ 05 · SPEAKING CORNER ═══ -->
@@ -351,11 +354,22 @@
 </div>
 
 <script>
+  // Click an individual item (question number, blank, or MCQ box) to reveal just that answer
+  function toggleItem(el) {
+    const scope = el.closest('.q-item, .mcq-item') || el.closest('.blank') || el;
+    scope.classList.toggle('revealed');
+  }
+
+  // "Reveal All / Hide All" button — forces every item in that section to match
   function toggleSection(id, btn) {
     const sec = document.getElementById(id);
-    const on = sec.classList.toggle('revealed');
-    btn.textContent = on ? 'Hide' : 'Reveal';
-    btn.classList.toggle('active', on);
+    const turnOn = btn.dataset.state !== 'on';
+    sec.querySelectorAll('.q-item, .mcq-item, .blank').forEach(function(it) {
+      it.classList.toggle('revealed', turnOn);
+    });
+    btn.dataset.state = turnOn ? 'on' : 'off';
+    btn.textContent = turnOn ? 'Hide All' : 'Reveal All';
+    btn.classList.toggle('active', turnOn);
   }
 </script>
 
