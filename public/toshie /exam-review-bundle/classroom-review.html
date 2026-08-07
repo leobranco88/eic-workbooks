@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Exam Review · Classroom · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--accent);
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+
+  .navbar {
+    background: #16161d; color: var(--paper); padding: 8px 24px;
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em;
+    position: sticky; top: 41px; z-index: 99; border-bottom: 1px solid #2a2a33;
+  }
+  .navbar a { color: #9CA3AF; text-decoration: none; padding: 3px 8px; border: 1px solid transparent; }
+  .navbar a.active { color: var(--paper); border: 1px solid var(--accent); }
+  .navbar a:hover { color: var(--paper); }
+  .navbar .dl { margin-left: auto; color: var(--teal); border: 1px solid var(--teal); padding: 3px 10px; }
+  .navbar .dl:hover { background: var(--teal); color: var(--ink); }
+
+  .container { max-width: 860px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.06em; margin-top: 8px; line-height: 1.6; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 13px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .btn-reveal {
+    background: transparent; border: 1.5px solid var(--teal); color: var(--teal);
+    font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px;
+    cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  }
+  .btn-reveal:hover, .btn-reveal.active { background: var(--teal); color: var(--paper); }
+
+  .instruction { font-size: 11.5px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+
+  .word-bank { background: var(--ink); color: var(--paper); padding: 8px 12px; margin-bottom: 14px; }
+  .wb-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .wb-words { font-size: 11.5px; line-height: 1.7; }
+
+  .ref-box { border: 1px solid var(--border); background: #F9FAFB; padding: 10px 12px; margin-bottom: 14px; font-size: 11px; }
+  .ref-box .rl { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .ref-row { display: flex; gap: 10px; padding: 3px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+  .ref-row:last-child { border-bottom: none; }
+  .ref-suf { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--teal); min-width: 78px; }
+  .ref-ex { color: #374151; }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 11px; align-items: flex-start; font-size: 12.5px; line-height: 1.55; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; }
+  .q-body { flex: 1; }
+
+  .blank {
+    display: inline-block; border-bottom: 1.5px solid var(--ink);
+    min-width: 120px; margin: 0 2px; vertical-align: baseline; transition: all 0.2s;
+  }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
+  .revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .revealed .blank .ans-inline { display: inline; }
+
+  .mcq-item { margin-bottom: 12px; }
+  .mcq-stem { font-size: 12.5px; margin-bottom: 6px; line-height: 1.4; }
+  .mcq-options { display: flex; gap: 8px; flex-wrap: wrap; padding-left: 10px; }
+  .mcq-opt { font-size: 11.5px; padding: 4px 10px; border: 1px solid var(--border); }
+  .mcq-opt .letter { font-weight: 700; margin-right: 3px; }
+  .revealed .mcq-opt.correct-opt { background: #ECFDF5; border-color: var(--teal); color: var(--teal); font-weight: 700; }
+
+  .speak-item { padding: 8px 10px; border-left: 3px solid var(--teal); background: #F9FAFB; margin-bottom: 8px; font-size: 12px; line-height: 1.5; }
+
+  .teach-box { border-left: 3px solid var(--teal); background: #0d2b28; color: #CFFAFE; padding: 8px 12px; margin-bottom: 14px; font-size: 11px; line-height: 1.6; }
+  .teach-box b { color: #5eead4; }
+
+  .gloss-box { border: 1px solid var(--border); background: #F9FAFB; padding: 9px 12px; margin: 10px 0 14px; }
+  .gloss-box .gl-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .gloss-grid { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+  .gloss-item { width: 46%; font-size: 11px; padding: 2px 0; line-height: 1.5; }
+  .gloss-item b { color: var(--ink); }
+  .gloss-jp { color: var(--teal); font-style: italic; }
+  .gloss-pt { color: var(--muted); }
+  @media (max-width: 600px) { .gloss-item { width: 100%; } }
+
+  .pos-guide { border: 1.5px solid var(--ink); background: #F9FAFB; padding: 14px 16px; margin: 0; }
+  .pos-guide .pg-title { font-size: 13px; font-weight: 800; margin-bottom: 2px; }
+  .pos-guide .pg-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); margin-bottom: 10px; }
+  .pos-row { display: flex; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border); align-items: baseline; }
+  .pos-row:first-of-type { border-top: none; }
+  .pos-tag { min-width: 96px; flex-shrink: 0; font-weight: 800; font-size: 11.5px; }
+  .pos-tag .pt-jp { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 9px; color: var(--muted); margin-top: 1px; }
+  .pos-body { font-size: 11px; line-height: 1.6; color: #374151; }
+  .pos-body .pg-signal { color: var(--teal); font-weight: 600; }
+  .pos-body .pg-ex { display: block; margin-top: 3px; font-style: italic; color: var(--ink); }
+  .pos-tip { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 10.5px; color: #6B7280; font-style: italic; }
+
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    EXAM REVIEW · CLASSROOM · TOSHIE
+  </div>
+  <div class="topbar-meta">
+    NOMINALISATION · WORD FAMILIES · CAUSATIVES<br>
+    IN-CLASS REVIEW PACK
+  </div>
+</div>
+
+<div class="navbar">
+  <a href="classroom-review.html" class="active">Classroom</a>
+  <a href="homework-review.html">Homework</a>
+  <a href="classroom-review.pdf" class="dl">⬇ Download PDF</a>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Exam Prep</div>
+    <h1>Exam Review<br><span>— Nominalisation, Word Families &amp; Causatives</span></h1>
+    <div class="hero-sub">CLIQUE EM "REVEAL" EM CADA SEÇÃO PARA MOSTRAR AS RESPOSTAS · SESSÃO EM CLASSE · RITMO RÁPIDO</div>
+  </div>
+
+  <div class="section" style="padding-bottom:0;">
+    <div class="pos-guide">
+      <div class="pg-title">How to Spot the Word Type</div>
+      <div class="pg-sub">COMO IDENTIFICAR O TIPO DE PALAVRA · OLHE O QUE VEM LOGO ANTES E LOGO DEPOIS DA LACUNA</div>
+
+      <div class="pos-row">
+        <div class="pos-tag">NOUN<span class="pt-jp">substantivo</span></div>
+        <div class="pos-body">Usually comes right after <span class="pg-signal">a / an / the</span> · <span class="pg-signal">my / your / his / her / its / our / their</span> · <span class="pg-signal">this / that / these / those</span> · <span class="pg-signal">some / many / few</span> · or a possessive <span class="pg-signal">'s</span>.<span class="pg-ex">the decision · her kindness · three activities · the bridge's failure</span></div>
+      </div>
+
+      <div class="pos-row">
+        <div class="pos-tag">VERB<span class="pt-jp">verbo</span></div>
+        <div class="pos-body">Usually comes right after a subject (<span class="pg-signal">I / you / he / she / it / we / they</span>) · a modal (<span class="pg-signal">can / will / must / should</span>) · <span class="pg-signal">to</span> (infinitive) · an auxiliary (<span class="pg-signal">do / does / did / have / has</span>) · or an adverb of frequency (<span class="pg-signal">always / never / usually</span>).<span class="pg-ex">she decided · will simplify · to arrive · always lets</span></div>
+      </div>
+
+      <div class="pos-row">
+        <div class="pos-tag">ADJECTIVE<span class="pt-jp">adjetivo</span></div>
+        <div class="pos-body">Usually comes right before a noun, or right after a "be"-type verb (<span class="pg-signal">is / was / seems / becomes / looks / feels</span>).<span class="pg-ex">a kind gesture · she seems calm · it became clear</span></div>
+      </div>
+
+      <div class="pos-row">
+        <div class="pos-tag">ADVERB<span class="pt-jp">advérbio</span></div>
+        <div class="pos-body">Often ends in <span class="pg-signal">-ly</span> · modifies a verb, an adjective, or another adverb · can move around the sentence more freely than the others.<span class="pg-ex">quickly decided · extremely kind · fairly often</span></div>
+      </div>
+
+      <div class="pos-tip">Dica: antes de preencher a lacuna, pergunte "o que vem logo antes, e logo depois?" — isso quase sempre entrega a categoria certa.</div>
+    </div>
+  </div>
+
+  <!-- ═══ 01 · NOMINALISATION ═══ -->
+  <div class="section" id="sec01">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">Nominalisation Speed Round</span>
+      <span class="s-pts">12 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec01', this)">Reveal</button>
+    </div>
+    <p class="instruction">Complete each sentence with the correct noun form of the word in brackets. The clue in the sentence tells you which suffix fits.</p>
+
+    <div class="teach-box"><b>Reminder ·</b> the 7 suffixes turn a verb or adjective into a <b>noun</b>. A possessive ("the bridge's ___") or an article ("a ___") right before the gap is almost always a signal that a noun belongs there.</div>
+
+    <div class="ref-box">
+      <span class="rl">Quick reference · 7 suffixes</span>
+      <div class="ref-row"><span class="ref-suf">-tion/-sion</span><span class="ref-ex">decide → decision · protect → protection</span></div>
+      <div class="ref-row"><span class="ref-suf">-ment</span><span class="ref-ex">arrange → arrangement · develop → development</span></div>
+      <div class="ref-row"><span class="ref-suf">-ness</span><span class="ref-ex">kind → kindness · calm → calmness</span></div>
+      <div class="ref-row"><span class="ref-suf">-th</span><span class="ref-ex">wide → width · deep → depth</span></div>
+      <div class="ref-row"><span class="ref-suf">-ity</span><span class="ref-ex">active → activity · curious → curiosity</span></div>
+      <div class="ref-row"><span class="ref-suf">-ure</span><span class="ref-ex">fail → failure · depart → departure</span></div>
+      <div class="ref-row"><span class="ref-suf">-al</span><span class="ref-ex">arrive → arrival · renew → renewal</span></div>
+    </div>
+
+    <div class="q-item"><span class="q-num">1.</span><div class="q-body">The hotel manager needed to make a quick <em>(decide)</em> — three guests were already waiting in the rain. <span class="blank"><span class="ans-inline">decision</span></span></div></div>
+    <div class="q-item"><span class="q-num">2.</span><div class="q-body">After the renovation, the tea room's <em>(arrange)</em> was completely different — the low table now faced the garden instead of the wall. <span class="blank"><span class="ans-inline">arrangement</span></span></div></div>
+    <div class="q-item"><span class="q-num">3.</span><div class="q-body">Her <em>(kind)</em> toward the lost tourists — she walked fifteen minutes out of her way — is still mentioned in reviews. <span class="blank"><span class="ans-inline">kindness</span></span></div></div>
+    <div class="q-item"><span class="q-num">4.</span><div class="q-body">The old stone arch was twenty centimetres too narrow for the truck's <em>(wide)</em>. <span class="blank"><span class="ans-inline">width</span></span></div></div>
+    <div class="q-item"><span class="q-num">5.</span><div class="q-body">The trail closes for six months a year because of volcanic <em>(active)</em> near the summit. <span class="blank"><span class="ans-inline">activity</span></span></div></div>
+    <div class="q-item"><span class="q-num">6.</span><div class="q-body">The trip nearly ended in <em>(fail)</em> — the ferry to the island was cancelled twice before they finally reached the port. <span class="blank"><span class="ans-inline">failure</span></span></div></div>
+    <div class="q-item"><span class="q-num">7.</span><div class="q-body">Her <em>(arrive)</em> at the ryokan was delayed by four hours after the mountain pass flooded. <span class="blank"><span class="ans-inline">arrival</span></span></div></div>
+    <div class="q-item"><span class="q-num">8.</span><div class="q-body">The museum's new <em>(extend)</em> added three galleries devoted entirely to Edo-period ceramics. <span class="blank"><span class="ans-inline">extension</span></span></div></div>
+    <div class="q-item"><span class="q-num">9.</span><div class="q-body">The shrine's <em>(develop)</em> plan includes replacing all two hundred stone lanterns over the next decade. <span class="blank"><span class="ans-inline">development</span></span></div></div>
+    <div class="q-item"><span class="q-num">10.</span><div class="q-body">His <em>(calm)</em> during the earthquake — he simply finished pouring the tea before checking on the guests — became a small local legend. <span class="blank"><span class="ans-inline">calmness</span></span></div></div>
+    <div class="q-item"><span class="q-num">11.</span><div class="q-body">The waterfall's <em>(deep)</em> — nearly forty metres at its centre — makes it one of the most dangerous in the prefecture. <span class="blank"><span class="ans-inline">depth</span></span></div></div>
+    <div class="q-item"><span class="q-num">12.</span><div class="q-body">There was open <em>(curious)</em> among the villagers about why a foreigner had chosen to restore the abandoned inn. <span class="blank"><span class="ans-inline">curiosity</span></span></div></div>
+  </div>
+
+  <!-- ═══ 02 · WORD FAMILIES ═══ -->
+  <div class="section" id="sec02">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Word Families · Build the Verb</span>
+      <span class="s-pts">12 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec02', this)">Reveal</button>
+    </div>
+    <p class="instruction">Turn the adjective in brackets into a verb. Some need a suffix (-ize/-ise, -en, -ify) · some stay exactly the same (zero-suffix).</p>
+
+    <div class="teach-box"><b>Reminder ·</b> these verbs are built from adjectives. Ask: does the base word already work as a verb (warm, calm, cool — zero-suffix), or does it need <b>-ize/-ise</b>, <b>-en</b>, or <b>-ify</b>?</div>
+
+    <div class="ref-box">
+      <span class="rl">Quick reference · verb formation</span>
+      <div class="ref-row"><span class="ref-suf">-ize / -ise</span><span class="ref-ex">modern → modernize · popular → popularize</span></div>
+      <div class="ref-row"><span class="ref-suf">-en</span><span class="ref-ex">wide → widen · dark → darken · weak → weaken</span></div>
+      <div class="ref-row"><span class="ref-suf">-ify</span><span class="ref-ex">simple → simplify · clear → clarify · intense → intensify</span></div>
+      <div class="ref-row"><span class="ref-suf">zero-suffix</span><span class="ref-ex">warm → warm · calm → calm · cool → cool</span></div>
+    </div>
+
+    <div class="q-item"><span class="q-num">1.</span><div class="q-body">The tea master will <em>(simple)</em> the ceremony for beginners, cutting the steps from twelve to five. <span class="blank"><span class="ans-inline">simplify</span></span></div></div>
+    <div class="q-item"><span class="q-num">2.</span><div class="q-body">As the sun set behind the mountain, the sky seemed to <em>(dark)</em> in stages — first orange, then deep violet. <span class="blank"><span class="ans-inline">darken</span></span></div></div>
+    <div class="q-item"><span class="q-num">3.</span><div class="q-body">The visitor centre aims to <em>(modern)</em> the way tourists experience the shrine, without changing the building itself. <span class="blank"><span class="ans-inline">modernize / modernise</span></span></div></div>
+    <div class="q-item"><span class="q-num">4.</span><div class="q-body">Please <em>(calm)</em> down before we start the ceremony — rushing spoils the whole ritual. <span class="blank"><span class="ans-inline">calm</span></span></div></div>
+    <div class="q-item"><span class="q-num">5.</span><div class="q-body">The onsen's mineral water is said to <em>(soft)</em> the skin after just one soak. <span class="blank"><span class="ans-inline">soften</span></span></div></div>
+    <div class="q-item"><span class="q-num">6.</span><div class="q-body">The guide had to <em>(clear)</em> his instructions twice — the fog made it hard to see the trail markers. <span class="blank"><span class="ans-inline">clarify</span></span></div></div>
+    <div class="q-item"><span class="q-num">7.</span><div class="q-body">The innkeeper will <em>(warm)</em> the futons before guests arrive, using a small heater under each mattress. <span class="blank"><span class="ans-inline">warm</span></span></div></div>
+    <div class="q-item"><span class="q-num">8.</span><div class="q-body">The council plans to <em>(wide)</em> the mountain road by two metres to let tour buses through. <span class="blank"><span class="ans-inline">widen</span></span></div></div>
+    <div class="q-item"><span class="q-num">9.</span><div class="q-body">Nothing could <em>(cool)</em> the tension between the two fishing villages after the border dispute. <span class="blank"><span class="ans-inline">cool</span></span></div></div>
+    <div class="q-item"><span class="q-num">10.</span><div class="q-body">The temple hopes to <em>(popular)</em> the lesser-known autumn festival, which draws far fewer visitors than the spring one. <span class="blank"><span class="ans-inline">popularize / popularise</span></span></div></div>
+    <div class="q-item"><span class="q-num">11.</span><div class="q-body">Years of salt wind had begun to <em>(weak)</em> the old wooden pier, and the council finally closed it. <span class="blank"><span class="ans-inline">weaken</span></span></div></div>
+    <div class="q-item"><span class="q-num">12.</span><div class="q-body">The chef tried to <em>(intense)</em> the broth's flavour by simmering the bones for eighteen hours instead of six. <span class="blank"><span class="ans-inline">intensify</span></span></div></div>
+  </div>
+
+  <!-- ═══ 03 · CAUSATIVES ═══ -->
+  <div class="section" id="sec03">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Causatives · Which Verb Fits?</span>
+      <span class="s-pts">12 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec03', this)">Reveal</button>
+    </div>
+    <p class="instruction">Fill each gap with the causative verb that matches the situation: <strong>make</strong> (force) · <strong>let</strong> (permission) · <strong>get</strong> (persuade, effort) · <strong>have</strong> (arrange, it's their role) · <strong>help</strong> (assist).</p>
+
+    <div class="teach-box"><b>Reminder ·</b> make = force, no choice · let = permission · get = persuade, takes effort (+ to) · have = arrange, it's their role · help = assist, together. The verb form that follows changes with each one.</div>
+
+    <div class="gloss-box"><span class="gl-label">Glossary · useful words for this section</span><div class="gloss-grid">
+      <div class="gloss-item"><b>porter</b> · <span class="gloss-jp">ポーター</span> · <span class="gloss-pt">carregador de bagagem</span></div>
+      <div class="gloss-item"><b>concierge</b> · <span class="gloss-jp">コンシェルジュ</span> · <span class="gloss-pt">recepcionista de hotel</span></div>
+      <div class="gloss-item"><b>glazier</b> · <span class="gloss-jp">ガラス職人</span> · <span class="gloss-pt">vidraceiro</span></div>
+      <div class="gloss-item"><b>apprentice</b> · <span class="gloss-jp">見習い</span> · <span class="gloss-pt">aprendiz</span></div>
+      <div class="gloss-item"><b>current</b> (noun) · <span class="gloss-jp">潮流</span> · <span class="gloss-pt">corrente (da água)</span></div>
+      <div class="gloss-item"><b>raft</b> · <span class="gloss-jp">いかだ</span> · <span class="gloss-pt">jangada</span></div>
+    </div></div>
+
+    <div class="q-item"><span class="q-num">1.</span><div class="q-body">The strict ryokan owner <span class="blank"><span class="ans-inline">makes</span></span> every guest remove their shoes before stepping onto the tatami — no exceptions, ever.</div></div>
+    <div class="q-item"><span class="q-num">2.</span><div class="q-body">She finally <span class="blank"><span class="ans-inline">let</span></span> her son stay up late for the fireworks festival, even though it was a school night.</div></div>
+    <div class="q-item"><span class="q-num">3.</span><div class="q-body">The concierge <span class="blank"><span class="ans-inline">had</span></span> the porter carry the bags up to the third floor — that's simply his job.</div></div>
+    <div class="q-item"><span class="q-num">4.</span><div class="q-body">It took three phone calls, but he finally <span class="blank"><span class="ans-inline">got</span></span> the airline to move his seat to the window.</div></div>
+    <div class="q-item"><span class="q-num">5.</span><div class="q-body">The old fisherman <span class="blank"><span class="ans-inline">helped</span></span> me carry the nets down to the boat — my hands were full and the path was steep.</div></div>
+    <div class="q-item"><span class="q-num">6.</span><div class="q-body">Nothing could <span class="blank"><span class="ans-inline">get</span></span> the toddler to fall asleep once the ferry started moving.</div></div>
+    <div class="q-item"><span class="q-num">7.</span><div class="q-body">The strong tide <span class="blank"><span class="ans-inline">made</span></span> the small boat drift nearly a kilometre off course before the fishermen noticed.</div></div>
+    <div class="q-item"><span class="q-num">8.</span><div class="q-body">My grandmother always <span class="blank"><span class="ans-inline">let</span></span> me choose the tea bowl myself — she believed the choice mattered more than the bowl.</div></div>
+    <div class="q-item"><span class="q-num">9.</span><div class="q-body">The hotel manager <span class="blank"><span class="ans-inline">had</span></span> the broken window fixed before the next guests arrived — she called the glazier that same morning.</div></div>
+    <div class="q-item"><span class="q-num">10.</span><div class="q-body">After twenty minutes of gentle persuasion, the guide finally <span class="blank"><span class="ans-inline">got</span></span> the nervous hiker to cross the rope bridge.</div></div>
+    <div class="q-item"><span class="q-num">11.</span><div class="q-body">The volunteers <span class="blank"><span class="ans-inline">helped</span></span> the elderly visitors carry their bags across the temple grounds, especially on the steep stone steps.</div></div>
+    <div class="q-item"><span class="q-num">12.</span><div class="q-body">The sudden hailstorm <span class="blank"><span class="ans-inline">made</span></span> everyone run for shelter under the shrine's wooden gate.</div></div>
+  </div>
+
+  <!-- ═══ 04 · MIXED INTEGRATION ═══ -->
+  <div class="section" id="sec04">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">Mixed Integration · Transform</span>
+      <span class="s-pts">8 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec04', this)">Reveal</button>
+    </div>
+    <p class="instruction">Rewrite the idea using the structure asked for. This mixes all three areas — read carefully before answering.</p>
+
+    <div class="teach-box"><b>Reminder ·</b> this section mixes all three grammar points from today. Read each sentence twice before choosing — the clue is usually in the word right before or after the gap.</div>
+
+    <div class="q-item"><span class="q-num">1.</span><div class="q-body">"The manager decided to close the pool early." → <em>Use a noun.</em> The manager's <span class="blank"><span class="ans-inline">decision</span></span> to close the pool early surprised the guests.</div></div>
+    <div class="q-item"><span class="q-num">2.</span><div class="q-body">"The road became wider after the construction." → <em>Use a verb.</em> The construction <span class="blank"><span class="ans-inline">widened</span></span> the road.</div></div>
+    <div class="q-item"><span class="q-num">3.</span><div class="q-body">"The guide forced the tourists to wear helmets." → <em>Use make.</em> The guide <span class="blank"><span class="ans-inline">made</span></span> the tourists <span class="blank"><span class="ans-inline">wear</span></span> helmets.</div></div>
+    <div class="q-item"><span class="q-num">4.</span><div class="q-body">"Her explanation became clearer once she used a map." → <em>Use a verb.</em> The map helped <span class="blank"><span class="ans-inline">clarify</span></span> her explanation.</div></div>
+    <div class="q-item"><span class="q-num">5.</span><div class="q-body">"The chef allowed the apprentice to taste the sauce." → <em>Use let.</em> The chef <span class="blank"><span class="ans-inline">let</span></span> the apprentice <span class="blank"><span class="ans-inline">taste</span></span> the sauce.</div></div>
+    <div class="q-item"><span class="q-num">6.</span><div class="q-body">"The volcano's activity became more intense." → <em>Use a verb.</em> The volcano's activity <span class="blank"><span class="ans-inline">intensified</span></span> over the past month.</div></div>
+    <div class="q-item"><span class="q-num">7.</span><div class="q-body">"The hotel arranged for a car to pick up the guests." → <em>Use have.</em> The hotel <span class="blank"><span class="ans-inline">had</span></span> a car <span class="blank"><span class="ans-inline">pick</span></span> the guests up.</div></div>
+    <div class="q-item"><span class="q-num">8.</span><div class="q-body">"The failure of the bridge closed the pass for a week." → <em>Use a verb.</em> The bridge <span class="blank"><span class="ans-inline">failed</span></span> so badly that the pass closed for a week.</div></div>
+  </div>
+
+  <!-- ═══ 05 · SPEAKING CORNER ═══ -->
+  <div class="section" id="sec05">
+    <div class="section-header">
+      <span class="s-num">05</span>
+      <span class="s-title">Speaking Corner · Oral Review</span>
+      <span class="s-pts">5 prompts</span>
+    </div>
+    <p class="instruction">No writing — just talk. Try to use one structure from today's three grammar points in each answer.</p>
+
+    <div class="speak-item">Describe a decision you made recently. Use the word "decision" and one causative verb (make / get / have) in your answer.</div>
+    <div class="speak-item">Has anyone ever <em>let</em> you do something unusual? Tell the story.</div>
+    <div class="speak-item">Describe how a place — a room, a garden, a trail — has changed over time. Use a word-family verb (widen, simplify, intensify, weaken, darken…).</div>
+    <div class="speak-item">Talk about a time someone <em>helped</em> you do something difficult during a trip.</div>
+    <div class="speak-item">What's something in Japan that has "stood the test of time"? (Think back to the Wabi-Sabi lesson.)</div>
+  </div>
+
+</div>
+
+<script>
+  function toggleSection(id, btn) {
+    const sec = document.getElementById(id);
+    const on = sec.classList.toggle('revealed');
+    btn.textContent = on ? 'Hide' : 'Reveal';
+    btn.classList.toggle('active', on);
+  }
+</script>
+
+</body>
+</html>
