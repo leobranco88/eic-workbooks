@@ -294,6 +294,8 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
       <button class="hotspot danger" style="top:26.1%;left:56.7%" onclick="openTerm('work', event)">6</button>
       <button class="hotspot danger" style="top:25.7%;left:59.4%" onclick="openTerm('trip', event)">7</button>
       <button class="hotspot danger" style="top:32.1%;left:56.0%" onclick="openTerm('lock-out', event)">8</button>
+      <button class="hotspot danger" style="top:5%;left:93%" onclick="openTerm('pressure-buildup', event)">9</button>
+      <button class="hotspot danger" style="top:32%;left:62%" onclick="openTerm('misuse', event)">10</button>
     </div>
     <div class="wa-launcher-row">
       <button class="wa-launcher" onclick="openWaModal('problems')"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-2.9-.4-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.4 14.9 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/><path d="M16.6 13.6c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-1.4-.7-2.3-1.2-3.2-2.8-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.4 3.8 3.4.5.2.9.4 1.3.5.5.2 1 .1 1.4-.1.4-.2 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3z"/></svg>Watch the conversation</button>
@@ -402,7 +404,14 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     "work": {term: "work / not working", pt: "funcionar / não funcionar", def: "The natural way to say something isn't functioning. \"It doesn't work\", not \"it doesn't function.\"", ex: "The warning light means something isn't working."},
     "trip": {term: "trip", pt: "disparar (disjuntor)", def: "When a circuit breaker automatically shuts off power to prevent damage.", ex: "The circuit breaker tripped twice this morning."},
     "shut-down": {term: "shut down", pt: "desligar (por segurança)", def: "To turn a machine off completely, often for safety.", ex: "Let's shut it down and lock it out before we look closer."},
-    "lock-out": {term: "lock out", pt: "travar (bloqueio de segurança)", def: "To physically lock a piece of equipment so it can't be turned on while someone works on it. Part of standard lockout/tagout safety procedure.", ex: "Always lock out the compressor before opening the panel."}
+    "lock-out": {term: "lock out", pt: "travar (bloqueio de segurança)", def: "To physically lock a piece of equipment so it can't be turned on while someone works on it. Part of standard lockout/tagout safety procedure.", ex: "Always lock out the compressor before opening the panel."},
+
+    "pressure-buildup": {term: "pressure buildup", pt: "acúmulo de pressão", def: "Pressure that increases inside a tank or system, often faster than it should.", ex: "There's a pressure buildup inside the air receiver tank."},
+    "relief-valve": {term: "relief valve", pt: "válvula de alívio", def: "A safety component that releases pressure automatically when it gets too high.", ex: "The relief valve is there to prevent overpressure."},
+    "overpressure": {term: "overpressure", pt: "sobrepressão", def: "Pressure that has built up beyond the safe operating limit.", ex: "Overpressure can seriously damage the tank."},
+    "misuse": {term: "misuse", pt: "uso indevido", def: "Using equipment in a way it wasn't designed for.", ex: "Constantly hitting the emergency stop is a form of misuse."},
+    "void-warranty": {term: "void the warranty", pt: "anular a garantia", def: "To cancel warranty coverage, often because of misuse or improper use.", ex: "Repeated misuse like this can void the warranty."},
+    "wear-and-tear": {term: "wear and tear / premature wear", pt: "desgaste (prematuro)", def: "Damage that builds up gradually from use. \"Premature\" means it happened faster than expected.", ex: "The switch shows signs of premature wear."}
   };
 
   window.openTerm = function(key, evt) {
@@ -494,6 +503,12 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         {speaker: "carlos", text: "The circuit breaker tripped twice this morning."},
         {speaker: "alex", text: "I'll write it up. Did anything leak or spill?"},
         {speaker: "carlos", text: "No spill, but the motor was running hot before it tripped."}
+      ]},
+      warranty: {icon: "$", label: "The Warranty Situation", lines: [
+        {speaker: "carlos", text: "The client keeps hitting the emergency stop, even when there's no real emergency."},
+        {speaker: "alex", text: "That explains the wear on the switch. It's not built for constant use."},
+        {speaker: "carlos", text: "Right. If we report this as normal wear, the warranty claim gets denied."},
+        {speaker: "alex", text: "We need to explain that clearly, but without sounding like we're blaming them."}
       ]}
     }
   };
@@ -599,7 +614,7 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 
   var COMPRESSOR_KEYS = ["air-filter","oil-filter","metal-pipes","separator-vessel","control-panel","air-receiver-tank","emergency-stop","pressure-gauge","electrical-panel","cooler","electric-motor","flexible-hose","drain-valve"];
   var PPE_KEYS = ["safety-glasses","coveralls","hard-hat","gloves","earmuffs","earplugs","boots","hi-vis-vest"];
-  var PROBLEM_KEYS = ["leak","overheat","break-down","run","malfunction","work","trip","shut-down","lock-out"];
+  var PROBLEM_KEYS = ["leak","overheat","break-down","run","malfunction","work","trip","shut-down","lock-out","pressure-buildup","relief-valve","overpressure","misuse","void-warranty","wear-and-tear"];
 
   var EXPRESSIONS = [
     {en: "Everything looks fine.", pt: "Está tudo bem."},
