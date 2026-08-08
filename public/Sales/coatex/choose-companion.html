@@ -61,6 +61,7 @@ h1{font-size:clamp(26px,3.6vw,36px);font-weight:900;letter-spacing:-.02em;margin
 .confirm-btn{font-family:Inter,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
   color:var(--dark);background:#fff;border:none;border-radius:30px;padding:15px 36px;cursor:pointer;transition:all .15s}
 .confirm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.confirm-btn:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
 .confirm-note{font-size:11.5px;color:var(--mid)}
 
 .saved-banner{display:none;max-width:860px;margin:0 auto 28px;padding:14px 20px;background:rgba(59,127,217,.12);
@@ -189,6 +190,11 @@ document.getElementById("confirm-btn").addEventListener("click", function(){
   if (window.Companion) {
     Companion.show({id: "welcome-" + selected, type: "welcome", message: "Nice to meet you. See you inside.", force: true});
   }
+  document.getElementById("confirm-btn").disabled = true;
+  document.getElementById("confirm-btn").textContent = "Taking you in...";
+  setTimeout(function(){
+    window.location.href = "midland-facility.html";
+  }, 2200);
 });
 
 paint();
