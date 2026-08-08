@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Grammar · Causative Verbs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0D12;--surface:#16161E;--surface2:#1E1E28;--border:#2A2A38;
+  --red:#E63946;--teal:#0F766E;--hi:#FFE89C;--violet:#534AB7;
+  --make:#E63946;--make-lt:rgba(230,57,70,.12);
+  --have:#0F766E;--have-lt:rgba(15,118,110,.12);
+  --let:#534AB7;--let-lt:rgba(83,74,183,.12);
+  --get:rgba(181,98,10,1);--get-lt:rgba(181,98,10,.12);
+  --ink:#0A0A0F;--sans:"Inter",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);font-family:var(--sans);color:#fff;font-size:18px;line-height:1.6;min-height:100vh}
+
+/* NAV */
+.nav{background:rgba(13,13,18,.97);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;height:52px;padding:0 2.5rem;gap:0;
+  border-bottom:1px solid var(--border)}
+.nav-brand{font-size:13px;font-weight:700;letter-spacing:.12em;color:#fff;
+  padding-right:1.25rem;border-right:1px solid rgba(255,255,255,.1);text-transform:uppercase;margin-right:1.25rem}
+.nav-brand span{color:var(--hi)}
+.nav-links{display:flex;gap:2px;flex:1}
+.nav-link{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 12px;border-radius:2px;color:rgba(255,255,255,.35);
+  text-decoration:none;transition:all .15s;border:1px solid transparent}
+.nav-link:hover{color:rgba(255,255,255,.7);border-color:var(--border)}
+.nav-link.active{background:rgba(255,255,255,.08);color:#fff;border-color:var(--border)}
+.nav-badge{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(255,232,156,.1);border:1px solid rgba(255,232,156,.2);
+  color:var(--hi);padding:3px 10px;border-radius:2px;margin-left:auto;white-space:nowrap}
+.prog-bar{position:fixed;top:52px;left:0;height:2px;background:var(--red);z-index:199;width:0%;transition:width .2s}
+
+/* SEC NAV */
+.sec-nav{max-width:1100px;margin:0 auto;padding:1rem 2.5rem .5rem;display:flex;gap:5px}
+.sn{font-size:11px;font-weight:700;letter-spacing:.06em;padding:4px 12px;
+  border:1px solid var(--border);background:transparent;color:rgba(255,255,255,.3);
+  cursor:pointer;border-radius:2px;transition:all .15s;text-transform:uppercase;font-family:var(--sans)}
+.sn:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7)}
+.sn.active{background:#fff;color:var(--ink);border-color:#fff}
+
+/* SECTIONS */
+.sec{display:none;max-width:1100px;margin:0 auto;padding:1.5rem 2.5rem 6rem;animation:fi .2s ease}
+.sec.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* TYPOGRAPHY */
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);margin-bottom:.4rem;display:flex;align-items:center;gap:8px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--border)}
+.sec-title{font-size:32px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.3rem}
+.sec-sub{font-size:15px;color:rgba(255,255,255,.35);font-style:italic;margin-bottom:1.5rem}
+.bt{font-size:15px;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:.75rem}
+.bt strong{font-weight:800;color:#fff}
+
+/* CAUSATIVE CARDS */
+.caus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.caus-card{border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.caus-head{padding:.9rem 1.1rem;display:flex;align-items:baseline;gap:10px}
+.caus-verb{font-size:28px;font-weight:900;letter-spacing:-.02em}
+.caus-verb.make{color:var(--make)}
+.caus-verb.have{color:var(--have)}
+.caus-verb.let{color:var(--let)}
+.caus-verb.get{color:var(--get)}
+.caus-tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.3)}
+.caus-body{padding:.75rem 1.1rem 1.1rem;background:var(--surface)}
+.caus-meaning{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:.75rem}
+.caus-meaning strong{color:#fff;font-weight:700}
+.caus-struct{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.3rem}
+.caus-formula{font-size:14px;font-weight:800;color:rgba(255,255,255,.7);
+  font-family:monospace;margin-bottom:.75rem;letter-spacing:.02em}
+.caus-ex-label{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.3rem}
+.caus-ex{font-size:14px;color:rgba(255,255,255,.65);font-style:italic;
+  line-height:1.65;border-left:2px solid var(--border);padding-left:.75rem;margin-bottom:.4rem}
+
+/* MAKE specific styling */
+.caus-card.make-card{border-color:rgba(230,57,70,.25)}
+.caus-card.make-card .caus-head{background:var(--make-lt)}
+.caus-card.have-card{border-color:rgba(15,118,110,.25)}
+.caus-card.have-card .caus-head{background:var(--have-lt)}
+.caus-card.let-card{border-color:rgba(83,74,183,.25)}
+.caus-card.let-card .caus-head{background:var(--let-lt)}
+.caus-card.get-card{border-color:rgba(181,98,10,.25)}
+.caus-card.get-card .caus-head{background:var(--get-lt)}
+
+/* COMPARISON TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:14px}
+.comp-table thead tr{background:var(--surface2)}
+.comp-table thead th{padding:10px 14px;font-size:9px;font-weight:700;
+  letter-spacing:.1em;text-align:left;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.comp-table thead th.make-h{color:var(--make)}
+.comp-table thead th.have-h{color:var(--have)}
+.comp-table thead th.let-h{color:var(--let)}
+.comp-table thead th.get-h{color:var(--get)}
+.comp-table tbody tr{border-bottom:.5px solid var(--border)}
+.comp-table tbody tr:hover{background:rgba(255,255,255,.02)}
+.comp-table td{padding:10px 14px;vertical-align:top;line-height:1.6}
+.comp-table td:first-child{font-size:11px;font-weight:700;color:rgba(255,255,255,.3);
+  text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.comp-table td.make-c{color:rgba(255,255,255,.7)}
+.comp-table td.have-c{color:rgba(255,255,255,.7)}
+.comp-table td.let-c{color:rgba(255,255,255,.7)}
+.comp-table td.get-c{color:rgba(255,255,255,.7)}
+.tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:1px}
+.tag.force{background:rgba(230,57,70,.15);color:var(--make)}
+.tag.arrange{background:rgba(15,118,110,.15);color:var(--have)}
+.tag.permit{background:rgba(83,74,183,.15);color:var(--let)}
+.tag.persuade{background:rgba(181,98,10,.15);color:var(--get)}
+
+/* INSIGHT */
+.ins{background:rgba(255,232,156,.07);border:1px solid rgba(255,232,156,.15);
+  padding:.85rem 1.25rem;font-size:14px;color:rgba(255,232,156,.8);
+  line-height:1.65;font-weight:500;border-radius:2px;margin:1.25rem 0}
+.ins i{font-size:15px;margin-right:5px;vertical-align:-2px}
+
+/* EXERCISE CARDS */
+.ex-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;
+  overflow:hidden;margin-bottom:.65rem;display:flex;align-items:stretch}
+.ex-num-strip{width:36px;flex-shrink:0;background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:rgba(255,255,255,.2);
+  letter-spacing:.06em;writing-mode:vertical-rl;border-right:1px solid var(--border)}
+.ex-inner{flex:1;padding:.85rem 1.1rem;display:flex;flex-direction:column;gap:.6rem}
+.ex-prompt{font-size:16px;font-weight:800;color:#fff;line-height:1.4;letter-spacing:-.01em}
+.ex-prompt em{font-style:normal;color:var(--hi)}
+.ex-blank{display:inline-block;min-width:80px;border-bottom:2px solid rgba(255,255,255,.3);
+  margin:0 2px;vertical-align:bottom}
+
+/* WRITE AREA */
+.write-wrap{}
+.write-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:.35rem;display:block}
+.write-area{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:2px;padding:.6rem .9rem;font-family:var(--sans);font-size:15px;
+  color:#fff;resize:none;min-height:54px;outline:none;line-height:1.6;transition:border .15s}
+.write-area:focus{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06)}
+.write-area::placeholder{color:rgba(255,255,255,.18);font-style:italic;font-size:13px}
+
+/* REVEAL */
+.rev-btn{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--border);background:transparent;color:rgba(255,255,255,.4);
+  padding:5px 14px;border-radius:2px;cursor:pointer;transition:all .15s;align-self:flex-start}
+.rev-btn:hover{background:#fff;color:var(--ink);border-color:#fff}
+.answer-box{display:none;border-radius:2px;overflow:hidden}
+.answer-box.shown{display:block;animation:fi .18s}
+.ans-inner{padding:.75rem 1rem}
+.ans-label{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:.3rem}
+.ans-text{font-size:15px;font-weight:800;color:#fff;line-height:1.5;margin-bottom:.25rem}
+.ans-text em{font-style:normal}
+.ans-note{font-size:12px;color:rgba(255,255,255,.4);font-style:italic;line-height:1.55}
+.ans-inner.make-ans{background:var(--make-lt);border:1px solid rgba(230,57,70,.2)}
+.ans-inner.make-ans .ans-label{color:var(--make)}
+.ans-inner.have-ans{background:var(--have-lt);border:1px solid rgba(15,118,110,.2)}
+.ans-inner.have-ans .ans-label{color:var(--have)}
+.ans-inner.let-ans{background:var(--let-lt);border:1px solid rgba(83,74,183,.2)}
+.ans-inner.let-ans .ans-label{color:var(--let)}
+.ans-inner.get-ans{background:var(--get-lt);border:1px solid rgba(181,98,10,.2)}
+.ans-inner.get-ans .ans-label{color:var(--get)}
+
+/* PRODUCTION */
+.prod-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;
+  padding:1.1rem 1.25rem;margin-bottom:1rem}
+.prod-starter{font-size:18px;font-weight:800;color:#fff;line-height:1.4;margin-bottom:.2rem}
+.prod-starter em{font-style:normal;color:var(--hi)}
+.prod-hint{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:.75rem;font-style:italic}
+.prod-verb-hint{font-size:10px;font-weight:700;display:inline-flex;align-items:center;
+  gap:4px;margin-bottom:.65rem}
+
+/* TOOLTIP */
+.tip{border-bottom:1px dotted rgba(255,255,255,.3);cursor:help}
+.tip.make-tip{border-color:rgba(230,57,70,.5);color:rgba(255,150,150,.9)}
+.tip.have-tip{border-color:rgba(15,118,110,.5);color:rgba(100,200,180,.9)}
+.tip.let-tip{border-color:rgba(83,74,183,.5);color:rgba(150,140,230,.9)}
+.tip.get-tip{border-color:rgba(181,98,10,.5);color:rgba(220,160,80,.9)}
+
+/* SECTION FOOTER */
+.sec-foot{display:flex;gap:8px;margin-top:2rem;padding-top:1.25rem;border-top:1px solid var(--border)}
+.sf{font-family:var(--sans);font-size:13px;font-weight:700;padding:8px 18px;border-radius:2px;
+  cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;
+  border:1px solid var(--border);background:transparent;color:rgba(255,255,255,.5)}
+.sf:hover{border-color:rgba(255,255,255,.3);color:#fff}
+.sf.primary{background:#fff;color:var(--ink);border-color:#fff}
+.sf.primary:hover{background:var(--hi);border-color:var(--hi)}
+.sf i{font-size:15px}
+
+@media(max-width:640px){.caus-grid{grid-template-columns:1fr}}
+
+/* COMPACT EXERCISE INPUT */
+.write-inline{background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:2px;padding:6px 12px;font-family:var(--sans);font-size:14px;
+  color:#fff;outline:none;min-width:280px;flex:1;transition:border .15s}
+.write-inline:focus{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
+.write-inline::placeholder{color:rgba(255,255,255,.2);font-style:italic;font-size:13px}
+
+/* DOWNLOAD BTN */
+.dl-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:300;
+  background:var(--red);color:#fff;border:none;border-radius:3px;
+  padding:10px 18px;font-family:var(--sans);font-size:12px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:0 4px 20px rgba(230,57,70,.35);transition:all .15s;text-decoration:none}
+.dl-btn:hover{background:#c62f3b;transform:translateY(-1px);box-shadow:0 6px 24px rgba(230,57,70,.45)}
+.dl-btn i{font-size:15px}
+</style>
+</head>
+<body>
+
+<div class="prog-bar" id="prog"></div>
+
+<nav class="nav">
+  <div class="nav-brand">EIC <span>Method</span></div>
+  <div class="nav-links">
+    <a class="nav-link" href="prereading.html">Pre-Reading</a>
+    <a class="nav-link" href="huxley.html">The Lesson</a>
+    <a class="nav-link active" href="grammar.html">Grammar</a>
+  </div>
+  <div class="nav-badge">Causative Verbs</div>
+</nav>
+
+<div class="sec-nav">
+  <button class="sn active" onclick="go(0)">Reference</button>
+  <button class="sn" onclick="go(1)">Practice</button>
+  <button class="sn" onclick="go(2)">Production</button>
+  <button class="sn" onclick="go(3)">Homework</button>
+</div>
+
+<!-- SEC 0: REFERENCE -->
+<div class="sec active" id="s0">
+  <div class="eyebrow">Section 01 · Grammar Reference</div>
+  <h2 class="sec-title">Causative Verbs</h2>
+  <p class="sec-sub">make · have · let · get — four verbs that describe who causes what to happen.</p>
+
+  <p class="bt">A causative verb shows that one person causes another person (or thing) to do something — or that one force causes an effect. In the world of Brave New World, causative verbs are everywhere: <strong>the state makes you comply, lets you believe you are free, has everything arranged for you, and gets you to want exactly what the system needs.</strong></p>
+
+  <div class="caus-grid">
+    <!-- MAKE -->
+    <div class="caus-card make-card">
+      <div class="caus-head">
+        <span class="caus-verb make">make</span>
+        <span class="caus-tag">Force / No choice</span>
+      </div>
+      <div class="caus-body">
+        <div class="caus-meaning"><strong>Make</strong> means to force or compel someone to do something. The person has no real choice. The cause is external and often unwanted.</div>
+        <div class="caus-struct">Structure</div>
+        <div class="caus-formula">make + person + bare infinitive</div>
+        <div class="caus-ex-label">Examples in context</div>
+        <div class="caus-ex">Soma <strong>makes</strong> you <strong>feel</strong> nothing. You do not choose to feel nothing — the drug produces the effect.</div>
+        <div class="caus-ex">The World State <strong>makes</strong> citizens <strong>consume</strong> constantly — not through direct orders, but through conditioning.</div>
+        <div class="caus-ex">What <strong>makes</strong> you <strong>want</strong> the things you want? Huxley's answer: the system does.</div>
+      </div>
+    </div>
+
+    <!-- HAVE -->
+    <div class="caus-card have-card">
+      <div class="caus-head">
+        <span class="caus-verb have">have</span>
+        <span class="caus-tag">Arrange / Delegate</span>
+      </div>
+      <div class="caus-body">
+        <div class="caus-meaning"><strong>Have</strong> means to arrange for someone to do something, or to cause something to be done. It implies delegation — often without the other person having a say.</div>
+        <div class="caus-struct">Structure</div>
+        <div class="caus-formula">have + person + bare infinitive<br>have + thing + past participle</div>
+        <div class="caus-ex-label">Examples in context</div>
+        <div class="caus-ex">The state <strong>has</strong> citizens <strong>conditioned</strong> before birth. The conditioning is arranged — the citizen is the object.</div>
+        <div class="caus-ex">The algorithm <strong>has</strong> your desires <strong>designed</strong> for you before you know you have them.</div>
+        <div class="caus-ex">Bernays <strong>had</strong> the public <strong>sold</strong> a manufactured identity without them noticing.</div>
+      </div>
+    </div>
+
+    <!-- LET -->
+    <div class="caus-card let-card">
+      <div class="caus-head">
+        <span class="caus-verb let">let</span>
+        <span class="caus-tag">Permit / Allow</span>
+      </div>
+      <div class="caus-body">
+        <div class="caus-meaning"><strong>Let</strong> means to allow or permit something to happen. The subject has the power to stop it — and chooses not to. In Huxley's world, this is the most insidious structure.</div>
+        <div class="caus-struct">Structure</div>
+        <div class="caus-formula">let + person + bare infinitive</div>
+        <div class="caus-ex-label">Examples in context</div>
+        <div class="caus-ex">The World State <strong>lets</strong> you <strong>believe</strong> you chose this life. Permission is the most elegant form of control.</div>
+        <div class="caus-ex">The platform <strong>lets</strong> you <strong>curate</strong> your own feed — while the algorithm decides what you will see.</div>
+        <div class="caus-ex">Consumer culture <strong>lets</strong> you <strong>feel</strong> like an individual while purchasing the same identity as millions of others.</div>
+      </div>
+    </div>
+
+    <!-- GET -->
+    <div class="caus-card get-card">
+      <div class="caus-head">
+        <span class="caus-verb get">get</span>
+        <span class="caus-tag">Persuade / Convince</span>
+      </div>
+      <div class="caus-body">
+        <div class="caus-meaning"><strong>Get</strong> means to persuade or convince someone to do something — or to manage to make something happen. Unlike make, there is effort and often some degree of agency involved.</div>
+        <div class="caus-struct">Structure</div>
+        <div class="caus-formula">get + person + to + infinitive<br>get + thing + past participle</div>
+        <div class="caus-ex-label">Examples in context</div>
+        <div class="caus-ex">Bernays <strong>got</strong> women <strong>to smoke</strong> by linking cigarettes to the concept of freedom.</div>
+        <div class="caus-ex">The attention economy <strong>gets</strong> you <strong>to stay</strong> on the platform by making leaving feel like a loss.</div>
+        <div class="caus-ex">How does a system <strong>get</strong> people <strong>to want</strong> their own servitude? That is Huxley's central question.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="eyebrow" style="margin-top:1.5rem">The key differences</div>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th class="make-h">make</th>
+        <th class="have-h">have</th>
+        <th class="let-h">let</th>
+        <th class="get-h">get</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Core idea</td>
+        <td class="make-c"><span class="tag force">Force</span> No choice given.</td>
+        <td class="have-c"><span class="tag arrange">Arrange</span> Something is delegated.</td>
+        <td class="let-c"><span class="tag permit">Permit</span> Permission is granted.</td>
+        <td class="get-c"><span class="tag persuade">Persuade</span> Effort to convince.</td>
+      </tr>
+      <tr>
+        <td>Infinitive form</td>
+        <td class="make-c">Bare infinitive<br><em style="color:rgba(255,255,255,.4);font-size:12px">make someone do</em></td>
+        <td class="have-c">Bare infinitive or past participle<br><em style="color:rgba(255,255,255,.4);font-size:12px">have someone do / have something done</em></td>
+        <td class="let-c">Bare infinitive<br><em style="color:rgba(255,255,255,.4);font-size:12px">let someone do</em></td>
+        <td class="get-c">To + infinitive<br><em style="color:rgba(255,255,255,.4);font-size:12px">get someone to do</em></td>
+      </tr>
+      <tr>
+        <td>Agency of person</td>
+        <td class="make-c">None. External force.</td>
+        <td class="have-c">Minimal. Arranged for them.</td>
+        <td class="let-c">They could act — they are allowed to.</td>
+        <td class="get-c">Some — they are persuaded, not forced.</td>
+      </tr>
+      <tr>
+        <td>In Huxley's world</td>
+        <td class="make-c">Soma makes you feel nothing.</td>
+        <td class="have-c">The state has citizens conditioned before birth.</td>
+        <td class="let-c">The system lets you believe you are free.</td>
+        <td class="get-c">Conditioning gets you to want your own cage.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- HAVE/GET SOMETHING DONE -->
+  <div class="eyebrow" style="margin-top:1.75rem">A closer look</div>
+  <div class="sec-title" style="font-size:22px;margin-bottom:.3rem">have / get something done</div>
+  <p class="sec-sub" style="margin-bottom:1rem">The agent disappears — but someone always does the work.</p>
+
+  <p class="bt">When you use <strong>have something done</strong> or <strong>get something done</strong>, the most important thing to understand is this: <strong>you are not doing it yourself.</strong> Someone else is doing it for you — or to you. The structure shifts focus onto the result and away from the person who actually performed the action.</p>
+
+  <div class="caus-grid" style="margin-bottom:1rem">
+    <div class="caus-card have-card">
+      <div class="caus-head">
+        <span class="caus-verb have" style="font-size:20px">have something done</span>
+      </div>
+      <div class="caus-body">
+        <div class="caus-meaning">You <strong>arrange</strong> for someone else to do something. The other person — a professional, a service, a system — is the real agent. They often go unmentioned entirely.</div>
+        <div class="caus-formula">have + thing + past participle</div>
+        <div class="caus-ex-label">Who actually does it?</div>
+        <div class="caus-ex"><em>I had my apartment cleaned.</em><br>→ A cleaner cleaned it. Not me.</div>
+        <div class="caus-ex"><em>Lyra has her feed curated every morning.</em><br>→ An algorithm curates it. Not Lyra.</div>
+        <div class="caus-ex"><em>Citizens have their desires designed for them.</em><br>→ The system designs them. The citizen is the object, not the subject of the action.</div>
+      </div>
+    </div>
+    <div class="caus-card get-card">
+      <div class="caus-head">
+        <span class="caus-verb get" style="font-size:20px">get something done</span>
+      </div>
+      <div class="caus-body">
+        <div class="caus-meaning">Similar to <em>have something done</em>, but implies <strong>more effort</strong> on your part — you had to make it happen. Often used in informal contexts or when the process required persistence.</div>
+        <div class="caus-formula">get + thing + past participle</div>
+        <div class="caus-ex-label">Who actually does it?</div>
+        <div class="caus-ex"><em>I finally got my phone fixed.</em><br>→ A technician fixed it. I made it happen.</div>
+        <div class="caus-ex"><em>She got her article published.</em><br>→ An editor published it. She pursued it.</div>
+        <div class="caus-ex"><em>How did Bernays get the idea sold to the public?</em><br>→ The media, the press, the culture sold it. Bernays engineered the process.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1.1rem 1.25rem;margin-bottom:1.25rem">
+    <div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.75rem">The key insight</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--teal);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.06em">Who appears as subject</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6">The person who <em>arranged</em> it — not the person who <em>did</em> it.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.06em">Who disappears</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6">The person who actually performed the action. They are grammatically erased.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--hi);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.06em">In Huxley's world</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6">Citizens have their identities designed, their desires curated, their happiness arranged — by a system that never appears in the sentence.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ins"><i class="ti ti-bulb"></i> The most chilling sentence in Brave New World is a <strong>let</strong> sentence: "The World State lets you feel happy." Permission is the most invisible form of control — because it looks exactly like freedom.</div>
+
+  <div class="sec-foot">
+    <button class="sf primary" onclick="go(1)">Practice <i class="ti ti-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- SEC 1: PRACTICE -->
+<div class="sec" id="s1">
+  <div class="eyebrow">Section 02 · Practice</div>
+  <h2 class="sec-title">Ten exercises.</h2>
+  <p class="sec-sub">Complete each sentence. Reveal the answer when you are ready.</p>
+  <div id="exercises"></div>
+  <div class="sec-foot">
+    <button class="sf" onclick="go(0)"><i class="ti ti-arrow-left"></i> Reference</button>
+    <button class="sf primary" onclick="go(2)">Production <i class="ti ti-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- SEC 2: PRODUCTION -->
+<div class="sec" id="s2">
+  <div class="eyebrow">Section 03 · Production</div>
+  <h2 class="sec-title">Your turn to cause something.</h2>
+  <p class="sec-sub">Complete each sentence with your own ideas. No single correct answer — the structure matters more than the content.</p>
+
+  <div class="ins" style="margin-bottom:1.5rem"><i class="ti ti-flame"></i> Try to use what you know about Huxley, the series, or your own experience. The best sentences are the ones that are also true.</div>
+
+  <div id="production"></div>
+
+  <div class="sec-foot">
+    <button class="sf" onclick="go(1)"><i class="ti ti-arrow-left"></i> Practice</button>
+    <button class="sf primary" onclick="go(0)"><i class="ti ti-home"></i> Reference</button>
+  </div>
+</div>
+
+
+<!-- SEC 3: HOMEWORK -->
+<div class="sec" id="s3">
+  <div class="eyebrow">Section 04 · Homework</div>
+  <h2 class="sec-title">Before the next class.</h2>
+  <p class="sec-sub">Three tasks. Write your answers and bring them to the lesson.</p>
+
+  <div class="ins" style="margin-bottom:1.5rem"><i class="ti ti-clock"></i> This should take around 20 minutes. Do not look up the answers — write what feels right first, then check the reference section if you are unsure.</div>
+
+  <!-- TASK 1 -->
+  <div class="ex-card" style="display:block;margin-bottom:1rem">
+    <div style="background:var(--surface2);border-bottom:1px solid var(--border);padding:.75rem 1.1rem;display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25)">Task 01 · Transform</span>
+      <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)">make · have · let · get</span>
+    </div>
+    <div style="padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.85rem">
+      <p class="bt">Rewrite each sentence using the causative verb in brackets. You may need to change the form.</p>
+      <div id="hw-task1"></div>
+    </div>
+  </div>
+
+  <!-- TASK 2 -->
+  <div class="ex-card" style="display:block;margin-bottom:1rem">
+    <div style="background:var(--surface2);border-bottom:1px solid var(--border);padding:.75rem 1.1rem;display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25)">Task 02 · Error Correction</span>
+      <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)">Find the mistake</span>
+    </div>
+    <div style="padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:.75rem">
+      <p class="bt">Each sentence has one error. Find it, correct it, write the full correct sentence.</p>
+      <div id="hw-task2"></div>
+    </div>
+  </div>
+
+  <!-- TASK 3 -->
+  <div class="ex-card" style="display:block;margin-bottom:1rem">
+    <div style="background:var(--surface2);border-bottom:1px solid var(--border);padding:.75rem 1.1rem">
+      <span style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25)">Task 03 · Free Writing</span>
+    </div>
+    <div style="padding:.9rem 1.1rem;display:flex;flex-direction:column;gap:1rem">
+      <p class="bt">Write 4–6 sentences about your own life using causative verbs. Use at least three different causatives. Think about: what makes you do things you would rather not do? What does the system let you believe? What has been designed for you that you did not choose?</p>
+      <textarea class="write-area" rows="6" placeholder="Write freely. This is not about grammar — it is about noticing."></textarea>
+    </div>
+  </div>
+
+  <div class="sec-foot">
+    <button class="sf" onclick="go(2)"><i class="ti ti-arrow-left"></i> Production</button>
+    <button class="sf primary" onclick="go(0)"><i class="ti ti-home"></i> Reference</button>
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div id="tip-box"></div>
+
+<script>
+// ── EXERCISES ──────────────────────────────────────────────────────────────────
+const EX = [
+  {
+    num:"01",
+    prompt:"Soma _____ people _____ nothing. No one chooses to feel numb — the drug simply produces the effect.",
+    blanks:["makes","feel"],
+    answer:"Soma <em>makes</em> people <em>feel</em> nothing.",
+    note:"make + person + bare infinitive. No 'to'. Direct, unavoidable effect.",
+    ans_class:"make-ans"
+  },
+  {
+    num:"02",
+    prompt:"The World State _____ citizens _____ they are free. No bars visible, no force used — just permission granted.",
+    blanks:["lets","believe"],
+    answer:"The World State <em>lets</em> citizens <em>believe</em> they are free.",
+    note:"let + bare infinitive. Permission is the most invisible form of control.",
+    ans_class:"let-ans"
+  },
+  {
+    num:"03",
+    prompt:"Bernays _____ women _____ smoke by reframing cigarettes as symbols of independence. He persuaded — he did not force.",
+    blanks:["got","to"],
+    answer:"Bernays <em>got</em> women <em>to smoke</em>.",
+    note:"get + to + infinitive. Unlike make, get implies persuasion — there is effort involved.",
+    ans_class:"get-ans"
+  },
+  {
+    num:"04",
+    prompt:"In the World State, citizens _____ their desires _____ for them before they are born. They are the objects, not the agents.",
+    blanks:["have","designed"],
+    answer:"Citizens <em>have</em> their desires <em>designed</em> for them.",
+    note:"have + thing + past participle. The citizen is acted upon — not in control.",
+    ans_class:"have-ans"
+  },
+  {
+    num:"05",
+    prompt:"Postman argued that television didn't ban serious ideas — it simply _____ serious discourse _____ boring by comparison.",
+    blanks:["made","seem"],
+    answer:"It <em>made</em> serious discourse <em>seem</em> boring.",
+    note:"make + bare infinitive. The medium restructured what felt rewarding — no censorship needed.",
+    ans_class:"make-ans"
+  },
+  {
+    num:"06",
+    prompt:"The algorithm _____ you _____ you curated your own feed. One tap and you believe the choices are yours.",
+    blanks:["lets","think"],
+    answer:"The algorithm <em>lets</em> you <em>think</em> you curated your own feed.",
+    note:"let + bare infinitive. The illusion of choice is designed into the interface.",
+    ans_class:"let-ans"
+  },
+  {
+    num:"07",
+    prompt:"How does a system _____ people _____ their own surveillance? By making it feel like a convenience.",
+    blanks:["get","to want"],
+    answer:"How does a system <em>get</em> people <em>to want</em> their own surveillance?",
+    note:"get + to + infinitive. The most unsettling application of the causative.",
+    ans_class:"get-ans"
+  },
+  {
+    num:"08",
+    prompt:"Lyra _____ her apartment _____ each week. She pays for the service, but she didn't design the aesthetic.",
+    blanks:["has","cleaned"],
+    answer:"Lyra <em>has</em> her apartment <em>cleaned</em> each week.",
+    note:"have + thing + past participle. Lyra delegates — she is the subject but not the agent.",
+    ans_class:"have-ans"
+  },
+  {
+    num:"09",
+    prompt:"Consumer culture _____ you _____ dissatisfied before offering the solution. The gap is manufactured first.",
+    blanks:["makes","feel"],
+    answer:"Consumer culture <em>makes</em> you <em>feel</em> dissatisfied before offering the solution.",
+    note:"make + bare infinitive. The feeling of lack is engineered — then the product fills it.",
+    ans_class:"make-ans"
+  },
+  {
+    num:"10",
+    prompt:"Something _____ Marcus _____ inside the cage. Choose your verb carefully — the choice says something about agency.",
+    blanks:["?","?"],
+    answer:"make: Comfort <em>makes</em> him <em>stay</em>. · let: He <em>lets</em> himself <em>stay</em>. · get: The system <em>gets</em> him <em>to stay</em>.",
+    note:"Each answer implies a different theory of Marcus's agency. Which one do you believe is most honest?",
+    ans_class:"have-ans"
+  },
+];
+
+const PROD = [
+  {
+    verb:"make", verb_class:"make",
+    starter:"The thing that <em>makes</em> me feel most like Marcus is...",
+    hint:"make + person + bare infinitive · think about your own version of 'consuming your way toward clarity'"
+  },
+  {
+    verb:"let", verb_class:"let",
+    starter:"I think social media <em>lets</em> us believe that...",
+    hint:"let + person + bare infinitive · what illusion does it grant permission to hold?"
+  },
+  {
+    verb:"get", verb_class:"get",
+    starter:"What <em>gets</em> people to accept conditions they would never consciously choose is...",
+    hint:"get + person + to + infinitive · think about the mechanism, not the outcome"
+  },
+  {
+    verb:"have", verb_class:"have",
+    starter:"If Huxley were alive today, he would say we have already <em>had</em> our...",
+    hint:"have + thing + past participle · what has been arranged for us without our full awareness?"
+  },
+  {
+    verb:"make", verb_class:"make",
+    starter:"The difference between what <em>makes</em> Lyra happy and what <em>makes</em> Cael satisfied is...",
+    hint:"think about the nature of the cause in each case — external force vs. something else"
+  },
+  {
+    verb:"let", verb_class:"let",
+    starter:"I think the most honest thing I can say about myself is that I <em>let</em> myself...",
+    hint:"what do you permit yourself to do — or believe — that you might question if you examined it more carefully?"
+  },
+];
+
+function buildExercises() {
+  const wrap = document.getElementById("exercises");
+  EX.forEach(e => {
+    wrap.innerHTML += `
+    <div class="ex-card">
+      <div class="ex-num-strip">${e.num}</div>
+      <div class="ex-inner">
+        <div class="ex-prompt">${e.prompt}</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input class="write-inline" type="text" placeholder="Complete the sentence...">
+          <button class="rev-btn" onclick="revealBox('ans-ex-${e.num}', this)">Reveal</button>
+        </div>
+        <div class="answer-box" id="ans-ex-${e.num}">
+          <div class="ans-inner ${e.ans_class}">
+            <div class="ans-text">${e.answer}</div>
+            <div class="ans-note">${e.note}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+}
+
+function buildProduction() {
+  const wrap = document.getElementById("production");
+  PROD.forEach(p => {
+    wrap.innerHTML += `
+    <div class="prod-card">
+      <div class="ex-verb-tag ${p.verb_class}" style="display:inline-block;margin-bottom:.6rem">${p.verb}</div>
+      <div class="prod-starter">${p.starter}</div>
+      <div class="prod-hint">${p.hint}</div>
+      <textarea class="write-area" placeholder="Complete the sentence with your own idea..." rows="3" style="margin-top:.5rem"></textarea>
+    </div>`;
+  });
+}
+
+function revealBox(id, btn) {
+  const box = document.getElementById(id);
+  if (!box) return;
+  const shown = box.classList.contains("shown");
+  box.classList.toggle("shown");
+  btn.textContent = shown ? "Reveal" : "Hide";
+}
+
+// TOOLTIP
+const tipEl = document.getElementById("tip-box");
+Object.assign(tipEl.style, {
+  position:"fixed",zIndex:"9999",maxWidth:"260px",
+  background:"rgba(13,13,18,.98)",border:"1px solid rgba(255,255,255,.15)",
+  color:"#fff",fontSize:"12px",lineHeight:"1.55",padding:"9px 13px",
+  borderRadius:"3px",whiteSpace:"pre-line",pointerEvents:"none",
+  boxShadow:"0 8px 32px rgba(0,0,0,.7)",fontFamily:"Inter,sans-serif",
+  opacity:"0",transition:"opacity .12s",display:"none"
+});
+
+// Tooltip via event delegation — works for dynamically created elements too
+document.addEventListener("mouseover", e => {
+  const el = e.target.closest(".tip");
+  if (!el) return;
+  const txt = el.getAttribute("data-tip");
+  if (!txt) return;
+  tipEl.textContent = txt;
+  tipEl.style.display = "block";
+  tipEl.style.opacity = "0";
+  pos(e);
+  requestAnimationFrame(() => tipEl.style.opacity = "1");
+});
+document.addEventListener("mousemove", e => {
+  if (tipEl.style.display === "block") pos(e);
+});
+document.addEventListener("mouseout", e => {
+  const el = e.target.closest(".tip");
+  if (!el) return;
+  tipEl.style.opacity = "0";
+  setTimeout(() => { tipEl.style.display = "none"; }, 120);
+});
+
+function pos(e) {
+  const W = tipEl.offsetWidth||260, H = tipEl.offsetHeight||80, P = 12;
+  let x = e.clientX + P, y = e.clientY - H - P;
+  if (x + W > window.innerWidth - P) x = e.clientX - W - P;
+  if (y < P) y = e.clientY + P;
+  tipEl.style.left = x + "px"; tipEl.style.top = y + "px";
+}
+
+// SCROLL PROGRESS
+window.addEventListener("scroll", () => {
+  const h = document.documentElement;
+  document.getElementById("prog").style.width =
+    (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+});
+
+// HOMEWORK DATA
+const HW1 = [
+  {sent:"The system forces people to consume things they do not need.", verb:"make", answer:"The system <em>makes</em> people <em>consume</em> things they do not need.", note:"make + person + bare infinitive (no 'to')"},
+  {sent:"The state arranged for citizens to be conditioned before birth.", verb:"have", answer:"The state <em>had</em> citizens <em>conditioned</em> before birth.", note:"have + person + past participle"},
+  {sent:"The platform permits you to believe the feed is yours.", verb:"let", answer:"The platform <em>lets</em> you <em>believe</em> the feed is yours.", note:"let + person + bare infinitive"},
+  {sent:"Bernays persuaded women to see cigarettes as freedom.", verb:"get", answer:"Bernays <em>got</em> women <em>to see</em> cigarettes as freedom.", note:"get + person + to + infinitive"},
+];
+
+const HW2 = [
+  {sent:"Soma makes people to feel nothing.", error:"'to feel' → 'feel'", answer:"Soma <em>makes</em> people <em>feel</em> nothing.", note:"make takes bare infinitive — no 'to'."},
+  {sent:"The algorithm lets you to curate your own feed.", error:"'to curate' → 'curate'", answer:"The algorithm <em>lets</em> you <em>curate</em> your own feed.", note:"let also takes bare infinitive — no 'to'."},
+  {sent:"The state got citizens accept their conditioning.", error:"'accept' → 'to accept'", answer:"The state <em>got</em> citizens <em>to accept</em> their conditioning.", note:"get takes to + infinitive. This is the one that needs 'to'."},
+  {sent:"Lyra has her apartment been cleaned every week.", error:"'been cleaned' → 'cleaned'", answer:"Lyra <em>has</em> her apartment <em>cleaned</em> every week.", note:"have + thing + past participle — no auxiliary 'been'."},
+];
+
+function buildHomework() {
+  const t1 = document.getElementById("hw-task1");
+  HW1.forEach((h,i) => {
+    t1.innerHTML += `<div class="ex-card" style="display:flex;margin-bottom:.5rem">
+      <div class="ex-num-strip" style="writing-mode:horizontal-tb;font-size:11px">${i+1}</div>
+      <div class="ex-inner">
+        <div class="ex-prompt" style="font-size:14px;font-weight:500;color:rgba(255,255,255,.7)">${h.sent}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.2);margin-bottom:.3rem">Rewrite as a causative sentence.</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="write-inline" type="text" placeholder="Your rewrite...">
+          <button class="rev-btn" onclick="revealBox('ans-hw1-${i}', this)">Reveal</button>
+        </div>
+        <div class="answer-box" id="ans-hw1-${i}">
+          <div class="ans-inner have-ans">
+            <div class="ans-text">${h.answer}</div>
+            <div class="ans-note">${h.note}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  const t2 = document.getElementById("hw-task2");
+  HW2.forEach((h,i) => {
+    t2.innerHTML += `<div class="ex-card" style="display:flex;margin-bottom:.5rem">
+      <div class="ex-num-strip" style="writing-mode:horizontal-tb;font-size:11px">${i+1}</div>
+      <div class="ex-inner">
+        <div class="ex-prompt" style="font-size:14px;font-weight:500;color:rgba(255,180,180,.8)">${h.sent}</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="write-inline" type="text" placeholder="Write the corrected sentence...">
+          <button class="rev-btn" onclick="revealBox('ans-hw2-${i}', this)">Reveal</button>
+        </div>
+        <div class="answer-box" id="ans-hw2-${i}">
+          <div class="ans-inner make-ans">
+            <div class="ans-text">${h.answer}</div>
+            <div class="ans-note"><strong>Error:</strong> ${h.error} · ${h.note}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+}
+
+buildExercises();
+buildProduction();
+buildHomework();
+
+// Corrigir go() para rodar depois do DOM estar pronto
+function go(n) {
+  const secs = document.querySelectorAll(".sec");
+  const sns = document.querySelectorAll(".sn");
+  if(!secs.length || !sns.length) return;
+  secs.forEach((s,i) => s.classList.toggle("active", i===n));
+  sns.forEach((b,i) => b.classList.toggle("active", i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+go(0);
+</script>
+<a class="dl-btn" href="grammar.pdf" download="EIC_Causative_Verbs_Grammar.pdf">
+  <i class="ti ti-download"></i> Download PDF
+</a>
+</body>
+</html>
