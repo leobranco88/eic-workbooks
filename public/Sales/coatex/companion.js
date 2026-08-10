@@ -4,6 +4,19 @@
   var STORAGE_KEY = "eic_companion";
   var SEEN_PREFIX = "eic_companion_seen_";
 
+  // debug helper: add ?resetcompanion=1 to any URL to clear the "already seen" flags
+  // and let every pop-up on that page fire again, for testing.
+  try {
+    if (/[?&]resetcompanion=1/.test(window.location.search)) {
+      var keysToRemove = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf(SEEN_PREFIX) === 0) keysToRemove.push(k);
+      }
+      keysToRemove.forEach(function(k){ localStorage.removeItem(k); });
+    }
+  } catch(e) {}
+
   var NAMES = {strategist:"The Strategist", closer:"The Closer", mentor:"The Mentor", analyst:"The Analyst"};
   var ACCENTS = {strategist:"#3B7FD9", closer:"#E8621A", mentor:"#C99A2E", analyst:"#6D5FE0"};
   var ICONS = {
