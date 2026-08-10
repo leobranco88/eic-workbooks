@@ -126,6 +126,22 @@
     if (opts.id) markSeen(opts.id);
   }
 
+  function injectHeaderLink(){
+    var hdrRight = document.querySelector(".hdr-right");
+    if (!hdrRight || document.getElementById("eic-companion-hdr-link")) return;
+    var link = document.createElement("a");
+    link.id = "eic-companion-hdr-link";
+    link.className = "hdr-link";
+    link.href = "choose-companion.html";
+    link.textContent = "Change Companion";
+    hdrRight.appendChild(link);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", injectHeaderLink);
+  } else {
+    injectHeaderLink();
+  }
+
   window.Companion = {
     show: show,
     getAvatar: getAvatar

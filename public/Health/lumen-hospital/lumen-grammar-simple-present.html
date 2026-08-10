@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Present · He, She, It · EIC English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1B22;--paper:#F3F7F6;--teal:#0E7C7B;--teal-lt:#3FB6AE;--mint:#8FE3C7;
+  --hi:#D9F2E6;--mid:#6B7A80;--surface:#EAF3F1;--border:#D6E4E1;--dark:#07161A;
+  --coral:#E8654A;--blue:#3B7FD9;--purple:#6D5FE0;--gold:#C99A2E;--green:#2E9E5B;--wood:#8A6D4B;
+  --sofia:#2E9E5B;
+}
+body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-brand{display:flex;align-items:center;gap:10px}
+.hdr-mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--teal-lt));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-mark svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.4}
+.hdr-name{font-size:13px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.hdr-right{display:flex;align-items:center;gap:20px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--mint);padding:3px 12px;border-radius:20px}
+@media(max-width:720px){.hdr{padding:0 16px}.hdr-meta{display:none}}
+
+.page{padding-top:56px;max-width:1200px;margin:0 auto}
+
+.intro{padding:36px 40px 4px}
+@media(max-width:720px){.intro{padding:26px 16px 4px}}
+.crumb{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:11px;font-weight:700;color:rgba(255,255,255,.4)}
+.crumb b{color:var(--sofia)}
+.patient-strip{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.patient-strip img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid var(--sofia)}
+.patient-strip-name{font-size:19px;font-weight:900;color:#fff}
+.patient-strip-tag{font-size:11.5px;font-weight:700;color:var(--sofia)}
+.intro-title{font-size:clamp(22px,3vw,30px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:10px}
+.intro-sub{font-size:13px;color:rgba(255,255,255,.55);max-width:70ch;line-height:1.65}
+
+.stage-progress{display:flex;gap:6px;padding:20px 40px 0}
+@media(max-width:720px){.stage-progress{padding:16px 16px 0}}
+.stage-progress i{flex:1;height:4px;border-radius:3px;background:rgba(255,255,255,.1)}
+.stage-progress i.done{background:var(--sofia)}
+
+/* ── SCENE FRAME (reused pattern) ── */
+.scene-block{padding:26px 40px 10px}
+@media(max-width:720px){.scene-block{padding:22px 16px 10px}}
+.scene-hd{margin-bottom:14px}
+.scene-title{font-size:16px;font-weight:900;color:#fff}
+.scene-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
+
+.scene-frame{position:relative;width:100%;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4);background:#fff}
+.scene-frame img{width:100%;display:block}
+
+.reception-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;align-items:start}
+@media(max-width:900px){.reception-grid{grid-template-columns:1fr}.dialogue-col{max-height:440px}}
+.reception-col,.dialogue-col{min-width:0}
+.dialogue-col{max-height:620px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-right:6px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.dialogue-col::-webkit-scrollbar{width:6px}
+.dialogue-col::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:6px}
+.dialogue-col::-webkit-scrollbar-track{background:transparent}
+.dialogue-col .scene-hd{position:sticky;top:0;background:var(--dark);padding-top:2px;padding-bottom:8px;z-index:5;margin-bottom:0}
+.dialogue-col .scene-title{font-size:15px}
+.hot{position:absolute;transform:translate(-50%,-50%);z-index:20}
+.hot-dot{width:24px;height:24px;border-radius:50%;background:var(--sofia);border:2px solid rgba(255,255,255,.85);cursor:pointer;opacity:.85;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.5);
+  transition:transform .15s ease;animation:hotpulse 2.4s ease-in-out infinite}
+.hot-dot:hover{transform:scale(1.2);opacity:1}
+.hot-dot span{font-size:8px;font-weight:700;color:#fff}
+@keyframes hotpulse{0%,100%{box-shadow:0 3px 12px rgba(0,0,0,.5),0 0 0 0 rgba(46,158,91,.4)}50%{box-shadow:0 3px 12px rgba(0,0,0,.5),0 0 0 8px rgba(46,158,91,0)}}
+.scene-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-radius:20px;padding:10px 14px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;transition:all .15s}
+.chip:hover{background:rgba(255,255,255,.12)}
+.chip-num{width:15px;height:15px;border-radius:50%;background:var(--sofia);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0}
+
+/* ── IVONE PENDING CARD ── */
+.staff-pending{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:14px 20px;margin-top:16px}
+.staff-pending img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2.5px solid var(--mid)}
+.staff-pending-avatar{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.08);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:rgba(255,255,255,.3)}
+.staff-pending-name{font-size:12.5px;font-weight:800;color:#fff}
+.staff-pending-note{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+
+/* ── KIOSK ── */
+.kiosk-wrap{display:flex;justify-content:center;padding:8px 0 4px}
+.kiosk{width:min(420px,100%);background:linear-gradient(160deg,#0d2226,#0a1b1f);border:1px solid rgba(255,255,255,.1);
+  border-radius:28px;padding:10px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.kiosk-screen{background:#fff;border-radius:20px;padding:26px 22px 22px;min-height:420px;display:flex;flex-direction:column}
+.kiosk-brand{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.kiosk-brand-dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.kiosk-brand-text{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.kiosk-title{font-size:16px;font-weight:900;color:var(--ink);margin-bottom:4px}
+.kiosk-sub{font-size:11.5px;color:var(--mid);margin-bottom:22px;line-height:1.5}
+
+.kiosk-field{margin-bottom:18px}
+.kiosk-label{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.kiosk-label .term{border-bottom:1.5px dotted rgba(14,124,123,.6);cursor:help;text-transform:none;font-size:12.5px;font-weight:800;color:var(--ink)}
+.kiosk-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:11px 13px;font-family:Inter,sans-serif;
+  font-size:13px;color:var(--ink);background:var(--paper);transition:border-color .15s}
+.kiosk-input:focus{outline:none;border-color:var(--teal)}
+select.kiosk-input{appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%236B7A80" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>');
+  background-repeat:no-repeat;background-position:right 13px center;padding-right:32px;cursor:pointer}
+.dob-row{display:flex;gap:8px}
+.dob-row select{flex:1}
+
+.kiosk-btn{margin-top:auto;width:100%;background:var(--teal);color:#fff;border:none;border-radius:12px;padding:14px;
+  font-family:Inter,sans-serif;font-size:13px;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:background .15s}
+.kiosk-btn:hover{background:var(--teal-lt)}
+.kiosk-btn:disabled{background:var(--border);color:var(--mid);cursor:not-allowed}
+
+.reason-card{width:100%;max-width:420px;margin:16px auto 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 18px}
+.reason-card-label{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+.reason-card-grid{display:flex;flex-direction:column;gap:8px}
+.reason-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;transition:background .15s}
+.reason-item:hover{background:rgba(255,255,255,.07)}
+.reason-item-en{font-size:12.5px;color:#fff;font-weight:600;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px;cursor:help;display:inline-block;line-height:1.4}
+.reason-item-pt{color:rgba(255,255,255,.4);font-size:11px;margin-top:4px}
+
+.kiosk-grid{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start}
+@media(max-width:860px){.kiosk-grid{grid-template-columns:1fr}}
+.kiosk-col{display:flex;justify-content:center}
+.symptoms-col{min-width:0}
+.symptoms-frame{position:relative;width:100%;max-width:360px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4);background:#fff}
+.symptoms-frame img{width:100%;display:block}
+.symptoms-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.grammar-note{margin-top:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 18px}
+.grammar-note-title{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px}
+.grammar-note-row{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+.grammar-note-row:last-child{margin-bottom:0}
+.grammar-note-text{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.6}
+.grammar-note-row em{color:#fff;font-style:normal;font-weight:600}
+.grammar-tag{font-size:9.5px;font-weight:900;letter-spacing:.03em;color:#fff;padding:2px 7px;border-radius:5px;flex-shrink:0}
+
+.kiosk-success{display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+.kiosk-success.show{display:flex}
+.kiosk-success-icon{width:56px;height:56px;border-radius:50%;background:var(--hi);display:flex;align-items:center;justify-content:center}
+.kiosk-success-icon svg{width:26px;height:26px;stroke:var(--teal);fill:none;stroke-width:2.4}
+.kiosk-success-title{font-size:15px;font-weight:900;color:var(--ink)}
+.kiosk-success-sub{font-size:12px;color:var(--mid);line-height:1.6;max-width:32ch}
+.kiosk-form.hide{display:none}
+
+#global-tip{position:fixed;display:none;width:max-content;max-width:170px;background:#fff;color:#0A1B22;
+  border-radius:8px;padding:7px 10px;font-size:11px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.4);
+  pointer-events:none;z-index:9998}
+#global-tip.visible{display:block}
+#global-tip .tip-en{font-weight:800;font-size:8.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--teal);margin-bottom:2px}
+#global-tip .tip-pt{color:rgba(10,22,40,.6)}
+#global-tip .tip-mode-translate,#global-tip .tip-mode-alt{display:none}
+#global-tip .tip-pattern-tag{display:none;font-size:9px;font-weight:900;letter-spacing:.04em;color:#fff;padding:2px 7px;border-radius:5px;margin-bottom:6px}
+#global-tip.mode-translate .tip-mode-translate{display:block}
+#global-tip.mode-alt .tip-mode-alt{display:block}
+#global-tip .tip-alt-label{font-weight:800;font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--teal);margin-bottom:6px}
+#global-tip .tip-alt-item{padding:5px 0;border-top:1px solid rgba(10,22,40,.08)}
+#global-tip .tip-alt-item:first-of-type{border-top:none;padding-top:0}
+
+/* ── DIALOGUE ── */
+.dialogue-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 16px 20px}
+.dline{display:flex;gap:10px;margin-bottom:16px}
+.dline:last-child{margin-bottom:0}
+.dline.right{flex-direction:row-reverse;text-align:right}
+.dline-avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;object-fit:cover}
+.dline-avatar.ivone{background:var(--mid)}
+.dline-avatar.sofia{background:var(--sofia)}
+.dline-body{max-width:94%}
+.dline-name{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px}
+.dline.right .dline-name{text-align:right}
+.dline-bubble{display:inline-block;background:rgba(255,255,255,.07);border-radius:14px;padding:10px 14px;font-size:13px;color:#fff;line-height:1.5}
+.dline.right .dline-bubble{background:rgba(46,158,91,.18)}
+.dline-pt{font-size:11px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.4}
+.dline.right .dline-pt{text-align:right}
+.term-inline{text-decoration:underline;text-decoration-style:dotted;text-decoration-color:rgba(255,255,255,.45);text-underline-offset:3px;cursor:help}
+
+.phrase-bank{margin-top:20px}
+.phrase-bank-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px}
+
+/* ── CHECKLIST ── */
+.checklist-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 22px 20px}
+.checklist-intro{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:18px;max-width:70ch}
+.checklist-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:640px){.checklist-grid{grid-template-columns:1fr}}
+.checklist-item{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:12px 14px}
+.checklist-icon{width:30px;height:30px;border-radius:8px;background:rgba(46,158,91,.15);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;margin-top:1px}
+.checklist-icon svg{width:15px;height:15px;stroke:var(--sofia);fill:none;stroke-width:2.2}
+.checklist-term{font-size:12.5px;font-weight:800;color:#fff;border-bottom:1.5px dotted rgba(255,255,255,.35);cursor:help;display:inline-block;margin-bottom:3px}
+.checklist-why{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
+
+.next-cta{padding:30px 40px 50px}
+@media(max-width:720px){.next-cta{padding:26px 16px 40px}}
+.next-cta-card{background:linear-gradient(135deg,rgba(46,158,91,.16),rgba(14,124,123,.14));
+  border:1px solid rgba(46,158,91,.3);border-radius:16px;padding:26px 30px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap}
+.next-cta-label{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sofia);margin-bottom:6px}
+.next-cta-title{font-size:17px;font-weight:900;color:#fff;margin-bottom:4px}
+.next-cta-sub{font-size:12.5px;color:rgba(255,255,255,.55)}
+.next-cta-btn{font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--dark);background:var(--mint);padding:12px 22px;border-radius:24px;text-decoration:none;white-space:nowrap;
+  flex-shrink:0;transition:transform .15s ease}
+.next-cta-btn:hover{transform:translateY(-2px)}
+
+/* ── PRACTICE FAB & OVERLAY ── */
+.practice-fab{position:fixed;bottom:22px;right:22px;z-index:600;display:flex;align-items:center;gap:10px;
+  background:var(--sofia);color:#fff;border:none;border-radius:30px;padding:13px 20px 13px 16px;cursor:pointer;
+  box-shadow:0 10px 30px rgba(46,158,91,.4);font-family:Inter,sans-serif;transition:transform .15s ease}
+.practice-fab:hover{transform:translateY(-2px)}
+.practice-fab-icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.practice-fab-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.3}
+.practice-fab-text{text-align:left;line-height:1.25}
+.practice-fab-label{font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.practice-fab-title{font-size:12.5px;font-weight:800}
+@media(max-width:640px){.practice-fab{bottom:16px;right:16px;padding:11px 16px 11px 13px}.practice-fab-title{font-size:11.5px}}
+
+.practice-overlay{display:none;position:fixed;inset:0;background:rgba(4,14,17,.85);z-index:800;
+  align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.practice-overlay.open{display:flex}
+.practice-modal{width:min(680px,100%);background:var(--dark);border-radius:20px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);margin-bottom:40px;border:1px solid rgba(255,255,255,.08)}
+.practice-modal-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);background:rgba(46,158,91,.08)}
+.practice-modal-eyebrow{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sofia);margin-bottom:6px}
+.practice-modal-title{font-size:17px;font-weight:900;color:#fff}
+.practice-modal-sub{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+.practice-modal-close{width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,.08);
+  color:#fff;font-size:16px;cursor:pointer;flex-shrink:0}
+.practice-modal-close:hover{background:rgba(255,255,255,.16)}
+.practice-modal-body{padding:22px 24px 26px}
+
+.practice-section{margin-bottom:28px}
+.practice-section:last-child{margin-bottom:0}
+.practice-section-hd{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.practice-section-tag{width:22px;height:22px;border-radius:50%;background:var(--sofia);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.practice-section-tag svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.4}
+.practice-section-title{font-size:13.5px;font-weight:800;color:#fff}
+
+.pex-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.pex-item:last-child{margin-bottom:0}
+.pex-sentence{font-size:13px;color:rgba(255,255,255,.85);line-height:1.7}
+.pex-blank{display:inline-block;min-width:90px;padding:2px 8px;margin:0 2px;border-radius:6px;border:1.5px dashed rgba(255,255,255,.3);
+  background:rgba(255,255,255,.03);color:#fff;font-weight:700;text-align:center;cursor:pointer;transition:all .15s}
+.pex-blank.active{border-color:var(--sofia);background:rgba(46,158,91,.15)}
+.pex-blank.filled{border-style:solid;border-color:rgba(255,255,255,.25)}
+.pex-blank.correct{border-color:var(--sofia);background:rgba(46,158,91,.2);border-style:solid}
+.pex-blank.incorrect{border-color:var(--coral);background:rgba(232,101,74,.15);border-style:solid}
+
+.pex-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pex-bank-top{margin-top:0;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.pex-word{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;
+  padding:8px 14px;font-size:12.5px;font-weight:700;color:#fff;cursor:pointer;transition:all .15s}
+.pex-word:hover{background:rgba(255,255,255,.12)}
+.pex-word.used{opacity:.3;cursor:not-allowed;pointer-events:none}
+
+.pex-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.pex-btn{font-family:Inter,sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;
+  border-radius:20px;padding:10px 18px;cursor:pointer;border:none;transition:all .15s}
+.pex-btn-check{background:var(--sofia);color:#fff}
+.pex-btn-check:hover{background:#268a4e}
+.pex-btn-reset{background:rgba(255,255,255,.08);color:#fff}
+.pex-btn-reset:hover{background:rgba(255,255,255,.15)}
+.pex-btn-key{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.16)}
+.pex-btn-key:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+
+.pex-result{margin-top:12px;font-size:12px;color:rgba(255,255,255,.6);min-height:16px}
+.pex-key{display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.pex-key.show{display:block}
+.pex-key-row{font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:4px}
+.pex-key-row b{color:#fff}
+
+/* ── GRAMMAR LESSON PAGE ── */
+.teacher-card{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:18px 22px;margin:0 40px 30px}
+@media(max-width:720px){.teacher-card{margin:0 16px 26px;flex-direction:column;text-align:center}}
+.teacher-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid var(--teal-lt)}
+.teacher-avatar-pending{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.08);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:rgba(255,255,255,.3);border:3px solid var(--teal-lt)}
+.teacher-name{font-size:14.5px;font-weight:900;color:#fff}
+.teacher-role{font-size:11px;font-weight:700;color:var(--teal-lt);margin-bottom:6px}
+.teacher-blurb{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.6}
+
+.lesson-section{padding:8px 40px 36px}
+@media(max-width:720px){.lesson-section{padding:6px 16px 30px}}
+.lesson-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;
+  background:var(--teal);color:#fff;font-size:13px;font-weight:900;margin-right:10px;flex-shrink:0}
+.lesson-hd{display:flex;align-items:center;margin-bottom:6px}
+.lesson-title{font-size:19px;font-weight:900;color:#fff}
+.lesson-sub{font-size:12.5px;color:rgba(255,255,255,.45);margin:0 0 20px 40px}
+
+.rule-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 24px;margin-bottom:18px}
+.rule-formula{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px;padding:14px 16px;
+  background:rgba(14,124,123,.1);border:1px solid rgba(14,124,123,.25);border-radius:12px}
+.rule-formula-part{font-size:14px;font-weight:800;color:#fff}
+.rule-formula-plus{color:rgba(255,255,255,.35);font-size:13px}
+.rule-formula-tag{font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--teal-lt);
+  background:rgba(63,182,174,.12);padding:3px 8px;border-radius:6px}
+.rule-body{font-size:13px;color:rgba(255,255,255,.7);line-height:1.75}
+.rule-body p{margin-bottom:12px}
+.rule-body p:last-child{margin-bottom:0}
+.rule-body strong{color:#fff;font-weight:700}
+.prose-pt{font-size:11.5px;color:rgba(255,255,255,.4);line-height:1.6;margin:-6px 0 12px}
+.prose-pt:last-child{margin-bottom:0}
+
+.spell-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12.5px}
+.spell-table th{text-align:left;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)}
+.spell-table td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.75)}
+.spell-table td:first-child{font-weight:700;color:#fff}
+.spell-table .ex-arrow{color:var(--teal-lt);margin:0 5px}
+
+.example-list{margin-top:14px}
+.example-row{display:flex;gap:10px;padding:9px 0;border-top:1px solid rgba(255,255,255,.06)}
+.example-row:first-child{border-top:none;padding-top:0}
+.example-en{font-size:13px;color:#fff;font-weight:600}
+.example-pt{font-size:11.5px;color:rgba(255,255,255,.4);margin-top:2px}
+.example-highlight{color:var(--mint);font-weight:800}
+
+.tip-box{display:flex;gap:12px;background:rgba(63,182,174,.08);border:1px solid rgba(63,182,174,.25);
+  border-radius:12px;padding:14px 16px;margin-top:16px}
+.tip-box-icon{width:26px;height:26px;border-radius:50%;background:var(--teal);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.tip-box-icon svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.4}
+.tip-box-title{font-size:11px;font-weight:800;color:var(--teal-lt);margin-bottom:3px}
+.tip-box-text{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6}
+
+.mistake-box{display:flex;gap:12px;background:rgba(232,101,74,.08);border:1px solid rgba(232,101,74,.25);
+  border-radius:12px;padding:14px 16px;margin-top:16px}
+.mistake-box-icon{width:26px;height:26px;border-radius:50%;background:var(--coral);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.mistake-box-icon svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.6}
+.mistake-box-title{font-size:11px;font-weight:800;color:#f0a08f;margin-bottom:5px}
+.mistake-row{font-size:12.5px;line-height:1.7}
+.mistake-wrong{color:#f09686;text-decoration:line-through;margin-right:8px}
+.mistake-right{color:var(--mint);font-weight:700}
+
+.qtype-tabs{display:flex;gap:8px;margin-bottom:16px}
+.qtype-tab{font-family:Inter,sans-serif;font-size:11.5px;font-weight:800;color:rgba(255,255,255,.5);
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:8px 16px;cursor:pointer}
+.qtype-tab.active{color:var(--dark);background:var(--mint);border-color:var(--mint)}
+.qtype-pane{display:none}
+.qtype-pane.active{display:block}
+</style>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-mark"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+    <div class="hdr-name">EIC Grammar</div>
+  </div>
+  <div class="hdr-right">
+    <span class="hdr-meta">EIC · English Grammar</span>
+    <span class="hdr-badge">Simple Present</span>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="intro">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Grammar Lesson</span></div>
+    <div class="intro-title">Simple Present · He, She, It</div>
+    <p class="intro-sub">Affirmative, negative, and questions: the three forms you'll use constantly once you start talking about what other people do, don't do, and whether they do something at all.</p>
+  </div>
+
+  <div class="teacher-card">
+    <img class="teacher-avatar" id="teacher-avatar-slot" src="data:image/jpeg;base64,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" alt="Ellen Marques">
+    <div>
+      <div class="teacher-name">Ellen Marques</div>
+      <div class="teacher-role">EIC Grammar Coach</div>
+      <div class="teacher-blurb">This lesson walks through every rule with full explanations and lots of examples. No teacher required in the room. Take your time, and use the practice exercises at the end to check what stuck.</div>
+      <div class="prose-pt" style="margin-top:6px">Esta lição percorre cada regra com explicações completas e muitos exemplos. Não precisa de professor na sala. Vá no seu ritmo, e use os exercícios de prática no final pra conferir o que ficou.</div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 1 · AFFIRMATIVE ══ -->
+  <div class="lesson-section">
+    <div class="lesson-hd"><span class="lesson-num">1</span><span class="lesson-title">Affirmative Sentences</span></div>
+    <p class="lesson-sub">Talking about what he, she, or it does</p>
+
+    <div class="rule-card">
+      <div class="rule-formula">
+        <span class="rule-formula-part">He / She / It</span>
+        <span class="rule-formula-plus">+</span>
+        <span class="rule-formula-part">verb + s (or -es)</span>
+        <span class="rule-formula-tag">affirmative</span>
+      </div>
+      <div class="rule-body">
+        <p>In the Simple Present, most verbs don't change at all, except when the subject is <strong>he</strong>, <strong>she</strong>, or <strong>it</strong> (or any singular noun that could replace them, like "Dr. Andrade" or "the hospital"). For that subject only, you add <strong>-s</strong> to the end of the verb.</p>
+        <p class="prose-pt">No Simple Present, a maioria dos verbos não muda em nada, exceto quando o sujeito é <strong style="color:rgba(255,255,255,.6)">he</strong>, <strong style="color:rgba(255,255,255,.6)">she</strong> ou <strong style="color:rgba(255,255,255,.6)">it</strong> (ou qualquer substantivo singular que possa substituí-los, tipo "Dra. Andrade" ou "o hospital"). Só nesse caso, você adiciona <strong style="color:rgba(255,255,255,.6)">-s</strong> no final do verbo.</p>
+        <p>This is easy to forget because with <em>I / you / we / they</em>, the verb stays in its base form. The <strong>-s</strong> only shows up for third-person singular. That's the whole rule.</p>
+        <p class="prose-pt">É fácil esquecer isso porque com <em>I / you / we / they</em>, o verbo continua na forma base. O <strong style="color:rgba(255,255,255,.6)">-s</strong> só aparece na terceira pessoa do singular. Essa é a regra inteira.</p>
+      </div>
+
+      <table class="spell-table">
+        <thead><tr><th>Verb ending</th><th>Rule</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Most verbs</td><td>add <strong>-s</strong></td><td>work <span class="ex-arrow">→</span> works</td></tr>
+          <tr><td>-ch, -sh, -ss, -x, -o</td><td>add <strong>-es</strong></td><td>watch <span class="ex-arrow">→</span> watches</td></tr>
+          <tr><td>consonant + y</td><td>y <span class="ex-arrow">→</span> ies</td><td>study <span class="ex-arrow">→</span> studies</td></tr>
+          <tr><td>vowel + y</td><td>add <strong>-s</strong> (no change to y)</td><td>play <span class="ex-arrow">→</span> plays</td></tr>
+          <tr><td>have</td><td>irregular</td><td>have <span class="ex-arrow">→</span> has</td></tr>
+          <tr><td>do</td><td>irregular</td><td>do <span class="ex-arrow">→</span> does</td></tr>
+        </tbody>
+      </table>
+
+      <div class="example-list">
+        <div class="example-row"><div><div class="example-en">Dr. Andrade <span class="example-highlight">examines</span> patients every day.</div><div class="example-pt">A Dra. Andrade examina pacientes todos os dias.</div></div></div>
+        <div class="example-row"><div><div class="example-en">Renata <span class="example-highlight">works</span> in the laboratory.</div><div class="example-pt">A Renata trabalha no laboratório.</div></div></div>
+        <div class="example-row"><div><div class="example-en">Ivone <span class="example-highlight">has</span> a lot of patience with nervous patients.</div><div class="example-pt">A Ivone tem muita paciência com pacientes nervosos.</div></div></div>
+        <div class="example-row"><div><div class="example-en">The hospital <span class="example-highlight">opens</span> at 7 a.m.</div><div class="example-pt">O hospital abre às 7h.</div></div></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-box-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <div><div class="tip-box-title">Ellen's tip</div><div class="tip-box-text">A fast way to check subject: if you can replace it with <strong>he</strong>, <strong>she</strong>, or <strong>it</strong>, the verb needs the -s. "The hospital" = it. "Dr. Andrade" = she. "The nurses" = they, so no -s.</div>
+        <div class="prose-pt">Um jeito rápido de checar: se você consegue substituir o sujeito por <strong style="color:rgba(255,255,255,.6)">he</strong>, <strong style="color:rgba(255,255,255,.6)">she</strong> ou <strong style="color:rgba(255,255,255,.6)">it</strong>, o verbo precisa do -s. "The hospital" = it. "Dr. Andrade" = she. "The nurses" = they, sem -s.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 · NEGATIVE ══ -->
+  <div class="lesson-section">
+    <div class="lesson-hd"><span class="lesson-num">2</span><span class="lesson-title">Negative Sentences</span></div>
+    <p class="lesson-sub">Saying what he, she, or it doesn't do</p>
+
+    <div class="rule-card">
+      <div class="rule-formula">
+        <span class="rule-formula-part">He / She / It</span>
+        <span class="rule-formula-plus">+</span>
+        <span class="rule-formula-part">doesn't</span>
+        <span class="rule-formula-plus">+</span>
+        <span class="rule-formula-part">base verb</span>
+        <span class="rule-formula-tag">negative</span>
+      </div>
+      <div class="rule-body">
+        <p><strong>Doesn't</strong> is short for <strong>does not</strong>. It carries the "third-person -s" for you, which means the main verb goes back to its plain base form. This is the part almost every student trips over at first: once <em>doesn't</em> is in the sentence, the verb never gets an -s again.</p>
+        <p class="prose-pt"><strong style="color:rgba(255,255,255,.6)">Doesn't</strong> é a forma reduzida de <strong style="color:rgba(255,255,255,.6)">does not</strong>. Ele já "carrega" o -s da terceira pessoa por você, o que significa que o verbo principal volta pra forma base. É nessa parte que quase todo aluno tropeça no início: uma vez que <em>doesn't</em> está na frase, o verbo nunca mais recebe -s.</p>
+        <p>Think of it like the -s "moves" from the verb to <em>doesn't</em>. It can only exist in one place in the sentence.</p>
+        <p class="prose-pt">Pense assim: o -s "se muda" do verbo pra <em>doesn't</em>. Ele só pode existir em um lugar da frase por vez.</p>
+      </div>
+
+      <div class="mistake-box">
+        <div class="mistake-box-icon"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+        <div>
+          <div class="mistake-box-title">Common mistake</div>
+          <div class="mistake-row"><span class="mistake-wrong">She doesn't works on Sundays.</span><span class="mistake-right">She doesn't work on Sundays.</span></div>
+          <div class="mistake-row"><span class="mistake-wrong">The lab doesn't opens at night.</span><span class="mistake-right">The lab doesn't open at night.</span></div>
+        </div>
+      </div>
+
+      <div class="example-list">
+        <div class="example-row"><div><div class="example-en">Ivone <span class="example-highlight">doesn't work</span> on Sundays.</div><div class="example-pt">A Ivone não trabalha aos domingos.</div></div></div>
+        <div class="example-row"><div><div class="example-en">Dr. Andrade <span class="example-highlight">doesn't rush</span> with her patients.</div><div class="example-pt">A Dra. Andrade não apressa os pacientes.</div></div></div>
+        <div class="example-row"><div><div class="example-en">Renata <span class="example-highlight">doesn't mind</span> working early shifts.</div><div class="example-pt">A Renata não se importa de trabalhar no turno da manhã.</div></div></div>
+        <div class="example-row"><div><div class="example-en">This test <span class="example-highlight">doesn't hurt</span> at all.</div><div class="example-pt">Esse exame não dói nada.</div></div></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-box-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <div><div class="tip-box-title">Ellen's tip</div><div class="tip-box-text">Say the sentence out loud without <em>doesn't</em> first: "She work on Sundays" sounds wrong immediately, right? That's your signal the verb needs to lose the -s once <em>doesn't</em> is added.</div>
+        <div class="prose-pt">Fale a frase em voz alta sem o <em>doesn't</em> primeiro: "She work on Sundays" já soa errado, né? Esse é o sinal de que o verbo precisa perder o -s assim que o <em>doesn't</em> entra.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 · QUESTIONS ══ -->
+  <div class="lesson-section">
+    <div class="lesson-hd"><span class="lesson-num">3</span><span class="lesson-title">Questions</span></div>
+    <p class="lesson-sub">Asking whether he, she, or it does something</p>
+
+    <div class="rule-card">
+      <div class="rule-formula">
+        <span class="rule-formula-part">Does</span>
+        <span class="rule-formula-plus">+</span>
+        <span class="rule-formula-part">he / she / it</span>
+        <span class="rule-formula-plus">+</span>
+        <span class="rule-formula-part">base verb ... ?</span>
+        <span class="rule-formula-tag">yes/no question</span>
+      </div>
+      <div class="rule-body">
+        <p>Same logic as negatives: <strong>does</strong> moves to the front of the sentence and takes the -s with it, so the main verb stays in its base form. This works for both simple yes/no questions and questions that start with a question word (who, what, where, when, why, how).</p>
+        <p class="prose-pt">Mesma lógica das negativas: <strong style="color:rgba(255,255,255,.6)">does</strong> vai pro início da frase e leva o -s junto, então o verbo principal fica na forma base. Isso vale tanto pra perguntas simples de sim/não quanto pra perguntas que começam com uma palavra interrogativa (who, what, where, when, why, how).</p>
+      </div>
+
+      <div class="qtype-tabs">
+        <button class="qtype-tab active" data-tab="yn" onclick="switchQType('yn')">Yes / No Questions</button>
+        <button class="qtype-tab" data-tab="wh" onclick="switchQType('wh')">Wh- Questions</button>
+      </div>
+
+      <div class="qtype-pane active" data-pane="yn">
+        <div class="example-list">
+          <div class="example-row"><div><div class="example-en"><span class="example-highlight">Does</span> Renata work in the laboratory?</div><div class="example-pt">A Renata trabalha no laboratório? <em style="opacity:.6">→ Yes, she does. / No, she doesn't.</em></div></div></div>
+          <div class="example-row"><div><div class="example-en"><span class="example-highlight">Does</span> the hospital open on weekends?</div><div class="example-pt">O hospital abre nos finais de semana? <em style="opacity:.6">→ Yes, it does. / No, it doesn't.</em></div></div></div>
+          <div class="example-row"><div><div class="example-en"><span class="example-highlight">Does</span> this exam hurt?</div><div class="example-pt">Esse exame dói? <em style="opacity:.6">→ No, it doesn't.</em></div></div></div>
+        </div>
+      </div>
+
+      <div class="qtype-pane" data-pane="wh">
+        <div class="example-list">
+          <div class="example-row"><div><div class="example-en">What time <span class="example-highlight">does</span> Dr. Andrade start work?</div><div class="example-pt">Que horas a Dra. Andrade começa a trabalhar?</div></div></div>
+          <div class="example-row"><div><div class="example-en">Where <span class="example-highlight">does</span> Renata work?</div><div class="example-pt">Onde a Renata trabalha?</div></div></div>
+          <div class="example-row"><div><div class="example-en">Why <span class="example-highlight">doesn't</span> Ivone work on Sundays?</div><div class="example-pt">Por que a Ivone não trabalha aos domingos?</div></div></div>
+        </div>
+      </div>
+
+      <div class="mistake-box">
+        <div class="mistake-box-icon"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+        <div>
+          <div class="mistake-box-title">Common mistake</div>
+          <div class="mistake-row"><span class="mistake-wrong">Does she works on Sundays?</span><span class="mistake-right">Does she work on Sundays?</span></div>
+          <div class="mistake-row"><span class="mistake-wrong">What time does the lab opens?</span><span class="mistake-right">What time does the lab open?</span></div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-box-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <div><div class="tip-box-title">Ellen's tip</div><div class="tip-box-text">Short answers never repeat the full verb: <strong>"Yes, she does"</strong> is correct and natural. <strong>"Yes, she does work"</strong> sounds unnatural in conversation. Native speakers just don't say it that way.</div>
+        <div class="prose-pt">Respostas curtas nunca repetem o verbo completo: <strong style="color:rgba(255,255,255,.6)">"Yes, she does"</strong> está certo e soa natural. <strong style="color:rgba(255,255,255,.6)">"Yes, she does work"</strong> soa estranho numa conversa. Falantes nativos simplesmente não falam assim.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 · PRACTICE ══ -->
+  <div class="lesson-section">
+    <div class="lesson-hd"><span class="lesson-num">4</span><span class="lesson-title">Practice</span></div>
+    <p class="lesson-sub">Mix of affirmative, negative, and question forms</p>
+
+    <div class="rule-card">
+      <div id="pex-simple-present"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-name">EIC · Escola de Idiomas e Cultura</div>
+    <div class="footer-copy">General grammar module, reusable across every EIC universe.</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+
+  window.switchQType = function(tab) {
+    document.querySelectorAll(".qtype-tab").forEach(function(t){ t.classList.toggle("active", t.dataset.tab === tab); });
+    document.querySelectorAll(".qtype-pane").forEach(function(p){ p.classList.toggle("active", p.dataset.pane === tab); });
+  };
+
+  // ── Practice exercise (reuses the same fill-in-the-blank engine) ──
+  var SP_EX = [
+    {sentence:["Dr. Andrade","patients every day, checking their throat, chest, and vital signs."], answer:"examines", pt:"Afirmativa, he/she/it: verbo + -s."},
+    {sentence:["Ivone","on Sundays. She spends the day with her family instead."], answer:"doesn't work", pt:"Negativa: doesn't + verbo base, sem -s."},
+    {sentence:["","Renata work in the laboratory, or is she at the front desk today?"], answer:"Does", pt:"Pergunta: Does + sujeito + verbo base."},
+    {sentence:["Renata","working early shifts. She actually prefers starting the day before sunrise."], answer:"doesn't mind", pt:"Negativa: doesn't + verbo base."},
+    {sentence:["This test","at all. You'll barely feel the swab."], answer:"doesn't hurt", pt:"Negativa: doesn't + verbo base."},
+    {sentence:["What time","Dr. Andrade start work? I'd like to book the earliest appointment."], answer:"does", pt:"Pergunta com Wh-: Wh- + does + sujeito + verbo base."}
+  ];
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function renderExercise(containerId, items, extraDistractors) {
+    var container = document.getElementById(containerId);
+    var wrap = document.createElement("div");
+
+    var answers = items.map(function(it){ return it.answer; });
+    var bankWords = shuffle(answers.concat(extraDistractors || []));
+
+    var bankDiv = document.createElement("div");
+    bankDiv.className = "pex-bank pex-bank-top";
+    bankWords.forEach(function(word){
+      var chip = document.createElement("span");
+      chip.className = "pex-word";
+      chip.textContent = word;
+      chip.onclick = function(){
+        var active = wrap.querySelector(".pex-blank.active") || wrap.querySelector(".pex-blank:not(.filled)");
+        if (!active) return;
+        active.textContent = word;
+        active.dataset.filled = word;
+        active.classList.remove("active");
+        active.classList.add("filled");
+        chip.classList.add("used");
+      };
+      bankDiv.appendChild(chip);
+    });
+    wrap.appendChild(bankDiv);
+
+    items.forEach(function(item, idx){
+      var pexItem = document.createElement("div");
+      pexItem.className = "pex-item";
+      var blankId = containerId + "-blank-" + idx;
+      pexItem.innerHTML = '<div class="pex-sentence">' + item.sentence[0] +
+        ' <span class="pex-blank" id="' + blankId + '" data-answer="' + item.answer.replace(/"/g,'&quot;') + '" data-filled="">___</span> ' +
+        item.sentence[1] + '</div>';
+      wrap.appendChild(pexItem);
+    });
+
+    var actionsDiv = document.createElement("div");
+    actionsDiv.className = "pex-actions";
+    actionsDiv.innerHTML =
+      '<button class="pex-btn pex-btn-check">Check</button>' +
+      '<button class="pex-btn pex-btn-reset">Reset</button>' +
+      '<button class="pex-btn pex-btn-key">Show Answer Key</button>';
+    wrap.appendChild(actionsDiv);
+
+    var resultDiv = document.createElement("div");
+    resultDiv.className = "pex-result";
+    wrap.appendChild(resultDiv);
+
+    var keyDiv = document.createElement("div");
+    keyDiv.className = "pex-key";
+    items.forEach(function(item){
+      var row = document.createElement("div");
+      row.className = "pex-key-row";
+      row.innerHTML = '<b>' + item.answer + '</b>: ' + item.pt;
+      keyDiv.appendChild(row);
+    });
+    wrap.appendChild(keyDiv);
+
+    container.innerHTML = "";
+    container.appendChild(wrap);
+
+    wrap.querySelectorAll(".pex-blank").forEach(function(blank){
+      blank.addEventListener("click", function(){
+        wrap.querySelectorAll(".pex-blank").forEach(function(b){ b.classList.remove("active"); });
+        blank.classList.add("active");
+      });
+    });
+
+    actionsDiv.querySelector(".pex-btn-check").addEventListener("click", function(){
+      var correctCount = 0;
+      var blanks = wrap.querySelectorAll(".pex-blank");
+      blanks.forEach(function(b){
+        b.classList.remove("correct", "incorrect");
+        if (!b.dataset.filled) return;
+        if (b.dataset.filled === b.dataset.answer) {
+          b.classList.add("correct");
+          correctCount++;
+        } else {
+          b.classList.add("incorrect");
+        }
+      });
+      resultDiv.textContent = correctCount + " of " + blanks.length + " correct.";
+    });
+
+    actionsDiv.querySelector(".pex-btn-reset").addEventListener("click", function(){
+      wrap.querySelectorAll(".pex-blank").forEach(function(b){
+        b.textContent = "___";
+        b.dataset.filled = "";
+        b.classList.remove("filled", "correct", "incorrect", "active");
+      });
+      wrap.querySelectorAll(".pex-word").forEach(function(w){ w.classList.remove("used"); });
+      resultDiv.textContent = "";
+    });
+
+    actionsDiv.querySelector(".pex-btn-key").addEventListener("click", function(e){
+      keyDiv.classList.toggle("show");
+      e.target.textContent = keyDiv.classList.contains("show") ? "Hide Answer Key" : "Show Answer Key";
+    });
+  }
+
+  renderExercise("pex-simple-present", SP_EX, ["work", "examine"]);
+
+})();
+</script>
+</body>
+</html>

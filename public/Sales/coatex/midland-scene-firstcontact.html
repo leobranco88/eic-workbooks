@@ -252,10 +252,10 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
           <div class="side-card-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
           <div class="side-card-title">Useful Language</div>
         </div>
-        <div class="lang-item">"I hope this isn't <span class="term" data-key="out-of-blue">out of the blue</span>, but I wanted to <span class="term" data-key="stop-by">stop by</span>."<span class="lang-pt">Espero que não seja do nada, mas eu queria dar uma passada aqui.</span></div>
-        <div class="lang-item">"I know I don't have an appointment, I should have <span class="term" data-key="call-ahead">called ahead</span>."<span class="lang-pt">Eu sei que não tenho hora marcada, eu deveria ter ligado antes.</span></div>
-        <div class="lang-item">"Would it be possible to grab five minutes if he's free?"<span class="lang-pt">Seria possível conseguir cinco minutinhos, se ele estiver livre?</span></div>
-        <div class="lang-item">"No worries at all if now isn't a good time."<span class="lang-pt">Sem problema nenhum se agora não for uma boa hora.</span></div>
+        <div class="lang-item">"I have a meeting <span class="term" data-key="confirmed">confirmed</span> with Renata for this morning."<span class="lang-pt">Eu tenho uma reunião confirmada com a Renata pra essa manhã.</span></div>
+        <div class="lang-item">"I know it's not on your list, there may have been a mix-up."<span class="lang-pt">Eu sei que não está na sua lista, deve ter havido algum mal-entendido.</span></div>
+        <div class="lang-item">"Would it be possible to check with her directly?"<span class="lang-pt">Seria possível checar diretamente com ela?</span></div>
+        <div class="lang-item">"No worries at all if there's been a mix-up."<span class="lang-pt">Sem problema nenhum se houve algum mal-entendido.</span></div>
       </div>
 
       <div class="side-card">
@@ -324,11 +324,8 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 (function() {
 
   var TIPS = {
-    "bring-by": {en: "Bring By", pt: "Levar algo pessoalmente até alguém, geralmente de forma informal."},
-    "call-ahead": {en: "Call Ahead", pt: "Ligar antes de chegar, avisando com antecedência."},
-    "give-up": {en: "Give Up", pt: "Desistir de algo."},
-    "out-of-blue": {en: "Out of the Blue", pt: "Do nada, sem aviso, de forma inesperada."},
-    "stop-by": {en: "Stop By", pt: "Dar uma passada rápida em algum lugar, sem marcar antes."}
+    "confirmed": {en: "Confirmed", pt: "Combinado, marcado com certeza."},
+    "give-up": {en: "Give Up", pt: "Desistir de algo."}
   };
 
   var PHOTOS = {
@@ -364,16 +361,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     nodes: {
       n1: {
         speaker: "sandra",
-        line: "Good morning. Do you have an appointment with Mr. Vieira?",
+        line: "Good morning. I don't have you on today's schedule. Do you have an appointment with Renata?",
         options: [
-          {text: "Not exactly, but I have something Renata's team asked me to <span class=\"term\" data-key=\"bring-by\">bring by</span>.", next: "n2a"},
-          {text: "No, but it's really important. Can you just let him know I'm here?", next: "n2b"},
-          {text: "No, I don't. Sorry, I should have <span class=\"term\" data-key=\"call-ahead\">called ahead</span>. I can come back another time if today's not good.", next: "out_missed"}
+          {text: "Yes, actually. Renata <span class=\"term\" data-key=\"confirmed\">confirmed</span> Thursday at 10 with me directly, could you check with her?", next: "n2a"},
+          {text: "Yes, I'm supposed to see her today.", next: "n2b"},
+          {text: "No, I don't. Sorry to bother you, I can come back another time if today's not good.", next: "out_missed"}
         ]
       },
       n2a: {
         speaker: "sandra",
-        line: "Oh, Renata mentioned someone might stop by. Let me check if Mr. Vieira has a few minutes.",
+        line: "That's odd, it's not on my list, but let me call up and check with Renata directly.",
         options: [
           {text: "I really appreciate it, thank you. I'll wait right here.", next: "out_success"},
           {text: "Thank you. And if today doesn't work, I'm happy to come back another time.", next: "out_success"}
@@ -381,7 +378,7 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
       },
       n2b: {
         speaker: "sandra",
-        line: "I'm sorry, but Mr. Vieira's calendar is fully booked today. You'll need to schedule through our website.",
+        line: "I don't have anything from Renata about a visit today. Do you have a specific time, or who you spoke with to set it up?",
         options: [
           {text: "Of course, sorry about that. Could I leave my card with you?", next: "out_partial"},
           {text: "This will only take five minutes, I promise.", next: "out_fail"}
@@ -389,10 +386,10 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
       }
     },
     outcomes: {
-      out_success: {type: "success", title: "She let you through", feedback: "Referencing Renata gave Sandra a reason to trust you were expected. You didn't ask for a favor. You gave her information that made saying yes easy."},
+      out_success: {type: "success", title: "She let you through", feedback: "Naming Renata and the exact time gave Sandra something concrete to check. You didn't ask for a favor. You gave her information that made saying yes easy."},
       out_partial: {type: "partial", title: "Recovered, but no meeting", feedback: "You didn't push, so the relationship is still intact. But you're back to a cold start next time, with no path in yet."},
       out_fail: {type: "fail", title: "She shut the door", feedback: "Pressuring a gatekeeper rarely works. Now Sandra remembers you as the person who wouldn't take no for an answer."},
-      out_missed: {type: "missed", title: "You <span class=\"term\" data-key=\"give-up\">gave up</span> the opening", feedback: "Being polite is good, but you left without trying a single alternative. Gatekeepers respect confidence, not just courtesy."}
+      out_missed: {type: "missed", title: "You <span class=\"term\" data-key=\"give-up\">gave up</span> the opening", feedback: "You actually had a confirmed time with Renata, and you didn't even mention it. Gatekeepers need something concrete to act on, not just courtesy."}
     }
   };
 
@@ -599,5 +596,6 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 })();
 
 </script>
+<script src="picture-dictionary.js"></script>
 </body>
 </html>
