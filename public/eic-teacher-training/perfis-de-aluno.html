@@ -40,6 +40,48 @@ body{background:var(--bg);font-family:var(--font);-webkit-font-smoothing:antiali
 .teacher-note-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8FC2D6;margin-bottom:.55rem;}
 .teacher-note-text{font-size:13px;color:rgba(255,255,255,.75);line-height:1.75;}
 
+/* ===== CLOSING NOTE ===== */
+.closing-note-wrap{padding:0 2.5rem 3rem;}
+.closing-note{max-width:900px;background:rgba(15,118,110,.14);border:1px solid rgba(15,118,110,.35);border-left:3px solid #0F766E;border-radius:16px;padding:1.8rem 2rem 2rem;}
+.closing-note-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4FD1C5;margin-bottom:.7rem;}
+.closing-note-headline{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.3;color:#fff;margin-bottom:1.5rem;max-width:600px;}
+
+.stat-bar{display:flex;align-items:center;gap:1.5rem;background:rgba(0,0,0,.2);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.5rem;}
+.stat-number{font-size:38px;font-weight:900;color:var(--gold);letter-spacing:-.02em;line-height:1;flex-shrink:0;}
+.stat-caption{font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;}
+.stat-caption strong{color:#fff;}
+
+.closing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-bottom:1.3rem;}
+@media(max-width:700px){.closing-cards{grid-template-columns:1fr;}}
+
+.chart-box{background:rgba(0,0,0,.2);border-radius:12px;padding:1.2rem 1.4rem 1rem;margin-bottom:1.5rem;}
+.chart-title{font-size:11px;font-weight:800;letter-spacing:.05em;color:rgba(255,255,255,.55);margin-bottom:.7rem;}
+.chart-svg{width:100%;height:auto;display:block;}
+.chart-axis-label{font-size:9.5px;fill:rgba(255,255,255,.45);font-family:'Inter',sans-serif;}
+.chart-axis-cat{font-size:9px;font-weight:800;letter-spacing:.1em;fill:#4FD1C5;font-family:'Inter',sans-serif;}
+.chart-comment-bg{fill:#0c0f14;stroke:#333c4e;stroke-width:1;}
+.chart-comment-text{font-size:9.5px;fill:rgba(255,255,255,.85);font-family:'Inter',sans-serif;font-style:italic;}
+.chart-handle{cursor:grab;touch-action:none;filter:drop-shadow(0 0 6px rgba(255,215,106,.5));}
+.chart-handle:active{cursor:grabbing;}
+.chart-drag-hint{font-size:10px;fill:rgba(255,215,106,.7);font-family:'Inter',sans-serif;font-weight:700;letter-spacing:.03em;transition:opacity .3s;}
+.chart-drag-hint.hidden{opacity:0;}
+.chart-caption{margin-top:.9rem;background:rgba(0,0,0,.25);border-left:2.5px solid var(--gold);border-radius:0 8px 8px 0;padding:.7rem .9rem;font-size:12.5px;color:rgba(255,255,255,.85);}
+.chart-caption-label{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-right:.4rem;}
+.closing-card{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;}
+.closing-card-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#0F766E;color:#fff;font-size:11px;font-weight:800;margin-bottom:.7rem;}
+.closing-card-title{font-size:13px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:.4rem;}
+.closing-card-text{font-size:11.5px;color:rgba(255,255,255,.65);line-height:1.5;}
+
+.closing-note-cite{font-size:10.5px;color:rgba(255,255,255,.35);font-style:italic;line-height:1.5;}
+
+/* ===== TOOLTIP ===== */
+.tip{position:relative;display:inline-block;border-bottom:1px dotted rgba(255,255,255,.45);cursor:help;}
+.tip-bubble{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:230px;background:#151a22;border:1px solid #333c4e;border-radius:8px;padding:.7rem .8rem;font-size:11px;font-weight:400;font-style:normal;color:rgba(255,255,255,.8);line-height:1.5;letter-spacing:normal;text-transform:none;opacity:0;visibility:hidden;transition:opacity .15s ease;z-index:20;pointer-events:none;}
+.tip-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#333c4e;}
+.tip:hover .tip-bubble,.tip.tip-open .tip-bubble{opacity:1;visibility:visible;}
+.stat-number .tip-bubble{width:250px;left:0;transform:none;}
+.stat-number .tip-bubble::after{left:24px;}
+
 /* ===== URGENT SEVERITY ===== */
 .pcard-urgent-pill{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .55rem;border-radius:4px;background:#C0281A;color:#fff;}
 .detail-urgent-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .65rem;border-radius:4px;background:#C0281A;color:#fff;}
@@ -263,6 +305,84 @@ footer{text-align:center;padding:2rem;font-size:11.5px;color:rgba(255,255,255,.3
   <div class="persona-grid" id="personaGrid"></div>
 </div>
 
+<div class="closing-note-wrap">
+  <div class="closing-note">
+    <div class="closing-note-label">One last thing</div>
+    <div class="closing-note-headline">How you talk to a student is part of what you teach, not separate from it.</div>
+
+    <div class="stat-bar">
+      <div class="stat-number"><span class="tip" tabindex="0" onclick="this.classList.toggle('tip-open')">r=.49<span class="tip-bubble">A correlation score from -1 to +1. 0 means no connection at all, 1 means a perfect connection. .49 is a moderately strong link: teacher warmth and student engagement move together fairly closely, though other factors matter too.</span></span></div>
+      <div class="stat-caption">The correlation between a teacher's warmth and how <strong>engaged and motivated</strong> students feel, across 81 studies and 24,000+ students (Witt, Wheeless &amp; Allen, 2004). In a language classroom, that same warmth is what keeps anxiety low enough for acquisition to actually happen.</div>
+    </div>
+
+    <div class="chart-box">
+      <div class="chart-title">Warmth up, engagement up. Drag the dot and see.</div>
+      <svg class="chart-svg" id="warmthChart" viewBox="0 0 620 280" xmlns="http://www.w3.org/2000/svg">
+        <line x1="60" y1="40" x2="60" y2="220" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+        <line x1="60" y1="220" x2="590" y2="220" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+        <text class="chart-axis-label" x="60" y="242">Cold and distant</text>
+        <text class="chart-axis-label" x="470" y="242">Warm and present</text>
+        <text class="chart-axis-cat" x="325" y="266" text-anchor="middle">TEACHER · WARMTH</text>
+        <text class="chart-axis-label" x="46" y="212" transform="rotate(-90 46 212)">Checked out</text>
+        <text class="chart-axis-label" x="46" y="62" transform="rotate(-90 46 62)">Fully engaged</text>
+        <text class="chart-axis-cat" x="20" y="130" transform="rotate(-90 20 130)" text-anchor="middle">STUDENT · ENGAGEMENT</text>
+
+        <line x1="80" y1="188" x2="560" y2="55" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 5" opacity="0.85"/>
+
+        <circle cx="95" cy="192" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="120" cy="175" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="150" cy="183" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="175" cy="160" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="230" cy="148" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="270" cy="138" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="310" cy="120" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="370" cy="108" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="410" cy="92" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="470" cy="80" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+        <circle cx="530" cy="68" r="4.5" fill="#4FD1C5" opacity="0.85"/>
+
+        <circle cx="205" cy="193" r="6" fill="#0c0f14" stroke="var(--gold)" stroke-width="2" opacity="0.6"/>
+        <line x1="205" y1="187" x2="205" y2="158" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <rect class="chart-comment-bg" x="130" y="112" width="150" height="42" rx="6" opacity="0.7"/>
+        <text class="chart-comment-text" x="145" y="129" opacity="0.7">Monday morning,</text>
+        <text class="chart-comment-text" x="145" y="144" opacity="0.7">everyone's tired</text>
+
+        <circle cx="450" cy="86" r="6" fill="#0c0f14" stroke="var(--gold)" stroke-width="2" opacity="0.6"/>
+        <line x1="450" y1="80" x2="450" y2="56" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <rect class="chart-comment-bg" x="345" y="6" width="200" height="42" rx="6" opacity="0.7"/>
+        <text class="chart-comment-text" x="360" y="23" opacity="0.7">The class where everyone</text>
+        <text class="chart-comment-text" x="360" y="38" opacity="0.7">actually laughed today</text>
+
+        <g id="dragHint">
+          <text class="chart-drag-hint" x="320" y="215" text-anchor="middle">drag me &harr;</text>
+        </g>
+        <circle id="chartHandle" class="chart-handle" cx="320" cy="121" r="9" fill="var(--gold)" stroke="#0c0f14" stroke-width="2"/>
+      </svg>
+      <div class="chart-caption"><span class="chart-caption-label">Right now:</span> <span id="chartCaptionText">A joke lands. A few more hands go up.</span></div>
+    </div>
+
+    <div class="closing-cards">
+      <div class="closing-card">
+        <div class="closing-card-num">1</div>
+        <div class="closing-card-title">Adjust, don't <span class="tip" tabindex="0" onclick="this.classList.toggle('tip-open')">overhaul<span class="tip-bubble">Overhaul: to rebuild something completely from scratch. Here it means don't reinvent yourself, just fine-tune what you already do.</span></span></div>
+        <div class="closing-card-text">You're not a different teacher for each profile. You're the same teacher, calibrating tone, pacing, and feedback.</div>
+      </div>
+      <div class="closing-card">
+        <div class="closing-card-num">2</div>
+        <div class="closing-card-title">Gentle correction wins</div>
+        <div class="closing-card-text">Private, gentle correction lowers anxiety far more than direct correction, especially for anxious or silent learners.</div>
+      </div>
+      <div class="closing-card">
+        <div class="closing-card-num">3</div>
+        <div class="closing-card-title">Built by attention, not talent</div>
+        <div class="closing-card-text">A one-line note after class, what you said, how the student responded, sharpens your read on students fast.</div>
+      </div>
+    </div>
+
+    <div class="closing-note-cite">Grounded in Communication Accommodation Theory (Giles), teacher immediacy research (Witt, Wheeless &amp; Allen, 2004), and Krashen's affective filter hypothesis. Full research summary available on request.</div>
+  </div>
+</div>
+
 <footer><strong>EIC · Escola de Idiomas e Cultura</strong> · Internal teacher reference · Draft</footer>
 
 <div class="overlay" id="overlay">
@@ -372,7 +492,7 @@ const PERSONAS = [
     "Give them a reporter role in group work: they synthesize others' ideas, not generate their own",
     "Redirect L1 moments with a neutral gesture, not a public correction"
   ],
-  avoid:"Publicly saying stop talking so much in front of the class.",
+  avoid:"Publicly saying \"stop talking so much\" in front of the class.",
   right:"Give them a specific job that channels the energy: timekeeper, reporter, or devil's advocate.",
   plan:[
     {item:"Introduce a visible turn-taking system", when:"First lesson with this profile", how:"Give every student two or three tokens at the start of class; each time they speak, they hand one in. Once they're out of tokens, they listen for the rest of the activity. Visual and self-regulating, you don't have to police it constantly."},
@@ -405,7 +525,7 @@ const PERSONAS = [
 {
   id:"paralyzed-perfectionist", tier:"confidence", age:"teens", num:"04",
   name:"The Paralyzed Perfectionist", namePT:"O Perfeccionista Paralisado",
-  tagline:"Would rather say nothing than say something imperfect. Erases instead of crossing out. Asks is this right? before finishing the sentence.",
+  tagline:"Would rather say nothing than say something imperfect. Erases instead of crossing out. Asks \"is this right?\" before finishing the sentence.",
   tell:"Long pauses before answering even simple questions. Visible tension: the pen stops, the eyes go to the teacher first.",
   trap:"Teachers over-praise correctness, which raises the stakes of being wrong even further.",
   anchor:"Mistakes are data, not verdicts. What's your best guess?",
@@ -414,7 +534,7 @@ const PERSONAS = [
     "Normalize error publicly (I make this mistake too)",
     "Use open-ended CCQs and comprehension checks with no single right answer at first"
   ],
-  avoid:"Saying almost! or not quite in a tone that signals failure.",
+  avoid:"Saying \"almost!\" or \"not quite\" in a tone that signals failure.",
   right:"Good try, what made you choose that? Let's check it together.",
   plan:[
     {item:"Model your own mistakes out loud at least once per lesson", when:"Ongoing", how:"Deliberately make a small, visible error on the board once a lesson (a wrong verb form, a spelling slip) and correct yourself out loud: Oops, that's wrong, let me fix it. Normalizing your own errors does more than any reassurance you could give them directly."},
@@ -498,7 +618,7 @@ const PERSONAS = [
     "Offer limited real choices (which text, which order) rather than none at all",
     "Address pushback privately, never as a public power struggle"
   ],
-  avoid:"Because I said so, or a public standoff in front of the class.",
+  avoid:"\"Because I said so,\" or a public standoff in front of the class.",
   right:"You're right to ask. Here's the actual reason, and here's your choice within it.",
   plan:[
     {item:"Prepare a one-line rationale for every recurring task type", when:"Lesson planning", how:"Before class, jot one sentence into your lesson plan itself: why does this specific task exist? (We drill this because you'll need it automatically in conversation, not just on a test.) Having it ready means you're not improvising a justification on the spot, which can sound defensive."},
@@ -573,7 +693,7 @@ const PERSONAS = [
 {
   id:"approval-seeker", tier:"confidence", age:"kids", num:"12",
   name:"The Approval-Seeker", namePT:"O Carente de Aprovação",
-  tagline:"Asks is this right? before finishing the task, needs constant validation, and struggles to work independently without reassurance.",
+  tagline:"Asks \"is this right?\" before finishing the task, needs constant validation, and struggles to work independently without reassurance.",
   tell:"Hand up immediately after starting any task. Repeats like this? multiple times per activity.",
   trap:"Teachers give constant reassurance, which trains dependency instead of building independent confidence.",
   anchor:"Try three more on your own first, then we'll check together.",
@@ -582,7 +702,7 @@ const PERSONAS = [
     "Teach a specific self-check strategy they can use before asking",
     "Praise independent attempts more than the request for approval itself"
   ],
-  avoid:"Answering is this right? immediately, every single time.",
+  avoid:"Answering \"is this right?\" immediately, every single time.",
   right:"Try the next one on your own. I'll check the whole page with you at the end.",
   plan:[
     {item:"Introduce a self-check strategy for one common task type", when:"First month", how:"Teach one simple, repeatable check (Count your words, does the sentence have a subject and a verb?) for whatever task type they ask about most. A concrete tool to check themselves is what actually reduces the need to ask you."},
@@ -915,6 +1035,80 @@ document.addEventListener('keydown', (e)=>{
   }
 });
 
+document.addEventListener('click', (e)=>{
+  document.querySelectorAll('.tip.tip-open').forEach(t=>{
+    if(!t.contains(e.target)) t.classList.remove('tip-open');
+  });
+});
+
+function initWarmthChart(){
+  const svg = document.getElementById('warmthChart');
+  const handle = document.getElementById('chartHandle');
+  const dragHint = document.getElementById('dragHint');
+  const captionText = document.getElementById('chartCaptionText');
+  if(!svg || !handle) return;
+
+  const p1 = {x:80, y:188};
+  const p2 = {x:560, y:55};
+  let dragging = false;
+  let hintShown = true;
+
+  const stops = [
+    {t:0.0, text:"Arms crossed, one-word answers, eyes on the clock."},
+    {t:0.2, text:"Answers when called on. Doesn't volunteer much."},
+    {t:0.4, text:"A joke lands. A few more hands go up."},
+    {t:0.6, text:"Questions without being asked."},
+    {t:0.8, text:"Energy carries past the bell. The whole room leans in."}
+  ];
+
+  function captionFor(t){
+    let result = stops[0].text;
+    for(const s of stops){ if(t >= s.t) result = s.text; }
+    return result;
+  }
+
+  function svgPointFromEvent(evt){
+    const pt = svg.createSVGPoint();
+    const src = evt.touches && evt.touches[0] ? evt.touches[0] : evt;
+    pt.x = src.clientX;
+    pt.y = src.clientY;
+    return pt.matrixTransform(svg.getScreenCTM().inverse());
+  }
+
+  function setT(t){
+    t = Math.max(0, Math.min(1, t));
+    const x = p1.x + t * (p2.x - p1.x);
+    const y = p1.y + t * (p2.y - p1.y);
+    handle.setAttribute('cx', x);
+    handle.setAttribute('cy', y);
+    captionText.textContent = captionFor(t);
+  }
+
+  function onMove(evt){
+    if(!dragging) return;
+    evt.preventDefault();
+    const p = svgPointFromEvent(evt);
+    const t = (p.x - p1.x) / (p2.x - p1.x);
+    setT(t);
+  }
+
+  function startDrag(){
+    dragging = true;
+    if(hintShown){ dragHint.classList.add('hidden'); hintShown = false; }
+  }
+  function endDrag(){ dragging = false; }
+
+  handle.addEventListener('pointerdown', startDrag);
+  window.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerup', endDrag);
+  handle.addEventListener('touchstart', startDrag, {passive:true});
+  window.addEventListener('touchmove', onMove, {passive:false});
+  window.addEventListener('touchend', endDrag);
+
+  setT(0.4);
+}
+
+initWarmthChart();
 renderGrid();
 </script>
 </body>
