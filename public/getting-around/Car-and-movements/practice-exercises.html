@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice — Movement Verbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --asphalt:#15171B; --panel:#1A1C20;
+  --red:#A8121F; --red-lt:#D8102B; --line:#E8B93C; --steel:#8A93A0;
+  --green:#3C8F5C;
+  --paper:#F1EDE6; --paper-dim:rgba(241,237,230,.62); --paper-faint:rgba(241,237,230,.38);
+}
+body{font-family:'Inter',sans-serif;background:var(--asphalt);color:var(--paper);min-height:100vh}
+
+.hdr{padding:26px 30px 10px;max-width:1100px;margin:0 auto}
+.hdr-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.hdr-line{width:22px;height:1.5px;background:var(--red-lt)}
+.hdr-eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red-lt)}
+.hdr-title{font-weight:700;font-size:30px;color:var(--paper)}
+.hdr-title em{font-style:italic;color:var(--line);font-weight:600}
+.hdr-sub{font-size:13.5px;line-height:1.7;color:var(--paper-dim);max-width:56ch;margin-top:10px}
+
+.page{max-width:1100px;margin:0 auto;padding:20px 30px 60px}
+@media(max-width:720px){.page{padding:16px 16px 50px}.hdr{padding:22px 16px 10px}}
+
+section{margin-bottom:56px}
+.section-label{margin-bottom:6px}
+.section-tag{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--line)}
+.section-title{font-style:italic;font-weight:600;font-size:22px;color:var(--paper);margin-top:2px}
+.section-sub{font-size:12.5px;color:var(--paper-faint);margin-top:4px;margin-bottom:20px}
+
+/* ===== Exercise 1: matching ===== */
+.match-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:28px;
+  background:var(--panel);border:1px solid rgba(138,147,160,.16);border-radius:12px;padding:22px;
+}
+@media(max-width:640px){.match-wrap{grid-template-columns:1fr;gap:14px}}
+.match-col-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-faint);margin-bottom:10px}
+.match-item{
+  display:block;width:100%;text-align:left;font-family:'Inter',sans-serif;
+  background:var(--asphalt);border:1.5px solid rgba(138,147,160,.25);border-radius:8px;
+  padding:12px 14px;margin-bottom:9px;color:var(--paper);font-size:13px;line-height:1.5;
+  cursor:pointer;transition:border-color .15s,background .15s;
+}
+.match-item:hover:not(.matched){border-color:var(--red-lt)}
+.match-item.selected{border-color:var(--red-lt);background:rgba(216,16,43,.12)}
+.match-item.matched{border-color:var(--green);background:rgba(60,143,92,.12);color:var(--paper-dim);cursor:default}
+.match-item.wrong{animation:shake .3s;border-color:var(--red-lt)}
+.match-item.verb{font-weight:700}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+.match-progress{font-size:11.5px;color:var(--paper-faint);margin-top:14px;text-align:center}
+
+/* ===== Exercise 2: fill in the gap ===== */
+.gap-card{
+  background:var(--panel);border:1px solid rgba(138,147,160,.16);border-radius:10px;
+  padding:18px 20px;margin-bottom:14px;
+}
+.gap-sentence{font-size:14.5px;line-height:1.6;color:var(--paper);margin-bottom:12px}
+.gap-blank{
+  display:inline-block;min-width:64px;border-bottom:2px dashed var(--line);color:var(--line);
+  font-weight:700;text-align:center;padding:0 4px;
+}
+.gap-options{display:flex;gap:8px;flex-wrap:wrap}
+.gap-opt{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;
+  padding:7px 14px;border-radius:999px;border:1.5px solid var(--steel);
+  background:var(--asphalt);color:var(--steel);cursor:pointer;transition:all .15s;
+}
+.gap-opt:hover:not(:disabled){border-color:var(--paper);color:var(--paper)}
+.gap-opt.correct{border-color:var(--green);background:rgba(60,143,92,.18);color:var(--green)}
+.gap-opt.incorrect{border-color:var(--red-lt);background:rgba(216,16,43,.18);color:var(--red-lt)}
+.gap-opt:disabled{cursor:default}
+.gap-card.solved .gap-sentence{color:var(--paper-dim)}
+
+footer{max-width:1100px;margin:0 auto;padding:0 30px 50px}
+footer p{font-size:11.5px;color:var(--paper-faint);line-height:1.7;max-width:64ch}
+@media(max-width:720px){footer{padding:0 16px 40px}}
+
+.site-nav{
+  position:sticky;top:0;z-index:200;
+  background:#0F1013;border-bottom:1px solid rgba(138,147,160,.18);
+  display:flex;gap:4px;padding:10px 20px;overflow-x:auto;
+}
+.site-nav a{
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;
+  color:rgba(241,237,230,.5);text-decoration:none;padding:7px 12px;border-radius:999px;
+  white-space:nowrap;transition:color .15s, background .15s;
+}
+.site-nav a:hover{color:#F1EDE6;background:rgba(138,147,160,.12)}
+.site-nav a.current{color:#D8102B;background:rgba(216,16,43,.14)}
+</style>
+</head>
+<body>
+<div class="site-nav">
+  <a href="car-road-vocabulary-v3.html">Vocabulary</a>
+  <a href="places-in-the-city.html">Places</a>
+  <a href="movement-verbs.html">Movement Verbs</a>
+  <a href="practice-exercises.html" class="current">Practice</a>
+</div>
+
+<div class="hdr">
+  <div class="hdr-eyebrow"><span class="hdr-line"></span><span class="hdr-eyebrow-text">EIC · Driving Module</span></div>
+  <h1 class="hdr-title">Practice — <em>Movement Verbs</em></h1>
+  <p class="hdr-sub">Two steps: first recognize the phrase, then produce it yourself.</p>
+</div>
+
+<div class="page">
+
+  <section>
+    <div class="section-label">
+      <div class="section-tag">Step 1 · Recognition</div>
+      <div class="section-title">Match the situation</div>
+    </div>
+    <p class="section-sub">Tap a description, then tap the phrasal verb it matches.</p>
+
+    <div class="match-wrap">
+      <div>
+        <div class="match-col-label">The situation</div>
+        <div id="descCol"></div>
+      </div>
+      <div>
+        <div class="match-col-label">The phrasal verb</div>
+        <div id="verbCol"></div>
+      </div>
+    </div>
+    <div class="match-progress" id="matchProgress">0 of 8 matched</div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <div class="section-tag">Step 2 · Guided production</div>
+      <div class="section-title">Fill in the gap</div>
+    </div>
+    <p class="section-sub">The verb is already there — you choose the particle that completes it.</p>
+    <div id="gapList"></div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Still unsure about a phrase? The "Pull Over, Pull Up &amp; the rest" page has the full breakdown, with the speaker-trap table.</p>
+</footer>
+
+<script>
+  // ===== Exercise 1: matching =====
+  const PAIRS = [
+    { desc: 'You stop your car at the side of the road.', verb: 'Pull over' },
+    { desc: 'You leave a parking spot and join traffic.', verb: 'Pull out' },
+    { desc: 'You drive into a garage or a parking spot.', verb: 'Pull in' },
+    { desc: 'You arrive and stop right in front of a place.', verb: 'Pull up' },
+    { desc: 'You turn the car around to go back the way you came.', verb: 'Make a U-turn' },
+    { desc: 'You go faster.', verb: 'Speed up' },
+    { desc: 'You go slower.', verb: 'Slow down' },
+    { desc: 'You start moving again after being stopped.', verb: 'Pull away' },
+  ];
+
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  const descCol = document.getElementById('descCol');
+  const verbCol = document.getElementById('verbCol');
+  const matchProgress = document.getElementById('matchProgress');
+
+  const descOrder = PAIRS.map((p,i) => i);
+  const verbOrder = shuffle(PAIRS.map((p,i) => i));
+
+  let selectedDesc = null;
+  let matchedCount = 0;
+
+  descOrder.forEach(i => {
+    const btn = document.createElement('button');
+    btn.className = 'match-item';
+    btn.textContent = PAIRS[i].desc;
+    btn.dataset.idx = i;
+    btn.addEventListener('click', () => {
+      if(btn.classList.contains('matched')) return;
+      document.querySelectorAll('#descCol .match-item').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedDesc = i;
+    });
+    descCol.appendChild(btn);
+  });
+
+  verbOrder.forEach(i => {
+    const btn = document.createElement('button');
+    btn.className = 'match-item verb';
+    btn.textContent = PAIRS[i].verb;
+    btn.dataset.idx = i;
+    btn.addEventListener('click', () => {
+      if(btn.classList.contains('matched') || selectedDesc === null) return;
+      const descBtn = document.querySelector(`#descCol .match-item[data-idx="${selectedDesc}"]`);
+      if(parseInt(btn.dataset.idx) === selectedDesc){
+        btn.classList.add('matched');
+        descBtn.classList.add('matched');
+        btn.classList.remove('selected');
+        descBtn.classList.remove('selected');
+        selectedDesc = null;
+        matchedCount++;
+        matchProgress.textContent = matchedCount + ' of 8 matched';
+        if(matchedCount === PAIRS.length){
+          matchProgress.textContent = 'All matched! Nice work.';
+        }
+      } else {
+        btn.classList.add('wrong');
+        descBtn.classList.add('wrong');
+        setTimeout(() => {
+          btn.classList.remove('wrong');
+          descBtn.classList.remove('wrong');
+          descBtn.classList.remove('selected');
+          selectedDesc = null;
+        }, 400);
+      }
+    });
+    verbCol.appendChild(btn);
+  });
+
+  // ===== Exercise 2: fill in the gap =====
+  const GAPS = [
+    { before:'Officer: Please pull', after:'the car — I need to check something.', options:['over','up','around'], correct:'over' },
+    { before:"I'll pull", after:'the driveway, back in a second.', options:['into','out','away'], correct:'into' },
+    { before:'She pulled', after:'of the parking spot carefully.', options:['out','up','over'], correct:'out' },
+    { before:'We pulled', after:'right in front of the restaurant.', options:['up','into','away'], correct:'up' },
+    { before:'The light turned green, and he pulled', after:'.', options:['away','over','into'], correct:'away' },
+  ];
+
+  const gapList = document.getElementById('gapList');
+
+  GAPS.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'gap-card';
+
+    const sentence = document.createElement('div');
+    sentence.className = 'gap-sentence';
+    const blank = document.createElement('span');
+    blank.className = 'gap-blank';
+    blank.textContent = '____';
+    sentence.appendChild(document.createTextNode(g.before + ' '));
+    sentence.appendChild(blank);
+    sentence.appendChild(document.createTextNode(' ' + g.after));
+    card.appendChild(sentence);
+
+    const opts = document.createElement('div');
+    opts.className = 'gap-options';
+    const optButtons = shuffle(g.options).map(opt => {
+      const ob = document.createElement('button');
+      ob.className = 'gap-opt';
+      ob.textContent = opt;
+      ob.addEventListener('click', () => {
+        optButtons.forEach(b => b.disabled = true);
+        if(opt === g.correct){
+          ob.classList.add('correct');
+          blank.textContent = g.correct;
+          card.classList.add('solved');
+        } else {
+          ob.classList.add('incorrect');
+          const correctBtn = optButtons.find(b => b.textContent === g.correct);
+          setTimeout(() => {
+            correctBtn.classList.add('correct');
+            blank.textContent = g.correct;
+            card.classList.add('solved');
+          }, 500);
+        }
+      });
+      opts.appendChild(ob);
+      return ob;
+    });
+    card.appendChild(opts);
+    gapList.appendChild(card);
+  });
+</script>
+</body>
+</html>
