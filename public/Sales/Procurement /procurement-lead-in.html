@@ -9,169 +9,95 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --amber:#B45309;--amber-bg:#FEF3C7;
   --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1A9BAE;--orange:#E8621A;
   --mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;
-  --green:#065F46;--green-bg:#ECFDF5;
+  --green:#065F46;--green-bg:#ECFDF5;--amber:#B45309;--amber-bg:#FEF3C7;
 }
 html{scroll-behavior:smooth}
 body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 .pw{max-width:760px;margin:0 auto;padding:0 56px}
 @media(max-width:720px){.pw{padding:0 22px}}
 
-/* HEADER */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--dark);
   display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
 .hdr-logo{height:22px;width:auto;flex-shrink:0}
 .hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
-.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--teal-lt);padding:3px 12px;border-radius:20px;color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;background:var(--teal);padding:3px 12px;border-radius:20px}
 @media(max-width:640px){.hdr{padding:0 18px}.hdr-meta{display:none}}
 
-/* HERO */
-.hero{margin-top:56px;background:var(--dark);padding:68px 0 60px}
+.mod-nav{position:sticky;top:56px;z-index:201;background:#fff;
+  border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.mod-nav::-webkit-scrollbar{display:none}
+.mod-nav-inner{display:flex;align-items:center;gap:0;min-width:max-content;padding:0 24px}
+.mod-nav a{display:inline-block;padding:12px 16px;font-size:11px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--mid);text-decoration:none;
+  border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.mod-nav a:hover{color:var(--ink)}
+.mod-nav a.nav-active{color:var(--teal);border-bottom-color:var(--teal)}
+
+.page-nav-wrap{background:#fff;border-bottom:1px solid var(--border);position:relative;z-index:201}
+.page-nav-row{display:flex;gap:10px;align-items:center;justify-content:space-between;
+  max-width:760px;margin:0 auto;padding:10px 56px}
+@media(max-width:720px){.page-nav-row{padding:10px 22px}}
+.page-nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+  border-radius:20px;font-family:Inter,sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:.04em;text-decoration:none;transition:all .15s;
+  border:1.5px solid var(--border);color:var(--mid);background:#fff}
+.page-nav-btn:hover{border-color:var(--ink);color:var(--ink)}
+.page-nav-btn.next{background:var(--teal);border-color:var(--teal);color:#fff}
+.page-nav-btn.next:hover{background:var(--teal-lt)}
+
+.hero{margin-top:56px;background:var(--dark);padding:72px 0 64px}
 .hero-inner{max-width:760px;margin:0 auto;padding:0 56px}
 @media(max-width:720px){.hero-inner{padding:0 22px}}
 .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .eyebrow-line{width:28px;height:1.5px;background:var(--teal)}
 .eyebrow-text{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-.hero-title{font-size:clamp(30px,4vw,44px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:16px}
+.hero-title{font-size:clamp(30px,4vw,46px);font-weight:900;color:#fff;
+  letter-spacing:-.03em;line-height:1;margin-bottom:18px}
 .hero-title em{font-style:italic;color:var(--teal-lt)}
-.hero-sub{font-size:14.5px;color:rgba(255,255,255,.5);line-height:1.7;max-width:60ch;margin-bottom:24px}
-.hero-q{display:inline-flex;align-items:baseline;gap:10px;padding:14px 18px;background:rgba(255,255,255,.05);border-radius:12px}
-.hero-q-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);flex-shrink:0}
-.hero-q-text{font-size:14px;font-style:italic;color:#fff;line-height:1.4}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.48);line-height:1.75;
+  max-width:58ch;margin-bottom:28px}
+.hero-q{padding:16px 20px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);border-radius:12px;max-width:fit-content}
+.hero-q-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);display:block;margin-bottom:6px}
+.hero-q-text{font-size:15px;font-style:italic;color:#fff;line-height:1.5;display:block}
 
-/* SECTIONS */
 .section{padding:52px 0;border-bottom:1px solid var(--border)}
 .section:nth-child(even){background:#fff}
-.section-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
-.section-title{font-size:clamp(22px,2.4vw,28px);font-weight:900;letter-spacing:-.02em;color:var(--ink);margin-bottom:16px}
-.section-body{font-size:14.5px;color:var(--mid);line-height:1.75;max-width:62ch;margin-bottom:28px}
+.section-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:12px}
+.section-title{font-size:clamp(22px,2.4vw,28px);font-weight:900;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:14px}
+.section-body{font-size:14.5px;color:var(--mid);line-height:1.8;max-width:62ch;margin-bottom:24px}
 
-/* CONCEPT CARDS */
-.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:640px){.concept-grid{grid-template-columns:1fr}}
 .concept-card{background:var(--surface);border-radius:14px;padding:20px 22px;border-top:4px solid var(--border)}
 .concept-card.a{border-top-color:var(--mid)}
 .concept-card.b{border-top-color:var(--teal)}
-.concept-card-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.concept-card.a .concept-card-label{color:var(--mid)}
+.concept-card-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:6px}
 .concept-card.b .concept-card-label{color:var(--teal)}
 .concept-card-title{font-size:17px;font-weight:900;color:var(--ink);margin-bottom:8px}
-.concept-card-text{font-size:13.5px;color:var(--ink);line-height:1.65}
+.concept-card-text{font-size:13.5px;color:var(--ink);line-height:1.7}
 
-/* STAGE STRIP */
-.stage-strip{display:flex;gap:0;margin-bottom:0;overflow:hidden;border-radius:12px}
-.stage-item{flex:1;padding:14px 12px;text-align:center;background:var(--surface);border-right:1px solid var(--border);position:relative}
+.stage-strip{display:flex;overflow:hidden;border-radius:12px}
+.stage-item{flex:1;padding:14px 10px;text-align:center;background:var(--surface);
+  border-right:1px solid var(--border)}
 .stage-item:last-child{border-right:none}
 .stage-num{font-size:9px;font-weight:900;color:var(--mid);letter-spacing:.08em;margin-bottom:4px}
 .stage-label{font-size:12px;font-weight:800;color:var(--ink);line-height:1.3}
 .stage-doc{font-size:10px;color:var(--teal);margin-top:3px;font-style:italic}
 
-/* WARM-UP */
 .q-list{max-width:640px}
-.q-item{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.q-item{display:flex;gap:16px;align-items:flex-start;padding:16px 0;
+  border-bottom:1px solid var(--border)}
 .q-item:last-child{border-bottom:none}
-.q-n{font-size:12px;font-weight:900;color:var(--teal);flex-shrink:0;width:22px}
-.q-text{font-size:14px;color:var(--ink);line-height:1.8}
-
-/* TOOLTIP */
-.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
-.tt:hover{color:var(--teal)}
-#gl-tip{display:none;position:fixed;z-index:9999;background:var(--ink);color:#fff;border-radius:9px;padding:9px 13px;
-  font-size:12px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none;max-width:230px}
-#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:3px}
-#gl-tip-def{font-size:11.5px;color:rgba(255,255,255,.82)}
-
-/* FOOTER */
-.footer{background:var(--dark);padding:28px 56px;display:flex;flex-direction:column;align-items:center;gap:16px;border-top:1px solid rgba(255,255,255,.06)}
-.footer-logo{height:20px;width:auto;opacity:.35}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.2);text-align:center}
-.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
-.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
-.footer-nav-next{background:var(--teal);color:#fff}
-.footer-nav-next:hover{background:var(--teal-lt)}
-.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
-.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
-@media(max-width:640px){.footer{padding:24px}}
-
-.mod-nav{position:sticky;top:56px;z-index:201;background:#fff;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
-.mod-nav::-webkit-scrollbar{display:none}
-.mod-nav-inner{display:flex;align-items:center;gap:0;min-width:max-content;padding:0 24px}
-.mod-nav a{display:inline-block;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
-.mod-nav a:hover{color:var(--ink)}
-.mod-nav a.nav-active{color:var(--teal);border-bottom-color:var(--teal)}
-.footer-nav-row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
-.footer-nav-btn{display:inline-block;padding:10px 22px;border-radius:24px;font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-decoration:none;transition:all .15s}
-.footer-nav-next{background:var(--teal);color:#fff}
-.footer-nav-next:hover{background:#0a6575}
-.footer-nav-prev{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55)}
-.footer-nav-prev:hover{border-color:rgba(255,255,255,.5);color:#fff}
-
-
-/* ── VOCAB PANEL ── */
-.vp-fab{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:150;
-  display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:24px;
-  background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:Inter,sans-serif;
-  font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
-  box-shadow:0 4px 20px rgba(0,0,0,.3);transition:all .2s}
-.vp-fab:hover{background:var(--teal);transform:translateX(-50%) translateY(-2px)}
-.vp-fab svg{flex-shrink:0}
-.vp-overlay{position:fixed;inset:0;z-index:200;background:rgba(7,16,32,.5);
-  opacity:0;pointer-events:none;transition:opacity .25s}
-.vp-overlay.open{opacity:1;pointer-events:all}
-.vp-panel{position:fixed;right:0;top:0;bottom:0;z-index:300;width:400px;max-width:100vw;
-  background:#fff;display:flex;flex-direction:column;transform:translateX(110%);
-  transition:transform .3s cubic-bezier(.22,.1,.36,1);box-shadow:-8px 0 40px rgba(0,0,0,.15)}
-@media(max-width:500px){.vp-panel{width:100vw}}
-.vp-panel.open{transform:translateX(0)}
-.vp-panel-hdr{background:var(--dark);padding:20px 22px 16px;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0}
-.vp-panel-eyebrow{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
-.vp-panel-title{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.02em}
-.vp-panel-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .15s}
-.vp-panel-close:hover{background:rgba(255,255,255,.2)}
-.vp-filters{display:flex;gap:6px;padding:14px 14px 8px;flex-wrap:wrap;flex-shrink:0;border-bottom:1px solid var(--border)}
-.vp-filter{padding:4px 11px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:1.5px solid var(--border);background:transparent;color:var(--mid);cursor:pointer;font-family:Inter,sans-serif;transition:all .15s;white-space:nowrap}
-.vp-filter:hover{border-color:var(--ink);color:var(--ink)}
-.vp-filter.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.vp-filter[data-filter]:not([data-filter="all"]).active{background:var(--cat-color,var(--teal));border-color:var(--cat-color,var(--teal))}
-.vp-count{font-weight:400;opacity:.7;margin-left:3px}
-.vp-search-wrap{padding:10px 14px 6px;flex-shrink:0}
-.vp-search{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;font-family:Inter,sans-serif;color:var(--ink);outline:none;transition:border-color .2s}
-.vp-search:focus{border-color:var(--teal)}
-.vp-cards{flex:1;overflow-y:auto;padding:8px 14px 40px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;min-height:0}
-.vp-card{border:1.5px solid var(--border);border-radius:12px;transition:border-color .2s}
-.vp-card:hover{border-color:var(--teal)}
-.vp-card[style*="display:none"]{display:none!important}
-.vp-card-inner{padding:12px 14px;display:block}
-.vp-tag{display:inline-block;margin-bottom:6px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-bottom:8px}
-.vp-term{font-size:16px;font-weight:900;color:var(--ink);letter-spacing:-.01em;margin-bottom:3px}
-.vp-pt{font-size:12px;color:var(--teal);font-style:italic;margin-bottom:6px}
-.vp-def{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:4px}
-.vp-ex{font-size:11px;color:var(--ink);border-left:2px solid var(--border);padding-left:8px;line-height:1.5;font-style:italic}
-
-
-.page-nav-row{display:flex;gap:10px;align-items:center;justify-content:space-between;
-  max-width:880px;margin:0 auto;padding:10px 48px}
-@media(max-width:720px){.page-nav-row{padding:10px 20px}}
-.page-nav-wrap{background:#fff;border-bottom:1px solid var(--border);position:relative;z-index:201}
-.page-nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
-  border-radius:20px;font-family:Inter,sans-serif;font-size:11px;font-weight:800;
-  letter-spacing:.04em;text-decoration:none;transition:all .15s;border:1.5px solid var(--border);
-  color:var(--mid);background:#fff}
-.page-nav-btn:hover{border-color:var(--ink);color:var(--ink)}
-.page-nav-btn.next{background:var(--teal);border-color:var(--teal);color:#fff}
-.page-nav-btn.next:hover{background:#0a6575}
-.page-nav-spacer{flex:1}
-
-/* Force vp-card content visibility */
-.vp-card-inner{padding:12px 14px!important;display:block!important}
-.vp-term{font-size:16px!important;font-weight:900!important;color:#0A1628!important;display:block!important;margin-bottom:4px!important;visibility:visible!important;opacity:1!important}
-.vp-pt{font-size:12px!important;color:#0D7A8A!important;font-style:italic!important;display:block!important;margin-bottom:6px!important;visibility:visible!important;opacity:1!important}
-.vp-def{font-size:12px!important;color:#6B7280!important;line-height:1.6!important;display:block!important;visibility:visible!important;opacity:1!important}
-.vp-tag{display:inline-block!important;margin-bottom:6px!important;visibility:visible!important;opacity:1!important}
-
-
+.q-n{font-size:12px;font-weight:900;color:var(--teal);flex-shrink:0;width:22px;padding-top:3px}
+.q-text{font-size:14px;color:var(--ink);line-height:1.8;margin-bottom:0}
 .q-ta{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;
   font-size:13px;font-family:Inter,sans-serif;color:var(--ink);resize:none;height:60px;
   outline:none;transition:border-color .2s;margin-top:8px;display:block}
@@ -183,16 +109,48 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 .q-reveal-btn:hover{color:var(--teal)}
 .q-reveal-model{display:none;background:var(--green-bg);border-left:3px solid var(--green);
   border-radius:0 8px 8px 0;padding:11px 14px;margin-top:8px;font-size:12.5px;
-  color:var(--ink);line-height:1.6}
+  color:var(--ink);line-height:1.65}
 .q-reveal-model.show{display:block}
 .q-reveal-model-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;
   text-transform:uppercase;color:var(--green);margin-bottom:4px;display:block}
 .q-research-model{display:none;background:var(--amber-bg);border-left:3px solid var(--amber);
   border-radius:0 8px 8px 0;padding:11px 14px;margin-top:8px;font-size:12.5px;
-  color:var(--ink);line-height:1.6}
+  color:var(--ink);line-height:1.65}
 .q-research-model.show{display:block}
 .q-research-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;
   text-transform:uppercase;color:var(--amber);margin-bottom:4px;display:block}
+
+.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
+.tt:hover{color:var(--teal)}
+#gl-tip{display:none;position:fixed;z-index:9999;background:var(--ink);color:#fff;
+  border-radius:9px;padding:9px 13px;font-size:12px;line-height:1.45;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none;max-width:230px}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal-lt);margin-bottom:3px}
+#gl-tip-def{font-size:11.5px;color:rgba(255,255,255,.82)}
+
+.footer{background:var(--dark);padding:28px 56px;display:flex;
+  align-items:center;justify-content:space-between;gap:24px;
+  border-top:1px solid rgba(255,255,255,.06)}
+.footer-logo{height:20px;width:auto;opacity:.35;flex-shrink:0}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+@media(max-width:640px){.footer{padding:24px;flex-direction:column;text-align:center}
+.footer-copy{text-align:center}}
+
+.q-support{margin-top:10px;padding:12px 14px;background:var(--surface);
+  border-radius:10px;border-left:3px solid var(--orange)}
+.q-support-frames{margin-bottom:8px}
+.q-support-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--orange);display:block;margin-bottom:6px}
+.q-support-words-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mid);display:block;margin-bottom:6px}
+.q-frame{font-size:12.5px;color:var(--ink);line-height:1.6;font-style:italic;
+  padding:3px 0;display:block}
+.q-words{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.q-word{font-size:11px;font-weight:700;color:var(--mid);background:#fff;
+  border:1px solid var(--border);padding:2px 9px;border-radius:20px}
+
 </style>
 </head>
 <body>
@@ -228,6 +186,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   <span class="hdr-meta">B1+ · Procurement & Purchasing</span>
   <span class="hdr-badge">Lead-in</span>
 </header>
+
 <nav class="mod-nav"><div class="mod-nav-inner"><a href="./procurement-lead-in.html" class="nav-active">Lead-in</a>
 <a href="./procurement-reading.html">Reading</a>
 <a href="./procurement-stakeholders.html">Stakeholders</a>
@@ -237,6 +196,13 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 <a href="./procurement-grammar-who2.html">Neural English</a>
 <a href="./procurement-vocab.html">Vocab</a>
 </div></nav>
+
+<div class="page-nav-wrap">
+  <div class="page-nav-row">
+    <span></span>
+    <a href="./procurement-reading.html" class="page-nav-btn next">Reading →</a>
+  </div>
+</div>
 
 <section class="hero">
   <div class="hero-inner">
@@ -250,7 +216,6 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   </div>
 </section>
 
-<!-- SECTION 1: TWO WORLDS -->
 <section class="section">
   <div class="pw">
     <div class="section-label">Two sides of every deal</div>
@@ -260,7 +225,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
       <div class="concept-card a">
         <div class="concept-card-label">The Buyer</div>
         <div class="concept-card-title">Althea Industrial</div>
-        <p class="concept-card-text">Carolina Mendes manages procurement for a Brazilian industrial company. She <span class="tt" data-tip="rfq">sends RFQs</span>, evaluates quotations, issues <span class="tt" data-tip="po">Purchase Orders</span>, and makes sure the right components arrive at the right time, at the right price.</p>
+        <p class="concept-card-text">Carolina Mendes manages procurement for a Brazilian industrial company. She sends <span class="tt" data-tip="rfq">RFQs</span>, evaluates quotations, issues <span class="tt" data-tip="po">Purchase Orders</span>, and makes sure the right components arrive at the right time, at the right price.</p>
       </div>
       <div class="concept-card b">
         <div class="concept-card-label">The Supplier</div>
@@ -271,43 +236,21 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
   </div>
 </section>
 
-<!-- SECTION 2: THE PROCESS -->
 <section class="section">
   <div class="pw">
     <div class="section-label">The journey</div>
     <h2 class="section-title">Five stages, five documents</h2>
     <p class="section-body">Every international purchase follows a similar path. Each stage produces a document. Each document is written in English. A mistake in any one of them can delay production, trigger a penalty, or break a relationship.</p>
     <div class="stage-strip">
-      <div class="stage-item">
-        <div class="stage-num">01</div>
-        <div class="stage-label">Inquiry</div>
-        <div class="stage-doc">RFQ</div>
-      </div>
-      <div class="stage-item">
-        <div class="stage-num">02</div>
-        <div class="stage-label">Quotation</div>
-        <div class="stage-doc">Supplier quote</div>
-      </div>
-      <div class="stage-item">
-        <div class="stage-num">03</div>
-        <div class="stage-label">Order</div>
-        <div class="stage-doc">Purchase Order</div>
-      </div>
-      <div class="stage-item">
-        <div class="stage-num">04</div>
-        <div class="stage-label">Delivery</div>
-        <div class="stage-doc">Bill of Lading</div>
-      </div>
-      <div class="stage-item">
-        <div class="stage-num">05</div>
-        <div class="stage-label">Payment</div>
-        <div class="stage-doc">Invoice</div>
-      </div>
+      <div class="stage-item"><div class="stage-num">01</div><div class="stage-label">Inquiry</div><div class="stage-doc">RFQ</div></div>
+      <div class="stage-item"><div class="stage-num">02</div><div class="stage-label">Quotation</div><div class="stage-doc">Supplier quote</div></div>
+      <div class="stage-item"><div class="stage-num">03</div><div class="stage-label">Order</div><div class="stage-doc">Purchase Order</div></div>
+      <div class="stage-item"><div class="stage-num">04</div><div class="stage-label">Delivery</div><div class="stage-doc">Bill of Lading</div></div>
+      <div class="stage-item"><div class="stage-num">05</div><div class="stage-label">Payment</div><div class="stage-doc">Invoice</div></div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 3: THE LANGUAGE CHALLENGE -->
 <section class="section">
   <div class="pw">
     <div class="section-label">Why English matters here</div>
@@ -315,33 +258,41 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
     <p class="section-body">A poorly written <span class="tt" data-tip="rfq">RFQ</span> invites confusion. An unclear <span class="tt" data-tip="po">Purchase Order</span> creates disputes. A missing <span class="tt" data-tip="amendment">amendment</span> becomes a legal problem. And when something goes wrong, the first thing both sides read is the contract — written in English, interpreted by lawyers who read English.</p>
     <div class="concept-grid">
       <div class="concept-card a">
-        <div class="concept-card-label">What goes wrong</div>
-        <div class="concept-card-title">When language fails</div>
+        <div class="concept-card-label">When language fails</div>
+        <div class="concept-card-title">What goes wrong</div>
         <p class="concept-card-text">Ambiguous delivery terms. Missing PO numbers on invoices. Unclear <span class="tt" data-tip="paymentterms">payment terms</span>. A <span class="tt" data-tip="forcemajeure">force majeure</span> clause nobody read until it mattered. These are real problems that cost real money.</p>
       </div>
       <div class="concept-card b">
-        <div class="concept-card-label">What goes right</div>
-        <div class="concept-card-title">When language works</div>
-        <p class="concept-card-text">A clear RFQ gets better quotations. A precise PO prevents disputes. A well-written email at the right moment saves a relationship. And a buyer who reads a contract carefully notices the clause that protects their company.</p>
+        <div class="concept-card-label">When language works</div>
+        <div class="concept-card-title">What goes right</div>
+        <p class="concept-card-text">A clear RFQ gets better quotations. A precise PO prevents disputes. A good email at the right moment saves a relationship. And a buyer who reads a contract carefully notices the clause that protects their company.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 4: WARM-UP -->
 <section class="section">
   <div class="pw">
     <div class="section-label">Warm-up</div>
-    <h2 class="section-title">Talk about it before you start</h2>
+    <h2 class="section-title">Talk about it first</h2>
+    <p class="section-body">These questions connect the module to your own professional experience. There are no wrong answers — the goal is to activate what you already know before the language work begins.</p>
     <div class="q-list">
       <div class="q-item">
         <span class="q-n">01</span>
-        <div>
-          <p class="q-text">What is the most difficult part of buying something from an international supplier — the price, the <span class="tt" data-tip="leadtime">lead time</span>, or the communication?</p>
+        <div style="flex:1">
+          <p class="q-text">What is the most difficult part of buying from an international supplier — the price, the <span class="tt" data-tip="leadtime">lead time</span>, or the communication?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"For me, the most difficult part is..."</span><span class="q-frame">"In my experience, the biggest challenge is..."</span><span class="q-frame">"I think the hardest thing is usually..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">lead time</span><span class="q-word">communication</span><span class="q-word">negotiation</span><span class="q-word">quotation</span><span class="q-word">supplier relationship</span><span class="q-word">timeline</span><span class="q-word">delay</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq1btn"
-            onclick="toggleQReveal('pq1','pq1btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq1">
+          <button class="q-reveal-btn" id="pq01btn"
+            onclick="toggleQReveal('pq01','pq01btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq01">
             <span class="q-reveal-model-label">Example answer</span>
             "For me, the hardest part is usually the lead time. The price we can negotiate, but if the supplier is in Asia and we need something in two weeks, there is very little we can do."
           </div>
@@ -349,112 +300,184 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
       </div>
       <div class="q-item">
         <span class="q-n">02</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">Have you ever received a quotation that was missing important information? What was missing and what did you do?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"Yes, that happened to us when..."</span><span class="q-frame">"We received a quotation once that was missing..."</span><span class="q-frame">"In that situation, we decided to..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">payment terms</span><span class="q-word">lead time</span><span class="q-word">unit price</span><span class="q-word">MOQ</span><span class="q-word">delivery date</span><span class="q-word">follow up</span><span class="q-word">clarification</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq2btn"
-            onclick="toggleQReveal('pq2','pq2btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq2">
+          <button class="q-reveal-btn" id="pq02btn"
+            onclick="toggleQReveal('pq02','pq02btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq02">
             <span class="q-reveal-model-label">Example answer</span>
-            "Yes — a supplier sent us a quotation with no lead time and no payment terms. We had to go back and ask for everything again. It cost us four days and a lot of emails."
+            "Yes. A supplier sent us a quotation with no lead time and no payment terms. We had to go back and ask for everything again. It cost us four days and a lot of emails."
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">03</span>
-        <div>
-          <p class="q-text">In your experience, what happens when a supplier misses a delivery deadline? Who is responsible, and what is the process?</p>
+        <div style="flex:1">
+          <p class="q-text">In your experience, what happens when a supplier misses a delivery deadline? Who is responsible and what is the process in your company?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"In our company, the first step is usually to..."</span><span class="q-frame">"When that happens, we..."</span><span class="q-frame">"The process in my company involves..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">penalty clause</span><span class="q-word">formal notice</span><span class="q-word">claim</span><span class="q-word">written record</span><span class="q-word">contract</span><span class="q-word">escalate</span><span class="q-word">replacement</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq3btn"
-            onclick="toggleQReveal('pq3','pq3btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq3">
+          <button class="q-reveal-btn" id="pq03btn"
+            onclick="toggleQReveal('pq03','pq03btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq03">
             <span class="q-reveal-model-label">Example answer</span>
-            "In our company, we first check the contract to see if there is a penalty clause. Then we contact the supplier formally, in writing, and open a claim. Everything goes through email so we have a record."
+            "We check the contract for a penalty clause, then contact the supplier formally in writing and open a claim. Everything goes through email so we have a record."
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">04</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">What makes you trust a supplier you have never worked with before? What do you look for in their first response?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"For me, the most important sign is..."</span><span class="q-frame">"I usually look at how they..."</span><span class="q-frame">"Trust starts when a supplier..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">response time</span><span class="q-word">attention to detail</span><span class="q-word">complete information</span><span class="q-word">tone</span><span class="q-word">track record</span><span class="q-word">transparency</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq4btn"
-            onclick="toggleQReveal('pq4','pq4btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq4">
+          <button class="q-reveal-btn" id="pq04btn"
+            onclick="toggleQReveal('pq04','pq04btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq04">
             <span class="q-reveal-model-label">Example answer</span>
-            "I look at how they respond to the RFQ. If they answer quickly, provide all the information, and use clear language — that already tells me a lot about how they operate."
+            "I look at how they respond to the RFQ. If they answer quickly, provide all the information, and use clear language, that already tells me a lot about how they operate."
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">05</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">Have you ever had to negotiate a <span class="tt" data-tip="paymentterms">payment term</span> or a delivery condition in English? What was the hardest part?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"The hardest part for me was..."</span><span class="q-frame">"I struggled most with..."</span><span class="q-frame">"What I found difficult was expressing..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">tone</span><span class="q-word">push back</span><span class="q-word">firm but polite</span><span class="q-word">formal register</span><span class="q-word">make a counteroffer</span><span class="q-word">payment terms</span><span class="q-word">delivery window</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq5btn"
-            onclick="toggleQReveal('pq5','pq5btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq5">
+          <button class="q-reveal-btn" id="pq05btn"
+            onclick="toggleQReveal('pq05','pq05btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq05">
             <span class="q-reveal-model-label">Example answer</span>
-            "The hardest part for me was the tone. I knew what I wanted to say — I wanted to push back on their payment terms — but I was not sure how to do it in English without sounding rude."
+            "The hardest part for me was the tone. I knew what I wanted to say, but I was not sure how to do it in English without sounding rude."
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">06</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">What is the difference between a <span class="tt" data-tip="po">Purchase Order</span> and a purchase agreement? Have you worked with both?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"As far as I understand, a PO is..."</span><span class="q-frame">"The main difference is that..."</span><span class="q-frame">"In my company, we use a purchase agreement when..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">single transaction</span><span class="q-word">ongoing relationship</span><span class="q-word">legally binding</span><span class="q-word">terms and conditions</span><span class="q-word">framework contract</span><span class="q-word">renewal</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq6btn"
-            onclick="toggleQReveal('pq6','pq6btn','Show what the research says')">Show what the research says</button>
-          <div class="q-research-model" id="pq6">
+          <button class="q-reveal-btn" id="pq06btn"
+            onclick="toggleQReveal('pq06','pq06btn','Show what the research says')">Show what the research says</button>
+          <div class="q-research-model" id="pq06">
             <span class="q-research-label">What the research says</span>
-            A Purchase Order is a single transaction commitment — it covers one order and expires on delivery. A purchase agreement governs a longer-term relationship and includes rules for all future transactions. Research shows that companies with formal supplier agreements experience significantly fewer disputes: a 2021 Deloitte Procurement Survey found that structured supplier contracts reduced claims by an average of 34% compared to PO-only arrangements.
+            A Purchase Order covers one transaction and expires on delivery. A purchase agreement governs an ongoing relationship and covers all future transactions under agreed terms. Research supports the value of formal agreements: a 2021 Deloitte Procurement Survey found that structured supplier contracts reduced claims and disputes by an average of 34% compared to companies relying only on purchase orders.
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">07</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">When a problem happens after the goods arrive — damaged packaging, wrong quantity, missing items — what is the first step in your company?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"The first step in our company is always to..."</span><span class="q-frame">"When something like that happens, we immediately..."</span><span class="q-frame">"Our process starts with..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">document</span><span class="q-word">photograph</span><span class="q-word">incoming inspection</span><span class="q-word">non-conforming goods</span><span class="q-word">claim</span><span class="q-word">formal notice</span><span class="q-word">time limit</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq7btn"
-            onclick="toggleQReveal('pq7','pq7btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq7">
+          <button class="q-reveal-btn" id="pq07btn"
+            onclick="toggleQReveal('pq07','pq07btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq07">
             <span class="q-reveal-model-label">Example answer</span>
-            "The first step is to document everything before touching the goods — photos, a written record of what arrived, and a note of the date and time. Then we contact the supplier formally. Acting fast matters because some contracts have a short window for claims."
+            "The first step is to document everything before touching the goods. Photos, a written record of what arrived, the date and time. Then we contact the supplier formally. Acting fast matters because some contracts have a short window for claims."
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">08</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">Think about the last time you had to write a formal email to a supplier in English. What was difficult — vocabulary, tone, or something else?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"The most difficult part for me was..."</span><span class="q-frame">"I found it hard to..."</span><span class="q-frame">"Writing formally in English is a challenge because..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">formal register</span><span class="q-word">tone</span><span class="q-word">opening line</span><span class="q-word">complaint</span><span class="q-word">follow up</span><span class="q-word">polite but firm</span><span class="q-word">closing</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq8btn"
-            onclick="toggleQReveal('pq8','pq8btn','Show an example answer')">Show an example answer</button>
-          <div class="q-reveal-model" id="pq8">
+          <button class="q-reveal-btn" id="pq08btn"
+            onclick="toggleQReveal('pq08','pq08btn','Show an example answer')">Show an example answer</button>
+          <div class="q-reveal-model" id="pq08">
             <span class="q-reveal-model-label">Example answer</span>
-            "For me, it was always the opening. I never knew how to start a formal complaint email in English without sounding either too aggressive or too informal. In Portuguese it comes naturally — in English I had to think about every word."
+            "For me it was always the opening. I never knew how to start a formal complaint email in English without sounding too aggressive or too informal. In Portuguese it comes naturally. In English I had to think about every word."
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">09</span>
-        <div>
-          <p class="q-text">Is procurement in your company mostly reactive — solving problems as they happen — or strategic — building supplier relationships over time?</p>
+        <div style="flex:1">
+          <p class="q-text">Is procurement in your company mostly reactive — solving problems as they happen — or strategic, building supplier relationships over time?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"In my company, procurement is mostly..."</span><span class="q-frame">"We tend to be more reactive because..."</span><span class="q-frame">"I would say we are moving towards a more strategic approach by..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">approved supplier list</span><span class="q-word">performance review</span><span class="q-word">supplier development</span><span class="q-word">demand driven</span><span class="q-word">proactive</span><span class="q-word">long term</span><span class="q-word">cost reduction</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
-          <button class="q-reveal-btn" id="pq9btn"
-            onclick="toggleQReveal('pq9','pq9btn','Show what the research says')">Show what the research says</button>
-          <div class="q-research-model" id="pq9">
+          <button class="q-reveal-btn" id="pq09btn"
+            onclick="toggleQReveal('pq09','pq09btn','Show what the research says')">Show what the research says</button>
+          <div class="q-research-model" id="pq09">
             <span class="q-research-label">What the research says</span>
-            Most procurement functions in Brazil operate reactively, according to a 2022 ILOS survey of industrial buyers: 68% of respondents described their purchasing as "demand-driven" rather than "supplier development-oriented." Companies that shifted to strategic procurement — with approved supplier lists, performance reviews, and long-term agreements — reported 22% lower total acquisition costs over a three-year period.
+            Most procurement functions in Brazil operate reactively. A 2022 ILOS survey of industrial buyers found that 68% described their purchasing as demand driven rather than supplier development oriented. Companies that shifted to strategic procurement reported 22% lower total acquisition costs over a three year period.
           </div>
         </div>
       </div>
       <div class="q-item">
         <span class="q-n">10</span>
-        <div>
+        <div style="flex:1">
           <p class="q-text">What is one thing a supplier could do that would immediately make you want to work with them again?</p>
+          <div class="q-support">
+            <div class="q-support-frames">
+              <span class="q-support-label">Language frames</span>
+              <span class="q-frame">"For me, the most important thing is..."</span><span class="q-frame">"I would definitely work with a supplier again if they..."</span><span class="q-frame">"What makes a supplier stand out is..."</span>
+            </div>
+            <span class="q-support-words-label">Useful words</span>
+            <div class="q-words"><span class="q-word">proactive</span><span class="q-word">transparent</span><span class="q-word">communicate early</span><span class="q-word">deliver on time</span><span class="q-word">take responsibility</span><span class="q-word">partnership</span><span class="q-word">reliable</span></div>
+          </div>
           <textarea class="q-ta" placeholder="Write your answer here..."></textarea>
           <button class="q-reveal-btn" id="pq10btn"
             onclick="toggleQReveal('pq10','pq10btn','Show an example answer')">Show an example answer</button>
@@ -465,7 +488,8 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
         </div>
       </div>
     </div>
-    </section>
+  </div>
+</section>
 
 <footer class="footer">
   <svg class="footer-logo" viewBox="0 0 2512 1312" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/>
@@ -495,13 +519,14 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
 <path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
 <path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/>
 <path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
-<p class="footer-copy">EIC · Escola de Idiomas e Cultura · <strong>Procurement & Purchasing</strong> · B1+</p>
+  <p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
 </footer>
 
 <div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
 
 <script>
 (function() {
+
   var TIPS = {
     "rfq": {pt: "pedido de cotação", def: "Request for Quotation — a document sent to suppliers asking for price, lead time, and delivery details."},
     "po": {pt: "ordem de compra", def: "Purchase Order — a legally binding document that locks in price, quantity, and delivery date."},
@@ -518,6 +543,13 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
     "meet": {pt: "atender, cumprir", def: "To reach or satisfy a required standard."},
     "gowrong": {pt: "dar errado", def: "When something fails or doesn't happen the way it should."},
     "insteadof": {pt: "em vez de", def: "Used to show that one thing replaces another."}
+  };
+
+  window.toggleQReveal = function(id, btnId, defaultLabel) {
+    var el = document.getElementById(id);
+    var btn = document.getElementById(btnId);
+    var open = el.classList.toggle('show');
+    if (btn) btn.textContent = open ? 'Hide' : (defaultLabel || 'Show an example answer');
   };
 
   function initTooltip() {
@@ -544,484 +576,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
       tip.style.top = (e.clientY - tip.offsetHeight - 16) + "px";
     }
   }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTooltip);
-  } else {
-    initTooltip();
-  }
-
-  // ── VOCAB PANEL ──
-  window.openVP = function() {
-    document.getElementById('vp-panel').classList.add('open');
-    document.getElementById('vp-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-  window.closeVP = function() {
-    document.getElementById('vp-panel').classList.remove('open');
-    document.getElementById('vp-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeVP();
-  });
-
-  var vpCurrentFilter = 'all';
-  var vpCurrentSearch = '';
-
-  window.filterVP = function() {
-    vpCurrentSearch = document.getElementById('vp-search').value.toLowerCase();
-    applyVPFilter();
-  };
-
-  document.querySelectorAll('.vp-filter').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.vp-filter').forEach(function(b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-      vpCurrentFilter = btn.dataset.filter;
-      applyVPFilter();
-    });
-  });
-
-  function applyVPFilter() {
-    var cards = document.querySelectorAll('.vp-card');
-    var visible = 0;
-    cards.forEach(function(card) {
-      var catMatch = vpCurrentFilter === 'all' || card.dataset.cat === vpCurrentFilter;
-      var searchMatch = !vpCurrentSearch || card.textContent.toLowerCase().includes(vpCurrentSearch);
-      var show = catMatch && searchMatch;
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-  }
-
-
-  window.toggleQReveal = function(id, btnId, defaultLabel) {
-    var el = document.getElementById(id);
-    var btn = document.getElementById(btnId);
-    var open = el.classList.toggle('show');
-    if (btn) btn.textContent = open ? 'Hide' : (defaultLabel || 'Show an example answer');
-  };
+  initTooltip();
 
 })();
 </script>
-
-
-<!-- VOCAB PANEL FAB -->
-<button class="vp-fab" id="vp-fab" onclick="openVP()" title="Vocabulary Practice">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-    <line x1="10" y1="8" x2="16" y2="8"/><line x1="10" y1="12" x2="16" y2="12"/><line x1="10" y1="16" x2="14" y2="16"/>
-  </svg>
-  <span class="vp-fab-label">Vocab</span>
-</button>
-
-<!-- VOCAB PANEL OVERLAY -->
-<div class="vp-overlay" id="vp-overlay" onclick="closeVP()"></div>
-
-<!-- VOCAB PANEL -->
-<div class="vp-panel" id="vp-panel">
-  <div class="vp-panel-hdr">
-    <div>
-      <div class="vp-panel-eyebrow">Procurement · 42 terms</div>
-      <div class="vp-panel-title">Vocabulary</div>
-    </div>
-    <button class="vp-panel-close" onclick="closeVP()">&#x2715;</button>
-  </div>
-  <div class="vp-filters">
-    <button class="vp-filter active" data-filter="all">All <span class="vp-count">42</span></button>
-<button class="vp-filter" data-filter="Documents & Process" style="--cat-color:var(--teal)">Documents <span class="vp-count">13</span></button>
-<button class="vp-filter" data-filter="Legal & Contracts" style="--cat-color:var(--purple)">Legal <span class="vp-count">11</span></button>
-<button class="vp-filter" data-filter="Logistics & Operations" style="--cat-color:var(--orange)">Logistics <span class="vp-count">10</span></button>
-<button class="vp-filter" data-filter="Quality & Compliance" style="--cat-color:#059669">Quality <span class="vp-count">3</span></button>
-<button class="vp-filter" data-filter="Grammar & Usage" style="--cat-color:#BE185D">Grammar <span class="vp-count">5</span></button>
-
-  </div>
-  <div class="vp-search-wrap">
-    <input class="vp-search" type="text" placeholder="Search terms..." oninput="filterVP()" id="vp-search">
-  </div>
-  <div class="vp-cards" id="vp-cards">
-    <div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">penalty clause</div>
-    <div class="vp-pt">penalidade contratual</div>
-    <div class="vp-def">A financial consequence applied when one party fails to meet the contract terms — such as late delivery or quality failure.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">payment terms</div>
-    <div class="vp-pt">condições de pagamento</div>
-    <div class="vp-def">The agreed rules about when and how a buyer will pay the seller — for example, 30 days after the invoice date.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">force majeure</div>
-    <div class="vp-pt">força maior</div>
-    <div class="vp-def">A contract provision that frees both parties from obligations when extraordinary events — such as disasters or conflicts — make fulfilment impossible.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">acknowledge</div>
-    <div class="vp-pt">confirmar o recebimento / acusar o recibo</div>
-    <div class="vp-def">To formally confirm that a document was received and understood. 'Please acknowledge receipt of this PO.'</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Grammar & Usage">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
-    <div class="vp-term">supposed to</div>
-    <div class="vp-pt">era para / devia</div>
-    <div class="vp-def">Fixed expression for plans, agreements, or expectations. Not for personal opinions.</div>
-    <div class="vp-ex">""The delivery was supposed to arrive on Friday.""</div>
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Non-conforming goods</div>
-    <div class="vp-pt">Produtos Não Conformes</div>
-    <div class="vp-def">Goods that do not meet the specifications, quality standards, or requirements defined in the contract or purchase order. The buyer has the right to reject non-conforming goods and request replacement or a price reduction.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Grammar & Usage">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
-    <div class="vp-term">must</div>
-    <div class="vp-pt">deve / é obrigado a</div>
-    <div class="vp-def">Strong obligation — a rule, legal requirement, or non-negotiable condition.</div>
-    <div class="vp-ex">""All invoices must include the PO number.""</div>
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">stockout</div>
-    <div class="vp-pt">ruptura de estoque</div>
-    <div class="vp-def">When stock reaches zero and production or sales cannot continue. Every day of stockout has a direct financial cost.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">quotation</div>
-    <div class="vp-pt">cotação / orçamento formal</div>
-    <div class="vp-def">A formal document from a supplier stating the price, quantity, and conditions under which they will sell their goods.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">resubmit</div>
-    <div class="vp-pt">reenviar / submeter novamente</div>
-    <div class="vp-def">To send a corrected document again after an error was found. 'Please resubmit the invoice with the correct unit price.'</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Scope of supply</div>
-    <div class="vp-pt">Escopo de Fornecimento</div>
-    <div class="vp-def">The precise definition of what the supplier is responsible for delivering — including goods, services, documentation, packaging, and installation if applicable. A well-defined scope prevents disputes about what was and was not included in the contract price.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">Incoterm</div>
-    <div class="vp-pt">incoterm</div>
-    <div class="vp-def">Internationally recognised trade terms that define where responsibility transfers from seller to buyer, and who pays for shipping and insurance.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">vessel</div>
-    <div class="vp-pt">navio / embarcação</div>
-    <div class="vp-def">A ship used for transporting cargo. 'We have confirmed vessel booking' = space on the ship is reserved.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Arbitration</div>
-    <div class="vp-pt">Arbitragem</div>
-    <div class="vp-def">A private dispute resolution process where a neutral third party (arbitrator) makes a binding decision instead of a court. Common in international contracts because it avoids the complexity of litigating across different legal systems. The ICC (International Chamber of Commerce) is a leading arbitration institution.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">clause</div>
-    <div class="vp-pt">cláusula</div>
-    <div class="vp-def">A specific condition or requirement written into a contract or agreement.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">reorder</div>
-    <div class="vp-pt">reabastecer / fazer novo pedido</div>
-    <div class="vp-def">To place a new purchase order for a product that is running low. 'We need to reorder HX-44 immediately.'</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Quality & Compliance">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#059669;background:rgba(5,150,105,.1)">Quality & Compliance</div>
-    <div class="vp-term">compatibility</div>
-    <div class="vp-pt">compatibilidade</div>
-    <div class="vp-def">Whether a component will work correctly with the buyer's existing equipment or system.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Quality & Compliance">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#059669;background:rgba(5,150,105,.1)">Quality & Compliance</div>
-    <div class="vp-term">inspection</div>
-    <div class="vp-pt">inspeção</div>
-    <div class="vp-def">A physical check of goods — either at the factory before shipping (outgoing) or at the warehouse on arrival (incoming).</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">invoice</div>
-    <div class="vp-pt">fatura</div>
-    <div class="vp-def">A document from the supplier requesting payment for goods delivered. Must match the PO and GRN to be processed.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Request for Quotation (RFQ)</div>
-    <div class="vp-pt">Pedido de Cotação</div>
-    <div class="vp-def">A formal document sent by a buyer to one or more suppliers asking them to provide a price and delivery conditions for specific goods or services. It is not an order — it is a request for information.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Confidentiality clause</div>
-    <div class="vp-pt">Cláusula de Confidencialidade</div>
-    <div class="vp-def">A contract clause that prohibits one or both parties from disclosing sensitive information — such as pricing, technical specifications, or business plans — to third parties. Also known as an NDA (Non-Disclosure Agreement) when it is a standalone document.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Liability cap</div>
-    <div class="vp-pt">Limite de Responsabilidade</div>
-    <div class="vp-def">A contractual limit on the maximum financial compensation one party can claim from the other. Suppliers often propose low liability caps to protect themselves from large claims. Buyers should always check if the cap covers the full value of the order — and negotiate upward if necessary.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">freight</div>
-    <div class="vp-pt">frete / carga</div>
-    <div class="vp-def">The goods being transported, or the cost of transporting them. 'Freight costs' = the price of shipping.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Grammar & Usage">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
-    <div class="vp-term">should</div>
-    <div class="vp-pt">deveria / acho que</div>
-    <div class="vp-def">Use for advice or personal opinion. Not for agreements or contracts.</div>
-    <div class="vp-ex">""I think we should ask for better payment terms.""</div>
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">warehouse</div>
-    <div class="vp-pt">armazém / depósito</div>
-    <div class="vp-def">The physical location where goods are stored after arrival and before being used in production or distributed.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Net 30 / Net 60</div>
-    <div class="vp-pt">Pagamento em 30 / 60 dias</div>
-    <div class="vp-def">Standard payment terms meaning the buyer must pay within 30 (or 60) days of the invoice date. Net 60 is common in B2B procurement and gives the buyer more time to manage cash flow. Suppliers may offer early payment discounts (e.g. 2/10 Net 30 = 2% discount if paid within 10 days).</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Governing law</div>
-    <div class="vp-pt">Lei Aplicável / Foro</div>
-    <div class="vp-def">The jurisdiction whose laws will be used to interpret the contract and resolve disputes. In international procurement, this is critical — if a dispute goes to court orarbitrationA private dispute resolution process — a neutral arbitrator decides instead of a court. / Processo privado de resolução de disputas — um árbitro neutro decide em vez de um tribunal., the governing law determines the outcome. Always check with legal before accepting a foreign governing law.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Grammar & Usage">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
-    <div class="vp-term">certificate of conformance</div>
-    <div class="vp-pt">certificado de conformidade</div>
-    <div class="vp-def">A document from the supplier confirming goods meet the agreed specifications.</div>
-    <div class="vp-ex">""Every batch is supposed to come with a certificate of conformance.""</div>
-  </div>
-</div>
-<div class="vp-card" data-cat="Quality & Compliance">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#059669;background:rgba(5,150,105,.1)">Quality & Compliance</div>
-    <div class="vp-term">tolerance</div>
-    <div class="vp-pt">tolerância</div>
-    <div class="vp-def">The acceptable range of variation in a measurement. E.g. ±0.05mm means the part can be 0.05mm bigger or smaller than the target.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">batch</div>
-    <div class="vp-pt">lote</div>
-    <div class="vp-def">A group of products made in the same production run. Each batch has a unique reference for traceability — critical in chemicals and regulated industries.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">procurement</div>
-    <div class="vp-pt">compras / suprimentos</div>
-    <div class="vp-def">The full process of finding, evaluating, and buying goods or services for a business.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">lead time</div>
-    <div class="vp-pt">prazo de produção e entrega</div>
-    <div class="vp-def">The total time between placing an order and receiving the goods.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Logistics & Operations">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--orange);background:rgba(232,98,26,.1)">Logistics & Operations</div>
-    <div class="vp-term">specification</div>
-    <div class="vp-pt">especificação técnica</div>
-    <div class="vp-def">The exact technical requirements for a product — dimensions, materials, purity, tolerances. The supplier must meet every point.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">MOQ (Minimum Order Quantity)</div>
-    <div class="vp-pt">quantidade mínima de pedido</div>
-    <div class="vp-def">The smallest quantity a supplier is willing to sell in a single order.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">Purchase Order (PO)</div>
-    <div class="vp-pt">ordem de compra</div>
-    <div class="vp-def">A formal document issued by a buyer to a supplier, confirming the purchase of specific goods at an agreed price and quantity.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">purchase agreement</div>
-    <div class="vp-pt">contrato de fornecimento</div>
-    <div class="vp-def">A formal legal document that defines the terms of an ongoing supply relationship between a buyer and a supplier.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Time is of the essence</div>
-    <div class="vp-pt">O prazo é essencial / fundamental</div>
-    <div class="vp-def">A legal phrase used in contracts meaning that meeting the deadline is a fundamental requirement, not a guideline. If a contract contains this phrase, a supplier who delivers even one day late can be heldin breach of contractWhen a party fails to fulfil a legal obligation under a contract. / Quando uma parte deixa de cumprir uma obrigação legal prevista em contrato..</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">Warranty</div>
-    <div class="vp-pt">Garantia</div>
-    <div class="vp-def">A supplier's formal commitment that goods will be free from defects for a defined period. The warranty period, start date (from delivery, installation, or first use), and what it covers are all negotiable and must be clearly specified in the contract.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Legal & Contracts">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--purple);background:rgba(91,33,182,.1)">Legal & Contracts</div>
-    <div class="vp-term">In breach of contract</div>
-    <div class="vp-pt">Em descumprimento contratual</div>
-    <div class="vp-def">When a party fails to fulfil one or more of its contractual obligations. A breach can be minor (partial non-performance) or material (serious failure that entitles the other party to terminate and claim damages). Late delivery, non-conforming goods, and failure to pay are common examples.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">RFQ (Request for Quotation)</div>
-    <div class="vp-pt">pedido de cotação formal</div>
-    <div class="vp-def">A document sent to suppliers asking them to provide a price and delivery details for specific goods or services.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Documents & Process">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:var(--teal);background:rgba(13,122,138,.1)">Documents & Process</div>
-    <div class="vp-term">amendment</div>
-    <div class="vp-pt">aditivo / alteração de contrato</div>
-    <div class="vp-def">A formal written change made to an existing contract or purchase order after it has been signed.</div>
-    
-  </div>
-</div>
-<div class="vp-card" data-cat="Grammar & Usage">
-  <div class="vp-card-inner">
-    <div class="vp-tag" style="color:#BE185D;background:rgba(190,24,93,.1)">Grammar & Usage</div>
-    <div class="vp-term">Bill of Lading (B/L)</div>
-    <div class="vp-pt">Conhecimento de Embarque</div>
-    <div class="vp-def">A legal shipping document required for customs clearance at the destination port.</div>
-    <div class="vp-ex">""Hua Li was supposed to send the B/L within 24 hours of shipment.""</div>
-  </div>
-</div>
-  </div>
-</div>
-
-<!-- END VOCAB PANEL -->
 </body>
 </html>

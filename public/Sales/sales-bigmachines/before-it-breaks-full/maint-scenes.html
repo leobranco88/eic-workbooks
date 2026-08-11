@@ -98,7 +98,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .speak-icon svg{width:13px;height:13px;stroke:var(--orange);fill:none;stroke-width:2}
 .speak-title{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--orange)}
 .speak-text{font-size:13.5px;color:#fff;line-height:1.6;font-weight:600}
+.speak-list{list-style:none;margin:0}
+.speak-list li{font-size:13.5px;color:#fff;line-height:1.5;font-weight:600;padding-left:18px;position:relative;margin-bottom:9px}
+.speak-list li:last-child{margin-bottom:0}
+.speak-list li::before{content:"?";position:absolute;left:0;top:0;color:var(--orange);font-weight:900}
+.speak-pick{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
 .speak-sub{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:8px;font-style:italic}
+.speak-frames{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(232,98,26,.35)}
+.speak-frames-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
+.speak-frame{font-size:12px;color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:3px}
+.speak-frame em{color:rgba(255,255,255,.45);font-style:italic}
 .side-hd{display:flex;align-items:center;gap:9px;margin-bottom:10px}
 .side-icon{width:26px;height:26px;border-radius:50%;background:rgba(26,155,174,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .side-icon svg{width:13px;height:13px;stroke:var(--teal-lt);fill:none;stroke-width:2}
@@ -108,8 +117,10 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .obj-list li{display:flex;gap:8px;align-items:baseline;font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:6px}
 .obj-list li::before{content:"✓";color:var(--green);font-weight:900;flex-shrink:0}
 .lang-list{list-style:none}
-.lang-list li{font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.7;padding-left:14px;position:relative}
+.lang-list li{font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.5;padding-left:14px;position:relative;margin-bottom:8px}
+.lang-list li:last-child{margin-bottom:0}
 .lang-list li::before{content:"•";position:absolute;left:0;color:var(--teal-lt)}
+.lang-list li em{display:block;font-size:11px;color:rgba(255,255,255,.4);font-style:italic;margin-top:1px}
 
 /* ── BOTTOM NAV ── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--dark);border-top:1px solid rgba(255,255,255,.08);
@@ -125,6 +136,20 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 
 /* ── WHO'S IN THE ROOM SELECTOR ── */
 .selector-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px}
+
+/* ── CURRENT STATE VS PROPOSED ── */
+.compare-card{margin-top:24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px}
+.compare-title{font-size:13px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--hi);margin-bottom:4px}
+.compare-sub{font-size:12.5px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.compare-row{display:grid;grid-template-columns:1fr 28px 1fr;gap:10px;align-items:stretch;margin-bottom:10px}
+.compare-cell{border-radius:10px;padding:11px 13px;font-size:12.5px;line-height:1.5}
+.compare-cell.before{background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.25);color:rgba(255,255,255,.85)}
+.compare-cell.after{background:rgba(26,155,174,.12);border:1px solid rgba(26,155,174,.3);color:rgba(255,255,255,.9)}
+.compare-arrow{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:16px}
+.compare-label{font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px}
+.compare-cell.before .compare-label{color:var(--coral)}
+.compare-cell.after .compare-label{color:var(--teal-lt)}
+@media(max-width:640px){.compare-row{grid-template-columns:1fr;gap:6px}.compare-arrow{display:none}}
 
 /* ── EMAIL SCENE ── */
 .email-decision{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;margin-bottom:16px}
@@ -197,6 +222,39 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .page-outer{padding-bottom:70px}
 .tt{border-bottom:1.5px dotted var(--teal-lt);cursor:help}
 .tt:hover{color:var(--teal-lt)}
+/* ── MATCH WITH THE MODEL ── */
+.match-fab{position:fixed;top:175px;right:18px;z-index:210;display:flex;align-items:center;gap:8px;
+  background:var(--dark);border:1px solid rgba(255,255,255,.15);color:#fff;padding:9px 14px 9px 10px;
+  border-radius:22px;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s ease,border-color .3s ease}
+.match-fab:hover{transform:translateY(-2px)}
+.match-fab-ring{width:26px;height:26px;border-radius:50%;flex-shrink:0;position:relative;
+  background:conic-gradient(var(--teal-lt) calc(var(--pct,0) * 1%), rgba(255,255,255,.15) 0);
+  transition:background .4s ease}
+.match-fab-ring::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--dark)}
+.match-fab-text{font-size:11px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.match-fab-text small{display:block;font-size:8px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+@media(max-width:640px){.match-fab{top:150px;right:12px;padding:7px 11px 7px 8px}.match-fab-ring{width:22px;height:22px}.match-fab-text{font-size:10px}}
+
+.match-overlay{display:none;position:fixed;inset:0;background:rgba(7,16,32,.6);z-index:400}
+.match-overlay.open{display:block}
+.match-panel{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:401;
+  width:min(420px,90vw);max-height:80vh;background:var(--dark);border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;flex-direction:column;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.match-panel.open{display:flex}
+.match-panel-hd{padding:18px 20px 14px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0}
+.match-panel-title{font-size:14px;font-weight:900;color:#fff}
+.match-panel-sub{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:2px}
+.match-panel-close{width:28px;height:28px;border-radius:50%;border:none;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:15px;cursor:pointer;flex-shrink:0}
+.match-panel-body{overflow-y:auto;padding:10px 20px 20px}
+.match-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.match-item:last-child{border-bottom:none}
+.match-item-icon{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
+.match-item-icon.pending{background:rgba(255,255,255,.08);color:rgba(255,255,255,.3)}
+.match-item-icon.good{background:rgba(26,155,174,.25);color:var(--teal-lt)}
+.match-item-icon.risky{background:rgba(230,57,70,.2);color:var(--coral)}
+.match-item-label{font-size:12.5px;color:rgba(255,255,255,.85);flex:1}
+.match-item-label.pending{color:rgba(255,255,255,.35)}
+
 #gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:9px;padding:9px 13px;
   font-size:12px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none;max-width:230px}
 #gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
@@ -310,10 +368,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>I'm <span class="tt" data-tip="reachout">reaching out</span> because...</li><li>Would you have 20 minutes this week for a quick call?</li><li>I'd love to learn more about your <span class="tt" data-tip="current">current</span> approach.</li><li>Happy to work around your schedule.</li></ul>
+          <ul class="lang-list"><li>I'm <span class="tt" data-tip="reachout">reaching out</span> because...<em>Estou entrando em contato porque...</em></li><li>Would you have 20 minutes this week for a quick call?<em>Você teria 20 minutos essa semana para uma ligação rápida?</em></li><li>I'd love to learn more about your <span class="tt" data-tip="current">current</span> approach.<em>Adoraria saber mais sobre a abordagem atual de vocês.</em></li><li>Happy to work around your schedule.<em>Fico à vontade para me adaptar à sua agenda.</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">Who would you email first if you were trying to reach a new client's company? Tell your partner why.</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think it's better to start with the person who'll actually use the product, or the person who'll approve the budget?</li><li>Do you think a cold email should ask for a meeting directly, or offer useful information first?</li><li>Is it better to email the whole team at once, or reach one person at a time?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -339,7 +403,24 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
             <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Good morning! My name is Alex Morgan. I have a 10 a.m. appointment with the Maintenance Manager.</div></div>
             <div class="bubble-row"><img data-photo="linda" alt=""><div class="bubble">Good morning, Alex. Let me check... May I have your company name, please?</div></div>
             <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Sure. I'm from Ventix Compressors. We provide industrial maintenance services.</div></div>
+            <div class="bubble-row"><img data-photo="linda" alt=""><div class="bubble">Hmm, I'm not finding anything for a 10 a.m. under that name. Are you sure it was today?</div></div>
           </div>
+
+          <div class="decision">
+            <div class="decision-q">How does Alex respond to the mix-up?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Pressuring a gatekeeper who\'s already trying to help rarely speeds things up, and can put her on the defensive.')">
+              <span class="decision-letter">A</span><span class="decision-text">Insist it must be there and ask her to look again.</span>
+            </div>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good instinct. Giving her something concrete to check reduces friction, and shows Alex isn\'t blaming her for the mix-up.')">
+              <span class="decision-letter">B</span><span class="decision-text">Stay calm and offer to show the confirmation email.</span>
+            </div>
+            <div class="decision-feedback" id="fb-1a"></div>
+          </div>
+
+          <div class="chat" style="margin-top:14px">
+            <div class="bubble-row"><img data-photo="linda" alt=""><div class="bubble">Ah, here it is, it was booked under "Facilities", not under your name. Sorry about that. Someone from the maintenance team will be right with you.</div></div>
+          </div>
+
           <div class="decision">
             <div class="decision-q">What should Alex do next?</div>
             <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Pushing past the gatekeeper this early can damage trust before the relationship even starts.')">
@@ -363,10 +444,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>I have an appointment with...</li><li>May I have your name, please?</li><li>Could you let him/her know that...?</li><li>Is it possible to reschedule?</li></ul>
+          <ul class="lang-list"><li>I have the confirmation here, if that helps.<em>Tenho a confirmação aqui, se ajudar.</em></li><li>No problem, happy to wait.<em>Sem problema, fico à vontade pra esperar.</em></li><li>Could you let him/her know that...?<em>Você poderia avisar ele/ela que...?</em></li><li>Would it help if I sent that over again?<em>Ajudaria se eu reenviasse isso?</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">Have you ever had to <span class="tt" data-tip="getpast">get past</span> someone before reaching the person you actually needed? What happened?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think it's ever okay to go around a gatekeeper? When, if ever?</li><li>Do you think it's better to be very formal with a gatekeeper, or more casual and friendly?</li><li>If someone else's mistake wastes your time, is it better to mention it, or just let it go?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -391,13 +478,32 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
             <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">What's it like working with this compressor day to day? Anything that surprises you?</div></div>
             <div class="bubble-row"><img data-photo="carlos" alt=""><div class="bubble">Honestly, the vibration checks take forever. If that was faster, that'd help a lot.</div></div>
           </div>
+
+          <div class="decision">
+            <div class="decision-q">How does Alex keep him talking, without sounding like he's just checking a box?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Too fast. Moving straight to a fix signals Alex wasn\'t really listening, he was just waiting for a problem to solve.')">
+              <span class="decision-letter">A</span><span class="decision-text">Jump straight to explaining how the new model fixes that.</span>
+            </div>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good instinct. Asking \'is it just the time\' shows Alex is curious about the real problem, not just collecting a complaint.')">
+              <span class="decision-letter">B</span><span class="decision-text">Ask if it's just the time, or if something else about it bothers him too.</span>
+            </div>
+            <div class="decision-feedback" id="fb-2a"></div>
+          </div>
+
+          <div class="chat" style="margin-top:14px">
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Is it just the time, or does something else about it bother you too?</div></div>
+            <div class="bubble-row"><img data-photo="carlos" alt=""><div class="bubble">Both, honestly. Half the time the readings are fine anyway. It's writing everything down <span class="tt" data-tip="byhand">by hand</span> that really kills me, not the checking itself.</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">That's good to know. Would something automated make a real difference?</div></div>
+            <div class="bubble-row"><img data-photo="carlos" alt=""><div class="bubble">Definitely. If I could scan a reading instead of logging it <span class="tt" data-tip="byhand">by hand</span>, I'd save maybe twenty minutes every visit.</div></div>
+          </div>
+
           <div class="decision">
             <div class="decision-q">What should Alex do next?</div>
             <div class="decision-opt" onclick="chooseOption(this,'risky','Careful. Promising something you can\'t guarantee damages trust fast, especially with the person who\'ll notice if you don\'t deliver.')">
-              <span class="decision-letter">A</span><span class="decision-text">Promise Carlos it will be fixed immediately.</span>
+              <span class="decision-letter">A</span><span class="decision-text">Promise Carlos the new system will fix the logging problem.</span>
             </div>
-            <div class="decision-opt" onclick="chooseOption(this,'good','Smart. Carlos isn\'t the decision maker, but his frustration is real information you can use with people who are.')">
-              <span class="decision-letter">B</span><span class="decision-text">Note this down and mention it later to Michael and Emma.</span>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Smart. Carlos isn\'t the decision maker, but the manual logging detail is exactly the kind of specific, credible evidence that lands well with people who are.')">
+              <span class="decision-letter">B</span><span class="decision-text">Note down the manual logging detail and mention it later to Michael and Emma.</span>
             </div>
             <div class="decision-feedback" id="fb-2"></div>
           </div>
@@ -406,18 +512,24 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
       <div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div><div class="side-title">Scene Context</div></div>
-          <p class="side-text">Michael introduces Alex to Carlos, the technician who actually works on the compressors every day. Carlos is busy and slightly <span class="tt" data-tip="waryof">wary of</span> the interruption.</p>
+          <p class="side-text">Michael introduces Alex to Carlos, the technician who actually works on the compressors every day. Carlos is busy and slightly <span class="tt" data-tip="waryof">wary of</span> the interruption. The real information is usually one question past the first complaint.</p>
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div class="side-title">Scene Objectives</div></div>
-          <ul class="obj-list"><li>Show respect for his time</li><li>Ask about his real experience</li><li>Avoid jargon he didn't ask for</li><li>Build trust with the person who'll notice if something goes wrong</li></ul>
+          <ul class="obj-list"><li>Show respect for his time</li><li>Ask a follow-up instead of jumping to a solution</li><li>Find the specific, concrete detail behind the complaint</li><li>Build trust with the person who'll notice if something goes wrong</li></ul>
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>I won't take much of your time.</li><li>What's it like working with this day to day?</li><li>Has anything ever surprised you about it?</li><li>What would make your job easier?</li></ul>
+          <ul class="lang-list"><li>I won't take much of your time.<em>Não vou tomar muito do seu tempo.</em></li><li>What's it like working with this day to day?<em>Como é trabalhar com isso no dia a dia?</em></li><li>Is it just the time, or something else too?<em>É só o tempo, ou tem mais alguma coisa também?</em></li><li>Would something automated make a difference?<em>Algo automatizado faria diferença?</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">Have you ever complained to a salesperson about something small that annoyed you? Did they listen?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think a salesperson should always ask a follow-up question, even when a complaint sounds small?</li><li>Is it better to ask an end user open questions, or specific yes/no questions?</li><li>Should a salesperson take notes during a casual conversation, or does that make people less open?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -438,16 +550,32 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
           </div>
           <div class="chat">
             <div class="bubble-row"><img data-photo="michael" alt=""><div class="bubble">We've had two unplanned stops this year already. What makes your maintenance plan different?</div></div>
-            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Based on the running hours we're seeing, most failures like these are preventable with scheduled vibration checks and filter replacement.</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Based on the <span class="tt" data-tip="runninghours">running hours</span> we're seeing, most failures like these are preventable with scheduled vibration checks and filter replacement.</div></div>
             <div class="bubble-row"><img data-photo="michael" alt=""><div class="bubble">That's what the last vendor said too.</div></div>
-            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Fair. I don't want to overpromise, would it help to see real data from a similar client?</div></div>
           </div>
+
+          <div class="decision">
+            <div class="decision-q">Michael goes quiet and crosses his arms. How does Alex read the silence?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Piling on more claims when someone goes quiet usually reads as trying too hard, not as building trust.')">
+              <span class="decision-letter">A</span><span class="decision-text">Fill the silence with more reasons the plan will work.</span>
+            </div>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good instinct. Skeptics often need a moment to process before deciding whether to keep engaging.')">
+              <span class="decision-letter">B</span><span class="decision-text">Let the silence sit, and wait for him to respond.</span>
+            </div>
+            <div class="decision-feedback" id="fb-3a"></div>
+          </div>
+
+          <div class="chat" style="margin-top:14px">
+            <div class="bubble-row"><img data-photo="michael" alt=""><div class="bubble">Alright. Send me the data. But I want the <span class="tt" data-tip="failuremodes">failure modes</span> too, not just an uptime number.</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Understood. I'll include the <span class="tt" data-tip="rootcause">root cause</span> data, not just the summary.</div></div>
+          </div>
+
           <div class="decision">
             <div class="decision-q">What should Alex do next?</div>
-            <div class="decision-opt" onclick="chooseOption(this,'good','Good. Technical buyers trust evidence more than confidence.')">
-              <span class="decision-letter">A</span><span class="decision-text">Offer to share real performance data from another client.</span>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good. Technical buyers trust evidence more than confidence, especially when it includes the failure modes they specifically asked for.')">
+              <span class="decision-letter">A</span><span class="decision-text">Offer to share real performance data, including failure modes.</span>
             </div>
-            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Michael has heard confident promises before, and they didn\'t hold up.')">
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Michael has heard confident promises before, and they didn\'t hold up. He just asked for specifics, not more confidence.')">
               <span class="decision-letter">B</span><span class="decision-text">Insist that this plan is definitely better, without proof.</span>
             </div>
             <div class="decision-feedback" id="fb-3"></div>
@@ -465,10 +593,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>Based on the running hours, I'd recommend...</li><li>That's a fair concern, here's how we handle it.</li><li>I don't want to overpromise, so let me be specific.</li><li>Would it help to see data from a similar client?</li></ul>
+          <ul class="lang-list"><li>Based on the running hours, I'd recommend...<em>Com base nas horas de operação, eu recomendaria...</em></li><li>I want the failure modes, not just an uptime number.<em>Eu quero os tipos de falha, não só um número de disponibilidade.</em></li><li>I'll include the root cause data, not just a summary.<em>Vou incluir os dados de causa raiz, não só um resumo.</em></li><li>Would it help to see data from a similar client?<em>Ajudaria ver dados de um cliente parecido?</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">Has a client ever doubted your word because of a bad experience with someone else? How did you handle it?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think a salesperson should answer a skeptical question with data, or with a story?</li><li>Do you think silence in a conversation is something to fill, or something to respect?</li><li>Is it better to admit a competitor did something well, or avoid mentioning them at all?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -493,13 +627,31 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
             <div class="bubble-row"><img data-photo="emma" alt=""><div class="bubble">Something simple. Like, what does this actually prevent, in plain terms?</div></div>
             <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">I'll put that in writing so you have it in hand, plain language, <span class="tt" data-tip="nojargon">no jargon</span>.</div></div>
           </div>
+
           <div class="decision">
-            <div class="decision-q">What should Alex do next?</div>
-            <div class="decision-opt" onclick="chooseOption(this,'risky','Missed opportunity. A long technical document won\'t survive an internal meeting.')">
-              <span class="decision-letter">A</span><span class="decision-text">Send her the full technical proposal and let her figure it out.</span>
+            <div class="decision-q">How should Alex frame what he sends her?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. A polished sales document in her inbox can make it look like she\'s just forwarding a vendor\'s pitch, not her own judgment.')">
+              <span class="decision-letter">A</span><span class="decision-text">As a copy of the official sales proposal, so it looks professional.</span>
             </div>
-            <div class="decision-opt" onclick="chooseOption(this,'good','Great instinct. Champions need ammunition they can actually use, not just more information.')">
-              <span class="decision-letter">B</span><span class="decision-text">Send Emma a short, non-technical summary she can forward.</span>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good call. When it sounds like her own thinking, it carries more weight with people who trust her, not a stranger\'s pitch.')">
+              <span class="decision-letter">B</span><span class="decision-text">As talking points she can put in her own words.</span>
+            </div>
+            <div class="decision-feedback" id="fb-4a"></div>
+          </div>
+
+          <div class="chat" style="margin-top:14px">
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Is there someone specific you're worried about convincing?</div></div>
+            <div class="bubble-row"><img data-photo="emma" alt=""><div class="bubble">Michael, honestly. He'll want to know this isn't just marketing <span class="tt" data-tip="dressedup">dressed up</span> as data.</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Good to know. I'll make sure the numbers are <span class="tt" data-tip="frontandcenter">front and center</span>, not <span class="tt" data-tip="buried">buried</span> in the middle.</div></div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-q">What should Alex send her?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Missed opportunity. A long technical document won\'t survive an internal meeting, and it puts the burden of translating it back on Emma.')">
+              <span class="decision-letter">A</span><span class="decision-text">The full technical proposal, so Michael sees everything.</span>
+            </div>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Great instinct. Champions need ammunition they can actually use in their own words, not just more information to sort through.')">
+              <span class="decision-letter">B</span><span class="decision-text">A short, non-technical summary she can forward as her own.</span>
             </div>
             <div class="decision-feedback" id="fb-4"></div>
           </div>
@@ -516,10 +668,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>What would help you make the case internally?</li><li>Who else might need convincing?</li><li>You could <span class="tt" data-tip="frameitas">frame it as</span>...</li><li>I'll put that in writing so you have it in hand.</li></ul>
+          <ul class="lang-list"><li>What would help you make the case internally?<em>O que ajudaria você a defender isso internamente?</em></li><li>Something you could put in your own words...<em>Algo que você possa colocar com suas próprias palavras...</em></li><li>I don't want to put you in an awkward position.<em>Não quero te colocar numa posição desconfortável.</em></li><li>What would carry weight with Michael?<em>O que teria peso pro Michael?</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">Do you have someone at work who defends your ideas when you're not in the room? What do they need from you to keep doing that?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think it's the salesperson's job to prepare an internal champion's talking points, or should the champion figure that out alone?</li><li>Is it better to give a champion more detail than they need, or exactly what they asked for?</li><li>Should a salesperson ask who else needs convincing, or wait to be told?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -542,14 +700,30 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
             <div class="bubble-row"><img data-photo="sarah" alt=""><div class="bubble">I have fifteen minutes. What's the <span class="tt" data-tip="bottomline">bottom line</span>?</div></div>
             <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">In the interest of time: this plan costs less than one unplanned breakdown, and prevents multiple ones a year.</div></div>
             <div class="bubble-row"><img data-photo="sarah" alt=""><div class="bubble">And if I say yes today?</div></div>
-            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">We schedule the first inspection this month, no delay.</div></div>
           </div>
+
+          <div class="decision">
+            <div class="decision-q">Sarah glances at her watch. How does Alex use the little time he has left?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Technical detail eats the clock that a busy economic buyer doesn\'t have to spare, and she didn\'t ask for it.')">
+              <span class="decision-letter">A</span><span class="decision-text">Start explaining the technical details of the plan.</span>
+            </div>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good instinct. Surfacing a concern while there\'s still time to address it beats finding out about it after she\'s already said no.')">
+              <span class="decision-letter">B</span><span class="decision-text">Ask if she has any concerns before committing.</span>
+            </div>
+            <div class="decision-feedback" id="fb-5a"></div>
+          </div>
+
+          <div class="chat" style="margin-top:14px">
+            <div class="bubble-row"><img data-photo="sarah" alt=""><div class="bubble">Just one. My last vendor promised no delays too, and then took three weeks to show up.</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">Fair concern. We schedule the first inspection this month, and I'll put that date in writing, so it's not just a promise.</div></div>
+          </div>
+
           <div class="decision">
             <div class="decision-q">What should Alex do next?</div>
-            <div class="decision-opt" onclick="chooseOption(this,'good','Right call. Economic buyers respect directness, especially when their time is limited.')">
+            <div class="decision-opt" onclick="chooseOption(this,'good','Right call. Economic buyers respect directness, especially after a past vendor let them down on exactly this point.')">
               <span class="decision-letter">A</span><span class="decision-text">Ask directly if she's ready to move forward.</span>
             </div>
-            <div class="decision-opt" onclick="chooseOption(this,'risky','Too passive. Busy decision makers often need you to ask for the close.')">
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Too passive. Busy decision makers often need you to ask for the close, especially once you\'ve already addressed their concern.')">
               <span class="decision-letter">B</span><span class="decision-text">Wait for her to bring up next steps herself.</span>
             </div>
             <div class="decision-feedback" id="fb-5"></div>
@@ -567,10 +741,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>In the interest of time, here's the bottom line...</li><li>This <span class="tt" data-tip="paysforitself">pays for itself</span> if it prevents one breakdown.</li><li>What would you need to see to move forward?</li><li>Can we agree on next steps today?</li></ul>
+          <ul class="lang-list"><li>In the interest of time, here's the bottom line...<em>Pra economizar tempo, o resumo é o seguinte...</em></li><li>Do you have any concerns before we move forward?<em>Você tem alguma preocupação antes de avançarmos?</em></li><li>I'll put that in writing, so it's not just a promise.<em>Vou colocar isso por escrito, pra não ser só uma promessa.</em></li><li>Can we agree on next steps today?<em>Podemos alinhar os próximos passos hoje?</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">If you had fifteen minutes with a busy decision maker, what's the one number or fact you'd <span class="tt" data-tip="leadwith">lead with</span>?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think it's better to lead with a number, or with a short story, when you only have a few minutes with a decision maker?</li><li>Should a salesperson ask about concerns before pitching, or after?</li><li>Is it better to promise an exact date, or a general timeframe?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -591,17 +771,35 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
           </div>
           <div class="chat">
             <div class="bubble-row"><img data-photo="frank" alt=""><div class="bubble">Nobody asked me about this. We've always fixed things when they break. Why change now?</div></div>
-            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">That's a fair question. You've been running this line longer than anyone, what's your biggest concern?</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">That's a <span class="tt" data-tip="fair">fair</span> question. You've been running this line longer than anyone, what's your biggest concern?</div></div>
             <div class="bubble-row"><img data-photo="frank" alt=""><div class="bubble">Extra cost for something that might not even happen.</div></div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-q">Frank crosses his arms and looks away. How does Alex respond in the moment?</div>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Countering the moment someone shows resistance usually makes them dig in harder, even if the counterpoint is correct.')">
+              <span class="decision-letter">A</span><span class="decision-text">Push back right away with a counter-argument.</span>
+            </div>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good instinct. Giving a skeptic room to finish their point, without jumping in, is often what earns you the right to respond at all.')">
+              <span class="decision-letter">B</span><span class="decision-text">Pause and let the silence sit for a moment.</span>
+            </div>
+            <div class="decision-feedback" id="fb-6a"></div>
+          </div>
+
+          <div class="chat" style="margin-top:14px">
+            <div class="bubble-row"><img data-photo="frank" alt=""><div class="bubble">Look, last time someone "upgraded" something here, it caused more downtime than it saved. I don't want that on my line again.</div></div>
+            <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">That makes sense, that's a real reason to be careful. Was that a different vendor, or a different kind of change?</div></div>
+            <div class="bubble-row"><img data-photo="frank" alt=""><div class="bubble">Different vendor. But I don't have a great <span class="tt" data-tip="trackrecord">track record</span> trusting "the new thing" either way.</div></div>
             <div class="bubble-row mine"><img data-photo="alex" alt=""><div class="bubble">I hear that. Can I follow up with the <span class="tt" data-tip="actual">actual</span> numbers, so it's not just my word?</div></div>
           </div>
+
           <div class="decision">
             <div class="decision-q">What should Alex do next?</div>
-            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Proving a skeptic wrong to their face usually deepens resistance instead of reducing it.')">
-              <span class="decision-letter">A</span><span class="decision-text">Explain why he's wrong.</span>
+            <div class="decision-opt" onclick="chooseOption(this,'risky','Risky. Proving a skeptic wrong to their face usually deepens resistance instead of reducing it, especially with a past bad experience behind it.')">
+              <span class="decision-letter">A</span><span class="decision-text">Explain why this vendor and this situation are different.</span>
             </div>
-            <div class="decision-opt" onclick="chooseOption(this,'good','Good approach. Blockers rarely change their mind in one conversation, but they remember being heard.')">
-              <span class="decision-letter">B</span><span class="decision-text">Acknowledge his concern and offer to follow up with data.</span>
+            <div class="decision-opt" onclick="chooseOption(this,'good','Good approach. Blockers rarely change their mind in one conversation, but they remember being heard, and a past bad experience deserves patience, not a rebuttal.')">
+              <span class="decision-letter">B</span><span class="decision-text">Acknowledge his experience and offer to follow up with data.</span>
             </div>
             <div class="decision-feedback" id="fb-6"></div>
           </div>
@@ -618,10 +816,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>I'd like to understand your concern better.</li><li>What's your take on this?</li><li>That's a fair point, can I follow up on that?</li><li>I'm not here to change everything overnight.</li></ul>
+          <ul class="lang-list"><li>That makes sense, that's a real reason to be careful.<em>Faz sentido, é um motivo real pra ter cautela.</em></li><li>I'm not asking you to trust me yet.<em>Não estou pedindo pra você confiar em mim ainda.</em></li><li>That's a fair point, can I follow up on that?<em>É um ponto justo, posso retomar isso depois?</em></li><li>I'm not here to change everything overnight.<em>Não estou aqui pra mudar tudo da noite pro dia.</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">Think of someone who resisted a change at your job. What was really behind their resistance?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think resistance to change is usually about the change itself, or about something else, like trust or a past bad experience?</li><li>Should a salesperson try to win an argument with a skeptic, or let it go unresolved for now?</li><li>Is it better to ask a skeptic direct questions, or give them space to talk without interruption?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -644,6 +848,37 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
             <div class="meeting-photo-cap">Michael, Emma, Sarah, and David, exactly the four people most likely to sit in on a technical and budget presentation like this one.</div>
           </div>
         </div>
+
+        <div class="compare-card">
+          <div class="compare-title">What Alex Is Actually Proposing</div>
+          <div class="compare-sub">The plan, side by side with how things work today at Northwind.</div>
+
+          <div class="compare-row">
+            <div class="compare-cell before"><span class="compare-label">Today</span>Reactive maintenance. You fix it after it breaks.</div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-cell after"><span class="compare-label">Proposed</span>Scheduled vibration checks and filter replacement.</div>
+          </div>
+          <div class="compare-row">
+            <div class="compare-cell before"><span class="compare-label">Today</span>Two unplanned stops this year already.</div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-cell after"><span class="compare-label">Proposed</span>Most of those failures are preventable in advance.</div>
+          </div>
+          <div class="compare-row">
+            <div class="compare-cell before"><span class="compare-label">Today</span>An unplanned breakdown, which always costs more, and never happens at a convenient time.</div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-cell after"><span class="compare-label">Proposed</span>A fixed, predictable cost, in writing.</div>
+          </div>
+          <div class="compare-row">
+            <div class="compare-cell before"><span class="compare-label">Today</span>Emergency stop misuse causes premature wear, and can void the warranty.</div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-cell after"><span class="compare-label">Proposed</span>Proper training on what the equipment is, and isn't, built for.</div>
+          </div>
+          <div class="compare-row">
+            <div class="compare-cell before"><span class="compare-label">Today</span>A past vendor promised no delays, then took three weeks to show up.</div>
+            <div class="compare-arrow">→</div>
+            <div class="compare-cell after"><span class="compare-label">Proposed</span>First inspection scheduled this month, no delay.</div>
+          </div>
+        </div>
       </div>
       <div>
         <div class="side-block">
@@ -656,10 +891,16 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         </div>
         <div class="side-block">
           <div class="side-hd"><div class="side-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 1 1 8.5-8.5z"/></svg></div><div class="side-title">Useful Language</div></div>
-          <ul class="lang-list"><li>Thanks everyone for making time today.</li><li>I'll keep this focused, since I know your time is limited.</li><li>Happy to go deeper on that after the meeting.</li><li>Let's <span class="tt" data-tip="alignon">align on</span> next steps before we close.</li></ul>
+          <ul class="lang-list"><li>Thanks everyone for making time today.<em>Obrigado a todos por reservarem um tempo hoje.</em></li><li>I'll keep this focused, since I know your time is limited.<em>Vou manter isso direto, já que sei que o tempo de vocês é limitado.</em></li><li>Happy to go deeper on that after the meeting.<em>Fico à vontade pra aprofundar isso depois da reunião.</em></li><li>Let's <span class="tt" data-tip="alignon">align on</span> next steps before we close.<em>Vamos alinhar os próximos passos antes de encerrar.</em></li></ul>
         <div class="speak-block">
           <div class="speak-hd"><div class="speak-icon"><svg viewBox="0 0 24 24"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div><div class="speak-title">Your Turn to Speak</div></div>
-          <div class="speak-text">If you were presenting to a room like this, who would make you the most nervous? Why?</div>
+          <div class="speak-pick">Pick whichever question fits best</div><ul class="speak-list"><li>Do you think it's better to address the most skeptical person in the room directly, or focus on the people who are already convinced?</li><li>Should a presenter mention people who aren't in the room, or focus only on those who are?</li><li>Is it better to ask for a decision at the end of a meeting, or let people think it over?</li></ul>
+          <div class="speak-frames">
+            <div class="speak-frames-label">Sentence starters</div>
+            <div class="speak-frame">I think it's better to... because...<em> Eu acho melhor... porque...</em></div>
+            <div class="speak-frame">In my opinion, ... because...<em> Na minha opinião, ... porque...</em></div>
+            <div class="speak-frame">It depends, but I'd say...<em> Depende, mas eu diria...</em></div>
+          </div>
           <div class="speak-sub">Talk to your partner or teacher, out loud, before moving on.</div>
         </div>
         </div>
@@ -676,12 +917,27 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
   <button class="nav-btn next" id="nextBtn" onclick="goScene(1)">Next Scene ›</button>
 </div>
 
+<div class="match-fab" onclick="toggleMatchPanel()">
+  <div class="match-fab-ring" id="match-fab-ring"></div>
+  <div class="match-fab-text"><small>Match</small><span id="match-fab-count">0/13</span></div>
+</div>
+
+<div class="match-overlay" id="match-overlay" onclick="toggleMatchPanel()"></div>
+<div class="match-panel" id="match-panel">
+  <div class="match-panel-hd">
+    <div>
+      <div class="match-panel-title">Match with the Model</div>
+      <div class="match-panel-sub">How your choices compare to Alex's ideal move, so far.</div>
+    </div>
+    <button class="match-panel-close" onclick="toggleMatchPanel()">&times;</button>
+  </div>
+  <div class="match-panel-body" id="match-panel-body"></div>
+</div>
+
 <div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
 
 <script>
   var TIPS = {
-    "getpast": {pt: "passar por, superar", def: "To get around an obstacle or person blocking your way. Other ways to say it: \"get around\", \"work around\"."},
-    "leadwith": {pt: "começar com, abrir com", def: "To use something as your opening point, the first thing you say. Other ways to say it: \"open with\", \"start with\"."},
     "hoponcall": {pt: "entrar numa ligação rápida", def: "Casual way to say \"let's have a call\". Other ways to say it: \"jump on a call\", \"get on a call\", \"have a quick chat\"."},
     "thingsburied": {pt: "as coisas se perdem na caixa de entrada", def: "When a message gets lost among many others. Other ways to say it: \"it might have gotten lost in the inbox\", \"it could have slipped through the cracks\"."},
     "reachout": {pt: "entrar em contato", def: "To contact someone, usually to start a conversation or ask for something."},
@@ -689,13 +945,20 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     "actual": {pt: "real, verdadeiro", def: "The classic false friend! \"Actual\" means real/verdadeiro, not \"atual\". For \"atual\", use \"current\"."},
     "bottomline": {pt: "resultado final", def: "The final, most important point, especially about money or results."},
     "makethecase": {pt: "defender, justificar um argumento", def: "To build a strong argument for something, usually to convince others."},
-    "paysforitself": {pt: "se paga sozinho", def: "When something saves or earns enough money to cover its own cost."},
     "alignon": {pt: "alinhar, chegar a um acordo sobre", def: "To agree on something together, making sure everyone has the same understanding."},
     "waryof": {pt: "desconfiado de, com pé atrás", def: "Cautious or suspicious about something, not fully trusting it yet."},
     "tradeoff": {pt: "troca, escolha entre dois lados", def: "A choice between two things where you can't have all the benefits of both."},
-    "frameitas": {pt: "apresentar como, formular como", def: "To present an idea in a specific way, choosing the words carefully."},
     "knockonthedoor": {pt: "bater à porta", def: "Arriving somewhere unannounced, without warning or a scheduled appointment."},
-    "nojargon": {pt: "sem jargão técnico", def: "Without technical or specialized vocabulary that only experts understand."}
+    "nojargon": {pt: "sem jargão técnico", def: "Without technical or specialized vocabulary that only experts understand."},
+    "byhand": {pt: "à mão, manualmente", def: "Doing something manually, without a tool or automated system."},
+    "failuremodes": {pt: "tipos de falha", def: "The specific ways a piece of equipment can fail, not just whether it failed."},
+    "runninghours": {pt: "horas de operação", def: "The total time a machine has actually been running, used to plan maintenance."},
+    "rootcause": {pt: "causa raiz", def: "The real, underlying reason something went wrong, not just the symptom."},
+    "dressedup": {pt: "disfarçado de, maquiado como", def: "Made to look like something else, usually to seem more credible than it is."},
+    "frontandcenter": {pt: "em destaque, bem visível", def: "Placed where it's impossible to miss, the most prominent position."},
+    "buried": {pt: "escondido, perdido no meio", def: "Placed somewhere it's easy to miss, hidden among other information."},
+    "trackrecord": {pt: "histórico de resultados", def: "A record of how well someone or something has performed over time."},
+    "fair": {pt: "justo, razoável", def: "Reasonable and hard to argue with. Common in phrases like \"fair question\", \"fair point\", \"fair concern\"."}
   };
 
 (function() {
@@ -850,6 +1113,47 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     window.scrollTo({top: 0, behavior: "smooth"});
   };
 
+  var DECISION_LABELS = {
+    "fb-0": "The Email — who to contact first",
+    "fb-1a": "The Gatekeeper — the scheduling mix-up",
+    "fb-1": "The Gatekeeper — waiting or pushing",
+    "fb-2a": "The End User — keeping him talking",
+    "fb-2": "The End User — what to do with what he said",
+    "fb-3a": "The Technical Buyer — reading the silence",
+    "fb-3": "The Technical Buyer — proof or confidence",
+    "fb-4a": "The Champion — how to frame the material",
+    "fb-4": "The Champion — what to actually send",
+    "fb-5a": "The Economic Buyer — using the last minutes",
+    "fb-5": "The Economic Buyer — asking for the close",
+    "fb-6a": "The Blocker — responding to resistance",
+    "fb-6": "The Blocker — his past experience"
+  };
+  var TOTAL_DECISIONS = Object.keys(DECISION_LABELS).length;
+  var matchResults = {};
+
+  function updateMatchFab() {
+    var matched = 0;
+    Object.keys(matchResults).forEach(function(k) { if (matchResults[k] === "good") matched++; });
+    var pct = Math.round((matched / TOTAL_DECISIONS) * 100);
+    document.getElementById("match-fab-ring").style.setProperty("--pct", pct);
+    document.getElementById("match-fab-count").textContent = matched + "/" + TOTAL_DECISIONS;
+
+    var body = document.getElementById("match-panel-body");
+    body.innerHTML = Object.keys(DECISION_LABELS).map(function(id) {
+      var result = matchResults[id];
+      var iconClass = result ? result : "pending";
+      var iconChar = result === "good" ? "✓" : result === "risky" ? "!" : "–";
+      var labelClass = result ? "" : "pending";
+      return '<div class="match-item"><div class="match-item-icon ' + iconClass + '">' + iconChar + '</div>'
+        + '<div class="match-item-label ' + labelClass + '">' + DECISION_LABELS[id] + '</div></div>';
+    }).join("");
+  }
+
+  window.toggleMatchPanel = function() {
+    document.getElementById("match-panel").classList.toggle("open");
+    document.getElementById("match-overlay").classList.toggle("open");
+  };
+
   window.chooseOption = function(el, type, text) {
     var group = el.parentElement;
     group.querySelectorAll(".decision-opt").forEach(function(o) { o.classList.remove("chosen"); });
@@ -857,6 +1161,11 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     var fb = group.querySelector(".decision-feedback");
     fb.className = "decision-feedback show " + type;
     fb.textContent = text;
+
+    if (fb.id && DECISION_LABELS[fb.id]) {
+      matchResults[fb.id] = type;
+      updateMatchFab();
+    }
 
     var emailReveal = group.querySelector(".email-reveal");
     if (emailReveal) {
@@ -867,6 +1176,8 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     var waFollowup = group.querySelector(".wa-followup");
     if (waFollowup) waFollowup.classList.add("show");
   };
+
+  updateMatchFab();
 
   window.toggleWaAudio = function() {
     var audio = document.getElementById("wa-audio");
