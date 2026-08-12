@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before It Breaks · Question Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1A9BAE;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;
+  --coral:#E63946;--coral-bg:rgba(230,57,70,.08);
+  --green:#065F46;--green-bg:#ECFDF5;
+  --purpleA:#6D5BD0;--purpleB:#B5473E;--purpleC:#1A9BAE;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
+.pw{max-width:760px;margin:0 auto;padding:0 56px}
+@media(max-width:720px){.pw{padding:0 22px}}
+
+/* ── HEADER ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-title{font-size:13.5px;font-weight:900;color:#fff;letter-spacing:.01em}
+.hdr-nav{display:flex;gap:18px}
+.hdr-nav a{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.55);text-decoration:none;letter-spacing:.02em}
+.hdr-nav a:hover{color:#fff}
+@media(max-width:640px){.hdr{padding:0 18px}.hdr-nav{gap:12px}.hdr-nav a{font-size:10.5px}}
+
+.main{padding-top:100px;padding-bottom:80px}
+
+/* ── INTRO ── */
+.intro-eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.intro-title{font-size:30px;font-weight:900;line-height:1.15;margin-top:8px}
+.intro-sub{font-size:14.5px;color:var(--mid);line-height:1.6;margin-top:12px;max-width:620px}
+.companion{margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);
+  border-radius:24px;padding:8px 16px 8px 8px;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none}
+.companion:hover{border-color:var(--ink)}
+.companion span.tag{background:var(--ink);color:#fff;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:14px}
+
+/* ── FAMILY RECAP CARDS ── */
+.fam-recap{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+@media(max-width:640px){.fam-recap{grid-template-columns:1fr}}
+.fam-card{border-radius:14px;padding:16px 16px 14px;color:#fff}
+.fam-card.a{background:var(--purpleA)}
+.fam-card.b{background:var(--purpleB)}
+.fam-card.c{background:var(--purpleC)}
+.fam-card-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.fam-card-name{font-size:17px;font-weight:900;margin-top:3px}
+.fam-card-rule{font-size:11.5px;line-height:1.5;margin-top:8px;opacity:.92}
+.fam-card-rule code{background:rgba(255,255,255,.18);padding:1px 5px;border-radius:4px;font-family:inherit;font-weight:700}
+
+/* ── STEPS RECAP ── */
+.steps-strip{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.step-chip{background:#fff;border:1px solid var(--border);border-radius:20px;padding:7px 13px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px}
+.step-chip span{width:16px;height:16px;border-radius:50%;background:var(--ink);color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── WH WORDS CHEAT SHEET ── */
+.wh-block{margin-top:36px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px}
+.wh-hd{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.wh-hd svg{width:17px;height:17px;stroke:var(--orange);fill:none;stroke-width:2;flex-shrink:0}
+.wh-title{font-size:13px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--orange)}
+.wh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.wh-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.wh-grid{grid-template-columns:1fr}}
+.wh-item{background:var(--surface);border-radius:11px;padding:11px 13px}
+.wh-word{font-size:15px;font-weight:900;color:var(--ink)}
+.wh-pt{font-size:10.5px;color:var(--mid);font-style:italic;margin-bottom:6px}
+.wh-ex{font-size:11.5px;color:var(--ink);line-height:1.4;border-top:1px dashed var(--border);padding-top:6px;margin-top:2px}
+
+/* ── SECTION HEADERS ── */
+.section-hd{margin-top:48px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.section-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:14px;flex-shrink:0}
+.section-badge.a{background:var(--purpleA)}
+.section-badge.b{background:var(--purpleB)}
+.section-badge.c{background:var(--purpleC)}
+.section-title{font-size:19px;font-weight:900}
+.section-sub{font-size:12px;color:var(--mid);margin-top:1px}
+
+/* ── EXERCISE CARD ── */
+.ex-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.ex-context{font-size:12.5px;color:var(--mid);line-height:1.55;margin-bottom:10px}
+.ex-context b{color:var(--ink)}
+.orig-box{background:var(--surface);border-left:3px solid var(--ink);border-radius:0 8px 8px 0;padding:9px 13px;margin-bottom:14px}
+.orig-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:2px}
+.orig-sentence{font-size:14px;font-weight:600;color:var(--ink)}
+.ex-prompt{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:14px;font-style:italic}
+.ex-sentence{font-size:16px;line-height:1.9;font-weight:600;color:var(--ink)}
+.blank-sel{appearance:none;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;
+  padding:3px 26px 3px 9px;font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%230A1628'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;margin:0 2px}
+.blank-sel:focus{outline:2px solid var(--teal-lt)}
+.blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-sel.wrong{background-color:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
+.ex-actions{margin-top:16px;display:flex;gap:10px;align-items:center}
+.btn{border:none;border-radius:9px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--ink);color:#fff}
+.btn-check:hover{background:#000}
+.btn-reset{background:#fff;color:var(--ink);border:1.5px solid var(--border);display:none}
+.btn-reset.show{display:inline-block}
+.btn-reset:hover{border-color:var(--ink)}
+.ex-feedback{font-size:12px;font-weight:700;display:none}
+.ex-feedback.show{display:block}
+.ex-feedback.good{color:var(--green)}
+.ex-feedback.bad{color:var(--coral)}
+
+footer{text-align:center;font-size:11px;color:var(--mid);padding:30px 0 10px}
+
+.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
+#gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:9px;padding:9px 13px;
+  max-width:230px;font-size:12px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);border:1px solid var(--border)}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-title">Before It Breaks</div>
+  <nav class="hdr-nav">
+    <a href="maint-grammar-practice-index.html">Grammar Lab</a>
+    <a href="maint-willgoing-practice.html" style="background:rgba(255,255,255,.1);padding:5px 12px;border-radius:14px;color:#fff">Will vs Going To →</a>
+  </nav>
+</header>
+
+<div class="main">
+<div class="pw">
+
+  <div class="intro-eyebrow">Grammar Lab · Question Formation</div>
+  <h1 class="intro-title">Ask it like Alex would.</h1>
+  <p class="intro-sub">Toda pergunta em inglês pertence a uma das três famílias. Aqui você pratica formando perguntas de verdade, dentro das situações que Alex, Michael, Carlos e o resto da equipe da Northwind vivem no dia a dia.</p>
+
+  <a class="companion" href="maint-willgoing-practice.html"><span class="tag">Companion</span> Will vs Going To Practice</a>
+
+  <div class="fam-recap">
+    <div class="fam-card a">
+      <div class="fam-card-name" style="font-size:22px">Family A</div>
+    </div>
+    <div class="fam-card b">
+      <div class="fam-card-name" style="font-size:22px">Family B</div>
+    </div>
+    <div class="fam-card c">
+      <div class="fam-card-name" style="font-size:22px">Family C</div>
+    </div>
+  </div>
+
+  <div class="steps-strip">
+    <div class="step-chip"><span>1</span>Leia a frase original</div>
+    <div class="step-chip"><span>2</span>Tem auxiliar?</div>
+    <div class="step-chip"><span>3</span>Qual tempo e sujeito?</div>
+    <div class="step-chip"><span>4</span>Adicione a WH word</div>
+  </div>
+
+  <div class="wh-block">
+    <div class="wh-hd">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5"/><circle cx="12" cy="17" r=".5" fill="var(--orange)"/></svg>
+      <span class="wh-title">WH Words — Cola Rápida</span>
+    </div>
+    <div class="wh-grid">
+      <div class="wh-item">
+        <div class="wh-word">What</div>
+        <div class="wh-pt">o quê, o que</div>
+        <div class="wh-ex">What does the policy cover?</div>
+      </div>
+      <div class="wh-item">
+        <div class="wh-word">Who</div>
+        <div class="wh-pt">quem</div>
+        <div class="wh-ex">Who did Carlos talk to?</div>
+      </div>
+      <div class="wh-item">
+        <div class="wh-word">When</div>
+        <div class="wh-pt">quando</div>
+        <div class="wh-ex">When did it stop working?</div>
+      </div>
+      <div class="wh-item">
+        <div class="wh-word">Where</div>
+        <div class="wh-pt">onde</div>
+        <div class="wh-ex">Where was Sarah going?</div>
+      </div>
+      <div class="wh-item">
+        <div class="wh-word">Why</div>
+        <div class="wh-pt">por quê</div>
+        <div class="wh-ex">Why does he prefer that?</div>
+      </div>
+      <div class="wh-item">
+        <div class="wh-word">How</div>
+        <div class="wh-pt">como</div>
+        <div class="wh-ex">How does the team handle it?</div>
+      </div>
+      <div class="wh-item">
+        <div class="wh-word">How often</div>
+        <div class="wh-pt">com que frequência</div>
+        <div class="wh-ex">How often does Carlos check it?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FAMILY A ============ -->
+  <div class="section-hd">
+    <div class="section-badge a">A</div>
+    <div><div class="section-title">Family A</div><div class="section-sub">Presente simples, rotina, fatos sobre o trabalho na Northwind</div></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Carlos checks the vibration levels <b>every week</b>, but you can't remember exactly how often.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Carlos checks the vibration levels every week.</div></div>
+    <p class="ex-prompt">Pergunte com que frequência ele checa isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="How often">
+        <option value="">___</option>
+        <option value="How often">How often</option>
+        <option value="How much">How much</option>
+        <option value="Where">Where</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="is">is</option>
+      </select>
+      Carlos
+      <select class="blank-sel" data-correct="check">
+        <option value="">___</option>
+        <option value="check">check</option>
+        <option value="checks">checks</option>
+        <option value="checking">checking</option>
+      </select>
+      the vibration levels?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Emma always works together with Michael when something technical needs a decision.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Emma works with Michael on technical decisions.</div></div>
+    <p class="ex-prompt">Pergunte com quem ela normalmente trabalha nesses casos.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Who">
+        <option value="">___</option>
+        <option value="Who">Who</option>
+        <option value="What">What</option>
+        <option value="When">When</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="did">did</option>
+      </select>
+      Emma
+      <select class="blank-sel" data-correct="work">
+        <option value="">___</option>
+        <option value="work">work</option>
+        <option value="works">works</option>
+        <option value="working">working</option>
+      </select>
+      with on technical decisions?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">You know Northwind has a maintenance policy, but you want to know exactly what it covers.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">The maintenance policy covers scheduled inspections.</div></div>
+    <p class="ex-prompt">Pergunte o que a política de manutenção cobre.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="Why">Why</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="is">is</option>
+      </select>
+      the maintenance policy
+      <select class="blank-sel" data-correct="cover">
+        <option value="">___</option>
+        <option value="cover">cover</option>
+        <option value="covers">covers</option>
+        <option value="covering">covering</option>
+      </select>?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Frank and his team deal with production every day, and you want to understand their routine better.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Frank's team <span class="tt" data-tip="handle">handles</span> unplanned stops.</div></div>
+    <p class="ex-prompt">Pergunte como a equipe do Frank normalmente lida com paradas não planejadas.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="How">
+        <option value="">___</option>
+        <option value="How">How</option>
+        <option value="Who">Who</option>
+        <option value="What">What</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="did">did</option>
+      </select>
+      Frank's team
+      <select class="blank-sel" data-correct="handle">
+        <option value="">___</option>
+        <option value="handle">handle</option>
+        <option value="handles">handles</option>
+        <option value="handling">handling</option>
+      </select>
+      unplanned stops?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">David reviews every contract before it gets signed, but you're not sure how thorough that process actually is.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">David reviews every contract before it gets signed.</div></div>
+    <p class="ex-prompt">Pergunte com que cuidado ele revisa isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="How carefully">
+        <option value="">___</option>
+        <option value="How carefully">How carefully</option>
+        <option value="How much">How much</option>
+        <option value="When">When</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="did">did</option>
+      </select>
+      David
+      <select class="blank-sel" data-correct="review">
+        <option value="">___</option>
+        <option value="review">review</option>
+        <option value="reviews">reviews</option>
+        <option value="reviewing">reviewing</option>
+      </select>
+      contracts before they get signed?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Julia handles the legal side of every deal, but you want to know what exactly she looks for.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Julia looks for compliance risks in every deal.</div></div>
+    <p class="ex-prompt">Pergunte o que ela procura.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="Who">Who</option>
+        <option value="Why">Why</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="is">is</option>
+      </select>
+      Julia
+      <select class="blank-sel" data-correct="look">
+        <option value="">___</option>
+        <option value="look">look</option>
+        <option value="looks">looks</option>
+        <option value="looking">looking</option>
+      </select>
+      for in every deal?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The maintenance team runs vibration checks on a fixed schedule, but you're not sure how often exactly.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">The maintenance team runs vibration checks on a fixed schedule.</div></div>
+    <p class="ex-prompt">Pergunte com que frequência eles fazem isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="How often">
+        <option value="">___</option>
+        <option value="How often">How often</option>
+        <option value="How">How</option>
+        <option value="Why">Why</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="did">did</option>
+      </select>
+      the maintenance team
+      <select class="blank-sel" data-correct="run">
+        <option value="">___</option>
+        <option value="run">run</option>
+        <option value="runs">runs</option>
+        <option value="running">running</option>
+      </select>
+      vibration checks?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Richard expects a formal proposal before every big decision, but you want to know exactly what he needs to see.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Richard expects a formal proposal before big decisions.</div></div>
+    <p class="ex-prompt">Pergunte o que ele espera receber.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="When">When</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="does">
+        <option value="">___</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+        <option value="is">is</option>
+      </select>
+      Richard
+      <select class="blank-sel" data-correct="expect">
+        <option value="">___</option>
+        <option value="expect">expect</option>
+        <option value="expects">expects</option>
+        <option value="expecting">expecting</option>
+      </select>
+      before big decisions?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <!-- ============ FAMILY B ============ -->
+  <div class="section-hd">
+    <div class="section-badge b">B</div>
+    <div><div class="section-title">Family B</div><div class="section-sub">Passado simples, o que já aconteceu na fábrica</div></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The compressor broke down last week, and you want to understand the timeline better.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">The compressor stopped working.</div></div>
+    <p class="ex-prompt">Pergunte quando isso aconteceu.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="When">
+        <option value="">___</option>
+        <option value="When">When</option>
+        <option value="How much">How much</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="did">
+        <option value="">___</option>
+        <option value="did">did</option>
+        <option value="does">does</option>
+        <option value="was">was</option>
+      </select>
+      the compressor
+      <select class="blank-sel" data-correct="stop">
+        <option value="">___</option>
+        <option value="stop">stop</option>
+        <option value="stopped">stopped</option>
+        <option value="stopping">stopping</option>
+      </select>
+      working?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Carlos mentioned something strange during Alex's last visit to the plant, but you missed the detail.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Carlos said something strange.</div></div>
+    <p class="ex-prompt">Pergunte o que o Carlos disse.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="Why">Why</option>
+        <option value="When">When</option>
+      </select>
+      <select class="blank-sel" data-correct="did">
+        <option value="">___</option>
+        <option value="did">did</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+      </select>
+      Carlos
+      <select class="blank-sel" data-correct="say">
+        <option value="">___</option>
+        <option value="say">say</option>
+        <option value="said">said</option>
+        <option value="saying">saying</option>
+      </select>?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The previous vendor promised Sarah an installation date, but was three weeks late.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">The previous vendor delayed the installation.</div></div>
+    <p class="ex-prompt">Pergunte por que isso aconteceu.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Why">
+        <option value="">___</option>
+        <option value="Why">Why</option>
+        <option value="What">What</option>
+        <option value="Where">Where</option>
+      </select>
+      <select class="blank-sel" data-correct="did">
+        <option value="">___</option>
+        <option value="did">did</option>
+        <option value="does">does</option>
+        <option value="was">was</option>
+      </select>
+      the previous vendor
+      <select class="blank-sel" data-correct="delay">
+        <option value="">___</option>
+        <option value="delay">delay</option>
+        <option value="delayed">delayed</option>
+        <option value="delaying">delaying</option>
+      </select>
+      the installation?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Someone hit the emergency stop several times on Friday, without a real emergency.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Someone hit the emergency stop on Friday.</div></div>
+    <p class="ex-prompt">Pergunte quem apertou o botão de emergência.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Who">
+        <option value="">___</option>
+        <option value="Who">Who</option>
+        <option value="What">What</option>
+        <option value="How">How</option>
+      </select>
+      <select class="blank-sel" data-correct="hit">
+        <option value="">___</option>
+        <option value="hit">hit</option>
+        <option value="did hit">did hit</option>
+        <option value="hitting">hitting</option>
+      </select>
+      the emergency stop on Friday?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+    <p style="font-size:11px;color:var(--mid);margin-top:10px;font-style:italic">Cuidado: quando o <b>Who</b> é o próprio sujeito da frase (quem fez a ação), não se usa "did" — o verbo fica no passado direto.</p>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Someone from procurement <span class="tt" data-tip="flagged">flagged</span> an issue with the last invoice, but you don't know who.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Someone flagged an issue with the invoice.</div></div>
+    <p class="ex-prompt">Pergunte quem sinalizou o problema.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Who">
+        <option value="">___</option>
+        <option value="Who">Who</option>
+        <option value="What">What</option>
+        <option value="When">When</option>
+      </select>
+      <select class="blank-sel" data-correct="flagged">
+        <option value="">___</option>
+        <option value="flagged">flagged</option>
+        <option value="did flag">did flag</option>
+        <option value="flagging">flagging</option>
+      </select>
+      the issue with the invoice?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+    <p style="font-size:11px;color:var(--mid);margin-top:10px;font-style:italic">De novo: "Who" como sujeito não pede "did".</p>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The presentation <span class="tt" data-tip="ranlong">ran long</span> yesterday, and you want to know why.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">The presentation ran long yesterday.</div></div>
+    <p class="ex-prompt">Pergunte por que isso aconteceu.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Why">
+        <option value="">___</option>
+        <option value="Why">Why</option>
+        <option value="What">What</option>
+        <option value="How">How</option>
+      </select>
+      <select class="blank-sel" data-correct="did">
+        <option value="">___</option>
+        <option value="did">did</option>
+        <option value="does">does</option>
+        <option value="was">was</option>
+      </select>
+      the presentation
+      <select class="blank-sel" data-correct="run">
+        <option value="">___</option>
+        <option value="run">run</option>
+        <option value="ran">ran</option>
+        <option value="running">running</option>
+      </select>
+      long yesterday?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Julia <span class="tt" data-tip="raisedconcern">raised a concern</span> during the meeting, but you missed exactly what she said.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Julia raised a concern during the meeting.</div></div>
+    <p class="ex-prompt">Pergunte o que ela levantou.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="When">When</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="did">
+        <option value="">___</option>
+        <option value="did">did</option>
+        <option value="does">does</option>
+        <option value="do">do</option>
+      </select>
+      Julia
+      <select class="blank-sel" data-correct="raise">
+        <option value="">___</option>
+        <option value="raise">raise</option>
+        <option value="raised">raised</option>
+        <option value="raising">raising</option>
+      </select>
+      during the meeting?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">David approved the budget last month, before the new numbers came in.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">David approved the budget last month.</div></div>
+    <p class="ex-prompt">Pergunte quando ele aprovou isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="When">
+        <option value="">___</option>
+        <option value="When">When</option>
+        <option value="Why">Why</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="did">
+        <option value="">___</option>
+        <option value="did">did</option>
+        <option value="does">does</option>
+        <option value="was">was</option>
+      </select>
+      David
+      <select class="blank-sel" data-correct="approve">
+        <option value="">___</option>
+        <option value="approve">approve</option>
+        <option value="approved">approved</option>
+        <option value="approving">approving</option>
+      </select>
+      the budget?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <!-- ============ FAMILY C ============ -->
+  <div class="section-hd">
+    <div class="section-badge c">C</div>
+    <div><div class="section-title">Family C</div><div class="section-sub">O auxiliar já existe na frase, você só inverte a ordem</div></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Alex is reading the running-hours data very carefully, but you don't know why.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Alex is reading the running-hours data.</div></div>
+    <p class="ex-prompt">Pergunte o que ele está lendo.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="Who">Who</option>
+        <option value="Why">Why</option>
+      </select>
+      <select class="blank-sel" data-correct="is">
+        <option value="">___</option>
+        <option value="is">is</option>
+        <option value="does">does</option>
+        <option value="did">did</option>
+      </select>
+      Alex
+      <select class="blank-sel" data-correct="reading">
+        <option value="">___</option>
+        <option value="reading">reading</option>
+        <option value="read">read</option>
+        <option value="reads">reads</option>
+      </select>
+      so carefully?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Sarah was walking toward the exit in the middle of the presentation, and that worried you.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Sarah was going somewhere.</div></div>
+    <p class="ex-prompt">Pergunte para onde ela estava indo.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Where">
+        <option value="">___</option>
+        <option value="Where">Where</option>
+        <option value="What">What</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="was">
+        <option value="">___</option>
+        <option value="was">was</option>
+        <option value="did">did</option>
+        <option value="is">is</option>
+      </select>
+      Sarah
+      <select class="blank-sel" data-correct="going">
+        <option value="">___</option>
+        <option value="going">going</option>
+        <option value="go">go</option>
+        <option value="went">went</option>
+      </select>?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Facing Frank's resistance, Alex needs to decide his next move carefully.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Alex will do something next.</div></div>
+    <p class="ex-prompt">Pergunte o que Alex vai fazer a seguir.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="When">When</option>
+        <option value="Why">Why</option>
+      </select>
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="does">does</option>
+        <option value="is">is</option>
+      </select>
+      Alex
+      <select class="blank-sel" data-correct="do">
+        <option value="">___</option>
+        <option value="do">do</option>
+        <option value="does">does</option>
+        <option value="doing">doing</option>
+      </select>
+      next?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Michael said he might need more data before approving the plan, but stayed vague about it.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Michael would prefer to see more data.</div></div>
+    <p class="ex-prompt">Pergunte por que ele preferiria ver mais dados.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Why">
+        <option value="">___</option>
+        <option value="Why">Why</option>
+        <option value="What">What</option>
+        <option value="How">How</option>
+      </select>
+      <select class="blank-sel" data-correct="would">
+        <option value="">___</option>
+        <option value="would">would</option>
+        <option value="does">does</option>
+        <option value="did">did</option>
+      </select>
+      Michael
+      <select class="blank-sel" data-correct="prefer">
+        <option value="">___</option>
+        <option value="prefer">prefer</option>
+        <option value="preferred">preferred</option>
+        <option value="preferring">preferring</option>
+      </select>
+      to see more data?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Richard was reviewing the proposal carefully during the call, and that made everyone a little nervous.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Richard was reviewing the proposal carefully.</div></div>
+    <p class="ex-prompt">Pergunte o que ele estava revisando.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="What">
+        <option value="">___</option>
+        <option value="What">What</option>
+        <option value="Who">Who</option>
+        <option value="Why">Why</option>
+      </select>
+      <select class="blank-sel" data-correct="was">
+        <option value="">___</option>
+        <option value="was">was</option>
+        <option value="did">did</option>
+        <option value="is">is</option>
+      </select>
+      Richard
+      <select class="blank-sel" data-correct="reviewing">
+        <option value="">___</option>
+        <option value="reviewing">reviewing</option>
+        <option value="review">review</option>
+        <option value="reviewed">reviewed</option>
+      </select>
+      so carefully?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Julia mentioned she will raise this again in the next meeting, but you're not sure exactly when.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">Julia will raise this again.</div></div>
+    <p class="ex-prompt">Pergunte quando ela vai fazer isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="When">
+        <option value="">___</option>
+        <option value="When">When</option>
+        <option value="What">What</option>
+        <option value="Who">Who</option>
+      </select>
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="does">does</option>
+        <option value="did">did</option>
+      </select>
+      Julia
+      <select class="blank-sel" data-correct="raise">
+        <option value="">___</option>
+        <option value="raise">raise</option>
+        <option value="raised">raised</option>
+        <option value="raising">raising</option>
+      </select>
+      this again?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">David is checking the numbers one more time before signing off, and you're curious why.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">David is checking the numbers one more time.</div></div>
+    <p class="ex-prompt">Pergunte por que ele está fazendo isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Why">
+        <option value="">___</option>
+        <option value="Why">Why</option>
+        <option value="What">What</option>
+        <option value="When">When</option>
+      </select>
+      <select class="blank-sel" data-correct="is">
+        <option value="">___</option>
+        <option value="is">is</option>
+        <option value="does">does</option>
+        <option value="did">did</option>
+      </select>
+      David
+      <select class="blank-sel" data-correct="checking">
+        <option value="">___</option>
+        <option value="checking">checking</option>
+        <option value="check">check</option>
+        <option value="checks">checks</option>
+      </select>
+      the numbers one more time?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context"><span class="tt" data-tip="earlysignals">Early signals suggest</span> the team would prefer a shorter contract term, but you want to know why.</p>
+    <div class="orig-box"><div class="orig-label">Original sentence</div><div class="orig-sentence">The team would prefer a shorter contract term.</div></div>
+    <p class="ex-prompt">Pergunte por que eles prefeririam isso.</p>
+    <p class="ex-sentence">
+      <select class="blank-sel" data-correct="Why">
+        <option value="">___</option>
+        <option value="Why">Why</option>
+        <option value="What">What</option>
+        <option value="How">How</option>
+      </select>
+      <select class="blank-sel" data-correct="would">
+        <option value="">___</option>
+        <option value="would">would</option>
+        <option value="does">does</option>
+        <option value="did">did</option>
+      </select>
+      the team
+      <select class="blank-sel" data-correct="prefer">
+        <option value="">___</option>
+        <option value="prefer">prefer</option>
+        <option value="preferred">preferred</option>
+        <option value="preferring">preferring</option>
+      </select>
+      a shorter contract term?
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Try again</button><span class="ex-feedback"></span></div>
+  </div>
+
+</div>
+</div>
+
+<footer>Before It Breaks · Question Practice</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<script>
+function checkEx(btn){
+  var card = btn.closest('.ex-card');
+  var selects = card.querySelectorAll('.blank-sel');
+  var allCorrect = true;
+  selects.forEach(function(s){
+    s.classList.remove('correct','wrong');
+    if (s.value === '') { allCorrect = false; return; }
+    if (s.value === s.getAttribute('data-correct')) {
+      s.classList.add('correct');
+    } else {
+      s.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  var fb = card.querySelector('.ex-feedback');
+  var resetBtn = card.querySelector('.btn-reset');
+  fb.classList.add('show');
+  if (allCorrect) {
+    fb.textContent = 'Correct! Great question.';
+    fb.className = 'ex-feedback show good';
+    resetBtn.classList.remove('show');
+  } else {
+    fb.textContent = 'Not quite yet, check the highlighted words.';
+    fb.className = 'ex-feedback show bad';
+    resetBtn.classList.add('show');
+  }
+}
+function resetEx(btn){
+  var card = btn.closest('.ex-card');
+  card.querySelectorAll('.blank-sel').forEach(function(s){
+    s.value = '';
+    s.classList.remove('correct','wrong');
+  });
+  var fb = card.querySelector('.ex-feedback');
+  fb.classList.remove('show');
+  fb.textContent = '';
+  btn.classList.remove('show');
+}
+document.querySelectorAll('.blank-sel').forEach(function(s){
+  s.addEventListener('change', function(){ s.classList.remove('correct','wrong'); });
+});
+
+(function() {
+  var TIPS = {
+    "handle": {pt: "lidar com", def: "To deal with a situation or problem, often one that requires skill or care."},
+    "flagged": {pt: "sinalizou, apontou", def: "Marked or pointed out something as needing attention."},
+    "ranlong": {pt: "se estendeu além do previsto", def: "Lasted longer than planned or expected."},
+    "raisedconcern": {pt: "levantou uma preocupação", def: "Brought up a worry or objection during a conversation."},
+    "earlysignals": {pt: "os primeiros sinais indicam", def: "Initial, informal evidence that suggests something, before it's confirmed."}
+  };
+
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      el.addEventListener("mouseenter", function(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 115, window.innerWidth - 240));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 16) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>

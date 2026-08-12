@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before It Breaks · Will vs Going To Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1A9BAE;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;
+  --coral:#E63946;--coral-bg:rgba(230,57,70,.08);
+  --green:#065F46;--green-bg:#ECFDF5;
+  --planned:#6D5BD0;--spont:#E8621A;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
+.pw{max-width:760px;margin:0 auto;padding:0 56px}
+@media(max-width:720px){.pw{padding:0 22px}}
+
+/* ── HEADER ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-title{font-size:13.5px;font-weight:900;color:#fff;letter-spacing:.01em}
+.hdr-nav{display:flex;gap:18px}
+.hdr-nav a{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.55);text-decoration:none;letter-spacing:.02em}
+.hdr-nav a:hover{color:#fff}
+.hdr-nav a.pill{background:rgba(255,255,255,.1);padding:5px 12px;border-radius:14px;color:#fff}
+@media(max-width:640px){.hdr{padding:0 18px}.hdr-nav{gap:12px}.hdr-nav a{font-size:10.5px}}
+
+.main{padding-top:100px;padding-bottom:80px}
+
+/* ── INTRO ── */
+.intro-eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+.intro-title{font-size:30px;font-weight:900;line-height:1.15;margin-top:8px}
+.intro-sub{font-size:14.5px;color:var(--mid);line-height:1.6;margin-top:12px;max-width:620px}
+
+/* ── COMPANION LINK ── */
+.companion{margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);
+  border-radius:24px;padding:8px 16px 8px 8px;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none}
+.companion:hover{border-color:var(--ink)}
+.companion span.tag{background:var(--ink);color:#fff;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:14px}
+
+/* ── TWO RULES ── */
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+@media(max-width:640px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{border-radius:16px;padding:20px;color:#fff}
+.rule-card.planned{background:var(--planned)}
+.rule-card.spont{background:var(--spont)}
+.rule-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.rule-name{font-size:19px;font-weight:900;margin-top:3px}
+.rule-def{font-size:12px;line-height:1.55;margin-top:9px;opacity:.95}
+
+.ask-box{margin-top:16px;background:var(--hi);border-radius:12px;padding:14px 16px;font-size:12.5px;line-height:1.5;color:var(--ink)}
+.ask-box b{font-weight:800}
+
+.tip-box{margin-top:10px;background:#fff;border:1.5px dashed var(--planned);border-radius:12px;padding:14px 16px}
+.tip-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--planned);margin-bottom:5px}
+.tip-text{font-size:12.5px;line-height:1.6;color:var(--ink)}
+.tip-text code{background:var(--surface);padding:1px 6px;border-radius:5px;font-family:inherit;font-weight:700}
+
+.solved-hd{margin-top:44px;margin-bottom:16px}
+.solved-title{font-size:19px;font-weight:900}
+.solved-sub{font-size:12px;color:var(--mid);margin-top:1px}
+.solved-card{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.solved-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 10px;border-radius:12px;margin-bottom:10px}
+.solved-context{font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:12px}
+.solved-clue{background:var(--hi);padding:1px 4px;border-radius:3px;font-weight:800}
+.solved-answer{font-size:15.5px;font-weight:700;color:var(--ink);background:var(--surface);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.solved-answer b{color:var(--planned)}
+.solved-answer.spont b{color:var(--spont)}
+.solved-why{font-size:12px;line-height:1.55;color:var(--mid)}
+.solved-why b{color:var(--ink)}
+
+.section-hd{margin-top:44px;margin-bottom:16px}
+.section-title{font-size:19px;font-weight:900}
+.section-sub{font-size:12px;color:var(--mid);margin-top:1px}
+
+/* ── EXERCISE CARD ── */
+.ex-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.ex-context{font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:14px}
+.ex-context b{font-weight:800}
+.ex-sentence{font-size:15.5px;line-height:1.9;font-weight:600;color:var(--ink)}
+.blank-sel{appearance:none;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;
+  padding:3px 26px 3px 9px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%230A1628'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;margin:0 2px}
+.blank-sel:focus{outline:2px solid var(--teal-lt)}
+.blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-sel.wrong{background-color:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
+.ex-actions{margin-top:16px;display:flex;gap:10px;align-items:center}
+.btn{border:none;border-radius:9px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--ink);color:#fff}
+.btn-check:hover{background:#000}
+.btn-reset{background:#fff;color:var(--ink);border:1.5px solid var(--border);display:none}
+.btn-reset.show{display:inline-block}
+.btn-reset:hover{border-color:var(--ink)}
+.ex-feedback{font-size:12px;font-weight:700;display:none}
+.ex-feedback.show{display:block}
+.ex-feedback.good{color:var(--green)}
+.ex-feedback.bad{color:var(--coral)}
+
+footer{text-align:center;font-size:11px;color:var(--mid);padding:30px 0 10px}
+
+.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
+#gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:9px;padding:9px 13px;
+  max-width:230px;font-size:12px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);border:1px solid var(--border)}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-title">Before It Breaks</div>
+  <nav class="hdr-nav">
+    <a href="maint-grammar-practice-index.html">Grammar Lab</a>
+    <a href="maint-question-practice.html" class="pill">Question Practice →</a>
+  </nav>
+</header>
+
+<div class="main">
+<div class="pw">
+
+  <div class="intro-eyebrow">Grammar Lab · Will vs Going To</div>
+  <h1 class="intro-title">Already decided, or deciding right now?</h1>
+  <p class="intro-sub">Em português, "vou" cobre as duas ideias. Em inglês, você é obrigado a escolher, e essa escolha diz algo real pra quem está ouvindo. Aqui você pratica com decisões reais da Northwind: planos que Michael, Emma e Sarah já tinham, e promessas que o Alex faz na hora.</p>
+
+  <a class="companion" href="maint-question-practice.html"><span class="tag">Companion</span> Question Formation Practice</a>
+
+  <div class="rule-grid">
+    <div class="rule-card planned">
+      <div class="rule-label">Já decidido antes</div>
+      <div class="rule-name">going to</div>
+      <p class="rule-def">Use para um plano ou intenção que já existia antes desse momento da conversa. A decisão já estava tomada.</p>
+    </div>
+    <div class="rule-card spont">
+      <div class="rule-label">Decidido agora, na hora</div>
+      <div class="rule-name">will</div>
+      <p class="rule-def">Use para uma decisão, oferta ou promessa feita no momento em que você fala, sem planejamento prévio.</p>
+    </div>
+  </div>
+
+  <div class="ask-box"><b>A pergunta que resolve a dúvida:</b> eu já sabia disso antes de começar a falar? Se sim, <b>going to</b>. Se a decisão está acontecendo agora, na frente da pessoa, <b>will</b>.</div>
+
+  <div class="tip-box">
+    <div class="tip-label">Dica extra</div>
+    <div class="tip-text">Quando a frase é uma <b>previsão ou palpite</b>, não uma decisão, o inglês prefere <code>will</code> depois de expressões como <code>I think</code>, <code>I believe</code>, <code>I guess</code>, <code>I suppose</code>. Exemplo: <i>"I think Frank will push back on this."</i> Não é uma promessa nem um plano, é uma opinião sobre o futuro, e opinião pede will.</div>
+  </div>
+
+  <div class="solved-hd">
+    <div class="solved-title">Dois exemplos resolvidos</div>
+    <div class="solved-sub">Veja o raciocínio completo antes de tentar sozinho</div>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Já planejado</span>
+    <p class="solved-context">Emma decided <span class="solved-clue">days ago</span> that she needs to talk to Michael before the presentation, so he doesn't hear the numbers for the first time in front of everyone.</p>
+    <div class="solved-answer">Emma <b>is going to</b> talk to Michael before the presentation.</div>
+    <p class="solved-why"><b>Por quê "going to":</b> a frase de contexto já entrega a pista, <span class="solved-clue">days ago</span>. A decisão existia antes desse momento da cena, não está sendo tomada agora. Toda vez que o contexto mostra uma decisão com data ou tempo no passado, é going to.</p>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Decidido agora</span>
+    <p class="solved-context">Carlos just told Alex, <span class="solved-clue">on the spot</span>, about the manual logging problem. Alex wasn't expecting this, but reacts right away.</p>
+    <div class="solved-answer spont">"That's useful to know. I <b>will</b> mention it to Michael and Emma later," Alex says.</div>
+    <p class="solved-why"><b>Por quê "will":</b> o contexto mostra <span class="solved-clue">on the spot</span> e <span class="solved-clue">wasn't expecting this</span>. Alex não tinha esse plano antes, ele está reagindo e decidindo ali mesmo, na conversa. Sem aviso prévio, informação nova, reação imediata: isso é will.</p>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-title">Agora sozinho</div>
+    <div class="section-sub">Misturado de propósito, o contexto é a única pista</div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Frank <span class="tt" data-tip="madeuphismind">made up his mind</span> about this plan <b>the moment he heard about it</b>, long before Alex even walked onto the floor.</p>
+    <p class="ex-sentence">
+      Frank
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="was">was</option>
+      </select>
+      <span class="tt" data-tip="pushback">push back</span> on this, no matter what Alex says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Sarah <span class="tt" data-tip="glanceat">glances at</span> her watch during the meeting. Right then, without planning it, Alex offers something to keep things moving.</p>
+    <p class="ex-sentence">
+      "No problem, I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="would">would</option>
+      </select>
+      keep this short," Alex says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Michael told his assistant <b>last week</b> to block his calendar for a technical review, before Alex even asked for a meeting.</p>
+    <p class="ex-sentence">
+      Michael
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="would">would</option>
+      </select>
+      review the failure data with his team on Thursday.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Linda realizes, mid-conversation, that the meeting was booked under the wrong name. She reacts on the spot to fix the confusion.</p>
+    <p class="ex-sentence">
+      "Sorry about that. I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="did">did</option>
+      </select>
+      let Michael know you're here," Linda says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Richard has already told his assistant he wants a formal proposal on his desk by Friday, before Alex even confirmed the meeting.</p>
+    <p class="ex-sentence">
+      Richard
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="would">would</option>
+      </select>
+      expect a formal proposal by Friday.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Michael asks for the failure-mode data, something Alex hadn't prepared yet. Alex answers immediately, deciding right there to include it.</p>
+    <p class="ex-sentence">
+      "Understood. I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="was">was</option>
+      </select>
+      include the root cause data, not just the summary," Alex says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Sarah has known about the budget meeting <b>since the beginning of the month</b>. It's already on her calendar, with the numbers prepared.</p>
+    <p class="ex-sentence">
+      Sarah
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="was going to">was going to</option>
+      </select>
+      present the budget numbers on Monday.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">During the presentation, someone asks a question Alex didn't prepare for. Alex pauses, then decides how to handle it right then.</p>
+    <p class="ex-sentence">
+      "That's a fair question. I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="did">did</option>
+      </select>
+      follow up with the exact numbers after this meeting," Alex says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">David already scheduled a follow-up call with procurement <b>before this meeting even started</b>.</p>
+    <p class="ex-sentence">
+      David
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="was">was</option>
+      </select>
+      have a follow-up call with procurement.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">During the call, Julia notices a clause that concerns her. She reacts immediately, without planning it.</p>
+    <p class="ex-sentence">
+      "I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="would">would</option>
+      </select>
+      <span class="tt" data-tip="flag">flag</span> this for legal review," Julia says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Richard decided <b>last month</b>, after reviewing the numbers, to approve a bigger budget for maintenance.</p>
+    <p class="ex-sentence">
+      Richard
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="was going to">was going to</option>
+      </select>
+      approve a bigger budget for maintenance.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">On the call, Alex realizes he forgot to bring one document. He reacts on the spot.</p>
+    <p class="ex-sentence">
+      "Sorry, I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="did">did</option>
+      </select>
+      send that right after this call," Alex says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Emma has already planned, <b>for weeks</b>, to bring this issue up with Michael directly.</p>
+    <p class="ex-sentence">
+      Emma
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="would">would</option>
+      </select>
+      bring this up with Michael directly.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">During the presentation, Frank interrupts with a tough question. Alex decides how to respond immediately.</p>
+    <p class="ex-sentence">
+      "That's fair. I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="was">was</option>
+      </select>
+      address that directly," Alex says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Sarah has already told her assistant, <b>before the meeting</b>, that she wants a decision by Friday.</p>
+    <p class="ex-sentence">
+      Sarah
+      <select class="blank-sel" data-correct="is going to">
+        <option value="">___</option>
+        <option value="is going to">is going to</option>
+        <option value="will">will</option>
+        <option value="would">would</option>
+      </select>
+      want a decision by Friday.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Carlos just realizes, mid-conversation, that he forgot to mention something important. He reacts right away.</p>
+    <p class="ex-sentence">
+      "Actually, I
+      <select class="blank-sel" data-correct="will">
+        <option value="">___</option>
+        <option value="will">will</option>
+        <option value="am going to">am going to</option>
+        <option value="did">did</option>
+      </select>
+      also mention this," Carlos says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+</div>
+</div>
+
+<footer>Before It Breaks · Will vs Going To Practice</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<script>
+function checkEx(btn){
+  var card = btn.closest('.ex-card');
+  var selects = card.querySelectorAll('.blank-sel');
+  var allCorrect = true;
+  selects.forEach(function(s){
+    s.classList.remove('correct','wrong');
+    if (s.value === '') { allCorrect = false; return; }
+    if (s.value === s.getAttribute('data-correct')) {
+      s.classList.add('correct');
+    } else {
+      s.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  var fb = card.querySelector('.ex-feedback');
+  var resetBtn = card.querySelector('.btn-reset');
+  fb.classList.add('show');
+  if (allCorrect) {
+    fb.textContent = 'Correct!';
+    fb.className = 'ex-feedback show good';
+    resetBtn.classList.remove('show');
+  } else {
+    fb.textContent = 'Not quite yet, pense: essa decisão já existia antes, ou está sendo tomada agora?';
+    fb.className = 'ex-feedback show bad';
+    resetBtn.classList.add('show');
+  }
+}
+function resetEx(btn){
+  var card = btn.closest('.ex-card');
+  card.querySelectorAll('.blank-sel').forEach(function(s){
+    s.value = '';
+    s.classList.remove('correct','wrong');
+  });
+  var fb = card.querySelector('.ex-feedback');
+  fb.classList.remove('show');
+  fb.textContent = '';
+  btn.classList.remove('show');
+}
+document.querySelectorAll('.blank-sel').forEach(function(s){
+  s.addEventListener('change', function(){ s.classList.remove('correct','wrong'); });
+});
+
+(function() {
+  var TIPS = {
+    "madeuphismind": {pt: "decidiu, tomou a decisão", def: "To reach a final decision about something, often after thinking about it."},
+    "pushback": {pt: "resistir, contestar", def: "To resist or argue against an idea, plan, or decision."},
+    "glanceat": {pt: "dar uma olhada rápida em", def: "To look at something quickly, briefly."},
+    "flag": {pt: "sinalizar, apontar", def: "To mark or point out something as needing attention."}
+  };
+
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      el.addEventListener("mouseenter", function(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 115, window.innerWidth - 240));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 16) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>
