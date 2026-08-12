@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not As Agreed · Should, Must & Supposed To Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1A9BAE;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;
+  --coral:#E63946;--coral-bg:rgba(230,57,70,.08);
+  --green:#065F46;--green-bg:#ECFDF5;
+  --advice:#0D7A8A;--rule:#C0392B;--agreed:#6D5BD0;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
+.pw{max-width:760px;margin:0 auto;padding:0 56px}
+@media(max-width:720px){.pw{padding:0 22px}}
+
+/* ── HEADER ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-title{font-size:13.5px;font-weight:900;color:#fff;letter-spacing:.01em}
+.hdr-nav{display:flex;gap:18px}
+.hdr-nav a{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.55);text-decoration:none;letter-spacing:.02em}
+.hdr-nav a:hover{color:#fff}
+.hdr-nav a.pill{background:rgba(255,255,255,.1);padding:5px 12px;border-radius:14px;color:#fff}
+@media(max-width:640px){.hdr{padding:0 18px}.hdr-nav{gap:12px}.hdr-nav a{font-size:10.5px}}
+
+.main{padding-top:100px;padding-bottom:80px}
+
+/* ── INTRO ── */
+.intro-eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+.intro-title{font-size:30px;font-weight:900;line-height:1.15;margin-top:8px}
+.intro-sub{font-size:14.5px;color:var(--mid);line-height:1.6;margin-top:12px;max-width:620px}
+
+/* ── COMPANION LINK ── */
+.companion{margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);
+  border-radius:24px;padding:8px 16px 8px 8px;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none}
+.companion:hover{border-color:var(--ink)}
+.companion span.tag{background:var(--ink);color:#fff;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:14px}
+
+/* ── THREE RULES ── */
+.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:28px}
+@media(max-width:720px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{border-radius:16px;padding:18px;color:#fff}
+.rule-card.advice{background:var(--advice)}
+.rule-card.rule{background:var(--rule)}
+.rule-card.agreed{background:var(--agreed)}
+.rule-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.rule-name{font-size:18px;font-weight:900;margin-top:3px}
+.rule-def{font-size:12px;line-height:1.55;margin-top:9px;opacity:.95}
+
+.ask-box{margin-top:16px;background:var(--hi);border-radius:12px;padding:14px 16px;font-size:12.5px;line-height:1.5;color:var(--ink)}
+.ask-box b{font-weight:800}
+
+.tip-box{margin-top:10px;background:#fff;border:1.5px dashed var(--agreed);border-radius:12px;padding:14px 16px}
+.tip-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--agreed);margin-bottom:5px}
+.tip-text{font-size:12.5px;line-height:1.6;color:var(--ink)}
+.tip-text code{background:var(--surface);padding:1px 6px;border-radius:5px;font-family:inherit;font-weight:700}
+
+.solved-hd{margin-top:44px;margin-bottom:16px}
+.solved-title{font-size:19px;font-weight:900}
+.solved-sub{font-size:12px;color:var(--mid);margin-top:1px}
+.solved-card{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.solved-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 10px;border-radius:12px;margin-bottom:10px}
+.solved-context{font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:12px}
+.solved-clue{background:var(--hi);padding:1px 4px;border-radius:3px;font-weight:800}
+.solved-answer{font-size:15.5px;font-weight:700;color:var(--ink);background:var(--surface);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.solved-answer b{color:var(--advice)}
+.solved-answer.rule b{color:var(--rule)}
+.solved-answer.agreed b{color:var(--agreed)}
+.solved-why{font-size:12px;line-height:1.55;color:var(--mid)}
+.solved-why b{color:var(--ink)}
+
+.section-hd{margin-top:44px;margin-bottom:16px}
+.section-title{font-size:19px;font-weight:900}
+.section-sub{font-size:12px;color:var(--mid);margin-top:1px}
+
+/* ── EXERCISE CARD ── */
+.ex-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.ex-context{font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:14px}
+.ex-context b{font-weight:800}
+.ex-sentence{font-size:15.5px;line-height:1.9;font-weight:600;color:var(--ink)}
+.blank-sel{appearance:none;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;
+  padding:3px 26px 3px 9px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%230A1628'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;margin:0 2px}
+.blank-sel:focus{outline:2px solid var(--teal-lt)}
+.blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-sel.wrong{background-color:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
+.ex-actions{margin-top:16px;display:flex;gap:10px;align-items:center}
+.btn{border:none;border-radius:9px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--ink);color:#fff}
+.btn-check:hover{background:#000}
+.btn-reset{background:#fff;color:var(--ink);border:1.5px solid var(--border);display:none}
+.btn-reset.show{display:inline-block}
+.btn-reset:hover{border-color:var(--ink)}
+.ex-feedback{font-size:12px;font-weight:700;display:none}
+.ex-feedback.show{display:block}
+.ex-feedback.good{color:var(--green)}
+.ex-feedback.bad{color:var(--coral)}
+
+footer{text-align:center;font-size:11px;color:var(--mid);padding:30px 0 10px}
+
+.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
+#gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:9px;padding:9px 13px;
+  max-width:230px;font-size:12px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);border:1px solid var(--border)}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-title">Not As Agreed</div>
+  <nav class="hdr-nav">
+    <a href="supplier-reasons.html">Supply Chain Lab</a>
+    <a href="supplier-qualification.html">Qualifying a Supplier</a>
+    <a href="supplier-reasons.html" class="pill">When Suppliers Walk Away →</a>
+  </nav>
+</header>
+
+<div class="main">
+<div class="pw">
+
+  <div class="intro-eyebrow">Grammar Lab · Should, Must &amp; Supposed To</div>
+  <h1 class="intro-title">Whose obligation is it, anyway?</h1>
+  <p class="intro-sub">Em português, "deveria" às vezes cobre os três. Em inglês, cada modal denuncia de onde vem a obrigação: sua opinião, uma regra sem exceção, ou um acordo que já existia antes. Aqui você pratica com situações reais de fornecedores &mdash; contratos quebrados, prazos perdidos, e decisões que precisam ser tomadas agora.</p>
+
+  <a class="companion" href="supplier-reasons.html"><span class="tag">Companion</span> When Suppliers Walk Away</a>
+
+  <div class="rule-grid">
+    <div class="rule-card advice">
+      <div class="rule-label">Sua opinião</div>
+      <div class="rule-name">should</div>
+      <p class="rule-def">O que é sensato ou recomendável, na sua avaliação. Não é uma regra &mdash; pode ser ignorado sem consequência formal.</p>
+    </div>
+    <div class="rule-card rule">
+      <div class="rule-label">Necessidade real, sem exceção</div>
+      <div class="rule-name">must</div>
+      <p class="rule-def">Vem de fora de quem fala: uma lei, um contrato, uma urgência que qualquer pessoa razoável reconheceria.</p>
+    </div>
+    <div class="rule-card agreed">
+      <div class="rule-label">Um acordo prévio</div>
+      <div class="rule-name">supposed to</div>
+      <p class="rule-def">Descreve o que tinha sido combinado ou planejado &mdash; e é usado com frequência justamente quando esse combinado foi quebrado.</p>
+    </div>
+  </div>
+
+  <div class="ask-box"><b>A pergunta que resolve a dúvida:</b> de onde vem essa obrigação? Se é a sua opinião pessoal sobre o que seria sábio, <b>should</b>. Se é uma necessidade objetiva ou regra sem exceção, <b>must</b>. Se existia um acordo ou plano prévio &mdash; cumprido ou não &mdash; <b>supposed to</b>.</div>
+
+  <div class="tip-box">
+    <div class="tip-label">Dica extra</div>
+    <div class="tip-text"><code>must</code> não tem passado próprio: para falar de uma necessidade que já aconteceu, use <code>had to</code> ("We had to activate the backup supplier"). Já <code>was/were supposed to</code> é exatamente o modal certo para descrever algo que estava previsto, mas não aconteceu como planejado. E no negativo, <code>not supposed to</code> funciona quase como proibição: <i>"You're not supposed to ship without an export license."</i></div>
+  </div>
+
+  <div class="solved-hd">
+    <div class="solved-title">Três exemplos resolvidos</div>
+    <div class="solved-sub">Veja o raciocínio completo antes de tentar sozinho</div>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Opinião, não regra</span>
+    <p class="solved-context">Mariana is giving advice to a junior colleague about smart habits when vetting a new supplier. <span class="solved-clue">Nothing here is required by law</span> &mdash; it's simply good practice.</p>
+    <div class="solved-answer">You <b>should</b> verify a supplier's certifications before the first order.</div>
+    <p class="solved-why"><b>Por quê "should":</b> não existe nenhuma lei ou contrato exigindo essa verificação. É a opinião de Mariana sobre o que seria inteligente fazer. Toda vez que a frase é um conselho, sem consequência formal se for ignorado, é should.</p>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Regra sem exceção</span>
+    <p class="solved-context">A new export regulation leaves <span class="solved-clue">no room for exceptions</span>: every company shipping this product needs a valid license, full stop.</p>
+    <div class="solved-answer rule">Exporters <b>must</b> hold a valid export license before shipping this product.</div>
+    <p class="solved-why"><b>Por quê "must":</b> a obrigação não vem da opinião de ninguém &mdash; vem da lei. Não existe "seria bom" aqui: sem a licença, o embarque simplesmente não acontece. Regra objetiva, sem exceção, é must.</p>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Acordo quebrado</span>
+    <p class="solved-context">The delivery date was written into the contract <span class="solved-clue">months ago</span>. The container sat in the warehouse for a week past that date.</p>
+    <div class="solved-answer agreed">The container <b>was supposed to</b> leave the warehouse on Monday.</div>
+    <p class="solved-why"><b>Por quê "supposed to":</b> havia um acordo prévio, por escrito, no contrato. A frase é usada exatamente porque esse acordo não foi cumprido. Toda vez que existe um plano ou promessa anterior &mdash; respeitado ou não &mdash; é supposed to.</p>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-title">Agora sozinho</div>
+    <div class="section-sub">Misturado de propósito, o contexto é a única pista</div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Mariana is giving general advice to the team, based on experience, not on any written policy.</p>
+    <p class="ex-sentence">
+      Whenever a shipment is delayed, you
+      <select class="blank-sel" data-correct="should">
+        <option value="">___</option>
+        <option value="should">should</option>
+        <option value="must">must</option>
+        <option value="are supposed to">are supposed to</option>
+      </select>
+      tell the client before they find out on their own.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Under the terms both companies signed, VanderChem's price was fixed for twelve months. They raised it after eight, with no clause allowing that.</p>
+    <p class="ex-sentence">
+      The price
+      <select class="blank-sel" data-correct="was supposed to">
+        <option value="">___</option>
+        <option value="was supposed to">was supposed to</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+      </select>
+      stay fixed for twelve months, according to what was signed.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">This isn't optional: customs will reject the entire shipment without the correct documentation attached.</p>
+    <p class="ex-sentence">
+      The paperwork
+      <select class="blank-sel" data-correct="must">
+        <option value="">___</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+        <option value="is supposed to">is supposed to</option>
+      </select>
+      be complete before the shipment reaches customs.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">If the shipment doesn't arrive by Friday, there's no real alternative left &mdash; the backup supplier has to be brought in immediately.</p>
+    <p class="ex-sentence">
+      We
+      <select class="blank-sel" data-correct="must">
+        <option value="">___</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+        <option value="are supposed to">are supposed to</option>
+      </select>
+      activate the backup supplier if the shipment doesn't arrive by Friday.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The standard notice period written into most long-term contracts sets an expected warning window before either side can exit.</p>
+    <p class="ex-sentence">
+      A supplier
+      <select class="blank-sel" data-correct="is supposed to">
+        <option value="">___</option>
+        <option value="is supposed to">is supposed to</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+      </select>
+      give at least 90 days' notice before ending a long-term contract.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Mariana thinks it would be wise to double-check the backup supplier's references, though nothing requires it before moving forward.</p>
+    <p class="ex-sentence">
+      "I think we
+      <select class="blank-sel" data-correct="should">
+        <option value="">___</option>
+        <option value="should">should</option>
+        <option value="must">must</option>
+        <option value="are supposed to">are supposed to</option>
+      </select>
+      double-check the backup supplier's references before we commit," Mariana says.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Legally, a supplier declaring <span class="tt" data-tip="forcemajeure">force majeure</span> has to provide documented proof of the event &mdash; there is no way around this one.</p>
+    <p class="ex-sentence">
+      A supplier claiming force majeure
+      <select class="blank-sel" data-correct="must">
+        <option value="">___</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+        <option value="was supposed to">was supposed to</option>
+      </select>
+      provide documented evidence of the event.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The original plan had the supplier audit happening <b>last week</b>. It's been postponed twice since then.</p>
+    <p class="ex-sentence">
+      The supplier audit
+      <select class="blank-sel" data-correct="was supposed to">
+        <option value="">___</option>
+        <option value="was supposed to">was supposed to</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+      </select>
+      happen last week.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Before threatening legal action, it's simply the wiser move to try one more direct conversation first. No policy requires it.</p>
+    <p class="ex-sentence">
+      You
+      <select class="blank-sel" data-correct="should">
+        <option value="">___</option>
+        <option value="should">should</option>
+        <option value="must">must</option>
+        <option value="are supposed to">are supposed to</option>
+      </select>
+      try one more direct conversation before threatening legal action.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">There's no getting around it: every shipment crossing this particular border needs a certificate of origin attached, no exceptions.</p>
+    <p class="ex-sentence">
+      Every shipment crossing this border
+      <select class="blank-sel" data-correct="must">
+        <option value="">___</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+        <option value="is supposed to">is supposed to</option>
+      </select>
+      carry a certificate of origin.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">There's an <span class="tt" data-tip="unwritten">unwritten understanding</span> between the two companies: weekly updates are simply expected as part of how they work together, even though nothing was formally signed about it.</p>
+    <p class="ex-sentence">
+      We
+      <select class="blank-sel" data-correct="are supposed to">
+        <option value="">___</option>
+        <option value="are supposed to">are supposed to</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+      </select>
+      send Frigorex a status update at least once a week.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Mariana is speaking from experience, not describing any written rule the company has.</p>
+    <p class="ex-sentence">
+      "You
+      <select class="blank-sel" data-correct="should">
+        <option value="">___</option>
+        <option value="should">should</option>
+        <option value="must">must</option>
+        <option value="are supposed to">are supposed to</option>
+      </select>
+      never accept a price increase without asking for proof first," Mariana tells the new analyst.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The signed agreement is clear about who has priority if two orders compete for the same production slot.</p>
+    <p class="ex-sentence">
+      According to the contract, our order
+      <select class="blank-sel" data-correct="was supposed to">
+        <option value="">___</option>
+        <option value="was supposed to">was supposed to</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+      </select>
+      take priority over smaller accounts, but it didn't this time.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">This is written directly into the distribution agreement, with real financial penalties attached if it's broken.</p>
+    <p class="ex-sentence">
+      A distributor
+      <select class="blank-sel" data-correct="must">
+        <option value="">___</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+        <option value="is supposed to">is supposed to</option>
+      </select>
+      request written approval before reselling to a third country.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">The supplier's onboarding checklist calls for a reference call, though it isn't a legal requirement anywhere.</p>
+    <p class="ex-sentence">
+      Before final approval, a new supplier
+      <select class="blank-sel" data-correct="is supposed to">
+        <option value="">___</option>
+        <option value="is supposed to">is supposed to</option>
+        <option value="must">must</option>
+        <option value="should">should</option>
+      </select>
+      complete a reference call with procurement, according to our onboarding process.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Mariana is reflecting on what would have been the smarter move, looking back &mdash; not on a rule she broke.</p>
+    <p class="ex-sentence">
+      "Looking back, I
+      <select class="blank-sel" data-correct="should have">
+        <option value="">___</option>
+        <option value="should have">should have</option>
+        <option value="must have">must have</option>
+        <option value="was supposed to">was supposed to</option>
+      </select>
+      asked for that in writing from the very first call," Mariana admits.
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+</div>
+</div>
+
+<footer>Not As Agreed · Should, Must &amp; Supposed To Practice</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<script>
+function checkEx(btn){
+  var card = btn.closest('.ex-card');
+  var selects = card.querySelectorAll('.blank-sel');
+  var allCorrect = true;
+  selects.forEach(function(s){
+    s.classList.remove('correct','wrong');
+    if (s.value === '') { allCorrect = false; return; }
+    if (s.value === s.getAttribute('data-correct')) {
+      s.classList.add('correct');
+    } else {
+      s.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  var fb = card.querySelector('.ex-feedback');
+  var resetBtn = card.querySelector('.btn-reset');
+  fb.classList.add('show');
+  if (allCorrect) {
+    fb.textContent = 'Correct!';
+    fb.className = 'ex-feedback show good';
+    resetBtn.classList.remove('show');
+  } else {
+    fb.textContent = 'Not quite yet, pense: essa obrigação vem de opinião, regra, ou de um acordo prévio?';
+    fb.className = 'ex-feedback show bad';
+    resetBtn.classList.add('show');
+  }
+}
+function resetEx(btn){
+  var card = btn.closest('.ex-card');
+  card.querySelectorAll('.blank-sel').forEach(function(s){
+    s.value = '';
+    s.classList.remove('correct','wrong');
+  });
+  var fb = card.querySelector('.ex-feedback');
+  fb.classList.remove('show');
+  fb.textContent = '';
+  btn.classList.remove('show');
+}
+document.querySelectorAll('.blank-sel').forEach(function(s){
+  s.addEventListener('change', function(){ s.classList.remove('correct','wrong'); });
+});
+
+(function() {
+  var TIPS = {
+    "forcemajeure": {pt: "força maior", def: "An unexpected event, like a natural disaster or war, that prevents someone from fulfilling a contract."},
+    "unwritten": {pt: "acordo tácito, não formalizado", def: "An agreement or expectation both sides know about but never put in writing."}
+  };
+
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      el.addEventListener("mouseenter", function(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 115, window.innerWidth - 240));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 16) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qualifying a New Supplier · Supply Chain & Inventory · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:22px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-nav{display:flex;align-items:center;gap:16px}
+.hdr-nav a{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s}
+.hdr-nav a:hover{color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:760px){.hdr-meta,.hdr-nav{display:none}}
+
+.pw{max-width:900px;margin:0 auto;padding:0 56px}
+
+/* HERO */
+.hero{background:var(--dark);padding:140px 0 72px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--teal)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(30px,4vw,46px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;max-width:680px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15.5px;color:rgba(255,255,255,.55);line-height:1.75;max-width:600px}
+.hero-sub strong{color:rgba(255,255,255,.9)}
+
+/* SECTION LABEL */
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec-tag{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);white-space:nowrap}
+.sec-rule{flex:1;height:1px;background:var(--border)}
+
+/* CRITERIA */
+.crit-section{background:var(--paper);padding:72px 0}
+.crit-intro{font-size:15px;color:var(--mid);line-height:1.7;max-width:660px;margin-bottom:36px}
+.crit-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.crit-top{display:flex;gap:18px;padding:24px 26px;cursor:pointer;align-items:center}
+.crit-icon{width:40px;height:40px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;font-weight:800;color:var(--teal)}
+.crit-head{flex:1}
+.crit-name{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:3px}
+.crit-tag{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--mid)}
+.crit-toggle{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .2s}
+.crit-toggle svg{width:13px;height:13px;stroke:var(--mid);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.crit-card.open .crit-toggle{transform:rotate(45deg);background:var(--teal)}
+.crit-card.open .crit-toggle svg{stroke:#fff}
+.crit-back{display:none;padding:0 26px 26px 26px;border-top:1px solid var(--surface)}
+.crit-card.open .crit-back{display:block;padding-top:20px}
+.crit-context{font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:16px}
+.crit-quote{font-size:13.5px;color:var(--ink);font-style:italic;line-height:1.7;background:var(--surface);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:16px}
+.crit-phrases-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.crit-phrase-list{display:flex;flex-wrap:wrap;gap:8px}
+.crit-phrase{font-size:12.5px;font-weight:600;color:var(--ink);background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.25);border-radius:20px;padding:6px 13px;cursor:help;position:relative}
+.crit-phrase:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+
+/* PRACTICE TRIGGER */
+.practice-trigger{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:none;border-radius:24px;padding:13px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;cursor:pointer;font-family:Inter,sans-serif}
+.practice-trigger svg{width:15px;height:15px}
+
+/* PRACTICE DRAWER */
+.practice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600}
+.practice-overlay.open{display:block}
+.practice-drawer{position:fixed;top:0;right:-460px;width:420px;max-width:92vw;height:100%;background:#0D0704;border-left:1px solid rgba(255,255,255,.08);z-index:601;transition:right .3s ease;display:flex;flex-direction:column;font-family:Inter,sans-serif}
+.practice-drawer.open{right:0}
+.practice-header{padding:22px 24px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.practice-title{font-size:15px;font-weight:800;color:#fff}
+.practice-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.practice-progress-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.practice-progress-fill{height:100%;width:0%;background:var(--orange);transition:width .3s}
+.practice-progress-label{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
+.practice-bank{padding:14px 24px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-bank-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.practice-bank-list{display:flex;flex-wrap:wrap;gap:6px}
+.bank-chip{font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border-radius:12px;padding:4px 10px;cursor:help;position:relative;transition:all .2s}
+.bank-chip:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--hi);color:var(--ink);font-size:11px;font-weight:700;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+.bank-chip:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--hi);pointer-events:none;z-index:100}
+.bank-chip.used{color:var(--teal);background:rgba(13,122,138,.18);font-weight:700}
+.bank-chip.used::after{content:attr(data-pt);color:var(--ink)}
+.practice-body{flex:1;overflow-y:auto;padding:20px 24px 40px}
+.pex-item{margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pex-num{font-size:10px;font-weight:800;color:var(--orange);margin-bottom:8px}
+.pex-sentence{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:10px}
+.pex-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:13px;color:#fff;font-family:Inter,sans-serif;margin-bottom:8px}
+.pex-input:focus{outline:none;border-color:var(--orange)}
+.pex-input.correct{border-color:#4CAF88;background:rgba(76,175,136,.08)}
+.pex-input.incorrect{border-color:var(--red);background:rgba(192,57,43,.14)}
+.pex-btnrow{display:flex;gap:8px}
+.pex-check{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border:none;border-radius:16px;padding:6px 14px;cursor:pointer;font-family:Inter,sans-serif}
+.pex-answer{display:none;margin-top:10px;background:rgba(232,98,26,.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.6}
+.pex-answer.show{display:block}
+.pex-answer strong{color:#fff}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+
+@media(max-width:760px){
+  .pw{padding:0 24px}
+  .hero{padding:120px 0 56px}
+  .footer{padding:24px;flex-direction:column;text-align:center;gap:8px}
+  .footer-copy{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Supply Chain &amp; Inventory · Extension</span>
+    <nav class="hdr-nav">
+      <a href="supplier-reasons.html">When Suppliers Walk Away</a>
+      <a href="not-as-agreed-practice.html">Should, Must &amp; Supposed To</a>
+    </nav>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Before you sign anything</span></div>
+    <h1 class="hero-title">Qualifying a supplier is <em>due diligence,</em> not paperwork.</h1>
+    <p class="hero-sub">Choosing a supplier based on price alone is how companies end up with the exact problems we've already studied &mdash; missed shipments, broken promises, and suppliers who simply can't deliver. A proper qualification process catches most of that <strong>before</strong> you sign anything.</p>
+  </div>
+</section>
+
+<!-- CRITERIA -->
+<section class="crit-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-tag">Six things to check</span><div class="sec-rule"></div></div>
+    <p class="crit-intro">These are the areas procurement teams evaluate before approving a new supplier. Each one comes with the language used to talk about it professionally.</p>
+
+    <div class="crit-card" onclick="toggleCrit(this)">
+      <div class="crit-top">
+        <div class="crit-icon">01</div>
+        <div class="crit-head">
+          <div class="crit-name">Quality certifications &amp; compliance</div>
+          <div class="crit-tag">Can they prove they meet the standard?</div>
+        </div>
+        <div class="crit-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="crit-back">
+        <p class="crit-context">Before anything else, buyers confirm that a supplier holds the certifications required for the industry, and that their processes actually follow those standards in practice, not just on paper.</p>
+        <div class="crit-quote">"Please provide current <span style="border-bottom:2px solid var(--orange);font-weight:700">quality certifications</span> and confirm that your facility <span style="border-bottom:2px solid var(--orange);font-weight:700">meets industry standards</span> for this product category."</div>
+        <div class="crit-phrases-label">Key expressions</div>
+        <div class="crit-phrase-list">
+          <span class="crit-phrase" data-pt="certificação de qualidade">quality certification</span>
+          <span class="crit-phrase" data-pt="atender aos padrões do setor">meet industry standards</span>
+          <span class="crit-phrase" data-pt="conformidade regulatória">regulatory compliance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="crit-card" onclick="toggleCrit(this)">
+      <div class="crit-top">
+        <div class="crit-icon">02</div>
+        <div class="crit-head">
+          <div class="crit-name">Financial stability</div>
+          <div class="crit-tag">Can they survive a slow quarter?</div>
+        </div>
+        <div class="crit-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="crit-back">
+        <p class="crit-context">A supplier's financial health determines whether they can reliably fulfill large or long-term orders without sudden disruptions. Buyers often request financial statements or run independent checks before committing.</p>
+        <div class="crit-quote">"As part of our vetting process, we run a <span style="border-bottom:2px solid var(--orange);font-weight:700">credit check</span> on every new supplier to confirm <span style="border-bottom:2px solid var(--orange);font-weight:700">financial stability</span> before signing a long-term contract."</div>
+        <div class="crit-phrases-label">Key expressions</div>
+        <div class="crit-phrase-list">
+          <span class="crit-phrase" data-pt="estabilidade financeira">financial stability</span>
+          <span class="crit-phrase" data-pt="verificação de crédito">credit check</span>
+          <span class="crit-phrase" data-pt="problemas de fluxo de caixa">cash flow issues</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="crit-card" onclick="toggleCrit(this)">
+      <div class="crit-top">
+        <div class="crit-icon">03</div>
+        <div class="crit-head">
+          <div class="crit-name">Production capacity &amp; scalability</div>
+          <div class="crit-tag">Can they grow with you?</div>
+        </div>
+        <div class="crit-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="crit-back">
+        <p class="crit-context">A supplier might handle your current order easily but struggle the moment volume increases. Buyers assess whether current production capacity can meet demand today, and scale if the relationship grows.</p>
+        <div class="crit-quote">"We need to understand your <span style="border-bottom:2px solid var(--orange);font-weight:700">production capacity</span> today, and whether you could <span style="border-bottom:2px solid var(--orange);font-weight:700">scale up production</span> if our order volume doubles next year."</div>
+        <div class="crit-phrases-label">Key expressions</div>
+        <div class="crit-phrase-list">
+          <span class="crit-phrase" data-pt="capacidade de produção">production capacity</span>
+          <span class="crit-phrase" data-pt="aumentar a produção">scale up production</span>
+          <span class="crit-phrase" data-pt="atender à demanda">meet demand</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="crit-card" onclick="toggleCrit(this)">
+      <div class="crit-top">
+        <div class="crit-icon">04</div>
+        <div class="crit-head">
+          <div class="crit-name">Track record &amp; references</div>
+          <div class="crit-tag">What do their other clients say?</div>
+        </div>
+        <div class="crit-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="crit-back">
+        <p class="crit-context">A supplier's history with other clients reveals patterns that a sales pitch never will. Buyers ask for references and look closely for anything that seems inconsistent or evasive.</p>
+        <div class="crit-quote">"Could you share two <span style="border-bottom:2px solid var(--orange);font-weight:700">client references</span> from the past year? A strong <span style="border-bottom:2px solid var(--orange);font-weight:700">track record</span> with similar-sized companies would be ideal."</div>
+        <div class="crit-phrases-label">Key expressions</div>
+        <div class="crit-phrase-list">
+          <span class="crit-phrase" data-pt="histórico de desempenho">track record</span>
+          <span class="crit-phrase" data-pt="referências de clientes">client references</span>
+          <span class="crit-phrase" data-pt="sinais de alerta">red flags</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="crit-card" onclick="toggleCrit(this)">
+      <div class="crit-top">
+        <div class="crit-icon">05</div>
+        <div class="crit-head">
+          <div class="crit-name">Communication &amp; responsiveness</div>
+          <div class="crit-tag">How do they behave before there's a crisis?</div>
+        </div>
+        <div class="crit-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="crit-back">
+        <p class="crit-context">How a supplier communicates during the qualification process often predicts how they'll behave later, under pressure. Slow or vague answers now are rarely a good sign.</p>
+        <div class="crit-quote">"Part of our <span style="border-bottom:2px solid var(--orange);font-weight:700">due diligence</span> is simply observing <span style="border-bottom:2px solid var(--orange);font-weight:700">responsiveness</span> &mdash; how quickly and clearly a supplier answers our questions during this process."</div>
+        <div class="crit-phrases-label">Key expressions</div>
+        <div class="crit-phrase-list">
+          <span class="crit-phrase" data-pt="capacidade de resposta">responsiveness</span>
+          <span class="crit-phrase" data-pt="tempo de resposta, prazo de retorno">turnaround time</span>
+          <span class="crit-phrase" data-pt="diligência prévia">due diligence</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="crit-card" onclick="toggleCrit(this)">
+      <div class="crit-top">
+        <div class="crit-icon">06</div>
+        <div class="crit-head">
+          <div class="crit-name">Pricing &amp; commercial terms</div>
+          <div class="crit-tag">What's the full deal, not just the price?</div>
+        </div>
+        <div class="crit-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="crit-back">
+        <p class="crit-context">Price matters, but so do the terms surrounding it: payment conditions, minimum order sizes, and whether the supplier is willing to start with a smaller trial before a full commitment.</p>
+        <div class="crit-quote">"Before we commit to volume, we'd like to place a <span style="border-bottom:2px solid var(--orange);font-weight:700">trial order</span> and confirm your standard <span style="border-bottom:2px solid var(--orange);font-weight:700">payment terms</span> and minimum order quantity."</div>
+        <div class="crit-phrases-label">Key expressions</div>
+        <div class="crit-phrase-list">
+          <span class="crit-phrase" data-pt="condições de pagamento">payment terms</span>
+          <span class="crit-phrase" data-pt="quantidade mínima de pedido">minimum order quantity</span>
+          <span class="crit-phrase" data-pt="pedido teste">trial order</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="practice-trigger" onclick="openPractice()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      Practice this vocabulary — open exercise
+    </button>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC &middot; Escola de Idiomas e Cultura</span>
+  <div class="footer-copy">Supply Chain &amp; Inventory &middot; Qualifying a New Supplier</div>
+</footer>
+
+<!-- PRACTICE OVERLAY -->
+<div class="practice-overlay" id="practiceOverlay" onclick="closePractice()"></div>
+
+<!-- PRACTICE DRAWER -->
+<div class="practice-drawer" id="practiceDrawer">
+  <div class="practice-header">
+    <div class="practice-title-row">
+      <span class="practice-title">Practice: qualifying a supplier</span>
+      <button class="practice-close" onclick="closePractice()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="practice-progress-track"><div class="practice-progress-fill" id="practiceProgressFill"></div></div>
+    <div class="practice-progress-label" id="practiceProgressLabel">0 of 18 checked</div>
+  </div>
+
+  <div class="practice-bank">
+    <div class="practice-bank-label">Word bank</div>
+    <div class="practice-bank-list" id="practiceBankList">
+      <span class="bank-chip" data-word="quality certification" data-pt="certificação de qualidade">quality certification</span>
+      <span class="bank-chip" data-word="meet industry standards" data-pt="atender aos padrões do setor">meet industry standards</span>
+      <span class="bank-chip" data-word="regulatory compliance" data-pt="conformidade regulatória">regulatory compliance</span>
+      <span class="bank-chip" data-word="financial stability" data-pt="estabilidade financeira">financial stability</span>
+      <span class="bank-chip" data-word="credit check" data-pt="verificação de crédito">credit check</span>
+      <span class="bank-chip" data-word="cash flow issues" data-pt="problemas de fluxo de caixa">cash flow issues</span>
+      <span class="bank-chip" data-word="production capacity" data-pt="capacidade de produção">production capacity</span>
+      <span class="bank-chip" data-word="scale up production" data-pt="aumentar a produção">scale up production</span>
+      <span class="bank-chip" data-word="meet demand" data-pt="atender à demanda">meet demand</span>
+      <span class="bank-chip" data-word="track record" data-pt="histórico de desempenho">track record</span>
+      <span class="bank-chip" data-word="client references" data-pt="referências de clientes">client references</span>
+      <span class="bank-chip" data-word="red flags" data-pt="sinais de alerta">red flags</span>
+      <span class="bank-chip" data-word="responsiveness" data-pt="capacidade de resposta">responsiveness</span>
+      <span class="bank-chip" data-word="turnaround time" data-pt="tempo de resposta, prazo de retorno">turnaround time</span>
+      <span class="bank-chip" data-word="due diligence" data-pt="diligência prévia">due diligence</span>
+      <span class="bank-chip" data-word="payment terms" data-pt="condições de pagamento">payment terms</span>
+      <span class="bank-chip" data-word="minimum order quantity" data-pt="quantidade mínima de pedido">minimum order quantity</span>
+      <span class="bank-chip" data-word="trial order" data-pt="pedido teste">trial order</span>
+    </div>
+  </div>
+
+  <div class="practice-body">
+
+    <div class="pex-item">
+      <div class="pex-num">01</div>
+      <div class="pex-sentence">Before requesting samples, the buyer asked for the supplier's current ______ for food-grade packaging.</div>
+      <input class="pex-input" id="pex1" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'quality certification')">Check</button></div>
+      <div class="pex-answer" id="pexA1"><strong>quality certification</strong> — official proof that a supplier follows recognized quality standards.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">02</div>
+      <div class="pex-sentence">Every candidate supplier must show documented evidence that their facility ______ for this product.</div>
+      <input class="pex-input" id="pex2" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'meets industry standards')">Check</button></div>
+      <div class="pex-answer" id="pexA2"><strong>meets industry standards</strong> — follows the accepted rules and benchmarks of the sector.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">03</div>
+      <div class="pex-sentence">Legal flagged the contract until the supplier could confirm full ______ with import regulations.</div>
+      <input class="pex-input" id="pex3" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow3"><button class="pex-check" onclick="checkPex(3,'regulatory compliance')">Check</button></div>
+      <div class="pex-answer" id="pexA3"><strong>regulatory compliance</strong> — meeting the legal and regulatory requirements that apply.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">04</div>
+      <div class="pex-sentence">Before signing a three-year contract, the buyer wanted proof of the supplier's ______.</div>
+      <input class="pex-input" id="pex4" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow4"><button class="pex-check" onclick="checkPex(4,'financial stability')">Check</button></div>
+      <div class="pex-answer" id="pexA4"><strong>financial stability</strong> — a solid financial position, unlikely to collapse or default.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">05</div>
+      <div class="pex-sentence">As part of the vetting process, procurement ran a ______ on the new supplier.</div>
+      <input class="pex-input" id="pex5" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow5"><button class="pex-check" onclick="checkPex(5,'credit check')">Check</button></div>
+      <div class="pex-answer" id="pexA5"><strong>credit check</strong> — a formal review of a company's ability to pay its debts.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">06</div>
+      <div class="pex-sentence">Late payments to their own suppliers suggested the company might be having ______.</div>
+      <input class="pex-input" id="pex6" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow6"><button class="pex-check" onclick="checkPex(6,'cash flow issues')">Check</button></div>
+      <div class="pex-answer" id="pexA6"><strong>cash flow issues</strong> — trouble with money coming in and going out on time.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">07</div>
+      <div class="pex-sentence">The factory tour was mainly to confirm the supplier's real ______, not just what was on paper.</div>
+      <input class="pex-input" id="pex7" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow7"><button class="pex-check" onclick="checkPex(7,'production capacity')">Check</button></div>
+      <div class="pex-answer" id="pexA7"><strong>production capacity</strong> — the maximum amount a supplier can realistically produce.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">08</div>
+      <div class="pex-sentence">The buyer asked whether the supplier could ______ if the order size doubled next year.</div>
+      <input class="pex-input" id="pex8" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow8"><button class="pex-check" onclick="checkPex(8,'scale up production')">Check</button></div>
+      <div class="pex-answer" id="pexA8"><strong>scale up production</strong> — to increase output significantly when demand grows.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">09</div>
+      <div class="pex-sentence">A supplier that can barely ______ today is a risky choice for a growing company.</div>
+      <input class="pex-input" id="pex9" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow9"><button class="pex-check" onclick="checkPex(9,'meet demand')">Check</button></div>
+      <div class="pex-answer" id="pexA9"><strong>meet demand</strong> — to produce or deliver enough to satisfy what buyers need.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">10</div>
+      <div class="pex-sentence">A supplier's ______ with similar-sized clients told us more than their sales pitch did.</div>
+      <input class="pex-input" id="pex10" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow10"><button class="pex-check" onclick="checkPex(10,'track record')">Check</button></div>
+      <div class="pex-answer" id="pexA10"><strong>track record</strong> — a supplier's history of performance with previous clients.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">11</div>
+      <div class="pex-sentence">We asked for two ______ from companies of a similar size to ours.</div>
+      <input class="pex-input" id="pex11" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow11"><button class="pex-check" onclick="checkPex(11,'client references')">Check</button></div>
+      <div class="pex-answer" id="pexA11"><strong>client references</strong> — other clients a supplier can point to as proof of good service.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">12</div>
+      <div class="pex-sentence">Vague answers about ownership and unclear pricing were both ______ during the interview.</div>
+      <input class="pex-input" id="pex12" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow12"><button class="pex-check" onclick="checkPex(12,'red flags')">Check</button></div>
+      <div class="pex-answer" id="pexA12"><strong>red flags</strong> — warning signs that something may be wrong.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">13</div>
+      <div class="pex-sentence">Slow, vague replies during qualification often predict poor ______ later, under real pressure.</div>
+      <input class="pex-input" id="pex13" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow13"><button class="pex-check" onclick="checkPex(13,'responsiveness')">Check</button></div>
+      <div class="pex-answer" id="pexA13"><strong>responsiveness</strong> — how quickly and clearly someone reacts to a request.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">14</div>
+      <div class="pex-sentence">The supplier's average ______ on emails was under four hours, which impressed the buyer.</div>
+      <input class="pex-input" id="pex14" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow14"><button class="pex-check" onclick="checkPex(14,'turnaround time')">Check</button></div>
+      <div class="pex-answer" id="pexA14"><strong>turnaround time</strong> — the time it takes to respond or complete a task.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">15</div>
+      <div class="pex-sentence">Proper ______ before signing saves companies from expensive surprises later.</div>
+      <input class="pex-input" id="pex15" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow15"><button class="pex-check" onclick="checkPex(15,'due diligence')">Check</button></div>
+      <div class="pex-answer" id="pexA15"><strong>due diligence</strong> — careful investigation before making a business decision.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">16</div>
+      <div class="pex-sentence">The two companies still needed to agree on standard ______ before the first invoice.</div>
+      <input class="pex-input" id="pex16" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow16"><button class="pex-check" onclick="checkPex(16,'payment terms')">Check</button></div>
+      <div class="pex-answer" id="pexA16"><strong>payment terms</strong> — the agreed conditions for when and how payment happens.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">17</div>
+      <div class="pex-sentence">Some suppliers won't accept an order below their ______, which can be a problem for smaller buyers.</div>
+      <input class="pex-input" id="pex17" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow17"><button class="pex-check" onclick="checkPex(17,'minimum order quantity')">Check</button></div>
+      <div class="pex-answer" id="pexA17"><strong>minimum order quantity</strong> — the smallest amount a supplier is willing to sell per order.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">18</div>
+      <div class="pex-sentence">Before committing to full volume, the buyer placed a small ______ to test quality and reliability.</div>
+      <input class="pex-input" id="pex18" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow18"><button class="pex-check" onclick="checkPex(18,'trial order')">Check</button></div>
+      <div class="pex-answer" id="pexA18"><strong>trial order</strong> — a small first order used to test a new supplier before a full commitment.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleCrit(card) {
+  card.classList.toggle('open');
+}
+
+function openPractice() {
+  document.getElementById('practiceOverlay').classList.add('open');
+  document.getElementById('practiceDrawer').classList.add('open');
+}
+function closePractice() {
+  document.getElementById('practiceOverlay').classList.remove('open');
+  document.getElementById('practiceDrawer').classList.remove('open');
+}
+
+var pexChecked = {};
+
+function normalizeAns(s) {
+  return s.toLowerCase().trim().replace(/[.,!?"']/g, '').replace(/\s+/g, ' ');
+}
+
+function checkPex(n, correctAnswer) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+
+  if (!pexChecked[n]) {
+    pexChecked[n] = true;
+    updatePracticeProgress();
+    var target = correctAnswer.toLowerCase();
+    document.querySelectorAll('.bank-chip').forEach(function(chip) {
+      if (chip.dataset.word.toLowerCase() === target) chip.classList.add('used');
+    });
+  }
+}
+
+function hidePex(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="pex-check" onclick="checkPexAgain(' + n + ')">Show again</button>';
+}
+
+function checkPexAgain(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var input = document.getElementById('pex' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryPex(n) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+function updatePracticeProgress() {
+  var total = 18;
+  var done = Object.keys(pexChecked).length;
+  document.getElementById('practiceProgressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('practiceProgressLabel').textContent = done + ' of ' + total + ' checked';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.pex-btnrow').forEach(function(row){
+    row.dataset.checkHtml = row.innerHTML;
+  });
+});
+</script>
+
+</body>
+</html>

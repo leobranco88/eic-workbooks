@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When Suppliers Walk Away · Supply Chain & Inventory · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:22px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-nav{display:flex;align-items:center;gap:16px}
+.hdr-nav a{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s}
+.hdr-nav a:hover{color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:760px){.hdr-meta,.hdr-nav{display:none}}
+
+.pw{max-width:900px;margin:0 auto;padding:0 56px}
+
+/* HERO */
+.hero{background:var(--dark);padding:140px 0 72px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--teal)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(30px,4vw,46px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;max-width:680px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15.5px;color:rgba(255,255,255,.55);line-height:1.75;max-width:600px}
+.hero-sub strong{color:rgba(255,255,255,.9)}
+.hero-quote{margin-top:32px;padding:18px 22px;background:rgba(255,255,255,.04);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;font-size:14px;color:rgba(255,255,255,.7);font-style:italic;max-width:600px}
+
+/* PRE-LEAD-IN */
+.pre-section{background:var(--ink);padding:64px 0}
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec-tag{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);white-space:nowrap}
+.sec-tag.light{color:rgba(255,255,255,.4)}
+.sec-rule{flex:1;height:1px;background:rgba(255,255,255,.1)}
+.pre-intro{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;max-width:620px;margin-bottom:32px}
+.pre-grid{display:flex;flex-direction:column;gap:16px}
+.pre-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden}
+.pre-top{display:flex;gap:16px;padding:22px 24px;cursor:pointer;align-items:flex-start}
+.pre-q{font-size:16.5px;font-weight:700;line-height:1.4;color:#fff;flex:1}
+.pre-toggle{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .2s}
+.pre-toggle svg{width:12px;height:12px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pre-card.open .pre-toggle{transform:rotate(45deg);background:var(--teal)}
+.pre-card.open .pre-toggle svg{stroke:#fff}
+.pre-back{display:none;padding:0 24px 24px 24px;border-top:1px solid rgba(255,255,255,.07)}
+.pre-card.open .pre-back{display:block;padding-top:18px}
+.pre-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.ap-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ap-list li{font-size:13.5px;color:rgba(255,255,255,.8);line-height:1.5;background:rgba(255,255,255,.05);border-radius:8px;padding:9px 14px;position:relative;padding-left:26px}
+.ap-list li:before{content:'';position:absolute;left:12px;top:15px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.ex-label{color:var(--orange)}
+.ex-text{font-size:14px;color:rgba(255,255,255,.82);line-height:1.75;background:rgba(232,98,26,.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:14px 16px;font-style:italic}
+.gl{border-bottom:1.5px dotted var(--teal);cursor:help;font-style:normal;font-weight:600;color:#fff}
+
+/* REASONS */
+.reasons-section{background:var(--paper);padding:72px 0}
+.reasons-intro{font-size:15px;color:var(--mid);line-height:1.7;max-width:660px;margin-bottom:36px}
+.reason-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.reason-top{display:flex;gap:18px;padding:24px 26px;cursor:pointer;align-items:center}
+.reason-icon{width:40px;height:40px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.reason-head{flex:1}
+.reason-name{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:3px}
+.reason-tag{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--mid)}
+.reason-syn{font-size:11px;color:var(--teal);font-weight:600;margin-top:3px}
+.term-tip{border-bottom:1.5px dotted var(--teal);cursor:help;position:relative}
+.term-tip:hover::after{content:attr(data-pt);position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+.term-tip:hover::before{content:'';position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-bottom-color:var(--ink);pointer-events:none;z-index:100}
+.reason-toggle{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .2s}
+.reason-toggle svg{width:13px;height:13px;stroke:var(--mid);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.reason-card.open .reason-toggle{transform:rotate(45deg);background:var(--teal)}
+.reason-card.open .reason-toggle svg{stroke:#fff}
+.reason-back{display:none;padding:0 26px 26px 26px;border-top:1px solid var(--surface)}
+.reason-card.open .reason-back{display:block;padding-top:20px}
+.reason-context{font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:16px}
+.reason-quote{font-size:13.5px;color:var(--ink);font-style:italic;line-height:1.7;background:var(--surface);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:16px}
+.reason-quote .hl{color:var(--ink);font-weight:700;border-bottom:2px solid var(--orange);padding-bottom:1px;font-style:normal;cursor:help;position:relative}
+.reason-quote .hl:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+.reason-phrases-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.reason-phrase-list{display:flex;flex-wrap:wrap;gap:8px}
+.reason-extra-trigger{display:flex;align-items:center;gap:8px;margin-top:16px;padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:11.5px;font-weight:700;color:var(--mid);cursor:pointer;font-family:Inter,sans-serif;width:100%;justify-content:center;transition:all .2s}
+.reason-extra-trigger:hover{background:var(--border)}
+.reason-extra{display:none}
+.reason-extra.show{display:block}
+.reason-move{margin-top:18px;background:rgba(13,122,138,.08);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:14px 16px}
+.reason-move-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.reason-move-text{font-size:13.5px;color:var(--ink);line-height:1.65}
+.reason-reflect{margin-top:14px;background:var(--surface);border-radius:10px;padding:14px 16px}
+.reason-reflect-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.reason-reflect-q{font-size:13.5px;color:var(--ink);line-height:1.6;background:#fff;border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:11px 15px;margin-bottom:8px}
+.reason-reflect-q:last-child{margin-bottom:0}
+.rq-frame{margin-top:9px;font-size:12px;color:var(--mid);line-height:1.55;font-style:italic}
+.rq-frame-label{display:block;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);font-style:normal;margin-bottom:4px}
+.reason-phrase{font-size:12.5px;font-weight:600;color:var(--ink);background:rgba(232,98,26,.08);border:1px solid rgba(232,98,26,.25);border-radius:20px;padding:6px 13px;cursor:help;position:relative}
+.reason-phrase:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+
+/* PRACTICE TRIGGER */
+.practice-trigger{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:none;border-radius:24px;padding:13px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;cursor:pointer;font-family:Inter,sans-serif}
+.docs-trigger{display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#fff;border:none;border-radius:24px;padding:13px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;cursor:pointer;font-family:Inter,sans-serif}
+
+/* DOCUMENTS DRAWER */
+.docs-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600}
+.docs-overlay.open{display:block}
+.docs-drawer{position:fixed;top:0;right:-460px;width:420px;max-width:92vw;height:100%;background:var(--paper);border-left:1px solid var(--border);z-index:601;transition:right .3s ease;display:flex;flex-direction:column;font-family:Inter,sans-serif}
+.docs-drawer.open{right:0}
+.docs-header{position:sticky;top:0;z-index:10;background:var(--dark);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.docs-title{font-size:13px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.docs-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6)}
+.docs-body{padding:26px 24px 40px;overflow-y:auto}
+.docs-intro{font-size:13.5px;color:var(--mid);line-height:1.65;margin-bottom:24px}
+.docs-group{margin-bottom:26px}
+.docs-group-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.docs-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.docs-name{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:2px;cursor:help;position:relative;display:inline-block}
+.docs-name:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:0;background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+.docs-pt{font-size:11.5px;color:var(--teal);font-weight:600;margin-bottom:6px}
+.docs-def{font-size:12.5px;color:var(--mid);line-height:1.6}
+.practice-trigger svg{width:15px;height:15px}
+.docs-trigger svg{width:15px;height:15px;flex-shrink:0}
+
+/* RESOLVE SECTION */
+.resolve-section{background:var(--ink);padding:72px 0}
+.resolve-intro{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;max-width:640px;margin-bottom:32px}
+.resolve-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 30px;margin-bottom:20px}
+.resolve-situation{font-size:15px;color:rgba(255,255,255,.85);line-height:1.75;margin-bottom:18px}
+.resolve-situation strong{color:#fff}
+.resolve-opts{display:flex;flex-direction:column;gap:8px}
+.resolve-opt{padding:12px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);cursor:pointer;text-align:left;width:100%;font-family:Inter,sans-serif;transition:all .2s}
+.resolve-opt-label{font-size:13.5px;color:rgba(255,255,255,.85);line-height:1.5}
+.resolve-opt.selected{background:rgba(13,122,138,.15);border-color:rgba(13,122,138,.5)}
+.resolve-rationale{display:none;margin-top:8px;padding:10px 14px;background:rgba(13,122,138,.12);border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.6;border-left:2px solid var(--teal)}
+.resolve-opt.selected .resolve-rationale{display:block}
+
+/* PRACTICE DRAWER */
+.practice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600}
+.practice-overlay.open{display:block}
+.practice-drawer{position:fixed;top:0;right:-460px;width:420px;max-width:92vw;height:100%;background:#0D0704;border-left:1px solid rgba(255,255,255,.08);z-index:601;transition:right .3s ease;display:flex;flex-direction:column;font-family:Inter,sans-serif}
+.practice-drawer.open{right:0}
+.practice-header{padding:22px 24px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.practice-title{font-size:15px;font-weight:800;color:#fff}
+.practice-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.practice-progress-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.practice-progress-fill{height:100%;width:0%;background:var(--orange);transition:width .3s}
+.practice-progress-label{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
+.practice-bank{padding:14px 24px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-bank-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.practice-bank-list{display:flex;flex-wrap:wrap;gap:6px}
+.bank-chip{font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border-radius:12px;padding:4px 10px;cursor:help;position:relative;transition:all .2s}
+.bank-chip:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--hi);color:var(--ink);font-size:11px;font-weight:700;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+.bank-chip:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--hi);pointer-events:none;z-index:100}
+.bank-chip.used{color:var(--teal);background:rgba(13,122,138,.18);font-weight:700}
+.bank-chip.used::after{content:attr(data-pt);color:var(--ink)}
+.practice-body{flex:1;overflow-y:auto;padding:20px 24px 40px}
+.pex-item{margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pex-num{font-size:10px;font-weight:800;color:var(--orange);margin-bottom:8px}
+.pex-sentence{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:10px}
+.pex-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:13px;color:#fff;font-family:Inter,sans-serif;margin-bottom:8px}
+.pex-input:focus{outline:none;border-color:var(--orange)}
+.pex-input.correct{border-color:#4CAF88;background:rgba(76,175,136,.08)}
+.pex-input.incorrect{border-color:var(--red);background:rgba(192,57,43,.14)}
+.pex-btnrow{display:flex;gap:8px}
+.pex-check{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border:none;border-radius:16px;padding:6px 14px;cursor:pointer;font-family:Inter,sans-serif}
+.pex-answer{display:none;margin-top:10px;background:rgba(232,98,26,.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.6}
+.pex-answer.show{display:block}
+.pex-answer strong{color:#fff}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+
+/* RESOLUTION LANGUAGE */
+.reslang-section{background:var(--paper);padding:72px 0}
+.reslang-intro{font-size:15px;color:var(--mid);line-height:1.7;max-width:660px;margin-bottom:36px}
+.func-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+.func-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:22px 24px}
+.func-name{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.func-tag{font-size:11px;color:var(--mid);margin-bottom:14px}
+.func-phrase-list{display:flex;flex-direction:column;gap:9px}
+.func-phrase{font-size:13px;color:var(--ink);line-height:1.5;background:var(--surface);border-radius:8px;padding:9px 12px;cursor:help;position:relative}
+.func-phrase:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:12px;background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100;max-width:260px;white-space:normal}
+.sample-trigger{display:flex;align-items:center;gap:8px;margin-top:6px;padding:11px 20px;background:rgba(13,122,138,.1);border:1px solid rgba(13,122,138,.3);border-radius:10px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);cursor:pointer;font-family:Inter,sans-serif;width:100%;justify-content:center}
+.sample-block{display:none;margin-top:16px;background:var(--dark);border-radius:16px;padding:26px 28px}
+.sample-block.open{display:block}
+.sample-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.sample-body p{font-size:14px;color:rgba(255,255,255,.82);line-height:1.8;margin-bottom:12px}
+.sample-body .fn{color:#fff;font-weight:700;border-bottom:2px solid var(--orange);padding-bottom:1px}
+@media(max-width:760px){.func-grid{grid-template-columns:1fr}}
+
+/* MODAL GRAMMAR */
+.modal-section{background:var(--paper);padding:72px 0;border-top:1px solid var(--border)}
+.modal-intro{font-size:15px;color:var(--mid);line-height:1.7;max-width:660px;margin-bottom:36px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:40px}
+.modal-card{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:24px 24px}
+.modal-name{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.modal-form{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:16px 0 8px}
+.modal-example{font-size:13px;color:var(--ink);font-style:italic;line-height:1.65;background:var(--surface);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:10px 13px;margin-bottom:8px}
+.modal-warn{font-size:11.5px;color:var(--orange);line-height:1.55;background:rgba(232,98,26,.08);border-radius:8px;padding:9px 12px;margin-top:14px}
+@media(max-width:900px){.modal-grid{grid-template-columns:1fr}}
+
+/* DIALOGUES */
+.dialog-card{background:var(--dark);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.dialog-top{display:flex;align-items:center;gap:14px;padding:20px 24px;cursor:pointer}
+.dialog-head{flex:1}
+.dialog-title{font-size:14.5px;font-weight:800;color:#fff;margin-bottom:2px}
+.dialog-tag{font-size:11px;color:rgba(255,255,255,.4)}
+.dialog-toggle{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .2s}
+.dialog-toggle svg{width:12px;height:12px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.dialog-card.open .dialog-toggle{transform:rotate(45deg);background:var(--teal)}
+.dialog-card.open .dialog-toggle svg{stroke:#fff}
+.dialog-body{display:none;padding:0 24px 26px}
+.dialog-card.open .dialog-body{display:block;padding-top:6px}
+.dialog-line{font-size:14px;color:rgba(255,255,255,.82);line-height:1.8;margin-bottom:13px}
+.dialog-line:last-child{margin-bottom:0}
+.dialog-line strong{color:var(--teal)}
+.dialog-line .fn{color:#fff;font-weight:700;border-bottom:2px solid var(--orange);padding-bottom:1px}
+
+/* ERROR CORRECTION */
+.ecm-err{border-bottom:2px solid var(--ink);font-weight:700}
+.pex-sub{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:26px 0 16px}
+.pex-sub:first-child{margin-top:0}
+
+/* PER-SCENARIO PROTECT / RESOLVE */
+.reason-protect-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.reason-protect-card{background:var(--surface);border-radius:10px;padding:16px 18px}
+.reason-protect-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:11px}
+.reason-protect-label.teal{color:var(--teal)}
+.reason-protect-label.orange{color:var(--orange)}
+.reason-protect-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.reason-protect-list li{font-size:13px;color:var(--ink);line-height:1.55;display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+.protect-check{flex-shrink:0;width:19px;height:19px;margin-top:1px;border-radius:6px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;font-size:10px;font-weight:800;color:var(--mid)}
+.reason-protect-list li.checked .protect-check{background:var(--teal);border-color:var(--teal);color:#fff}
+.reason-protect-list.orange-dot li.checked .protect-check{background:var(--orange);border-color:var(--orange)}
+.protect-text{transition:color .15s}
+.reason-protect-list li.checked .protect-text{color:var(--mid)}
+@media(max-width:760px){.reason-protect-grid{grid-template-columns:1fr}}
+
+/* PER-SCENARIO MODAL CHECK */
+.reason-modalcheck{margin-top:16px;background:var(--surface);border-radius:10px;padding:14px 16px}
+.reason-modalcheck-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.reason-modalcheck-sentence{font-size:13.5px;color:var(--ink);line-height:1.6;margin-bottom:10px}
+.rex-input{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--ink);font-family:Inter,sans-serif;margin-bottom:8px}
+.rex-input:focus{outline:none;border-color:var(--teal)}
+.rex-input.correct{border-color:#4CAF88;background:rgba(76,175,136,.08)}
+.rex-input.incorrect{border-color:var(--red);background:rgba(192,57,43,.08)}
+.rex-btnrow{display:flex;gap:8px}
+.rex-check{font-size:11px;font-weight:700;color:#fff;background:var(--teal);border:none;border-radius:16px;padding:6px 14px;cursor:pointer;font-family:Inter,sans-serif}
+.rex-answer{display:none;margin-top:8px;background:#fff;border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12.5px;color:var(--mid);line-height:1.6}
+.rex-answer.show{display:block}
+.rex-answer strong{color:var(--ink)}
+
+@media(max-width:760px){
+  .pw{padding:0 24px}
+  .hero{padding:120px 0 56px}
+  .footer{padding:24px;flex-direction:column;text-align:center;gap:8px}
+  .footer-copy{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Supply Chain &amp; Inventory · Extension</span>
+    <nav class="hdr-nav">
+      <a href="supplier-qualification.html">Qualifying a Supplier</a>
+      <a href="not-as-agreed-practice.html">Should, Must &amp; Supposed To</a>
+    </nav>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">When a supplier says no</span></div>
+    <h1 class="hero-title">Losing a supplier is never <em>just one story.</em></h1>
+    <p class="hero-sub">Mariana's crisis with VanderChem was about running low on stock. But suppliers disappear for many different reasons — and each one demands a different kind of email, a different tone, and a different plan.</p>
+    <div class="hero-quote">"It's not always a shortage. Sometimes a supplier simply decides you are no longer worth the trouble." — common feedback from procurement teams worldwide</div>
+  </div>
+</section>
+
+<!-- PRE-LEAD-IN -->
+<section class="pre-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-tag">Before the reasons</span><div class="sec-rule"></div></div>
+    <p class="pre-intro">Answer these three questions in your own words first. Then compare your instinct with the six real reasons companies lose a supplier.</p>
+
+    <div class="pre-grid">
+
+      <div class="pre-card" onclick="togglePre(this)">
+        <div class="pre-top">
+          <div class="pre-q">What's the first sign that a supplier relationship might be in trouble?</div>
+          <div class="pre-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+        <div class="pre-back">
+          <div class="pre-label">Answer prompts</div>
+          <ul class="ap-list">
+            <li>The first sign is usually&hellip;</li>
+            <li>You start to notice when&hellip;</li>
+            <li>I'd say the warning sign is&hellip;</li>
+          </ul>
+          <div class="pre-label ex-label">Example answer</div>
+          <div class="ex-text">"The first sign is usually a change in communication. If a supplier who always replies quickly suddenly goes quiet, or their answers become unclear, something is probably changing on their end."</div>
+        </div>
+      </div>
+
+      <div class="pre-card" onclick="togglePre(this)">
+        <div class="pre-top">
+          <div class="pre-q">What would you say if a supplier told you, out of nowhere, that they will not sell to you anymore?</div>
+          <div class="pre-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+        <div class="pre-back">
+          <div class="pre-label">Answer prompts</div>
+          <ul class="ap-list">
+            <li>My first reaction would be&hellip;</li>
+            <li>I would need to ask&hellip;</li>
+            <li>Before panicking, I would&hellip;</li>
+          </ul>
+          <div class="pre-label ex-label">Example answer</div>
+          <div class="ex-text">"My first reaction would be to ask why, calmly, instead of assuming the worst. There's a big difference between a supplier who is struggling and one who is simply choosing to leave."</div>
+        </div>
+      </div>
+
+      <div class="pre-card" onclick="togglePre(this)">
+        <div class="pre-top">
+          <div class="pre-q">What's the real difference between a supplier who can't deliver and one who won't?</div>
+          <div class="pre-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+        </div>
+        <div class="pre-back">
+          <div class="pre-label">Answer prompts</div>
+          <ul class="ap-list">
+            <li>The real difference is&hellip;</li>
+            <li>If they can't, it usually means&hellip;</li>
+            <li>If they won't, it usually means&hellip;</li>
+          </ul>
+          <div class="pre-label ex-label">Example answer</div>
+          <div class="ex-text">"The real difference is control. If they can't deliver, something outside their control went wrong. If they won't, they have made a business decision — and that decision is much harder to change."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section class="reasons-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-tag">Six real reasons</span><div class="sec-rule" style="background:var(--border)"></div></div>
+    <p class="reasons-intro">These are the most common reasons a supplier stops delivering, based on how procurement and supply chain teams around the world describe it. Each one comes with the exact language used to talk about it professionally.</p>
+
+    <div class="reason-card" onclick="toggleReason(this)">
+      <div class="reason-top">
+        <div class="reason-icon">01</div>
+        <div class="reason-head">
+          <div class="reason-name">The supplier goes out of business</div>
+          <div class="reason-tag">Sudden · no warning · highest risk</div>
+        </div>
+        <div class="reason-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="reason-back">
+        <p class="reason-context">This is the worst-case scenario: the supplier becomes insolvent or simply closes down, sometimes with very little notice. There is no negotiation possible — the relationship ends because the company itself no longer exists.</p>
+        <div class="reason-quote">"We regret to inform you that, <span class="hl" data-pt="devido a processo de insolvência">due to insolvency proceedings</span>, we are <span class="hl" data-pt="cessar as operações, com efeito imediato">ceasing operations with immediate effect</span>."</div>
+        <div class="reason-phrases-label">Key expressions</div>
+        <div class="reason-phrase-list">
+          <span class="reason-phrase" data-pt="processo de insolvência">insolvency proceedings</span>
+          <span class="reason-phrase" data-pt="com efeito imediato">with immediate effect</span>
+          <span class="reason-phrase" data-pt="cessar as operações">cease operations</span>
+        </div>
+        <button class="reason-extra-trigger" onclick="toggleReasonExtra(event, 1)">
+          <span id="reasonExtraLabel1" data-q="What would your company do if you got this email tomorrow?">What would your company do if you got this email tomorrow?</span>
+        </button>
+        <div class="reason-extra" id="reasonExtra1">
+        <div class="reason-move">
+          <div class="reason-move-label">Ideal move</div>
+          <div class="reason-move-text">Act fast, not emotionally. Activate a backup supplier immediately, and tell your own clients before they hear it from someone else.</div>
+        </div>
+        <div class="reason-protect-grid">
+          <div class="reason-protect-card">
+            <div class="reason-protect-label teal">How to protect yourself</div>
+            <ul class="reason-protect-list"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Qualify at least one <span class="term-tip" data-pt="fornecedor reserva">backup supplier</span> for every critical input, even if you never use them.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Watch for early warning signs: slow replies, missed small deadlines, unusual payment requests.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Keep a minimum <span class="term-tip" data-pt="estoque de segurança">safety stock</span> for anything you can't quickly replace.</span></li></ul>
+          </div>
+          <div class="reason-protect-card">
+            <div class="reason-protect-label orange">How to resolve it</div>
+            <ul class="reason-protect-list orange-dot"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Contact the backup supplier immediately, even before confirming the full story.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Ask for any partial stock or in-transit shipments that can still be delivered.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Inform your own clients proactively, with a realistic revised timeline.</span></li></ul>
+          </div>
+        </div>
+        <div class="reason-modalcheck" onclick="event.stopPropagation()">
+          <div class="reason-modalcheck-label">Quick check &middot; should / must / supposed to</div>
+          <div class="reason-modalcheck-sentence">The moment the insolvency notice arrives, you ______ activate your backup supplier &mdash; there's no time to wait and see.</div>
+          <input class="rex-input" id="rex1" placeholder="Type your answer">
+          <div class="rex-btnrow" id="rexBtnRow1"><button class="rex-check" onclick="checkRex(1,'must')">Check</button></div>
+          <div class="rex-answer" id="rexA1"><strong>must</strong> &mdash; necessity, not a suggestion. There is no real alternative once the notice arrives.</div>
+        </div>
+        <div class="reason-reflect">
+          <div class="reason-reflect-label">Talk about it</div>
+          <div class="reason-reflect-q">How quickly could your company really activate a backup supplier if this happened tomorrow?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"Realistically, it would take us&hellip;" &middot; "If we're honest, our backup plan is&hellip;"</div></div>
+          <div class="reason-reflect-q">What's the first phone call you would make in the first hour?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"The first person I'd call is&hellip;" &middot; "Before anything else, I would&hellip;"</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="reason-card" onclick="toggleReason(this)">
+      <div class="reason-top">
+        <div class="reason-icon">02</div>
+        <div class="reason-head">
+          <div class="reason-name">A shortage or cost <span class="term-tip" data-pt="subida repentina de preço">spike</span> upstream</div>
+          <div class="reason-tag">The supplier's own supplier fails</div>
+          <div class="reason-syn">spike = a sudden price increase (also: a bump, a hike)</div>
+        </div>
+        <div class="reason-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="reason-back">
+        <p class="reason-context">Sometimes the problem isn't your supplier — it's theirs. A raw material shortage or a sudden cost increase earlier in the supply chain can force them to delay, cancel, or ask for a higher price on an order they already confirmed.</p>
+        <div class="reason-quote">"<span class="hl" data-pt="devido a uma escassez de matéria-prima">Due to a shortage of raw materials</span>, we are unable to <span class="hl" data-pt="honrar o preço acordado">honor the agreed price</span> and must <span class="hl" data-pt="revisar nossos preços">revise our pricing</span> for this order."</div>
+        <div class="reason-phrases-label">Key expressions</div>
+        <div class="reason-phrase-list">
+          <span class="reason-phrase" data-pt="escassez de matéria-prima">a shortage of raw materials</span>
+          <span class="reason-phrase" data-pt="honrar um preço/acordo">honor the agreed price</span>
+          <span class="reason-phrase" data-pt="revisar os preços">revise our pricing</span>
+        </div>
+        <button class="reason-extra-trigger" onclick="toggleReasonExtra(event, 2)">
+          <span id="reasonExtraLabel2" data-q="What would your company do if a supplier sent you this?">What would your company do if a supplier sent you this?</span>
+        </button>
+        <div class="reason-extra" id="reasonExtra2">
+        <div class="reason-move">
+          <div class="reason-move-label">Ideal move</div>
+          <div class="reason-move-text">Ask for proof of the shortage, and negotiate a partial adjustment instead of accepting a full price increase without question.</div>
+        </div>
+        <div class="reason-protect-grid">
+          <div class="reason-protect-card">
+            <div class="reason-protect-label teal">How to protect yourself</div>
+            <ul class="reason-protect-list"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Diversify raw material sources when possible, so one shortage doesn't stop everything.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Ask suppliers for <span class="term-tip" data-pt="cláusulas de alerta antecipado">early-warning clauses</span> in the contract, not just penalty clauses.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Track global price trends for the ingredients your supply chain depends on.</span></li></ul>
+          </div>
+          <div class="reason-protect-card">
+            <div class="reason-protect-label orange">How to resolve it</div>
+            <ul class="reason-protect-list orange-dot"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Request <span class="term-tip" data-pt="prova documentada">documented proof</span> of the shortage before accepting any price change.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Negotiate a partial increase or a <span class="term-tip" data-pt="teto temporário">temporary cap</span> instead of the full adjustment.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Explore whether a smaller, faster shipment can <span class="term-tip" data-pt="preencher a lacuna, cobrir o intervalo">bridge the gap</span> while prices stabilize.</span></li></ul>
+          </div>
+        </div>
+        <div class="reason-modalcheck" onclick="event.stopPropagation()">
+          <div class="reason-modalcheck-label">Quick check &middot; should / must / supposed to</div>
+          <div class="reason-modalcheck-sentence">If a supplier claims a shortage, they ______ show proof before you accept a price increase.</div>
+          <input class="rex-input" id="rex2" placeholder="Type your answer">
+          <div class="rex-btnrow" id="rexBtnRow2"><button class="rex-check" onclick="checkRex(2,'should')">Check</button></div>
+          <div class="rex-answer" id="rexA2"><strong>should</strong> &mdash; a wise, professional expectation, not a legal rule in every contract.</div>
+        </div>
+        <div class="reason-reflect">
+          <div class="reason-reflect-label">Talk about it</div>
+          <div class="reason-reflect-q">Would you accept a price increase without seeing proof of the shortage? Why or why not?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"I wouldn't accept it because&hellip;" &middot; "It would depend on&hellip;"</div></div>
+          <div class="reason-reflect-q">How do you usually verify whether a shortage claim is genuine?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"We usually check&hellip;" &middot; "One way to verify it is&hellip;"</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="reason-card" onclick="toggleReason(this)">
+      <div class="reason-top">
+        <div class="reason-icon">03</div>
+        <div class="reason-head">
+          <div class="reason-name">New tariffs or export restrictions</div>
+          <div class="reason-tag">Geopolitical · regulatory</div>
+        </div>
+        <div class="reason-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="reason-back">
+        <p class="reason-context">International trade can be affected by decisions made far outside the supply chain itself. New tariffs, export bans, or sanctions can suddenly make a shipment illegal, unprofitable, or simply impossible to send.</p>
+        <div class="reason-quote">"This shipment is now <span class="hl" data-pt="sujeito a novas restrições de exportação">subject to new export restrictions</span>, and we must review our <span class="hl" data-pt="obrigações de conformidade">compliance obligations</span> before proceeding."</div>
+        <div class="reason-phrases-label">Key expressions</div>
+        <div class="reason-phrase-list">
+          <span class="reason-phrase" data-pt="restrições de exportação">export restrictions</span>
+          <span class="reason-phrase" data-pt="obrigações de conformidade">compliance obligations</span>
+          <span class="reason-phrase" data-pt="sujeito a">subject to</span>
+        </div>
+        <button class="reason-extra-trigger" onclick="toggleReasonExtra(event, 3)">
+          <span id="reasonExtraLabel3" data-q="What would your company do about this?">What would your company do about this?</span>
+        </button>
+        <div class="reason-extra" id="reasonExtra3">
+        <div class="reason-move">
+          <div class="reason-move-label">Ideal move</div>
+          <div class="reason-move-text">Ask for a compliance-adjusted timeline, and check whether a different shipping route or product classification avoids the restriction.</div>
+        </div>
+        <div class="reason-protect-grid">
+          <div class="reason-protect-card">
+            <div class="reason-protect-label teal">How to protect yourself</div>
+            <ul class="reason-protect-list"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Monitor <span class="term-tip" data-pt="mudanças regulatórias">regulatory changes</span> in your suppliers' countries, not just your own.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Classify products correctly from the start; <span class="term-tip" data-pt="classificação incorreta">misclassification</span> often causes delays later.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Build extra <span class="term-tip" data-pt="prazo de antecedência">lead time</span> into contracts for anything crossing borders.</span></li></ul>
+          </div>
+          <div class="reason-protect-card">
+            <div class="reason-protect-label orange">How to resolve it</div>
+            <ul class="reason-protect-list orange-dot"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Ask for a <span class="term-tip" data-pt="ajustado à conformidade">compliance-adjusted</span> delivery date instead of assuming the shipment is cancelled.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Check alternative routes, ports, or product classifications that avoid the restriction.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Get legal or customs guidance before responding to the supplier in writing.</span></li></ul>
+          </div>
+        </div>
+        <div class="reason-modalcheck" onclick="event.stopPropagation()">
+          <div class="reason-modalcheck-label">Quick check &middot; should / must / supposed to</div>
+          <div class="reason-modalcheck-sentence">Under the new regulation, exporters ______ hold a valid export license before shipping this product.</div>
+          <input class="rex-input" id="rex3" placeholder="Type your answer">
+          <div class="rex-btnrow" id="rexBtnRow3"><button class="rex-check" onclick="checkRex(3,'must')">Check</button></div>
+          <div class="rex-answer" id="rexA3"><strong>must</strong> &mdash; a legal requirement, with no exception.</div>
+        </div>
+        <div class="reason-reflect">
+          <div class="reason-reflect-label">Talk about it</div>
+          <div class="reason-reflect-q">How closely does your company track regulatory changes that could affect its suppliers?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"Honestly, we&hellip;" &middot; "Our company tends to&hellip;"</div></div>
+          <div class="reason-reflect-q">Would you consider a different shipping route, even if it costs more, to avoid a delay like this?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"I would definitely consider&hellip;" &middot; "It would depend on how much&hellip;"</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="reason-card" onclick="toggleReason(this)">
+      <div class="reason-top">
+        <div class="reason-icon">04</div>
+        <div class="reason-head">
+          <div class="reason-name">The supplier is at full capacity</div>
+          <div class="reason-tag">Demand outgrows supply</div>
+        </div>
+        <div class="reason-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="reason-back">
+        <p class="reason-context">When demand grows faster than production, suppliers often have to choose who gets served first. Smaller or newer clients are usually the first to lose priority — not because of a problem, but because of simple math.</p>
+        <div class="reason-quote">"Our production capacity is <span class="hl" data-pt="totalmente alocada">fully allocated</span> for this quarter, and we are unable to <span class="hl" data-pt="atender pedidos adicionais">accommodate additional orders</span> at this time."</div>
+        <div class="reason-phrases-label">Key expressions</div>
+        <div class="reason-phrase-list">
+          <span class="reason-phrase" data-pt="totalmente alocada, sem folga">fully allocated</span>
+          <span class="reason-phrase" data-pt="atender pedidos adicionais">accommodate additional orders</span>
+          <span class="reason-phrase" data-pt="priorizar compromissos existentes">prioritize existing commitments</span>
+        </div>
+        <button class="reason-extra-trigger" onclick="toggleReasonExtra(event, 4)">
+          <span id="reasonExtraLabel4" data-q="What would you do in Mariana's position?">What would you do in Mariana's position?</span>
+        </button>
+        <div class="reason-extra" id="reasonExtra4">
+        <div class="reason-move">
+          <div class="reason-move-label">Ideal move</div>
+          <div class="reason-move-text">Ask for a firm date when capacity frees up, and start qualifying a second supplier in parallel — don't wait for the problem to repeat itself.</div>
+        </div>
+        <div class="reason-protect-grid">
+          <div class="reason-protect-card">
+            <div class="reason-protect-label teal">How to protect yourself</div>
+            <ul class="reason-protect-list"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Build a real relationship with a second supplier before you actually need them.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text"><span class="term-tip" data-pt="prever a demanda">Forecast demand</span> early enough that your supplier can plan around it.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Ask for <span class="term-tip" data-pt="cláusulas de prioridade">priority clauses</span> in high-volume contracts, not just price terms.</span></li></ul>
+          </div>
+          <div class="reason-protect-card">
+            <div class="reason-protect-label orange">How to resolve it</div>
+            <ul class="reason-protect-list orange-dot"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Ask for a firm date when capacity will open up again.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Offer to <span class="term-tip" data-pt="dividir o pedido">split the order</span>, if a partial shipment keeps your production moving.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Start activating the backup supplier in parallel, without waiting for a final answer.</span></li></ul>
+          </div>
+        </div>
+        <div class="reason-modalcheck" onclick="event.stopPropagation()">
+          <div class="reason-modalcheck-label">Quick check &middot; should / must / supposed to</div>
+          <div class="reason-modalcheck-sentence">According to the original contract, this order ______ be delivered by the 15th &mdash; the "fully allocated" excuse doesn't change that.</div>
+          <input class="rex-input" id="rex4" placeholder="Type your answer">
+          <div class="rex-btnrow" id="rexBtnRow4"><button class="rex-check" onclick="checkRex(4,'was supposed to')">Check</button></div>
+          <div class="rex-answer" id="rexA4"><strong>was supposed to</strong> &mdash; the agreed date, regardless of the supplier's capacity problem.</div>
+        </div>
+        <div class="reason-reflect">
+          <div class="reason-reflect-label">Talk about it</div>
+          <div class="reason-reflect-q">How would you react if your biggest supplier suddenly prioritized a bigger client over you?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"My first reaction would be&hellip;" &middot; "I think I would&hellip;"</div></div>
+          <div class="reason-reflect-q">At what point would you start actively looking for a second supplier — before or after this happens?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"I would start looking&hellip;" &middot; "In my opinion, the right moment is&hellip;"</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="reason-card" onclick="toggleReason(this)">
+      <div class="reason-top">
+        <div class="reason-icon">05</div>
+        <div class="reason-head">
+          <div class="reason-name">An unresolved dispute</div>
+          <div class="reason-tag">Quality, payment, or contract</div>
+        </div>
+        <div class="reason-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="reason-back">
+        <p class="reason-context">Sometimes a supplier stops shipping on purpose — not because they can't, but because there is an open disagreement: a quality complaint, a late payment, or a broken clause in the contract.</p>
+        <div class="reason-quote">"We are <span class="hl" data-pt="retendo, segurando o envio">withholding shipment</span> until the <span class="hl" data-pt="saldo em aberto">outstanding balance</span> is settled, <span class="hl" data-pt="pendente a resolução de">pending resolution of</span> this matter."</div>
+        <div class="reason-phrases-label">Key expressions</div>
+        <div class="reason-phrase-list">
+          <span class="reason-phrase" data-pt="reter, segurar um envio">withhold shipment</span>
+          <span class="reason-phrase" data-pt="saldo em aberto">outstanding balance</span>
+          <span class="reason-phrase" data-pt="pendente a resolução de">pending resolution of</span>
+        </div>
+        <button class="reason-extra-trigger" onclick="toggleReasonExtra(event, 5)">
+          <span id="reasonExtraLabel5" data-q="What would your company do first?">What would your company do first?</span>
+        </button>
+        <div class="reason-extra" id="reasonExtra5">
+        <div class="reason-move">
+          <div class="reason-move-label">Ideal move</div>
+          <div class="reason-move-text">Solve the real problem quickly and in writing. The shipment almost always starts again once the dispute is truly settled, not just discussed.</div>
+        </div>
+        <div class="reason-protect-grid">
+          <div class="reason-protect-card">
+            <div class="reason-protect-label teal">How to protect yourself</div>
+            <ul class="reason-protect-list"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Resolve small disagreements quickly, before they grow into a <span class="term-tip" data-pt="paralisação do envio">shipment freeze</span>.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Keep every quality and payment issue documented in writing from day one.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Set clear <span class="term-tip" data-pt="etapas de escalonamento">escalation steps</span> in the contract for handling disputes.</span></li></ul>
+          </div>
+          <div class="reason-protect-card">
+            <div class="reason-protect-label orange">How to resolve it</div>
+            <ul class="reason-protect-list orange-dot"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Address the real issue directly and put any agreement in writing immediately.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Avoid threats until every reasonable step to resolve it has been tried.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Confirm a resumed shipment date as soon as the dispute is settled.</span></li></ul>
+          </div>
+        </div>
+        <div class="reason-modalcheck" onclick="event.stopPropagation()">
+          <div class="reason-modalcheck-label">Quick check &middot; should / must / supposed to</div>
+          <div class="reason-modalcheck-sentence">Before threatening legal action, you ______ try one more direct conversation to resolve the dispute.</div>
+          <input class="rex-input" id="rex5" placeholder="Type your answer">
+          <div class="rex-btnrow" id="rexBtnRow5"><button class="rex-check" onclick="checkRex(5,'should')">Check</button></div>
+          <div class="rex-answer" id="rexA5"><strong>should</strong> &mdash; sensible advice before escalating to something more drastic.</div>
+        </div>
+        <div class="reason-reflect">
+          <div class="reason-reflect-label">Talk about it</div>
+          <div class="reason-reflect-q">Should a supplier ever be allowed to withhold shipment over a disagreement? Under what conditions?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"I think a supplier should only&hellip;" &middot; "In my view, this is only acceptable if&hellip;"</div></div>
+          <div class="reason-reflect-q">How would you resolve a dispute like this without damaging the relationship permanently?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"The best way to resolve it would be&hellip;" &middot; "I would try to&hellip;"</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="reason-card" onclick="toggleReason(this)">
+      <div class="reason-top">
+        <div class="reason-icon">06</div>
+        <div class="reason-head">
+          <div class="reason-name">A strategic decision to leave</div>
+          <div class="reason-tag">The choice was theirs, not yours</div>
+        </div>
+        <div class="reason-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="reason-back">
+        <p class="reason-context">Sometimes there is no crisis at all — the supplier simply decides, for their own business reasons, to stop serving a market, a client size, or a product line. It is the hardest kind to hear, because there is often nothing to fix.</p>
+        <div class="reason-quote">"As part of a <span class="hl" data-pt="revisão estratégica">strategic review</span>, we have decided to <span class="hl" data-pt="descontinuar, encerrar">discontinue</span> this product line, which is <span class="hl" data-pt="não faz mais parte de">no longer part of</span> our core business."</div>
+        <div class="reason-phrases-label">Key expressions</div>
+        <div class="reason-phrase-list">
+          <span class="reason-phrase" data-pt="revisão estratégica">strategic review</span>
+          <span class="reason-phrase" data-pt="descontinuar, encerrar">discontinue</span>
+          <span class="reason-phrase" data-pt="não faz mais parte de">no longer part of</span>
+        </div>
+        <button class="reason-extra-trigger" onclick="toggleReasonExtra(event, 6)">
+          <span id="reasonExtraLabel6" data-q="What would your company do next?">What would your company do next?</span>
+        </button>
+        <div class="reason-extra" id="reasonExtra6">
+        <div class="reason-move">
+          <div class="reason-move-label">Ideal move</div>
+          <div class="reason-move-text">Accept the decision calmly, ask for a clear transition timeline, and begin your search for a new supplier right away.</div>
+        </div>
+        <div class="reason-protect-grid">
+          <div class="reason-protect-card">
+            <div class="reason-protect-label teal">How to protect yourself</div>
+            <ul class="reason-protect-list"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Never depend on a single supplier for a product line critical to your business.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Review contracts regularly, so <span class="term-tip" data-pt="prazos de aviso prévio">notice periods</span> and <span class="term-tip" data-pt="cláusulas de rescisão">exit clauses</span> are always current.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Stay alert to shifts in the supplier's business strategy, not just their delivery record.</span></li></ul>
+          </div>
+          <div class="reason-protect-card">
+            <div class="reason-protect-label orange">How to resolve it</div>
+            <ul class="reason-protect-list orange-dot"><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Accept the decision without trying to negotiate something that isn't about price.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Get a clear <span class="term-tip" data-pt="cronograma de transição">transition timeline</span> and any remaining volume in writing.</span></li><li onclick="toggleProtect(event, this)"><span class="protect-check"></span><span class="protect-text">Start actively searching for a replacement the same week you hear the news.</span></li></ul>
+          </div>
+        </div>
+        <div class="reason-modalcheck" onclick="event.stopPropagation()">
+          <div class="reason-modalcheck-label">Quick check &middot; should / must / supposed to</div>
+          <div class="reason-modalcheck-sentence">Under standard notice periods, a supplier ______ give at least 90 days' warning before ending a long-term contract.</div>
+          <input class="rex-input" id="rex6" placeholder="Type your answer">
+          <div class="rex-btnrow" id="rexBtnRow6"><button class="rex-check" onclick="checkRex(6,'is supposed to')">Check</button></div>
+          <div class="rex-answer" id="rexA6"><strong>is supposed to</strong> &mdash; the expected practice under typical contract terms.</div>
+        </div>
+        <div class="reason-reflect">
+          <div class="reason-reflect-label">Talk about it</div>
+          <div class="reason-reflect-q">Is 90 days' notice enough time to find a replacement for a critical supplier?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"In my opinion, 90 days is&hellip;" &middot; "That would depend on&hellip;"</div></div>
+          <div class="reason-reflect-q">How do you think a company should react when there is nothing left to negotiate?<div class="rq-frame"><span class="rq-frame-label">Language frames</span>"I believe a company should&hellip;" &middot; "The most professional reaction would be&hellip;"</div></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <button class="practice-trigger" onclick="openPractice()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        Practice this vocabulary — open exercise
+      </button>
+      <button class="docs-trigger" onclick="openDocs()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+        Documents &amp; evidence — what you might be asked for
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESOLVE -->
+<section class="resolve-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-tag">Now you resolve it</span><div class="sec-rule"></div></div>
+    <p class="resolve-intro">Read each situation. Choose the response that matches the real reason behind it — not just any polite reply.</p>
+
+    <div class="resolve-card">
+      <div class="resolve-situation"><strong>Situation A:</strong> Your main supplier emails to say they are fully booked this quarter and cannot take your next three orders.</div>
+      <div class="resolve-opts">
+        <button class="resolve-opt" onclick="selectOpt(this)">
+          <div class="resolve-opt-label">A. Ask them to review their compliance obligations before shipping anything else.</div>
+          <div class="resolve-rationale">Not quite — compliance language belongs to reason 3 (tariffs and export rules), not a capacity problem.</div>
+        </button>
+        <button class="resolve-opt" onclick="selectOpt(this)">
+          <div class="resolve-opt-label">B. Ask if there is any flexibility, and quietly qualify a backup supplier too.</div>
+          <div class="resolve-rationale">Correct — this is a capacity issue (reason 4). The supplier isn't failing, they are simply prioritizing. The right move is to ask for flexibility while protecting yourself with a second source.</div>
+        </button>
+        <button class="resolve-opt" onclick="selectOpt(this)">
+          <div class="resolve-opt-label">C. Threaten to take legal action right away, assuming a breach occurred.</div>
+          <div class="resolve-rationale">Too aggressive — there is no breach here, just a capacity limit. This response would damage the relationship unnecessarily.</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="resolve-card">
+      <div class="resolve-situation"><strong>Situation B:</strong> A supplier you have worked with for years tells you, calmly, that they are discontinuing the product line you buy, as part of a wider strategic review.</div>
+      <div class="resolve-opts">
+        <button class="resolve-opt" onclick="selectOpt(this)">
+          <div class="resolve-opt-label">A. Ask for a clear timeline, then start planning your transition calmly.</div>
+          <div class="resolve-rationale">Correct — this is reason 6, a strategic decision. There is nothing left to negotiate here; the professional move is to get clear dates and start moving calmly toward a new supplier.</div>
+        </button>
+        <button class="resolve-opt" onclick="selectOpt(this)">
+          <div class="resolve-opt-label">B. Offer more money right away, assuming the issue must be price.</div>
+          <div class="resolve-rationale">Not quite — a strategic exit usually isn't about price. Offering more money will not change a decision that was never about cost.</div>
+        </button>
+        <button class="resolve-opt" onclick="selectOpt(this)">
+          <div class="resolve-opt-label">C. Ask whether the shipment is being withheld over a late payment.</div>
+          <div class="resolve-rationale">Not quite — that language belongs to reason 5 (an unresolved dispute). Nothing here suggests a disagreement.</div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESOLUTION LANGUAGE -->
+<section class="reslang-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-tag">Resolving it</span><div class="sec-rule" style="background:var(--border)"></div></div>
+    <p class="reslang-intro">Whatever the reason behind the problem, resolving it well always uses the same five moves. This language works across all six situations above — it is not tied to any single reason.</p>
+
+    <div class="func-grid">
+
+      <div class="func-card">
+        <div class="func-name">1. Asking for clarity</div>
+        <div class="func-tag">Before reacting, find out exactly what happened</div>
+        <div class="func-phrase-list">
+          <div class="func-phrase" data-pt="você pode confirmar uma data específica para...?">Could you confirm a specific date for&hellip;?</div>
+          <div class="func-phrase" data-pt="você tem uma previsão de prazo para...?">Do you have an estimated timeline for&hellip;?</div>
+          <div class="func-phrase" data-pt="você pode esclarecer o que causou essa mudança?">Could you clarify what caused this change?</div>
+        </div>
+      </div>
+
+      <div class="func-card">
+        <div class="func-name">2. Proposing alternatives</div>
+        <div class="func-tag">Offer a real solution, not just a complaint</div>
+        <div class="func-phrase-list">
+          <div class="func-phrase" data-pt="seria possível dividir o envio?">Would it be possible to split the shipment?</div>
+          <div class="func-phrase" data-pt="como alternativa, poderíamos considerar...">As an alternative, could we consider&hellip;?</div>
+          <div class="func-phrase" data-pt="gostaríamos de propor uma solução temporária">We would like to propose a temporary solution.</div>
+        </div>
+      </div>
+
+      <div class="func-card">
+        <div class="func-name">3. Setting a deadline</div>
+        <div class="func-tag">Be firm on time without being aggressive</div>
+        <div class="func-phrase-list">
+          <div class="func-phrase" data-pt="precisaríamos que isso fosse confirmado até [data]">We would need this confirmed by [date].</div>
+          <div class="func-phrase" data-pt="a menos que tenhamos retorno até..., teremos que...">Unless we hear from you by&hellip;, we will have to&hellip;</div>
+          <div class="func-phrase" data-pt="precisamos de uma resposta antes de podermos seguir">We must have an answer before we can proceed.</div>
+        </div>
+      </div>
+
+      <div class="func-card">
+        <div class="func-name">4. Protecting the relationship</div>
+        <div class="func-tag">Stay diplomatic, even under pressure</div>
+        <div class="func-phrase-list">
+          <div class="func-phrase" data-pt="entendemos que essa situação também é difícil pra vocês">We understand this is a difficult situation for you too.</div>
+          <div class="func-phrase" data-pt="valorizamos a parceria que construímos ao longo dos anos">We value the partnership we have built over the years.</div>
+          <div class="func-phrase" data-pt="esperamos encontrar uma solução que funcione pros dois lados">We hope we can find a solution that works for both sides.</div>
+        </div>
+      </div>
+
+      <div class="func-card">
+        <div class="func-name">5. Escalating carefully</div>
+        <div class="func-tag">Show what could happen next, without ending the relationship</div>
+        <div class="func-phrase-list">
+          <div class="func-phrase" data-pt="isso nos coloca numa posição difícil com nossos próprios clientes">This puts us in a difficult position with our own clients.</div>
+          <div class="func-phrase" data-pt="talvez precisemos explorar outras opções se isso continuar">We may need to explore other options if this continues.</div>
+          <div class="func-phrase" data-pt="teríamos que reconsiderar os termos do nosso acordo">We would have to reconsider the terms of our agreement.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="sample-trigger" onclick="toggleSample()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      See all five moves combined in one real email
+    </button>
+
+    <div class="sample-block" id="sampleBlock">
+      <div class="sample-label">Sample email &middot; supplier at full capacity</div>
+      <div class="sample-body">
+        <p>Dear Mr. Alves,</p>
+        <p>Thank you for letting us know about the current situation. <span class="fn">Could you confirm a specific date</span> when your capacity might open up again for smaller accounts like ours?</p>
+        <p>In the meantime, <span class="fn">would it be possible to split the shipment</span>, even partially, so our production line does not stop completely?</p>
+        <p><span class="fn">We would need this confirmed by Friday</span>, since we have our own commitments to manage on this end.</p>
+        <p><span class="fn">We understand this is a difficult situation for you too</span>, and <span class="fn">we value the partnership we have built over the years</span>. That said, <span class="fn">we may need to explore other options if this continues</span> beyond this quarter.</p>
+        <p>We hope to hear from you soon.</p>
+        <p>Best regards,<br>Mariana</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODAL GRAMMAR -->
+<section class="modal-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-tag">Talking about obligation</span><div class="sec-rule" style="background:var(--border)"></div></div>
+    <p class="modal-intro">Every reason above eventually leads to the same three questions: what was <strong>supposed to</strong> happen, what <strong>must</strong> happen now, and what someone <strong>should</strong> have done differently. These three modals carry very different weight &mdash; mixing them up can make you sound either too soft or unnecessarily aggressive.</p>
+
+    <div class="modal-grid">
+
+      <div class="modal-card">
+        <div class="modal-name">Should / Shouldn't</div>
+        <div class="func-tag">Advice &mdash; what is wise, not obligatory</div>
+        <div class="modal-form">Form</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:4px">should / shouldn't + base verb</div>
+        <div class="modal-form">In context</div>
+        <div class="modal-example">"You should ask for a firm date in writing before you tell the client anything."</div>
+        <div class="modal-example">"You shouldn't accept an excuse without proof."</div>
+        <div class="modal-warn">No "to" after should &mdash; NOT "you should to ask".</div>
+      </div>
+
+      <div class="modal-card">
+        <div class="modal-name">Must / Mustn't</div>
+        <div class="func-tag">Strong obligation &mdash; a rule, or something necessary now</div>
+        <div class="modal-form">Form</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:4px">must / mustn't + base verb</div>
+        <div class="modal-form">In context</div>
+        <div class="modal-example">"We must confirm a backup supplier before the end of this week."</div>
+        <div class="modal-example">"A distributor mustn't resell the enzyme without written approval."</div>
+        <div class="modal-warn">Mustn't = forbidden. It is not the negative of "have to" &mdash; that's "don't have to" (not necessary).</div>
+      </div>
+
+      <div class="modal-card">
+        <div class="modal-name">(Be) Supposed To</div>
+        <div class="func-tag">An agreed expectation &mdash; often one that was broken</div>
+        <div class="modal-form">Form</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:4px">was/were/is/are + supposed to + base verb</div>
+        <div class="modal-form">In context</div>
+        <div class="modal-example">"The shipment was supposed to leave Rotterdam on Monday."</div>
+        <div class="modal-example">"They're not supposed to change the price without notice."</div>
+        <div class="modal-warn">Don't drop the "to" &mdash; NOT "supposed leave", but "supposed to leave".</div>
+      </div>
+
+    </div>
+
+    <p class="modal-intro" style="margin-bottom:24px">Now see all three working together in two real conversations Mariana has after a supplier problem.</p>
+
+    <div class="dialog-card" onclick="toggleDialog(this)">
+      <div class="dialog-top">
+        <div class="dialog-head">
+          <div class="dialog-title">Call 1 &middot; Mariana and Lars (VanderChem)</div>
+          <div class="dialog-tag">After a missed shipment &middot; reasons 2 &amp; 4 combined</div>
+        </div>
+        <div class="dialog-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-line"><strong>Mariana:</strong> Lars, the shipment <span class="fn">was supposed to leave</span> Rotterdam on Monday. It's Thursday and I still don't have a tracking number.</div>
+        <div class="dialog-line"><strong>Lars:</strong> I know, Mariana, and I'm sorry. We <span class="fn">must review</span> our production schedule &mdash; there was a shortage of raw materials we didn't expect.</div>
+        <div class="dialog-line"><strong>Mariana:</strong> I understand things happen, but you <span class="fn">should have told</span> us before the ship date, not after.</div>
+        <div class="dialog-line"><strong>Lars:</strong> You're right. We <span class="fn">should have called</span> as soon as we knew. That was our mistake.</div>
+        <div class="dialog-line"><strong>Mariana:</strong> Going forward, what <span class="fn">must change</span> on your side so this doesn't happen again?</div>
+        <div class="dialog-line"><strong>Lars:</strong> We <span class="fn">must build</span> in a 48-hour buffer before every confirmed ship date. And honestly, we <span class="fn">shouldn't confirm</span> a date until raw materials are physically in the warehouse.</div>
+        <div class="dialog-line"><strong>Mariana:</strong> That sounds reasonable. For now, though, I <span class="fn">must have</span> a new date in writing by end of day.</div>
+        <div class="dialog-line"><strong>Lars:</strong> Understood. You'll have it by 5pm your time.</div>
+      </div>
+    </div>
+
+    <div class="dialog-card" onclick="toggleDialog(this)">
+      <div class="dialog-top">
+        <div class="dialog-head">
+          <div class="dialog-title">Call 2 &middot; Mariana and Rafael Moura (Frigorex)</div>
+          <div class="dialog-tag">Explaining the delay to the client</div>
+        </div>
+        <div class="dialog-toggle"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-line"><strong>Mariana:</strong> Rafael, I need to tell you something directly. The enzyme shipment <span class="fn">was supposed to arrive</span> today, and it won't.</div>
+        <div class="dialog-line"><strong>Rafael:</strong> That's a serious problem for us, Mariana. Our production line runs on that schedule.</div>
+        <div class="dialog-line"><strong>Mariana:</strong> I know, and I take responsibility. You <span class="fn">shouldn't have to</span> find out from anyone but me first.</div>
+        <div class="dialog-line"><strong>Rafael:</strong> I appreciate that. What <span class="fn">must happen</span> now for us to keep production running?</div>
+        <div class="dialog-line"><strong>Mariana:</strong> We <span class="fn">must ship</span> you an emergency partial batch tomorrow morning, and I'll personally confirm it before you start your shift.</div>
+        <div class="dialog-line"><strong>Rafael:</strong> And the rest of the order?</div>
+        <div class="dialog-line"><strong>Mariana:</strong> You <span class="fn">should have</span> the remaining volume by Friday. I'm not going to promise a date I'm not sure of again.</div>
+        <div class="dialog-line"><strong>Rafael:</strong> I respect that. Going forward, we're <span class="fn">supposed to receive</span> a 48-hour warning for anything like this &mdash; can we put that in writing?</div>
+        <div class="dialog-line"><strong>Mariana:</strong> Absolutely. That <span class="fn">should be</span> standard practice, not something we negotiate after a crisis.</div>
+      </div>
+    </div>
+
+    <button class="practice-trigger" onclick="openModalPractice()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      Practice should, must &amp; supposed to &mdash; open exercise
+    </button>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC &middot; Escola de Idiomas e Cultura</span>
+  <div class="footer-copy">Supply Chain &amp; Inventory &middot; When Suppliers Walk Away</div>
+</footer>
+
+<!-- PRACTICE OVERLAY -->
+<div class="practice-overlay" id="practiceOverlay" onclick="closePractice()"></div>
+
+<!-- PRACTICE DRAWER -->
+<div class="practice-drawer" id="practiceDrawer">
+  <div class="practice-header">
+    <div class="practice-title-row">
+      <span class="practice-title">Practice: why suppliers walk away</span>
+      <button class="practice-close" onclick="closePractice()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="practice-progress-track"><div class="practice-progress-fill" id="practiceProgressFill"></div></div>
+    <div class="practice-progress-label" id="practiceProgressLabel">0 of 36 checked</div>
+  </div>
+
+  <div class="practice-bank">
+    <div class="practice-bank-label">Word bank</div>
+    <div class="practice-bank-list" id="practiceBankList">
+      <span class="bank-chip" data-word="insolvency proceedings" data-pt="processo de insolvência">insolvency proceedings</span>
+      <span class="bank-chip" data-word="with immediate effect" data-pt="com efeito imediato">with immediate effect</span>
+      <span class="bank-chip" data-word="cease operations" data-pt="cessar as operações">cease operations</span>
+      <span class="bank-chip" data-word="a shortage of raw materials" data-pt="escassez de matéria-prima">a shortage of raw materials</span>
+      <span class="bank-chip" data-word="honor the agreed price" data-pt="honrar o preço acordado">honor the agreed price</span>
+      <span class="bank-chip" data-word="revise our pricing" data-pt="revisar os preços">revise our pricing</span>
+      <span class="bank-chip" data-word="export restrictions" data-pt="restrições de exportação">export restrictions</span>
+      <span class="bank-chip" data-word="compliance obligations" data-pt="obrigações de conformidade">compliance obligations</span>
+      <span class="bank-chip" data-word="subject to" data-pt="sujeito a">subject to</span>
+      <span class="bank-chip" data-word="fully allocated" data-pt="totalmente alocada, sem folga">fully allocated</span>
+      <span class="bank-chip" data-word="accommodate additional orders" data-pt="atender pedidos adicionais">accommodate additional orders</span>
+      <span class="bank-chip" data-word="prioritize existing commitments" data-pt="priorizar compromissos existentes">prioritize existing commitments</span>
+      <span class="bank-chip" data-word="withhold shipment" data-pt="reter, segurar um envio">withhold shipment</span>
+      <span class="bank-chip" data-word="outstanding balance" data-pt="saldo em aberto">outstanding balance</span>
+      <span class="bank-chip" data-word="pending resolution of" data-pt="pendente a resolução de">pending resolution of</span>
+      <span class="bank-chip" data-word="strategic review" data-pt="revisão estratégica">strategic review</span>
+      <span class="bank-chip" data-word="discontinue" data-pt="descontinuar, encerrar">discontinue</span>
+      <span class="bank-chip" data-word="no longer part of" data-pt="não faz mais parte de">no longer part of</span>
+      <span class="bank-chip" data-word="backup supplier" data-pt="fornecedor reserva">backup supplier</span>
+      <span class="bank-chip" data-word="safety stock" data-pt="estoque de segurança">safety stock</span>
+      <span class="bank-chip" data-word="early-warning clauses" data-pt="cláusulas de alerta antecipado">early-warning clauses</span>
+      <span class="bank-chip" data-word="documented proof" data-pt="prova documentada">documented proof</span>
+      <span class="bank-chip" data-word="regulatory changes" data-pt="mudanças regulatórias">regulatory changes</span>
+      <span class="bank-chip" data-word="lead time" data-pt="prazo de antecedência">lead time</span>
+      <span class="bank-chip" data-word="priority clauses" data-pt="cláusulas de prioridade">priority clauses</span>
+      <span class="bank-chip" data-word="split the order" data-pt="dividir o pedido">split the order</span>
+      <span class="bank-chip" data-word="escalation steps" data-pt="etapas de escalonamento">escalation steps</span>
+      <span class="bank-chip" data-word="shipment freeze" data-pt="paralisação do envio">shipment freeze</span>
+      <span class="bank-chip" data-word="notice periods" data-pt="prazos de aviso prévio">notice periods</span>
+      <span class="bank-chip" data-word="transition timeline" data-pt="cronograma de transição">transition timeline</span>
+      <span class="bank-chip" data-word="temporary cap" data-pt="teto temporário">temporary cap</span>
+      <span class="bank-chip" data-word="bridge the gap" data-pt="preencher a lacuna">bridge the gap</span>
+      <span class="bank-chip" data-word="misclassification" data-pt="classificação incorreta">misclassification</span>
+      <span class="bank-chip" data-word="compliance-adjusted" data-pt="ajustado à conformidade">compliance-adjusted</span>
+      <span class="bank-chip" data-word="forecast demand" data-pt="prever a demanda">forecast demand</span>
+      <span class="bank-chip" data-word="exit clauses" data-pt="cláusulas de rescisão">exit clauses</span>
+    </div>
+  </div>
+
+  <div class="practice-body">
+
+    <div class="pex-item">
+      <div class="pex-num">01</div>
+      <div class="pex-sentence">The email began with the worst possible news: due to ______, the company would close its doors by Friday.</div>
+      <input class="pex-input" id="pex1" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'insolvency proceedings')">Check</button></div>
+      <div class="pex-answer" id="pexA1"><strong>insolvency proceedings</strong> — the formal legal process that begins when a company cannot pay its debts.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">02</div>
+      <div class="pex-sentence">The supplier said the closure would happen ______, leaving no time to place a final order.</div>
+      <input class="pex-input" id="pex2" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'with immediate effect')">Check</button></div>
+      <div class="pex-answer" id="pexA2"><strong>with immediate effect</strong> — starting right away, with no transition period.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">03</div>
+      <div class="pex-sentence">After 40 years in business, the family-owned factory decided to ______ completely.</div>
+      <input class="pex-input" id="pex3" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow3"><button class="pex-check" onclick="checkPex(3,'cease operations')">Check</button></div>
+      <div class="pex-answer" id="pexA3"><strong>cease operations</strong> — to stop all business activity permanently.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">04</div>
+      <div class="pex-sentence">Their factory blamed ______ for the sudden price increase on the raw enzyme.</div>
+      <input class="pex-input" id="pex4" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow4"><button class="pex-check" onclick="checkPex(4,'a shortage of raw materials')">Check</button></div>
+      <div class="pex-answer" id="pexA4"><strong>a shortage of raw materials</strong> — not enough of the basic inputs needed to manufacture the product.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">05</div>
+      <div class="pex-sentence">Given the market changes, the supplier said it could no longer ______ from six months ago.</div>
+      <input class="pex-input" id="pex5" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow5"><button class="pex-check" onclick="checkPex(5,'honor the agreed price')">Check</button></div>
+      <div class="pex-answer" id="pexA5"><strong>honor the agreed price</strong> — to respect and keep a price that was already promised.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">06</div>
+      <div class="pex-sentence">Instead of canceling the order, they offered to ______ upward by 12 percent.</div>
+      <input class="pex-input" id="pex6" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow6"><button class="pex-check" onclick="checkPex(6,'revise our pricing')">Check</button></div>
+      <div class="pex-answer" id="pexA6"><strong>revise our pricing</strong> — to formally change previously agreed prices.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">07</div>
+      <div class="pex-sentence">Because of the new ______, this exact product could no longer leave the country.</div>
+      <input class="pex-input" id="pex7" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow7"><button class="pex-check" onclick="checkPex(7,'export restrictions')">Check</button></div>
+      <div class="pex-answer" id="pexA7"><strong>export restrictions</strong> — government rules that limit or block certain goods from leaving a country.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">08</div>
+      <div class="pex-sentence">The supplier's legal team needed time to review their new ______ before shipping anything.</div>
+      <input class="pex-input" id="pex8" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow8"><button class="pex-check" onclick="checkPex(8,'compliance obligations')">Check</button></div>
+      <div class="pex-answer" id="pexA8"><strong>compliance obligations</strong> — the legal and regulatory rules a company must follow.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">09</div>
+      <div class="pex-sentence">This shipment is now ______ a completely different set of customs rules.</div>
+      <input class="pex-input" id="pex9" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow9"><button class="pex-check" onclick="checkPex(9,'subject to')">Check</button></div>
+      <div class="pex-answer" id="pexA9"><strong>subject to</strong> — affected by, or dependent on, a rule or condition.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">10</div>
+      <div class="pex-sentence">With so many new clients, the factory said its production line was ______ until March.</div>
+      <input class="pex-input" id="pex10" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow10"><button class="pex-check" onclick="checkPex(10,'fully allocated')">Check</button></div>
+      <div class="pex-answer" id="pexA10"><strong>fully allocated</strong> — every available unit of capacity is already assigned.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">11</div>
+      <div class="pex-sentence">Even as a loyal client, they simply could not ______ from a smaller account like ours.</div>
+      <input class="pex-input" id="pex11" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow11"><button class="pex-check" onclick="checkPex(11,'accommodate additional orders')">Check</button></div>
+      <div class="pex-answer" id="pexA11"><strong>accommodate additional orders</strong> — to have enough space or capacity to accept more business.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">12</div>
+      <div class="pex-sentence">They explained that, for now, they had to ______ from their two largest clients.</div>
+      <input class="pex-input" id="pex12" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow12"><button class="pex-check" onclick="checkPex(12,'prioritize existing commitments')">Check</button></div>
+      <div class="pex-answer" id="pexA12"><strong>prioritize existing commitments</strong> — to put already-promised orders ahead of new ones.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">13</div>
+      <div class="pex-sentence">Because the last invoice was still unpaid, the supplier decided to ______ entirely.</div>
+      <input class="pex-input" id="pex13" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow13"><button class="pex-check" onclick="checkPex(13,'withhold shipment')">Check</button></div>
+      <div class="pex-answer" id="pexA13"><strong>withhold shipment</strong> — to deliberately not send goods that were ready to go.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">14</div>
+      <div class="pex-sentence">According to their records, there was still an ______ of nearly eight thousand dollars.</div>
+      <input class="pex-input" id="pex14" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow14"><button class="pex-check" onclick="checkPex(14,'outstanding balance')">Check</button></div>
+      <div class="pex-answer" id="pexA14"><strong>outstanding balance</strong> — the amount of money still owed and not yet paid.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">15</div>
+      <div class="pex-sentence">Both sides agreed to pause the order, ______ of the quality complaint from last month.</div>
+      <input class="pex-input" id="pex15" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow15"><button class="pex-check" onclick="checkPex(15,'pending resolution of')">Check</button></div>
+      <div class="pex-answer" id="pexA15"><strong>pending resolution of</strong> — waiting for a problem to be officially solved.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">16</div>
+      <div class="pex-sentence">After a company-wide ______, several smaller product lines were dropped entirely.</div>
+      <input class="pex-input" id="pex16" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow16"><button class="pex-check" onclick="checkPex(16,'strategic review')">Check</button></div>
+      <div class="pex-answer" id="pexA16"><strong>strategic review</strong> — a formal reassessment of a company's overall business direction.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">17</div>
+      <div class="pex-sentence">The supplier chose to ______ the exact enzyme BioSource depended on.</div>
+      <input class="pex-input" id="pex17" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow17"><button class="pex-check" onclick="checkPex(17,'discontinue')">Check</button></div>
+      <div class="pex-answer" id="pexA17"><strong>discontinue</strong> — to permanently stop producing or offering a product.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">18</div>
+      <div class="pex-sentence">They said the product simply was ______ their long-term plans.</div>
+      <input class="pex-input" id="pex18" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow18"><button class="pex-check" onclick="checkPex(18,'no longer part of')">Check</button></div>
+      <div class="pex-answer" id="pexA18"><strong>no longer part of</strong> — not included anymore in something ongoing.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">19</div>
+      <div class="pex-sentence">Every critical input should have at least one ______ ready to step in without delay.</div>
+      <input class="pex-input" id="pex19" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow19"><button class="pex-check" onclick="checkPex(19,'backup supplier')">Check</button></div>
+      <div class="pex-answer" id="pexA19"><strong>backup supplier</strong> — an alternative source you can turn to if your main supplier fails.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">20</div>
+      <div class="pex-sentence">A minimum ______ can buy you time when a primary supplier suddenly stops delivering.</div>
+      <input class="pex-input" id="pex20" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow20"><button class="pex-check" onclick="checkPex(20,'safety stock')">Check</button></div>
+      <div class="pex-answer" id="pexA20"><strong>safety stock</strong> — extra inventory kept as a buffer against unexpected shortages.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">21</div>
+      <div class="pex-sentence">Smart contracts often include ______ so problems are flagged before they become critical.</div>
+      <input class="pex-input" id="pex21" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow21"><button class="pex-check" onclick="checkPex(21,'early-warning clauses')">Check</button></div>
+      <div class="pex-answer" id="pexA21"><strong>early-warning clauses</strong> — contract terms requiring notice before a problem fully develops.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">22</div>
+      <div class="pex-sentence">Before accepting a price increase, always ask the supplier for ______ of the shortage.</div>
+      <input class="pex-input" id="pex22" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow22"><button class="pex-check" onclick="checkPex(22,'documented proof')">Check</button></div>
+      <div class="pex-answer" id="pexA22"><strong>documented proof</strong> — written or official evidence that supports a claim.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">23</div>
+      <div class="pex-sentence">Tracking ______ in a supplier's country can help you avoid last-minute compliance surprises.</div>
+      <input class="pex-input" id="pex23" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow23"><button class="pex-check" onclick="checkPex(23,'regulatory changes')">Check</button></div>
+      <div class="pex-answer" id="pexA23"><strong>regulatory changes</strong> — updates to laws or official rules that can affect trade.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">24</div>
+      <div class="pex-sentence">Building extra ______ into cross-border contracts reduces the risk of unexpected delays.</div>
+      <input class="pex-input" id="pex24" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow24"><button class="pex-check" onclick="checkPex(24,'lead time')">Check</button></div>
+      <div class="pex-answer" id="pexA24"><strong>lead time</strong> — the planned interval between placing an order and receiving it.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">25</div>
+      <div class="pex-sentence">Negotiating ______ in high-volume contracts can protect you when capacity runs short.</div>
+      <input class="pex-input" id="pex25" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow25"><button class="pex-check" onclick="checkPex(25,'priority clauses')">Check</button></div>
+      <div class="pex-answer" id="pexA25"><strong>priority clauses</strong> — contract terms that guarantee preferential treatment over other clients.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">26</div>
+      <div class="pex-sentence">If a full shipment isn't possible, ask the supplier to ______ instead of cancelling everything.</div>
+      <input class="pex-input" id="pex26" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow26"><button class="pex-check" onclick="checkPex(26,'split the order')">Check</button></div>
+      <div class="pex-answer" id="pexA26"><strong>split the order</strong> — to deliver part of a purchase now and the rest later.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">27</div>
+      <div class="pex-sentence">A contract with clear ______ prevents small disagreements from turning into a shipment freeze.</div>
+      <input class="pex-input" id="pex27" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow27"><button class="pex-check" onclick="checkPex(27,'escalation steps')">Check</button></div>
+      <div class="pex-answer" id="pexA27"><strong>escalation steps</strong> — a defined sequence of actions for resolving a growing problem.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">28</div>
+      <div class="pex-sentence">Left unresolved, a simple disagreement can quickly turn into a full ______.</div>
+      <input class="pex-input" id="pex28" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow28"><button class="pex-check" onclick="checkPex(28,'shipment freeze')">Check</button></div>
+      <div class="pex-answer" id="pexA28"><strong>shipment freeze</strong> — a complete stop in deliveries, usually over an unresolved issue.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">29</div>
+      <div class="pex-sentence">Reviewing contracts regularly ensures the ______ and exit clauses are always up to date.</div>
+      <input class="pex-input" id="pex29" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow29"><button class="pex-check" onclick="checkPex(29,'notice periods')">Check</button></div>
+      <div class="pex-answer" id="pexA29"><strong>notice periods</strong> — the amount of time a party must give before ending an agreement.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">30</div>
+      <div class="pex-sentence">As soon as the supplier confirmed their exit, we asked for a clear ______.</div>
+      <input class="pex-input" id="pex30" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow30"><button class="pex-check" onclick="checkPex(30,'transition timeline')">Check</button></div>
+      <div class="pex-answer" id="pexA30"><strong>transition timeline</strong> — an agreed schedule for moving from one arrangement to another.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">31</div>
+      <div class="pex-sentence">Instead of the full price rise, the buyer negotiated a ______ for the next two shipments.</div>
+      <input class="pex-input" id="pex31" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow31"><button class="pex-check" onclick="checkPex(31,'temporary cap')">Check</button></div>
+      <div class="pex-answer" id="pexA31"><strong>temporary cap</strong> — a limit that applies only for a short, defined period.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">32</div>
+      <div class="pex-sentence">A smaller, faster shipment helped ______ while the supplier's prices stabilized.</div>
+      <input class="pex-input" id="pex32" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow32"><button class="pex-check" onclick="checkPex(32,'bridge the gap')">Check</button></div>
+      <div class="pex-answer" id="pexA32"><strong>bridge the gap</strong> — to cover a temporary shortage or difference until a permanent solution arrives.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">33</div>
+      <div class="pex-sentence">A single ______ on the customs form delayed the entire shipment by two weeks.</div>
+      <input class="pex-input" id="pex33" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow33"><button class="pex-check" onclick="checkPex(33,'misclassification')">Check</button></div>
+      <div class="pex-answer" id="pexA33"><strong>misclassification</strong> — assigning the wrong category or code to a product, often by mistake.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">34</div>
+      <div class="pex-sentence">Rather than assume the order was lost, we asked for a ______ delivery date.</div>
+      <input class="pex-input" id="pex34" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow34"><button class="pex-check" onclick="checkPex(34,'compliance-adjusted')">Check</button></div>
+      <div class="pex-answer" id="pexA34"><strong>compliance-adjusted</strong> — modified to account for a legal or regulatory requirement.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">35</div>
+      <div class="pex-sentence">Sharing your sales projections helps a supplier ______ and plan production around it.</div>
+      <input class="pex-input" id="pex35" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow35"><button class="pex-check" onclick="checkPex(35,'forecast demand')">Check</button></div>
+      <div class="pex-answer" id="pexA35"><strong>forecast demand</strong> — to estimate future need in advance, so the other side can prepare.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">36</div>
+      <div class="pex-sentence">The contract's ______ made it easy to leave the agreement with 90 days' notice.</div>
+      <input class="pex-input" id="pex36" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow36"><button class="pex-check" onclick="checkPex(36,'exit clauses')">Check</button></div>
+      <div class="pex-answer" id="pexA36"><strong>exit clauses</strong> — contract terms that set out how and when a party can end the agreement.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL PRACTICE OVERLAY -->
+<div class="practice-overlay" id="modalOverlay" onclick="closeModalPractice()"></div>
+
+<!-- MODAL PRACTICE DRAWER -->
+<div class="practice-drawer" id="modalDrawer">
+  <div class="practice-header">
+    <div class="practice-title-row">
+      <span class="practice-title">Practice: should, must &amp; supposed to</span>
+      <button class="practice-close" onclick="closeModalPractice()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="practice-progress-track"><div class="practice-progress-fill" id="modalProgressFill"></div></div>
+    <div class="practice-progress-label" id="modalProgressLabel">0 of 15 checked</div>
+  </div>
+
+  <div class="practice-body">
+
+    <div class="pex-sub">Part 1 &middot; Fill in the Gap</div>
+
+    <div class="pex-item">
+      <div class="pex-num">01</div>
+      <div class="pex-sentence">Before this happens again, you ______ put every promise from a supplier in writing.</div>
+      <input class="pex-input" id="mex1" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow1"><button class="pex-check" onclick="checkMex(1,'should')">Check</button></div>
+      <div class="pex-answer" id="mexA1"><strong>should</strong> &mdash; advice: it's wise to do this, though not required by rule.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">02</div>
+      <div class="pex-sentence">According to the contract, VanderChem ______ notify us 30 days before any price change &mdash; they never did.</div>
+      <input class="pex-input" id="mex2" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow2"><button class="pex-check" onclick="checkMex(2,'was supposed to')">Check</button></div>
+      <div class="pex-answer" id="mexA2"><strong>was supposed to</strong> &mdash; an obligation from the agreement that was not kept.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">03</div>
+      <div class="pex-sentence">If the shipment doesn't arrive by Friday, we ______ activate the backup supplier immediately.</div>
+      <input class="pex-input" id="mex3" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow3"><button class="pex-check" onclick="checkMex(3,'must')">Check</button></div>
+      <div class="pex-answer" id="mexA3"><strong>must</strong> &mdash; strong necessity: there is no real alternative.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">04</div>
+      <div class="pex-sentence">The new batch ______ arrive last Tuesday, but customs held it for a week.</div>
+      <input class="pex-input" id="mex4" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow4"><button class="pex-check" onclick="checkMex(4,'was supposed to')">Check</button></div>
+      <div class="pex-answer" id="mexA4"><strong>was supposed to</strong> &mdash; the plan, not what actually happened.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">05</div>
+      <div class="pex-sentence">You ______ wait for a written confirmation before you promise anything to Rafael.</div>
+      <input class="pex-input" id="mex5" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow5"><button class="pex-check" onclick="checkMex(5,'should')">Check</button></div>
+      <div class="pex-answer" id="mexA5"><strong>should</strong> &mdash; the wiser course of action, given the risk of promising too early.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">06</div>
+      <div class="pex-sentence">Legally, a supplier declaring force majeure ______ provide documented proof of the event.</div>
+      <input class="pex-input" id="mex6" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow6"><button class="pex-check" onclick="checkMex(6,'must')">Check</button></div>
+      <div class="pex-answer" id="mexA6"><strong>must</strong> &mdash; a rule with no exception, not just good advice.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">07</div>
+      <div class="pex-sentence">We ______ tell Frigorex about the delay before they find out from someone else.</div>
+      <input class="pex-input" id="mex7" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow7"><button class="pex-check" onclick="checkMex(7,'should')">Check</button></div>
+      <div class="pex-answer" id="mexA7"><strong>should</strong> &mdash; the recommended, professional move.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">08</div>
+      <div class="pex-sentence">Under the agreement, deliveries ______ leave the port within 48 hours of loading &mdash; this one took five days.</div>
+      <input class="pex-input" id="mex8" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow8"><button class="pex-check" onclick="checkMex(8,'were supposed to')">Check</button></div>
+      <div class="pex-answer" id="mexA8"><strong>were supposed to</strong> &mdash; agreed timing that was broken.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">09</div>
+      <div class="pex-sentence">You ______ ignore a supplier who suddenly goes quiet &mdash; that silence is often the first warning sign.</div>
+      <input class="pex-input" id="mex9" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow9"><button class="pex-check" onclick="checkMex(9,'shouldn\'t')">Check</button></div>
+      <div class="pex-answer" id="mexA9"><strong>shouldn't</strong> &mdash; advice against a specific action.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">10</div>
+      <div class="pex-sentence">This clause is strict: a distributor ______ resell the enzyme to a third country without written approval.</div>
+      <input class="pex-input" id="mex10" placeholder="Type your answer">
+      <div class="pex-btnrow" id="mexBtnRow10"><button class="pex-check" onclick="checkMex(10,'mustn\'t')">Check</button></div>
+      <div class="pex-answer" id="mexA10"><strong>mustn't</strong> &mdash; prohibited by the contract, not simply unwise.</div>
+    </div>
+
+    <div class="pex-sub">Part 2 &middot; Error Correction</div>
+    <p style="font-size:12.5px;color:var(--mid);line-height:1.6;margin-bottom:18px">Each sentence has one modal-verb error, underlined. Type the correction &mdash; just the part that needs to change.</p>
+
+    <div class="pex-item">
+      <div class="pex-num">11</div>
+      <div class="pex-sentence">We <span class="ecm-err">must to activate</span> the backup supplier today.</div>
+      <input class="pex-input" id="mex11" placeholder="Type the correction">
+      <div class="pex-btnrow" id="mexBtnRow11"><button class="pex-check" onclick="checkMex(11,'must activate')">Check</button></div>
+      <div class="pex-answer" id="mexA11"><strong>must activate</strong> &mdash; must is followed directly by the base verb, never by "to".</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">12</div>
+      <div class="pex-sentence">The order <span class="ecm-err">was supposed leave</span> the warehouse on Monday.</div>
+      <input class="pex-input" id="mex12" placeholder="Type the correction">
+      <div class="pex-btnrow" id="mexBtnRow12"><button class="pex-check" onclick="checkMex(12,'was supposed to leave')">Check</button></div>
+      <div class="pex-answer" id="mexA12"><strong>was supposed to leave</strong> &mdash; "supposed" is always followed by "to" before the base verb.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">13</div>
+      <div class="pex-sentence">You <span class="ecm-err">should to write</span> everything down after this call.</div>
+      <input class="pex-input" id="mex13" placeholder="Type the correction">
+      <div class="pex-btnrow" id="mexBtnRow13"><button class="pex-check" onclick="checkMex(13,'should write')">Check</button></div>
+      <div class="pex-answer" id="mexA13"><strong>should write</strong> &mdash; like must, should is followed directly by the base verb.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">14</div>
+      <div class="pex-sentence">According to the contract, <span class="ecm-err">they was supposed to</span> confirm the price in writing.</div>
+      <input class="pex-input" id="mex14" placeholder="Type the correction">
+      <div class="pex-btnrow" id="mexBtnRow14"><button class="pex-check" onclick="checkMex(14,'they were supposed to')">Check</button></div>
+      <div class="pex-answer" id="mexA14"><strong>they were supposed to</strong> &mdash; "be" must agree with the subject: they were, not they was.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">15</div>
+      <div class="pex-sentence">Suppliers <span class="ecm-err">must giving</span> proof before claiming force majeure.</div>
+      <input class="pex-input" id="mex15" placeholder="Type the correction">
+      <div class="pex-btnrow" id="mexBtnRow15"><button class="pex-check" onclick="checkMex(15,'must give')">Check</button></div>
+      <div class="pex-answer" id="mexA15"><strong>must give</strong> &mdash; must takes the base verb, not the -ing form.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function togglePre(card) {
+  card.classList.toggle('open');
+}
+
+function toggleReason(card) {
+  card.classList.toggle('open');
+}
+
+function toggleReasonExtra(event, idx) {
+  event.stopPropagation();
+  var extra = document.getElementById('reasonExtra' + idx);
+  var label = document.getElementById('reasonExtraLabel' + idx);
+  var opening = !extra.classList.contains('show');
+  extra.classList.toggle('show');
+  label.textContent = opening ? 'Hide the ideal move & discussion questions' : label.dataset.q;
+}
+
+function toggleSample() {
+  document.getElementById('sampleBlock').classList.toggle('open');
+}
+
+function selectOpt(btn) {
+  var isSelected = btn.classList.contains('selected');
+  var opts = btn.closest('.resolve-opts').querySelectorAll('.resolve-opt');
+  opts.forEach(function(o) { o.classList.remove('selected'); });
+  if (!isSelected) btn.classList.add('selected');
+}
+
+var pexChecked = {};
+
+function openPractice() {
+  document.getElementById('practiceOverlay').classList.add('open');
+  document.getElementById('practiceDrawer').classList.add('open');
+}
+function closePractice() {
+  document.getElementById('practiceOverlay').classList.remove('open');
+  document.getElementById('practiceDrawer').classList.remove('open');
+}
+function openDocs() {
+  document.getElementById('docsOverlay').classList.add('open');
+  document.getElementById('docsDrawer').classList.add('open');
+}
+function closeDocs() {
+  document.getElementById('docsOverlay').classList.remove('open');
+  document.getElementById('docsDrawer').classList.remove('open');
+}
+
+function normalizeAns(s) {
+  return s.toLowerCase().trim().replace(/[.,!?"']/g, '').replace(/\s+/g, ' ');
+}
+
+function checkPex(n, correctAnswer, bankWord) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+
+  if (!pexChecked[n]) {
+    pexChecked[n] = true;
+    updatePracticeProgress();
+    var target = (bankWord || correctAnswer).toLowerCase();
+    document.querySelectorAll('.bank-chip').forEach(function(chip) {
+      if (chip.dataset.word.toLowerCase() === target) chip.classList.add('used');
+    });
+  }
+}
+
+function hidePex(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="pex-check" onclick="checkPexAgain(' + n + ')">Show again</button>';
+}
+
+function checkPexAgain(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var input = document.getElementById('pex' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryPex(n) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+function updatePracticeProgress() {
+  var total = 36;
+  var done = Object.keys(pexChecked).length;
+  document.getElementById('practiceProgressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('practiceProgressLabel').textContent = done + ' of ' + total + ' checked';
+}
+
+function toggleDialog(card) {
+  card.classList.toggle('open');
+}
+
+function toggleProtect(event, li) {
+  event.stopPropagation();
+  var list = li.closest('.reason-protect-list');
+  var box = li.querySelector('.protect-check');
+
+  if (li.classList.contains('checked')) {
+    var removedOrder = parseInt(li.dataset.order, 10);
+    li.classList.remove('checked');
+    li.dataset.order = '';
+    box.textContent = '';
+
+    list.querySelectorAll('li.checked').forEach(function(item) {
+      var o = parseInt(item.dataset.order, 10);
+      if (o > removedOrder) {
+        o -= 1;
+        item.dataset.order = o;
+        item.querySelector('.protect-check').textContent = o;
+      }
+    });
+  } else {
+    var nextOrder = list.querySelectorAll('li.checked').length + 1;
+    li.classList.add('checked');
+    li.dataset.order = nextOrder;
+    box.textContent = nextOrder;
+  }
+}
+
+function openModalPractice() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalDrawer').classList.add('open');
+}
+function closeModalPractice() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('modalDrawer').classList.remove('open');
+}
+
+var mexChecked = {};
+
+function checkMex(n, correctAnswer) {
+  var input = document.getElementById('mex' + n);
+  var answerBox = document.getElementById('mexA' + n);
+  var btnRow = document.getElementById('mexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hideMex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hideMex(' + n + ')">Hide</button><button class="pex-check" onclick="retryMex(' + n + ')">Try again</button>';
+  }
+
+  if (!mexChecked[n]) {
+    mexChecked[n] = true;
+    updateModalProgress();
+  }
+}
+
+function hideMex(n) {
+  var answerBox = document.getElementById('mexA' + n);
+  var btnRow = document.getElementById('mexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="pex-check" onclick="checkMexAgain(' + n + ')">Show again</button>';
+}
+
+function checkMexAgain(n) {
+  var answerBox = document.getElementById('mexA' + n);
+  var input = document.getElementById('mex' + n);
+  var btnRow = document.getElementById('mexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hideMex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hideMex(' + n + ')">Hide</button><button class="pex-check" onclick="retryMex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryMex(n) {
+  var input = document.getElementById('mex' + n);
+  var answerBox = document.getElementById('mexA' + n);
+  var btnRow = document.getElementById('mexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+function updateModalProgress() {
+  var total = 15;
+  var done = Object.keys(mexChecked).length;
+  document.getElementById('modalProgressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('modalProgressLabel').textContent = done + ' of ' + total + ' checked';
+}
+
+function checkRex(n, correctAnswer) {
+  var input = document.getElementById('rex' + n);
+  var answerBox = document.getElementById('rexA' + n);
+  var btnRow = document.getElementById('rexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="rex-check" onclick="hideRex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="rex-check" onclick="hideRex(' + n + ')">Hide</button><button class="rex-check" onclick="retryRex(' + n + ')">Try again</button>';
+  }
+}
+
+function hideRex(n) {
+  var answerBox = document.getElementById('rexA' + n);
+  var btnRow = document.getElementById('rexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="rex-check" onclick="checkRexAgain(' + n + ')">Show again</button>';
+}
+
+function checkRexAgain(n) {
+  var answerBox = document.getElementById('rexA' + n);
+  var input = document.getElementById('rex' + n);
+  var btnRow = document.getElementById('rexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="rex-check" onclick="hideRex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="rex-check" onclick="hideRex(' + n + ')">Hide</button><button class="rex-check" onclick="retryRex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryRex(n) {
+  var input = document.getElementById('rex' + n);
+  var answerBox = document.getElementById('rexA' + n);
+  var btnRow = document.getElementById('rexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.pex-btnrow, .rex-btnrow').forEach(function(row){
+    row.dataset.checkHtml = row.innerHTML;
+  });
+});
+</script>
+
+<!-- DOCS OVERLAY -->
+<div class="docs-overlay" id="docsOverlay" onclick="closeDocs()"></div>
+
+<!-- DOCS DRAWER -->
+<div class="docs-drawer" id="docsDrawer">
+  <div class="docs-header">
+    <span class="docs-title">Documents &amp; evidence, by reason</span>
+    <button class="docs-close" onclick="closeDocs()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="docs-body">
+    <p class="docs-intro">Real disputes are rarely settled by an email alone. These are the documents that actually get requested and exchanged for each of the six reasons. Hover any name for the Portuguese translation.</p>
+
+    <div class="docs-group">
+      <div class="docs-group-label">01 &middot; Supplier goes out of business</div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="registro público de insolvência">Insolvency filing (public notice)</div>
+        <div class="docs-pt">registro público de insolvência</div>
+        <div class="docs-def">The official public record showing a company has formally declared insolvency.</div>
+      </div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="aviso de cessação de atividades">Notice of cessation of business</div>
+        <div class="docs-pt">aviso de cessação de atividades</div>
+        <div class="docs-def">A formal written notice from the supplier stating that operations have stopped.</div>
+      </div>
+    </div>
+
+    <div class="docs-group">
+      <div class="docs-group-label">02 &middot; Shortage or cost <span class="term-tip" data-pt="subida repentina de preço (sin.: price increase, bump, hike)">spike</span></div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="certificado de força maior">Force Majeure Certificate</div>
+        <div class="docs-pt">certificado de força maior</div>
+        <div class="docs-def">An official document, often issued by a Chamber of Commerce, confirming that an unexpected event really stopped a company from following its contract. Real and widely used in international trade.</div>
+      </div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="aviso de força maior do fornecedor">Supplier's Notice of Force Majeure</div>
+        <div class="docs-pt">aviso de força maior do fornecedor</div>
+        <div class="docs-def">The supplier's own written notice using this clause, describing the event and its effect.</div>
+      </div>
+    </div>
+
+    <div class="docs-group">
+      <div class="docs-group-label">03 &middot; Tariffs or export restrictions</div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="licença de exportação">Export license</div>
+        <div class="docs-pt">licença de exportação</div>
+        <div class="docs-def">Official government authorization required to legally ship certain goods abroad.</div>
+      </div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="certificado de origem">Certificate of Origin</div>
+        <div class="docs-pt">certificado de origem</div>
+        <div class="docs-def">A document certifying which country the goods were manufactured in, often required to apply tariffs correctly.</div>
+      </div>
+    </div>
+
+    <div class="docs-group">
+      <div class="docs-group-label">04 &middot; Supplier at full capacity</div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="confirmação de pedido / relatório de pedidos pendentes">Order confirmation / backlog report</div>
+        <div class="docs-pt">confirmação de pedido / relatório de pedidos pendentes</div>
+        <div class="docs-def">A document showing the supplier's current order queue, sometimes shared to show real limits on capacity.</div>
+      </div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="relatório de utilização de capacidade">Capacity utilization report</div>
+        <div class="docs-pt">relatório de utilização de capacidade</div>
+        <div class="docs-def">A report showing how much of a factory's production capacity is currently in use.</div>
+      </div>
+    </div>
+
+    <div class="docs-group">
+      <div class="docs-group-label">05 &middot; Unresolved dispute</div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="certificado de análise">Certificate of Analysis (CoA)</div>
+        <div class="docs-pt">certificado de análise</div>
+        <div class="docs-def">A lab report confirming a product's quality specifications, often at the center of quality disputes.</div>
+      </div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="notificação de quebra de contrato">Notice of Breach</div>
+        <div class="docs-pt">notificação de quebra de contrato</div>
+        <div class="docs-def">A formal letter stating that one party has failed to meet its contractual obligations.</div>
+      </div>
+    </div>
+
+    <div class="docs-group">
+      <div class="docs-group-label">06 &middot; Strategic decision to leave</div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="aviso de rescisão">Termination notice</div>
+        <div class="docs-pt">aviso de rescisão</div>
+        <div class="docs-def">The formal written notice ending a contract, stating the effective date and the stated reason.</div>
+      </div>
+      <div class="docs-card">
+        <div class="docs-name" data-pt="carta com o prazo de aviso prévio">Notice period letter</div>
+        <div class="docs-pt">carta com o prazo de aviso prévio</div>
+        <div class="docs-def">States how many days or months remain before the contract formally ends, as agreed in the original terms.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
