@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before It Breaks · Second Conditional Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1A9BAE;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;
+  --coral:#E63946;--coral-bg:rgba(230,57,70,.08);
+  --green:#065F46;--green-bg:#ECFDF5;
+  --ifc:#0D7A8A;--res:#E8621A;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
+.pw{max-width:760px;margin:0 auto;padding:0 56px}
+@media(max-width:720px){.pw{padding:0 22px}}
+
+/* ── HEADER ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-title{font-size:13.5px;font-weight:900;color:#fff;letter-spacing:.01em}
+.hdr-nav{display:flex;gap:18px}
+.hdr-nav a{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.55);text-decoration:none;letter-spacing:.02em}
+.hdr-nav a:hover{color:#fff}
+.hdr-nav a.pill{background:rgba(255,255,255,.1);padding:5px 12px;border-radius:14px;color:#fff}
+@media(max-width:640px){.hdr{padding:0 18px}.hdr-nav{gap:12px}.hdr-nav a{font-size:10.5px}}
+
+.main{padding-top:100px;padding-bottom:80px}
+
+/* ── INTRO ── */
+.intro-eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.intro-title{font-size:30px;font-weight:900;line-height:1.15;margin-top:8px}
+.intro-sub{font-size:14.5px;color:var(--mid);line-height:1.6;margin-top:12px;max-width:620px}
+
+/* ── COMPANION LINK ── */
+.companion{margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);
+  border-radius:24px;padding:8px 16px 8px 8px;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none}
+.companion:hover{border-color:var(--ink)}
+.companion span.tag{background:var(--ink);color:#fff;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:14px}
+
+/* ── TWO RULES ── */
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+@media(max-width:640px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{border-radius:16px;padding:20px;color:#fff}
+.rule-card.ifc{background:var(--ifc)}
+.rule-card.res{background:var(--res)}
+.rule-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.rule-name{font-size:19px;font-weight:900;margin-top:3px}
+.rule-def{font-size:12px;line-height:1.55;margin-top:9px;opacity:.95}
+
+.ask-box{margin-top:16px;background:var(--hi);border-radius:12px;padding:14px 16px;font-size:12.5px;line-height:1.5;color:var(--ink)}
+.ask-box b{font-weight:800}
+
+.tip-box{margin-top:10px;background:#fff;border:1.5px dashed var(--ifc);border-radius:12px;padding:14px 16px}
+.tip-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ifc);margin-bottom:5px}
+.tip-text{font-size:12.5px;line-height:1.6;color:var(--ink)}
+.tip-text code{background:var(--surface);padding:1px 6px;border-radius:5px;font-family:inherit;font-weight:700}
+
+.solved-hd{margin-top:44px;margin-bottom:16px}
+.solved-title{font-size:19px;font-weight:900}
+.solved-sub{font-size:12px;color:var(--mid);margin-top:1px}
+.solved-card{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.solved-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 10px;border-radius:12px;margin-bottom:10px}
+.solved-context{font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:12px}
+.solved-clue{background:var(--hi);padding:1px 4px;border-radius:3px;font-weight:800}
+.solved-answer{font-size:15.5px;font-weight:700;color:var(--ink);background:var(--surface);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.solved-answer b{color:var(--ifc)}
+.solved-answer.res b{color:var(--res)}
+.solved-why{font-size:12px;line-height:1.55;color:var(--mid)}
+.solved-why b{color:var(--ink)}
+
+.section-hd{margin-top:44px;margin-bottom:16px}
+.section-title{font-size:19px;font-weight:900}
+.section-sub{font-size:12px;color:var(--mid);margin-top:1px}
+
+/* ── EXERCISE CARD ── */
+.ex-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:14px}
+.ex-context{font-size:13px;color:var(--ink);line-height:1.6;margin-bottom:14px}
+.ex-context b{font-weight:800}
+.ex-sentence{font-size:15.5px;line-height:1.9;font-weight:600;color:var(--ink)}
+.blank-sel{appearance:none;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;
+  padding:3px 26px 3px 9px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%230A1628'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;margin:0 2px}
+.blank-sel:focus{outline:2px solid var(--teal-lt)}
+.blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-sel.wrong{background-color:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
+.ex-actions{margin-top:16px;display:flex;gap:10px;align-items:center}
+.btn{border:none;border-radius:9px;padding:9px 16px;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--ink);color:#fff}
+.btn-check:hover{background:#000}
+.btn-reset{background:#fff;color:var(--ink);border:1.5px solid var(--border);display:none}
+.btn-reset.show{display:inline-block}
+.btn-reset:hover{border-color:var(--ink)}
+.ex-feedback{font-size:12px;font-weight:700;display:none}
+.ex-feedback.show{display:block}
+.ex-feedback.good{color:var(--green)}
+.ex-feedback.bad{color:var(--coral)}
+
+footer{text-align:center;font-size:11px;color:var(--mid);padding:30px 0 10px}
+
+.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
+#gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:9px;padding:9px 13px;
+  max-width:230px;font-size:12px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);border:1px solid var(--border)}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-title">Before It Breaks</div>
+  <nav class="hdr-nav">
+    <a href="maint-grammar-practice-index.html">Grammar Lab</a>
+    <a href="maint-supposedto-practice.html" class="pill">Should / Must Practice →</a>
+    <a href="maint-story-contract-renewal.html">Story Search Review</a>
+  </nav>
+</header>
+
+<div class="main">
+<div class="pw">
+
+  <div class="intro-eyebrow">Grammar Lab · Second Conditional</div>
+  <h1 class="intro-title">Imagine the breakdown, then look at the number.</h1>
+  <p class="intro-sub">Alex nunca ameaça o cliente da Norvex dizendo "isso vai quebrar". Em vez disso, ele convida Michael, Emma e Sarah a imaginar o cenário junto com ele, e deixa o número falar sozinho. É exatamente isso que o second conditional faz em inglês: uma pergunta hipotética, não uma previsão. Aqui você pratica com compressores Atlas Copco, paradas de linha e o argumento de venda inteiro da Northwind.</p>
+
+  <a class="companion" href="maint-supposedto-practice.html"><span class="tag">Companion</span> Should, Supposed To & Must Practice</a>
+
+  <div class="rule-grid">
+    <div class="rule-card ifc">
+      <div class="rule-label">A parte imaginada</div>
+      <div class="rule-name">if + past simple</div>
+      <p class="rule-def">O verbo depois de "if" parece passado, mas não é sobre o passado. É a forma que o inglês usa pra marcar "isso é imaginado", não "isso já aconteceu".</p>
+    </div>
+    <div class="rule-card res">
+      <div class="rule-label">O resultado imaginado</div>
+      <div class="rule-name">would + base verb</div>
+      <p class="rule-def">O que aconteceria se a situação imaginada fosse real. "Would" nunca aparece na parte do "if", só na parte do resultado.</p>
+    </div>
+  </div>
+
+  <div class="ask-box"><b>A pergunta que resolve a dúvida:</b> essa é uma situação que Alex está descrevendo pra fazer o cliente pensar no risco, ou é algo que já está de fato programado para acontecer? Se é hipotética, é <b>if + past, would</b>. Se já está marcada e vai mesmo acontecer, não é second conditional.</p></div>
+
+  <div class="tip-box">
+    <div class="tip-label">A armadilha do falante de português</div>
+    <div class="tip-text">Em português é comum pensar "se eu <i>usaria</i>" e traduzir isso direto pro inglês. Mas em inglês, <code>would</code> nunca entra na parte do "if". <b>Errado:</b> "If your compressor would break down..." <b>Certo:</b> <code>"If your compressor broke down..."</code> O "would" fica reservado só pra parte do resultado.</div>
+  </div>
+
+  <div class="solved-hd">
+    <div class="solved-title">Dois exemplos resolvidos</div>
+    <div class="solved-sub">Veja o raciocínio completo antes de tentar sozinho</div>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Parte do if</span>
+    <p class="solved-context">Alex is walking Michael through a <span class="solved-clue">hypothetical scenario</span>, not a scheduled event, to help him see the cost of an unplanned failure.</p>
+    <div class="solved-answer">"If your compressor <b>broke</b> down during a night shift, how much would that cost you in lost production?"</div>
+    <p class="solved-why"><b>Por quê "broke":</b> nada indica que isso vai realmente acontecer, é só um cenário pra pensar junto. A parte do "if" usa o passado simples, mesmo falando de algo que ainda não aconteceu, porque essa forma marca "isso é imaginado".</p>
+  </div>
+
+  <div class="solved-card">
+    <span class="solved-tag">Parte do resultado</span>
+    <p class="solved-context">Emma is explaining to Sarah what would happen, in theory, if Norvex kept skipping scheduled inspections.</p>
+    <div class="solved-answer res">"If Norvex kept skipping inspections, the <span class="tt" data-tip="warranty">warranty</span> <b>would</b> stop covering the compressor entirely."</div>
+    <p class="solved-why"><b>Por quê "would":</b> essa é a consequência imaginada, não um fato programado. O resultado de uma condição hipotética sempre usa <b>would + verbo base</b>, nunca "will" nem o presente simples.</p>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-title">Agora sozinho</div>
+    <div class="section-sub">Às vezes a lacuna está no "if", às vezes está no resultado. Leia o contexto antes de escolher</div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Alex wants Sarah to <span class="tt" data-tip="picturetheworstcase">picture the worst case</span> before she <span class="tt" data-tip="signoffon">signs off on</span> the budget, not to predict it will happen.</p>
+    <p class="ex-sentence">
+      "If a compressor
+      <select class="blank-sel" data-correct="failed">
+        <option value="">___</option>
+        <option value="failed">failed</option>
+        <option value="would fail">would fail</option>
+        <option value="fails">fails</option>
+      </select>
+      without warning, what would that do to your production line?"
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Michael is imagining, purely as a thought experiment, what would happen if the maintenance contract <span class="tt" data-tip="lapsed">lapsed</span>.</p>
+    <p class="ex-sentence">
+      "If the service contract lapsed, we
+      <select class="blank-sel" data-correct="would lose">
+        <option value="">___</option>
+        <option value="would lose">would lose</option>
+        <option value="lose">lose</option>
+        <option value="will lose">will lose</option>
+      </select>
+      priority response on emergency callouts."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Emma is raising a risk with Julia, the legal counsel, as a question to consider, not as something that is confirmed to happen.</p>
+    <p class="ex-sentence">
+      "If Norvex's legal team
+      <select class="blank-sel" data-correct="saw">
+        <option value="">___</option>
+        <option value="saw">saw</option>
+        <option value="would see">would see</option>
+        <option value="sees">sees</option>
+      </select>
+      that clause without context, they would probably <span class="tt" data-tip="pushbackon">push back on</span> it."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Alex is helping Frank picture the <span class="tt" data-tip="downstreameffect">downstream effect</span> of a single unplanned stop, purely as a hypothesis.</p>
+    <p class="ex-sentence">
+      "If this line
+      <select class="blank-sel" data-correct="went">
+        <option value="">___</option>
+        <option value="went">went</option>
+        <option value="would go">would go</option>
+        <option value="goes">goes</option>
+      </select>
+      down for even one shift, what would that mean for your weekly targets?"
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Sarah is thinking out loud with David about a purely hypothetical budget scenario for next year.</p>
+    <p class="ex-sentence">
+      "If we <span class="tt" data-tip="allocated">allocated</span> more to preventive maintenance, we
+      <select class="blank-sel" data-correct="would cut">
+        <option value="">___</option>
+        <option value="would cut">would cut</option>
+        <option value="cut">cut</option>
+        <option value="will cut">will cut</option>
+      </select>
+      unplanned downtime significantly."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Carlos is describing an imagined situation to Alex, not something that has actually happened on the floor.</p>
+    <p class="ex-sentence">
+      "If I
+      <select class="blank-sel" data-correct="noticed">
+        <option value="">___</option>
+        <option value="noticed">noticed</option>
+        <option value="would notice">would notice</option>
+        <option value="notice">notice</option>
+      </select>
+      a strange noise like that, I would <span class="tt" data-tip="shutdown">shut the unit down</span> immediately, not wait for the next shift."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Alex is answering a hypothetical question Richard raised during the group meeting.</p>
+    <p class="ex-sentence">
+      "If Norvex chose the extended plan, Northwind
+      <select class="blank-sel" data-correct="would guarantee">
+        <option value="">___</option>
+        <option value="would guarantee">would guarantee</option>
+        <option value="guarantees">guarantees</option>
+        <option value="will guarantee">will guarantee</option>
+      </select>
+      a 48-hour response on any critical failure."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Linda is repeating, as a hypothesis, something Michael said earlier about a scenario that has not happened.</p>
+    <p class="ex-sentence">
+      "Michael said that if the backup compressor
+      <select class="blank-sel" data-correct="wasn't">
+        <option value="">___</option>
+        <option value="wasn't">wasn't</option>
+        <option value="wouldn't be">wouldn't be</option>
+        <option value="isn't">isn't</option>
+      </select>
+      ready, the whole line would have to stop."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Emma is explaining, purely as a warning scenario, what would happen if the plant ignored the vibration readings.</p>
+    <p class="ex-sentence">
+      "If we ignored these readings, the bearing
+      <select class="blank-sel" data-correct="would fail">
+        <option value="">___</option>
+        <option value="would fail">would fail</option>
+        <option value="fails">fails</option>
+        <option value="failed">failed</option>
+      </select>
+      completely within a few weeks, not months."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">David is asking Alex to imagine a purely hypothetical procurement scenario.</p>
+    <p class="ex-sentence">
+      "If we
+      <select class="blank-sel" data-correct="signed">
+        <option value="">___</option>
+        <option value="signed">signed</option>
+        <option value="would sign">would sign</option>
+        <option value="sign">sign</option>
+      </select>
+      before the end of the quarter, would Northwind still <span class="tt" data-tip="honor">honor</span> the current pricing?"
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Sarah is picturing a scenario for the board, not reporting something that already happened.</p>
+    <p class="ex-sentence">
+      "If this failure showed up in a board report, it
+      <select class="blank-sel" data-correct="would raise">
+        <option value="">___</option>
+        <option value="would raise">would raise</option>
+        <option value="raises">raises</option>
+        <option value="will raise">will raise</option>
+      </select>
+      questions about why we didn't act on Emma's warning sooner."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+  <div class="ex-card">
+    <p class="ex-context">Frank is <span class="tt" data-tip="dismissing">dismissing</span> the scenario Alex raised, treating it as unlikely, but the grammar is the same either way.</p>
+    <p class="ex-sentence">
+      "Even if that
+      <select class="blank-sel" data-correct="happened">
+        <option value="">___</option>
+        <option value="happened">happened</option>
+        <option value="would happen">would happen</option>
+        <option value="happens">happens</option>
+      </select>
+      , which I doubt, we would just switch to the backup unit and keep running."
+    </p>
+    <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+  </div>
+
+</div>
+</div>
+
+<footer>Before It Breaks · Second Conditional Practice</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<script>
+function checkEx(btn){
+  var card = btn.closest('.ex-card');
+  var selects = card.querySelectorAll('.blank-sel');
+  var allCorrect = true;
+  selects.forEach(function(s){
+    s.classList.remove('correct','wrong');
+    if (s.value === '') { allCorrect = false; return; }
+    if (s.value === s.getAttribute('data-correct')) {
+      s.classList.add('correct');
+    } else {
+      s.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  var fb = card.querySelector('.ex-feedback');
+  var resetBtn = card.querySelector('.btn-reset');
+  fb.classList.add('show');
+  if (allCorrect) {
+    fb.textContent = 'Correct!';
+    fb.className = 'ex-feedback show good';
+    resetBtn.classList.remove('show');
+  } else {
+    fb.textContent = 'Not quite yet, pense: essa parte da frase é o "if" imaginado, ou o resultado imaginado?';
+    fb.className = 'ex-feedback show bad';
+    resetBtn.classList.add('show');
+  }
+}
+function resetEx(btn){
+  var card = btn.closest('.ex-card');
+  card.querySelectorAll('.blank-sel').forEach(function(s){
+    s.value = '';
+    s.classList.remove('correct','wrong');
+  });
+  var fb = card.querySelector('.ex-feedback');
+  fb.classList.remove('show');
+  fb.textContent = '';
+  btn.classList.remove('show');
+}
+document.querySelectorAll('.blank-sel').forEach(function(s){
+  s.addEventListener('change', function(){ s.classList.remove('correct','wrong'); });
+});
+
+(function() {
+  var TIPS = {
+    "allocated": {pt: "alocado, destinado", def: "To set money or resources aside for a specific purpose."},
+    "picturetheworstcase": {pt: "imaginar o pior cenário possível", def: "To form a mental image of the worst possible outcome of a situation."},
+    "signoffon": {pt: "aprovar formalmente, dar aval a", def: "To formally approve something, often by signing a document."},
+    "lapsed": {pt: "venceu, expirou (contrato)", def: "If an agreement or contract lapses, it ends because it was not renewed in time."},
+    "pushbackon": {pt: "resistir a, contestar", def: "To resist or argue against a plan, decision, or idea."},
+    "downstreameffect": {pt: "efeito em cadeia, consequência posterior", def: "An indirect result that shows up later, caused by an earlier event."},
+    "shutdown": {pt: "desligar", def: "To turn a machine or system off completely."},
+    "honor": {pt: "cumprir, honrar (um acordo)", def: "To keep to an agreement or promise, even if circumstances change."},
+    "dismissing": {pt: "descartar, não levar a sério", def: "To decide that something is not important or not worth considering."},
+    "warranty": {pt: "garantia", def: "A written promise from a seller to repair or replace a product if it fails within a certain period."}
+  };
+
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      el.addEventListener("mouseenter", function(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tip.style.display = "block";
+        moveTip(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 115, window.innerWidth - 240));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 16) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>
