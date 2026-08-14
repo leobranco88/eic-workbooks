@@ -104,6 +104,15 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .ap-link:hover{background:var(--warm-lt)}
 .ap-noscene{font-size:12px;color:var(--mid);font-style:italic;margin-top:6px}
 </style>
+
+<style>
+.stage-track{max-width:1300px;margin:26px auto 0;padding:0 40px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:720px){.stage-track{padding:0 20px}}
+.stage-pill{text-decoration:none;display:inline-block;font-size:10px;font-weight:800;letter-spacing:.03em;padding:6px 13px;border-radius:20px;
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.08);transition:border-color .15s,color .15s}
+.stage-pill[href]:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75)}
+.stage-pill.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+</style>
 </head>
 <body>
 
@@ -138,12 +147,6 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 <path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
     <span class="hdr-meta">B1+ · Sales in Action</span>
   </div>
-    <div class="hdr-right">
-    <a class="hdr-link" href="sales-in-action-hub.html">Map</a>
-    <a class="hdr-link" href="prospecting-toolkit.html">Vocabulary</a>
-    <a class="hdr-link" href="coatex-grammar-should-must.html">Grammar</a>
-    <a class="hdr-link" href="midland-stakeholders.html">Stakeholders</a>
-  </div>
 </header>
 
 <div class="page">
@@ -156,6 +159,18 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
       <div class="facade-title">Coatex Distribuidora</div>
       <p class="facade-sub">This is where Diego works before he ever leaves for a client meeting. Meet the team on this side of the sale, and check in with Fernando before every big move.</p>
     </div>
+  </div>
+
+  <div class="stage-track">
+    <a class="stage-pill active" href="coatex-facility.html">0 &middot; Coatex HQ</a>
+    <a class="stage-pill" href="midland-facility.html">1 &middot; Research</a>
+    <a class="stage-pill" href="midland-scene-outreach.html">2 &middot; Outreach</a>
+    <a class="stage-pill" href="midland-scene-firstcontact.html">3 &middot; First Contact</a>
+    <a class="stage-pill" href="midland-scene-technicalproof.html">4 &middot; Technical Proof</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">5 &middot; Building an Ally</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">6 &middot; Checking In</a>
+    <a class="stage-pill" href="midland-money-terms.html">7 &middot; Money &amp; Terms</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">8 &middot; The Finish Line</a>
   </div>
 
   <div class="facts-strip">
@@ -312,6 +327,22 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
   initPhotos();
 })();
 
+
+setTimeout(function(){
+  if (window.Companion) {
+    Companion.show({
+      id: "coatex-hq-tip-1",
+      type: "tip",
+      messages: {
+        strategist: "Look around before you move on. Who does Diego report to, and what does that person expect from him?",
+        closer: "This is home base. Get the lay of the land fast, then move on to the real target.",
+        mentor: "Notice words like \'quota\' and \'territory\' here, they come back later. Save the ones you do not know.",
+        analyst: "Every sales org has a reporting line and a number attached to it. Find both before you leave this page."
+      }
+    });
+  }
+}, 1200);
 </script>
+<script src="companion.js"></script>
 </body>
 </html>

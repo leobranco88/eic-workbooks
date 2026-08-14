@@ -97,6 +97,7 @@
     card.style.setProperty("--eic-accent", ACCENTS[avatar]);
 
     var typeLabel = TYPE_LABELS[opts.type] || "Companion";
+    var text = (opts.messages && opts.messages[avatar]) || opts.message || "";
 
     card.innerHTML =
       '<div class="eic-comp-badge">' +
@@ -109,7 +110,7 @@
       '</div>' +
       '<button class="eic-comp-close" aria-label="Dismiss">&times;</button>';
 
-    card.querySelector(".eic-comp-text").textContent = opts.message || "";
+    card.querySelector(".eic-comp-text").textContent = text;
     container.appendChild(card);
 
     requestAnimationFrame(function(){ card.classList.add("visible"); });
@@ -126,20 +127,109 @@
     if (opts.id) markSeen(opts.id);
   }
 
-  function injectHeaderLink(){
-    var hdrRight = document.querySelector(".hdr-right");
-    if (!hdrRight || document.getElementById("eic-companion-hdr-link")) return;
-    var link = document.createElement("a");
-    link.id = "eic-companion-hdr-link";
-    link.className = "hdr-link";
-    link.href = "choose-companion.html";
-    link.textContent = "Change Companion";
-    hdrRight.appendChild(link);
+  var RAIL_ID = "eic-rail";
+  var RAIL_STYLE_ID = "eic-rail-style";
+
+  var RAIL_ICONS = {
+    map: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+    coatex: '<svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg>',
+    vocab: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    grammar: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
+    stakeholders: '<svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/><circle cx="18" cy="8.5" r="2.8"/><path d="M15.5 13.3c2.9.3 5 2.9 5 6.2"/></svg>'
+  };
+  var RAIL_ITEMS = [
+    {key: "map", icon: "map", label: "Map", href: "sales-in-action-hub.html"},
+    {key: "coatex", icon: "coatex", label: "Coatex HQ \u00b7 Stage 0", href: "coatex-facility.html"},
+    {key: "divider"},
+    {key: "vocab", icon: "vocab", label: "Vocabulary", href: "prospecting-toolkit.html"},
+    {key: "grammar", icon: "grammar", label: "Grammar Lab", href: "coatex-grammar-should-must.html"},
+    {key: "stakeholders", icon: "stakeholders", label: "Stakeholder Map", href: "midland-stakeholders.html"}
+  ];
+
+  function injectRailStyles(){
+    if (document.getElementById(RAIL_STYLE_ID)) return;
+    var css = '';
+    css += '#' + RAIL_ID + '{position:fixed;top:0;left:0;bottom:0;width:60px;background:#050b18;border-right:1px solid rgba(255,255,255,.08);';
+    css += 'z-index:9997;display:flex;flex-direction:column;align-items:center;padding:14px 0;font-family:Inter,sans-serif}';
+    css += '.eic-rail-item{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;';
+    css += 'text-decoration:none;color:rgba(255,255,255,.4);position:relative;flex-shrink:0;transition:background .15s,color .15s}';
+    css += '.eic-rail-item svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}';
+    css += '.eic-rail-item:hover{background:rgba(255,255,255,.08);color:#fff}';
+    css += '.eic-rail-item.active{background:var(--teal,#1E5FAE);color:#fff}';
+    css += '.eic-rail-divider{width:22px;height:1px;background:rgba(255,255,255,.12);margin:4px 0 12px}';
+    css += '.eic-rail-spacer{flex:1}';
+    css += '.eic-rail-companion{width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.15);flex-shrink:0;';
+    css += 'display:block;background:#0d1a30}';
+    css += '.eic-rail-companion img{width:100%;height:100%;object-fit:cover;display:block}';
+    css += '.eic-rail-companion.active{border-color:var(--teal,#1E5FAE)}';
+    css += '.eic-rail-tip{position:absolute;left:52px;top:50%;transform:translateY(-50%);background:#fff;color:#0A1628;font-size:11px;';
+    css += 'font-weight:700;padding:5px 10px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;box-shadow:0 6px 16px rgba(0,0,0,.3)}';
+    css += '.eic-rail-item:hover .eic-rail-tip,.eic-rail-companion:hover .eic-rail-tip{opacity:1}';
+    css += 'body.eic-has-rail{margin-left:60px}';
+    css += 'body.eic-has-rail .hdr{left:60px!important}';
+    css += '@media(max-width:720px){#' + RAIL_ID + '{width:44px}.eic-rail-item,.eic-rail-companion{width:32px;height:32px}';
+    css += '.eic-rail-item svg{width:15px;height:15px}.eic-rail-tip{display:none}';
+    css += 'body.eic-has-rail{margin-left:44px}body.eic-has-rail .hdr{left:44px!important}}';
+    var tag = document.createElement("style");
+    tag.id = RAIL_STYLE_ID;
+    tag.textContent = css;
+    document.head.appendChild(tag);
   }
+
+  function currentFile(){
+    var parts = window.location.pathname.split("/");
+    return parts[parts.length - 1] || "";
+  }
+
+  function injectRail(){
+    if (document.getElementById(RAIL_ID)) return;
+    var here = currentFile();
+    // The pre-course companion picker never shows the rail: nothing to navigate to yet.
+    if (here.indexOf("choose-companion") !== -1) return;
+
+    injectRailStyles();
+    document.body.classList.add("eic-has-rail");
+
+    var rail = document.createElement("div");
+    rail.id = RAIL_ID;
+
+    RAIL_ITEMS.forEach(function(item){
+      if (item.key === "divider") {
+        var div = document.createElement("div");
+        div.className = "eic-rail-divider";
+        rail.appendChild(div);
+        return;
+      }
+      var a = document.createElement("a");
+      a.className = "eic-rail-item" + (here === item.href ? " active" : "");
+      a.href = item.href;
+      a.innerHTML = RAIL_ICONS[item.icon] + '<span class="eic-rail-tip">' + item.label + '</span>';
+      rail.appendChild(a);
+    });
+
+    var spacer = document.createElement("div");
+    spacer.className = "eic-rail-spacer";
+    rail.appendChild(spacer);
+
+    var avatar = getAvatar();
+    var comp = document.createElement("a");
+    comp.href = "choose-companion.html";
+    comp.className = "eic-rail-companion" + (avatar ? " active" : "");
+    if (avatar && PHOTOS[avatar]) {
+      comp.innerHTML = '<img src="' + PHOTOS[avatar] + '" alt="' + NAMES[avatar] + '">' +
+        '<span class="eic-rail-tip">' + NAMES[avatar] + ' \u00b7 change</span>';
+    } else {
+      comp.innerHTML = '<span class="eic-rail-tip">Choose your companion</span>';
+    }
+    rail.appendChild(comp);
+
+    document.body.appendChild(rail);
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", injectHeaderLink);
+    document.addEventListener("DOMContentLoaded", injectRail);
   } else {
-    injectHeaderLink();
+    injectRail();
   }
 
   window.Companion = {
