@@ -39,8 +39,9 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 /* stage tracker */
 .stage-track{max-width:1300px;margin:26px auto 0;padding:0 40px;display:flex;gap:8px;flex-wrap:wrap}
 @media(max-width:720px){.stage-track{padding:0 20px}}
-.stage-pill{font-size:10px;font-weight:800;letter-spacing:.03em;padding:6px 13px;border-radius:20px;
-  background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.08)}
+.stage-pill{text-decoration:none;display:inline-block;font-size:10px;font-weight:800;letter-spacing:.03em;padding:6px 13px;border-radius:20px;
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.08);transition:border-color .15s,color .15s}
+.stage-pill[href]:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75)}
 .stage-pill.active{background:var(--teal);color:#fff;border-color:var(--teal)}
 
 /* section shell */
@@ -77,18 +78,6 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .ex-gap.revealed{color:var(--hi);border-bottom-color:var(--hi);font-weight:700}
 .ex-hint{font-size:10.5px;color:rgba(255,255,255,.3);margin-top:2px}
 
-.next-cta{max-width:1300px;margin:34px auto 0;padding:0 40px 50px}
-@media(max-width:720px){.next-cta{padding:0 20px 40px}}
-.next-cta-card{background:linear-gradient(135deg,rgba(30,95,174,.14),rgba(109,95,224,.14));
-  border:1px solid rgba(30,95,174,.3);border-radius:16px;padding:26px 30px;display:flex;align-items:center;
-  justify-content:space-between;gap:20px;flex-wrap:wrap}
-.next-cta-label{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:6px}
-.next-cta-title{font-size:17px;font-weight:900;color:#fff;margin-bottom:4px}
-.next-cta-sub{font-size:12.5px;color:rgba(255,255,255,.55)}
-.next-cta-btn{font-family:Inter,sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--dark);background:var(--hi);padding:12px 22px;border-radius:24px;text-decoration:none;white-space:nowrap;
-  flex-shrink:0;transition:transform .15s ease}
-.next-cta-btn:hover{transform:translateY(-2px)}
 
 .footer{background:var(--dark);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid rgba(255,255,255,.08);margin-top:50px}
 .footer-logo{height:20px;width:auto;opacity:.35}
@@ -104,7 +93,6 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 #global-tip .tip-en{font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--teal);margin-bottom:3px}
 #global-tip .tip-pt{color:var(--mid)}
 </style>
-<script src="companion.js"></script>
 </head>
 <body>
 
@@ -139,10 +127,11 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 <path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></svg>
     <span class="hdr-meta">B1+ · Sales in Action</span>
   </div>
-  <div class="hdr-right">
-    <a class="hdr-link" href="midland-facility.html">Prisma Coatings HQ</a>
-    <a class="hdr-link" href="midland-stakeholders.html">Stakeholder Map</a>
-    <a class="hdr-link current" href="prospecting-toolkit.html">Prospecting Toolkit</a>
+    <div class="hdr-right">
+    <a class="hdr-link" href="sales-in-action-hub.html">Map</a>
+    <a class="hdr-link current" href="prospecting-toolkit.html">Vocabulary</a>
+    <a class="hdr-link" href="coatex-grammar-should-must.html">Grammar</a>
+    <a class="hdr-link" href="midland-stakeholders.html">Stakeholders</a>
   </div>
 </header>
 
@@ -151,23 +140,23 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
   <div class="hero">
     <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Stage 2 · Outreach</span></div>
     <div class="hero-title">Before You Ever Say Hello</div>
-    <p class="hero-sub">Every deal starts with a message nobody asked for. This is the language Diego needs before he ever writes an email, sends a WhatsApp, or picks up the phone — general enough to use with anyone, specific enough to sound like he did his homework.</p>
+    <p class="hero-sub">Every deal starts with a message nobody asked for. This is the language Diego needs before he ever writes an email, sends a WhatsApp, or picks up the phone. General enough to use with anyone, specific enough to sound like he did his homework.</p>
   </div>
 
-  <div class="stage-track">
-    <span class="stage-pill">1 · Research</span>
-    <span class="stage-pill active">2 · Outreach</span>
-    <span class="stage-pill">3 · First Contact</span>
-    <span class="stage-pill">4 · Technical Proof</span>
-    <span class="stage-pill">5 · Building an Ally</span>
-    <span class="stage-pill">6 · Checking In</span>
-    <span class="stage-pill">7 · Money &amp; Terms</span>
-    <span class="stage-pill">8 · The Finish Line</span>
+<div class="stage-track">
+    <a class="stage-pill " href="midland-facility.html">1 · Research</a>
+    <a class="stage-pill active" href="midland-scene-outreach.html">2 · Outreach</a>
+    <a class="stage-pill " href="midland-scene-firstcontact.html">3 · First Contact</a>
+    <a class="stage-pill" href="midland-scene-technicalproof.html">4 · Technical Proof</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">5 · Building an Ally</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">6 · Checking In</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">7 · Money &amp; Terms</a>
+    <a class="stage-pill" href="sales-in-action-hub.html">8 · The Finish Line</a>
   </div>
 
   <div class="section">
     <div class="section-title">Functional Phrases</div>
-    <p class="section-sub">Nothing here is industry-specific. These are the moves that work whether Diego is prospecting a paint company or anyone else — the kind of English that transfers.</p>
+    <p class="section-sub">Nothing here is industry-specific. These are the moves that work whether Diego is prospecting a paint company or anyone else. The kind of English that transfers.</p>
 
     <div class="cat-grid">
 
@@ -175,7 +164,7 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
         <div class="cat-name">Breaking the Ice</div>
         <div class="cat-phrase">"I hope this isn't out of the blue, but I wanted to reach out."</div>
-        <div class="cat-phrase">"I'll keep this short — just a quick note about..."</div>
+        <div class="cat-phrase">"I'll keep this short, just a quick note about..."</div>
       </div>
 
       <div class="cat-card">
@@ -196,13 +185,13 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
         <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <div class="cat-name">Asking for Time</div>
         <div class="cat-phrase">"Would you be open to a quick 15-minute call this week?"</div>
-        <div class="cat-phrase">"No pressure at all — even a short reply works for now."</div>
+        <div class="cat-phrase">"No pressure at all, even a short reply works for now."</div>
       </div>
 
       <div class="cat-card">
         <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
         <div class="cat-name">Handling Pushback</div>
-        <div class="cat-phrase">"No problem at all — mind if I check back in a quarter?"</div>
+        <div class="cat-phrase">"No problem at all, mind if I check back in a quarter?"</div>
         <div class="cat-phrase">"Totally understand. Can I send something for later?"</div>
       </div>
 
@@ -218,7 +207,7 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 
   <div class="section">
     <div class="section-title">Technical Glossary</div>
-    <p class="section-sub">These come up once Diego is past the opening line — in specs, in procurement talk, in the numbers. They don't belong in a cold email, but he needs to recognize them fast when they show up.</p>
+    <p class="section-sub">These come up once Diego is past the opening line, in specs, in procurement talk, in the numbers. They don't belong in a cold email, but he needs to recognize them fast when they show up.</p>
 
     <div class="gloss-grid">
 
@@ -300,16 +289,6 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     </div>
   </div>
 
-  <div class="next-cta">
-    <div class="next-cta-card">
-      <div>
-        <div class="next-cta-label">Next step</div>
-        <div class="next-cta-title">Ready to send the first message?</div>
-        <div class="next-cta-sub">The phrases are ready. Now Diego has to pick a channel — email or WhatsApp.</div>
-      </div>
-      <a class="next-cta-btn" href="midland-facility.html">Back to Prisma Coatings HQ →</a>
-    </div>
-  </div>
 
 </div>
 
@@ -420,19 +399,8 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
   });
   window.addEventListener("resize", function() { if (active) position(active); });
 
-  if (window.Companion) {
-    setTimeout(function(){
-      Companion.show({
-        id: "toolkit-nudge-1",
-        force: true,
-        type: "nudge",
-        message: "You haven't tried the Practice tab yet. It only takes a few minutes."
-      });
-    }, 1200);
-  }
 })();
 
 </script>
-<script src="picture-dictionary.js"></script>
 </body>
 </html>
