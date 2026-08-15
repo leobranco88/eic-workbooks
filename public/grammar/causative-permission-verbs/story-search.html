@@ -135,7 +135,7 @@
 
   @media print{
     header.top{position:static;}
-    .page-nav, .pdf-btn, .role-toggle-wrap, .role-note{display:none !important;}
+    .page-nav, .pdf-btn, .role-toggle-wrap, .role-note, .fab-texts, .overlay-scrim{display:none !important;}
     body{background-image:none !important;}
     .item-card{break-inside:avoid; page-break-inside:avoid;}
     .text-block{break-inside:avoid; page-break-inside:avoid;}
@@ -144,6 +144,45 @@
     .field-row{flex-direction:column; align-items:stretch; gap:3px;}
     .field-label{width:auto;}
   }
+
+  /* ---------- FIND-IN-TEXT LUPA ---------- */
+  .find-btn{border:none; background:none; cursor:pointer; padding:2px 4px; opacity:.5; vertical-align:middle; display:inline-flex; color:var(--navy);}
+  .find-btn:hover{opacity:1;}
+  .find-btn svg{width:13px; height:13px;}
+
+  /* ---------- FLOATING TEXTS BUTTON ---------- */
+  .fab-texts{
+    position:fixed; bottom:24px; right:24px; z-index:200;
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'Inter', sans-serif; font-size:13px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+    background:var(--navy); color:var(--cream); border:none; border-radius:30px; padding:13px 22px;
+    cursor:pointer; box-shadow:0 6px 18px rgba(0,48,73,.35); transition:transform .15s ease;
+  }
+  .fab-texts:hover{transform:translateY(-2px); background:var(--brick);}
+
+  /* ---------- TEXTS OVERLAY ---------- */
+  .overlay-scrim{
+    position:fixed; inset:0; background:rgba(0,48,73,.45); z-index:298;
+    display:flex; align-items:flex-end; justify-content:center;
+    opacity:0; visibility:hidden; transition:opacity .2s ease;
+  }
+  .overlay-scrim.open{opacity:1; visibility:visible;}
+  .overlay-panel{
+    background:var(--paper); width:100%; max-width:780px; max-height:85vh; border-radius:18px 18px 0 0;
+    display:flex; flex-direction:column; box-shadow:0 -10px 40px rgba(0,0,0,.3); overflow:hidden;
+  }
+  @media(min-width:720px){.overlay-panel{border-radius:18px; max-height:80vh;}}
+  .overlay-head{background:var(--navy); display:flex; align-items:center; justify-content:space-between; padding:14px 18px; flex:none;}
+  .overlay-tabs{display:flex; gap:6px;}
+  .overlay-tab{border:none; background:rgba(255,255,255,.1); color:rgba(255,255,255,.65); font-family:inherit;
+    font-size:12px; font-weight:800; padding:8px 14px; border-radius:100px; cursor:pointer; transition:all .15s ease;}
+  .overlay-tab.active{background:#fff; color:var(--navy);}
+  .overlay-close{border:none; background:none; color:#fff; opacity:.7; cursor:pointer; padding:6px; display:flex;}
+  .overlay-close:hover{opacity:1;}
+  .overlay-body{padding:20px 22px 28px; overflow-y:auto; flex:1;}
+  .overlay-body .text-block{margin-bottom:0; border-radius:12px;}
+  .overlay-body [data-hl]{transition:background-color .3s ease, box-shadow .3s ease; border-radius:4px;}
+  .overlay-body [data-hl].hl-active{background:#ffe89c; box-shadow:0 0 0 3px #ffe89c; padding:1px 2px;}
 </style>
 </head>
 <body>
@@ -196,7 +235,7 @@
 
 <div class="content">
 
-  <div class="text-block" style="border-left-color:var(--a)">
+  <div class="text-block" id="fulltext-a" style="border-left-color:var(--a)">
     <div class="text-block-label" style="color:var(--a)"><span>TEXT A · PRESENT SIMPLE · Their Routine</span>
       <button class="listen-btn" onclick="playListen('a', this)">
         <svg class="icon-play" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -205,17 +244,17 @@
       </button>
     </div>
     <p>David manages a small team, and Tom is the newest member. Their routine runs on one simple rule:
-    everyone follows the process. Every Monday, David <b>has</b> his assistant prepare the weekly report,
-    it's just part of the job, nothing personal. He doesn't <b>let</b> deadlines slide, but he does
-    <b>let</b> the team choose their own tools, as long as the numbers are right in the end.</p>
-    <p>When something looks off, David <b>makes</b> Tom double-check it before it goes out. Tom, for his
+    everyone follows the process. <span data-hl="a1">Every Monday, David <b>has</b> his assistant prepare the weekly report,
+    it's just part of the job, nothing personal.</span> <span data-hl="a2">He doesn't <b>let</b> deadlines slide, but he does
+    <b>let</b> the team choose their own tools, as long as the numbers are right in the end.</span></p>
+    <p><span data-hl="a3">When something looks off, David <b>makes</b> Tom double-check it before it goes out.</span> <span data-hl="a4">Tom, for his
     part, sometimes <b>gets</b> David to explain things twice when he doesn't fully understand, and David
-    doesn't mind that at all. Company policy doesn't <b>allow</b> employees to submit unreviewed drafts, and
-    David takes that rule seriously. He <b>lets</b> junior staff make small mistakes, that's how people
+    doesn't mind that at all.</span> <span data-hl="a5">Company policy doesn't <b>allow</b> employees to submit unreviewed drafts, and
+    David takes that rule seriously.</span> He <b>lets</b> junior staff make small mistakes, that's how people
     learn, but he never <b>lets</b> the same mistake happen twice.</p>
   </div>
 
-  <div class="text-block" style="border-left-color:var(--b)">
+  <div class="text-block" id="fulltext-b" style="border-left-color:var(--b)">
     <div class="text-block-label" style="color:var(--b)"><span>TEXT B · PAST SIMPLE · Last Week</span>
       <button class="listen-btn" onclick="playListen('b', this)">
         <svg class="icon-play" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -223,16 +262,16 @@
         Listen
       </button>
     </div>
-    <p>Last week didn't go the way it usually does. Tom <b>got</b> David to accept a rushed draft without a
-    full review, David was in a hurry that morning and agreed. It backfired almost immediately. The report
-    had errors, and David <b>made</b> Tom redo the whole thing before 5pm, no exceptions this time. David
-    didn't <b>let</b> it slide the way he sometimes does.</p>
-    <p>Instead, David <b>had</b> Tom go through every line out loud, one by one, at his desk. Tom
-    <b>didn't get</b> David to change his mind, not this time, no matter how he explained it. By Friday, the
-    report was finally done, and David <b>let</b> the whole team leave early, everyone had earned it.</p>
+    <p>Last week didn't go the way it usually does. <span data-hl="b1">Tom <b>got</b> David to accept a rushed draft without a
+    full review, David was in a hurry that morning and agreed.</span> It backfired almost immediately. The report
+    had errors, and <span data-hl="b2">David <b>made</b> Tom redo the whole thing before 5pm, no exceptions this time.</span> <span data-hl="b3">David
+    didn't <b>let</b> it slide the way he sometimes does.</span></p>
+    <p><span data-hl="b4">Instead, David <b>had</b> Tom go through every line out loud, one by one, at his desk.</span> Tom
+    <b>didn't get</b> David to change his mind, not this time, no matter how he explained it. <span data-hl="b5">By Friday, the
+    report was finally done, and David <b>let</b> the whole team leave early, everyone had earned it.</span></p>
   </div>
 
-  <div class="text-block" style="border-left-color:var(--c)">
+  <div class="text-block" id="fulltext-c" style="border-left-color:var(--c)">
     <div class="text-block-label" style="color:var(--c)"><span>TEXT C · CONTINUOUS &amp; WOULD · This Week</span>
       <button class="listen-btn" onclick="playListen('c', this)">
         <svg class="icon-play" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -240,14 +279,14 @@
         Listen
       </button>
     </div>
-    <p>This week, things are different. David <b>is having</b> the team double-check every report before it
-    goes to a client, it's the new normal for now, not a punishment. Tom <b>is getting</b> better at catching
-    his own mistakes, David has noticed the change. David <b>isn't making</b> anyone stay late this week, the
+    <p>This week, things are different. <span data-hl="c1">David <b>is having</b> the team double-check every report before it
+    goes to a client, it's the new normal for now, not a punishment.</span> <span data-hl="c2">Tom <b>is getting</b> better at catching
+    his own mistakes, David has noticed the change.</span> David <b>isn't making</b> anyone stay late this week, the
     team earned some trust back.</p>
-    <p>David <b>is allowing</b> Tom to review his own drafts before sending them over, a small change, but a
-    real one. Tom <b>would rather have</b> more independence, and David is slowly starting to agree with him.
-    Next month, if this week goes well, David <b>is planning to let</b> Tom lead the report entirely on his
-    own.</p>
+    <p><span data-hl="c3">David <b>is allowing</b> Tom to review his own drafts before sending them over, a small change, but a
+    real one.</span> <span data-hl="c4">Tom <b>would rather have</b> more independence, and David is slowly starting to agree with him.</span>
+    <span data-hl="c5">Next month, if this week goes well, David <b>is planning to let</b> Tom lead the report entirely on his
+    own.</span></p>
   </div>
 
   <div class="sec-block">
@@ -268,6 +307,27 @@
     <div class="item-grid" id="gridOP"></div>
   </div>
 
+</div>
+
+<button class="fab-texts" onclick="openTexts()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+  Texts
+</button>
+
+<div class="overlay-scrim" id="overlayScrim" onclick="if(event.target===this) closeTexts()">
+  <div class="overlay-panel">
+    <div class="overlay-head">
+      <div class="overlay-tabs">
+        <button class="overlay-tab" id="tabbtn-a" onclick="showTab('a')">A · Present</button>
+        <button class="overlay-tab" id="tabbtn-b" onclick="showTab('b')">B · Past</button>
+        <button class="overlay-tab" id="tabbtn-c" onclick="showTab('c')">C · Continuous</button>
+      </div>
+      <button class="overlay-close" onclick="closeTexts()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="overlay-body" id="overlayBody"></div>
+  </div>
 </div>
 
 <footer>
@@ -305,33 +365,33 @@ const TOM = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eA
 
 const DATA = {
   yesno: [
-    {num:1, subj:"David", claim:"David has his assistant prepare the weekly report.", question:"Does David have his assistant prepare the weekly report?", shortAnswer:"Yes, he does.", fam:"a"},
-    {num:2, subj:"David", claim:"David lets deadlines slide.", question:"Does David let deadlines slide?", shortAnswer:"No, he doesn't. He doesn't let deadlines slide.", fam:"a"},
-    {num:3, subj:"David", claim:"David makes Tom double-check the numbers.", question:"Does David make Tom double-check the numbers?", shortAnswer:"Yes, he does.", fam:"a"},
-    {num:4, subj:"Tom", claim:"Tom makes David explain things twice.", question:"Does Tom make David explain things twice?", shortAnswer:"No, he doesn't. He gets David to explain things twice.", fam:"a"},
-    {num:5, subj:"David", claim:"Company policy lets employees submit unreviewed drafts.", question:"Does company policy let employees submit unreviewed drafts?", shortAnswer:"No, it doesn't. It doesn't allow employees to submit unreviewed drafts.", fam:"a"},
-    {num:6, subj:"Tom", claim:"Tom got David to accept a rushed draft.", question:"Did Tom get David to accept a rushed draft?", shortAnswer:"Yes, he did.", fam:"b"},
-    {num:7, subj:"David", claim:"David let Tom redo the report.", question:"Did David let Tom redo the report?", shortAnswer:"No, he didn't. He made him redo it.", fam:"b"},
-    {num:8, subj:"David", claim:"David let it slide, like he sometimes does.", question:"Did David let it slide?", shortAnswer:"No, he didn't. He didn't let it slide this time.", fam:"b"},
-    {num:9, subj:"David", claim:"David had Tom go through every line.", question:"Did David have Tom go through every line?", shortAnswer:"Yes, he did.", fam:"b"},
-    {num:10, subj:"David", claim:"David made the team leave early on Friday.", question:"Did David make the team leave early on Friday?", shortAnswer:"No, he didn't. He let the team leave early.", fam:"b"},
-    {num:11, subj:"David", claim:"David is letting the team double-check every report.", question:"Is David letting the team double-check every report?", shortAnswer:"No, he isn't. He is having the team double-check it.", fam:"c"},
-    {num:12, subj:"Tom", claim:"Tom is getting better at catching his own mistakes.", question:"Is Tom getting better at catching his own mistakes?", shortAnswer:"Yes, he is.", fam:"c"},
-    {num:13, subj:"David", claim:"David is getting Tom to review his own drafts.", question:"Is David getting Tom to review his own drafts?", shortAnswer:"No, he isn't. He is allowing Tom to review his own drafts.", fam:"c"},
-    {num:14, subj:"Tom", claim:"Tom would rather have more independence.", question:"Would Tom rather have more independence?", shortAnswer:"Yes, he would.", fam:"c"},
-    {num:15, subj:"David", claim:"David is planning to let Tom lead the report next month.", question:"Is David planning to let Tom lead the report next month?", shortAnswer:"Yes, he is.", fam:"c"}
+    {num:1, subj:"David", claim:"David has his assistant prepare the weekly report.", question:"Does David have his assistant prepare the weekly report?", shortAnswer:"Yes, he does.", fam:"a", target:"a1"},
+    {num:2, subj:"David", claim:"David lets deadlines slide.", question:"Does David let deadlines slide?", shortAnswer:"No, he doesn't. He doesn't let deadlines slide.", fam:"a", target:"a2"},
+    {num:3, subj:"David", claim:"David makes Tom double-check the numbers.", question:"Does David make Tom double-check the numbers?", shortAnswer:"Yes, he does.", fam:"a", target:"a3"},
+    {num:4, subj:"Tom", claim:"Tom makes David explain things twice.", question:"Does Tom make David explain things twice?", shortAnswer:"No, he doesn't. He gets David to explain things twice.", fam:"a", target:"a4"},
+    {num:5, subj:"David", claim:"Company policy lets employees submit unreviewed drafts.", question:"Does company policy let employees submit unreviewed drafts?", shortAnswer:"No, it doesn't. It doesn't allow employees to submit unreviewed drafts.", fam:"a", target:"a5"},
+    {num:6, subj:"Tom", claim:"Tom got David to accept a rushed draft.", question:"Did Tom get David to accept a rushed draft?", shortAnswer:"Yes, he did.", fam:"b", target:"b1"},
+    {num:7, subj:"David", claim:"David let Tom redo the report.", question:"Did David let Tom redo the report?", shortAnswer:"No, he didn't. He made him redo it.", fam:"b", target:"b2"},
+    {num:8, subj:"David", claim:"David let it slide, like he sometimes does.", question:"Did David let it slide?", shortAnswer:"No, he didn't. He didn't let it slide this time.", fam:"b", target:"b3"},
+    {num:9, subj:"David", claim:"David had Tom go through every line.", question:"Did David have Tom go through every line?", shortAnswer:"Yes, he did.", fam:"b", target:"b4"},
+    {num:10, subj:"David", claim:"David made the team leave early on Friday.", question:"Did David make the team leave early on Friday?", shortAnswer:"No, he didn't. He let the team leave early.", fam:"b", target:"b5"},
+    {num:11, subj:"David", claim:"David is letting the team double-check every report.", question:"Is David letting the team double-check every report?", shortAnswer:"No, he isn't. He is having the team double-check it.", fam:"c", target:"c1"},
+    {num:12, subj:"Tom", claim:"Tom is getting better at catching his own mistakes.", question:"Is Tom getting better at catching his own mistakes?", shortAnswer:"Yes, he is.", fam:"c", target:"c2"},
+    {num:13, subj:"David", claim:"David is getting Tom to review his own drafts.", question:"Is David getting Tom to review his own drafts?", shortAnswer:"No, he isn't. He is allowing Tom to review his own drafts.", fam:"c", target:"c3"},
+    {num:14, subj:"Tom", claim:"Tom would rather have more independence.", question:"Would Tom rather have more independence?", shortAnswer:"Yes, he would.", fam:"c", target:"c4"},
+    {num:15, subj:"David", claim:"David is planning to let Tom lead the report next month.", question:"Is David planning to let Tom lead the report next month?", shortAnswer:"Yes, he is.", fam:"c", target:"c5"}
   ],
   open: [
-    {num:1, subj:"David", claim:"David has ________ (person) prepare the weekly report.", question:"Who does David have prepare the weekly report?", shortAnswer:"He has his assistant prepare it.", fam:"a"},
-    {num:2, subj:"David", claim:"David makes Tom double-check ________ (thing).", question:"What does David make Tom double-check?", shortAnswer:"He makes him double-check the numbers.", fam:"a"},
-    {num:3, subj:"Tom", claim:"Tom gets David to ________ (action) twice.", question:"What does Tom get David to do twice?", shortAnswer:"He gets him to explain things twice.", fam:"a"},
-    {num:4, subj:"David", claim:"David made Tom redo the report ________ (time).", question:"When did David make Tom redo the report?", shortAnswer:"He made him redo it before 5pm.", fam:"b"},
-    {num:5, subj:"David", claim:"David had Tom go through the report ________ (way).", question:"How did David have Tom go through the report?", shortAnswer:"He had him go through it line by line, out loud.", fam:"b"},
-    {num:6, subj:"David", claim:"David let the team leave early because ________ (reason).", question:"Why did David let the team leave early?", shortAnswer:"He let them leave early because they had earned it.", fam:"b"},
-    {num:7, subj:"David", claim:"David is allowing Tom to ________ (action).", question:"What is David allowing Tom to do?", shortAnswer:"He is allowing him to review his own drafts.", fam:"c"},
-    {num:8, subj:"David", claim:"David is planning to let Tom ________ (action) next month.", question:"What is David planning to let Tom do next month?", shortAnswer:"He is planning to let him lead the report on his own.", fam:"c"},
-    {num:9, subj:"David", claim:"David is having the team double-check reports ________ (time).", question:"When is David having the team double-check reports?", shortAnswer:"He is having them double-check reports before they go to a client.", fam:"c"},
-    {num:10, subj:"Tom", claim:"Tom would rather have ________ (thing).", question:"What would Tom rather have?", shortAnswer:"He would rather have more independence.", fam:"c"}
+    {num:1, subj:"David", claim:"David has ________ (person) prepare the weekly report.", question:"Who does David have prepare the weekly report?", shortAnswer:"He has his assistant prepare it.", fam:"a", target:"a1"},
+    {num:2, subj:"David", claim:"David makes Tom double-check ________ (thing).", question:"What does David make Tom double-check?", shortAnswer:"He makes him double-check the numbers.", fam:"a", target:"a3"},
+    {num:3, subj:"Tom", claim:"Tom gets David to ________ (action) twice.", question:"What does Tom get David to do twice?", shortAnswer:"He gets him to explain things twice.", fam:"a", target:"a4"},
+    {num:4, subj:"David", claim:"David made Tom redo the report ________ (time).", question:"When did David make Tom redo the report?", shortAnswer:"He made him redo it before 5pm.", fam:"b", target:"b2"},
+    {num:5, subj:"David", claim:"David had Tom go through the report ________ (way).", question:"How did David have Tom go through the report?", shortAnswer:"He had him go through it line by line, out loud.", fam:"b", target:"b4"},
+    {num:6, subj:"David", claim:"David let the team leave early because ________ (reason).", question:"Why did David let the team leave early?", shortAnswer:"He let them leave early because they had earned it.", fam:"b", target:"b5"},
+    {num:7, subj:"David", claim:"David is allowing Tom to ________ (action).", question:"What is David allowing Tom to do?", shortAnswer:"He is allowing him to review his own drafts.", fam:"c", target:"c3"},
+    {num:8, subj:"David", claim:"David is planning to let Tom ________ (action) next month.", question:"What is David planning to let Tom do next month?", shortAnswer:"He is planning to let him lead the report on his own.", fam:"c", target:"c5"},
+    {num:9, subj:"David", claim:"David is having the team double-check reports ________ (time).", question:"When is David having the team double-check reports?", shortAnswer:"He is having them double-check reports before they go to a client.", fam:"c", target:"c1"},
+    {num:10, subj:"Tom", claim:"Tom would rather have ________ (thing).", question:"What would Tom rather have?", shortAnswer:"He would rather have more independence.", fam:"c", target:"c4"}
   ]
 };
 
@@ -361,6 +421,12 @@ function selfCheckBlock(d){
     </div>`;
 }
 
+function findBtn(fam, target){
+  return `<button class="find-btn" onclick="openTexts('${fam}','${target}')" title="Show this sentence in the text">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+  </button>`;
+}
+
 function renderItemA(d, hasHint){
   const mainText = hasHint ? renderHint(d.claim) : d.claim;
   const askLabel = hasHint ? 'Your question' : 'Guess + question';
@@ -369,7 +435,7 @@ function renderItemA(d, hasHint){
     <div class="item-card">
       ${avatarHTML(d.subj, d.fam)}
       <div class="item-body">
-        <div class="item-text"><span class="item-num">${d.num}.</span>${mainText}</div>
+        <div class="item-text"><span class="item-num">${d.num}.</span>${mainText} ${findBtn(d.fam, d.target)}</div>
         <div class="field-row">
           <span class="field-label">${askLabel}</span>
           <input class="field-input" type="text" placeholder="${askPlaceholder}">
@@ -388,7 +454,7 @@ function renderItemB(d){
     <div class="item-card">
       ${avatarHTML(d.subj, d.fam)}
       <div class="item-body">
-        <div class="item-text"><span class="item-num">${d.num}.</span> <span class="waiting">Wait for your partner's question...</span></div>
+        <div class="item-text"><span class="item-num">${d.num}.</span> <span class="waiting">Wait for your partner's question...</span> ${findBtn(d.fam, d.target)}</div>
         <div class="field-row">
           <span class="field-label">Your answer</span>
           <input class="field-input" type="text" placeholder="Search the text and answer">
@@ -428,6 +494,38 @@ function setRole(role){
 }
 
 renderAll();
+
+let __lastTab = 'a';
+
+function showTab(fam, target){
+  __lastTab = fam;
+  document.querySelectorAll('.overlay-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tabbtn-' + fam).classList.add('active');
+  const body = document.getElementById('overlayBody');
+  body.innerHTML = document.getElementById('fulltext-' + fam).outerHTML;
+  if (target) {
+    const el = body.querySelector('[data-hl="' + target + '"]');
+    if (el) {
+      el.classList.add('hl-active');
+      requestAnimationFrame(() => el.scrollIntoView({behavior:'smooth', block:'center'}));
+    }
+  }
+}
+
+function openTexts(fam, target){
+  showTab(fam || __lastTab, target);
+  document.getElementById('overlayScrim').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTexts(){
+  document.getElementById('overlayScrim').classList.remove('open');
+  document.body.style.overflow = '';
+  if (currentAudio && !currentAudio.paused) {
+    currentAudio.pause();
+    document.querySelectorAll('.listen-btn').forEach(b => b.classList.remove('playing'));
+  }
+}
 </script>
 
 </body>

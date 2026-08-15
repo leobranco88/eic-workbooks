@@ -87,6 +87,7 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .footer-logo{height:20px;width:auto;opacity:.35}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.2);text-align:right}
 @media(max-width:640px){.footer{flex-direction:column;padding:24px;text-align:center}.footer-copy{text-align:center}}
+.cast-style{font-size:7px;font-weight:600;letter-spacing:.02em;color:rgba(255,255,255,.28);text-transform:none;margin-top:-3px}
 </style>
 </head>
 <body>
@@ -188,10 +189,10 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
   };
 
   var CAST = [
-    {key: "diego", name: "Diego"}, {key: "sandra", name: "Sandra"}, {key: "renata", name: "Renata"},
-    {key: "beatriz", name: "Beatriz"}, {key: "marcos", name: "Marcos"}, {key: "patricia", name: "Patricia"},
-    {key: "ricardo", name: "Ricardo"}, {key: "tiago", name: "Tiago"}, {key: "amauri", name: "Amauri"},
-    {key: "jonas", name: "Jonas"}, {key: "fernando", name: "Fernando"}
+    {key: "diego", name: "Diego", style: "Adaptive"}, {key: "sandra", name: "Sandra", style: "Protective"}, {key: "renata", name: "Renata", style: "Skeptical"},
+    {key: "beatriz", name: "Beatriz", style: "Collaborative"}, {key: "marcos", name: "Marcos", style: "Numbers-focused"}, {key: "patricia", name: "Patricia", style: "Negotiator"},
+    {key: "ricardo", name: "Ricardo", style: "Reserved"}, {key: "tiago", name: "Tiago", style: "Cautious"}, {key: "amauri", name: "Amauri", style: "Resistant"},
+    {key: "jonas", name: "Jonas", style: "Practical"}, {key: "fernando", name: "Fernando", style: "Direct"}
   ];
 
   var STAGES = [
@@ -208,7 +209,7 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 
   document.getElementById("cast-strip").innerHTML = CAST.map(function(c) {
     return '<div class="cast-item"><img class="cast-avatar" src="' + PHOTOS[c.key] + '" alt="' + c.name + '">' +
-      '<div class="cast-name">' + c.name + '</div></div>';
+      '<div class="cast-name">' + c.name + '</div>' + '<div class="cast-style">' + (c.style || '') + '</div></div>';
   }).join("");
 
   document.getElementById("stage-list").innerHTML = STAGES.map(function(s) {
@@ -231,6 +232,7 @@ setTimeout(function(){
   if (window.Companion) {
     Companion.show({
       id: "hub-welcome-1",
+      force: true,
       type: "welcome",
       messages: {
         strategist: "Before you pick a stage, ask yourself: which one worries you most? Start there.",

@@ -118,6 +118,7 @@
     function dismiss(){
       card.classList.remove("visible");
       setTimeout(function(){ card.remove(); }, 260);
+      showRecallBadge();
     }
 
     card.querySelector(".eic-comp-close").addEventListener("click", dismiss);
@@ -125,10 +126,42 @@
     card.addEventListener("mouseenter", function(){ clearTimeout(autoDismiss); });
 
     if (opts.id) markSeen(opts.id);
+
+    lastOpts = opts;
+  }
+
+  var lastOpts = null;
+
+  function peek(){
+    if (!lastOpts) return;
+    var forced = {};
+    for (var k in lastOpts) { forced[k] = lastOpts[k]; }
+    forced.force = true;
+    hideRecallBadge();
+    show(forced);
+  }
+
+  function showRecallBadge(){
+    var badge = document.getElementById(RECALL_ID);
+    if (badge) badge.classList.add("visible");
+  }
+
+  function hideRecallBadge(){
+    var badge = document.getElementById(RECALL_ID);
+    if (badge) badge.classList.remove("visible");
   }
 
   var RAIL_ID = "eic-rail";
   var RAIL_STYLE_ID = "eic-rail-style";
+  var RECALL_ID = "eic-recall-badge";
+  var MAP_HINT_KEY = "eic_map_hint_seen";
+
+  function hasSeenMapHint(){
+    try { return localStorage.getItem(MAP_HINT_KEY) === "1"; } catch(e) { return false; }
+  }
+  function markMapHintSeen(){
+    try { localStorage.setItem(MAP_HINT_KEY, "1"); } catch(e) {}
+  }
 
   var RAIL_ICONS = {
     map: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
@@ -158,13 +191,21 @@
     css += '.eic-rail-item.active{background:var(--teal,#1E5FAE);color:#fff}';
     css += '.eic-rail-divider{width:22px;height:1px;background:rgba(255,255,255,.12);margin:4px 0 12px}';
     css += '.eic-rail-spacer{flex:1}';
-    css += '.eic-rail-companion{width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.15);flex-shrink:0;';
+    css += '.eic-rail-companion{width:38px;height:38px;border-radius:50%;flex-shrink:0;position:relative;';
     css += 'display:block;background:#0d1a30}';
+    css += '.eic-rail-companion-clip{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.15);box-sizing:border-box}';
     css += '.eic-rail-companion img{width:100%;height:100%;object-fit:cover;display:block}';
-    css += '.eic-rail-companion.active{border-color:var(--teal,#1E5FAE)}';
+    css += '.eic-rail-companion.active .eic-rail-companion-clip{border-color:var(--teal,#1E5FAE)}';
     css += '.eic-rail-tip{position:absolute;left:52px;top:50%;transform:translateY(-50%);background:#fff;color:#0A1628;font-size:11px;';
     css += 'font-weight:700;padding:5px 10px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s;box-shadow:0 6px 16px rgba(0,0,0,.3)}';
     css += '.eic-rail-item:hover .eic-rail-tip,.eic-rail-companion:hover .eic-rail-tip{opacity:1}';
+    css += '@keyframes eic-rail-pulse{0%{box-shadow:0 0 0 0 rgba(59,127,217,.65)}70%{box-shadow:0 0 0 9px rgba(59,127,217,0)}100%{box-shadow:0 0 0 0 rgba(59,127,217,0)}}';
+    css += '.eic-rail-item.pulse{animation:eic-rail-pulse 1.7s ease-out infinite}';
+    css += '.eic-rail-item.pulse:hover{animation-play-state:paused}';
+    css += '.eic-recall-badge{position:absolute;top:-3px;right:-3px;width:16px;height:16px;border-radius:50%;background:#fff;';
+    css += 'display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.5);z-index:2;animation:eic-rail-pulse 1.7s ease-out infinite}';
+    css += '.eic-recall-badge.visible{display:flex}';
+    css += '.eic-recall-badge svg{width:9px;height:9px;stroke:#0A1628;fill:none;stroke-width:2.6}';
     css += 'body.eic-has-rail{margin-left:60px}';
     css += 'body.eic-has-rail .hdr{left:60px!important}';
     css += '@media(max-width:720px){#' + RAIL_ID + '{width:44px}.eic-rail-item,.eic-rail-companion{width:32px;height:32px}';
@@ -201,9 +242,13 @@
         return;
       }
       var a = document.createElement("a");
-      a.className = "eic-rail-item" + (here === item.href ? " active" : "");
+      var isMapHint = item.key === "map" && here !== "sales-in-action-hub.html" && !hasSeenMapHint();
+      a.className = "eic-rail-item" + (here === item.href ? " active" : "") + (isMapHint ? " pulse" : "");
       a.href = item.href;
       a.innerHTML = RAIL_ICONS[item.icon] + '<span class="eic-rail-tip">' + item.label + '</span>';
+      if (item.key === "map") {
+        a.addEventListener("click", markMapHintSeen);
+      }
       rail.appendChild(a);
     });
 
@@ -216,8 +261,16 @@
     comp.href = "choose-companion.html";
     comp.className = "eic-rail-companion" + (avatar ? " active" : "");
     if (avatar && PHOTOS[avatar]) {
-      comp.innerHTML = '<img src="' + PHOTOS[avatar] + '" alt="' + NAMES[avatar] + '">' +
-        '<span class="eic-rail-tip">' + NAMES[avatar] + ' \u00b7 change</span>';
+      comp.innerHTML = '<span class="eic-rail-companion-clip"><img src="' + PHOTOS[avatar] + '" alt="' + NAMES[avatar] + '"></span>' +
+        '<span class="eic-rail-tip">' + NAMES[avatar] + ' \u00b7 change</span>' +
+        '<span id="' + RECALL_ID + '" class="eic-recall-badge" title="Show that comment again">' +
+        '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>';
+      var recallEl = comp.querySelector("#" + RECALL_ID);
+      recallEl.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        peek();
+      });
     } else {
       comp.innerHTML = '<span class="eic-rail-tip">Choose your companion</span>';
     }
@@ -234,6 +287,7 @@
 
   window.Companion = {
     show: show,
-    getAvatar: getAvatar
+    getAvatar: getAvatar,
+    peek: peek
   };
 })();

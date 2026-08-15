@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Dependent Prepositions · Homework · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F; --paper: #FAFAF7; --muted: #6B7280;
+    --accent: #E63946; --teal: #0F766E; --bg-light: #F3F4F6; --border: #D1D5DB;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--ink); color: var(--ink); min-height: 100vh; padding: 0 0 60px; }
+
+  .topbar { background: var(--ink); color: var(--paper); padding: 10px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent); }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+
+  .navbar { background: #16161d; color: var(--paper); padding: 8px 24px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em; position: sticky; top: 41px; z-index: 99; border-bottom: 1px solid #2a2a33; }
+  .navbar a { color: #9CA3AF; text-decoration: none; padding: 3px 8px; border: 1px solid transparent; }
+  .navbar a.active { color: var(--paper); border: 1px solid var(--accent); }
+  .navbar a:hover { color: var(--paper); }
+  .navbar .dl { margin-left: auto; color: var(--teal); border: 1px solid var(--teal); padding: 3px 10px; }
+  .navbar .dl:hover { background: var(--teal); color: var(--ink); }
+
+  .container { max-width: 880px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 30px 36px 22px; border-bottom: 2px solid var(--ink); display: flex; justify-content: space-between; align-items: flex-start; }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.12; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.06em; margin-top: 8px; line-height: 1.6; }
+  .ganbare { text-align: center; flex-shrink: 0; margin-left: 24px; padding-top: 4px; }
+  .ganbare .gb-kanji { font-size: 36px; line-height: 1; }
+  .ganbare .gb-sub { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 0.1em; margin-top: 4px; }
+
+  .section { padding: 22px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1.5px solid var(--ink); }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 14px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .btn-reveal { background: transparent; border: 1.5px solid var(--teal); color: var(--teal); font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; cursor: pointer; flex-shrink: 0; transition: all 0.15s; }
+  .btn-reveal:hover, .btn-reveal.active { background: var(--teal); color: var(--paper); }
+
+  .instruction { font-size: 12px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+  .subhead { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 14px 0 8px; }
+
+  .ref-box { border: 1px solid var(--border); background: #F9FAFB; padding: 9px 12px; margin-bottom: 14px; }
+  .ref-box .rl { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .ref-row { display: flex; gap: 10px; padding: 3px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+  .ref-row:last-child { border-bottom: none; }
+  .ref-prep { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--teal); min-width: 58px; }
+  .ref-ex { color: #374151; font-size: 11px; }
+
+  .story-block { border-left: 3px solid var(--border); padding: 10px 14px; margin-bottom: 16px; font-size: 12.5px; line-height: 1.85; background: #F9FAFB; }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 11px; align-items: flex-start; font-size: 12.5px; line-height: 1.55; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 80px; margin: 0 2px; vertical-align: baseline; transition: all 0.2s; cursor: pointer; }
+  .blank:hover { background: #F3F4F6; }
+  .blank.long { min-width: 160px; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .mcq-item { margin-bottom: 12px; cursor: pointer; padding: 4px; margin: -4px -4px 8px -4px; border-radius: 4px; }
+  .mcq-item:hover { background: #F9FAFB; }
+  .mcq-stem { font-size: 12.5px; margin-bottom: 6px; line-height: 1.4; }
+  .mcq-options { display: flex; gap: 8px; flex-wrap: wrap; padding-left: 10px; }
+  .mcq-opt { font-size: 11.5px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 14px; display: flex; align-items: center; gap: 5px; }
+  .mcq-opt .letter { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); color: var(--paper); font-family: 'IBM Plex Mono', monospace; font-size: 8px; font-weight: 700; flex-shrink: 0; }
+  .mcq-item.revealed .mcq-opt.correct-opt { background: #ECFDF5; border-color: var(--teal); }
+  .mcq-item.revealed .mcq-opt.correct-opt .letter { background: var(--teal); }
+
+  .prod-box { border: 1px solid var(--border); padding: 12px 14px; margin-bottom: 12px; font-size: 12px; line-height: 1.6; }
+  .prod-box strong { display: block; margin-bottom: 4px; }
+  .prod-reqs { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.7; }
+  .write-lines .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 4px; }
+
+  .resp-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+  .resp-table th { background: var(--ink); color: var(--paper); padding: 5px 8px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .resp-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; } .hero { padding: 20px 18px; flex-direction: column; }
+    .ganbare { margin: 10px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand"><strong>EIC.</strong>HOMEWORK · DEPENDENT PREPOSITIONS · TOSHIE</div>
+  <div class="topbar-meta">VERB + PREP · ADJECTIVE + PREP · QUESTIONS ENDING IN A PREPOSITION</div>
+</div>
+
+<div class="navbar">
+  <a href="dependent-prepositions-classroom.html">Classroom</a>
+  <a href="dependent-prepositions-homework.html" class="active">Homework</a>
+  <a href="dependent-prepositions-homework.pdf" class="dl">Download PDF</a>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div>
+      <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2</div>
+      <h1>Dependent Prepositions<br><span>— Homework Practice</span></h1>
+      <div class="hero-sub">TENTE PRIMEIRO · CLIQUE NO NÚMERO OU NA LINHA DE CADA ITEM PARA REVELAR A RESPOSTA</div>
+    </div>
+    <div class="ganbare">
+      <div class="gb-kanji">頑張れ</div>
+      <div class="gb-sub">ganbare · you've got this</div>
+    </div>
+  </div>
+
+  <!-- ═══ 01 · VERB + PREPOSITION ═══ -->
+  <div class="section" id="sec01">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">Verb + Preposition · Extensive Practice</span>
+      <span class="s-pts">15 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec01', this)">Reveal All</button>
+    </div>
+    <p class="instruction">Complete each sentence with the correct preposition.</p>
+
+    <div class="ref-box">
+      <span class="rl">Quick reference</span>
+      <div class="ref-row"><span class="ref-prep">ON</span><span class="ref-ex">depend, rely</span></div>
+      <div class="ref-row"><span class="ref-prep">IN</span><span class="ref-ex">believe, succeed</span></div>
+      <div class="ref-row"><span class="ref-prep">FOR</span><span class="ref-ex">apologize, apply, wait</span></div>
+      <div class="ref-row"><span class="ref-prep">ABOUT</span><span class="ref-ex">worry, care</span></div>
+      <div class="ref-row"><span class="ref-prep">WITH</span><span class="ref-ex">agree, deal</span></div>
+      <div class="ref-row"><span class="ref-prep">TO</span><span class="ref-ex">look forward</span></div>
+    </div>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">1.</span><div class="q-body">The children's future depends entirely <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">on</span></span> their parents' decision to move abroad.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">2.</span><div class="q-body">In emergencies, the whole neighbourhood relies <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">on</span></span> Mr. Tanaka's generator.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">3.</span><div class="q-body">My grandmother always believed <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">in</span></span> getting up before sunrise.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">4.</span><div class="q-body">After three attempts, she finally succeeded <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">in</span></span> passing her driving test.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">5.</span><div class="q-body">The airline apologized <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">for</span></span> the six-hour delay.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">6.</span><div class="q-body">He's applying <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">for</span></span> a scholarship to study abroad next year.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">7.</span><div class="q-body">We waited <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">for</span></span> almost an hour before the ferry finally arrived.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">8.</span><div class="q-body">Don't worry <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">about</span></span> the extra weight — the airline allows two bags.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">9.</span><div class="q-body">She's always cared <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">about</span></span> preserving the old town's traditions.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">10.</span><div class="q-body">I completely agree <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">with</span></span> your decision to cancel the trip.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">11.</span><div class="q-body">The hotel manager had to deal <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">with</span></span> three complaints before breakfast.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">12.</span><div class="q-body">We're all looking forward <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">to</span></span> the reunion next spring.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">13.</span><div class="q-body">Farmers here still depend <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">on</span></span> the rains arriving on time.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">14.</span><div class="q-body">You can always rely <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">on</span></span> him to know the fastest route.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">15.</span><div class="q-body">I used to worry <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">about</span></span> getting lost, but now I just enjoy it.</div></div>
+  </div>
+
+  <!-- ═══ 02 · ADJECTIVE + PREPOSITION STORIES ═══ -->
+  <div class="section" id="sec02">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Adjective + Preposition · Story Gap-Fill</span>
+      <span class="s-pts">12 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec02', this)">Reveal All</button>
+    </div>
+    <p class="instruction">Read each short scene and complete the gaps with the correct preposition.</p>
+
+    <div class="ref-box">
+      <span class="rl">Quick reference</span>
+      <div class="ref-row"><span class="ref-prep">IN</span><span class="ref-ex">interested</span></div>
+      <div class="ref-row"><span class="ref-prep">OF</span><span class="ref-ex">afraid, proud, aware</span></div>
+      <div class="ref-row"><span class="ref-prep">ABOUT</span><span class="ref-ex">worried</span></div>
+      <div class="ref-row"><span class="ref-prep">FOR</span><span class="ref-ex">famous, responsible</span></div>
+      <div class="ref-row"><span class="ref-prep">TO</span><span class="ref-ex">similar</span></div>
+      <div class="ref-row"><span class="ref-prep">FROM</span><span class="ref-ex">different</span></div>
+      <div class="ref-row"><span class="ref-prep">WITH</span><span class="ref-ex">satisfied</span></div>
+      <div class="ref-row"><span class="ref-prep">AT</span><span class="ref-ex">surprised, good</span></div>
+    </div>
+
+    <div class="subhead">A · The Old Photographer</div>
+    <div class="story-block">He'd always been interested <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">in</span></span> black-and-white photography, ever since his father gave him an old camera. He wasn't afraid <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">of</span></span> criticism — every wall of his small studio was covered with unsold prints. His daughter was proud <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">of</span></span> him, even though she'd never say it out loud. And though the shop was small, he seemed perfectly satisfied <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">with</span></span> the life he'd built there.</div>
+
+    <div class="subhead">B · The New Neighbours</div>
+    <div class="story-block">The new neighbours were nothing like the old ones — completely different <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">from</span></span> what we expected. At first we were surprised <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">at</span></span> how quiet they were. Within a month, though, we discovered they were famous <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">for</span></span> their weekend barbecues, and the whole street was suddenly aware <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">of</span></span> exactly when summer had arrived.</div>
+
+    <div class="subhead">C · The Mountain Guide</div>
+    <div class="story-block">As a mountain guide, she was responsible <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">for</span></span> every hiker on the trail, rain or shine. She was good <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">at</span></span> reading the weather long before the apps could. Some tourists were worried <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">about</span></span> the sudden fog, but she stayed calm — her methods were similar <span class="blank" onclick="toggleItem(this)"><span class="ans-inline">to</span></span> the ones her own grandfather had used decades earlier.</div>
+  </div>
+
+  <!-- ═══ 03 · QUESTIONS ENDING IN A PREPOSITION ═══ -->
+  <div class="section" id="sec03">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Questions Ending in a Preposition · Rewrite</span>
+      <span class="s-pts">10 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec03', this)">Reveal All</button>
+    </div>
+    <p class="instruction">Turn each statement into a question ending in a preposition. Remember the engine: find the preposition partner → turn the object into what/who → strand the preposition at the end.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">1.</span><div class="q-body">He is worried about <u>the flight delay</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What is he worried about?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">2.</span><div class="q-body">She relies on <u>her neighbour</u> for groceries. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">Who does she rely on?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">3.</span><div class="q-body">The dish is similar to <u>something from her childhood</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What is the dish similar to?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">4.</span><div class="q-body">They are grateful to <u>the local guide</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">Who are they grateful to?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">5.</span><div class="q-body">He applied for <u>a research grant</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What did he apply for?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">6.</span><div class="q-body">She is responsible for <u>the entire garden</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What is she responsible for?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">7.</span><div class="q-body">The museum is dealing with <u>a funding problem</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What is the museum dealing with?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">8.</span><div class="q-body">He's proud of <u>his youngest daughter</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">Who is he proud of?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">9.</span><div class="q-body">The plan is different from <u>what we agreed</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What is the plan different from?</span></span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this)">10.</span><div class="q-body">She's good at <u>negotiating prices</u>. → <span class="blank long" onclick="toggleItem(this)"><span class="ans-inline">What is she good at?</span></span></div></div>
+  </div>
+
+  <!-- ═══ 04 · MIXED REVIEW ═══ -->
+  <div class="section" id="sec04">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">Mixed Review · Choose the Correct Form</span>
+      <span class="s-pts">12 items</span>
+      <button class="btn-reveal" onclick="toggleSection('sec04', this)">Reveal All</button>
+    </div>
+    <p class="instruction">Only one option is correct in context.</p>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>1.</strong> "The whole team ______ on her final decision."</div>
+      <div class="mcq-options"><span class="mcq-opt correct-opt"><span class="letter">A</span>depends</span><span class="mcq-opt"><span class="letter">B</span>depend</span><span class="mcq-opt"><span class="letter">C</span>dependent</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>2.</strong> "I'm really ______ in the results of the election."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>interesting</span><span class="mcq-opt"><span class="letter">B</span>interest</span><span class="mcq-opt correct-opt"><span class="letter">C</span>interested</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>3.</strong> "He never ______ for his mistakes — it's infuriating."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>apology</span><span class="mcq-opt correct-opt"><span class="letter">B</span>apologizes</span><span class="mcq-opt"><span class="letter">C</span>apologetic</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>4.</strong> "She's always been ______ of her family's cooking."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>pride</span><span class="mcq-opt"><span class="letter">B</span>proudly</span><span class="mcq-opt correct-opt"><span class="letter">C</span>proud</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>5.</strong> "This tea shop is ______ for its rare blends."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>famously</span><span class="mcq-opt correct-opt"><span class="letter">B</span>famous</span><span class="mcq-opt"><span class="letter">C</span>fame</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>6.</strong> "She always ______ forward to the summer holidays."</div>
+      <div class="mcq-options"><span class="mcq-opt correct-opt"><span class="letter">A</span>looks</span><span class="mcq-opt"><span class="letter">B</span>look</span><span class="mcq-opt"><span class="letter">C</span>looking</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>7.</strong> "I couldn't ______ with the plan, even after he explained it twice."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>agreed</span><span class="mcq-opt"><span class="letter">B</span>agreement</span><span class="mcq-opt correct-opt"><span class="letter">C</span>agree</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>8.</strong> "The hotel staff had to ______ with a very unusual complaint."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>dealing</span><span class="mcq-opt correct-opt"><span class="letter">B</span>deal</span><span class="mcq-opt"><span class="letter">C</span>dealt</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>9.</strong> "This custom is very ______ from what we do back home."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>difference</span><span class="mcq-opt correct-opt"><span class="letter">B</span>different</span><span class="mcq-opt"><span class="letter">C</span>differently</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>10.</strong> "He's not very ______ at remembering names."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>well</span><span class="mcq-opt"><span class="letter">B</span>goodly</span><span class="mcq-opt correct-opt"><span class="letter">C</span>good</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>11.</strong> "She's completely ______ of the risks involved."</div>
+      <div class="mcq-options"><span class="mcq-opt"><span class="letter">A</span>awarely</span><span class="mcq-opt correct-opt"><span class="letter">B</span>aware</span><span class="mcq-opt"><span class="letter">C</span>awareness</span></div></div>
+
+    <div class="mcq-item" onclick="toggleItem(this)"><div class="mcq-stem"><strong>12.</strong> "The company finally ______ in launching the new product."</div>
+      <div class="mcq-options"><span class="mcq-opt correct-opt"><span class="letter">A</span>succeeded</span><span class="mcq-opt"><span class="letter">B</span>success</span><span class="mcq-opt"><span class="letter">C</span>succeed</span></div></div>
+  </div>
+
+  <!-- ═══ 05 · PRODUCTION ═══ -->
+  <div class="section" id="sec05">
+    <div class="section-header">
+      <span class="s-num">05</span>
+      <span class="s-title">Production · Your Words</span>
+      <span class="s-pts">100–120 words</span>
+    </div>
+    <p class="instruction">Write one short paragraph, 100–120 words.</p>
+
+    <div class="prod-box">
+      <strong>Prompt</strong>
+      Describe someone you know or admire — a family member, a friend, a teacher, anyone. What are they interested in? What are they good at? What do they depend on or rely on? Include at least one question you would like to ask them, ending in a preposition.
+      <div class="prod-reqs">
+        REQUIRED · at least 3 verb + preposition combinations<br>
+        REQUIRED · at least 3 adjective + preposition combinations<br>
+        REQUIRED · at least 1 question ending in a preposition<br>
+        Aim for natural English — not translated Japanese or Portuguese.
+      </div>
+      <div class="write-lines">
+        <div class="open-line"></div><div class="open-line"></div><div class="open-line"></div>
+        <div class="open-line"></div><div class="open-line"></div><div class="open-line"></div>
+        <div class="open-line"></div><div class="open-line"></div>
+      </div>
+    </div>
+
+    <table class="resp-table">
+      <tr><th>Criterion</th><th>Full</th><th>Partial</th><th>Minimal</th></tr>
+      <tr><td>Required structures — all 7 used correctly</td><td>All present, correct form</td><td>1–2 missing/incorrect</td><td>Mostly absent</td></tr>
+      <tr><td>Naturalness — sounds like English, not a translation</td><td>Fluent, idiomatic</td><td>Some translated phrasing</td><td>Direct translation</td></tr>
+      <tr><td>Risk-taking — reaching beyond the safe sentence</td><td>Imperfect but ambitious</td><td>Some reach, some retreat</td><td>All safe, textbook</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    const scope = el.closest('.q-item, .mcq-item') || el.closest('.blank') || el;
+    scope.classList.toggle('revealed');
+  }
+  function toggleSection(id, btn) {
+    const sec = document.getElementById(id);
+    const turnOn = btn.dataset.state !== 'on';
+    sec.querySelectorAll('.q-item, .mcq-item, .blank').forEach(function(it) {
+      it.classList.toggle('revealed', turnOn);
+    });
+    btn.dataset.state = turnOn ? 'on' : 'off';
+    btn.textContent = turnOn ? 'Hide All' : 'Reveal All';
+    btn.classList.toggle('active', turnOn);
+  }
+</script>
+
+</body>
+</html>
