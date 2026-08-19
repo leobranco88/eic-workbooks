@@ -187,8 +187,61 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
   }
 </style>
+
+<style>
+  #ecs-sidebar{width:248px;flex-shrink:0;background:#fff;border-right:2px solid #0A0A0F;
+    position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;
+    font-family:'Inter',sans-serif;}
+  #ecs-sidebar *{box-sizing:border-box;}
+  #ecs-sidebar .ecs-header{padding:20px 20px 16px;border-bottom:2px solid #0A0A0F;}
+  #ecs-sidebar .ecs-header h1{font-size:15.5px;font-weight:900;margin:0 0 4px;letter-spacing:-0.01em;line-height:1.25;color:#0A0A0F;}
+  #ecs-sidebar .ecs-header .ecs-sub{font-size:10.5px;font-weight:600;color:rgba(10,10,15,0.5);line-height:1.4;}
+  #ecs-sidebar .ecs-nav-scroll{padding:16px 12px 24px;flex:1;}
+  #ecs-sidebar .ecs-group-label{font-size:10px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;
+    color:rgba(10,10,15,0.4);padding:14px 10px 6px;}
+  #ecs-sidebar .ecs-group-label:first-child{padding-top:2px;}
+  #ecs-sidebar .ecs-nav-btn{display:block;width:100%;text-align:left;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+    background:transparent;border:none;border-radius:9px;padding:9px 10px;cursor:pointer;text-decoration:none;
+    color:rgba(10,10,15,0.65);transition:all .15s ease;margin-bottom:2px;}
+  #ecs-sidebar .ecs-nav-btn:hover{background:#EEECFA;color:#534AB7;}
+  #ecs-sidebar .ecs-nav-btn.ecs-active{background:#0A0A0F;color:#fff;}
+  #ecs-wrap{display:flex;align-items:flex-start;min-height:100vh;}
+  #ecs-main{flex:1;min-width:0;}
+  @media(max-width:760px){
+    #ecs-wrap{flex-direction:column;}
+    #ecs-sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:2px solid #0A0A0F;}
+    #ecs-sidebar .ecs-nav-scroll{display:flex;gap:6px;overflow-x:auto;padding:12px;}
+    #ecs-sidebar .ecs-group-label{display:none;}
+    #ecs-sidebar .ecs-nav-btn{width:auto;white-space:nowrap;margin-bottom:0;}
+  }
+  body.ecs-embedded #ecs-sidebar{display:none;}
+</style>
 </head>
 <body>
+<div id="ecs-wrap">
+<div id="ecs-sidebar">
+  <div class="ecs-header">
+    <h1>EIC · Curriculum System</h1>
+    <span class="ecs-sub">A1 → C2 · Base NatGeo Life</span>
+  </div>
+  <div class="ecs-nav-scroll">
+    <div class="ecs-group-label">Currículo</div>
+<a class="ecs-nav-btn ecs-active" href="eic_curriculum_map.html">Visão Geral</a>
+<div class="ecs-group-label">Micro-Recycling Maps</div>
+<a class="ecs-nav-btn" href="eic_micro_recycling_present_perfect.html">Present Perfect</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_conditionals.html">Conditionals</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_passive_voice.html">Passive Voice</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_modals_deduction.html">Modals of Deduction</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_reported_speech.html">Reported Speech</a>
+<div class="ecs-group-label">Ferramentas</div>
+<a class="ecs-nav-btn" href="eic_life_curriculum_database.html">Banco de Dados</a>
+<a class="ecs-nav-btn" href="eic_overlap_tracer.html">Rastreador de Retomada</a>
+<a class="ecs-nav-btn" href="eic_placement_risk_map.html">Mapa de Risco</a>
+
+  </div>
+</div>
+<div id="ecs-main">
+
 <div class="doc">
 
   <div class="hero">
@@ -496,8 +549,8 @@
       </a>
       <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_passive_voice.html">
         <h4>Passive Voice</h4>
-        <p>Life 3 U9 → Life 4 U9 → Life 5 U2 (narrativa) → Life 5 U9 (reporting) → Life 6 U2 (perfect) → Life 6 U7 (nominalização).</p>
-        <div class="eic-note">6 estágios, todos NatGeo</div>
+        <p>Life 3 U9 → Life 4 U9 → Life 5 U2 (narrativa) → Life 6 U2 (perfect) → Life 6 U7 (reporting + nominalização).</p>
+        <div class="eic-note">5 estágios, todos NatGeo</div>
       </a>
       <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_micro_recycling_modals_deduction.html">
         <h4>Modals of Deduction</h4>
@@ -514,6 +567,16 @@
         <p>As 72 unidades de Life 1-6, pesquisáveis por estrutura, tema ou palavra — a fonte de tudo isso.</p>
         <div class="eic-note">Ferramenta de busca</div>
       </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_overlap_tracer.html">
+        <h4>Rastreador de Retomada</h4>
+        <p>Digite qualquer estrutura e veja a espiral automática: onde ela volta, com que intervalo, do Life 1 ao 6.</p>
+        <div class="eic-note">Ferramenta de busca</div>
+      </a>
+      <a class="doc-type" style="text-decoration:none;color:inherit;display:block;" href="eic_placement_risk_map.html">
+        <h4>Mapa de Risco para Colocação</h4>
+        <p>Aluno fraco numa estrutura no teste de nível? Veja até onde é seguro matricular antes dela virar pré-requisito.</p>
+        <div class="eic-note">Apoio à decisão de colocação</div>
+      </a>
     </div>
   </div>
 
@@ -524,9 +587,10 @@
 
 </div>
 
+
 <script>
 (function(){
-  var FILE_TO_TAB = {"eic_curriculum_map.html": "hub", "eic_micro_recycling_present_perfect.html": "pp", "eic_micro_recycling_conditionals.html": "cond", "eic_micro_recycling_passive_voice.html": "passive", "eic_micro_recycling_modals_deduction.html": "modals", "eic_micro_recycling_reported_speech.html": "reported", "eic_life_curriculum_database.html": "db"};
+  var FILE_TO_TAB = {"eic_curriculum_map.html": "hub", "eic_micro_recycling_present_perfect.html": "pp", "eic_micro_recycling_conditionals.html": "cond", "eic_micro_recycling_passive_voice.html": "passive", "eic_micro_recycling_modals_deduction.html": "modals", "eic_micro_recycling_reported_speech.html": "reported", "eic_life_curriculum_database.html": "db", "eic_overlap_tracer.html": "tracer", "eic_placement_risk_map.html": "risk"};
   document.addEventListener('DOMContentLoaded', function(){
     var inTabSystem = (window.parent !== window) && window.parent.switchTab;
     if (!inTabSystem) return;
@@ -544,5 +608,17 @@
   });
 })();
 </script>
+
+</div>
+</div>
+
+<script>
+(function(){
+  if (window.self !== window.top) {
+    document.body.classList.add('ecs-embedded');
+  }
+})();
+</script>
+
 </body>
 </html>

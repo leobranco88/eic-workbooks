@@ -55,8 +55,61 @@
   @media (max-width:760px){.stage-grid{grid-template-columns:1fr;}}
   footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:rgba(10,10,15,0.45);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 </style>
+
+<style>
+  #ecs-sidebar{width:248px;flex-shrink:0;background:#fff;border-right:2px solid #0A0A0F;
+    position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;
+    font-family:'Inter',sans-serif;}
+  #ecs-sidebar *{box-sizing:border-box;}
+  #ecs-sidebar .ecs-header{padding:20px 20px 16px;border-bottom:2px solid #0A0A0F;}
+  #ecs-sidebar .ecs-header h1{font-size:15.5px;font-weight:900;margin:0 0 4px;letter-spacing:-0.01em;line-height:1.25;color:#0A0A0F;}
+  #ecs-sidebar .ecs-header .ecs-sub{font-size:10.5px;font-weight:600;color:rgba(10,10,15,0.5);line-height:1.4;}
+  #ecs-sidebar .ecs-nav-scroll{padding:16px 12px 24px;flex:1;}
+  #ecs-sidebar .ecs-group-label{font-size:10px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;
+    color:rgba(10,10,15,0.4);padding:14px 10px 6px;}
+  #ecs-sidebar .ecs-group-label:first-child{padding-top:2px;}
+  #ecs-sidebar .ecs-nav-btn{display:block;width:100%;text-align:left;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+    background:transparent;border:none;border-radius:9px;padding:9px 10px;cursor:pointer;text-decoration:none;
+    color:rgba(10,10,15,0.65);transition:all .15s ease;margin-bottom:2px;}
+  #ecs-sidebar .ecs-nav-btn:hover{background:#EEECFA;color:#534AB7;}
+  #ecs-sidebar .ecs-nav-btn.ecs-active{background:#0A0A0F;color:#fff;}
+  #ecs-wrap{display:flex;align-items:flex-start;min-height:100vh;}
+  #ecs-main{flex:1;min-width:0;}
+  @media(max-width:760px){
+    #ecs-wrap{flex-direction:column;}
+    #ecs-sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:2px solid #0A0A0F;}
+    #ecs-sidebar .ecs-nav-scroll{display:flex;gap:6px;overflow-x:auto;padding:12px;}
+    #ecs-sidebar .ecs-group-label{display:none;}
+    #ecs-sidebar .ecs-nav-btn{width:auto;white-space:nowrap;margin-bottom:0;}
+  }
+  body.ecs-embedded #ecs-sidebar{display:none;}
+</style>
 </head>
 <body>
+<div id="ecs-wrap">
+<div id="ecs-sidebar">
+  <div class="ecs-header">
+    <h1>EIC · Curriculum System</h1>
+    <span class="ecs-sub">A1 → C2 · Base NatGeo Life</span>
+  </div>
+  <div class="ecs-nav-scroll">
+    <div class="ecs-group-label">Currículo</div>
+<a class="ecs-nav-btn" href="eic_curriculum_map.html">Visão Geral</a>
+<div class="ecs-group-label">Micro-Recycling Maps</div>
+<a class="ecs-nav-btn" href="eic_micro_recycling_present_perfect.html">Present Perfect</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_conditionals.html">Conditionals</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_passive_voice.html">Passive Voice</a>
+<a class="ecs-nav-btn ecs-active" href="eic_micro_recycling_modals_deduction.html">Modals of Deduction</a>
+<a class="ecs-nav-btn" href="eic_micro_recycling_reported_speech.html">Reported Speech</a>
+<div class="ecs-group-label">Ferramentas</div>
+<a class="ecs-nav-btn" href="eic_life_curriculum_database.html">Banco de Dados</a>
+<a class="ecs-nav-btn" href="eic_overlap_tracer.html">Rastreador de Retomada</a>
+<a class="ecs-nav-btn" href="eic_placement_risk_map.html">Mapa de Risco</a>
+
+  </div>
+</div>
+<div id="ecs-main">
+
 <div class="doc">
   <div class="hero">
     <div class="eyebrow">Material Interno · Micro-Recycling Map · v2 (conciliado com NatGeo real)</div>
@@ -196,5 +249,17 @@
   });
 })();
 </script>
+
+</div>
+</div>
+
+<script>
+(function(){
+  if (window.self !== window.top) {
+    document.body.classList.add('ecs-embedded');
+  }
+})();
+</script>
+
 </body>
 </html>
