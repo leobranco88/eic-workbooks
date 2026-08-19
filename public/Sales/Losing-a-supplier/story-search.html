@@ -171,18 +171,65 @@
 .story-photo{position:relative; border-radius:12px; overflow:hidden; aspect-ratio:4/5; background:var(--surface);}
 .story-photo img{width:100%; height:100%; object-fit:cover; display:block;}
 .story-photo-cap{position:absolute; left:0; right:0; bottom:0; height:30px; display:flex; align-items:center; padding:0 10px; background:linear-gradient(0deg, rgba(10,22,40,.85), rgba(10,22,40,0)); color:#fff; font-size:10px; font-weight:700; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+/* sliding nav sidebar */
+.nav-toggle{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+.nav-toggle:hover{background:rgba(255,255,255,.16)}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300}
+.nav-overlay.open{display:block}
+.nav-sidebar{position:fixed;top:0;left:-300px;width:280px;max-width:85vw;height:100%;background:#fff;z-index:301;transition:left .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-sidebar.open{left:0}
+.nav-sidebar-head{background:var(--navy);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex:none}
+.nav-sidebar-head span{font-size:14px;font-weight:900}
+.nav-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.nav-sidebar-body{flex:1;overflow-y:auto;padding:18px 12px 30px}
+.nav-group{margin-bottom:20px}
+.nav-group-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding:0 12px;margin-bottom:8px}
+.nav-link{display:block;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;margin-bottom:2px;transition:background .15s ease}
+.nav-link:hover{background:var(--surface)}
+.nav-link.active{background:var(--surface);color:var(--teal);font-weight:800}
 </style>
 </head>
 <body>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+<nav class="nav-sidebar" id="navSidebar">
+  <div class="nav-sidebar-head">
+    <span>EIC escola</span>
+    <button class="nav-close" onclick="closeNav()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="nav-sidebar-body">
+    <div class="nav-group">
+      <div class="nav-group-label">Foundations</div>
+      <a href="supplier-reasons.html" class="nav-link">When Suppliers Walk Away</a>
+      <a href="supplier-qualification.html" class="nav-link">Qualifying a Supplier</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Grammar</div>
+      <a href="not-as-agreed-practice.html" class="nav-link">Should, Must &amp; Supposed To</a>
+      <a href="story-search.html" class="nav-link active">Story Search</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Vocabulary</div>
+      <a href="contract-language.html" class="nav-link">Contract Language</a>
+      <a href="incoterms.html" class="nav-link">Incoterms</a>
+      <a href="quality-complaints.html" class="nav-link">Quality Complaints</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Case Journeys</div>
+      <a href="quality-journey.html" class="nav-link">Quality Journey</a>
+    </div>
+  </div>
+</nav>
+
 
 <header class="top">
   <div class="wrap">
     <span class="brand">Story Search</span>
-    <nav class="nav-links">
-      <a href="supplier-reasons.html">When Suppliers Walk Away</a>
-      <a href="not-as-agreed-practice.html">Should, Must &amp; Supposed To</a>
-      <a href="supplier-qualification.html">Qualifying a Supplier</a>
-    </nav>
+    <button class="nav-toggle" onclick="openNav()" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
   </div>
 </header>
 
@@ -349,6 +396,15 @@
 </div>
 
 <script>
+function openNav(){
+  document.getElementById('navOverlay').classList.add('open');
+  document.getElementById('navSidebar').classList.add('open');
+}
+function closeNav(){
+  document.getElementById('navOverlay').classList.remove('open');
+  document.getElementById('navSidebar').classList.remove('open');
+}
+
 const TAGCLASS = {sup:'sup', must:'must', should:'should', perf:'perf'};
 const TAGLABEL = {sup:'supposed to', must:'must', should:'should', perf:'present perfect'};
 

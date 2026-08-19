@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Practice · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1AACBF;
+  --orange:#E8621A;--hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;
+  --border:#D9D5CF;--dark:#071020;
+  --green:#1A7A4A;--green-lt:#E6F4EC;--red:#B91C1C;--red-lt:#FEE2E2;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;min-height:100vh}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:52px}
+.hdr-logo{height:28px;width:auto;flex-shrink:0}
+.hdr-meta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+
+.hero{background:var(--dark);padding:56px 48px 44px;margin-top:52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(13,122,138,.12),transparent)}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.hero-line{width:20px;height:2px;background:var(--teal)}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(26px,3.5vw,46px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1.05;margin-bottom:10px}
+.hero-title em{font-style:italic;color:var(--teal-lt)}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.4);line-height:1.7;max-width:500px}
+.hero-count{position:absolute;top:48px;right:48px;text-align:right}
+.hero-num{font-size:64px;font-weight:900;letter-spacing:-.04em;color:rgba(255,255,255,.07);line-height:1}
+.hero-num-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2)}
+
+.score-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 48px;display:flex;align-items:center;gap:20px;position:sticky;top:52px;z-index:100}
+.score-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
+.score-track{flex:1;height:5px;background:var(--surface);border-radius:99px;overflow:hidden}
+.score-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .4s ease;width:0%}
+.score-val{font-size:12px;font-weight:800;color:var(--ink);min-width:52px;text-align:right;white-space:nowrap}
+
+.section{max-width:760px;margin:0 auto;padding:48px 24px}
+.section+.section{border-top:1px solid var(--border)}
+.section-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.section-num{width:36px;height:36px;border-radius:8px;background:var(--dark);color:var(--teal-lt);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.section-title{font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--ink);margin-bottom:2px}
+.section-pt{font-size:12px;font-weight:600;color:var(--mid);margin-bottom:4px}
+.section-desc{font-size:13px;color:var(--mid);line-height:1.6}
+
+/* MATCHING */
+.match-layout{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.match-col-head{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.match-word{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:8px;background:var(--dark);color:rgba(255,255,255,.8);border:2px solid transparent;user-select:none}
+.match-word:hover:not(.matched){background:#1a2a40}
+.match-word.active{border-color:var(--teal);background:#0a3040;color:#fff}
+.match-word.matched{opacity:.35;cursor:default;text-decoration:line-through}
+.match-word.shake{animation:shake .3s ease}
+.match-def{padding:10px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;margin-bottom:8px;background:#fff;color:var(--ink);border:1.5px solid var(--border);line-height:1.5;user-select:none}
+.match-def em{display:block;font-size:11px;font-style:normal;color:var(--teal);font-weight:500;margin-top:2px}
+.match-def:hover:not(.matched):not(.wrong){border-color:var(--teal)}
+.match-def.wrong{border-color:var(--red);background:var(--red-lt);animation:shake .3s ease}
+.match-def.matched{border-color:var(--green);background:var(--green-lt);color:var(--green);cursor:default}
+.match-score{margin-top:16px;font-size:13px;font-weight:600;color:var(--mid);text-align:center;min-height:20px}
+.match-score.done{color:var(--green)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* GAP FILL */
+.word-bank{background:var(--dark);border-radius:12px;padding:16px 20px;margin-bottom:24px}
+.wb-label{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.wb-chips{display:flex;flex-wrap:wrap;gap:7px}
+.wb-chip{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 11px;cursor:default;transition:opacity .2s}
+.wb-chip{position:relative;cursor:default}
+.wb-chip.used{opacity:.22;text-decoration:line-through}
+.wb-chip:not(.used):hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--dark);color:var(--teal-lt);font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.1);pointer-events:none;z-index:999}
+.wb-chip:not(.used):hover::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--dark);pointer-events:none;z-index:999}
+
+.gap-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border);transition:border-color .15s}
+.gap-item.correct{border-color:var(--green);background:var(--green-lt)}
+.gap-item.wrong{border-color:var(--red);background:var(--red-lt)}
+.gap-sentence{font-size:15px;line-height:1.85;color:var(--ink)}
+.gap-input{display:inline-block;position:relative;vertical-align:baseline;margin:0 3px}
+.gap-input select{
+  appearance:none;-webkit-appearance:none;
+  border:none;border-bottom:2px solid var(--teal);
+  background:transparent;
+  font-family:Inter,sans-serif;font-size:15px;font-weight:700;font-style:italic;
+  color:var(--teal);cursor:pointer;
+  padding:0 18px 1px 2px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%230D7A8A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 0 center;
+  min-width:130px;
+}
+.gap-input select:focus{outline:none;border-bottom-color:var(--orange)}
+.gap-input select:disabled{cursor:not-allowed;opacity:.7}
+.gap-item.correct .gap-input select{color:var(--green);border-bottom-color:var(--green)}
+.gap-item.wrong .gap-input select{color:var(--red);border-bottom-color:var(--red)}
+.gap-pt{font-size:12px;color:var(--mid);font-style:italic;margin-top:8px;line-height:1.5}
+.gap-fb{margin-top:8px;font-size:12px;font-weight:600;line-height:1.5;display:none}
+.gap-item.correct .gap-fb,.gap-item.wrong .gap-fb{display:block}
+.gap-item.correct .gap-fb{color:var(--green)}
+.gap-item.wrong .gap-fb{color:var(--red)}
+
+/* MC */
+.mc-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
+.mc-item.correct{border-color:var(--green);background:var(--green-lt)}
+.mc-item.wrong{border-color:var(--red);background:var(--red-lt)}
+.mc-prompt{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.mc-pt{font-size:12px;color:var(--mid);font-style:italic;margin-bottom:12px;line-height:1.5}
+.mc-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.mc-btn{padding:9px 13px;border:1.5px solid var(--border);border-radius:7px;background:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;text-align:left;transition:all .15s;line-height:1.4}
+.mc-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
+.mc-btn:disabled{cursor:not-allowed}
+.mc-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.mc-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.mc-btn.reveal{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.mc-fb{margin-top:8px;font-size:12px;font-weight:600;line-height:1.5;display:none}
+.mc-item.correct .mc-fb,.mc-item.wrong .mc-fb{display:block}
+.mc-item.correct .mc-fb{color:var(--green)}
+.mc-item.wrong .mc-fb{color:var(--red)}
+
+/* TF */
+.tf-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
+.tf-item.correct{border-color:var(--green);background:var(--green-lt)}
+.tf-item.wrong{border-color:var(--red);background:var(--red-lt)}
+.tf-sentence{font-size:15px;line-height:1.75;color:var(--ink);margin-bottom:6px}
+.tf-sentence mark{background:rgba(13,122,138,.12);color:var(--teal);font-weight:700;border-radius:3px;padding:1px 3px;font-style:italic}
+.tf-pt{font-size:12px;color:var(--mid);font-style:italic;margin-bottom:12px;line-height:1.5}
+.tf-opts{display:flex;gap:8px}
+.tf-btn{flex:1;padding:9px;border:1.5px solid var(--border);border-radius:7px;background:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;text-align:center;transition:all .15s}
+.tf-btn:hover:not(:disabled){border-color:var(--teal)}
+.tf-btn:disabled{cursor:not-allowed}
+.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
+.tf-btn.reveal{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
+.tf-fb{margin-top:8px;font-size:12px;font-weight:600;line-height:1.5;display:none}
+.tf-item.correct .tf-fb,.tf-item.wrong .tf-fb{display:block}
+.tf-item.correct .tf-fb{color:var(--green)}
+.tf-item.wrong .tf-fb{color:var(--red)}
+
+/* RESULT */
+.result-panel{background:var(--dark);border-radius:16px;padding:32px;text-align:center;display:none}
+.result-panel.show{display:block}
+.result-emoji{font-size:44px;margin-bottom:10px}
+.result-title{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:4px}
+.result-score{font-size:14px;color:var(--teal-lt);margin-bottom:16px;font-weight:600}
+.result-msg{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;max-width:420px;margin:0 auto 20px}
+.reset-btn{padding:11px 28px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+.reset-btn:hover{background:var(--teal-lt)}
+
+.footer{background:var(--dark);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;margin-top:64px}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2)}
+
+@media(max-width:600px){
+  .hero{padding:36px 24px 32px}.hero-count{display:none}
+  .section{padding:32px 16px}
+  .match-layout{grid-template-columns:1fr}
+  .mc-opts{grid-template-columns:1fr}
+  .score-bar{padding:10px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <img class="hdr-logo" src="data:image/png;base64,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" alt="EIC">
+  <span class="hdr-meta">B1+ Vocabulary Practice</span>
+</header>
+
+<div class="hero">
+  <div class="hero-count"><div class="hero-num">25</div><div class="hero-num-label">words &amp; expressions</div></div>
+  <div class="hero-eyebrow"><div class="hero-line"></div><div class="hero-tag">Supply Chain &amp; Logistics</div></div>
+  <h1 class="hero-title">Word <em>Power</em></h1>
+  <p class="hero-sub">Four exercises. Start with matching, then put the words to work in real logistics contexts.</p>
+</div>
+
+<div class="score-bar">
+  <span class="score-label">Progress</span>
+  <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+  <span class="score-val" id="scoreVal">0 / 0</span>
+</div>
+
+<!-- ══ A — MATCHING ══ -->
+<div class="section" id="secA">
+  <div class="section-header">
+    <div class="section-num">A</div>
+    <div class="section-info">
+      <div class="section-title">Match the word to its meaning</div>
+      <div class="section-pt">Conecte a palavra à sua definição</div>
+      <div class="section-desc">Click a word on the left, then click its matching definition on the right.</div>
+    </div>
+  </div>
+  <div class="match-layout">
+    <div>
+      <div class="match-col-head">Word / Expression</div>
+      <div class="match-word" data-id="1" onclick="selectWord(this)">procurement</div>
+      <div class="match-word" data-id="2" onclick="selectWord(this)">a shortage</div>
+      <div class="match-word" data-id="3" onclick="selectWord(this)">at full capacity</div>
+      <div class="match-word" data-id="4" onclick="selectWord(this)">bridge the gap</div>
+      <div class="match-word" data-id="5" onclick="selectWord(this)">upstream</div>
+      <div class="match-word" data-id="6" onclick="selectWord(this)">go out of business</div>
+      <div class="match-word" data-id="7" onclick="selectWord(this)">unprofitable</div>
+      <div class="match-word" data-id="8" onclick="selectWord(this)">let them know</div>
+    </div>
+    <div>
+      <div class="match-col-head">Definition / Tradução</div>
+      <div class="match-def" data-id="5" onclick="selectDef(this)">Earlier in the supply chain; closer to raw materials.<em>a montante; antes na cadeia de fornecimento</em></div>
+      <div class="match-def" data-id="1" onclick="selectDef(this)">The process of obtaining goods or services for an organisation.<em>aquisição; processo de obter bens ou serviços</em></div>
+      <div class="match-def" data-id="7" onclick="selectDef(this)">Not generating profit; resulting in financial loss.<em>não lucrativo; que gera prejuízo</em></div>
+      <div class="match-def" data-id="3" onclick="selectDef(this)">Operating at the maximum possible output or rate.<em>em plena capacidade; no limite máximo de produção</em></div>
+      <div class="match-def" data-id="8" onclick="selectDef(this)">To inform or notify someone about something.<em>informar; avisar; comunicar</em></div>
+      <div class="match-def" data-id="2" onclick="selectDef(this)">A situation where there is not enough of something.<em>escassez; falta de algo</em></div>
+      <div class="match-def" data-id="6" onclick="selectDef(this)">To permanently close a company due to failure.<em>falir; encerrar as atividades</em></div>
+      <div class="match-def" data-id="4" onclick="selectDef(this)">To reduce or eliminate a difference between two things.<em>preencher a lacuna; reduzir a diferença</em></div>
+    </div>
+  </div>
+  <div class="match-score" id="matchScore"></div>
+</div>
+
+<!-- ══ B — GAP FILL ══ -->
+<div class="section" id="secB">
+  <div class="section-header">
+    <div class="section-num">B</div>
+    <div class="section-info">
+      <div class="section-title">Complete the sentence</div>
+      <div class="section-pt">Complete a frase com a palavra correta</div>
+      <div class="section-desc">Choose from the word bank. The word fits directly into the sentence.</div>
+    </div>
+  </div>
+
+  <div class="word-bank">
+    <div class="wb-label">Word Bank</div>
+    <div class="wb-chips" id="wbChips">
+      <span class="wb-chip" data-word="scarce" data-pt="escasso; raro">scarce</span>
+      <span class="wb-chip" data-word="track" data-pt="rastrear; acompanhar">track</span>
+      <span class="wb-chip" data-word="facilitate" data-pt="facilitar; promover">facilitate</span>
+      <span class="wb-chip" data-word="temporary cap" data-pt="teto temporário; limite temporário">temporary cap</span>
+      <span class="wb-chip" data-word="payment request" data-pt="solicitação de pagamento">payment request</span>
+      <span class="wb-chip" data-word="claim" data-pt="afirmar; reivindicar">claim</span>
+    </div>
+  </div>
+
+  <!-- B1 — correct at position 3 -->
+  <div class="gap-item" data-correct="facilitate">
+    <div class="gap-sentence">The new warehouse management system will <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>claim</option><option>track</option><option>facilitate</option><option>scarce</option></select></span> faster order processing for all our distribution centres.</div>
+    <div class="gap-pt">O novo sistema de gestão de armazém vai facilitar o processamento mais rápido de pedidos em todos os nossos centros de distribuição.</div>
+    <div class="gap-fb"></div>
+  </div>
+
+  <!-- B2 — correct at position 1 -->
+  <div class="gap-item" data-correct="track">
+    <div class="gap-sentence">We use real-time GPS data to <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>track</option><option>facilitate</option><option>claim</option><option>temporary cap</option></select></span> every shipment from the supplier's dock to our facility.</div>
+    <div class="gap-pt">Usamos dados de GPS em tempo real para rastrear cada remessa do cais do fornecedor até nossa instalação.</div>
+    <div class="gap-fb"></div>
+  </div>
+
+  <!-- B3 — correct at position 4 -->
+  <div class="gap-item" data-correct="scarce">
+    <div class="gap-sentence">Qualified logistics professionals are becoming increasingly <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>unprofitable</option><option>upstream</option><option>chilly</option><option>scarce</option></select></span> in this region, which is raising hiring costs significantly.</div>
+    <div class="gap-pt">Profissionais de logística qualificados estão se tornando cada vez mais escassos nesta região, o que está elevando significativamente os custos de contratação.</div>
+    <div class="gap-fb"></div>
+  </div>
+
+  <!-- B4 — correct at position 2 -->
+  <div class="gap-item" data-correct="payment request">
+    <div class="gap-sentence">The supplier sent a <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>misclassification</option><option>payment request</option><option>shortage</option><option>dock</option></select></span> for the last three deliveries, but our finance team is still reviewing the figures.</div>
+    <div class="gap-pt">O fornecedor enviou uma solicitação de pagamento pelas últimas três entregas, mas nossa equipe financeira ainda está revisando os valores.</div>
+    <div class="gap-fb"></div>
+  </div>
+
+  <!-- B5 — correct at position 3 -->
+  <div class="gap-item" data-correct="claim">
+    <div class="gap-sentence">The carrier will <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>dock</option><option>facilitate</option><option>claim</option><option>track</option></select></span> that the delay was caused by high tides at the port, not by poor scheduling on their side.</div>
+    <div class="gap-pt">A transportadora vai afirmar que o atraso foi causado pelas marés altas no porto, não por um planejamento ruim do lado deles.</div>
+    <div class="gap-fb"></div>
+  </div>
+
+  <!-- B6 — correct at position 4 -->
+  <div class="gap-item" data-correct="temporary cap">
+    <div class="gap-sentence">The government announced a <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>shortage</option><option>claim</option><option>facility</option><option>temporary cap</option></select></span> on freight rates to ease the pressure on importers during the crisis.</div>
+    <div class="gap-pt">O governo anunciou um teto temporário nas tarifas de frete para aliviar a pressão sobre os importadores durante a crise.</div>
+    <div class="gap-fb"></div>
+  </div>
+</div>
+
+<!-- ══ C — MULTIPLE CHOICE ══ -->
+<div class="section" id="secC">
+  <div class="section-header">
+    <div class="section-num">C</div>
+    <div class="section-info">
+      <div class="section-title">What does it mean here?</div>
+      <div class="section-pt">O que significa neste contexto?</div>
+      <div class="section-desc">Choose the best definition for the expression as it is used in the sentence.</div>
+    </div>
+  </div>
+
+  <!-- C1 — correct at position 2 -->
+  <div class="mc-item">
+    <div class="mc-prompt">"The ship will <strong>dock</strong> at the port at 06:00 — make sure the unloading crew is ready."</div>
+    <div class="mc-pt">O navio vai... no porto às 06:00 — certifique-se de que a equipe de descarga esteja pronta.</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">To reduce costs by cutting staff</button>
+      <button class="mc-btn" data-ok="true"  onclick="checkMC(this)">To arrive and be secured at a port or loading bay</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">To send a document to customs</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">To inspect goods before delivery</button>
+    </div>
+    <div class="mc-fb"></div>
+  </div>
+
+  <!-- C2 — correct at position 4 -->
+  <div class="mc-item">
+    <div class="mc-prompt">"We need to monitor <strong>how closely</strong> our suppliers are following the new environmental standards."</div>
+    <div class="mc-pt">Precisamos monitorar com que proximidade nossos fornecedores estão seguindo os novos padrões ambientais.</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">The location of suppliers</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">The cost of compliance</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">Whether suppliers are certified</button>
+      <button class="mc-btn" data-ok="true"  onclick="checkMC(this)">The degree or extent to which suppliers follow the standards</button>
+    </div>
+    <div class="mc-fb"></div>
+  </div>
+
+  <!-- C3 — correct at position 1 -->
+  <div class="mc-item">
+    <div class="mc-prompt">"A <strong>misclassification</strong> of the cargo type led to customs holding the shipment for 48 hours."</div>
+    <div class="mc-pt">Uma ... do tipo de carga fez com que a alfândega retivesse a remessa por 48 horas.</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-ok="true"  onclick="checkMC(this)">An error in how something was categorised or labelled</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">A delay caused by bad weather conditions</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">A missing document in the shipping process</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">A disagreement between the carrier and the port authority</button>
+    </div>
+    <div class="mc-fb"></div>
+  </div>
+
+  <!-- C4 — correct at position 3 -->
+  <div class="mc-item">
+    <div class="mc-prompt">"Our distribution <strong>facility</strong> in São Paulo operates 24/7 to meet regional demand."</div>
+    <div class="mc-pt">Nossa ... de distribuição em São Paulo opera 24 horas por dia, 7 dias por semana para atender à demanda regional.</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">A financial arrangement with a bank</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">A temporary storage contract</button>
+      <button class="mc-btn" data-ok="true"  onclick="checkMC(this)">A physical building or infrastructure used for operations</button>
+      <button class="mc-btn" data-ok="false" onclick="checkMC(this)">A software system for tracking shipments</button>
+    </div>
+    <div class="mc-fb"></div>
+  </div>
+</div>
+
+<!-- ══ D — TRUE/FALSE ══ -->
+<div class="section" id="secD">
+  <div class="section-header">
+    <div class="section-num">D</div>
+    <div class="section-info">
+      <div class="section-title">Correct use or not?</div>
+      <div class="section-pt">O uso está correto ou não?</div>
+      <div class="section-desc">Is the highlighted word used correctly in this context?</div>
+    </div>
+  </div>
+
+  <!-- D1 — CORRECT (T) -->
+  <div class="tf-item" data-answer="true">
+    <div class="tf-sentence">The port is running <mark>at full capacity</mark> during the peak season, so we should book space in advance.</div>
+    <div class="tf-pt">O porto está operando em plena capacidade durante a alta temporada, então devemos reservar espaço com antecedência.</div>
+    <div class="tf-opts">
+      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
+      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
+    </div>
+    <div class="tf-fb"></div>
+  </div>
+
+  <!-- D2 — CORRECT (T) -->
+  <div class="tf-item" data-answer="true">
+    <div class="tf-sentence">Drivers were warned that <mark>high tides</mark> could block access to the coastal loading dock until midday.</div>
+    <div class="tf-pt">Os motoristas foram avisados de que as marés altas poderiam bloquear o acesso ao cais de carregamento costeiro até o meio-dia.</div>
+    <div class="tf-opts">
+      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
+      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
+    </div>
+    <div class="tf-fb"></div>
+  </div>
+
+  <!-- D3 — INCORRECT (F): "and then" wrong register -->
+  <div class="tf-item" data-answer="false">
+    <div class="tf-sentence">Please review the purchase order, <mark>and then</mark> the invoice will be approved automatically by the system.</div>
+    <div class="tf-pt">Por favor, revise o pedido de compra, e depois a nota fiscal será aprovada automaticamente pelo sistema.</div>
+    <div class="tf-opts">
+      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
+      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
+    </div>
+    <div class="tf-fb"></div>
+  </div>
+
+  <!-- D4 — CORRECT (T) -->
+  <div class="tf-item" data-answer="true">
+    <div class="tf-sentence">The <mark>scarcity</mark> of semiconductor chips has disrupted automotive supply chains worldwide since 2021.</div>
+    <div class="tf-pt">A escassez de chips semicondutores tem perturbado as cadeias de suprimentos automotivas em todo o mundo desde 2021.</div>
+    <div class="tf-opts">
+      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
+      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
+    </div>
+    <div class="tf-fb"></div>
+  </div>
+
+  <!-- D5 — INCORRECT (F): "humiliating" wrong context -->
+  <div class="tf-item" data-answer="false">
+    <div class="tf-sentence">The <mark>humiliating</mark> delivery delay forced us to renegotiate the SLA with our logistics provider.</div>
+    <div class="tf-pt">O atraso de entrega ... nos forçou a renegociar o SLA com nosso provedor de logística.</div>
+    <div class="tf-opts">
+      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
+      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
+    </div>
+    <div class="tf-fb"></div>
+  </div>
+
+  <!-- D6 — INCORRECT (F): "owl" wrong context -->
+  <div class="tf-item" data-answer="false">
+    <div class="tf-sentence">Our logistics <mark>owl</mark> in Campinas can store up to 50,000 pallets of finished goods.</div>
+    <div class="tf-pt">Nossa ... de logística em Campinas pode armazenar até 50.000 paletes de produtos acabados.</div>
+    <div class="tf-opts">
+      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
+      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
+    </div>
+    <div class="tf-fb"></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="section">
+  <div class="result-panel" id="resultPanel">
+    <div class="result-emoji" id="rEmoji"></div>
+    <div class="result-title" id="rTitle"></div>
+    <div class="result-score" id="rScore"></div>
+    <div class="result-msg" id="rMsg"></div>
+    <button class="reset-btn" onclick="location.reload()">Try again</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <img class="hdr-logo" style="opacity:.28" src="data:image/png;base64,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" alt="EIC">
+  <span class="footer-copy">EIC — Escola de Idiomas e Cultura &nbsp;·&nbsp; B1+ Business English</span>
+</footer>
+
+<script>
+const TOTALS = { A:8, B:6, C:4, D:6 };
+const scored = { A:0, B:0, C:0, D:0 };
+const done   = { A:0, B:0, C:0, D:0 };
+
+function updateBar() {
+  const total  = Object.values(TOTALS).reduce((a,b)=>a+b,0);
+  const doneN  = Object.values(done).reduce((a,b)=>a+b,0);
+  const scoreN = Object.values(scored).reduce((a,b)=>a+b,0);
+  document.getElementById('scoreFill').style.width = (doneN/total*100)+'%';
+  document.getElementById('scoreVal').textContent  = scoreN+' / '+doneN;
+  if (doneN === total) setTimeout(showResult, 400);
+}
+
+// ── A: MATCHING ──
+let activeWord = null, matchedCount = 0;
+function selectWord(el) {
+  if (el.classList.contains('matched')) return;
+  document.querySelectorAll('.match-word.active').forEach(w=>w.classList.remove('active'));
+  if (activeWord === el) { activeWord = null; return; }
+  activeWord = el; el.classList.add('active');
+}
+function selectDef(el) {
+  if (el.classList.contains('matched') || !activeWord) return;
+  if (activeWord.dataset.id === el.dataset.id) {
+    activeWord.classList.remove('active'); activeWord.classList.add('matched');
+    el.classList.add('matched'); activeWord = null;
+    matchedCount++; scored.A++; done.A++;
+    const sc = document.getElementById('matchScore');
+    sc.textContent = matchedCount === 8 ? 'All matched! Great work.' : matchedCount+' / 8 matched';
+    if (matchedCount === 8) sc.classList.add('done');
+  } else {
+    el.classList.add('wrong'); activeWord.classList.add('shake'); done.A++;
+    setTimeout(()=>{ el.classList.remove('wrong'); activeWord&&activeWord.classList.remove('shake'); },600);
+    activeWord.classList.remove('active'); activeWord = null;
+  }
+  updateBar();
+}
+
+// ── B: GAP FILL ──
+function checkGap(sel) {
+  const item = sel.closest('.gap-item');
+  if (item.classList.contains('correct')) return; // locked after correct
+  const val = sel.value; if (!val) return;
+  const correct = item.dataset.correct;
+  const fb = item.querySelector('.gap-fb');
+  if (val === correct) {
+    sel.disabled = true;
+    item.classList.remove('wrong');
+    item.classList.add('correct');
+    fb.style.display = 'block';
+    fb.textContent = 'Certo! "'+correct+'" é a escolha correta neste contexto.';
+    document.querySelectorAll('.wb-chip').forEach(c=>{ if(c.dataset.word===correct) c.classList.add('used'); });
+    if (!item.dataset.scored) { item.dataset.scored='1'; scored.B++; done.B++; updateBar(); }
+  } else {
+    item.classList.add('wrong');
+    fb.style.display = 'block';
+    fb.textContent = 'Não exatamente. Tente novamente.';
+    if (!item.dataset.counted) { item.dataset.counted='1'; done.B++; updateBar(); }
+  }
+}
+
+// ── C: MULTIPLE CHOICE ──
+const MC_FB = [
+  'Certo! "To dock" = atracar; chegar e se fixar em um porto ou cais.',
+  'Certo! "How closely" indica o grau ou a extensão com que algo é feito.',
+  'Certo! "Misclassification" = classificação incorreta de uma categoria ou tipo.',
+  'Certo! "Facility" = instalação física usada para operações — armazém, fábrica, centro de distribuição.'
+];
+const MC_WRONG = [
+  '"To dock" significa atracar. Não se trata de cortar custos ou enviar documentos.',
+  '"How closely" = com que proximidade ou intensidade. Não é sobre localização ou certificação.',
+  '"Misclassification" = erro de categorização. Não é sobre tempo, documentos faltantes ou disputas.',
+  '"Facility" = instalação física. Não é um contrato financeiro, software ou armazenamento temporário.'
+];
+let mcIdx = 0;
+function checkMC(btn) {
+  const item = btn.closest('.mc-item');
+  if (item.classList.contains('correct')||item.classList.contains('wrong')) return;
+  const idx = mcIdx++;
+  item.querySelectorAll('.mc-btn').forEach(b=>b.disabled=true); done.C++;
+  if (btn.dataset.ok === 'true') {
+    btn.classList.add('correct'); item.classList.add('correct');
+    item.querySelector('.mc-fb').textContent = MC_FB[idx]||'Certo!'; scored.C++;
+  } else {
+    btn.classList.add('wrong'); item.classList.add('wrong');
+    item.querySelector('.mc-btn[data-ok="true"]').classList.add('reveal');
+    item.querySelector('.mc-fb').textContent = MC_WRONG[idx]||'Não exatamente.';
+  }
+  updateBar();
+}
+
+// ── D: TRUE/FALSE — order T T F T F F ──
+const TF_FB = {
+  true:{
+    0:'Certo! "At full capacity" = em plena capacidade, no limite máximo de produção. Uso perfeito em contexto portuário.',
+    1:'Certo! "High tides" = marés altas. Uso correto e relevante em contexto de logística costeira.',
+    3:'Certo! "Scarcity" = escassez. Termo técnico e preciso para descrever a falta de semicondutores na cadeia de suprimentos.'
+  },
+  false:{
+    2:'Incorreto. "And then" é muito informal para um contexto de procedimento empresarial. Prefira "after that", "once reviewed" ou "upon approval".',
+    4:'Incorreto. "Humiliating" descreve algo constrangedor para uma pessoa. Em contexto de negócios, o mais apropriado seria "costly", "significant" ou "critical".',
+    5:'Incorreto. "Owl" = coruja. A palavra correta seria "facility" (instalação) ou "hub" (centro de distribuição).'
+  }
+};
+let tfCount = 0;
+function checkTF(btn) {
+  const item = btn.closest('.tf-item');
+  if (item.classList.contains('correct')||item.classList.contains('wrong')) return;
+  const idx = tfCount; const expected = item.dataset.answer; const picked = btn.dataset.pick;
+  tfCount++; item.querySelectorAll('.tf-btn').forEach(b=>b.disabled=true); done.D++;
+  if (picked === expected) {
+    btn.classList.add('correct'); item.classList.add('correct');
+    item.querySelector('.tf-fb').textContent = TF_FB[picked][idx]||'Certo!'; scored.D++;
+  } else {
+    btn.classList.add('wrong'); item.classList.add('wrong');
+    item.querySelector('.tf-btn[data-pick="'+expected+'"]').classList.add('reveal');
+    item.querySelector('.tf-fb').textContent = TF_FB[expected][idx]||'Não exatamente.';
+  }
+  updateBar();
+}
+
+// ── RESULT ──
+function showResult() {
+  const total = Object.values(TOTALS).reduce((a,b)=>a+b,0);
+  const scoreN = Object.values(scored).reduce((a,b)=>a+b,0);
+  const pct = scoreN/total;
+  const panel = document.getElementById('resultPanel'); panel.classList.add('show');
+  document.getElementById('rEmoji').textContent  = pct>=.9?'🏆':pct>=.7?'💪':pct>=.5?'📚':'🔄';
+  document.getElementById('rTitle').textContent  = pct>=.9?'Outstanding!':pct>=.7?'Well done!':pct>=.5?'Good effort!':'Keep practising!';
+  document.getElementById('rScore').textContent  = scoreN+' correct out of '+total;
+  document.getElementById('rMsg').textContent    = pct>=.9
+    ? 'Vocabulário de supply chain dominado. Use essas expressões nas suas próximas conversas em inglês.'
+    : pct>=.7
+    ? 'Bom trabalho. Revise os erros e preste atenção nos contextos logísticos onde cada expressão funciona melhor.'
+    : 'Revise as palavras que errou e tente novamente — contexto é tudo em vocabulário B1+.';
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+updateBar();
+</script>
+</body>
+</html>
