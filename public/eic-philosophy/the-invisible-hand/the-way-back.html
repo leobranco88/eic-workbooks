@@ -90,6 +90,15 @@
   .back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:rgba(255,255,255,.6);text-decoration:none;padding:8px 0;letter-spacing:.02em;transition:color .15s;}
   .back-link:hover{color:#fff;}
   .back-link svg{width:14px;height:14px;}
+
+  .dl-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:300;
+    background:var(--accent);color:#fff;border:none;border-radius:3px;
+    padding:10px 18px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+    display:flex;align-items:center;gap:7px;text-decoration:none;
+    box-shadow:0 4px 20px rgba(230,57,70,.35);transition:all .15s}
+  .dl-btn:hover{background:#c62f3b;transform:translateY(-1px)}
+  .dl-btn svg{width:14px;height:14px;flex:none}
 </style>
 </head>
 <body>
@@ -165,21 +174,54 @@
 const VIOLET='#534AB7', TEAL='#0F766E';
 
 const CAUS_DATA=[
-  {n:1,target:'t1',color:VIOLET,tense:'make + bare infinitive',claim:'According to psychologists, you cannot make the system ________ (do what) by deciding to ignore it.',question:'What can you not make the system do by deciding to ignore it?',answer:'Disappear — willpower-based resistance does not eliminate the system.'},
-  {n:2,target:'t2',color:VIOLET,tense:'let + bare infinitive',claim:'ACT teaches you to ________ (let what happen) without acting on it.',question:'What does ACT teach you to let happen without acting on it?',answer:'The thought — you let the thought exist without obeying it.'},
-  {n:3,target:'t3',color:VIOLET,tense:'make + bare infinitive',claim:'The system ________ (makes what) nearly impossible — it interrupts before depth can develop.',question:'What does the system make nearly impossible?',answer:'Flow — the state of sustained, meaningful absorption in a task.'},
-  {n:4,target:'t3',color:VIOLET,tense:'get + to + infinitive',claim:'The system gets you ________ (do what) — confusing stimulation with fulfilment.',question:'What does the system get you to do?',answer:'To mistake stimulation for satisfaction.'},
-  {n:5,target:'t4',color:VIOLET,tense:'let + bare infinitive',claim:"According to Weil, you must ________ (let yourself do what) by what is in front of you.",question:'What must you let yourself do, according to Weil?',answer:'Be fully affected — you let the other thing genuinely matter to you.'},
-  {n:6,target:'t5',color:VIOLET,tense:'make + for + person',claim:'Sustainable change happens when the system is no longer ________ (making what) for you.',question:'What is the system no longer making when sustainable change happens?',answer:'The choice — it is no longer making that choice for you.'},
-  {n:7,target:'t6',color:VIOLET,tense:'make + bare infinitive',claim:'The final question: what do you actually want when nothing is ________ (making you do what)?',question:'What is the final question of Part 2?',answer:'"What do I actually want when nothing is making me want it?" — the causative of Part 1, reversed.'},
-];
+  {n:1,target:'t1',color:VIOLET,tense:'make + bare infinitive',
+   claim:'You cannot make the system ________ by deciding to ignore it.',
+   question:'What can you not make the system do?',
+   answer:'Disappear. Willpower-based resistance does not eliminate the system.'},
+  {n:2,target:'t1',color:VIOLET,tense:'make + bare infinitive',
+   claim:'The person who makes herself ________ at 8am will reach for the phone at 8pm with twice the urgency.',
+   question:'What does the person make herself do at 8am?',
+   answer:'Resist the phone. And the resistance doubles the urgency later.'},
+  {n:3,target:'t2',color:VIOLET,tense:'let + bare infinitive',
+   claim:'ACT teaches you to let the thought ________ without acting on it.',
+   question:'What does ACT teach you to let the thought do?',
+   answer:'Exist. You let the thought exist without obeying it.'},
+  {n:4,target:'t3',color:VIOLET,tense:'make + bare infinitive',
+   claim:'The system makes flow nearly ________.',
+   question:'How does the system make flow?',
+   answer:'Nearly impossible. It interrupts before depth can develop.'},
+  {n:5,target:'t3',color:VIOLET,tense:'get + to + infinitive',
+   claim:'The system gets you to mistake stimulation for ________.',
+   question:'What does the system get you to mistake stimulation for?',
+   answer:'For satisfaction. The feeling of being stimulated is not the same as the feeling of being fulfilled.'},
+  {n:6,target:'t4',color:VIOLET,tense:'let + bare infinitive',
+   claim:'You must let yourself be fully ________ by what is in front of you.',
+   question:'What must you let yourself be, according to Weil?',
+   answer:'Fully affected. You let the other thing genuinely matter to you.'},
+  {n:7,target:'t5',color:VIOLET,tense:'get + to + infinitive',
+   claim:'What gets people to change sustainably is not ________ but a clarification of values.',
+   question:'What does not get people to change sustainably?',
+   answer:'Information. People already know the problem. What they need is values clarity.'},
+]
 
 const PASS_DATA=[
-  {n:1,target:'t1',color:TEAL,tense:'Present Perfect Passive',claim:'Willpower, as a strategy, ________ (what has happened to it) exhaustively.',question:'What has happened to willpower as a strategy?',answer:'It has been studied — by psychologists, across decades. The conclusion is consistent: it depletes.'},
-  {n:2,target:'t3',color:TEAL,tense:'Simple Past Passive',claim:"Csikszentmihalyi found that meaningful moments ________ (what happened to them) not by consumption but by flow.",question:"What happened to meaningful moments, according to Csikszentmihalyi's research?",answer:'They were not produced by consumption — they were produced by flow states.'},
-  {n:3,target:'t4',color:TEAL,tense:'Simple Present Passive',claim:'To truly attend to something, ________ (what) is required.',question:'What is required in order to truly attend to something?',answer:'A kind of self-emptying — required by the nature of genuine attention itself, not by any person.'},
-  {n:4,target:'t5',color:TEAL,tense:'Modal Passive',claim:'The solution is not simple, and it ________ (what cannot happen) through a weekend retreat.',question:'What cannot be done through a weekend retreat?',answer:'The solution cannot be implemented that way — the passive is honest about how vague the agent is.'},
-];
+  {n:1,target:'t1',color:TEAL,tense:'Present Perfect Passive',
+   claim:'Willpower has been studied ________ — and the conclusion is consistent: it depletes.',
+   question:'How thoroughly has willpower been studied?',
+   answer:'Exhaustively. The conclusion is consistent across decades of research.'},
+  {n:2,target:'t3',color:TEAL,tense:'Simple Past Passive',
+   claim:'Meaningful moments were not produced by consumption but by ________.',
+   question:'What were meaningful moments produced by?',
+   answer:'By flow states. Moments of complete absorption in a task that demanded skill and effort.'},
+  {n:3,target:'t4',color:TEAL,tense:'Present Simple Passive',
+   claim:'A kind of self-emptying is required ________.',
+   question:'What is a kind of self-emptying required for?',
+   answer:'To truly attend to something. Required by the nature of genuine attention itself.'},
+  {n:4,target:'t5',color:TEAL,tense:'Modal Passive',
+   claim:'The solution cannot be implemented through ________.',
+   question:'Through what cannot the solution be implemented?',
+   answer:'Through a weekend retreat. Sustainable change requires values clarity, not a technique.'},
+]
 
 const OVERLAY_DATA={
   't1':{tense:'make + bare infinitive / has been studied',full:"You cannot <hl>make the system disappear</hl> by deciding to ignore it. Willpower <hl>has been studied</hl> exhaustively, and the conclusion is consistent: it depletes."},
@@ -229,5 +271,9 @@ document.addEventListener('mousemove',e=>{if(tipBox.style.display==='block')posT
 document.addEventListener('mouseout',e=>{if(!e.target.closest('.caus,.pass,.tip'))return;tipBox.style.opacity='0';setTimeout(()=>tipBox.style.display='none',120);});
 function posTip(e){const W=tipBox.offsetWidth||280,H=tipBox.offsetHeight||80,P=12;let x=e.clientX+P,y=e.clientY-H-P;if(x+W>window.innerWidth-P)x=e.clientX-W-P;if(y<P)y=e.clientY+P;tipBox.style.left=x+'px';tipBox.style.top=y+'px';}
 </script>
+<a class="dl-btn" href="the-way-back.pdf" download>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  Download PDF
+</a>
 </body>
 </html>

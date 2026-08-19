@@ -111,6 +111,15 @@
   .cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;text-decoration:none;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:800;letter-spacing:.02em;transition:background .15s,transform .1s;}
   .cta-btn:hover{background:var(--accent);transform:translateY(-1px);}
   .cta-btn svg{width:16px;height:16px;}
+
+  .dl-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:300;
+    background:var(--accent);color:#fff;border:none;border-radius:3px;
+    padding:10px 18px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+    display:flex;align-items:center;gap:7px;text-decoration:none;
+    box-shadow:0 4px 20px rgba(230,57,70,.35);transition:all .15s}
+  .dl-btn:hover{background:#c62f3b;transform:translateY(-1px)}
+  .dl-btn svg{width:14px;height:14px;flex:none}
 </style>
 </head>
 <body>
@@ -172,7 +181,7 @@
 
     <p>Huxley saw the endpoint. In his World State, <span class="target" data-n="6">citizens <span class="pass" data-tag="PASSIVE" data-tip="are + past participle|||no one applies force — the passive makes the absence of coercion explicit.|||Compare with the causative that follows: not forced, but designed for.|||Present Simple Passive">are not forced</span> into happiness — they <span class="caus" data-tag="CAUSATIVE" data-tip="have + thing + past participle|||arranged for them before they can object. The state is the real agent; the citizen is the object.|||The agent never appears in the sentence.|||–">have their happiness designed for them</span></span> before they are born. The conditioning is so complete that the question of freedom never arises. <span class="caus" data-tag="CAUSATIVE" data-tip="make + person + bare infinitive|||soma produces the state directly — no reflection, no choice.|||No 'to' after make.|||–">Soma makes them feel</span> exactly what the system needs them to feel. <span class="target" data-n="7">No one refuses. There is nothing to refuse against.</span></p>
 
-    <p>This is what Zuboff calls behavioural modification at scale. The platform does not punish the wrong choices — it <span class="caus" data-tag="CAUSATIVE" data-tip="make + thing + bare infinitive|||cause something to appear a certain way through the structure of the environment.|||The wrong choices are made to feel unimaginable, not forbidden.|||–">makes the wrong choices seem</span> unthinkable. <span class="target" data-n="8">It <span class="caus" data-tag="CAUSATIVE" data-tip="get + person + to + infinitive|||the design persuades, over and over. You are convinced that leaving would be a loss.|||–|||–">gets you to stay</span> not through walls but through a <span class="tip" data-tip="–|||unpredictable rewards — a like, a message, a piece of news — produce compulsive checking behaviour.|||Same principle as slot machines. Your nervous system was never built to resist it.|||Reforço variável: recompensas imprevisíveis que produzem comportamento compulsivo.">variable reward schedule</span> that your nervous system was never designed to resist</span>.</p>
+    <p>This is what Zuboff calls behavioural modification at scale. The platform does not punish the wrong choices — it <span class="caus" data-tag="CAUSATIVE" data-tip="make + thing + bare infinitive|||cause something to appear a certain way through the structure of the environment.|||The wrong choices are made to feel unimaginable, not forbidden.|||–">makes the wrong choices seem</span> unthinkable. <span class="target" data-n="8">It <span class="caus" data-tag="CAUSATIVE" data-tip="get + person + to + infinitive|||the design persuades, over and over. You are convinced that leaving would be a loss.|||–|||–">gets you to stay</span> not through walls but through a <span class="tip" data-tip="–|||unpredictable rewards — a like, a message, a piece of news — produce compulsive checking behaviour.|||Same principle as slot machines. Your nervous system was never built to resist it.|||Reforço variável: recompensas imprevisíveis que produzem comportamento compulsivo.">variable reward schedule</span> that your nervous system <span class="pass" data-tag="PASSIVE" data-tip="was + past participle|||Simple Past Passive. Your nervous system is the subject. The agent (evolution, biology, circumstance) is absent. The vulnerability is presented as a given, not a choice.|||–|||–">was never designed</span> to resist.</span></p>
 
     <p><span class="target" data-n="9">Nara has never thought of herself as someone who <span class="caus" data-tag="CAUSATIVE" data-tip="let + thing + bare infinitive|||allow — by not acting, by not questioning. Nara does not see this as permission. But permission is what it is.|||The subject has the power to stop it, and chooses not to.|||–">lets the system decide</span> what she wants</span>. She thinks of herself as someone with taste, with preferences, with a carefully considered sense of who she is. And she is right, in a way. The preferences are real. The question is only: <span class="target" data-n="10">who <span class="caus" data-tag="CAUSATIVE" data-tip="have + thing + past participle|||who arranged for them to be designed? Who is the real agent behind Nara's sense of herself?|||The causative makes the question visible — and the answer uncomfortable.|||–">had them designed</span></span>?</p>
 
@@ -279,22 +288,58 @@
 const VIOLET='#534AB7', TEAL='#0F766E';
 
 const CAUS_DATA=[
-  {n:1,target:1,color:VIOLET,tense:'have something done',claim:'The algorithm ________ (what) for Nara before she opens her eyes.',question:'What has the algorithm had done for Nara before she opens her eyes?',answer:'Her feed — it has had her feed curated.'},
-  {n:2,target:2,color:VIOLET,tense:'make vs. get',claim:'The system does not make Nara ________ (do what) — instead it gets her ________ (do what).',question:'What does the system not make Nara do? What does it get her to do instead?',answer:'It does not make her do anything directly. It gets her to want things she did not know she lacked.'},
-  {n:3,target:4,color:VIOLET,tense:'get + to + infinitive',claim:'Bernays got an entire generation ________ (do what) with cigarettes.',question:'What did Bernays get an entire generation to do?',answer:'To associate cigarettes with freedom.'},
-  {n:4,target:4,color:VIOLET,tense:'let + bare infinitive',claim:'After placing objects in the right hands, Bernays let the public ________ (believe what).',question:'What did Bernays let the public believe?',answer:'That the desire was their own.'},
-  {n:5,target:6,color:VIOLET,tense:'have something done',claim:'In the World State, citizens have their happiness ________ (done when / by whom).',question:'When and by whom do citizens have their happiness designed?',answer:'Before they are born — by the state. The agent never appears in the sentence.'},
-  {n:6,target:8,color:VIOLET,tense:'get + to + infinitive',claim:'The platform gets you ________ (do what) through a variable reward schedule.',question:'What does the platform get you to do?',answer:'To stay — not through walls, but through unpredictable rewards.'},
-  {n:7,target:9,color:VIOLET,tense:'let + bare infinitive',claim:'Nara has never thought of herself as someone who lets ________ (what) decide what she wants.',question:'What does Nara think she has never let decide what she wants?',answer:'The system.'},
-  {n:8,target:10,color:VIOLET,tense:'have something done',claim:'The final question: who ________ (had what done)?',question:'What is the final question of the text — and what structure does it use?',answer:'"Who had them designed?" — have + thing + past participle. The causative makes the invisible agent visible as a question.'},
-];
+  {n:1,target:1,color:VIOLET,tense:'have something done',
+   claim:'The algorithm has already had her ________ curated before Nara opens her eyes.',
+   question:'What has the algorithm had curated for Nara?',
+   answer:'Her feed. The algorithm has it curated before she wakes up.'},
+  {n:2,target:2,color:VIOLET,tense:'get + to + infinitive',
+   claim:'The system gets her to want things she ________ them — she did not know she lacked them.',
+   question:'What did the system get Nara to want?',
+   answer:'Things she did not know she lacked.'},
+  {n:3,target:4,color:VIOLET,tense:'get + to + infinitive',
+   claim:'Bernays got an entire generation to associate cigarettes with ________.',
+   question:'What did Bernays get an entire generation to associate cigarettes with?',
+   answer:'With freedom.'},
+  {n:4,target:4,color:VIOLET,tense:'let + bare infinitive',
+   claim:'Bernays let the public believe ________ — that it was their own.',
+   question:'What did Bernays let the public believe?',
+   answer:'That the desire was their own.'},
+  {n:5,target:6,color:VIOLET,tense:'have something done',
+   claim:'Citizens have their happiness designed for them ________.',
+   question:'When do citizens have their happiness designed for them?',
+   answer:'Before they are born. The state is the agent. It never appears in the sentence.'},
+  {n:6,target:8,color:VIOLET,tense:'get + to + infinitive',
+   claim:'The platform gets you to stay not through walls but through ________.',
+   question:'How does the platform get you to stay?',
+   answer:'Through a variable reward schedule. Not walls. Unpredictable rewards.'},
+  {n:7,target:9,color:VIOLET,tense:'let + bare infinitive',
+   claim:'Nara lets the system decide ________.',
+   question:'What does Nara let the system decide?',
+   answer:'What she wants.'},
+  {n:8,target:10,color:VIOLET,tense:'have something done',
+   claim:'The text ends with a question: who had ________ designed?',
+   question:'Who had them designed?',
+   answer:'The text does not answer. That silence is the point.'},
+]
 
 const PASS_DATA=[
-  {n:1,target:1,color:TEAL,tense:'Present Perfect Passive',claim:'By the time Nara reaches for her phone, ________ (what) has been assembled for her.',question:'What has been assembled for Nara?',answer:'A version of the world — curated by the algorithm before she wakes up.'},
-  {n:2,target:3,color:TEAL,tense:'Present Perfect Passive',claim:"Nara's desire ________ (what has happened to it) so smoothly that the manufacturing is invisible.",question:"What has happened to Nara's desire?",answer:'It has been manufactured for her — by the system. The agent is invisible by design.'},
-  {n:3,target:6,color:TEAL,tense:'Present Simple Passive',claim:'In the World State, citizens ________ (what) into happiness.',question:'What are citizens not done to in the World State?',answer:'They are not forced into happiness — control works through design, not coercion.'},
-  {n:4,target:11,color:TEAL,tense:'Implied passive',claim:'According to Huxley, a cage that makes you love it is still ________ (what).',question:'According to Huxley, what is a cage that makes you love it still?',answer:'Still a cage — simply a better one. Better for the system. The responsible party never appears.'},
-];
+  {n:1,target:1,color:TEAL,tense:'Present Perfect Passive',
+   claim:'A version of the world has been assembled for ________ before she opens her eyes.',
+   question:'For whom has a version of the world been assembled?',
+   answer:'For Nara. By the algorithm. Before she is even awake.'},
+  {n:2,target:3,color:TEAL,tense:'Present Perfect Passive',
+   claim:'Her desire has been manufactured for her so ________ that the manufacturing is invisible.',
+   question:'How has her desire been manufactured?',
+   answer:'So smoothly that the manufacturing is invisible. The process leaves no trace.'},
+  {n:3,target:6,color:TEAL,tense:'Present Simple Passive',
+   claim:'Citizens are not forced into ________ — they have their happiness designed for them instead.',
+   question:'What are citizens not forced into in the World State?',
+   answer:'Into happiness. Force is unnecessary. Conditioning makes them love what was designed for them.'},
+  {n:4,target:8,color:TEAL,tense:'Past Simple Passive',
+   claim:'Your nervous system was never designed ________.',
+   question:'What was the nervous system never designed to do?',
+   answer:'To resist a variable reward schedule. The vulnerability is biological, not a personal failure.'},
+]
 
 const OVERLAY_DATA={
   1:{tense:'have something done + Present Perfect Passive',full:"Every morning, before Nara opens her eyes, the algorithm has already <hl>had her feed curated</hl>. By the time she reaches for her phone, <hl>a version of the world has been assembled for her</hl>."},
@@ -366,5 +411,9 @@ function togglePlay(){if(audio.paused){audio.play();playBtn.querySelector('.icon
 function skip(s){audio.currentTime=Math.max(0,Math.min(audio.duration||0,audio.currentTime+s));}
 function seek(e){const r=bar.getBoundingClientRect();const p=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));if(audio.duration)audio.currentTime=p*audio.duration;}
 </script>
+<a class="dl-btn" href="the-invisible-hand.pdf" download>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  Download PDF
+</a>
 </body>
 </html>

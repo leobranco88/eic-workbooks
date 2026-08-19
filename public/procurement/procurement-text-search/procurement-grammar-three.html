@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procurement · Grammar — Passive Voice, Supposed To &amp; Present Perfect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--teal-lt:#1A9BAE;--orange:#E8621A;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;
+  --coral:#E63946;--coral-bg:rgba(230,57,70,.08);
+  --green:#065F46;--green-bg:#ECFDF5;
+  --amber:#B45309;--amber-bg:#FEF3C7;
+  --purple:#5B21B6;--purple-bg:rgba(91,33,182,.09);
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink)}
+.pw{max-width:760px;margin:0 auto;padding:0 56px}
+@media(max-width:720px){.pw{padding:0 22px}}
+
+/* ── HEADER ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-brand{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:640px){.hdr{padding:0 18px}.hdr-brand{display:none}}
+
+/* ── FABs ── */
+.fab-stack{position:fixed;z-index:150;display:flex;flex-direction:column;gap:10px}
+.fab-stack.left{left:26px;bottom:26px}
+.fab-stack.right{right:26px;bottom:26px}
+.fab{display:flex;align-items:center;gap:9px;background:var(--ink);color:#fff;border:none;
+  padding:13px 20px 13px 16px;border-radius:30px;font-family:Inter,sans-serif;font-size:11.5px;
+  font-weight:800;letter-spacing:.04em;cursor:pointer;
+  box-shadow:0 8px 26px rgba(10,22,40,.32);transition:transform .18s,background .18s}
+.fab:hover{transform:translateY(-2px);background:var(--teal)}
+.fab.teal{background:var(--teal)}
+.fab.coral{background:var(--coral)}
+.fab svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;flex-shrink:0}
+@media(max-width:640px){.fab{padding:12px;border-radius:50%}.fab-label{display:none}}
+
+/* ── HERO ── */
+.hero{margin-top:56px;background:var(--dark);padding:64px 0 56px}
+.hero-inner{max-width:760px;margin:0 auto;padding:0 56px}
+@media(max-width:720px){.hero-inner{padding:0 22px}}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.eyebrow-line{width:28px;height:1.5px;background:var(--teal)}
+.eyebrow-text{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-size:clamp(28px,4vw,42px);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1.05;margin-bottom:16px}
+.hero-title em{font-style:italic;color:var(--teal-lt)}
+.hero-sub{font-size:14px;line-height:1.7;max-width:58ch}
+.hero-sub .en{color:rgba(255,255,255,.55)}
+.hero-sub .pt{color:rgba(255,255,255,.28);font-style:italic;font-size:13px}
+
+/* ── BILINGUAL HELPER ── */
+.bi{display:block}
+.bi .en{color:var(--ink);font-size:13.5px;line-height:1.65}
+.bi .pt{color:var(--mid);font-style:italic;font-size:12px;line-height:1.5;margin-top:1px}
+
+/* ── BLOCKS ── */
+.block-section{padding:56px 0;border-bottom:1px solid var(--border)}
+.block-section:nth-child(even){background:#fff}
+.block-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.block-num{font-size:11px;font-weight:900;letter-spacing:.1em;color:var(--teal)}
+.block-title{font-size:clamp(20px,2.4vw,26px);font-weight:900;letter-spacing:-.02em;color:var(--ink);margin-bottom:10px}
+.block-intro{margin-bottom:28px}
+.block-intro .en{font-size:13.5px;color:var(--mid);line-height:1.65}
+.block-intro .en strong{color:var(--ink)}
+.block-intro .pt{font-size:12px;color:rgba(107,114,128,.7);font-style:italic;line-height:1.55;margin-top:4px}
+
+/* ── RULE CARDS ── */
+.rule-grid{display:grid;gap:14px;margin-bottom:28px}
+.rule-grid.cols2{grid-template-columns:1fr 1fr}
+.rule-grid.cols3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:700px){.rule-grid.cols2,.rule-grid.cols3{grid-template-columns:1fr}}
+.rule-card{background:#fff;border-radius:14px;padding:20px 22px;border-top:4px solid var(--border)}
+.rule-card.c-pass{border-top-color:var(--teal)}
+.rule-card.c-sup{border-top-color:var(--purple)}
+.rule-card.c-perf{border-top-color:var(--orange)}
+.rc-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.c-pass .rc-label{color:var(--teal)}
+.c-sup .rc-label{color:var(--purple)}
+.c-perf .rc-label{color:var(--orange)}
+.rc-title{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:-.01em;margin-bottom:6px}
+.rc-def-en{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:3px}
+.rc-def-pt{font-size:11.5px;color:rgba(107,114,128,.65);font-style:italic;line-height:1.5;margin-bottom:12px}
+.rc-ex{background:var(--paper);border-radius:8px;padding:9px 12px;font-size:12.5px;
+  color:var(--ink);line-height:1.6;font-style:italic;margin-bottom:4px}
+.rc-ex:last-child{margin-bottom:0}
+.rc-pt{display:block;font-size:11px;color:rgba(107,114,128,.65);font-style:italic;margin-top:2px}
+
+/* ── TRICKY BOX ── */
+.tricky-box{background:var(--dark);border-radius:14px;padding:24px 26px;margin-bottom:32px}
+.tricky-label{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:10px}
+.tricky-en{font-size:13.5px;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:6px}
+.tricky-en strong{color:#fff}
+.tricky-pt{font-size:12px;color:rgba(255,255,255,.32);font-style:italic;line-height:1.6}
+
+/* ── CLUES CARD ── */
+.clues-card{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px}
+.clues-head{background:var(--surface);padding:12px 18px;display:flex;align-items:center;gap:10px}
+.clues-head-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.clues-head-pt{font-size:10.5px;color:var(--mid);font-style:italic;margin-left:4px}
+.clues-body{padding:0}
+.clue-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--border)}
+.clue-row:last-child{border-bottom:none}
+.clue-signal{padding:12px 14px;background:rgba(13,122,138,.05);font-size:12px;font-weight:700;color:var(--teal);line-height:1.5;border-right:1px solid var(--border)}
+.clue-signal-pt{display:block;font-size:10.5px;font-weight:400;color:rgba(13,122,138,.55);font-style:italic;margin-top:2px}
+.clue-meaning{padding:12px 14px}
+.clue-meaning-en{font-size:12.5px;color:var(--ink);line-height:1.5}
+.clue-meaning-pt{font-size:11px;color:var(--mid);font-style:italic;line-height:1.45;margin-top:2px}
+@media(max-width:580px){.clue-row{grid-template-columns:1fr}.clue-signal{border-right:none;border-bottom:1px solid var(--border)}}
+
+/* ── HOW TO BUILD PASSIVE (tabs) ── */
+.how-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:0;gap:0}
+.how-tab{flex:1;padding:11px 8px;font-family:Inter,sans-serif;font-size:10.5px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mid);background:transparent;
+  border:none;border-bottom:2px solid transparent;cursor:pointer;margin-bottom:-2px;transition:all .15s}
+.how-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.how-tab:hover:not(.active){color:var(--ink)}
+.how-view{display:none;padding:22px 24px}
+.how-view.active{display:block}
+.how-tabs-wrap{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px;background:#fff}
+.how-tabs-inner{padding:0 8px;background:var(--surface)}
+
+.step-list{display:flex;flex-direction:column;gap:14px}
+.step-item{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;
+  font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px}
+.step-text .en{font-size:13.5px;color:var(--ink);line-height:1.55;font-weight:600}
+.step-text .pt{font-size:12px;color:var(--mid);font-style:italic;line-height:1.45;margin-top:2px}
+.step-text code{background:var(--hi);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:12.5px;font-style:normal;color:var(--ink)}
+
+.solved-box{background:var(--green-bg);border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:14px 18px;margin-top:18px}
+.solved-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.solved-label-pt{font-style:italic;font-weight:400;color:rgba(6,95,70,.6);margin-left:4px}
+.solved-row{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;flex-wrap:wrap}
+.solved-row:last-child{margin-bottom:0}
+.solved-badge{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  background:var(--green);color:#fff;padding:2px 7px;border-radius:10px;flex:none}
+.solved-sent{font-size:13px;color:var(--ink);line-height:1.55}
+.solved-sent em{color:var(--mid);font-style:italic}
+.solved-sent mark{background:var(--hi);border-radius:3px;padding:0 3px;font-style:normal}
+
+/* ── TENSE TABLE ── */
+.tense-table{width:100%;border-collapse:collapse;margin-bottom:32px;font-size:13px}
+.tense-table th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left;
+  font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.tense-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.tense-table tr:last-child td{border-bottom:none}
+.tense-table td:first-child{font-weight:700;color:var(--teal);white-space:nowrap;width:170px}
+.tense-table td code{background:var(--hi);padding:1px 6px;border-radius:4px;font-family:monospace;font-size:12px;font-style:normal;color:var(--ink)}
+.tense-table .td-pt{display:block;font-size:11px;color:var(--mid);font-style:italic;margin-top:2px}
+
+/* ── EXERCISE SHELL ── */
+.ex-section{padding:32px 56px 0;max-width:760px;margin:0 auto}
+@media(max-width:720px){.ex-section{padding:32px 22px 0}}
+.ex-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.ex-badge{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--surface);color:var(--ink);padding:4px 11px;border-radius:20px}
+.ex-title{font-size:15px;font-weight:800;color:var(--ink)}
+.ex-instr{margin-bottom:14px}
+.ex-instr .en{font-size:12.5px;color:var(--mid);line-height:1.6}
+.ex-instr .pt{font-size:11.5px;color:rgba(107,114,128,.65);font-style:italic;line-height:1.5;margin-top:2px}
+
+/* Verb bank */
+.verb-bank{position:sticky;top:66px;z-index:60;background:var(--surface);border-radius:12px;
+  padding:11px 15px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:5px 13px;
+  box-shadow:0 6px 18px rgba(10,22,40,.07)}
+@media(max-width:720px){.verb-bank{position:static;box-shadow:none}}
+.vb-w{font-size:12.5px;font-weight:700;color:var(--ink)}
+.vb-w em{font-size:10px;font-weight:500;font-style:italic;color:var(--mid);margin-left:3px}
+
+/* Gap card */
+.gap-card{background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:10px}
+.gap-card p{font-size:14px;line-height:2.1;color:var(--ink)}
+.blank-sel{font-family:Inter,sans-serif;font-size:12.5px;font-weight:700;color:var(--ink);
+  background:var(--hi);border:1.5px solid var(--ink);border-radius:6px;padding:2px 7px;
+  cursor:pointer;appearance:none;-webkit-appearance:none;text-align:center;margin:0 2px}
+.blank-sel.correct{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-sel.wrong{background:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
+.blank-input{font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--ink);
+  background:var(--hi);border:1.5px solid var(--ink);border-radius:6px;padding:3px 8px;
+  width:180px;text-align:center}
+.blank-input:focus{outline:none;border-color:var(--teal)}
+.blank-input.correct{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-input.wrong{background:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
+
+/* Controls */
+.ex-controls{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.ex-btn{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;padding:9px 16px;border-radius:22px;cursor:pointer;
+  border:1.5px solid var(--ink);background:var(--ink);color:#fff;transition:all .15s}
+.ex-btn:hover{background:var(--teal);border-color:var(--teal)}
+.ex-btn.ghost{background:transparent;color:var(--ink)}
+.ex-btn.ghost:hover{background:var(--surface)}
+.ex-feedback{display:none;padding:12px 16px;border-radius:9px;font-size:12.5px;line-height:1.6;margin-top:4px;margin-bottom:24px}
+.ex-feedback.show{display:block}
+.ex-feedback.ok{background:var(--green-bg);color:var(--green);border-left:3px solid var(--green)}
+.ex-feedback.partial{background:var(--amber-bg);color:var(--amber);border-left:3px solid var(--amber)}
+
+/* Why chip */
+.why-chip{display:inline-flex;align-items:center;justify-content:center;
+  width:17px;height:17px;border-radius:50%;background:var(--surface);
+  border:1.5px solid var(--border);color:var(--mid);font-size:9.5px;font-weight:900;
+  cursor:pointer;margin-left:6px;vertical-align:middle;flex-shrink:0;
+  font-family:Inter,sans-serif;line-height:1;transition:all .15s}
+.why-chip:hover{background:var(--teal);border-color:var(--teal);color:#fff}
+.why-note{display:none;margin-top:7px;padding:9px 12px;background:rgba(13,122,138,.07);
+  border-left:3px solid var(--teal);border-radius:0 7px 7px 0;font-size:12px;color:var(--ink);line-height:1.6}
+.why-note.show{display:block}
+.why-note .en{display:block;color:var(--ink)}
+.why-note .pt{display:block;font-size:11px;color:var(--mid);font-style:italic;margin-top:3px}
+
+/* Paraphrase */
+.para-item{background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:10px}
+.para-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:5px}
+.para-original{font-size:13.5px;color:var(--mid);line-height:1.6;margin-bottom:3px}
+.para-target{font-size:11px;color:var(--teal);font-weight:700;margin-bottom:10px}
+.para-ta{width:100%;min-height:50px;padding:10px 12px;border:1.5px solid var(--border);
+  border-radius:9px;font-family:Inter,sans-serif;font-size:13.5px;line-height:1.6;
+  resize:vertical;background:var(--paper);margin-bottom:10px}
+.para-ta:focus{outline:none;border-color:var(--teal)}
+.reveal-btn{display:inline-flex;align-items:center;gap:6px;font-family:Inter,sans-serif;
+  font-size:11.5px;font-weight:600;padding:2px 0;cursor:pointer;border:none;background:none;
+  color:var(--mid);text-decoration:underline;text-decoration-color:var(--border);
+  text-underline-offset:3px;transition:color .15s}
+.reveal-btn:hover{color:var(--teal);text-decoration-color:var(--teal)}
+.reveal-btn svg{width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .2s;opacity:.6}
+.reveal-btn.open svg{transform:rotate(180deg)}
+.para-model{display:none;background:var(--green-bg);border-left:3px solid var(--green);
+  border-radius:0 9px 9px 0;padding:11px 15px;margin-top:10px;font-size:13.5px;
+  color:var(--ink);line-height:1.6}
+.para-model.show{display:block}
+.para-model-label{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+.para-model .pt{display:block;font-size:11.5px;color:rgba(6,95,70,.65);font-style:italic;margin-top:6px}
+
+/* Click-to-reveal gap */
+.gap-reveal{cursor:pointer;font-weight:800;color:var(--teal);border-bottom:2px dotted var(--teal);
+  padding:0 2px;border-radius:3px;transition:background-color .25s,color .2s}
+.gap-reveal:hover{background:var(--surface)}
+.gap-reveal.revealed{background:var(--hi);color:var(--ink);border-bottom-color:transparent}
+
+/* Tooltip */
+.tt{border-bottom:1.5px dotted var(--teal);cursor:help}
+.tt:hover{color:var(--teal)}
+#gl-tip{display:none;position:fixed;z-index:9999;background:var(--ink);color:#fff;
+  border-radius:9px;padding:9px 13px;font-size:12px;line-height:1.45;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none;max-width:240px}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:3px}
+#gl-tip-def{font-size:11.5px;color:rgba(255,255,255,.82)}
+
+/* Panels */
+.panel-overlay{display:none;position:fixed;inset:0;background:rgba(7,16,32,.55);z-index:400;backdrop-filter:blur(2px)}
+.panel-overlay.open{display:block}
+.side-panel{position:fixed;top:0;bottom:0;width:min(460px,92vw);background:#fff;z-index:500;
+  transition:transform .36s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;
+  box-shadow:0 0 48px rgba(0,0,0,.22)}
+.side-panel.left{left:0;transform:translateX(-100%)}
+.side-panel.right{right:0;transform:translateX(100%)}
+.side-panel.open{transform:translateX(0)}
+.panel-hdr{background:var(--dark);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.panel-hdr-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:3px}
+.panel-hdr-title{font-size:15px;font-weight:800;color:#fff}
+.panel-close{width:30px;height:30px;background:rgba(255,255,255,.08);border:none;border-radius:50%;
+  cursor:pointer;color:rgba(255,255,255,.7);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.panel-close:hover{background:rgba(255,255,255,.16);color:#fff}
+.panel-body{flex:1;overflow-y:auto;padding:20px}
+.gloss-search{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;
+  font-family:Inter,sans-serif;font-size:13px;margin-bottom:4px}
+.gloss-cat{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding:14px 0 6px}
+.gloss-term{padding:9px 0;border-bottom:1px solid var(--border)}
+.gloss-term.hidden{display:none}
+.gt-term{font-size:13px;font-weight:800;color:var(--ink)}
+.gt-pt{font-size:11px;color:var(--teal);font-style:italic;margin-top:2px}
+.gt-def{font-size:11.5px;color:var(--mid);line-height:1.5;margin-top:3px}
+.gt-ex{font-size:11px;color:var(--ink);line-height:1.5;margin-top:5px;padding-top:5px;border-top:1px dashed var(--border);font-style:italic}
+.panel-section{margin-bottom:22px}
+.panel-section-title{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.panel-struct{background:var(--surface);border-radius:9px;padding:11px 13px;margin-bottom:8px}
+.panel-struct code{font-size:13px;font-weight:800;color:var(--ink);font-family:monospace}
+.panel-ex-row{font-size:13px;color:var(--ink);line-height:1.65;padding:5px 0;border-bottom:1px solid var(--border)}
+.panel-ex-row:last-child{border-bottom:none}
+.panel-ex-row .pt-note{font-size:10.5px;color:var(--mid);font-style:italic}
+
+/* Footer */
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.35)}
+@media(max-width:640px){.footer{flex-direction:column;padding:24px;text-align:center}.footer-copy{text-align:center}}
+
+/* ── STEP MACHINE (blur/reveal) ── */
+.sm-wrap{padding:4px 0}
+.sm-active-sentence{background:var(--paper);border-radius:10px;padding:14px 16px;margin-bottom:18px}
+.sm-active-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.sm-active-text{font-size:14px;color:var(--ink);line-height:1.7;font-weight:500}
+.sm-active-text .sm-agent{background:rgba(232,98,26,.15);border-radius:3px;padding:0 4px;color:var(--orange);font-weight:700}
+.sm-active-text .sm-obj{background:var(--hi);border-radius:3px;padding:0 4px;font-weight:700}
+.sm-active-text .sm-verb{color:var(--teal);font-weight:700}
+.sm-legend{font-size:10.5px;color:var(--mid);font-style:italic;margin-top:6px}
+.sm-legend span{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+
+.sm-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.sm-step{border:1.5px solid var(--border);border-radius:11px;overflow:hidden;background:#fff;transition:border-color .2s}
+.sm-step.unlocked{border-color:var(--teal)}
+.sm-step.done{border-color:var(--green)}
+
+.sm-step-head{display:flex;align-items:center;gap:12px;padding:12px 15px;cursor:pointer;user-select:none}
+.sm-step.locked .sm-step-head{cursor:default}
+.sm-step-num{width:24px;height:24px;border-radius:50%;background:var(--surface);color:var(--mid);
+  font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none;transition:all .2s}
+.sm-step.unlocked .sm-step-num{background:var(--teal);color:#fff}
+.sm-step.done .sm-step-num{background:var(--green);color:#fff}
+.sm-step-title{font-size:13px;font-weight:700;color:var(--mid);flex:1;transition:color .2s}
+.sm-step.unlocked .sm-step-title{color:var(--ink)}
+.sm-step.done .sm-step-title{color:var(--green)}
+.sm-step-hint{font-size:10.5px;color:var(--mid);font-style:italic}
+.sm-step.locked .sm-step-hint{opacity:.5}
+
+.sm-step-body{padding:0 15px;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s ease}
+.sm-step.open .sm-step-body{padding:0 15px 14px;max-height:300px}
+
+.sm-reveal-area{position:relative;border-radius:8px;overflow:hidden;min-height:52px}
+.sm-blur-overlay{position:absolute;inset:0;background:rgba(245,242,237,.92);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:opacity .3s ease;z-index:2;border-radius:8px}
+.sm-blur-overlay:hover{background:rgba(245,242,237,.7)}
+.sm-blur-btn{background:var(--navy,#0A1628);color:#fff;font-family:Inter,sans-serif;
+  font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:7px 14px;border-radius:20px;border:none;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.2);display:flex;align-items:center;gap:6px}
+.sm-blur-btn svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.3}
+.sm-blur-overlay.hidden{opacity:0;pointer-events:none}
+
+.sm-content{background:var(--paper);border-radius:8px;padding:12px 14px;font-size:13.5px;
+  color:var(--ink);line-height:1.6}
+.sm-content .en{color:var(--ink);font-weight:600}
+.sm-content .pt{font-size:12px;color:var(--mid);font-style:italic;margin-top:3px}
+.sm-content mark{background:var(--hi);border-radius:3px;padding:0 4px;font-style:normal}
+.sm-content .teal{color:var(--teal);font-weight:800}
+.sm-content .orange{color:var(--orange);font-weight:800}
+
+.sm-result{display:none;background:var(--green-bg);border-left:3px solid var(--green);
+  border-radius:0 10px 10px 0;padding:14px 16px;margin-top:4px}
+.sm-result.show{display:block}
+.sm-result-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.sm-result-sent{font-size:15px;font-weight:700;color:var(--ink);line-height:1.5}
+.sm-result-sent mark{background:rgba(6,95,70,.12);border-radius:3px;padding:0 4px}
+.sm-result-pt{font-size:12px;color:rgba(6,95,70,.65);font-style:italic;margin-top:5px}
+
+.sm-reset{display:none;background:none;border:none;font-family:Inter,sans-serif;
+  font-size:11px;font-weight:700;color:var(--mid);cursor:pointer;padding:6px 0;
+  text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;
+  margin-top:6px;transition:color .15s}
+.sm-reset:hover{color:var(--teal)}
+.sm-reset.show{display:inline-block}
+.sm-intro{font-size:12.5px;color:var(--mid);margin-bottom:14px;line-height:1.6}
+.sm-intro em{color:rgba(107,114,128,.65);font-style:italic}
+
+
+/* ── DECISION MACHINE (present perfect) ── */
+.dm-wrap{border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:32px;background:#fff}
+.dm-tabs-inner{padding:0 8px;background:var(--surface)}
+.dm-tabs{display:flex;border-bottom:2px solid var(--border);gap:0}
+.dm-tab{flex:1;padding:11px 8px;font-family:Inter,sans-serif;font-size:10.5px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mid);background:transparent;
+  border:none;border-bottom:2px solid transparent;cursor:pointer;margin-bottom:-2px;transition:all .15s}
+.dm-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.dm-tab:hover:not(.active){color:var(--ink)}
+.dm-view{display:none;padding:22px 24px}
+.dm-view.active{display:block}
+
+/* has vs have */
+.hv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0}
+.hv-card{border-radius:11px;padding:16px 18px;border:1.5px solid var(--border);background:var(--paper)}
+.hv-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.hv-pronoun{font-size:13px;font-weight:700;color:var(--mid);margin-bottom:4px}
+.hv-aux{font-size:22px;font-weight:900;font-style:italic;color:var(--teal);margin-bottom:8px}
+.hv-ex{font-size:12px;color:var(--mid);line-height:1.6;font-style:italic}
+.hv-ex strong{color:var(--ink);font-style:normal}
+.hv-ex mark{background:var(--hi);border-radius:3px;padding:0 3px;font-style:normal}
+.hv-pt{font-size:11px;color:rgba(107,114,128,.6);font-style:italic;margin-top:5px}
+.hv-rule{background:var(--dark);border-radius:10px;padding:12px 15px;margin-top:14px;
+  font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6}
+.hv-rule strong{color:#fff}
+
+/* Decision steps */
+.dm-sentence{background:var(--paper);border-radius:10px;padding:13px 16px;margin-bottom:18px}
+.dm-sentence-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:7px}
+.dm-sentence-text{font-size:14px;font-weight:600;color:var(--ink);line-height:1.6}
+
+
+
+.dm-question{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.5}
+.dm-question .qt{display:block;font-size:11.5px;color:var(--mid);font-weight:500;margin-top:3px;font-style:italic}
+.dm-choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dm-choice{border:1.5px solid var(--border);border-radius:9px;padding:10px 13px;cursor:pointer;
+  font-family:Inter,sans-serif;font-size:12px;font-weight:700;color:var(--ink);
+  background:#fff;text-align:left;transition:all .15s;line-height:1.4}
+.dm-choice:hover{border-color:var(--teal);background:rgba(13,122,138,.05)}
+.dm-choice .ch-label{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--teal);display:block;margin-bottom:3px}
+.dm-choice.dead-end .ch-label{color:var(--coral)}
+.dm-choice.dead-end:hover{border-color:var(--coral);background:rgba(230,57,70,.05)}
+.dm-choice.selected-yes{border-color:var(--teal);background:rgba(13,122,138,.07);color:var(--teal)}
+.dm-choice.selected-no{border-color:var(--coral);background:rgba(230,57,70,.07);color:var(--coral)}
+.dm-choice.disabled{opacity:.4;cursor:default;pointer-events:none}
+
+.dm-answer{display:none;margin-top:10px;padding:11px 14px;border-radius:9px;font-size:13px;line-height:1.6}
+.dm-answer.show{display:block}
+.dm-answer.go{background:var(--green-bg);border-left:3px solid var(--green)}
+.dm-answer.stop{background:var(--coral-bg);border-left:3px solid var(--coral)}
+.dm-answer .en{font-weight:600;color:var(--ink)}
+.dm-answer .pt{font-size:11.5px;color:var(--mid);font-style:italic;margin-top:2px}
+
+.dm-result{display:none;background:var(--green-bg);border-left:3px solid var(--green);
+  border-radius:0 10px 10px 0;padding:14px 16px;margin-top:4px}
+.dm-result.show{display:block}
+.dm-result-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.dm-result-sent{font-size:15px;font-weight:700;color:var(--ink);line-height:1.5}
+.dm-result-sent mark{background:rgba(6,95,70,.12);border-radius:3px;padding:0 4px}
+.dm-result-pt{font-size:12px;color:rgba(6,95,70,.65);font-style:italic;margin-top:5px}
+
+.dm-reset{display:none;font-family:Inter,sans-serif;font-size:11.5px;font-weight:800;
+  color:#fff;cursor:pointer;padding:8px 16px;margin-top:12px;
+  background:var(--ink);border:none;border-radius:20px;transition:background .15s}
+.dm-reset:hover{background:var(--teal)}
+.dm-reset.show{display:inline-block}
+
+/* ── STICKY SENTENCE BAR ── */
+.dm-sticky{
+  position:sticky;top:66px;z-index:50;
+  background:#fff;border:1.5px solid var(--border);border-radius:11px;
+  padding:12px 16px;margin-bottom:16px;
+  box-shadow:0 4px 16px rgba(10,22,40,.08);
+  transition:box-shadow .2s;
+}
+.dm-sticky-label{font-size:9px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.dm-sticky-sent{font-size:15px;font-weight:700;color:var(--ink);
+  line-height:1.5;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.dm-sticky-word{transition:all .3s ease}
+.dm-blank{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:80px;height:28px;padding:0 10px;
+  background:var(--hi);border:1.5px dashed var(--ink);
+  border-radius:6px;font-size:14px;font-weight:800;
+  color:var(--mid);font-style:italic;
+  transition:all .4s ease;
+}
+.dm-blank.filled{
+  background:var(--green-bg);border:1.5px solid var(--green);
+  color:var(--green);font-style:normal;
+  animation:popIn .35s ease;
+}
+.dm-blank.route{
+  background:var(--coral-bg);border:1.5px solid var(--coral);
+  color:var(--coral);font-style:normal;
+}
+@keyframes popIn{
+  0%{transform:scale(.85);opacity:.5}
+  60%{transform:scale(1.08)}
+  100%{transform:scale(1);opacity:1}
+}
+.dm-sticky-ctx{
+  font-size:11.5px;color:var(--mid);font-style:italic;margin-top:5px;
+  padding-top:5px;border-top:1px dashed var(--border);
+}
+
+
+/* ── DM CAROUSEL ── */
+.dm-carousel-wrap{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px;background:#fff}
+.dm-carousel-track{display:flex;transition:transform .42s cubic-bezier(.4,0,.2,1)}
+.dm-slide{min-width:100%;padding:22px 20px;box-sizing:border-box}
+.dm-slide-num{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
+.dm-sub{font-size:12.5px;color:var(--mid);margin-bottom:14px;line-height:1.5}
+.dm-carousel-nav{padding:10px 20px 14px;display:flex;align-items:center;justify-content:center;
+  border-top:1px solid var(--border);background:var(--surface)}
+.dm-dots{display:flex;gap:8px;align-items:center}
+.dm-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .25s;cursor:default}
+.dm-dot.active{background:var(--teal);width:22px;border-radius:4px}
+.dm-dot.done{background:var(--green)}
+.dm-dot.dead{background:var(--coral)}
+
+
+.dm-retry{font-family:Inter,sans-serif;font-size:11.5px;font-weight:800;
+  background:var(--ink);color:#fff;border:none;border-radius:20px;
+  padding:8px 16px;cursor:pointer;margin-top:10px;transition:background .15s}
+.dm-retry:hover{background:var(--teal)}
+
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-brand">Procurement &amp; Purchasing · B1+</span>
+  <nav style="display:flex;align-items:center;gap:18px">
+    <a href="./procurement-story-search.html" style="font-size:11px;font-weight:800;letter-spacing:.05em;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.5)'">
+      Story Search →
+    </a>
+    <span class="hdr-badge">Grammar</span>
+  </nav>
+</header>
+
+<div class="fab-stack left">
+  <button class="fab teal" onclick="openPanel('gloss')">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span class="fab-label">Glossary</span>
+  </button>
+  <button class="fab" onclick="openPanel('questions')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span class="fab-label">Questions</span>
+  </button>
+</div>
+<div class="fab-stack right">
+  <button class="fab" onclick="openPanel('verbs')">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span class="fab-label">Verb Bank</span>
+  </button>
+  <button class="fab coral" onclick="openPanel('negatives')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    <span class="fab-label">Negatives</span>
+  </button>
+</div>
+
+<!-- ══ HERO ═══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Procurement &amp; Purchasing · Grammar</span></div>
+    <h1 class="hero-title">Three Structures,<br><em>One Story.</em></h1>
+    <p class="hero-sub">
+      <span class="en">Before you read about Carolina's invoice dispute, make sure these three grammar tools are sharp. You will find all three throughout the text, sometimes in the same sentence.</span><br>
+      <span class="pt">Antes de ler sobre a disputa de nota fiscal da Carolina, certifique-se de que essas três estruturas estejam bem claras. Você vai encontrar as três ao longo do texto, às vezes na mesma frase.</span>
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     BLOCK 1 — PASSIVE VOICE
+══════════════════════════════════════════════════════════════════════ -->
+<section class="block-section">
+<div class="pw">
+
+  <div class="block-eyebrow"><span class="block-num">Structure 1 of 3</span></div>
+  <h2 class="block-title">Passive Voice</h2>
+  <div class="block-intro">
+    <div class="en">Use the passive when <strong>what happened</strong> matters more than <strong>who did it</strong>. In formal business writing — contracts, emails, dispute letters — the passive keeps things impersonal and precise. Structure: <strong>be + past participle</strong>. The tense changes; the participle stays the same.</div>
+    <div class="pt">Use a voz passiva quando <strong>o que aconteceu</strong> importa mais do que <strong>quem fez</strong>. Em documentos formais como contratos e e-mails de disputa, a passiva mantém o tom impessoal e preciso. Estrutura: <strong>be + particípio passado</strong>. O tempo verbal muda; o particípio não muda.</div>
+  </div>
+
+  <div class="rule-grid cols3">
+    <div class="rule-card c-pass">
+      <div class="rc-label">Simple Past</div>
+      <div class="rc-title">was / were + pp</div>
+      <div class="rc-def-en">A single completed action in the past. Use when you know when it happened.</div>
+      <div class="rc-def-pt">Uma ação concluída no passado. Use quando sabe quando aconteceu.</div>
+      <div class="rc-ex">"The invoice <strong>was received</strong> on Tuesday."<span class="rc-pt">A fatura foi recebida na terça.</span></div>
+      <div class="rc-ex">"The contract <strong>was signed</strong> last June."<span class="rc-pt">O contrato foi assinado em junho passado.</span></div>
+    </div>
+    <div class="rule-card c-pass">
+      <div class="rc-label">Present Perfect Passive</div>
+      <div class="rc-title">has / have been + pp</div>
+      <div class="rc-def-en">A past action whose result is still visible or relevant now.</div>
+      <div class="rc-def-pt">Uma ação passada cujo resultado ainda é visível ou relevante agora.</div>
+      <div class="rc-ex">"A dispute <strong>has been opened</strong>."<span class="rc-pt">Uma disputa foi aberta (e segue em aberto).</span></div>
+      <div class="rc-ex">"A meeting <strong>has been scheduled</strong>."<span class="rc-pt">Uma reunião foi agendada (e ainda vai acontecer).</span></div>
+    </div>
+    <div class="rule-card c-pass">
+      <div class="rc-label">Modal Passive</div>
+      <div class="rc-title">should have been + pp</div>
+      <div class="rc-def-en">Something that was expected but did not happen. Expresses missed obligation.</div>
+      <div class="rc-def-pt">Algo que era esperado mas não aconteceu. Expressa obrigação não cumprida.</div>
+      <div class="rc-ex">"The surcharge <strong>should have been flagged</strong>."<span class="rc-pt">Deveria ter sido sinalizado.</span></div>
+      <div class="rc-ex">"An audit <strong>should have been conducted</strong> sooner."<span class="rc-pt">Deveria ter sido feita antes.</span></div>
+    </div>
+  </div>
+
+  <!-- TRICKY BOX -->
+  <div class="tricky-box">
+    <div class="tricky-label">Watch out / Fique atento</div>
+    <p class="tricky-en">In Portuguese, <strong>"foi recebida"</strong> and <strong>"foi aberta"</strong> look exactly the same — both use "foi". In English, the tense changes: <strong>"was received"</strong> (simple past) vs. <strong>"has been opened"</strong> (present perfect passive). "Was received" says when. "Has been opened" says it is still open now. Always ask: does this action connect to the present?</p>
+    <p class="tricky-pt">Em português, "foi recebida" e "foi aberta" parecem iguais. Em inglês, o tempo muda: "was received" (passado simples, momento específico) vs. "has been opened" (presente perfeito, ainda relevante agora). Pergunte-se: essa ação ainda tem consequência no presente?</p>
+  </div>
+
+  <!-- CLUES CARD -->
+  <div class="clues-card">
+    <div class="clues-head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="clues-head-label">How to spot the right tense</span>
+      <span class="clues-head-pt">Como identificar o tempo certo</span>
+    </div>
+    <div class="clues-body">
+      <div class="clue-row">
+        <div class="clue-signal">yesterday / on Tuesday / last June<span class="clue-signal-pt">referência de tempo específica</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Simple past passive: <strong>was/were + pp</strong></div><div class="clue-meaning-pt">Passado simples passivo. O momento é conhecido e fechado.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">still / right now / it is still open<span class="clue-signal-pt">algo ainda em aberto</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Present perfect passive: <strong>has/have been + pp</strong></div><div class="clue-meaning-pt">Presente perfeito passivo. A ação passada tem consequência agora.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">before / since / already / prior to<span class="clue-signal-pt">algo anterior a outro evento passado</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Past perfect passive: <strong>had been + pp</strong></div><div class="clue-meaning-pt">Past perfect passivo. Aconteceu antes de outro momento no passado.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">should / but it didn't / was expected<span class="clue-signal-pt">expectativa não cumprida</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Modal past passive: <strong>should have been + pp</strong></div><div class="clue-meaning-pt">Modal passivo no passado. Era esperado, mas não aconteceu.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">if / will / next / or else<span class="clue-signal-pt">condição futura ou consequência</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Future passive: <strong>will be + pp</strong></div><div class="clue-meaning-pt">Futuro passivo. Consequência que ainda vai acontecer.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TENSE TABLE -->
+  <p style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:14px">Passive Voice: tense overview</p>
+  <table class="tense-table" style="margin-bottom:36px">
+    <tr><th>Tense</th><th>Structure</th><th>Example from the story</th></tr>
+    <tr><td>Simple Past</td><td><code>was/were + pp</code></td><td>"The amount <em>was different</em> from what <em>had been agreed</em>."<span class="td-pt">passado simples — momento específico</span></td></tr>
+    <tr><td>Past Perfect Passive</td><td><code>had been + pp</code></td><td>"A surcharge that <em>had been applied</em> to all international clients."<span class="td-pt">antes de outro momento passado</span></td></tr>
+    <tr><td>Present Perfect Passive</td><td><code>has/have been + pp</code></td><td>"A formal dispute <em>has been opened</em> by the legal team."<span class="td-pt">ainda em aberto agora</span></td></tr>
+    <tr><td>Modal — past</td><td><code>should have been + pp</code></td><td>"The surcharge <em>should have been flagged</em> during the quarterly review."<span class="td-pt">expectativa não cumprida</span></td></tr>
+    <tr><td>Modal — present</td><td><code>should be + pp</code></td><td>"The undisputed portion <em>should be paid</em> immediately."<span class="td-pt">obrigação atual</span></td></tr>
+    <tr><td>Future Passive</td><td><code>will be + pp</code></td><td>"The dispute <em>will be escalated</em> to arbitration."<span class="td-pt">consequência futura</span></td></tr>
+  </table>
+
+  <!-- HOW TO BUILD THE PASSIVE — tabbed -->
+  <div class="how-tabs-wrap">
+    <div class="how-tabs-inner">
+      <div class="how-tabs">
+        <button class="how-tab active" onclick="switchHowTab('steps')">How to build it</button>
+        <button class="how-tab" onclick="switchHowTab('agent')">The agent (by...)</button>
+        <button class="how-tab" onclick="switchHowTab('solved')">Solved example</button>
+      </div>
+    </div>
+
+    <div class="how-view active" id="how-steps">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <div class="en">Find the <strong>object</strong> of the active sentence. It will become the subject of the passive.</div>
+            <div class="pt">Encontre o <strong>objeto</strong> da frase ativa. Ele vai virar o sujeito da passiva.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <div class="en">Choose the correct form of <code>be</code>: <em>was, were, has been, had been, will be, should be, should have been...</em></div>
+            <div class="pt">Escolha a forma correta de <code>be</code> de acordo com o tempo verbal necessário.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <div class="en">Add the <strong>past participle</strong> of the main verb. It never changes.</div>
+            <div class="pt">Adicione o <strong>particípio passado</strong> do verbo principal. Ele nunca muda.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <div class="en">Decide on the <strong>agent</strong>: add <code>by + agent</code> only if it adds useful information. If the agent is obvious or unimportant, leave it out.</div>
+            <div class="pt">Decida sobre o <strong>agente</strong>: acrescente <code>by + agente</code> só se trouxer informação útil. Se for óbvio ou irrelevante, omita.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-view" id="how-agent">
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num" style="background:var(--orange)">!</div>
+          <div class="step-text">
+            <div class="en">The agent is the person or thing that performed the action. In the passive, it goes after <code>by</code>.</div>
+            <div class="pt">O agente é quem realizou a ação. Na passiva, vem depois de <code>by</code>.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:var(--green)">+</div>
+          <div class="step-text">
+            <div class="en"><strong>Include the agent</strong> when it adds important information — when the reader needs to know who did it.</div>
+            <div class="pt"><strong>Inclua o agente</strong> quando ele traz informação importante.</div>
+            <div style="margin-top:8px;background:var(--green-bg);border-radius:8px;padding:9px 12px;font-size:12.5px;line-height:1.6">"A formal dispute <strong>has been opened by the legal team</strong>." <span style="font-size:11px;color:var(--mid)">Who opened it matters here.</span></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:var(--coral)">-</div>
+          <div class="step-text">
+            <div class="en"><strong>Omit the agent</strong> when it is obvious, unknown, or irrelevant. This is very common in formal English.</div>
+            <div class="pt"><strong>Omita o agente</strong> quando for óbvio, desconhecido ou irrelevante. Muito comum no inglês formal.</div>
+            <div style="margin-top:8px;background:var(--coral-bg);border-radius:8px;padding:9px 12px;font-size:12.5px;line-height:1.6">"The invoice <strong>was received</strong> on Tuesday." <span style="font-size:11px;color:var(--mid)">We do not need to say who received it.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-view" id="how-solved">
+      <div class="sm-wrap">
+        <p class="sm-intro">Work through each step before revealing the answer. Click the blurred area when you are ready. / <em>Trabalhe cada passo antes de revelar. Clique na área borrada quando estiver pronto.</em></p>
+
+        <!-- Active sentence -->
+        <div class="sm-active-sentence">
+          <div class="sm-active-label">Active sentence / Frase ativa</div>
+          <div class="sm-active-text">
+            "<span class="sm-agent">The legal team</span> <span class="sm-verb">opened</span> <span class="sm-obj">a formal dispute</span>."
+          </div>
+          <div class="sm-legend">
+            <span style="background:rgba(232,98,26,.25)"></span>agent &nbsp;
+            <span style="background:var(--hi)"></span>object (becomes subject) &nbsp;
+            <span style="color:var(--teal);font-style:normal;font-weight:800">verb</span>
+          </div>
+        </div>
+
+        <div class="sm-steps" id="smSteps">
+
+          <!-- Step 1 -->
+          <div class="sm-step unlocked open" id="sm-step-1">
+            <div class="sm-step-head" onclick="smToggle(1)">
+              <div class="sm-step-num">1</div>
+              <div class="sm-step-title">Move the object to subject position</div>
+              <div class="sm-step-hint">Mova o objeto para sujeito</div>
+            </div>
+            <div class="sm-step-body">
+              <div class="sm-reveal-area">
+                <div class="sm-blur-overlay" id="sm-blur-1" onclick="smReveal(1)">
+                  <button class="sm-blur-btn">
+                    <svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Reveal step 1
+                  </button>
+                </div>
+                <div class="sm-content">
+                  <div class="en"><mark>a formal dispute</mark> = object → new subject</div>
+                  <div class="pt"><em>objeto da frase ativa → vira sujeito na passiva</em></div>
+                  <div style="margin-top:10px;font-size:14px;font-weight:600;color:var(--ink)"><mark>A formal dispute</mark> <span style="color:var(--mid);font-weight:400">...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="sm-step locked" id="sm-step-2">
+            <div class="sm-step-head">
+              <div class="sm-step-num">2</div>
+              <div class="sm-step-title">Choose the correct form of <code style="background:var(--hi);padding:1px 5px;border-radius:4px;font-size:12px">be</code></div>
+              <div class="sm-step-hint">Escolha o tempo do be</div>
+            </div>
+            <div class="sm-step-body">
+              <div class="sm-reveal-area">
+                <div class="sm-blur-overlay" id="sm-blur-2" onclick="smReveal(2)">
+                  <button class="sm-blur-btn">
+                    <svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Reveal step 2
+                  </button>
+                </div>
+                <div class="sm-content">
+                  <div class="en">Still open now → <span class="teal">has been</span> (present perfect passive)</div>
+                  <div class="pt"><em>consequência ainda ativa no presente → presente perfeito passivo</em></div>
+                  <div style="margin-top:10px;font-size:14px;font-weight:600;color:var(--ink)"><mark>A formal dispute</mark> <span class="teal">has been</span> <span style="color:var(--mid);font-weight:400">...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="sm-step locked" id="sm-step-3">
+            <div class="sm-step-head">
+              <div class="sm-step-num">3</div>
+              <div class="sm-step-title">Add the past participle</div>
+              <div class="sm-step-hint">Adicione o particípio passado</div>
+            </div>
+            <div class="sm-step-body">
+              <div class="sm-reveal-area">
+                <div class="sm-blur-overlay" id="sm-blur-3" onclick="smReveal(3)">
+                  <button class="sm-blur-btn">
+                    <svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Reveal step 3
+                  </button>
+                </div>
+                <div class="sm-content">
+                  <div class="en">open → <mark>opened</mark> (past participle — never changes)</div>
+                  <div class="pt"><em>particípio passado — nunca muda, independente do tempo ou sujeito</em></div>
+                  <div style="margin-top:10px;font-size:14px;font-weight:600;color:var(--ink)"><mark>A formal dispute</mark> <span class="teal">has been</span> <mark>opened</mark> <span style="color:var(--mid);font-weight:400">...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="sm-step locked" id="sm-step-4">
+            <div class="sm-step-head">
+              <div class="sm-step-num">4</div>
+              <div class="sm-step-title">Decide on the agent</div>
+              <div class="sm-step-hint">Decida sobre o agente</div>
+            </div>
+            <div class="sm-step-body">
+              <div class="sm-reveal-area">
+                <div class="sm-blur-overlay" id="sm-blur-4" onclick="smReveal(4)">
+                  <button class="sm-blur-btn">
+                    <svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Reveal step 4
+                  </button>
+                </div>
+                <div class="sm-content">
+                  <div class="en"><span class="orange">the legal team</span> → useful info → keep <mark>by the legal team</mark></div>
+                  <div class="pt"><em>agente relevante — inclua. Se fosse óbvio, omita.</em></div>
+                  <div style="margin-top:10px;font-size:14px;font-weight:600;color:var(--ink)"><mark>A formal dispute</mark> <span class="teal">has been</span> <mark>opened</mark> <span class="orange">by the legal team</span>.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Final result -->
+        <div class="sm-result" id="sm-result">
+          <div class="sm-result-label">Result / Resultado</div>
+          <div class="sm-result-sent">"<mark>A formal dispute</mark> <span style="color:var(--teal);font-weight:800">has been opened</span> <span style="color:var(--orange);font-weight:700">by the legal team</span>."</div>
+          <div class="sm-result-pt">Uma disputa formal foi aberta pelo time jurídico.</div>
+        </div>
+
+        <button class="sm-reset" id="sm-reset-btn" onclick="smReset()">Start over / Reiniciar</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- EXERCISE A -->
+  <div class="ex-section" id="ex-A1">
+    <div class="ex-heading"><span class="ex-badge">Exercise A</span><span class="ex-title">Choose the correct passive form</span></div>
+    <div class="ex-instr">
+      <div class="en">Read the context clue in italics, then select the passive structure that fits. Think about tense before you choose.</div>
+      <div class="pt">Leia a pista de contexto em itálico, depois escolha a estrutura passiva correta. Pense no tempo verbal antes de escolher.</div>
+    </div>
+    <div class="verb-bank">
+      <span class="vb-w">was received <em>passado simples</em></span>
+      <span class="vb-w">has been opened <em>perf. passivo</em></span>
+      <span class="vb-w">had been applied <em>past perfect</em></span>
+      <span class="vb-w">should have been flagged <em>modal passado</em></span>
+      <span class="vb-w">will be escalated <em>futuro</em></span>
+    </div>
+    <div class="gap-card">
+      <p>1. <em style="color:var(--mid);font-size:12px">(specific time: on a Tuesday)</em><br>
+      The invoice <select class="blank-sel" data-correct="was received"><option value="">choose…</option><option>has been received</option><option>will be received</option><option>was received</option><option>had been received</option></select> by the accounts team on a Tuesday, but the amount was wrong.
+      <button class="why-chip" onclick="toggleWhy('why-A1-1')">?</button></p>
+      <div class="why-note" id="why-A1-1">
+        <span class="en">"On a Tuesday" is a specific time signal. Specific time = simple past passive.</span>
+        <span class="pt">"On a Tuesday" é uma referência de tempo específica. Tempo específico = passado simples passivo.</span>
+      </div>
+    </div>
+    <div class="gap-card">
+      <p>2. <em style="color:var(--mid);font-size:12px">(this happened before the invoice arrived)</em><br>
+      Kevin said the surcharge <select class="blank-sel" data-correct="had been applied"><option value="">choose…</option><option>was applied</option><option>has been applied</option><option>had been applied</option><option>will be applied</option></select> to all international clients since January.
+      <button class="why-chip" onclick="toggleWhy('why-A1-2')">?</button></p>
+      <div class="why-note" id="why-A1-2">
+        <span class="en">"Since January" and the sequence (it was already done before the invoice) signals past perfect passive — earlier than another past event.</span>
+        <span class="pt">"Since January" e a sequência (já havia sido aplicado antes da nota chegar) indicam past perfect passivo — anterior a outro momento no passado.</span>
+      </div>
+    </div>
+    <div class="gap-card">
+      <p>3. <em style="color:var(--mid);font-size:12px">(the dispute is still active right now)</em><br>
+      A formal dispute <select class="blank-sel" data-correct="has been opened"><option value="">choose…</option><option>had been opened</option><option>has been opened</option><option>was opened</option><option>will be opened</option></select> by the legal team.
+      <button class="why-chip" onclick="toggleWhy('why-A1-3')">?</button></p>
+      <div class="why-note" id="why-A1-3">
+        <span class="en">"Still active right now" signals present perfect passive. The past action has a current consequence.</span>
+        <span class="pt">"Ainda ativo agora" sinaliza presente perfeito passivo. A ação passada tem consequência no presente.</span>
+      </div>
+    </div>
+    <div class="gap-card">
+      <p>4. <em style="color:var(--mid);font-size:12px">(this was expected but it never happened)</em><br>
+      Carolina thinks the surcharge <select class="blank-sel" data-correct="should have been flagged"><option value="">choose…</option><option>was flagged</option><option>has been flagged</option><option>should be flagged</option><option>should have been flagged</option></select> during the quarterly review.
+      <button class="why-chip" onclick="toggleWhy('why-A1-4')">?</button></p>
+      <div class="why-note" id="why-A1-4">
+        <span class="en">"Was expected but never happened" = modal past passive: should have been + pp. The obligation existed but was not met.</span>
+        <span class="pt">"Era esperado mas nunca aconteceu" = modal passivo no passado. A obrigação existia mas não foi cumprida.</span>
+      </div>
+    </div>
+    <div class="gap-card">
+      <p>5. <em style="color:var(--mid);font-size:12px">(if a condition is not met — consequence coming)</em><br>
+      If Hua Li does not provide a corrected invoice, the dispute <select class="blank-sel" data-correct="will be escalated"><option value="">choose…</option><option>was escalated</option><option>will be escalated</option><option>has been escalated</option><option>should be escalated</option></select> to arbitration.
+      <button class="why-chip" onclick="toggleWhy('why-A1-5')">?</button></p>
+      <div class="why-note" id="why-A1-5">
+        <span class="en">"If / or else" signals a future consequence. Future passive: will be + pp.</span>
+        <span class="pt">"If / or else" sinaliza consequência futura. Futuro passivo: will be + pp.</span>
+      </div>
+    </div>
+    <div class="ex-controls">
+      <button class="ex-btn" onclick="checkAllInScope('ex-A1')">Check answers</button>
+      <button class="ex-btn ghost" onclick="resetAllInScope('ex-A1')">Reset</button>
+    </div>
+    <div class="ex-feedback" id="ex-A1-fb"></div>
+  </div>
+
+  <!-- EXERCISE B — paraphrase -->
+  <div class="ex-section" id="ex-A2" style="padding-bottom:0">
+    <div class="ex-heading"><span class="ex-badge">Exercise B</span><span class="ex-title">Active to passive: rewrite</span></div>
+    <div class="ex-instr">
+      <div class="en">Turn each active sentence into a passive one. Keep the same tense. Decide whether the agent adds useful information before including it.</div>
+      <div class="pt">Transforme cada frase ativa em passiva. Mantenha o mesmo tempo verbal. Decida se o agente traz informação útil antes de incluí-lo.</div>
+    </div>
+
+    <div class="para-item">
+      <div class="para-label">Active → Passive · Simple Past</div>
+      <div class="para-original">"The accounts team received the invoice on Tuesday."</div>
+      <div class="para-target">Use: was / were + past participle</div>
+      <textarea class="para-ta" placeholder="The invoice was…"></textarea>
+      <button class="reveal-btn" id="rb-B1" onclick="toggleReveal('pm-B1','rb-B1','Hide')">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        <span>Show model answer</span>
+      </button>
+      <div class="para-model" id="pm-B1">
+        <div class="para-model-label">Model answer</div>
+        "The invoice <strong>was received</strong> on Tuesday."
+        <div class="pt">Agent omitted — "by the accounts team" is obvious and adds no useful information. / <em>Agente omitido — "pelo time de contas" é óbvio e não acrescenta informação útil.</em></div>
+      </div>
+    </div>
+
+    <div class="para-item">
+      <div class="para-label">Active → Passive · Present Perfect Passive</div>
+      <div class="para-original">"The legal team has opened a formal dispute."</div>
+      <div class="para-target">Use: has / have been + past participle</div>
+      <textarea class="para-ta" placeholder="A formal dispute has…"></textarea>
+      <button class="reveal-btn" id="rb-B2" onclick="toggleReveal('pm-B2','rb-B2','Hide')">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        <span>Show model answer</span>
+      </button>
+      <div class="para-model" id="pm-B2">
+        <div class="para-model-label">Model answer</div>
+        "A formal dispute <strong>has been opened</strong> by the legal team."
+        <div class="pt">Agent kept — knowing it was the legal team (not Carolina herself) is relevant. / <em>Agente mantido — saber que foi o time jurídico (não a Carolina) é relevante aqui.</em></div>
+      </div>
+    </div>
+
+    <div class="para-item">
+      <div class="para-label">Active → Passive · Modal Past</div>
+      <div class="para-original">"Someone should have flagged the surcharge before the invoice."</div>
+      <div class="para-target">Use: should have been + past participle</div>
+      <textarea class="para-ta" placeholder="The surcharge should…"></textarea>
+      <button class="reveal-btn" id="rb-B3" onclick="toggleReveal('pm-B3','rb-B3','Hide')">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        <span>Show model answer</span>
+      </button>
+      <div class="para-model" id="pm-B3">
+        <div class="para-model-label">Model answer</div>
+        "The surcharge <strong>should have been flagged</strong> before the invoice."
+        <div class="pt">Agent omitted — "someone" in the original is vague, so no agent is needed in the passive. / <em>Agente omitido — "someone" no original é vago, então não há agente necessário na passiva.</em></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     BLOCK 2 — BE SUPPOSED TO
+══════════════════════════════════════════════════════════════════════ -->
+<section class="block-section">
+<div class="pw">
+
+  <div class="block-eyebrow"><span class="block-num">Structure 2 of 3</span></div>
+  <h2 class="block-title">Be Supposed To</h2>
+  <div class="block-intro">
+    <div class="en">"Supposed to" describes <strong>what was planned, agreed, or written into a contract</strong> — not your personal opinion. In procurement, it is the language of obligations and expectations. The tense tells you whether the plan is still active or already in the past.</div>
+    <div class="pt">"Supposed to" descreve <strong>o que foi planejado, acordado ou escrito em contrato</strong>, não sua opinião pessoal. Em compras, é a linguagem das obrigações e expectativas. O tempo verbal indica se o plano ainda está ativo ou já ficou no passado.</div>
+  </div>
+
+  <div class="rule-grid cols2">
+    <div class="rule-card c-sup">
+      <div class="rc-label">Present — active rule</div>
+      <div class="rc-title">is / are supposed to</div>
+      <div class="rc-def-en">The rule, plan, or obligation is currently in force.</div>
+      <div class="rc-def-pt">A regra ou obrigação ainda está em vigor.</div>
+      <div class="rc-ex">"Any price change <strong>is supposed to be</strong> communicated 14 days in advance."<span class="rc-pt">Qualquer mudança de preço deve ser comunicada com 14 dias de antecedência.</span></div>
+    </div>
+    <div class="rule-card c-sup">
+      <div class="rc-label">Past — plan existed</div>
+      <div class="rc-title">was / were supposed to</div>
+      <div class="rc-def-en">The plan existed in the past. The grammar alone does not tell you if it happened.</div>
+      <div class="rc-def-pt">O plano existia no passado. A gramática não diz se ele foi cumprido ou não.</div>
+      <div class="rc-ex" style="border-left:3px solid var(--coral);background:var(--coral-bg)">"Hua Li <strong>was supposed to</strong> notify Althea — <strong style="color:var(--coral)">but it never did.</strong>"<span class="rc-pt">Não aconteceu.</span></div>
+      <div class="rc-ex" style="border-left:3px solid var(--green);background:var(--green-bg)">"The plan <strong>was supposed to</strong> prevent problems — <strong style="color:var(--green)">and it did.</strong>"<span class="rc-pt">Aconteceu.</span></div>
+    </div>
+  </div>
+
+  <div class="tricky-box">
+    <div class="tricky-label">Watch out / Fique atento</div>
+    <p class="tricky-en">In Portuguese you say <span class="tt" data-tip="devia">"era para avisar"</span> or <span class="tt" data-tip="devia2">"devia avisar"</span>. Neither translates word by word. The fixed expression is <strong>"was supposed to notify"</strong>. Never say "was to notify" or "was for notify". The expression does not break apart.</p>
+    <p class="tricky-pt">Em português dizemos "era para avisar" ou "devia avisar". Nenhuma das duas se traduz palavra por palavra. A expressão fixa em inglês é <strong>"was supposed to notify"</strong>. Nunca diga "was to notify". A expressão não se separa.</p>
+  </div>
+
+  <!-- CLUES for supposed to -->
+  <div class="clues-card" style="margin-bottom:32px">
+    <div class="clues-head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="clues-head-label">How to spot the right tense</span>
+      <span class="clues-head-pt">Como identificar o tempo certo</span>
+    </div>
+    <div class="clues-body">
+      <div class="clue-row">
+        <div class="clue-signal">the contract says / currently / still applies<span class="clue-signal-pt">regra ainda em vigor</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Present: <strong>is / are supposed to</strong></div><div class="clue-meaning-pt">A obrigação ainda existe agora.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">but it didn't / but it was postponed / never did<span class="clue-signal-pt">plano que não se cumpriu</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Past: <strong>was / were supposed to</strong></div><div class="clue-meaning-pt">O plano existia no passado. Pista de contexto diz se aconteceu ou não.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">and it did / and it worked / as planned<span class="clue-signal-pt">plano que se cumpriu</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Past: <strong>was / were supposed to</strong> — same form, different outcome. Context is everything.</div><div class="clue-meaning-pt">Past também — mesma forma, resultado diferente. O contexto explica tudo.</div></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SUPPOSED TO MACHINE -->
+  <div class="dm-wrap" style="margin-bottom:32px">
+    <div class="dm-tabs-inner" style="background:var(--surface)">
+      <div style="padding:12px 20px;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--purple)">
+        Decision machine · Be Supposed To
+      </div>
+    </div>
+
+    <!-- Sticky reference -->
+    <div class="dm-sticky" style="margin:0 20px 0;border-radius:10px;position:sticky;top:66px;z-index:50;background:#fff;border:1.5px solid var(--border);padding:12px 16px;box-shadow:0 4px 16px rgba(10,22,40,.08)">
+      <div class="dm-sticky-label">Reference / Referência — <em style="font-weight:400;color:var(--mid)">supposed to or was supposed to?</em></div>
+      <div class="dm-sticky-sent" style="font-size:15px;font-weight:700;color:var(--ink)">
+        "Hua Li <span style="font-style:italic;color:var(--mid);font-weight:400">[___]</span> notify Althea 14 days before changing the price."
+      </div>
+      <div class="dm-sticky-ctx" id="st-blank-row" style="display:none;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);font-size:12px;color:var(--mid)">
+        → <span id="st-blank" class="dm-blank">???</span>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="dm-carousel-wrap" style="border:none;border-radius:0;margin:16px 0 0">
+      <div class="dm-carousel-track" id="stTrack">
+
+        <!-- Slide 1 -->
+        <div class="dm-slide" id="st-slide-1">
+          <div class="dm-slide-num">1 / 2</div>
+          <div class="dm-question">Is the rule or plan still active now?<span class="qt">A regra ou o plano ainda está em vigor agora?</span></div>
+          <div class="dm-sub">Is it written in the current contract? Does it still apply today?</div>
+          <div class="dm-choices">
+            <button class="dm-choice" data-choice="yes" onclick="stChoose(1,'yes')">
+              <span class="ch-label">Yes — still active</span>Rule / contract still in force
+            </button>
+            <button class="dm-choice" data-choice="no" onclick="stChoose(1,'no')">
+              <span class="ch-label">No — past plan</span>Plan existed, now in the past
+            </button>
+          </div>
+          <div class="dm-answer go" id="st-ans-1-yes">
+            <div class="en">Still active → use <strong>is / are supposed to</strong>. Continue to step 2.</div>
+            <div class="pt">Ainda em vigor → use <strong>is / are supposed to</strong>. Continue.</div>
+          </div>
+          <div class="dm-answer go" id="st-ans-1-no">
+            <div class="en">Past plan → use <strong>was / were supposed to</strong>. Continue to step 2.</div>
+            <div class="pt">Plano passado → use <strong>was / were supposed to</strong>. Continue.</div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="dm-slide" id="st-slide-2">
+          <div class="dm-slide-num">2 / 2</div>
+          <div class="dm-question">Is the subject singular or plural?<span class="qt">O sujeito é singular ou plural?</span></div>
+          <div class="dm-sub">Hua Li = singular company → is / was &nbsp;·&nbsp; Both parties = plural → are / were</div>
+          <div class="dm-choices">
+            <button class="dm-choice" data-choice="singular" onclick="stChoose(2,'singular')">
+              <span class="ch-label">Singular</span>Hua Li, the supplier, it...
+            </button>
+            <button class="dm-choice" data-choice="plural" onclick="stChoose(2,'plural')">
+              <span class="ch-label">Plural</span>both parties, they, suppliers...
+            </button>
+          </div>
+          <div class="dm-answer go" id="st-ans-2-singular"></div>
+          <div class="dm-answer go" id="st-ans-2-plural"></div>
+        </div>
+
+      </div>
+
+      <div class="dm-carousel-nav" id="stNav">
+        <div class="dm-dots">
+          <span class="dm-dot active" id="st-dot-1"></span>
+          <span class="dm-dot" id="st-dot-2"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="dm-result" id="st-result" style="margin:0 20px 20px">
+      <div class="dm-result-label">Result / Resultado</div>
+      <div class="dm-result-sent" id="st-result-sent"></div>
+      <div class="dm-result-pt" id="st-result-pt"></div>
+    </div>
+
+    <div style="padding:0 20px 18px">
+      <button class="dm-reset" id="st-reset-btn" onclick="stReset()">Start over / Reiniciar</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE C — click-to-reveal -->
+  <div class="ex-section" id="ex-B1">
+    <div class="ex-heading"><span class="ex-badge">Exercise C</span><span class="ex-title">Present or past? Click to reveal</span></div>
+    <div class="ex-instr">
+      <div class="en">Decide whether the rule is still active (present) or refers to a past plan (past). Click the gap to reveal. Use this in class — try before you look.</div>
+      <div class="pt">Decida se a regra ainda está ativa (presente) ou se refere a um plano passado (passado). Clique no espaço para revelar. Tente antes de olhar.</div>
+    </div>
+    <div class="gap-card"><p>1. The contract is currently in force. Invoice disputes <span class="gap-reveal" data-answer="are supposed to be" onclick="toggleGap(this)">___</span> resolved within 30 business days.</p></div>
+    <div class="gap-card"><p>2. The invoice arrived last Tuesday. Hua Li <span class="gap-reveal" data-answer="was supposed to" onclick="toggleGap(this)">___</span> notify Althea 14 days before changing the price, but it never did.</p></div>
+    <div class="gap-card"><p>3. According to the current contract, new pricing terms <span class="gap-reveal" data-answer="are supposed to be" onclick="toggleGap(this)">___</span> negotiated before they take effect.</p></div>
+    <div class="gap-card"><p>4. The meeting <span class="gap-reveal" data-answer="was supposed to" onclick="toggleGap(this)">___</span> happen on Monday, but it was postponed to Thursday.</p></div>
+    <div class="gap-card"><p>5. A corrected invoice <span class="gap-reveal" data-answer="is supposed to" onclick="toggleGap(this)">___</span> arrive within five business days. Hua Li has not sent it yet.</p></div>
+    <div class="ex-controls">
+      <button class="ex-btn" onclick="revealAllInScope('ex-B1')">Reveal all</button>
+      <button class="ex-btn ghost" onclick="hideAllInScope('ex-B1')">Hide all</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE D -->
+  <div class="ex-section" id="ex-B2">
+    <div class="ex-heading"><span class="ex-badge">Exercise D</span><span class="ex-title">Choose the correct form</span></div>
+    <div class="ex-instr">
+      <div class="en">Select the correct form. Pay attention to the context clue in italics.</div>
+      <div class="pt">Escolha a forma correta. Preste atenção na pista de contexto em itálico.</div>
+    </div>
+    <div class="gap-card"><p>1. <em style="color:var(--mid);font-size:12px">(current policy — still in force)</em><br>
+    The finance director confirmed that Althea <select class="blank-sel" data-correct="is not supposed to"><option value="">choose…</option><option>is not supposed to</option><option>has not supposed to</option><option>was not supposed to</option></select> sign any backdated agreement.</p></div>
+    <div class="gap-card"><p>2. <em style="color:var(--mid);font-size:12px">(rule written into the current contract)</em><br>
+    Price changes <select class="blank-sel" data-correct="are supposed to be"><option value="">choose…</option><option>were supposed to be</option><option>are supposed to be</option><option>should have been</option></select> communicated in writing at least 14 days in advance.</p></div>
+    <div class="gap-card"><p>3. <em style="color:var(--mid);font-size:12px">(plan that existed and then changed)</em><br>
+    The legal meeting <select class="blank-sel" data-correct="was supposed to"><option value="">choose…</option><option>is supposed to</option><option>has been supposed to</option><option>was supposed to</option></select> happen on Monday, but it was postponed.</p></div>
+    <div class="gap-card"><p>4. <em style="color:var(--mid);font-size:12px">(what the contract currently requires)</em><br>
+    New pricing terms <select class="blank-sel" data-correct="are supposed to be"><option value="">choose…</option><option>were supposed to be</option><option>are supposed to be</option><option>should have been</option></select> negotiated before they take effect, not imposed after the fact.</p></div>
+    <div class="ex-controls">
+      <button class="ex-btn" onclick="checkAllInScope('ex-B2')">Check answers</button>
+      <button class="ex-btn ghost" onclick="resetAllInScope('ex-B2')">Reset</button>
+    </div>
+    <div class="ex-feedback" id="ex-B2-fb"></div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     BLOCK 3 — PRESENT PERFECT
+══════════════════════════════════════════════════════════════════════ -->
+<section class="block-section">
+<div class="pw">
+
+  <div class="block-eyebrow"><span class="block-num">Structure 3 of 3</span></div>
+  <h2 class="block-title">Present Perfect</h2>
+  <div class="block-intro">
+    <div class="en">Use the present perfect to connect a past action to <strong>right now</strong>. Structure: <strong>have / has + past participle</strong>. It does not answer "when?" — for that, use the simple past. It answers: "at some point before now, and it still matters."</div>
+    <div class="pt">Use o presente perfeito para conectar uma ação passada ao <strong>momento presente</strong>. Estrutura: <strong>have / has + particípio passado</strong>. Ele não responde "quando?" — para isso, use o passado simples. Ele responde: "em algum momento antes de agora, e ainda tem relevância."</div>
+  </div>
+
+  <div class="rule-grid cols3">
+    <div class="rule-card c-perf">
+      <div class="rc-label">Result / experience</div>
+      <div class="rc-title">has sent, has reviewed</div>
+      <div class="rc-def-en">Something happened and its result is visible or relevant now.</div>
+      <div class="rc-def-pt">Algo aconteceu e o resultado ainda é visível ou relevante agora.</div>
+      <div class="rc-ex">"Carolina <strong>has sent</strong> two formal emails."<span class="rc-pt">Carolina mandou dois e-mails — e Kevin ainda não resolveu.</span></div>
+    </div>
+    <div class="rule-card c-perf">
+      <div class="rc-label">Not happened yet</div>
+      <div class="rc-title">has not + pp</div>
+      <div class="rc-def-en">Something expected has not occurred up to this moment.</div>
+      <div class="rc-def-pt">Algo esperado ainda não aconteceu até este momento.</div>
+      <div class="rc-ex">"Hua Li <strong>has not agreed</strong> to a payment hold."<span class="rc-pt">A Hua Li não concordou — e ainda não concordou.</span></div>
+    </div>
+    <div class="rule-card c-perf">
+      <div class="rc-label">Already done</div>
+      <div class="rc-title">has already + pp</div>
+      <div class="rc-def-en">Emphasises that the action is complete before expected or needed.</div>
+      <div class="rc-def-pt">Enfatiza que a ação foi concluída antes do esperado ou necessário.</div>
+      <div class="rc-ex">"Those amounts <strong>have already been paid</strong>."<span class="rc-pt">Esses valores já foram pagos.</span></div>
+    </div>
+  </div>
+
+  <div class="tricky-box">
+    <div class="tricky-label">Watch out / Fique atento</div>
+    <p class="tricky-en">In Portuguese, <strong>"ela mandou"</strong> covers both "she sent" (simple past, no current link) and "she has sent" (present perfect, still relevant). In English the choice matters. The key question: <strong>does this past action connect to right now?</strong> If yes, present perfect. If you are describing a finished event with a specific time, use simple past.</p>
+    <p class="tricky-pt">Em português, "ela mandou" cobre tanto "she sent" (passado simples, sem ligação com o presente) quanto "she has sent" (presente perfeito, ainda relevante). Em inglês, a escolha importa. Pergunta-chave: <strong>essa ação passada ainda se conecta com agora?</strong> Se sim, presente perfeito. Se é um evento encerrado com tempo específico, use passado simples.</p>
+  </div>
+
+  <!-- CLUES for present perfect -->
+  <div class="clues-card" style="margin-bottom:32px">
+    <div class="clues-head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="clues-head-label">Present perfect vs. simple past</span>
+      <span class="clues-head-pt">Presente perfeito vs. passado simples</span>
+    </div>
+    <div class="clues-body">
+      <div class="clue-row">
+        <div class="clue-signal">yesterday / on Monday / last week / in June<span class="clue-signal-pt">tempo específico no passado</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Simple past: <strong>sent / received / opened</strong></div><div class="clue-meaning-pt">Passado simples. O momento é definido e o evento está encerrado.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">still / yet / right now / so far / up to now<span class="clue-signal-pt">situação que continua</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Present perfect: <strong>has sent / has not agreed</strong></div><div class="clue-meaning-pt">Presente perfeito. A ação passada ainda tem peso no presente.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">already / just / ever / never / recently<span class="clue-signal-pt">advérbios do presente perfeito</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Present perfect: <strong>has already paid / has never disputed</strong></div><div class="clue-meaning-pt">Esses advérbios quase sempre pedem o presente perfeito.</div></div>
+      </div>
+      <div class="clue-row">
+        <div class="clue-signal">no time given — result matters now<span class="clue-signal-pt">sem referência de tempo — resultado importa agora</span></div>
+        <div class="clue-meaning"><div class="clue-meaning-en">Present perfect: <strong>has reviewed / has asked</strong>. If no specific time and the result is still relevant, use present perfect.</div><div class="clue-meaning-pt">Presente perfeito. Sem tempo específico e resultado ainda relevante.</div></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PRESENT PERFECT MACHINE -->
+  <div class="dm-wrap">
+    <div class="dm-tabs-inner">
+      <div class="dm-tabs">
+        <button class="dm-tab active" onclick="switchDmTab('hv')">has vs. have</button>
+        <button class="dm-tab" onclick="switchDmTab('decision')">Decision machine</button>
+      </div>
+    </div>
+
+    <!-- TAB 1: has vs have -->
+    <div class="dm-view active" id="dm-hv">
+      <p style="font-size:12.5px;color:var(--mid);margin-bottom:16px;line-height:1.6">The auxiliary changes depending on the subject. / <em style="color:rgba(107,114,128,.65)">O auxiliar muda de acordo com o sujeito.</em></p>
+      <div class="hv-grid">
+        <div class="hv-card">
+          <div class="hv-label">he / she / it</div>
+          <div class="hv-aux">has</div>
+          <div class="hv-ex"><strong>Carolina</strong> <strong style="color:var(--teal)">has</strong> sent two emails.<br><strong>Hua Li</strong> <strong style="color:var(--teal)">has</strong> not agreed.<br><strong>The dispute</strong> <strong style="color:var(--teal)">has</strong> been opened.</div>
+          <div class="hv-pt">3ª pessoa do singular → has</div>
+        </div>
+        <div class="hv-card" style="border-color:var(--border)">
+          <div class="hv-label" style="color:var(--mid)">I / you / we / they</div>
+          <div class="hv-aux" style="color:var(--ink)">have</div>
+          <div class="hv-ex"><strong>We</strong> <strong style="color:var(--orange)">have</strong> reviewed the invoices.<br><strong>They</strong> <strong style="color:var(--orange)">have</strong> not responded.<br><strong>I</strong> <strong style="color:var(--orange)">have</strong> asked for a credit note.</div>
+          <div class="hv-pt">demais pessoas → have</div>
+        </div>
+      </div>
+      <div class="hv-rule">
+        <strong>Quick check:</strong> replace the subject with a pronoun. He/she/it → <strong style="color:var(--teal-lt)">has</strong>. Everything else → <strong style="color:rgba(255,255,255,.75)">have</strong>.<br>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);font-style:italic">Substitua o sujeito por um pronome. He/she/it → has. Todo o restante → have.</span>
+      </div>
+    </div>
+
+    <!-- TAB 2: Decision machine -->
+    <div class="dm-view" id="dm-decision">
+      <p style="font-size:12.5px;color:var(--mid);margin-bottom:14px;line-height:1.6">Answer each question to find the right tense. / <em style="color:rgba(107,114,128,.65)">Responda cada pergunta para encontrar o tempo certo.</em></p>
+
+      <!-- Sticky reference -->
+      <div class="dm-sticky" id="dm-sticky">
+        <div class="dm-sticky-label">Reference sentence / Frase de referência</div>
+        <div class="dm-sticky-sent">
+          "Carolina <strong>has not resolved</strong> the issue yet."
+        </div>
+        <div class="dm-sticky-ctx">Which tense for <strong>"send"</strong>? — Carolina ___ two formal emails to Kevin.</div>
+      </div>
+
+      <!-- Carousel -->
+      <div class="dm-carousel-wrap">
+        <div class="dm-carousel-track" id="dmTrack">
+
+          <!-- Slide 1 -->
+          <div class="dm-slide" id="dm-slide-1">
+            <div class="dm-slide-num">1 / 4</div>
+            <div class="dm-question">Is there a specific time reference?<span class="qt">Há referência de tempo específica?</span></div>
+            <div class="dm-sub">yesterday / on Monday / last week / in June...?</div>
+            <div class="dm-choices">
+              <button class="dm-choice dead-end" data-choice="yes" onclick="dmChoose(1,'yes')">
+                <span class="ch-label">Yes</span>Specific time → Simple Past
+              </button>
+              <button class="dm-choice" data-choice="no" onclick="dmChoose(1,'no')">
+                <span class="ch-label">No</span>No specific time given
+              </button>
+            </div>
+            <div class="dm-answer stop" id="dm-ans-1-yes">
+              <div class="en">Specific time → <strong>Simple Past.</strong> "Carolina <mark style="background:var(--hi)">sent</mark> the email on Monday."</div>
+              <div class="pt">Tempo específico → <strong>Passado simples.</strong> Não use presente perfeito.</div>
+            </div>
+            <button class="dm-retry" id="dm-retry-1" style="display:none" onclick="dmRetry(1)">Try again / Tentar de novo</button>
+            <div class="dm-answer go" id="dm-ans-1-no">
+              <div class="en">No specific time → continue.</div>
+              <div class="pt">Sem tempo específico → continue para o passo 2.</div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="dm-slide" id="dm-slide-2">
+            <div class="dm-slide-num">2 / 4</div>
+            <div class="dm-question">Does this action connect to right now?<span class="qt">A ação ainda tem consequência no presente?</span></div>
+            <div class="dm-sub">Result still visible? Still unresolved? Not happened yet?</div>
+            <div class="dm-choices">
+              <button class="dm-choice" data-choice="yes" onclick="dmChoose(2,'yes')">
+                <span class="ch-label">Yes</span>Still matters now
+              </button>
+              <button class="dm-choice dead-end" data-choice="no" onclick="dmChoose(2,'no')">
+                <span class="ch-label">No</span>Finished story, no link to now
+              </button>
+            </div>
+            <div class="dm-answer go" id="dm-ans-2-yes">
+              <div class="en">Connects to now → <strong>Present Perfect.</strong> Continue.</div>
+              <div class="pt">Conecta ao presente → <strong>Presente Perfeito.</strong> Continue.</div>
+            </div>
+            <div class="dm-answer stop" id="dm-ans-2-no">
+              <div class="en">No present link → <strong>Simple Past.</strong> "Carolina <mark style="background:var(--hi)">sent</mark> two emails."</div>
+              <div class="pt">Sem ligação com o presente → <strong>Passado simples.</strong></div>
+            </div>
+            <button class="dm-retry" id="dm-retry-2" style="display:none" onclick="dmRetry(2)">Try again / Tentar de novo</button>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="dm-slide" id="dm-slide-3">
+            <div class="dm-slide-num">3 / 4</div>
+            <div class="dm-question">Choose has or have<span class="qt">Escolha has ou have</span></div>
+            <div class="dm-sub">What is the subject? / Qual é o sujeito?</div>
+            <div class="dm-choices">
+              <button class="dm-choice" data-choice="has" onclick="dmChoose(3,'has')">
+                <span class="ch-label">he / she / it</span>Carolina, Hua Li, the dispute...
+              </button>
+              <button class="dm-choice" data-choice="have" onclick="dmChoose(3,'have')">
+                <span class="ch-label">I / you / we / they</span>we, they, the teams...
+              </button>
+            </div>
+            <div class="dm-answer go" id="dm-ans-3-has">
+              <div class="en">Subject = she (Carolina) → <strong>has</strong>. Continue.</div>
+              <div class="pt">Sujeito = she → <strong>has</strong>. Continue.</div>
+            </div>
+            <div class="dm-answer stop" id="dm-ans-3-have">
+              <div class="en">Check the subject: <strong>Carolina</strong> = she → needs <strong>has</strong>, not "have".</div>
+              <div class="pt">Verifique o sujeito: <strong>Carolina</strong> = she → usa <strong>has</strong>, não "have".</div>
+            </div>
+            <button class="dm-retry" id="dm-retry-3" style="display:none" onclick="dmRetry(3)">Try again / Tentar de novo</button>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="dm-slide" id="dm-slide-4">
+            <div class="dm-slide-num">4 / 4</div>
+            <div class="dm-question">Add the past participle<span class="qt">Adicione o particípio passado</span></div>
+            <div class="dm-sub">send → <mark style="background:var(--hi)">sent</mark> — the past participle never changes.</div>
+            <div class="dm-choices" style="grid-template-columns:1fr">
+              <button class="dm-choice" data-choice="done" onclick="dmChoose(4,'done')">
+                <span class="ch-label">Got it</span>has + sent → show result
+              </button>
+            </div>
+            <div class="dm-answer go" id="dm-ans-4-done">
+              <div class="en"><strong>has sent</strong> — present perfect. The participle of an irregular verb must be memorised.</div>
+              <div class="pt"><strong>has sent</strong> — presente perfeito. Particípios irregulares precisam ser memorizados.</div>
+            </div>
+          </div>
+
+        </div><!-- /track -->
+
+        <!-- Carousel nav -->
+        <div class="dm-carousel-nav" id="dmNav">
+          <div class="dm-dots">
+            <span class="dm-dot active" id="dm-dot-1"></span>
+            <span class="dm-dot" id="dm-dot-2"></span>
+            <span class="dm-dot" id="dm-dot-3"></span>
+            <span class="dm-dot" id="dm-dot-4"></span>
+          </div>
+        </div>
+      </div><!-- /carousel-wrap -->
+
+      <div class="dm-result"       </div>
+
+      <div class="dm-result" id="dm-result">
+        <div class="dm-result-label">Result / Resultado</div>
+        <div class="dm-result-sent">"Carolina <mark>has sent</mark> two formal emails to Kevin."</div>
+        <div class="dm-result-pt">Carolina mandou dois e-mails formais para Kevin — e o problema ainda não foi resolvido.</div>
+      </div>
+
+      <button class="dm-reset" id="dm-reset-btn" onclick="dmReset()">Start over / Reiniciar</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE E -->
+  <div class="ex-section" id="ex-C1">
+    <div class="ex-heading"><span class="ex-badge">Exercise E</span><span class="ex-title">Present perfect or simple past?</span></div>
+    <div class="ex-instr">
+      <div class="en">Choose the correct tense. Read the context clue in italics first.</div>
+      <div class="pt">Escolha o tempo correto. Leia a pista de contexto em itálico primeiro.</div>
+    </div>
+    <div class="gap-card"><p>1. <em style="color:var(--mid);font-size:12px">(result still matters — Kevin has not resolved it)</em><br>
+    Carolina <select class="blank-sel" data-correct="has already sent"><option value="">choose…</option><option>has already sent</option><option>already sent</option><option>was sending</option></select> two formal emails to Kevin asking for an explanation.
+    <button class="why-chip" onclick="toggleWhy('why-C1-1')">?</button></p>
+    <div class="why-note" id="why-C1-1">
+      <span class="en">The action connects to the present — Kevin has still not resolved the dispute. "Already" also signals present perfect.</span>
+      <span class="pt">A ação se conecta ao presente — Kevin ainda não resolveu. "Already" também sinaliza presente perfeito.</span>
+    </div></div>
+    <div class="gap-card"><p>2. <em style="color:var(--mid);font-size:12px">(specific time: yesterday afternoon)</em><br>
+    Kevin <select class="blank-sel" data-correct="responded"><option value="">choose…</option><option>has responded</option><option>responded</option><option>was responding</option></select> to the second email yesterday afternoon.
+    <button class="why-chip" onclick="toggleWhy('why-C1-2')">?</button></p>
+    <div class="why-note" id="why-C1-2">
+      <span class="en">"Yesterday afternoon" is a specific time. Specific time always takes simple past, never present perfect.</span>
+      <span class="pt">"Yesterday afternoon" é um tempo específico. Tempo específico sempre pede passado simples, nunca presente perfeito.</span>
+    </div></div>
+    <div class="gap-card"><p>3. <em style="color:var(--mid);font-size:12px">(no specific past time — the meeting is still upcoming)</em><br>
+    A meeting between both legal teams <select class="blank-sel" data-correct="has been scheduled"><option value="">choose…</option><option>was scheduled</option><option>scheduled</option><option>has been scheduled</option></select> for next week.
+    <button class="why-chip" onclick="toggleWhy('why-C1-3')">?</button></p>
+    <div class="why-note" id="why-C1-3">
+      <span class="en">No specific time + the meeting is still upcoming = present perfect passive. The scheduling has a present consequence.</span>
+      <span class="pt">Sem tempo específico + a reunião ainda vai acontecer = presente perfeito passivo. O agendamento tem consequência agora.</span>
+    </div></div>
+    <div class="gap-card"><p>4. <em style="color:var(--mid);font-size:12px">(the result — discrepancies found — still matters)</em><br>
+    Carolina <select class="blank-sel" data-correct="has reviewed"><option value="">choose…</option><option>was reviewed</option><option>has reviewed</option><option>reviewed</option></select> the last six invoices and found two additional discrepancies.
+    <button class="why-chip" onclick="toggleWhy('why-C1-4')">?</button></p>
+    <div class="why-note" id="why-C1-4">
+      <span class="en">The review produced a result (discrepancies found) that is relevant to the current dispute. Present perfect.</span>
+      <span class="pt">A revisão produziu um resultado (discrepâncias encontradas) que é relevante para a disputa atual. Presente perfeito.</span>
+    </div></div>
+    <div class="gap-card"><p>5. <em style="color:var(--mid);font-size:12px">(both actions finished and closed — describing the past story)</em><br>
+    Those discrepancies <select class="blank-sel" data-correct="were never disputed"><option value="">choose…</option><option>have never been disputed</option><option>are never disputed</option><option>were never disputed</option></select>, so they were paid.
+    <button class="why-chip" onclick="toggleWhy('why-C1-5')">?</button></p>
+    <div class="why-note" id="why-C1-5">
+      <span class="en">Both actions (not disputing, paying) are described as finished and fully closed. Simple past — it is a complete story from the past.</span>
+      <span class="pt">As duas ações (não contestar, pagar) estão encerradas. Passado simples — é uma história completa do passado.</span>
+    </div></div>
+    <div class="ex-controls">
+      <button class="ex-btn" onclick="checkAllInScope('ex-C1')">Check answers</button>
+      <button class="ex-btn ghost" onclick="resetAllInScope('ex-C1')">Reset</button>
+    </div>
+    <div class="ex-feedback" id="ex-C1-fb"></div>
+  </div>
+
+  <!-- EXERCISE F — text input -->
+  <div class="ex-section" id="ex-C2">
+    <div class="ex-heading"><span class="ex-badge">Exercise F</span><span class="ex-title">Write the correct form</span></div>
+    <div class="ex-instr">
+      <div class="en">Type the correct present perfect form of the verb shown. All are affirmative unless stated otherwise.</div>
+      <div class="pt">Digite a forma correta do presente perfeito do verbo indicado. Todas são afirmativas, a menos que indicado.</div>
+    </div>
+    <div class="verb-bank">
+      <span class="vb-w">send <em>sent</em></span>
+      <span class="vb-w">open <em>opened</em></span>
+      <span class="vb-w">agree <em>agreed</em></span>
+      <span class="vb-w">offer <em>offered</em></span>
+      <span class="vb-w">accept <em>accepted</em></span>
+      <span class="vb-w">ask <em>asked</em></span>
+    </div>
+    <div class="gap-card"><p>1. The finance director <input class="blank-input" data-correct="has sent" placeholder="(send)"> a formal letter to Hua Li.</p></div>
+    <div class="gap-card"><p>2. A formal dispute <input class="blank-input" data-correct="has been opened" placeholder="(open — passive)"> by the legal team.</p></div>
+    <div class="gap-card"><p>3. Carolina <input class="blank-input" data-correct="has not accepted" placeholder="(accept — negative)"> Kevin's explanation.</p></div>
+    <div class="gap-card"><p>4. Kevin <input class="blank-input" data-correct="has offered" placeholder="(offer)"> a credit note, but it was refused.</p></div>
+    <div class="gap-card"><p>5. Carolina <input class="blank-input" data-correct="has asked" placeholder="(ask)"> her finance director to hold payment.</p></div>
+    <div class="ex-controls">
+      <button class="ex-btn" onclick="checkAllInScope('ex-C2')">Check answers</button>
+      <button class="ex-btn ghost" onclick="resetAllInScope('ex-C2')">Reset</button>
+    </div>
+    <div class="ex-feedback" id="ex-C2-fb"></div>
+  </div>
+
+  <!-- EXERCISE G — mixed paraphrase -->
+  <div class="ex-section" id="ex-C3" style="padding-bottom:8px">
+    <div class="ex-heading"><span class="ex-badge">Exercise G</span><span class="ex-title">Mix all three — rewrite</span></div>
+    <div class="ex-instr">
+      <div class="en">Each sentence below uses the wrong structure or tense. Rewrite it correctly using the structure shown.</div>
+      <div class="pt">Cada frase abaixo usa a estrutura ou tempo errado. Reescreva corretamente usando a estrutura indicada.</div>
+    </div>
+    <div class="para-item">
+      <div class="para-label">Rewrite using Passive Voice — Present Perfect Passive</div>
+      <div class="para-original">"The legal team opened a formal dispute." → make it passive, keep the agent</div>
+      <textarea class="para-ta" placeholder="A formal dispute…"></textarea>
+      <button class="reveal-btn" id="rb-G1" onclick="toggleReveal('pm-G1','rb-G1','Hide')">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg><span>Show model answer</span>
+      </button>
+      <div class="para-model" id="pm-G1">
+        <div class="para-model-label">Model answer</div>
+        "A formal dispute <strong>has been opened</strong> by the legal team."
+        <div class="pt">Uma disputa formal foi aberta pelo time jurídico. — Presente perfeito passivo porque a disputa ainda está em aberto.</div>
+      </div>
+    </div>
+    <div class="para-item">
+      <div class="para-label">Rewrite using Be Supposed To — past</div>
+      <div class="para-original">"Hua Li had an obligation to notify Althea 14 days before changing the price. It did not."</div>
+      <textarea class="para-ta" placeholder="Hua Li was…"></textarea>
+      <button class="reveal-btn" id="rb-G2" onclick="toggleReveal('pm-G2','rb-G2','Hide')">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg><span>Show model answer</span>
+      </button>
+      <div class="para-model" id="pm-G2">
+        <div class="para-model-label">Model answer</div>
+        "Hua Li <strong>was supposed to</strong> notify Althea 14 days before changing the price, but it never did."
+        <div class="pt">A Hua Li devia ter notificado a Althea com 14 dias de antecedência, mas nunca o fez.</div>
+      </div>
+    </div>
+    <div class="para-item">
+      <div class="para-label">Rewrite using Present Perfect — negative, to show it is still the case</div>
+      <div class="para-original">"Hua Li did not agree to a payment hold." → use present perfect</div>
+      <textarea class="para-ta" placeholder="Hua Li has not…"></textarea>
+      <button class="reveal-btn" id="rb-G3" onclick="toggleReveal('pm-G3','rb-G3','Hide')">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg><span>Show model answer</span>
+      </button>
+      <div class="para-model" id="pm-G3">
+        <div class="para-model-label">Model answer</div>
+        "Hua Li <strong>has not agreed</strong> to a payment hold."
+        <div class="pt">A Hua Li não concordou com a suspensão de pagamento. — O presente perfeito mostra que ainda é a situação atual, não apenas uma recusa passada.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<footer class="footer">
+  <div class="footer-copy">EIC · Escola de Idiomas e Cultura<br><strong>Procurement &amp; Purchasing</strong> · Grammar · B1+</div>
+</footer>
+
+<!-- ══ PANELS ══════════════════════════════════════════════════════════ -->
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+
+<div class="side-panel left" id="gloss-panel">
+  <div class="panel-hdr"><div><div class="panel-hdr-label">Vocabulary</div><div class="panel-hdr-title">Key Terms</div></div><button class="panel-close" onclick="closePanel()">&times;</button></div>
+  <div class="panel-body">
+    <input class="gloss-search" id="gloss-search" placeholder="Search a term…" oninput="filterGlossary()">
+    <div class="gloss-cat">Procurement</div>
+    <div class="gloss-term" data-term="purchase order"><div class="gt-term">purchase order (PO)</div><div class="gt-pt">ordem de compra</div><div class="gt-def">A formal document from a buyer authorising a supplier to deliver goods or services at an agreed price.</div></div>
+    <div class="gloss-term" data-term="invoice"><div class="gt-term">invoice</div><div class="gt-pt">nota fiscal / fatura</div><div class="gt-def">A document sent by a supplier requesting payment for goods or services delivered.</div></div>
+    <div class="gloss-term" data-term="surcharge"><div class="gt-term">surcharge</div><div class="gt-pt">sobretaxa</div><div class="gt-def">An extra charge added on top of the agreed price.</div></div>
+    <div class="gloss-term" data-term="dispute"><div class="gt-term">dispute</div><div class="gt-pt">disputa formal</div><div class="gt-def">A formal disagreement between two parties about a contract term or invoice.</div></div>
+    <div class="gloss-term" data-term="credit note"><div class="gt-term">credit note</div><div class="gt-pt">nota de crédito</div><div class="gt-def">A document issued by a supplier to reduce the amount owed on a previous invoice.</div></div>
+    <div class="gloss-term" data-term="payment hold"><div class="gt-term">payment hold</div><div class="gt-pt">suspensão de pagamento</div><div class="gt-def">A decision to delay or stop a payment while a dispute is being resolved.</div></div>
+    <div class="gloss-cat">Contract Language</div>
+    <div class="gloss-term" data-term="fixed pricing"><div class="gt-term">fixed pricing</div><div class="gt-pt">preço fixo</div><div class="gt-def">A price agreed in a contract that cannot change during the contract period.</div></div>
+    <div class="gloss-term" data-term="arbitration"><div class="gt-term">arbitration</div><div class="gt-pt">arbitragem</div><div class="gt-def">A formal process where a neutral third party resolves a dispute outside of court.</div></div>
+    <div class="gloss-term" data-term="backdated"><div class="gt-term">backdated</div><div class="gt-pt">retroativo</div><div class="gt-def">Applied or valid from a date in the past, before it was formally agreed.</div></div>
+    <div class="gloss-term" data-term="discrepancy"><div class="gt-term">discrepancy</div><div class="gt-pt">discrepância</div><div class="gt-def">A difference between two amounts or documents that should match.</div></div>
+  </div>
+</div>
+
+<div class="side-panel left" id="questions-panel">
+  <div class="panel-hdr"><div><div class="panel-hdr-label">Grammar Reference</div><div class="panel-hdr-title">Question Forms</div></div><button class="panel-close" onclick="closePanel()">&times;</button></div>
+  <div class="panel-body">
+    <div class="panel-section">
+      <div class="panel-section-title">Passive Voice</div>
+      <div class="panel-struct"><code>Was/Were + subject + past participle?</code></div>
+      <div class="panel-ex-row">"<strong>Was</strong> the invoice <strong>received</strong> on Tuesday?" <span class="pt-note">A fatura foi recebida na terça?</span></div>
+      <div class="panel-ex-row">"<strong>Has</strong> a dispute <strong>been opened</strong>?" <span class="pt-note">Uma disputa foi aberta?</span></div>
+      <div class="panel-ex-row">"<strong>Should</strong> the surcharge <strong>have been flagged</strong>?" <span class="pt-note">Deveria ter sido sinalizado?</span></div>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">Be Supposed To</div>
+      <div class="panel-struct"><code>Is/Are/Was/Were + subject + supposed to + verb?</code></div>
+      <div class="panel-ex-row">"<strong>Is</strong> Hua Li <strong>supposed to</strong> send a corrected invoice?" <span class="pt-note">A Hua Li deve enviar nota corrigida?</span></div>
+      <div class="panel-ex-row">"<strong>Was</strong> the price change <strong>supposed to be</strong> communicated in writing?" <span class="pt-note">A mudança devia ter sido comunicada por escrito?</span></div>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">Present Perfect</div>
+      <div class="panel-struct"><code>Has/Have + subject + past participle?</code></div>
+      <div class="panel-ex-row">"<strong>Has</strong> Carolina <strong>sent</strong> a formal email?" <span class="pt-note">Carolina mandou um e-mail formal?</span></div>
+      <div class="panel-ex-row">"<strong>Has</strong> Hua Li <strong>agreed</strong> to a payment hold?" <span class="pt-note">A Hua Li concordou com a suspensão?</span></div>
+      <div class="panel-ex-row">"<strong>Has</strong> the dispute <strong>been resolved</strong>?" <span class="pt-note">A disputa foi resolvida?</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="side-panel right" id="verbs-panel">
+  <div class="panel-hdr"><div><div class="panel-hdr-label">This lesson's verbs</div><div class="panel-hdr-title">Verb Bank</div></div><button class="panel-close" onclick="closePanel()">&times;</button></div>
+  <div class="panel-body">
+    <input class="gloss-search" id="verbs-search" placeholder="Search a verb…" oninput="filterVerbs()">
+    <div class="gloss-term" data-term="receive"><div class="gt-term">receive → received</div><div class="gt-pt">receber</div><div class="gt-ex">The invoice was received on Tuesday.</div></div>
+    <div class="gloss-term" data-term="agree"><div class="gt-term">agree → agreed</div><div class="gt-pt">concordar</div><div class="gt-ex">The amount was different from what had been agreed in the PO.</div></div>
+    <div class="gloss-term" data-term="apply"><div class="gt-term">apply → applied</div><div class="gt-pt">aplicar</div><div class="gt-ex">The surcharge had been applied to all international clients.</div></div>
+    <div class="gloss-term" data-term="open"><div class="gt-term">open → opened</div><div class="gt-pt">abrir</div><div class="gt-ex">A formal dispute has been opened by the legal team.</div></div>
+    <div class="gloss-term" data-term="schedule"><div class="gt-term">schedule → scheduled</div><div class="gt-pt">agendar</div><div class="gt-ex">A meeting has been scheduled for next week.</div></div>
+    <div class="gloss-term" data-term="flag"><div class="gt-term">flag → flagged</div><div class="gt-pt">sinalizar</div><div class="gt-ex">The surcharge should have been flagged during the quarterly review.</div></div>
+    <div class="gloss-term" data-term="sign"><div class="gt-term">sign → signed</div><div class="gt-pt">assinar</div><div class="gt-ex">The contract was signed with fixed pricing until June.</div></div>
+    <div class="gloss-term" data-term="escalate"><div class="gt-term">escalate → escalated</div><div class="gt-pt">escalar</div><div class="gt-ex">The dispute will be escalated to arbitration.</div></div>
+    <div class="gloss-term" data-term="notify"><div class="gt-term">notify → notified</div><div class="gt-pt">notificar</div><div class="gt-ex">Hua Li was supposed to notify Althea before changing the price.</div></div>
+    <div class="gloss-term" data-term="conduct"><div class="gt-term">conduct → conducted</div><div class="gt-pt">realizar / conduzir</div><div class="gt-ex">An audit should have been conducted sooner.</div></div>
+  </div>
+</div>
+
+<div class="side-panel right" id="negatives-panel">
+  <div class="panel-hdr"><div><div class="panel-hdr-label">Grammar Reference</div><div class="panel-hdr-title">Negative Forms</div></div><button class="panel-close" onclick="closePanel()">&times;</button></div>
+  <div class="panel-body">
+    <div class="panel-section">
+      <div class="panel-section-title">Passive Voice</div>
+      <div class="panel-struct"><code>Subject + was/were + not + pp</code></div>
+      <div class="panel-ex-row">"The notice <strong>was not sent</strong>." <span class="pt-note">O aviso não foi enviado.</span></div>
+      <div class="panel-ex-row">"Those amounts <strong>were never disputed</strong>." <span class="pt-note">Nunca foram contestados.</span></div>
+      <div class="panel-struct" style="margin-top:10px"><code>Subject + has/have + not + been + pp</code></div>
+      <div class="panel-ex-row">"Kevin's offer <strong>has not been accepted</strong>." <span class="pt-note">A oferta do Kevin não foi aceita.</span></div>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">Be Supposed To</div>
+      <div class="panel-struct"><code>Subject + is/are/was/were + not supposed to + verb</code></div>
+      <div class="panel-ex-row">"Althea <strong>is not supposed to</strong> sign any backdated agreement." <span class="pt-note">A Althea não deve assinar acordos retroativos.</span></div>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">Present Perfect</div>
+      <div class="panel-struct"><code>Subject + has/have + not + pp</code></div>
+      <div class="panel-ex-row">"Hua Li <strong>has not agreed</strong> to a payment hold." <span class="pt-note">A Hua Li não concordou (e ainda não concordou).</span></div>
+      <div style="margin-top:10px;background:var(--coral-bg);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--coral);line-height:1.55">
+        <strong>"has not agreed"</strong> vs. <strong>"did not agree"</strong><br>
+        <span style="color:var(--mid);font-style:italic">"Did not agree" = past refusal, closed. / recusa no passado, encerrada.<br>"Has not agreed" = still the situation now. / ainda é a situação atual.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<script>
+(function(){
+
+  var TIPS = {
+    "devia":  {pt:"era para avisar", def:"Word-for-word: 'it was for to warn'. Correct English: 'was supposed to notify'. The expression never breaks apart."},
+    "devia2": {pt:"devia avisar",    def:"Word-for-word: 'had to warn'. In this contract context the correct English is 'was supposed to notify' — an expectation set by the agreement."}
+  };
+
+  function initTooltip(){
+    var tip=document.getElementById("gl-tip"),tipPt=document.getElementById("gl-tip-pt"),tipDef=document.getElementById("gl-tip-def");
+    if(!tip)return;
+    document.querySelectorAll(".tt").forEach(function(el){
+      var key=el.dataset.tip,data=TIPS[key];if(!data)return;
+      el.addEventListener("mouseenter",function(e){tipPt.textContent=data.pt;tipDef.textContent=data.def;tip.style.display="block";moveTip(e);});
+      el.addEventListener("mousemove",moveTip);
+      el.addEventListener("mouseleave",function(){tip.style.display="none";});
+    });
+    function moveTip(e){var x=Math.max(8,Math.min(e.clientX-115,window.innerWidth-240));tip.style.left=x+"px";tip.style.top=(e.clientY-tip.offsetHeight-16)+"px";}
+  }
+
+  window.toggleWhy=function(id){var el=document.getElementById(id);if(el)el.classList.toggle("show");};
+
+  window.switchHowTab=function(name){
+    document.querySelectorAll(".how-tab").forEach(function(t){t.classList.remove("active");});
+    document.querySelectorAll(".how-view").forEach(function(v){v.classList.remove("active");});
+    document.querySelector(".how-tab[onclick*='"+name+"']").classList.add("active");
+    document.getElementById("how-"+name).classList.add("active");
+  };
+
+  var PANELS=["gloss","questions","verbs","negatives"];
+  window.openPanel=function(name){
+    PANELS.forEach(function(n){var p=document.getElementById(n+"-panel");if(p)p.classList.remove("open");});
+    var panel=document.getElementById(name+"-panel"),overlay=document.getElementById("panel-overlay");
+    if(panel)panel.classList.add("open");if(overlay)overlay.classList.add("open");
+  };
+  window.closePanel=function(){
+    PANELS.forEach(function(n){var p=document.getElementById(n+"-panel");if(p)p.classList.remove("open");});
+    var overlay=document.getElementById("panel-overlay");if(overlay)overlay.classList.remove("open");
+  };
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closePanel();});
+
+  window.filterGlossary=function(){
+    var q=document.getElementById("gloss-search").value.toLowerCase().trim();
+    document.querySelectorAll("#gloss-panel .gloss-term").forEach(function(el){
+      el.classList.toggle("hidden",q.length>0&&(el.dataset.term||"").indexOf(q)===-1&&el.textContent.toLowerCase().indexOf(q)===-1);
+    });
+    document.querySelectorAll("#gloss-panel .gloss-cat").forEach(function(cat){
+      if(q.length===0){cat.style.display="";return;}
+      var el=cat.nextElementSibling,hasVisible=false;
+      while(el&&!el.classList.contains("gloss-cat")){if(!el.classList.contains("hidden"))hasVisible=true;el=el.nextElementSibling;}
+      cat.style.display=hasVisible?"":"none";
+    });
+  };
+  window.filterVerbs=function(){
+    var q=document.getElementById("verbs-search").value.toLowerCase().trim();
+    document.querySelectorAll("#verbs-panel .gloss-term").forEach(function(el){
+      el.classList.toggle("hidden",q.length>0&&el.textContent.toLowerCase().indexOf(q)===-1);
+    });
+  };
+
+  function shuffleSelects(){
+    document.querySelectorAll(".blank-sel").forEach(function(sel){
+      var ph=sel.options[0],rest=[];
+      for(var i=1;i<sel.options.length;i++)rest.push(sel.options[i]);
+      for(var j=rest.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var t=rest[j];rest[j]=rest[k];rest[k]=t;}
+      sel.innerHTML="";sel.appendChild(ph);rest.forEach(function(o){sel.appendChild(o);});
+    });
+  }
+
+  window.checkAllInScope=function(scopeId){
+    var scope=document.getElementById(scopeId),fields=scope.querySelectorAll(".blank-sel,.blank-input"),correct=0;
+    fields.forEach(function(s){
+      s.classList.remove("correct","wrong");
+      var val=s.value.trim().toLowerCase(),target=s.dataset.correct.trim().toLowerCase();
+      if(val===target){s.classList.add("correct");correct++;}
+      else if(val!=="")s.classList.add("wrong");
+    });
+    var fb=document.getElementById(scopeId+"-fb");fb.classList.add("show");
+    if(correct===fields.length){fb.className="ex-feedback show ok";fb.textContent="Perfeito — "+correct+"/"+fields.length+" corretas.";}
+    else{fb.className="ex-feedback show partial";fb.textContent=correct+"/"+fields.length+" corretas. Revise as marcadas em vermelho.";}
+  };
+  window.resetAllInScope=function(scopeId){
+    var scope=document.getElementById(scopeId);
+    scope.querySelectorAll(".blank-sel,.blank-input").forEach(function(s){s.value="";s.classList.remove("correct","wrong");});
+    var fb=document.getElementById(scopeId+"-fb");if(fb){fb.classList.remove("show");fb.textContent="";}
+  };
+
+  window.toggleGap=function(el){
+    var revealed=el.classList.toggle("revealed");
+    el.textContent=revealed?el.dataset.answer:"___";
+  };
+  window.revealAllInScope=function(scopeId){
+    document.querySelectorAll("#"+scopeId+" .gap-reveal").forEach(function(el){el.classList.add("revealed");el.textContent=el.dataset.answer;});
+  };
+  window.hideAllInScope=function(scopeId){
+    document.querySelectorAll("#"+scopeId+" .gap-reveal").forEach(function(el){el.classList.remove("revealed");el.textContent="___";});
+  };
+
+  window.toggleReveal=function(id,btnId,openLabel){
+    var el=document.getElementById(id),btn=document.getElementById(btnId);if(!el)return;
+    var label=btn?btn.querySelector("span"):null;
+    if(label&&!label.dataset.orig)label.dataset.orig=label.textContent;
+    var open=el.classList.toggle("show");
+    if(btn){btn.classList.toggle("open",open);if(label)label.textContent=open?(openLabel||"Hide"):label.dataset.orig;}
+  };
+
+  function initAll(){initTooltip();shuffleSelects();}
+  if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initAll);}else{initAll();}
+})();
+
+// ── STEP MACHINE ──────────────────────────────────────────────────────
+var SM_TOTAL = 4;
+var smDone = 0;
+
+window.smReveal = function(n){
+  // hide blur
+  var overlay = document.getElementById('sm-blur-' + n);
+  if(overlay) overlay.classList.add('hidden');
+  // mark step done
+  var step = document.getElementById('sm-step-' + n);
+  if(step){ step.classList.remove('unlocked'); step.classList.add('done'); }
+  smDone = Math.max(smDone, n);
+  // unlock next
+  if(n < SM_TOTAL){
+    var next = document.getElementById('sm-step-' + (n+1));
+    if(next){
+      next.classList.remove('locked');
+      next.classList.add('unlocked','open');
+    }
+  }
+  // show result after last step
+  if(n === SM_TOTAL){
+    var res = document.getElementById('sm-result');
+    if(res) res.classList.add('show');
+    var rb = document.getElementById('sm-reset-btn');
+    if(rb) rb.classList.add('show');
+  }
+};
+
+window.smToggle = function(n){
+  var step = document.getElementById('sm-step-' + n);
+  if(!step || step.classList.contains('locked')) return;
+  step.classList.toggle('open');
+};
+
+window.smReset = function(){
+  smDone = 0;
+  for(var i=1; i<=SM_TOTAL; i++){
+    var step = document.getElementById('sm-step-' + i);
+    var overlay = document.getElementById('sm-blur-' + i);
+    if(!step) continue;
+    step.classList.remove('done','open');
+    if(i === 1){ step.classList.add('unlocked','open'); }
+    else { step.classList.add('locked'); step.classList.remove('unlocked'); }
+    if(overlay) overlay.classList.remove('hidden');
+  }
+  var res = document.getElementById('sm-result');
+  if(res) res.classList.remove('show');
+  var rb = document.getElementById('sm-reset-btn');
+  if(rb) rb.classList.remove('show');
+};
+
+
+// ── DECISION MACHINE (present perfect) ────────────────────────────────
+window.switchDmTab = function(name){
+  document.querySelectorAll('.dm-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.dm-view').forEach(function(v){v.classList.remove('active');});
+  document.querySelector('.dm-tab[onclick*="'+name+'"]').classList.add('active');
+  document.getElementById('dm-'+name).classList.add('active');
+};
+
+var DM_TOTAL = 4;
+
+function dmGoTo(n){
+  var track = document.getElementById('dmTrack');
+  if(track) track.style.transform = 'translateX(-'+(n*100)+'%)';
+  for(var i=1;i<=DM_TOTAL;i++){
+    var dot = document.getElementById('dm-dot-'+i);
+    if(!dot) continue;
+    dot.classList.remove('active');
+    if(i-1===n) dot.classList.add('active');
+  }
+}
+
+window.dmChoose = function(step, choice){
+  var slide = document.getElementById('dm-slide-'+step);
+  if(!slide) return;
+  slide.querySelectorAll('.dm-choice').forEach(function(b){ b.classList.add('disabled'); });
+  var clicked = slide.querySelector('[data-choice="'+choice+'"]');
+  var isDeadEnd = clicked && clicked.classList.contains('dead-end');
+  if(clicked) clicked.classList.add(isDeadEnd ? 'selected-no' : 'selected-yes');
+  var ans = document.getElementById('dm-ans-'+step+'-'+choice);
+  if(ans) ans.classList.add('show');
+  var dot = document.getElementById('dm-dot-'+step);
+  var dead_end = (step===1 && choice==='yes') || (step===2 && choice==='no') || (step===3 && choice==='have');
+  var blank = document.getElementById('dm-blank');
+  var row = document.getElementById('dm-blank-row');
+  if(dead_end){
+    if(dot){ dot.classList.remove('active'); dot.classList.add('dead'); }
+    // Show retry button for this slide
+    var retryBtn = document.getElementById('dm-retry-'+step);
+    if(retryBtn) retryBtn.style.display = 'inline-block';
+    // For true dead ends (step 1 yes, step 2 no) also update blank
+    if(step !== 3){
+      if(blank){ blank.textContent = 'sent'; blank.classList.add('route'); }
+      if(row) row.style.display = 'block';
+    }
+    return;
+  }
+  if(dot){ dot.classList.remove('active'); dot.classList.add('done'); }
+  if(step===3){
+    if(row) row.style.display = 'block';
+    if(blank) blank.textContent = choice+' + sent';
+  } else if(step===4){
+    if(blank){
+      var parts = blank.textContent.split(' + ');
+      blank.textContent = (parts[0]||'has')+' sent';
+      blank.classList.add('filled');
+    }
+  }
+  if(step < DM_TOTAL){
+    setTimeout(function(){ dmGoTo(step); }, 700);
+  } else {
+    setTimeout(function(){
+      document.getElementById('dm-result').classList.add('show');
+      var rb2 = document.getElementById('dm-reset-btn');
+      if(rb2) rb2.classList.add('show');
+    }, 500);
+  }
+};
+
+
+window.dmRetry = function(step){
+  var slide = document.getElementById('dm-slide-'+step);
+  if(!slide) return;
+  // Re-enable all choices
+  slide.querySelectorAll('.dm-choice').forEach(function(b){
+    b.classList.remove('disabled','selected-yes','selected-no');
+  });
+  // Hide all answer panels
+  slide.querySelectorAll('.dm-answer').forEach(function(a){
+    a.classList.remove('show');
+  });
+  // Hide retry button
+  var retryBtn = document.getElementById('dm-retry-'+step);
+  if(retryBtn) retryBtn.style.display = 'none';
+  // Reset dot
+  var dot = document.getElementById('dm-dot-'+step);
+  if(dot){ dot.classList.remove('dead'); dot.classList.add('active'); }
+  // Reset blank if was updated
+  var blank = document.getElementById('dm-blank');
+  var row = document.getElementById('dm-blank-row');
+  if(step !== 3){
+    if(blank){ blank.textContent = '???'; blank.className = 'dm-blank'; }
+    if(row) row.style.display = 'none';
+  }
+};
+
+window.dmReset = function(){
+  for(var i=1;i<=DM_TOTAL;i++){
+    var slide = document.getElementById('dm-slide-'+i);
+    if(!slide) continue;
+    slide.querySelectorAll('.dm-choice').forEach(function(b){
+      b.classList.remove('disabled','selected-yes','selected-no');
+    });
+    slide.querySelectorAll('.dm-answer').forEach(function(a){ a.classList.remove('show'); });
+    var dot = document.getElementById('dm-dot-'+i);
+    if(dot) dot.classList.remove('done','dead','active');
+  }
+  dmGoTo(0);
+  var d1 = document.getElementById('dm-dot-1');
+  if(d1) d1.classList.add('active');
+  document.getElementById('dm-result').classList.remove('show');
+  var rb = document.getElementById('dm-reset-btn');
+  if(rb){ rb.textContent = 'Start over / Reiniciar'; rb.classList.remove('show'); }
+  var blank = document.getElementById('dm-blank');
+  if(blank){ blank.textContent = '???'; blank.className = 'dm-blank'; }
+  var row = document.getElementById('dm-blank-row');
+  if(row) row.style.display = 'none';
+};
+
+
+// ── SUPPOSED TO MACHINE ────────────────────────────────────────────────
+var stStep1Choice = null;
+var ST_TOTAL = 2;
+
+function stGoTo(n){
+  var track = document.getElementById('stTrack');
+  if(track) track.style.transform = 'translateX(-'+(n*100)+'%)';
+  for(var i=1;i<=ST_TOTAL;i++){
+    var dot = document.getElementById('st-dot-'+i);
+    if(!dot) continue;
+    dot.classList.remove('active');
+    if(i-1===n) dot.classList.add('active');
+  }
+}
+
+window.stChoose = function(step, choice){
+  var slide = document.getElementById('st-slide-'+step);
+  if(!slide) return;
+  slide.querySelectorAll('.dm-choice').forEach(function(b){ b.classList.add('disabled'); });
+  var clicked = slide.querySelector('[data-choice="'+choice+'"]');
+  if(clicked) clicked.classList.add('selected-yes');
+  var dot = document.getElementById('st-dot-'+step);
+  if(dot){ dot.classList.remove('active'); dot.classList.add('done'); }
+
+  if(step===1){
+    stStep1Choice = choice; // 'yes' = present, 'no' = past
+    var ans = document.getElementById('st-ans-1-'+choice);
+    if(ans) ans.classList.add('show');
+    setTimeout(function(){ stGoTo(1); }, 700);
+    return;
+  }
+
+  if(step===2){
+    // Build result based on step1 + step2
+    var tense = stStep1Choice === 'yes' ? 'present' : 'past';
+    var number = choice; // 'singular' or 'plural'
+    var aux, auxPt, note, notePt;
+
+    if(tense==='present' && number==='singular'){
+      aux = 'is supposed to'; auxPt = 'é para / deve';
+      note = '"Hua Li <mark>is supposed to</mark> notify Althea 14 days before changing the price." — rule still in force.';
+      notePt = 'A regra ainda está em vigor agora.';
+    } else if(tense==='present' && number==='plural'){
+      aux = 'are supposed to'; auxPt = 'são para / devem';
+      note = '"Both parties <mark>are supposed to</mark> agree before any price change." — rule still in force.';
+      notePt = 'A regra ainda está em vigor agora.';
+    } else if(tense==='past' && number==='singular'){
+      aux = 'was supposed to'; auxPt = 'era para / devia';
+      note = '"Hua Li <mark>was supposed to</mark> notify Althea — but it never did." — plan existed in the past.';
+      notePt = 'O plano existia no passado. A gramática não diz se foi cumprido.';
+    } else {
+      aux = 'were supposed to'; auxPt = 'eram para / deviam';
+      note = '"Both parties <mark>were supposed to</mark> agree on the price — but they did not." — plan existed in the past.';
+      notePt = 'O plano existia no passado.';
+    }
+
+    // Update blank
+    var blank = document.getElementById('st-blank');
+    var row = document.getElementById('st-blank-row');
+    if(blank){ blank.textContent = aux; blank.classList.add('filled'); }
+    if(row) row.style.display = 'block';
+
+    // Fill result
+    var rs = document.getElementById('st-result-sent');
+    var rp = document.getElementById('st-result-pt');
+    if(rs) rs.innerHTML = note;
+    if(rp) rp.textContent = notePt + ' (' + auxPt + ')';
+
+    setTimeout(function(){
+      document.getElementById('st-result').classList.add('show');
+      document.getElementById('st-reset-btn').classList.add('show');
+    }, 500);
+  }
+};
+
+window.stReset = function(){
+  stStep1Choice = null;
+  for(var i=1;i<=ST_TOTAL;i++){
+    var slide = document.getElementById('st-slide-'+i);
+    if(!slide) continue;
+    slide.querySelectorAll('.dm-choice').forEach(function(b){
+      b.classList.remove('disabled','selected-yes','selected-no');
+    });
+    slide.querySelectorAll('.dm-answer').forEach(function(a){ a.classList.remove('show'); });
+    var dot = document.getElementById('st-dot-'+i);
+    if(dot) dot.classList.remove('done','dead','active');
+  }
+  stGoTo(0);
+  var d1 = document.getElementById('st-dot-1');
+  if(d1) d1.classList.add('active');
+  document.getElementById('st-result').classList.remove('show');
+  var rb = document.getElementById('st-reset-btn');
+  if(rb) rb.classList.remove('show');
+  var blank = document.getElementById('st-blank');
+  if(blank){ blank.textContent = '???'; blank.className = 'dm-blank'; }
+  var row = document.getElementById('st-blank-row');
+  if(row) row.style.display = 'none';
+};
+
+
+</script>
+</body>
+</html>

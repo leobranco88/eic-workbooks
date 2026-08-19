@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incoterms · Supply Chain & Inventory · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;--purple:#6D5BD0;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+::selection{background:var(--hi);color:var(--ink)}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:22px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-nav{display:flex;align-items:center;gap:14px}
+.hdr-nav a{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s}
+.hdr-nav a:hover{color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:900px){.hdr-meta,.hdr-nav{display:none}}
+
+.pw{max-width:960px;margin:0 auto;padding:0 56px}
+@media(max-width:760px){.pw{padding:0 24px}}
+
+.hero{background:var(--dark);padding:140px 0 64px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--orange)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.hero-title{font-size:clamp(28px,4vw,42px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;max-width:660px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.75;max-width:620px}
+
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex:none}
+.sec-tag{font-size:16px;font-weight:900;color:var(--ink)}
+.sec-sub{font-size:13px;color:var(--mid);line-height:1.6;margin:0 0 26px 38px;max-width:620px}
+
+.section{padding:56px 0}
+.section:nth-child(even){background:#fff}
+
+/* spectrum bar */
+.spectrum{display:flex;align-items:center;justify-content:space-between;margin:0 0 28px 38px;max-width:620px;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.spectrum-bar{flex:1;height:4px;background:linear-gradient(90deg,var(--teal),var(--purple),var(--orange),var(--red));border-radius:3px;margin:0 12px}
+
+/* incoterm cards */
+.iterm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:8px}
+.iterm-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 18px;position:relative;overflow:hidden}
+.iterm-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
+.iterm-card.exw::before{background:var(--teal)}
+.iterm-card.fob::before{background:var(--purple)}
+.iterm-card.cif::before{background:var(--orange)}
+.iterm-card.ddp::before{background:var(--red)}
+.iterm-code{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:2px}
+.iterm-card.exw .iterm-code{color:var(--teal)}
+.iterm-card.fob .iterm-code{color:var(--purple)}
+.iterm-card.cif .iterm-code{color:var(--orange)}
+.iterm-card.ddp .iterm-code{color:var(--red)}
+.iterm-full{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.03em;margin-bottom:14px}
+.iterm-row{display:flex;gap:8px;font-size:12.5px;line-height:1.55;margin-bottom:8px}
+.iterm-row .lbl{font-weight:800;color:var(--ink);flex:none;width:74px}
+.iterm-row .val{color:var(--mid)}
+.iterm-risk{margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);font-size:12px;color:var(--ink);font-weight:600;line-height:1.5}
+.iterm-risk b{color:var(--orange)}
+
+/* vocab rows (reused pattern) */
+.vocab-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.vocab-row{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.vocab-term{font-size:14.5px;font-weight:800;color:var(--ink);border-bottom:2px dotted var(--teal);cursor:help;position:relative;flex-shrink:0}
+.vocab-term:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:0;background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:50}
+.vocab-example{font-size:13px;color:var(--mid);font-style:italic;line-height:1.6}
+
+.example-block{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:8px}
+.example-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.example-text{font-size:14px;color:rgba(255,255,255,.85);line-height:1.75}
+.example-text b{color:#fff;border-bottom:2px solid var(--teal)}
+
+.practice-trigger{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:none;border-radius:24px;padding:13px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;cursor:pointer;font-family:Inter,sans-serif;margin-top:8px}
+.practice-trigger svg{width:15px;height:15px}
+
+.practice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600}
+.practice-overlay.open{display:block}
+.practice-drawer{position:fixed;top:0;right:-460px;width:420px;max-width:92vw;height:100%;background:#0D0704;border-left:1px solid rgba(255,255,255,.08);z-index:601;transition:right .3s ease;display:flex;flex-direction:column;font-family:Inter,sans-serif}
+.practice-drawer.open{right:0}
+.practice-header{padding:22px 24px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.practice-title{font-size:15px;font-weight:800;color:#fff}
+.practice-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.practice-progress-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.practice-progress-fill{height:100%;width:0%;background:var(--orange);transition:width .3s}
+.practice-progress-label{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
+.practice-body{flex:1;overflow-y:auto;padding:20px 24px 40px}
+.pex-item{margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pex-num{font-size:10px;font-weight:800;color:var(--orange);margin-bottom:8px}
+.pex-sentence{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:10px}
+.pex-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:13px;color:#fff;font-family:Inter,sans-serif;margin-bottom:8px}
+.pex-input:focus{outline:none;border-color:var(--orange)}
+.pex-input.correct{border-color:#4CAF88;background:rgba(76,175,136,.08)}
+.pex-input.incorrect{border-color:var(--red);background:rgba(192,57,43,.14)}
+.pex-btnrow{display:flex;gap:8px}
+.pex-check{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border:none;border-radius:16px;padding:6px 14px;cursor:pointer;font-family:Inter,sans-serif}
+.pex-answer{display:none;margin-top:10px;background:rgba(232,98,26,.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.6}
+.pex-answer.show{display:block}
+.pex-answer strong{color:#fff}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+@media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center;gap:8px}.footer-copy{text-align:center}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Supply Chain &amp; Inventory · Quick Lesson</span>
+    <nav class="hdr-nav">
+      <a href="supplier-reasons.html">Supplier Reasons</a>
+      <a href="supplier-qualification.html">Qualifying a Supplier</a>
+      <a href="not-as-agreed-practice.html">Should, Must &amp; Supposed To</a>
+      <a href="contract-language.html">Contract Language</a>
+    </nav>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Quick Lesson</span></div>
+    <h1 class="hero-title">Incoterms — <em>who pays, and when the risk transfers</em></h1>
+    <p class="hero-sub">"Who pays" não é só sobre repassar custo — no comércio internacional, existe um conjunto de regras padronizadas pra isso: os <strong>Incoterms</strong>. Eles decidem quem paga o frete, o seguro, a alfândega, e — mais importante — em que ponto exato o risco passa do vendedor pro comprador.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">The Big Four</span></div>
+    <p class="sec-sub">Do mínimo esforço do vendedor até o máximo — quatro Incoterms que cobrem a maioria das situações reais.</p>
+
+    <div class="spectrum">
+      <span>Seller does less</span>
+      <div class="spectrum-bar"></div>
+      <span>Seller does more</span>
+    </div>
+
+    <div class="iterm-grid">
+      <div class="iterm-card exw">
+        <div class="iterm-code">EXW</div>
+        <div class="iterm-full">Ex Works</div>
+        <div class="iterm-row"><span class="lbl">Transport</span><span class="val">buyer arranges &amp; pays for everything</span></div>
+        <div class="iterm-row"><span class="lbl">Insurance</span><span class="val">buyer's responsibility</span></div>
+        <div class="iterm-row"><span class="lbl">Customs</span><span class="val">buyer handles both export &amp; import</span></div>
+        <div class="iterm-risk">Risk transfers <b>the moment</b> the goods are made available at the seller's door.</div>
+      </div>
+
+      <div class="iterm-card fob">
+        <div class="iterm-code">FOB</div>
+        <div class="iterm-full">Free On Board</div>
+        <div class="iterm-row"><span class="lbl">Transport</span><span class="val">seller pays to the port; buyer pays the rest</span></div>
+        <div class="iterm-row"><span class="lbl">Insurance</span><span class="val">buyer's responsibility</span></div>
+        <div class="iterm-row"><span class="lbl">Customs</span><span class="val">seller handles export; buyer handles import</span></div>
+        <div class="iterm-risk">Risk transfers once the goods are <b>loaded on board</b> the vessel.</div>
+      </div>
+
+      <div class="iterm-card cif">
+        <div class="iterm-code">CIF</div>
+        <div class="iterm-full">Cost, Insurance &amp; Freight</div>
+        <div class="iterm-row"><span class="lbl">Transport</span><span class="val">seller pays all the way to the destination port</span></div>
+        <div class="iterm-row"><span class="lbl">Insurance</span><span class="val">seller pays for it</span></div>
+        <div class="iterm-row"><span class="lbl">Customs</span><span class="val">seller handles export; buyer handles import</span></div>
+        <div class="iterm-risk">Risk still transfers at <b>loading</b> — even though the seller keeps paying after that.</div>
+      </div>
+
+      <div class="iterm-card ddp">
+        <div class="iterm-code">DDP</div>
+        <div class="iterm-full">Delivered Duty Paid</div>
+        <div class="iterm-row"><span class="lbl">Transport</span><span class="val">seller arranges &amp; pays for everything</span></div>
+        <div class="iterm-row"><span class="lbl">Insurance</span><span class="val">seller's responsibility</span></div>
+        <div class="iterm-row"><span class="lbl">Customs</span><span class="val">seller handles both export &amp; import, duties included</span></div>
+        <div class="iterm-risk">Risk transfers only when goods <b>arrive at the buyer's door</b>, cleared and ready.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">02</span><span class="sec-tag">The Classic Trap</span></div>
+    <p class="sec-sub">O ponto que mais confunde estudante e profissional junto: em <strong>CIF</strong>, o vendedor paga o frete e o seguro até o porto de destino — mas o <strong>risco</strong> já passou pro comprador desde o embarque. Pagar não é o mesmo que ser dono do risco.</p>
+
+    <div class="example-block">
+      <div class="example-label">In context — Ana Claudia, Althea Industrial Imports</div>
+      <div class="example-text">"The supplier in Stuttgart kept insisting they'd already paid for insurance, since the shipment was <b>under CIF terms</b>. But that's not the point — <b>risk transferred</b> to Althea the moment the goods were loaded onto the vessel. Who pays for insurance and who is <b>liable</b> for the damage are two different questions."</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">03</span><span class="sec-tag">Talking About Incoterms</span></div>
+    <p class="sec-sub">O vocabulário que você usa pra explicar quem é responsável por quê — passe o mouse nas expressões pra ver a tradução.</p>
+
+    <div class="vocab-list">
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="o risco transfere/passa">risk transfers</span>
+        <span class="vocab-example">— the moment responsibility for loss or damage moves from seller to buyer</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="responsável por">responsible for</span>
+        <span class="vocab-example">— who has to arrange or pay for something</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="responsável legalmente por perda ou dano">liable for loss or damage</span>
+        <span class="vocab-example">— who has to cover the cost if something goes wrong in transit</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="a obrigação do vendedor/comprador termina em">the seller's/buyer's obligation ends at</span>
+        <span class="vocab-example">— the exact point where one side's duty stops</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="sob as condições de (Incoterm)">under [Incoterm] terms</span>
+        <span class="vocab-example">— e.g. "under FOB terms," "under DDP terms"</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pw">
+    <button class="practice-trigger" onclick="openPractice()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      Practice Incoterms — open exercise
+    </button>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC &middot; Escola de Idiomas e Cultura</span>
+  <div class="footer-copy">Supply Chain &amp; Inventory &middot; Incoterms</div>
+</footer>
+
+<div class="practice-overlay" id="practiceOverlay" onclick="closePractice()"></div>
+
+<div class="practice-drawer" id="practiceDrawer">
+  <div class="practice-header">
+    <div class="practice-title-row">
+      <span class="practice-title">Practice: Incoterms</span>
+      <button class="practice-close" onclick="closePractice()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="practice-progress-track"><div class="practice-progress-fill" id="practiceProgressFill"></div></div>
+    <div class="practice-progress-label" id="practiceProgressLabel">0 of 12 checked</div>
+  </div>
+
+  <div class="practice-body">
+
+    <div class="pex-item">
+      <div class="pex-num">01</div>
+      <div class="pex-sentence">Under ______ terms, Althea has to arrange and pay for everything starting from the supplier's factory door.</div>
+      <input class="pex-input" id="pex1" placeholder="Type the Incoterm (e.g. FOB)">
+      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'EXW')">Check</button></div>
+      <div class="pex-answer" id="pexA1"><strong>EXW</strong> — Ex Works, the seller's minimum responsibility.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">02</div>
+      <div class="pex-sentence">The supplier loaded the goods onto the ship in Stuttgart, and from that point risk passed to Althea — a textbook description of ______ terms.</div>
+      <input class="pex-input" id="pex2" placeholder="Type the Incoterm">
+      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'FOB')">Check</button></div>
+      <div class="pex-answer" id="pexA2"><strong>FOB</strong> — Free On Board, risk transfers at loading.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">03</div>
+      <div class="pex-sentence">The supplier paid for freight and insurance all the way to the port of arrival, but risk still passed the moment the goods went on board — this is ______.</div>
+      <input class="pex-input" id="pex3" placeholder="Type the Incoterm">
+      <div class="pex-btnrow" id="pexBtnRow3"><button class="pex-check" onclick="checkPex(3,'CIF')">Check</button></div>
+      <div class="pex-answer" id="pexA3"><strong>CIF</strong> — paying for insurance doesn't mean keeping the risk.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">04</div>
+      <div class="pex-sentence">The supplier delivered straight to Althea's warehouse, duties included — the seller's maximum responsibility. This is ______.</div>
+      <input class="pex-input" id="pex4" placeholder="Type the Incoterm">
+      <div class="pex-btnrow" id="pexBtnRow4"><button class="pex-check" onclick="checkPex(4,'DDP')">Check</button></div>
+      <div class="pex-answer" id="pexA4"><strong>DDP</strong> — Delivered Duty Paid, the seller's maximum responsibility.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">05</div>
+      <div class="pex-sentence">Under FOB terms, risk ______ to the buyer the instant the goods are loaded onto the vessel.</div>
+      <input class="pex-input" id="pex5" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow5"><button class="pex-check" onclick="checkPex(5,'transfers')">Check</button></div>
+      <div class="pex-answer" id="pexA5"><strong>transfers</strong> — as in "risk transfers."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">06</div>
+      <div class="pex-sentence">Ana Claudia reminded the supplier that, under CIF terms, they're still ______ for freight and insurance costs.</div>
+      <input class="pex-input" id="pex6" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow6"><button class="pex-check" onclick="checkPex(6,'responsible')">Check</button></div>
+      <div class="pex-answer" id="pexA6"><strong>responsible</strong> — as in "responsible for."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">07</div>
+      <div class="pex-sentence">Even though the supplier pays for freight under CIF, the buyer becomes ______ for any damage after loading.</div>
+      <input class="pex-input" id="pex7" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow7"><button class="pex-check" onclick="checkPex(7,'liable')">Check</button></div>
+      <div class="pex-answer" id="pexA7"><strong>liable</strong> — as in "liable for loss or damage."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">08</div>
+      <div class="pex-sentence">Under EXW terms, the seller's ______ ends the moment the goods are available at the factory.</div>
+      <input class="pex-input" id="pex8" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow8"><button class="pex-check" onclick="checkPex(8,'obligation')">Check</button></div>
+      <div class="pex-answer" id="pexA8"><strong>obligation</strong> — as in "the seller's obligation ends at."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">09</div>
+      <div class="pex-sentence">If the goods are damaged in transit under DDP terms, it's the supplier who remains ______ for the loss.</div>
+      <input class="pex-input" id="pex9" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow9"><button class="pex-check" onclick="checkPex(9,'liable')">Check</button></div>
+      <div class="pex-answer" id="pexA9"><strong>liable</strong> — under DDP, the seller keeps the risk almost the whole way.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">10</div>
+      <div class="pex-sentence">Ana Claudia asked which Incoterm applied, since that decides who is ______ for the customs delay.</div>
+      <input class="pex-input" id="pex10" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow10"><button class="pex-check" onclick="checkPex(10,'responsible')">Check</button></div>
+      <div class="pex-answer" id="pexA10"><strong>responsible</strong> — export vs. import customs depend on the Incoterm.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">11</div>
+      <div class="pex-sentence">The contract states that shipments are made ______ FOB terms, so Althea assumes the risk once goods are on board.</div>
+      <input class="pex-input" id="pex11" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow11"><button class="pex-check" onclick="checkPex(11,'under')">Check</button></div>
+      <div class="pex-answer" id="pexA11"><strong>under</strong> — as in "under [Incoterm] terms."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">12</div>
+      <div class="pex-sentence">Under DDP terms, the seller's obligation only ______ when the goods clear customs at the buyer's door.</div>
+      <input class="pex-input" id="pex12" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow12"><button class="pex-check" onclick="checkPex(12,'ends')">Check</button></div>
+      <div class="pex-answer" id="pexA12"><strong>ends</strong> — as in "the seller's obligation ends at."</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openPractice() {
+  document.getElementById('practiceOverlay').classList.add('open');
+  document.getElementById('practiceDrawer').classList.add('open');
+}
+function closePractice() {
+  document.getElementById('practiceOverlay').classList.remove('open');
+  document.getElementById('practiceDrawer').classList.remove('open');
+}
+
+var pexChecked = {};
+
+function normalizeAns(s) {
+  return s.toLowerCase().trim().replace(/[.,!?"']/g, '').replace(/\s+/g, ' ');
+}
+
+function checkPex(n, correctAnswer) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+
+  if (!pexChecked[n]) {
+    pexChecked[n] = true;
+    updatePracticeProgress();
+  }
+}
+
+function hidePex(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="pex-check" onclick="checkPexAgain(' + n + ')">Show again</button>';
+}
+
+function checkPexAgain(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var input = document.getElementById('pex' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryPex(n) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+function updatePracticeProgress() {
+  var total = 12;
+  var done = Object.keys(pexChecked).length;
+  document.getElementById('practiceProgressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('practiceProgressLabel').textContent = done + ' of ' + total + ' checked';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.pex-btnrow').forEach(function(row){
+    row.dataset.checkHtml = row.innerHTML;
+  });
+});
+</script>
+
+</body>
+</html>

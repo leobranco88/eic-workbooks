@@ -10,11 +10,12 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
-  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
   --dark:#071020;--red:#C0392B;
 }
 html{scroll-behavior:smooth}
 body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+::selection{background:var(--hi);color:var(--ink)}
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
@@ -1412,10 +1413,14 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 
 <script>
 function togglePre(card) {
+  var sel = window.getSelection();
+  if (sel && sel.toString().length > 0) return;
   card.classList.toggle('open');
 }
 
 function toggleReason(card) {
+  var sel = window.getSelection();
+  if (sel && sel.toString().length > 0) return;
   card.classList.toggle('open');
 }
 

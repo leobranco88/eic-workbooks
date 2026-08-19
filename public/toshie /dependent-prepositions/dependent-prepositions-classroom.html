@@ -57,6 +57,28 @@
   .story-text { font-size: 13.5px; line-height: 1.9; color: #1f2430; }
   .story-text p { margin-bottom: 14px; }
   .story-text .prep { color: var(--accent); font-weight: 700; }
+  .story-text .prep, .story-text .vocab {
+    position: relative; cursor: help;
+    border-bottom: 1px dotted currentColor;
+  }
+  .story-text .vocab { color: var(--teal); font-weight: 700; }
+  .tt-pop {
+    display: none; position: absolute; left: 50%; bottom: 130%; transform: translateX(-50%);
+    background: var(--ink); color: var(--paper); padding: 6px 10px; border-radius: 4px;
+    font-size: 10.5px; font-weight: 400; line-height: 1.5; white-space: nowrap; z-index: 20;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .tt-pop .tt-jp { color: #5eead4; font-style: italic; display: block; }
+  .tt-pop .tt-pt { color: #d1d5db; display: block; }
+  .tt-pop::after {
+    content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 5px solid transparent; border-top-color: var(--ink);
+  }
+  .story-text .prep:hover .tt-pop, .story-text .vocab:hover .tt-pop { display: block; }
+  @media (max-width: 600px) {
+    .tt-pop { white-space: normal; width: 160px; left: 0; transform: none; }
+    .tt-pop::after { left: 20px; transform: none; }
+  }
   .pull-quote { font-size: 15px; font-style: italic; font-weight: 600; border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 16px 0; color: #1f2430; }
 
   .gloss-box { border: 1px solid var(--border); background: #F9FAFB; padding: 10px 12px; margin: 14px 0; }
@@ -167,15 +189,15 @@
     </div>
 
     <div class="story-text">
-      <p>Traveling alone, I quickly learned to <span class="prep">rely on</span> the kindness of strangers — the elderly woman at the market who slipped an extra plum into my bag, the taxi driver who <span class="prep">waited for</span> me outside the station without complaint. Nobody at home <span class="prep">believed in</span> my ability to manage two months alone in a country whose language I barely spoke. I was <span class="prep">afraid of</span> getting lost, <span class="prep">worried about</span> running out of money, and secretly <span class="prep">proud of</span> myself for buying the plane ticket at all.</p>
+      <p>Traveling alone, I quickly learned to <span class="prep">rely on<span class="tt-pop"><span class="tt-jp">頼る・当てにする</span><span class="tt-pt">contar com</span></span></span> the kindness of strangers — the elderly woman at the market who <span class="vocab">slipped<span class="tt-pop"><span class="tt-jp">そっと入れる</span><span class="tt-pt">colocar discretamente</span></span></span> an extra plum into my bag, the taxi driver who <span class="prep">waited for<span class="tt-pop"><span class="tt-jp">待つ</span><span class="tt-pt">esperar por</span></span></span> me outside the station without complaint. Nobody at home <span class="prep">believed in<span class="tt-pop"><span class="tt-jp">信じる</span><span class="tt-pt">acreditar em</span></span></span> my ability to manage two months alone in a country whose language I barely spoke. I was <span class="prep">afraid of<span class="tt-pop"><span class="tt-jp">怖がる</span><span class="tt-pt">com medo de</span></span></span> getting lost, <span class="prep">worried about<span class="tt-pop"><span class="tt-jp">心配している</span><span class="tt-pt">preocupado com</span></span></span> running out of money, and secretly <span class="prep">proud of<span class="tt-pop"><span class="tt-jp">誇りに思う</span><span class="tt-pt">orgulhoso de</span></span></span> myself for buying the plane ticket at all.</p>
 
-      <p>By the third week, the market felt nothing like home — <span class="prep">different from</span> the quiet supermarkets I was used to, loud and specific and warm. There was a fish vendor, a man everyone seemed to <span class="prep">depend on</span> for the freshest catch, who somehow remembered my name after a single conversation. I <span class="prep">apologized for</span> my terrible pronunciation every time I ordered, and every time he laughed and corrected me anyway.</p>
+      <p>By the third week, the market felt nothing like home — <span class="prep">different from<span class="tt-pop"><span class="tt-jp">〜と違う</span><span class="tt-pt">diferente de</span></span></span> the quiet supermarkets I was used to, loud and specific and warm. There was a fish vendor, a man everyone seemed to <span class="prep">depend on<span class="tt-pop"><span class="tt-jp">頼る・依存する</span><span class="tt-pt">depender de</span></span></span> for the freshest catch, who somehow remembered my name after a single conversation. I <span class="prep">apologized for<span class="tt-pop"><span class="tt-jp">謝る</span><span class="tt-pt">pedir desculpas por</span></span></span> my terrible pronunciation every time I ordered, and every time he laughed and corrected me anyway.</p>
 
       <p class="pull-quote">"He never asked what I was looking for. He simply gave me something to look forward to."</p>
 
-      <p>I hadn't expected to <span class="prep">succeed in</span> making a single local friend, let alone several. I was <span class="prep">surprised at</span> how quickly the city stopped feeling foreign. The vendor's daughter, who was studying to become a teacher, was <span class="prep">interested in</span> practicing her English, and we began meeting for tea every Sunday — both of us <span class="prep">satisfied with</span> a friendship built on nothing more than a shared market stall and imperfect grammar on both sides.</p>
+      <p>I hadn't expected to <span class="prep">succeed in<span class="tt-pop"><span class="tt-jp">成功する</span><span class="tt-pt">ter sucesso em</span></span></span> making a single local friend, <span class="vocab">let alone<span class="tt-pop"><span class="tt-jp">まして〜ない</span><span class="tt-pt">muito menos, quanto mais</span></span></span> several. I was <span class="prep">surprised at<span class="tt-pop"><span class="tt-jp">驚いている</span><span class="tt-pt">surpreso com</span></span></span> how quickly the city stopped feeling foreign. The vendor's daughter, who was studying to become a teacher, was <span class="prep">interested in<span class="tt-pop"><span class="tt-jp">興味がある</span><span class="tt-pt">interessado em</span></span></span> practicing her English, and we began meeting for tea every Sunday — both of us <span class="prep">satisfied with<span class="tt-pop"><span class="tt-jp">満足している</span><span class="tt-pt">satisfeito com</span></span></span> a friendship built on nothing more than a shared market stall and imperfect grammar on both sides.</p>
 
-      <p>Looking back, I'm grateful to that vendor more than almost anyone else on the trip. He never asked what I was looking for. He simply gave me something to <span class="prep">look forward to</span>, every single week, in a language I was only just beginning to understand.</p>
+      <p>Looking back, I'm grateful to that vendor more than almost anyone else on the trip. He never asked what I was looking for. He simply gave me something to <span class="prep">look forward to<span class="tt-pop"><span class="tt-jp">楽しみにする</span><span class="tt-pt">estar ansioso por</span></span></span>, every single week, in a language I was only just beginning to understand.</p>
     </div>
 
     <div class="gloss-box">

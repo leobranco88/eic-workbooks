@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contract Language · Supply Chain & Inventory · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+::selection{background:var(--hi);color:var(--ink)}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:22px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-nav{display:flex;align-items:center;gap:16px}
+.hdr-nav a{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s}
+.hdr-nav a:hover{color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:760px){.hdr-meta,.hdr-nav{display:none}}
+
+.pw{max-width:900px;margin:0 auto;padding:0 56px}
+@media(max-width:760px){.pw{padding:0 24px}}
+
+.hero{background:var(--dark);padding:140px 0 72px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--orange)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.hero-title{font-size:clamp(28px,4vw,42px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;max-width:640px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.75;max-width:600px}
+
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex:none}
+.sec-tag{font-size:16px;font-weight:900;color:var(--ink)}
+.sec-sub{font-size:13px;color:var(--mid);line-height:1.6;margin:0 0 20px 38px;max-width:600px}
+
+.vocab-section{background:var(--paper);padding:56px 0}
+.vocab-section:nth-child(even){background:#fff}
+.vocab-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.vocab-row{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.vocab-term{font-size:14.5px;font-weight:800;color:var(--ink);border-bottom:2px dotted var(--teal);cursor:help;position:relative;flex-shrink:0}
+.vocab-term:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:0;background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:50}
+.vocab-example{font-size:13px;color:var(--mid);font-style:italic;line-height:1.6}
+
+.example-block{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:8px}
+.example-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.example-text{font-size:14px;color:rgba(255,255,255,.85);line-height:1.75}
+.example-text b{color:#fff;border-bottom:2px solid var(--teal)}
+
+.practice-trigger{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:none;border-radius:24px;padding:13px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;cursor:pointer;font-family:Inter,sans-serif;margin-top:8px}
+.practice-trigger svg{width:15px;height:15px}
+
+.practice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600}
+.practice-overlay.open{display:block}
+.practice-drawer{position:fixed;top:0;right:-460px;width:420px;max-width:92vw;height:100%;background:#0D0704;border-left:1px solid rgba(255,255,255,.08);z-index:601;transition:right .3s ease;display:flex;flex-direction:column;font-family:Inter,sans-serif}
+.practice-drawer.open{right:0}
+.practice-header{padding:22px 24px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.practice-title{font-size:15px;font-weight:800;color:#fff}
+.practice-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.practice-progress-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.practice-progress-fill{height:100%;width:0%;background:var(--orange);transition:width .3s}
+.practice-progress-label{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
+.practice-body{flex:1;overflow-y:auto;padding:20px 24px 40px}
+.pex-item{margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pex-num{font-size:10px;font-weight:800;color:var(--orange);margin-bottom:8px}
+.pex-sentence{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:10px}
+.pex-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:13px;color:#fff;font-family:Inter,sans-serif;margin-bottom:8px}
+.pex-input:focus{outline:none;border-color:var(--orange)}
+.pex-input.correct{border-color:#4CAF88;background:rgba(76,175,136,.08)}
+.pex-input.incorrect{border-color:var(--red);background:rgba(192,57,43,.14)}
+.pex-btnrow{display:flex;gap:8px}
+.pex-check{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border:none;border-radius:16px;padding:6px 14px;cursor:pointer;font-family:Inter,sans-serif}
+.pex-answer{display:none;margin-top:10px;background:rgba(232,98,26,.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.6}
+.pex-answer.show{display:block}
+.pex-answer strong{color:#fff}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+@media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center;gap:8px}.footer-copy{text-align:center}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Supply Chain &amp; Inventory · Quick Lesson</span>
+    <nav class="hdr-nav">
+      <a href="supplier-reasons.html">When Suppliers Walk Away</a>
+      <a href="supplier-qualification.html">Qualifying a Supplier</a>
+      <a href="not-as-agreed-practice.html">Should, Must &amp; Supposed To</a>
+    </nav>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Quick Lesson</span></div>
+    <h1 class="hero-title">Contract Language — <em>citing clauses &amp; assigning cost</em></h1>
+    <p class="hero-sub">Duas coisas que aparecem toda vez que um fornecedor dá problema: alguém precisa <strong>citar o que está no contrato</strong>, e alguém precisa decidir <strong>quem paga a conta</strong>. Este é o vocabulário pra fazer as duas coisas com confiança.</p>
+  </div>
+</section>
+
+<section class="vocab-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">Citing the Contract</span></div>
+    <p class="sec-sub">Como dizer que algo "está escrito", "está declarado" ou "de acordo com" o contrato — passe o mouse nas expressões pra ver a tradução.</p>
+
+    <div class="vocab-list">
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="escrito no contrato">written in the contract</span>
+        <span class="vocab-example">— the most literal way to say it</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="declarado, estipulado no contrato">stated in the contract</span>
+        <span class="vocab-example">— slightly more formal</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="especificado no contrato">specified in the contract</span>
+        <span class="vocab-example">— for exact numbers, dates, or quantities</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="de acordo com o contrato">according to the contract</span>
+        <span class="vocab-example">— the most common way to introduce a clause</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="o contrato declara/estabelece que">the contract states that...</span>
+        <span class="vocab-example">— use when quoting the content directly</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="quebra de contrato">breach of contract</span>
+        <span class="vocab-example">— when one side fails to meet its obligations</span>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-label">In context</div>
+      <div class="example-text">"<b>According to the contract</b>, VanderChem must give 30 days' notice before any price change. Missing three delivery dates in a row without notice could even be considered a <b>breach of contract</b>."</div>
+    </div>
+  </div>
+</section>
+
+<section class="vocab-section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">02</span><span class="sec-tag">Who Pays</span></div>
+    <p class="sec-sub">Quando o custo sobe, alguém tem que decidir o que fazer com ele: repassar, absorver ou dividir.</p>
+
+    <div class="vocab-list">
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="repassar o custo pro cliente">pass the cost on to the customer</span>
+        <span class="vocab-example">— the most common phrase for this</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="absorver o custo">absorb the cost</span>
+        <span class="vocab-example">— to take the loss yourself instead</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="transferir/deslocar o custo pra">shift the cost to</span>
+        <span class="vocab-example">— slightly more informal than "pass on"</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="transferir o custo pra (mais formal)">transfer the cost to</span>
+        <span class="vocab-example">— common in contracts and finance</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="ajustado à conformidade (prazo, data)">compliance-adjusted (delivery date)</span>
+        <span class="vocab-example">— a new date that accounts for a legal requirement</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="cobrar o cumprimento do contrato de alguém">hold someone to the contract</span>
+        <span class="vocab-example">— to insist that the other side meet its terms</span>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-label">In context</div>
+      <div class="example-text">"BioSource decided to <b>absorb</b> part of the increase instead of <b>passing</b> all of it <b>on to</b> the customer — but Frigorex made it clear they would <b>hold</b> BioSource <b>to</b> the original terms."</div>
+    </div>
+
+    <button class="practice-trigger" onclick="openPractice()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      Practice this vocabulary — open exercise
+    </button>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC &middot; Escola de Idiomas e Cultura</span>
+  <div class="footer-copy">Supply Chain &amp; Inventory &middot; Contract Language</div>
+</footer>
+
+<div class="practice-overlay" id="practiceOverlay" onclick="closePractice()"></div>
+
+<div class="practice-drawer" id="practiceDrawer">
+  <div class="practice-header">
+    <div class="practice-title-row">
+      <span class="practice-title">Practice: Contract Language</span>
+      <button class="practice-close" onclick="closePractice()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="practice-progress-track"><div class="practice-progress-fill" id="practiceProgressFill"></div></div>
+    <div class="practice-progress-label" id="practiceProgressLabel">0 of 12 checked</div>
+  </div>
+
+  <div class="practice-body">
+
+    <div class="pex-item">
+      <div class="pex-num">01</div>
+      <div class="pex-sentence">______ the original contract, VanderChem must give 30 days' notice before any price change.</div>
+      <input class="pex-input" id="pex1" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'According to')">Check</button></div>
+      <div class="pex-answer" id="pexA1"><strong>According to</strong> — the standard way to introduce a clause.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">02</div>
+      <div class="pex-sentence">The 90-day notice period is clearly ______ in the contract.</div>
+      <input class="pex-input" id="pex2" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'stated')">Check</button></div>
+      <div class="pex-answer" id="pexA2"><strong>stated</strong> — declared, formally written.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">03</div>
+      <div class="pex-sentence">It's ______ in the contract that the supplier must hold a valid export license.</div>
+      <input class="pex-input" id="pex3" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow3"><button class="pex-check" onclick="checkPex(3,'written')">Check</button></div>
+      <div class="pex-answer" id="pexA3"><strong>written</strong> — the most literal option.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">04</div>
+      <div class="pex-sentence">The exact volume for each shipment is ______ in the contract, down to the last kilo.</div>
+      <input class="pex-input" id="pex4" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow4"><button class="pex-check" onclick="checkPex(4,'specified')">Check</button></div>
+      <div class="pex-answer" id="pexA4"><strong>specified</strong> — used for exact numbers and details.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">05</div>
+      <div class="pex-sentence">The contract ______ that a distributor must request written approval before reselling the enzyme.</div>
+      <input class="pex-input" id="pex5" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow5"><button class="pex-check" onclick="checkPex(5,'states')">Check</button></div>
+      <div class="pex-answer" id="pexA5"><strong>states</strong> — used when quoting the content directly.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">06</div>
+      <div class="pex-sentence">Missing three delivery dates in a row could be considered a ______ of contract.</div>
+      <input class="pex-input" id="pex6" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow6"><button class="pex-check" onclick="checkPex(6,'breach')">Check</button></div>
+      <div class="pex-answer" id="pexA6"><strong>breach</strong> — a failure to meet the contract's terms.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">07</div>
+      <div class="pex-sentence">Rather than absorb the full increase herself, Mariana decided to ______ part of the cost to Frigorex.</div>
+      <input class="pex-input" id="pex7" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow7"><button class="pex-check" onclick="checkPex(7,'shift')">Check</button></div>
+      <div class="pex-answer" id="pexA7"><strong>shift</strong> — to move part of the cost onto someone else.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">08</div>
+      <div class="pex-sentence">BioSource chose to ______ the increase rather than raise its own prices.</div>
+      <input class="pex-input" id="pex8" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow8"><button class="pex-check" onclick="checkPex(8,'absorb')">Check</button></div>
+      <div class="pex-answer" id="pexA8"><strong>absorb</strong> — to take the cost yourself instead of passing it on.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">09</div>
+      <div class="pex-sentence">In the end, unable to absorb any more losses, Mariana had to ______ the extra cost on to the customer.</div>
+      <input class="pex-input" id="pex9" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow9"><button class="pex-check" onclick="checkPex(9,'pass')">Check</button></div>
+      <div class="pex-answer" id="pexA9"><strong>pass</strong> — as in "pass the cost on to."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">10</div>
+      <div class="pex-sentence">Some contracts include a clause that lets a supplier ______ part of the cost to a third party.</div>
+      <input class="pex-input" id="pex10" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow10"><button class="pex-check" onclick="checkPex(10,'transfer')">Check</button></div>
+      <div class="pex-answer" id="pexA10"><strong>transfer</strong> — the more formal option, common in contracts.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">11</div>
+      <div class="pex-sentence">Given the new export regulation, VanderChem should offer a ______ delivery date.</div>
+      <input class="pex-input" id="pex11" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow11"><button class="pex-check" onclick="checkPex(11,'compliance-adjusted')">Check</button></div>
+      <div class="pex-answer" id="pexA11"><strong>compliance-adjusted</strong> — a date that accounts for a new legal requirement.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">12</div>
+      <div class="pex-sentence">Frigorex made it clear they would ______ BioSource to the terms of the contract, no exceptions.</div>
+      <input class="pex-input" id="pex12" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow12"><button class="pex-check" onclick="checkPex(12,'hold')">Check</button></div>
+      <div class="pex-answer" id="pexA12"><strong>hold</strong> — as in "hold someone to the contract."</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openPractice() {
+  document.getElementById('practiceOverlay').classList.add('open');
+  document.getElementById('practiceDrawer').classList.add('open');
+}
+function closePractice() {
+  document.getElementById('practiceOverlay').classList.remove('open');
+  document.getElementById('practiceDrawer').classList.remove('open');
+}
+
+var pexChecked = {};
+
+function normalizeAns(s) {
+  return s.toLowerCase().trim().replace(/[.,!?"']/g, '').replace(/\s+/g, ' ');
+}
+
+function checkPex(n, correctAnswer) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+
+  if (!pexChecked[n]) {
+    pexChecked[n] = true;
+    updatePracticeProgress();
+  }
+}
+
+function hidePex(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="pex-check" onclick="checkPexAgain(' + n + ')">Show again</button>';
+}
+
+function checkPexAgain(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var input = document.getElementById('pex' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryPex(n) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+function updatePracticeProgress() {
+  var total = 12;
+  var done = Object.keys(pexChecked).length;
+  document.getElementById('practiceProgressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('practiceProgressLabel').textContent = done + ' of ' + total + ' checked';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.pex-btnrow').forEach(function(row){
+    row.dataset.checkHtml = row.innerHTML;
+  });
+});
+</script>
+
+</body>
+</html>
