@@ -16,6 +16,7 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;min-height:100vh}
+::selection{background:#EFFF00;color:var(--ink)}
 
 /* HEADER */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:52px}
@@ -72,6 +73,13 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 
 .match-score{margin-top:16px;font-size:13px;font-weight:600;color:var(--mid);text-align:center;min-height:20px}
 .match-score.done{color:var(--green)}
+.match-examples-track{display:flex;gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:6px;scroll-behavior:smooth}
+.match-examples-track::-webkit-scrollbar{height:4px}
+.match-examples-track::-webkit-scrollbar-track{background:var(--surface);border-radius:99px}
+.match-examples-track::-webkit-scrollbar-thumb{background:var(--teal);border-radius:99px}
+.match-ex-card{flex:0 0 220px;background:rgba(13,122,138,.07);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:10px 13px;font-size:12px;color:var(--ink);line-height:1.6;animation:slideIn .35s ease;min-height:60px}
+.match-ex-card .ex-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);opacity:.7;display:block;margin-bottom:4px}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
@@ -79,8 +87,10 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .word-bank{background:var(--dark);border-radius:12px;padding:16px 20px;margin-bottom:24px}
 .wb-label{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
 .wb-chips{display:flex;flex-wrap:wrap;gap:7px}
-.wb-chip{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 11px;cursor:default;transition:opacity .2s}
+.wb-chip{position:relative;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 11px;cursor:default;transition:opacity .2s}
 .wb-chip.used{opacity:.22;text-decoration:line-through}
+.wb-chip:not(.used):hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--dark);color:var(--teal-lt);font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.1);pointer-events:none;z-index:999}
+.wb-chip:not(.used):hover::before{content:'';position:absolute;bottom:calc(100% + 1px);left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--dark);pointer-events:none;z-index:999}
 
 .gap-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border);transition:border-color .15s}
 .gap-item.correct{border-color:var(--green);background:var(--green-lt)}
@@ -128,24 +138,26 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .mc-item.correct .mc-fb{color:var(--green)}
 .mc-item.wrong .mc-fb{color:var(--red)}
 
-/* ── SECTION D: TRUE/FALSE ── */
-.tf-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
-.tf-item.correct{border-color:var(--green);background:var(--green-lt)}
-.tf-item.wrong{border-color:var(--red);background:var(--red-lt)}
-.tf-sentence{font-size:15px;line-height:1.75;color:var(--ink);margin-bottom:6px}
-.tf-sentence mark{background:rgba(13,122,138,.12);color:var(--teal);font-weight:700;border-radius:3px;padding:1px 3px;font-style:italic}
-.tf-pt{font-size:12px;color:var(--mid);font-style:italic;margin-bottom:12px;line-height:1.5}
-.tf-opts{display:flex;gap:8px}
-.tf-btn{flex:1;padding:9px;border:1.5px solid var(--border);border-radius:7px;background:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;text-align:center;transition:all .15s}
-.tf-btn:hover:not(:disabled){border-color:var(--teal)}
-.tf-btn:disabled{cursor:not-allowed}
-.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
-.tf-btn.reveal{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-fb{margin-top:8px;font-size:12px;font-weight:600;line-height:1.5;display:none}
-.tf-item.correct .tf-fb,.tf-item.wrong .tf-fb{display:block}
-.tf-item.correct .tf-fb{color:var(--green)}
-.tf-item.wrong .tf-fb{color:var(--red)}
+/* ── SECTION D: PICK THE RIGHT WORD ── */
+.pw-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
+.pw-item.correct{border-color:var(--green);background:var(--green-lt)}
+.pw-item.wrong{border-color:var(--red);background:var(--red-lt)}
+.pw-sentence{font-size:15px;line-height:2;color:var(--ink);margin-bottom:6px}
+.pw-pt{font-size:12px;color:var(--mid);font-style:italic;margin-bottom:4px;line-height:1.5}
+.pw-choice{display:inline-flex;align-items:center;gap:0;margin:0 3px;vertical-align:baseline}
+.pw-btn{padding:2px 10px;border:1.5px solid var(--border);border-radius:5px;background:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .15s;line-height:1.6}
+.pw-btn:first-child{border-radius:5px 0 0 5px;border-right:none}
+.pw-btn:last-child{border-radius:0 5px 5px 0}
+.pw-sep{font-size:13px;color:var(--mid);padding:0 2px;background:#fff;border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border);line-height:1.9;font-weight:400}
+.pw-btn:hover:not(:disabled){background:rgba(13,122,138,.08);color:var(--teal);border-color:var(--teal)}
+.pw-btn:disabled{cursor:not-allowed}
+.pw-btn.correct{background:var(--green-lt)!important;color:var(--green)!important;border-color:var(--green)!important}
+.pw-btn.wrong{background:var(--red-lt)!important;color:var(--red)!important;border-color:var(--red)!important}
+.pw-btn.reveal{background:var(--green-lt)!important;color:var(--green)!important;border-color:var(--green)!important}
+.pw-fb{margin-top:10px;font-size:12px;font-weight:600;line-height:1.5;display:none}
+.pw-item.correct .pw-fb,.pw-item.wrong .pw-fb{display:block}
+.pw-item.correct .pw-fb{color:var(--green)}
+.pw-item.wrong .pw-fb{color:var(--red)}
 
 /* RESULT */
 .result-panel{background:var(--dark);border-radius:16px;padding:32px;text-align:center;display:none}
@@ -228,6 +240,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     </div>
   </div>
   <div class="match-score" id="matchScore"></div>
+  <div class="match-examples-track" id="matchExTrack"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════
@@ -246,12 +259,12 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   <div class="word-bank">
     <div class="wb-label">Word Bank</div>
     <div class="wb-chips" id="wbChips">
-      <span class="wb-chip" data-word="concerned">concerned</span>
-      <span class="wb-chip" data-word="replicate">replicate</span>
-      <span class="wb-chip" data-word="accommodate">accommodate</span>
-      <span class="wb-chip" data-word="in good terms">in good terms</span>
-      <span class="wb-chip" data-word="more experienced">more experienced</span>
-      <span class="wb-chip" data-word="seek new opportunities">seek new opportunities</span>
+      <span class="wb-chip" data-word="concerned" data-pt="preocupado; interessado">concerned</span>
+      <span class="wb-chip" data-word="replicate" data-pt="replicar; reproduzir">replicate</span>
+      <span class="wb-chip" data-word="accommodate" data-pt="acomodar; adaptar-se">accommodate</span>
+      <span class="wb-chip" data-word="in good terms" data-pt="em bons termos">in good terms</span>
+      <span class="wb-chip" data-word="more experienced" data-pt="mais experiente">more experienced</span>
+      <span class="wb-chip" data-word="seek new opportunities" data-pt="buscar novas oportunidades">seek new opportunities</span>
     </div>
   </div>
 
@@ -372,76 +385,52 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   <div class="section-header">
     <div class="section-num">D</div>
     <div class="section-info">
-      <div class="section-title">Correct use or not?</div>
-      <div class="section-pt">O uso está correto ou não?</div>
-      <div class="section-desc">Read the sentence. Is the highlighted word used correctly in this context?</div>
+      <div class="section-title">Pick the right word</div>
+      <div class="section-pt">Clique na palavra correta para completar a frase</div>
+      <div class="section-desc">Two words are separated by /. Click the one that fits the sentence.</div>
     </div>
   </div>
 
-  <!-- D1 — correct: absorb -->
-  <div class="tf-item" data-answer="true">
-    <div class="tf-sentence">After six months with us, we expect new reps to <mark>absorb</mark> our product portfolio and handle objections on their own.</div>
-    <div class="tf-pt">Após seis meses conosco, esperamos que os novos representantes assimilem nosso portfólio e lidem com objeções sozinhos.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D1: go after / run after — correct: go after (pos 1) -->
+  <div class="pw-item" data-correct="go after">
+    <div class="pw-sentence">After the trade show, Diego decided to <span class="pw-choice"><button class="pw-btn" data-word="go after" onclick="checkPW(this)">go after</button><span class="pw-sep">/</span><button class="pw-btn" data-word="run after" onclick="checkPW(this)">run after</button></span> the three largest accounts in the region.</div>
+    <div class="pw-pt">Após a feira, Diego decidiu ir atrás das três maiores contas da região.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D2 — correct: committed -->
-  <div class="tf-item" data-answer="true">
-    <div class="tf-sentence">She is <mark>committed</mark> to closing the deal by Friday — she has been working on it all week.</div>
-    <div class="tf-pt">Ela está comprometida em fechar o negócio até sexta — trabalhou nisso a semana toda.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D2: label / sort out — correct: label (pos 2) -->
+  <div class="pw-item" data-correct="label">
+    <div class="pw-sentence">Make sure you <span class="pw-choice"><button class="pw-btn" data-word="sort out" onclick="checkPW(this)">sort out</button><span class="pw-sep">/</span><button class="pw-btn" data-word="label" onclick="checkPW(this)">label</button></span> each sample box clearly before shipping to the client's warehouse.</div>
+    <div class="pw-pt">Certifique-se de etiquetar cada caixa de amostra claramente antes de enviar ao armazém do cliente.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D3 — incorrect: "run after" wrong context -->
-  <div class="tf-item" data-answer="false">
-    <div class="tf-sentence">We need to <mark>run after</mark> a new CRM system before the end of the year to track our pipeline better.</div>
-    <div class="tf-pt">Precisamos... um novo sistema de CRM antes do final do ano para rastrear melhor nosso pipeline.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D3: to be cut out for / committed — correct: to be cut out for (pos 1) -->
+  <div class="pw-item" data-correct="cut out for">
+    <div class="pw-sentence">Not everyone is <span class="pw-choice"><button class="pw-btn" data-word="cut out for" onclick="checkPW(this)">cut out for</button><span class="pw-sep">/</span><button class="pw-btn" data-word="committed to" onclick="checkPW(this)">committed to</button></span> enterprise sales — it takes patience and technical knowledge.</div>
+    <div class="pw-pt">Nem todo mundo tem aptidão para vendas corporativas — exige paciência e conhecimento técnico.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D4 — correct: competition -->
-  <div class="tf-item" data-answer="true">
-    <div class="tf-sentence">Our main <mark>competition</mark> launched a new product line last month — we have to respond quickly.</div>
-    <div class="tf-pt">Nossa principal concorrência lançou uma nova linha de produtos no mês passado — precisamos responder rapidamente.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D4: replicate / accommodate — correct: accommodate (pos 2) -->
+  <div class="pw-item" data-correct="accommodate">
+    <div class="pw-sentence">Our new logistics partner can <span class="pw-choice"><button class="pw-btn" data-word="replicate" onclick="checkPW(this)">replicate</button><span class="pw-sep">/</span><button class="pw-btn" data-word="accommodate" onclick="checkPW(this)">accommodate</button></span> deliveries to over 200 cities across Brazil.</div>
+    <div class="pw-pt">Nosso novo parceiro logístico consegue acomodar entregas em mais de 200 cidades pelo Brasil.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D5 — incorrect: "label" wrong context -->
-  <div class="tf-item" data-answer="false">
-    <div class="tf-sentence">Before the meeting, I need to <mark>label</mark> all the unresolved issues with the client contract.</div>
-    <div class="tf-pt">Antes da reunião, preciso... todas as questões não resolvidas no contrato do cliente.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D5: run after / prioritize — correct: run after (pos 2) -->
+  <div class="pw-item" data-correct="run after">
+    <div class="pw-sentence">Stop trying to <span class="pw-choice"><button class="pw-btn" data-word="prioritize" onclick="checkPW(this)">prioritize</button><span class="pw-sep">/</span><button class="pw-btn" data-word="run after" onclick="checkPW(this)">run after</button></span> every new lead and focus on the ones already in your pipeline.</div>
+    <div class="pw-pt">Pare de correr atrás de todo lead novo e foque nos que já estão no seu pipeline.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D6 — incorrect: "replicate" wrong context -->
-  <div class="tf-item" data-answer="false">
-    <div class="tf-sentence">I need to <mark>replicate</mark> that email I sent yesterday — I included the wrong pricing table.</div>
-    <div class="tf-pt">Preciso... aquele email que enviei ontem — incluí a tabela de preços errada.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D6: unusual / closed-off — correct: unusual (pos 1) -->
+  <div class="pw-item" data-correct="unusual">
+    <div class="pw-sentence">It is <span class="pw-choice"><button class="pw-btn" data-word="unusual" onclick="checkPW(this)">unusual</button><span class="pw-sep">/</span><button class="pw-btn" data-word="closed-off" onclick="checkPW(this)">closed-off</button></span> for a new client to sign a contract on the very first meeting.</div>
+    <div class="pw-pt">É incomum que um novo cliente assine um contrato na primeira reunião.</div>
+    <div class="pw-fb"></div>
   </div>
 </div>
 
@@ -452,7 +441,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="result-title" id="rTitle"></div>
     <div class="result-score" id="rScore"></div>
     <div class="result-msg" id="rMsg"></div>
-    <button class="reset-btn" onclick="location.reload()">Try again</button>
+    <button class="reset-btn" onclick="retryB()">Try section B again</button>
   </div>
 </div>
 
@@ -479,6 +468,17 @@ function updateBar() {
 // ── A: MATCHING ──────────────────────────────────────────
 let activeWord = null;
 let matchedCount = 0;
+
+const MATCH_EXAMPLES = {
+  "1": { word: "prioritize", sentence: "Before the quarterly review, we need to <strong>prioritize</strong> accounts with the highest renewal risk." },
+  "2": { word: "slack off", sentence: "The team started to <strong>slack off</strong> after the big contract was signed, and the client noticed." },
+  "3": { word: "committed", sentence: "She is fully <strong>committed</strong> to closing three new accounts before the end of Q3." },
+  "4": { word: "gatekeeper", sentence: "The receptionist acted as a <strong>gatekeeper</strong> — no meeting happened without her approval." },
+  "5": { word: "absorb", sentence: "New reps need at least 60 days to <strong>absorb</strong> the full product portfolio before meeting clients." },
+  "6": { word: "regardless of", sentence: "We follow up on every lead, <strong>regardless of</strong> the deal size or industry." },
+  "7": { word: "sort out", sentence: "Can you <strong>sort out</strong> the pricing discrepancy before we send the proposal tomorrow?" },
+  "8": { word: "closed-off", sentence: "The procurement manager seemed <strong>closed-off</strong> at first, but opened up after the technical demo." },
+};
 
 function selectWord(el) {
   if (el.classList.contains('matched')) return;
@@ -510,6 +510,16 @@ function selectDef(el) {
     const sc = document.getElementById('matchScore');
     sc.textContent = msg;
     if (matchedCount === 8) sc.classList.add('done');
+    // Append example card
+    const ex = MATCH_EXAMPLES[wid];
+    if (ex) {
+      const track = document.getElementById('matchExTrack');
+      const card = document.createElement('div');
+      card.className = 'match-ex-card';
+      card.innerHTML = '<span class="ex-label">' + ex.word + '</span>' + ex.sentence;
+      track.appendChild(card);
+      track.scrollLeft = track.scrollWidth;
+    }
     updateBar();
   } else {
     // wrong
@@ -529,23 +539,29 @@ function selectDef(el) {
 // ── B: GAP FILL ──────────────────────────────────────────
 function checkGap(sel) {
   const item = sel.closest('.gap-item');
-  if (item.classList.contains('correct') || item.classList.contains('wrong')) return;
-  const val = sel.value;
-  if (!val) return;
-  sel.disabled = true;
+  if (item.classList.contains('correct')) return;
+  const val = sel.value; if (!val) return;
   const correct = item.dataset.correct;
-  done.B++;
+  const fb = item.querySelector('.gap-fb');
   if (val === correct) {
+    sel.disabled = true;
+    item.classList.remove('wrong');
     item.classList.add('correct');
-    item.querySelector('.gap-fb').textContent = 'Certo! "'+correct+'" é a escolha correta aqui.';
-    scored.B++;
+    fb.style.display = 'block';
+    fb.textContent = 'Certo! "'+correct+'" é a escolha correta aqui.';
     markChipUsed(correct);
+    if (!item.dataset.scored) { item.dataset.scored='1'; scored.B++; done.B++; updateBar(); }
   } else {
     item.classList.add('wrong');
-    item.querySelector('.gap-fb').textContent = 'Não exatamente. A resposta correta é "'+correct+'".';
-    markChipUsed(correct);
+    fb.style.display = 'block';
+    fb.textContent = 'Não exatamente. O campo vai resetar em instantes — escolha outra opção.';
+    if (!item.dataset.counted) { item.dataset.counted='1'; done.B++; updateBar(); }
+    setTimeout(() => {
+      item.classList.remove('wrong');
+      sel.value = '';
+      fb.style.display = 'none';
+    }, 1800);
   }
-  updateBar();
 }
 
 function markChipUsed(word) {
@@ -589,42 +605,55 @@ function checkMC(btn) {
   updateBar();
 }
 
-// ── D: TRUE / FALSE ──────────────────────────────────────
-// Order: T T F T F F
-const TF_FB = {
-  true: {
-    0: 'Certo! "Absorb" = assimilar informação gradualmente. Uso perfeito aqui.',
-    1: 'Certo! "Committed" = comprometido, totalmente dedicado a um objetivo.',
-    3: 'Certo! "Competition" como substantivo coletivo = a concorrência no mercado.'
-  },
-  false: {
-    2: 'Incorreto. "Run after" = correr atrás de algo de forma literal ou urgente. Para implementar um sistema, usaríamos "implement", "set up" ou "get".',
-    4: 'Incorreto. "Label" = rotular/etiquetar fisicamente. Para lidar com questões pendentes, usaríamos "address", "resolve" ou "sort out".',
-    5: 'Incorreto. "Replicate" = reproduzir algo que já existe. Para corrigir um email enviado, usaríamos "recall", "fix" ou "correct".'
-  }
+// ── D: PICK THE RIGHT WORD ──────────────────────────────
+const PW_FB = {
+  "go after":     'Certo! "Go after" = perseguir ativamente, tentar conquistar. Diferente de "run after", que é mais literal ou informal.',
+  "label":        'Certo! "Label" = etiquetar, rotular. Correto para identificar caixas ou itens fisicamente.',
+  "cut out for":  'Certo! "Cut out for" = ter aptidão natural para algo. Diferente de "committed", que é sobre dedicação.',
+  "accommodate":  'Certo! "Accommodate" = acomodar, atender às necessidades. "Replicate" seria reproduzir algo que já existe.',
+  "run after":    'Certo! "Run after" = correr atrás de algo de forma impulsiva ou desordenada. Aqui o sentido é informal e crítico.',
+  "usual":        'Certo! "Unusual" = incomum, fora do padrão. "Closed-off" descreve uma postura, não uma frequência.',
+  "unusual":      'Certo! "Unusual" = incomum, fora do padrão. "Closed-off" descreve uma postura, não uma frequência.'
 };
-let tfCount = 0;
-
-function checkTF(btn) {
-  const item = btn.closest('.tf-item');
+const PW_WRONG = {
+  "go after":     '"Run after" tem sentido mais literal ou impulsivo. Para perseguir uma conta de forma estratégica, use "go after".',
+  "label":        '"Sort out" = resolver, organizar. Para identificar caixas fisicamente, o correto é "label".',
+  "cut out for":  '"Committed to" = comprometido com algo. Mas a frase fala de aptidão natural — use "cut out for".',
+  "accommodate":  '"Replicate" = reproduzir algo que já existe. Para atender necessidades logísticas, use "accommodate".',
+  "run after":    '"Prioritize" = dar prioridade, ordenar por importância. A frase pede o sentido de correr atrás desordenadamente — "run after".',
+  "unusual":      '"Closed-off" = reservado, fechado (postura). Para dizer que algo é incomum, use "unusual".'
+};
+function checkPW(btn) {
+  const item = btn.closest('.pw-item');
   if (item.classList.contains('correct') || item.classList.contains('wrong')) return;
-  const idx = tfCount;
-  const expected = item.dataset.answer; // "true" or "false"
-  const picked   = btn.dataset.pick;
-  tfCount++;
-  item.querySelectorAll('.tf-btn').forEach(b => b.disabled = true);
+  const correct = item.dataset.correct;
+  const picked  = btn.dataset.word;
+  item.querySelectorAll('.pw-btn').forEach(b => b.disabled = true);
   done.D++;
-  if (picked === expected) {
-    btn.classList.add('correct');
-    item.classList.add('correct');
-    item.querySelector('.tf-fb').textContent = TF_FB[picked][idx] || 'Certo!';
-    scored.D++;
+  const fb = item.querySelector('.pw-fb');
+  if (picked === correct) {
+    btn.classList.add('correct'); item.classList.add('correct');
+    fb.textContent = PW_FB[correct] || 'Certo!'; scored.D++;
   } else {
-    btn.classList.add('wrong');
-    item.classList.add('wrong');
-    item.querySelector('.tf-btn[data-pick="'+expected+'"]').classList.add('reveal');
-    item.querySelector('.tf-fb').textContent = TF_FB[expected][idx] || 'Não exatamente.';
+    btn.classList.add('wrong'); item.classList.add('wrong');
+    item.querySelector('.pw-btn[data-word="'+correct+'"]').classList.add('reveal');
+    fb.textContent = PW_WRONG[correct] || 'Não exatamente.';
   }
+  updateBar();
+}
+
+// ── RETRY B ──
+function retryB() {
+  document.querySelectorAll('.gap-item.wrong').forEach(item => {
+    item.classList.remove('wrong');
+    const sel = item.querySelector('select');
+    if (sel) { sel.disabled = false; sel.value = ''; }
+    const fb = item.querySelector('.gap-fb');
+    if (fb) { fb.style.display = 'none'; fb.textContent = ''; }
+    delete item.dataset.counted;
+    done.B = Math.max(0, done.B - 1);
+  });
+  document.getElementById('resultPanel').classList.remove('show');
   updateBar();
 }
 

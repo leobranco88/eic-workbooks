@@ -16,6 +16,7 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;min-height:100vh}
+::selection{background:#EFFF00;color:var(--ink)}
 
 .hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:52px}
 .hdr-logo{height:28px;width:auto;flex-shrink:0}
@@ -61,6 +62,13 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .match-def.wrong{border-color:var(--red);background:var(--red-lt);animation:shake .3s ease}
 .match-def.matched{border-color:var(--green);background:var(--green-lt);color:var(--green);cursor:default}
 .match-score{margin-top:16px;font-size:13px;font-weight:600;color:var(--mid);text-align:center;min-height:20px}
+.match-examples-track{display:flex;gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:6px;scroll-behavior:smooth}
+.match-examples-track::-webkit-scrollbar{height:4px}
+.match-examples-track::-webkit-scrollbar-track{background:var(--surface);border-radius:99px}
+.match-examples-track::-webkit-scrollbar-thumb{background:var(--teal);border-radius:99px}
+.match-ex-card{flex:0 0 220px;background:rgba(13,122,138,.07);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:10px 13px;font-size:12px;color:var(--ink);line-height:1.6;animation:slideIn .35s ease;min-height:60px}
+.match-ex-card .ex-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);opacity:.7;display:block;margin-bottom:4px}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 .match-score.done{color:var(--green)}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
@@ -99,6 +107,10 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .gap-item.correct .gap-fb,.gap-item.wrong .gap-fb{display:block}
 .gap-item.correct .gap-fb{color:var(--green)}
 .gap-item.wrong .gap-fb{color:var(--red)}
+.gap-example{margin-top:10px;padding:10px 14px;background:rgba(13,122,138,.07);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;font-size:13px;color:var(--ink);line-height:1.65;display:none}
+.gap-example.show{display:block}
+.gap-example .ex-word{font-weight:700;color:var(--teal)}
+.gap-example .ex-loading{color:var(--mid);font-style:italic;font-size:12px}
 
 /* MC */
 .mc-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
@@ -118,24 +130,26 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .mc-item.correct .mc-fb{color:var(--green)}
 .mc-item.wrong .mc-fb{color:var(--red)}
 
-/* TF */
-.tf-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
-.tf-item.correct{border-color:var(--green);background:var(--green-lt)}
-.tf-item.wrong{border-color:var(--red);background:var(--red-lt)}
-.tf-sentence{font-size:15px;line-height:1.75;color:var(--ink);margin-bottom:6px}
-.tf-sentence mark{background:rgba(13,122,138,.12);color:var(--teal);font-weight:700;border-radius:3px;padding:1px 3px;font-style:italic}
-.tf-pt{font-size:12px;color:var(--mid);font-style:italic;margin-bottom:12px;line-height:1.5}
-.tf-opts{display:flex;gap:8px}
-.tf-btn{flex:1;padding:9px;border:1.5px solid var(--border);border-radius:7px;background:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;text-align:center;transition:all .15s}
-.tf-btn:hover:not(:disabled){border-color:var(--teal)}
-.tf-btn:disabled{cursor:not-allowed}
-.tf-btn.correct{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-btn.wrong{border-color:var(--red)!important;background:var(--red-lt)!important;color:var(--red)!important}
-.tf-btn.reveal{border-color:var(--green)!important;background:var(--green-lt)!important;color:var(--green)!important}
-.tf-fb{margin-top:8px;font-size:12px;font-weight:600;line-height:1.5;display:none}
-.tf-item.correct .tf-fb,.tf-item.wrong .tf-fb{display:block}
-.tf-item.correct .tf-fb{color:var(--green)}
-.tf-item.wrong .tf-fb{color:var(--red)}
+/* PICK WORD */
+.pw-item{margin-bottom:16px;padding:18px 20px;background:#fff;border-radius:10px;border:1.5px solid var(--border)}
+.pw-item.correct{border-color:var(--green);background:var(--green-lt)}
+.pw-item.wrong{border-color:var(--red);background:var(--red-lt)}
+.pw-sentence{font-size:15px;line-height:2;color:var(--ink);margin-bottom:6px}
+.pw-pt{font-size:12px;color:var(--mid);font-style:italic;margin-bottom:4px;line-height:1.5}
+.pw-choice{display:inline-flex;align-items:center;gap:0;margin:0 3px;vertical-align:baseline}
+.pw-btn{padding:2px 10px;border:1.5px solid var(--border);border-radius:5px;background:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .15s;line-height:1.6}
+.pw-btn:first-child{border-radius:5px 0 0 5px;border-right:none}
+.pw-btn:last-child{border-radius:0 5px 5px 0}
+.pw-sep{font-size:13px;color:var(--mid);padding:0 2px;background:#fff;border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border);line-height:1.9;font-weight:400}
+.pw-btn:hover:not(:disabled){background:rgba(13,122,138,.08);color:var(--teal);border-color:var(--teal)}
+.pw-btn:disabled{cursor:not-allowed}
+.pw-btn.correct{background:var(--green-lt)!important;color:var(--green)!important;border-color:var(--green)!important}
+.pw-btn.wrong{background:var(--red-lt)!important;color:var(--red)!important;border-color:var(--red)!important}
+.pw-btn.reveal{background:var(--green-lt)!important;color:var(--green)!important;border-color:var(--green)!important}
+.pw-fb{margin-top:10px;font-size:12px;font-weight:600;line-height:1.5;display:none}
+.pw-item.correct .pw-fb,.pw-item.wrong .pw-fb{display:block}
+.pw-item.correct .pw-fb{color:var(--green)}
+.pw-item.wrong .pw-fb{color:var(--red)}
 
 /* RESULT */
 .result-panel{background:var(--dark);border-radius:16px;padding:32px;text-align:center;display:none}
@@ -214,6 +228,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     </div>
   </div>
   <div class="match-score" id="matchScore"></div>
+  <div class="match-examples-track" id="matchExTrack"></div>
 </div>
 
 <!-- ══ B — GAP FILL ══ -->
@@ -244,6 +259,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="gap-sentence">The new warehouse management system will <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>claim</option><option>track</option><option>facilitate</option><option>scarce</option></select></span> faster order processing for all our distribution centres.</div>
     <div class="gap-pt">O novo sistema de gestão de armazém vai facilitar o processamento mais rápido de pedidos em todos os nossos centros de distribuição.</div>
     <div class="gap-fb"></div>
+    <div class="gap-example"></div>
   </div>
 
   <!-- B2 — correct at position 1 -->
@@ -251,6 +267,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="gap-sentence">We use real-time GPS data to <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>track</option><option>facilitate</option><option>claim</option><option>temporary cap</option></select></span> every shipment from the supplier's dock to our facility.</div>
     <div class="gap-pt">Usamos dados de GPS em tempo real para rastrear cada remessa do cais do fornecedor até nossa instalação.</div>
     <div class="gap-fb"></div>
+    <div class="gap-example"></div>
   </div>
 
   <!-- B3 — correct at position 4 -->
@@ -258,6 +275,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="gap-sentence">Qualified logistics professionals are becoming increasingly <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>unprofitable</option><option>upstream</option><option>chilly</option><option>scarce</option></select></span> in this region, which is raising hiring costs significantly.</div>
     <div class="gap-pt">Profissionais de logística qualificados estão se tornando cada vez mais escassos nesta região, o que está elevando significativamente os custos de contratação.</div>
     <div class="gap-fb"></div>
+    <div class="gap-example"></div>
   </div>
 
   <!-- B4 — correct at position 2 -->
@@ -265,6 +283,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="gap-sentence">The supplier sent a <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>misclassification</option><option>payment request</option><option>shortage</option><option>dock</option></select></span> for the last three deliveries, but our finance team is still reviewing the figures.</div>
     <div class="gap-pt">O fornecedor enviou uma solicitação de pagamento pelas últimas três entregas, mas nossa equipe financeira ainda está revisando os valores.</div>
     <div class="gap-fb"></div>
+    <div class="gap-example"></div>
   </div>
 
   <!-- B5 — correct at position 3 -->
@@ -272,6 +291,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="gap-sentence">The carrier will <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>dock</option><option>facilitate</option><option>claim</option><option>track</option></select></span> that the delay was caused by high tides at the port, not by poor scheduling on their side.</div>
     <div class="gap-pt">A transportadora vai afirmar que o atraso foi causado pelas marés altas no porto, não por um planejamento ruim do lado deles.</div>
     <div class="gap-fb"></div>
+    <div class="gap-example"></div>
   </div>
 
   <!-- B6 — correct at position 4 -->
@@ -279,6 +299,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="gap-sentence">The government announced a <span class="gap-input"><select onchange="checkGap(this)"><option value="">▾</option><option>shortage</option><option>claim</option><option>facility</option><option>temporary cap</option></select></span> on freight rates to ease the pressure on importers during the crisis.</div>
     <div class="gap-pt">O governo anunciou um teto temporário nas tarifas de frete para aliviar a pressão sobre os importadores durante a crise.</div>
     <div class="gap-fb"></div>
+    <div class="gap-example"></div>
   </div>
 </div>
 
@@ -346,81 +367,57 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   </div>
 </div>
 
-<!-- ══ D — TRUE/FALSE ══ -->
+<!-- ══ D — PICK THE RIGHT WORD ══ -->
 <div class="section" id="secD">
   <div class="section-header">
     <div class="section-num">D</div>
     <div class="section-info">
-      <div class="section-title">Correct use or not?</div>
-      <div class="section-pt">O uso está correto ou não?</div>
-      <div class="section-desc">Is the highlighted word used correctly in this context?</div>
+      <div class="section-title">Pick the right word</div>
+      <div class="section-pt">Clique na palavra correta para completar a frase</div>
+      <div class="section-desc">Two words are separated by /. Click the one that fits the sentence.</div>
     </div>
   </div>
 
-  <!-- D1 — CORRECT (T) -->
-  <div class="tf-item" data-answer="true">
-    <div class="tf-sentence">The port is running <mark>at full capacity</mark> during the peak season, so we should book space in advance.</div>
-    <div class="tf-pt">O porto está operando em plena capacidade durante a alta temporada, então devemos reservar espaço com antecedência.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D1: chilly / scarce — correct: chilly -->
+  <div class="pw-item" data-correct="chilly">
+    <div class="pw-sentence">It was a <span class="pw-choice"><button class="pw-btn" data-word="chilly" onclick="checkPW(this)">chilly</button><span class="pw-sep">/</span><button class="pw-btn" data-word="scarce" onclick="checkPW(this)">scarce</button></span> morning at the port, so the ground crew started late.</div>
+    <div class="pw-pt">Estava uma manhã fria no porto, então a equipe de solo começou tarde.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D2 — CORRECT (T) -->
-  <div class="tf-item" data-answer="true">
-    <div class="tf-sentence">Drivers were warned that <mark>high tides</mark> could block access to the coastal loading dock until midday.</div>
-    <div class="tf-pt">Os motoristas foram avisados de que as marés altas poderiam bloquear o acesso ao cais de carregamento costeiro até o meio-dia.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D2: to dock / to track — correct: to dock -->
+  <div class="pw-item" data-correct="to dock">
+    <div class="pw-sentence">The vessel is scheduled <span class="pw-choice"><button class="pw-btn" data-word="to dock" onclick="checkPW(this)">to dock</button><span class="pw-sep">/</span><button class="pw-btn" data-word="to track" onclick="checkPW(this)">to track</button></span> at Terminal 3 before 08:00 tomorrow.</div>
+    <div class="pw-pt">O navio está programado para atracar no Terminal 3 antes das 08:00 de amanhã.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D3 — INCORRECT (F): "and then" wrong register -->
-  <div class="tf-item" data-answer="false">
-    <div class="tf-sentence">Please review the purchase order, <mark>and then</mark> the invoice will be approved automatically by the system.</div>
-    <div class="tf-pt">Por favor, revise o pedido de compra, e depois a nota fiscal será aprovada automaticamente pelo sistema.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D3: let them know / claim — correct: let them know -->
+  <div class="pw-item" data-correct="let them know">
+    <div class="pw-sentence">If the shipment is delayed by more than 24 hours, please <span class="pw-choice"><button class="pw-btn" data-word="claim" onclick="checkPW(this)">claim</button><span class="pw-sep">/</span><button class="pw-btn" data-word="let them know" onclick="checkPW(this)">let them know</button></span> immediately.</div>
+    <div class="pw-pt">Se a remessa atrasar mais de 24 horas, por favor avise-os imediatamente.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D4 — CORRECT (T) -->
-  <div class="tf-item" data-answer="true">
-    <div class="tf-sentence">The <mark>scarcity</mark> of semiconductor chips has disrupted automotive supply chains worldwide since 2021.</div>
-    <div class="tf-pt">A escassez de chips semicondutores tem perturbado as cadeias de suprimentos automotivas em todo o mundo desde 2021.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D4: scarcity / misclassification — correct: misclassification -->
+  <div class="pw-item" data-correct="misclassification">
+    <div class="pw-sentence">The customs hold was caused by a <span class="pw-choice"><button class="pw-btn" data-word="misclassification" onclick="checkPW(this)">misclassification</button><span class="pw-sep">/</span><button class="pw-btn" data-word="scarcity" onclick="checkPW(this)">scarcity</button></span> of the cargo type in the manifest.</div>
+    <div class="pw-pt">A retenção alfandegária foi causada por uma classificação incorreta do tipo de carga no manifesto.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D5 — INCORRECT (F): "humiliating" wrong context -->
-  <div class="tf-item" data-answer="false">
-    <div class="tf-sentence">The <mark>humiliating</mark> delivery delay forced us to renegotiate the SLA with our logistics provider.</div>
-    <div class="tf-pt">O atraso de entrega ... nos forçou a renegociar o SLA com nosso provedor de logística.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D5: unprofitable / humiliating — correct: unprofitable -->
+  <div class="pw-item" data-correct="unprofitable">
+    <div class="pw-sentence">The São Paulo to Manaus route became <span class="pw-choice"><button class="pw-btn" data-word="humiliating" onclick="checkPW(this)">humiliating</button><span class="pw-sep">/</span><button class="pw-btn" data-word="unprofitable" onclick="checkPW(this)">unprofitable</button></span> after fuel costs doubled.</div>
+    <div class="pw-pt">A rota de São Paulo para Manaus se tornou não lucrativa depois que os custos de combustível dobraram.</div>
+    <div class="pw-fb"></div>
   </div>
 
-  <!-- D6 — INCORRECT (F): "owl" wrong context -->
-  <div class="tf-item" data-answer="false">
-    <div class="tf-sentence">Our logistics <mark>owl</mark> in Campinas can store up to 50,000 pallets of finished goods.</div>
-    <div class="tf-pt">Nossa ... de logística em Campinas pode armazenar até 50.000 paletes de produtos acabados.</div>
-    <div class="tf-opts">
-      <button class="tf-btn" data-pick="true"  onclick="checkTF(this)">Correct</button>
-      <button class="tf-btn" data-pick="false" onclick="checkTF(this)">Incorrect</button>
-    </div>
-    <div class="tf-fb"></div>
+  <!-- D6: upstream / and then — correct: upstream -->
+  <div class="pw-item" data-correct="upstream">
+    <div class="pw-sentence">The bottleneck is <span class="pw-choice"><button class="pw-btn" data-word="and then" onclick="checkPW(this)">and then</button><span class="pw-sep">/</span><button class="pw-btn" data-word="upstream" onclick="checkPW(this)">upstream</button></span>, at the raw material supplier — not at our warehouse.</div>
+    <div class="pw-pt">O gargalo está a montante, no fornecedor de matéria-prima — não no nosso armazém.</div>
+    <div class="pw-fb"></div>
   </div>
 </div>
 
@@ -431,7 +428,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="result-title" id="rTitle"></div>
     <div class="result-score" id="rScore"></div>
     <div class="result-msg" id="rMsg"></div>
-    <button class="reset-btn" onclick="location.reload()">Try again</button>
+    <button class="reset-btn" onclick="retryB()">Try section B again</button>
   </div>
 </div>
 
@@ -462,15 +459,37 @@ function selectWord(el) {
   if (activeWord === el) { activeWord = null; return; }
   activeWord = el; el.classList.add('active');
 }
+const MATCH_EXAMPLES = {
+  "1": { word: "procurement", sentence: `Our <strong>procurement</strong> team negotiated a 10% discount with the new supplier.` },
+  "2": { word: "a shortage", sentence: `There is <strong>a shortage</strong> of containers at the port, so shipments are delayed.` },
+  "3": { word: "at full capacity", sentence: `The plant is running <strong>at full capacity</strong> to meet the Christmas demand.` },
+  "4": { word: "bridge the gap", sentence: `We hired a local carrier to <strong>bridge the gap</strong> while our main logistics partner recovers.` },
+  "5": { word: "upstream", sentence: `The problem started <strong>upstream</strong>, at the raw material supplier level.` },
+  "6": { word: "go out of business", sentence: `Three small freight companies <strong>went out of business</strong> after fuel prices doubled.` },
+  "7": { word: "unprofitable", sentence: `The São Paulo route became <strong>unprofitable</strong> after the toll fees increased.` },
+  "8": { word: "let them know", sentence: `If the shipment is delayed, <strong>let them know</strong> before the delivery window closes.` },
+};
+
 function selectDef(el) {
   if (el.classList.contains('matched') || !activeWord) return;
   if (activeWord.dataset.id === el.dataset.id) {
+    const matchId = activeWord.dataset.id;
     activeWord.classList.remove('active'); activeWord.classList.add('matched');
     el.classList.add('matched'); activeWord = null;
     matchedCount++; scored.A++; done.A++;
     const sc = document.getElementById('matchScore');
     sc.textContent = matchedCount === 8 ? 'All matched! Great work.' : matchedCount+' / 8 matched';
     if (matchedCount === 8) sc.classList.add('done');
+    // Append example card
+    const ex = MATCH_EXAMPLES[matchId];
+    if (ex) {
+      const track = document.getElementById('matchExTrack');
+      const card = document.createElement('div');
+      card.className = 'match-ex-card';
+      card.innerHTML = '<span class="ex-label">' + ex.word + '</span>' + ex.sentence;
+      track.appendChild(card);
+      track.scrollLeft = track.scrollWidth;
+    }
   } else {
     el.classList.add('wrong'); activeWord.classList.add('shake'); done.A++;
     setTimeout(()=>{ el.classList.remove('wrong'); activeWord&&activeWord.classList.remove('shake'); },600);
@@ -482,7 +501,7 @@ function selectDef(el) {
 // ── B: GAP FILL ──
 function checkGap(sel) {
   const item = sel.closest('.gap-item');
-  if (item.classList.contains('correct')) return; // locked after correct
+  if (item.classList.contains('correct')) return;
   const val = sel.value; if (!val) return;
   const correct = item.dataset.correct;
   const fb = item.querySelector('.gap-fb');
@@ -497,8 +516,13 @@ function checkGap(sel) {
   } else {
     item.classList.add('wrong');
     fb.style.display = 'block';
-    fb.textContent = 'Não exatamente. Tente novamente.';
+    fb.textContent = 'Não exatamente. O campo vai resetar em instantes — escolha outra opção.';
     if (!item.dataset.counted) { item.dataset.counted='1'; done.B++; updateBar(); }
+    setTimeout(() => {
+      item.classList.remove('wrong');
+      sel.value = '';
+      fb.style.display = 'none';
+    }, 1800);
   }
 }
 
@@ -532,33 +556,54 @@ function checkMC(btn) {
   updateBar();
 }
 
-// ── D: TRUE/FALSE — order T T F T F F ──
-const TF_FB = {
-  true:{
-    0:'Certo! "At full capacity" = em plena capacidade, no limite máximo de produção. Uso perfeito em contexto portuário.',
-    1:'Certo! "High tides" = marés altas. Uso correto e relevante em contexto de logística costeira.',
-    3:'Certo! "Scarcity" = escassez. Termo técnico e preciso para descrever a falta de semicondutores na cadeia de suprimentos.'
-  },
-  false:{
-    2:'Incorreto. "And then" é muito informal para um contexto de procedimento empresarial. Prefira "after that", "once reviewed" ou "upon approval".',
-    4:'Incorreto. "Humiliating" descreve algo constrangedor para uma pessoa. Em contexto de negócios, o mais apropriado seria "costly", "significant" ou "critical".',
-    5:'Incorreto. "Owl" = coruja. A palavra correta seria "facility" (instalação) ou "hub" (centro de distribuição).'
-  }
+// ── D: PICK THE RIGHT WORD ──
+const PW_FB = {
+  "chilly":           'Certo! "Chilly" = frio/fresco. Perfeito para descrever uma manhã fria no porto.',
+  "to dock":          'Certo! "To dock" = atracar. O verbo correto para descrever um navio chegando ao terminal.',
+  "let them know":    'Certo! "Let them know" = avisar, informar. Expressão direta e profissional para comunicar atrasos.',
+  "misclassification":'Certo! "Misclassification" = classificação incorreta. Causa comum de retenção alfandegária.',
+  "unprofitable":     'Certo! "Unprofitable" = não lucrativo. Termo de negócios preciso para uma rota que gera prejuízo.',
+  "upstream":         'Certo! "Upstream" = a montante. Indica que o problema está antes na cadeia de fornecimento.'
 };
-let tfCount = 0;
-function checkTF(btn) {
-  const item = btn.closest('.tf-item');
+const PW_WRONG = {
+  "chilly":           '"Scarce" = escasso. Não faz sentido aqui — a manhã não é escassa, é fria. Use "chilly".',
+  "to dock":          '"To track" = rastrear. O navio não rastreia — ele atraca. Use "to dock".',
+  "let them know":    '"Claim" = afirmar/reivindicar. Não é o verbo certo para comunicar um atraso. Use "let them know".',
+  "misclassification":'"Scarcity" = escassez. A alfândega não retém cargas por escassez — retém por erro de classificação.',
+  "unprofitable":     '"Humiliating" = humilhante. Rotas não são humilhantes — são não lucrativas. Use "unprofitable".',
+  "upstream":         '"And then" é informal demais e não descreve localização na cadeia. Use "upstream".'
+};
+function checkPW(btn) {
+  const item = btn.closest('.pw-item');
   if (item.classList.contains('correct')||item.classList.contains('wrong')) return;
-  const idx = tfCount; const expected = item.dataset.answer; const picked = btn.dataset.pick;
-  tfCount++; item.querySelectorAll('.tf-btn').forEach(b=>b.disabled=true); done.D++;
-  if (picked === expected) {
+  const correct = item.dataset.correct;
+  const picked  = btn.dataset.word;
+  item.querySelectorAll('.pw-btn').forEach(b=>b.disabled=true);
+  done.D++;
+  const fb = item.querySelector('.pw-fb');
+  if (picked === correct) {
     btn.classList.add('correct'); item.classList.add('correct');
-    item.querySelector('.tf-fb').textContent = TF_FB[picked][idx]||'Certo!'; scored.D++;
+    fb.textContent = PW_FB[correct]||'Certo!'; scored.D++;
   } else {
     btn.classList.add('wrong'); item.classList.add('wrong');
-    item.querySelector('.tf-btn[data-pick="'+expected+'"]').classList.add('reveal');
-    item.querySelector('.tf-fb').textContent = TF_FB[expected][idx]||'Não exatamente.';
+    item.querySelector('.pw-btn[data-word="'+correct+'"]').classList.add('reveal');
+    fb.textContent = PW_WRONG[correct]||'Não exatamente.';
   }
+  updateBar();
+}
+
+// ── RETRY B ──
+function retryB() {
+  document.querySelectorAll('.gap-item.wrong').forEach(item => {
+    item.classList.remove('wrong');
+    const sel = item.querySelector('select');
+    if (sel) { sel.disabled = false; sel.value = ''; }
+    const fb = item.querySelector('.gap-fb');
+    if (fb) { fb.style.display = 'none'; fb.textContent = ''; }
+    delete item.dataset.counted;
+    done.B = Math.max(0, done.B - 1);
+  });
+  document.getElementById('resultPanel').classList.remove('show');
   updateBar();
 }
 

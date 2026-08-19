@@ -1,0 +1,106 @@
+[debug] [2026-08-19T18:13:50.136Z] ----------------------------------------------------------------------
+[debug] [2026-08-19T18:13:50.143Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2026-08-19T18:13:50.143Z] CLI Version:   15.24.0
+[debug] [2026-08-19T18:13:50.143Z] Platform:      darwin
+[debug] [2026-08-19T18:13:50.143Z] Node Version:  v24.14.0
+[debug] [2026-08-19T18:13:50.143Z] Detected Agent: unknown
+[debug] [2026-08-19T18:13:50.143Z] Time:          Wed Aug 19 2026 15:13:50 GMT-0300 (Brasilia Standard Time)
+[debug] [2026-08-19T18:13:50.143Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-08-19T18:13:51.132Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-19T18:13:51.133Z] > authorizing via signed-in user (leobranco88@gmail.com)
+[debug] [2026-08-19T18:13:51.133Z] [iam] checking project eic-worksheets for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-19T18:13:51.148Z] Checked if tokens are valid: false, expires at: 1787160133759
+[debug] [2026-08-19T18:13:51.148Z] Checked if tokens are valid: false, expires at: 1787160133759
+[debug] [2026-08-19T18:13:51.148Z] > refreshing access token with scopes: []
+[debug] [2026-08-19T18:13:51.156Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-08-19T18:13:51.156Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-08-19T18:13:51.750Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-08-19T18:13:51.754Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-08-19T18:13:51.770Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions [none]
+[debug] [2026-08-19T18:13:51.770Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions  x-goog-user-project=eic-worksheets
+[debug] [2026-08-19T18:13:51.770Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-19T18:13:53.023Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions 403
+[debug] [2026-08-19T18:13:53.025Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"error":{"code":403,"message":"Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes.","status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"USER_PROJECT_DENIED","domain":"googleapis.com","metadata":{"service":"cloudresourcemanager.googleapis.com","consoleUrl":"https://console.developers.google.com/iam-admin/iam?project=eic-worksheets","containerInfo":"eic-worksheets","consumer":"projects/eic-worksheets"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developer console IAM admin","url":"https://console.developers.google.com/iam-admin/iam?project=eic-worksheets"}]}]}}
+[debug] [2026-08-19T18:13:53.027Z] [iam] error while checking permissions, command may fail: Request to https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions had HTTP Error: 403, Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes.
+[debug] [2026-08-19T18:13:53.029Z] Checked if tokens are valid: true, expires at: 1787166830755
+[debug] [2026-08-19T18:13:53.029Z] Checked if tokens are valid: true, expires at: 1787166830755
+[debug] [2026-08-19T18:13:53.030Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets [none]
+[debug] [2026-08-19T18:13:53.574Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets 403
+[debug] [2026-08-19T18:13:53.574Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-08-19T18:13:53.575Z] Request to https://firebase.googleapis.com/v1beta1/projects/eic-worksheets had HTTP Error: 403, The caller does not have permission
+[debug] [2026-08-19T18:13:53.577Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/eic-worksheets had HTTP Error: 403, The caller does not have permission
+    at responseToError (/usr/local/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] 
+[error] Error: Failed to get Firebase project eic-worksheets. Please make sure the project exists and your account has permission to access it.
+[debug] [2026-08-19T19:12:41.226Z] ----------------------------------------------------------------------
+[debug] [2026-08-19T19:12:41.235Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2026-08-19T19:12:41.235Z] CLI Version:   15.24.0
+[debug] [2026-08-19T19:12:41.235Z] Platform:      darwin
+[debug] [2026-08-19T19:12:41.235Z] Node Version:  v24.14.0
+[debug] [2026-08-19T19:12:41.235Z] Detected Agent: unknown
+[debug] [2026-08-19T19:12:41.235Z] Time:          Wed Aug 19 2026 16:12:41 GMT-0300 (Brasilia Standard Time)
+[debug] [2026-08-19T19:12:41.235Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-08-19T19:12:42.238Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-19T19:12:42.238Z] > authorizing via signed-in user (leobranco88@gmail.com)
+[debug] [2026-08-19T19:12:42.238Z] [iam] checking project eic-worksheets for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-19T19:12:42.247Z] Checked if tokens are valid: false, expires at: 1787166830755
+[debug] [2026-08-19T19:12:42.247Z] Checked if tokens are valid: false, expires at: 1787166830755
+[debug] [2026-08-19T19:12:42.247Z] > refreshing access token with scopes: []
+[debug] [2026-08-19T19:12:42.250Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-08-19T19:12:42.250Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-08-19T19:12:42.632Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-08-19T19:12:42.636Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-08-19T19:12:42.652Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions [none]
+[debug] [2026-08-19T19:12:42.652Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions  x-goog-user-project=eic-worksheets
+[debug] [2026-08-19T19:12:42.652Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-19T19:12:43.816Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions 403
+[debug] [2026-08-19T19:12:43.818Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"error":{"code":403,"message":"Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes.","status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"USER_PROJECT_DENIED","domain":"googleapis.com","metadata":{"service":"cloudresourcemanager.googleapis.com","consumer":"projects/eic-worksheets","consoleUrl":"https://console.developers.google.com/iam-admin/iam?project=eic-worksheets","containerInfo":"eic-worksheets"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developer console IAM admin","url":"https://console.developers.google.com/iam-admin/iam?project=eic-worksheets"}]}]}}
+[debug] [2026-08-19T19:12:43.820Z] [iam] error while checking permissions, command may fail: Request to https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions had HTTP Error: 403, Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes.
+[debug] [2026-08-19T19:12:43.822Z] Checked if tokens are valid: true, expires at: 1787170361636
+[debug] [2026-08-19T19:12:43.822Z] Checked if tokens are valid: true, expires at: 1787170361636
+[debug] [2026-08-19T19:12:43.824Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets [none]
+[debug] [2026-08-19T19:12:44.260Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets 403
+[debug] [2026-08-19T19:12:44.260Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-08-19T19:12:44.260Z] Request to https://firebase.googleapis.com/v1beta1/projects/eic-worksheets had HTTP Error: 403, The caller does not have permission
+[debug] [2026-08-19T19:12:44.263Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/eic-worksheets had HTTP Error: 403, The caller does not have permission
+    at responseToError (/usr/local/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] 
+[error] Error: Failed to get Firebase project eic-worksheets. Please make sure the project exists and your account has permission to access it.
+[debug] [2026-08-19T19:12:45.735Z] ----------------------------------------------------------------------
+[debug] [2026-08-19T19:12:45.737Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2026-08-19T19:12:45.737Z] CLI Version:   15.24.0
+[debug] [2026-08-19T19:12:45.738Z] Platform:      darwin
+[debug] [2026-08-19T19:12:45.738Z] Node Version:  v24.14.0
+[debug] [2026-08-19T19:12:45.738Z] Detected Agent: unknown
+[debug] [2026-08-19T19:12:45.738Z] Time:          Wed Aug 19 2026 16:12:45 GMT-0300 (Brasilia Standard Time)
+[debug] [2026-08-19T19:12:45.738Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-08-19T19:12:46.485Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-19T19:12:46.485Z] > authorizing via signed-in user (leobranco88@gmail.com)
+[debug] [2026-08-19T19:12:46.485Z] [iam] checking project eic-worksheets for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-19T19:12:46.497Z] Checked if tokens are valid: true, expires at: 1787170361636
+[debug] [2026-08-19T19:12:46.497Z] Checked if tokens are valid: true, expires at: 1787170361636
+[debug] [2026-08-19T19:12:46.497Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions [none]
+[debug] [2026-08-19T19:12:46.497Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions  x-goog-user-project=eic-worksheets
+[debug] [2026-08-19T19:12:46.497Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-19T19:12:47.521Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions 403
+[debug] [2026-08-19T19:12:47.521Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"error":{"code":403,"message":"Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes.","status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"USER_PROJECT_DENIED","domain":"googleapis.com","metadata":{"consumer":"projects/eic-worksheets","containerInfo":"eic-worksheets","service":"cloudresourcemanager.googleapis.com","consoleUrl":"https://console.developers.google.com/iam-admin/iam?project=eic-worksheets"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developer console IAM admin","url":"https://console.developers.google.com/iam-admin/iam?project=eic-worksheets"}]}]}}
+[debug] [2026-08-19T19:12:47.522Z] [iam] error while checking permissions, command may fail: Request to https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions had HTTP Error: 403, Caller does not have required permission to use project eic-worksheets. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-worksheets and then retry. Propagation of the new permission may take a few minutes.
+[debug] [2026-08-19T19:12:47.523Z] Checked if tokens are valid: true, expires at: 1787170361636
+[debug] [2026-08-19T19:12:47.523Z] Checked if tokens are valid: true, expires at: 1787170361636
+[debug] [2026-08-19T19:12:47.523Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets [none]
+[debug] [2026-08-19T19:12:48.060Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets 403
+[debug] [2026-08-19T19:12:48.061Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-08-19T19:12:48.062Z] Request to https://firebase.googleapis.com/v1beta1/projects/eic-worksheets had HTTP Error: 403, The caller does not have permission
+[debug] [2026-08-19T19:12:48.064Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/eic-worksheets had HTTP Error: 403, The caller does not have permission
+    at responseToError (/usr/local/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] 
+[error] Error: Failed to get Firebase project eic-worksheets. Please make sure the project exists and your account has permission to access it.
