@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Dependent Prepositions · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.08em; margin-top: 6px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 13px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+
+  .instruction { font-size: 11.5px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+  .hint-bar { background: var(--bg-light); border-left: 2px solid var(--ink); padding: 5px 10px; margin-bottom: 12px; font-size: 11px; color: #374151; }
+
+  .word-bank { background: var(--ink); color: var(--paper); padding: 8px 12px; margin-bottom: 14px; }
+  .wb-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .wb-words { font-size: 11.5px; line-height: 1.7; }
+  .wb-note { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; color: #9CA3AF; margin-top: 4px; display: block; }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.5; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 18px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+
+  .blank {
+    display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 90px;
+    margin: 0 2px; vertical-align: baseline; transition: all 0.2s;
+  }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .open-item { margin-bottom: 10px; }
+  .open-stem { font-size: 12.5px; margin-bottom: 4px; line-height: 1.4; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 11.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  /* LEXIS / GLOSSARY */
+  .lex-group { margin-bottom: 16px; }
+  .lex-prep-label {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper); background: var(--ink);
+    padding: 3px 10px; margin-bottom: 8px;
+  }
+  .lex-row { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); align-items: baseline; flex-wrap: wrap; }
+  .lex-row:last-child { border-bottom: none; }
+  .lex-phrase { font-weight: 800; min-width: 165px; font-size: 12px; color: var(--ink); }
+  .lex-ex { font-size: 11.5px; color: #374151; flex: 1; min-width: 180px; }
+  .lex-gloss { font-size: 10.5px; text-align: right; min-width: 150px; }
+  .lex-gloss .jp { color: var(--teal); font-style: italic; display: block; }
+  .lex-gloss .pt { color: var(--muted); font-size: 9px; display: block; }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .lex-phrase, .lex-gloss { min-width: 100%; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    DEPENDENT PREPOSITIONS · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html" class="active">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html">Reading (Homework)</a>
+  </div>
+  <div class="topbar-meta">CLASSROOM · ROUND 2 · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="dependent-prepositions-classroom.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2</div>
+        <h1>Dependent Prepositions<br><span>— Round 2</span></h1>
+        <div class="hero-sub">TODO O VOCABULÁRIO AQUI É NOVO — NÃO REPETE A AULA ANTERIOR</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:36px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 01 ═══ -->
+  <div class="section" id="sec01">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">Fill in the Preposition</span>
+      <span class="s-pts">18 items</span>
+    </div>
+    <p class="instruction">New verbs and adjectives this round. The preposition still depends on you.</p>
+
+    <div class="word-bank">
+      <span class="wb-label">preposition bank</span>
+      <div class="wb-words">about · at · for · from · in · of · on</div>
+      <span class="wb-note">Each preposition may be used more than once.</span>
+    </div>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Guests sometimes complain <span class="blank"><span class="ans-inline">about</span></span> slow room service.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">She's genuinely excited <span class="blank"><span class="ans-inline">about</span></span> the trip to Kyoto.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">He's finally serious <span class="blank"><span class="ans-inline">about</span></span> learning a third language.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">I'll admit it — I'm quite bad <span class="blank"><span class="ans-inline">at</span></span> remembering names.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">They laughed <span class="blank"><span class="ans-inline">at</span></span> the old joke, even though they'd heard it before.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">She succeeded <span class="blank"><span class="ans-inline">at</span></span> almost everything she tried that year.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">Are you ready <span class="blank"><span class="ans-inline">for</span></span> the long flight tomorrow?</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">He suffers <span class="blank"><span class="ans-inline">from</span></span> constant jet lag after long trips.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">The storm prevented us <span class="blank"><span class="ans-inline">from</span></span> leaving on time.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">She recovered <span class="blank"><span class="ans-inline">from</span></span> the exhausting trip in just a day.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">He got involved <span class="blank"><span class="ans-inline">in</span></span> the local community project last spring.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">Everyone participated <span class="blank"><span class="ans-inline">in</span></span> the discussion, even the quiet ones.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">13.</span><div class="q-body">He's capable <span class="blank"><span class="ans-inline">of</span></span> much more than this job asks of him.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">14.</span><div class="q-body">They accused him <span class="blank"><span class="ans-inline">of</span></span> being careless with the schedule.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">15.</span><div class="q-body">I dream <span class="blank"><span class="ans-inline">of</span></span> owning a small guesthouse one day.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">16.</span><div class="q-body">I'm tired <span class="blank"><span class="ans-inline">of</span></span> packing and unpacking the same suitcase.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">17.</span><div class="q-body">They insisted <span class="blank"><span class="ans-inline">on</span></span> paying for the taxi themselves.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">18.</span><div class="q-body">Try to concentrate <span class="blank"><span class="ans-inline">on</span></span> one task at a time.</div></div>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section" id="sec02">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Gerund Check</span>
+      <span class="s-pts">12 items</span>
+    </div>
+    <p class="instruction">Right after a preposition, the verb always takes the -ING form. No exceptions.</p>
+
+    <div class="word-bank">
+      <span class="wb-label">verb bank</span>
+      <div class="wb-words">change · drive · finish · handle · hear · manage · open · organize · pay · plan · repeat · travel</div>
+      <span class="wb-note">The verbs are in base form and NOT in order.</span>
+    </div>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">I'm not that keen on <span class="blank"><span class="ans-inline">traveling</span></span> during the rainy season.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">She objected to <span class="blank"><span class="ans-inline">changing</span></span> the itinerary at the last minute.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">He's committed to <span class="blank"><span class="ans-inline">finishing</span></span> the report by Friday.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">I'm still not accustomed to <span class="blank"><span class="ans-inline">driving</span></span> on the left side of the road.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">He reacted calmly to <span class="blank"><span class="ans-inline">hearing</span></span> the bad news.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">She's very familiar with <span class="blank"><span class="ans-inline">organizing</span></span> large group trips.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">He copes well with <span class="blank"><span class="ans-inline">handling</span></span> difficult clients.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">They insisted on <span class="blank"><span class="ans-inline">paying</span></span> for everyone's dinner.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">I'm tired of <span class="blank"><span class="ans-inline">repeating</span></span> the same explanation twice.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">She dreams of <span class="blank"><span class="ans-inline">opening</span></span> her own small hotel one day.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">He's capable of <span class="blank"><span class="ans-inline">managing</span></span> a much bigger team.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">They love participating in <span class="blank"><span class="ans-inline">planning</span></span> the neighborhood festival.</div></div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section" id="sec03">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Ask the Question</span>
+      <span class="s-pts">8 items</span>
+    </div>
+    <p class="instruction">Turn each statement into a question. Keep the preposition at the end.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> Rio is serious about improving his English.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What is Rio serious about?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> Sena's grandmother suffers from bad knees.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What does Sena's grandmother suffer from?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> The storm prevented them from catching the connecting flight.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did the storm prevent them from doing?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> He recovered from the long flight surprisingly fast.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did he recover from?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> The whole team got involved in the charity event.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did the team get involved in?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> The manager accused the staff of being careless.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did the manager accuse the staff of?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> She's not very keen on early check-ins.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What is she not keen on?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> He is committed to improving customer service.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What is he committed to?</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ 04 ═══ -->
+  <div class="section" id="sec04">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">The Full Arsenal</span>
+      <span class="s-pts">reference · 25 new items</span>
+    </div>
+    <p class="instruction">100% new vocabulary this round — nothing here repeats the first Dependent Prepositions lesson. Come back to this page whenever you need it.</p>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">ABOUT</span>
+      <div class="lex-row"><span class="lex-phrase">complain about</span><span class="lex-ex">Guests sometimes complain about slow room service.</span><span class="lex-gloss"><span class="jp">〜について文句を言う</span><span class="pt">reclamar de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">excited about</span><span class="lex-ex">She's excited about the trip to Kyoto.</span><span class="lex-gloss"><span class="jp">〜にわくわくする</span><span class="pt">animado(a) com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">serious about</span><span class="lex-ex">He's finally serious about learning the language.</span><span class="lex-gloss"><span class="jp">〜に真剣である</span><span class="pt">sério(a) sobre</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">AT</span>
+      <div class="lex-row"><span class="lex-phrase">bad at</span><span class="lex-ex">I'm quite bad at remembering names.</span><span class="lex-gloss"><span class="jp">〜が苦手</span><span class="pt">ruim em</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">laugh at</span><span class="lex-ex">They laughed at the old joke.</span><span class="lex-gloss"><span class="jp">〜を笑う</span><span class="pt">rir de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">succeed at</span><span class="lex-ex">She succeeded at almost everything she tried.</span><span class="lex-gloss"><span class="jp">〜に成功する</span><span class="pt">ter sucesso em</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">FOR</span>
+      <div class="lex-row"><span class="lex-phrase">ready for</span><span class="lex-ex">Are you ready for the trip?</span><span class="lex-gloss"><span class="jp">〜の準備ができている</span><span class="pt">pronto(a) para</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">FROM</span>
+      <div class="lex-row"><span class="lex-phrase">suffer from</span><span class="lex-ex">He suffers from constant jet lag.</span><span class="lex-gloss"><span class="jp">〜に苦しむ</span><span class="pt">sofrer de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">prevent (sb) from</span><span class="lex-ex">The storm prevented us from leaving on time.</span><span class="lex-gloss"><span class="jp">〜するのを妨げる</span><span class="pt">impedir de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">recover from</span><span class="lex-ex">She recovered from the exhaustion in a day.</span><span class="lex-gloss"><span class="jp">〜から回復する</span><span class="pt">se recuperar de</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">IN</span>
+      <div class="lex-row"><span class="lex-phrase">involved in</span><span class="lex-ex">He got involved in the local project.</span><span class="lex-gloss"><span class="jp">〜に関わっている</span><span class="pt">envolvido(a) em</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">participate in</span><span class="lex-ex">Everyone participated in the discussion.</span><span class="lex-gloss"><span class="jp">〜に参加する</span><span class="pt">participar de</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">OF</span>
+      <div class="lex-row"><span class="lex-phrase">capable of</span><span class="lex-ex">He is capable of much more than this.</span><span class="lex-gloss"><span class="jp">〜する能力がある</span><span class="pt">capaz de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">accuse (sb) of</span><span class="lex-ex">They accused him of being careless.</span><span class="lex-gloss"><span class="jp">〜のことで非難する</span><span class="pt">acusar de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">dream of</span><span class="lex-ex">I dream of owning a small guesthouse.</span><span class="lex-gloss"><span class="jp">〜を夢見る</span><span class="pt">sonhar com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">tired of</span><span class="lex-ex">I'm tired of packing and unpacking.</span><span class="lex-gloss"><span class="jp">〜にうんざりしている</span><span class="pt">cansado(a) de</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">ON</span>
+      <div class="lex-row"><span class="lex-phrase">insist on</span><span class="lex-ex">They insisted on paying for the taxi.</span><span class="lex-gloss"><span class="jp">〜を主張する</span><span class="pt">insistir em</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">concentrate on</span><span class="lex-ex">Try to concentrate on one task at a time.</span><span class="lex-gloss"><span class="jp">〜に集中する</span><span class="pt">se concentrar em</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">keen on</span><span class="lex-ex">I'm not keen on early check-ins.</span><span class="lex-gloss"><span class="jp">〜に熱心</span><span class="pt">animado(a)/interessado(a) em</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">TO</span>
+      <div class="lex-row"><span class="lex-phrase">object to</span><span class="lex-ex">She objected to the sudden change in plans.</span><span class="lex-gloss"><span class="jp">〜に反対する</span><span class="pt">se opor a</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">committed to</span><span class="lex-ex">He is committed to finishing the renovation.</span><span class="lex-gloss"><span class="jp">〜に専念している</span><span class="pt">comprometido(a) com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">accustomed to</span><span class="lex-ex">I'm not accustomed to this humidity.</span><span class="lex-gloss"><span class="jp">〜に慣れている</span><span class="pt">acostumado(a) com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">react to</span><span class="lex-ex">He reacted calmly to the bad news.</span><span class="lex-gloss"><span class="jp">〜に反応する</span><span class="pt">reagir a</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">WITH</span>
+      <div class="lex-row"><span class="lex-phrase">familiar with</span><span class="lex-ex">I'm familiar with this part of the city.</span><span class="lex-gloss"><span class="jp">〜に詳しい</span><span class="pt">familiarizado(a) com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">cope with</span><span class="lex-ex">She copes with stress remarkably well.</span><span class="lex-gloss"><span class="jp">〜に対処する</span><span class="pt">lidar com</span></span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · The Wrong Room · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.08em; margin-top: 6px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 13px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+
+  .instruction { font-size: 11.5px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+
+  /* STORY / ESSAY */
+  .story-text { font-size: 14.5px; line-height: 1.8; color: var(--ink); }
+  .story-text p { margin-bottom: 14px; }
+  .story-text sup { font-size: 9px; color: var(--blue); font-weight: 700; margin-left: 1px; }
+  .story-text b { color: var(--blue); }
+
+  .gloss-list { margin-top: 18px; padding-top: 14px; border-top: 1.5px solid var(--ink); }
+  .gloss-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+  .gloss-item { font-size: 10.5px; line-height: 1.7; margin-bottom: 5px; }
+  .gloss-item b { color: var(--blue); }
+  .gloss-item .jp { color: var(--teal); font-style: italic; }
+  .gloss-item .pt { color: var(--muted); }
+
+  /* OPEN ITEMS */
+  .open-item { margin-bottom: 12px; }
+  .open-stem { font-size: 12.5px; margin-bottom: 4px; line-height: 1.45; }
+  .open-stem .quote { font-style: italic; color: #374151; }
+  .open-stem .target { text-decoration: underline; text-decoration-color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: 2px; font-style: normal; color: var(--ink); font-weight: 600; }
+  .open-stem > strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem > strong:hover { text-decoration: underline; }
+  .doing-tag {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); border: 1px solid var(--blue);
+    border-radius: 100px; padding: 1px 8px; margin-left: 6px; vertical-align: middle;
+  }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 11.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  .disc-list { display: flex; flex-direction: column; gap: 4px; }
+  .disc-item { font-size: 12.5px; line-height: 1.55; margin-bottom: 8px; }
+  .disc-item b { color: var(--blue); }
+
+  .audio-card { background: var(--ink); padding: 14px 16px; margin-top: 4px; }
+  .audio-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 8px; }
+  .audio-card audio { width: 100%; height: 34px; }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    THE WRONG ROOM · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html" class="active">Reading (Homework)</a>
+  </div>
+  <div class="topbar-meta">HOMEWORK · READING · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="the-wrong-room-homework.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Homework · Reading</div>
+        <h1>The Wrong <span>Room</span></h1>
+        <div class="hero-sub">SEM ÁUDIO NESTA VERSÃO · LEIA AS FRASES EM NEGRITO · TRANSFORME EM PERGUNTA · CLIQUE EM "REVEAL"</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:36px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ STORY ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">READ</span>
+      <span class="s-title">The Wrong Room</span>
+    </div>
+    <p class="instruction">Every bold sentence uses a verb or adjective + preposition from this round — all new vocabulary. Find each one — you'll turn them into questions in Section 02.</p>
+
+    <div class="story-text">
+      <p>Sena arrived at the hotel very late. She was tired after a long flight. She gave her name at the desk. The receptionist looked at the screen, then looked again. <b>The receptionist was confused about<sup>1</sup> the reservation.</b></p>
+
+      <p>The reservation was under a different name — Rio Alencar. Rio was Sena's business partner. He had booked the trip for both of them, but only his name was in the system. Sena stayed calm. <b>She insisted on<sup>2</sup> getting a room immediately.</b></p>
+
+      <p>Sena had to wait for the manager. Ten minutes passed. Then twenty. <b>She was tired of<sup>3</sup> waiting.</b> Finally, the manager arrived with a room — but not the one she had booked. It was smaller, on the third floor, with no view. <b>Sena wasn't keen on<sup>4</sup> the room at all.</b></p>
+
+      <p>Sena agreed to stay in the small room for one night. The manager promised to fix the reservation before Rio arrived. <b>Sena was excited about<sup>5</sup> seeing Rio the next day.</b> She believed the manager, and finally went to sleep.</p>
+
+      <p>Sena woke up early and went down to the front desk before breakfast. The manager smiled and said the reservation was already fixed. Sena had stayed calm all night, even in a small room with no view. <b>She felt capable of<sup>6</sup> handling anything after that.</b></p>
+
+      <p>That afternoon, Rio finally arrived at the hotel. He found Sena in the lobby and apologized right away. <b>He admitted he'd been involved in<sup>7</sup> the mistake with the booking.</b> Sena laughed and told him not to worry. <b>She was not angry with<sup>8</sup> him</b> — the trip was only just beginning.</p>
+    </div>
+
+    <div class="gloss-list">
+      <span class="gloss-label">Glossário · vocabulário novo desta unidade no texto</span>
+      <div class="gloss-item"><b>1. confused about</b> — não entender algo claramente <span class="pt">· confuso(a) com</span> <span class="jp">· 〜について混乱している</span></div>
+      <div class="gloss-item"><b>2. insist on</b> — recusar-se a aceitar "não" <span class="pt">· insistir em</span> <span class="jp">· 〜を主張する</span></div>
+      <div class="gloss-item"><b>3. tired of</b> — cansado(a) de algo repetitivo ou longo <span class="pt">· cansado(a) de</span> <span class="jp">· 〜にうんざりしている</span></div>
+      <div class="gloss-item"><b>4. keen on</b> — animado(a), interessado(a) em algo <span class="pt">· animado(a)/interessado(a) em</span> <span class="jp">· 〜に熱心</span></div>
+      <div class="gloss-item"><b>5. excited about</b> — animado(a), esperando algo bom <span class="pt">· animado(a) com</span> <span class="jp">· 〜にわくわくする</span></div>
+      <div class="gloss-item"><b>6. capable of</b> — ter a habilidade de fazer algo <span class="pt">· capaz de</span> <span class="jp">· 〜する能力がある</span></div>
+      <div class="gloss-item"><b>7. involved in</b> — ter participação em algo, envolvido(a) <span class="pt">· envolvido(a) em</span> <span class="jp">· 〜に関わっている</span></div>
+      <div class="gloss-item"><b>8. angry with (someone)</b> — bravo(a) com uma pessoa <span class="pt">· bravo(a) com</span> <span class="jp">· （人）に怒っている</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section" id="sec02">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Turn It Into a Question</span>
+      <span class="s-pts">8 items</span>
+    </div>
+    <p class="instruction">The <span style="text-decoration:underline;text-decoration-color:var(--blue);text-decoration-thickness:2px;">underlined part</span> is the information you're asking about — that's what becomes "what" in your question. When you see the <span class="doing-tag">+ doing</span> tag, the underlined part is an action, so your question needs to end in "doing" (e.g. "What did she insist on doing?").</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> <span class="quote">"The receptionist was confused about <span class="target">the reservation</span>."</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What was the receptionist confused about?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> <span class="quote">"She insisted on <span class="target">getting a room immediately</span>."</span> <span class="doing-tag">+ doing</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did Sena insist on doing?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> <span class="quote">"She was tired of <span class="target">waiting</span>."</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What was she tired of?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> <span class="quote">"Sena wasn't keen on <span class="target">the room</span>."</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What wasn't Sena keen on?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> <span class="quote">"Sena was excited about <span class="target">seeing Rio the next day</span>."</span> <span class="doing-tag">+ doing</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What was Sena excited about doing?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> <span class="quote">"She felt capable of <span class="target">handling anything</span> after that."</span> <span class="doing-tag">+ doing</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did Sena feel capable of doing?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> <span class="quote">"He'd been involved in <span class="target">the mistake with the booking</span>."</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What had Rio been involved in?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> <span class="quote">"She was not angry with <span class="target">him</span>."</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">Who was Sena not angry with?</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section" id="sec03">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Check What Happened</span>
+      <span class="s-pts">6 items</span>
+    </div>
+    <p class="instruction">Comprehension questions. The answer is always in the text.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> Why was the receptionist confused when Sena arrived?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Because the reservation was under a different name — Rio's, not Sena's.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> Who is Rio, and what does he have to do with the mix-up?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio is Sena's business partner. He booked the trip for both of them, but only his name went into the system.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> What did Sena insist on before agreeing to the smaller room?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She insisted on getting a room immediately, and on the reservation being fixed before Rio arrived.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> Did Sena get what she originally booked? How do you know?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">No — the text says she got a smaller room, on the third floor, with no view, and that she wasn't keen on it.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> How did Sena feel about herself the next morning?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She felt capable of handling anything after that.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> What did Rio say when he arrived? Was Sena angry with him?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He admitted he'd been involved in the mistake with the booking. No — Sena was not angry with him.</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ 04 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">Speaking Corner</span>
+      <span class="s-pts">talk with your teacher</span>
+    </div>
+    <p class="instruction">Use at least three dependent prepositions from this round while you talk.</p>
+    <div class="disc-list">
+      <div class="disc-item">Has something like this ever happened to you — a booking mix-up, a wrong room? What were you <b>confused about</b> in the moment?</div>
+      <div class="disc-item">Think of a place you visited that you weren't <b>keen on</b> at first. What changed your mind, if anything?</div>
+      <div class="disc-item">Are you the kind of traveler who <b>insists on</b> getting exactly what was booked, or the kind who copes with whatever works out?</div>
+      <div class="disc-item">Think of a time something went wrong and you were <b>involved in</b> the mistake — even a small part of it. Were you <b>angry with</b> yourself?</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>
