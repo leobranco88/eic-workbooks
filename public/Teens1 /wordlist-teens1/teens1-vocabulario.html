@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Vocabulário Teens 1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --ink:#10131a;
+    --ink-2:#181c26;
+    --paper:#fbfaf5;
+    --paper-line:#e3dac8;
+    --yellow:#eaff00;
+    --pink:#ff2ec4;
+    --green:#4cae82;
+    --red:#e0604c;
+    --muted:#9aa0ad;
+    --cyan:#4de3ff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:32px 16px 60px;
+  }
+
+  header{
+    width:100%;
+    max-width:640px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:28px;
+  }
+  .brand{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:0.01em;
+    color:var(--muted);
+  }
+  .brand b{color:var(--paper);}
+  .brand-mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo-img{
+    height:28px;
+    width:auto;
+    display:block;
+  }
+  .brand-text{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--muted);
+  }
+  h1{
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    font-size:clamp(28px,5vw,40px);
+    margin:6px 0 4px;
+    line-height:1.08;
+  }
+  .title-row{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    width:100%;
+    max-width:640px;
+  }
+  .level-badge{
+    display:inline-block;
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:.04em;
+    color:var(--ink);
+    background:var(--yellow);
+    border-radius:999px;
+    padding:5px 14px;
+    white-space:nowrap;
+  }
+  .subtitle{
+    color:var(--muted);
+    font-size:14px;
+    max-width:640px;
+    margin-bottom:24px;
+    line-height:1.5;
+  }
+
+  .units{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+    width:100%;
+    max-width:640px;
+  }
+  .unit-pill{
+    background:transparent;
+    border:1px solid #333949;
+    color:var(--muted);
+    padding:7px 14px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .unit-pill:hover{border-color:var(--yellow);color:var(--paper);}
+  .unit-pill.active{
+    background:var(--yellow);
+    border-color:var(--yellow);
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  .unit-theme{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--yellow);
+    margin-bottom:20px;
+  }
+
+  .categories{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+    width:100%;
+    max-width:640px;
+  }
+  .cat-pill{
+    background:transparent;
+    border:1px solid #262b38;
+    color:#6b7180;
+    padding:5px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.03em;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cat-pill:hover{color:var(--paper);border-color:#454c5e;}
+  .cat-pill.active{
+    background:rgba(255,197,61,.12);
+    border-color:var(--yellow);
+    color:var(--yellow);
+  }
+  .cat-pill.cat-all{
+    border-style:dashed;
+  }
+
+  .mode-toggle{
+    display:flex;
+    gap:6px;
+    margin-bottom:26px;
+  }
+  .mode-btn{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:13px;
+    font-weight:600;
+    padding:6px 4px;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+  }
+  .mode-btn.active{color:var(--paper);border-bottom-color:var(--yellow);}
+
+  #cardsMode, #quizMode, #listMode{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .progress-wrap{
+    width:100%;
+    max-width:640px;
+    margin-bottom:26px;
+  }
+  .progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .progress-bar{
+    height:6px;
+    background:#242938;
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--yellow);
+    width:0%;
+    transition:width .3s ease;
+  }
+
+  /* FLASHCARD */
+  .stage{
+    width:100%;
+    max-width:640px;
+    perspective:1600px;
+    container-type:inline-size;
+  }
+  .card{
+    position:relative;
+    width:100%;
+    aspect-ratio:5/3;
+    cursor:pointer;
+    transform-style:preserve-3d;
+    transition:transform .5s cubic-bezier(.2,.7,.3,1);
+  }
+  .card.flipped{transform:rotateY(180deg);}
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:20px;
+    padding:44px 52px;
+    display:flex;
+    flex-direction:column;
+    overflow-y:auto;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.5);
+  }
+  .front{
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, rgba(16,19,26,.16) 1.1px, transparent 1.6px);
+    background-size:20px 20px;
+    background-position:14px 14px;
+    color:var(--ink);
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .front .pos{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:#8a7f5f;
+    margin-bottom:14px;
+  }
+  .front .term{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(26px,5.5cqw,42px);
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:1.2;
+    position:relative;
+    display:inline-block;
+  }
+  .front .term::after{
+    content:'';
+    position:absolute;
+    left:-2px; right:-6px; bottom:4px;
+    height:9px;
+    background:var(--yellow);
+    opacity:.55;
+    z-index:-1;
+    border-radius:2px;
+  }
+  .front .ipa{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    letter-spacing:.02em;
+    font-size:14px;
+    color:#6b6350;
+    margin-top:14px;
+  }
+  .front .hint{
+    margin-top:auto;
+    font-size:11px;
+    color:#a89f86;
+  }
+
+  .back{
+    background:var(--ink-2);
+    color:var(--paper);
+    transform:rotateY(180deg);
+    background-image:repeating-linear-gradient(to bottom, transparent, transparent 27px, #232838 28px);
+    justify-content:flex-start;
+    overflow-y:auto;
+  }
+  .back .pos{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:var(--yellow);
+    margin-bottom:12px;
+  }
+  .back .pt{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--yellow);
+    margin-bottom:14px;
+  }
+  .back .def{
+    font-size:15px;
+    line-height:1.55;
+    margin-bottom:16px;
+  }
+  .back .example{
+    font-size:13px;
+    font-style:italic;
+    color:var(--muted);
+    line-height:1.5;
+    border-left:2px solid var(--yellow);
+    padding-left:10px;
+  }
+  .back .colloc{
+    font-size:12px;
+    color:var(--paper);
+    line-height:1.5;
+    margin-top:12px;
+    padding:8px 10px;
+    background:rgba(77,227,255,.10);
+    border:1px solid rgba(77,227,255,.4);
+    border-radius:8px;
+  }
+  .back .colloc b{
+    color:var(--cyan);
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:.06em;
+    display:block;
+    margin-bottom:3px;
+  }
+
+  .controls{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+    width:100%;
+    max-width:640px;
+  }
+  .ctrl-btn{
+    flex:1;
+    padding:13px 10px;
+    border-radius:10px;
+    border:none;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+    transition:transform .1s ease;
+  }
+  .ctrl-btn:active{transform:scale(.97);}
+  .btn-review{background:rgba(255,46,196,.12);color:var(--pink);border:1px solid rgba(255,46,196,.5);}
+  .btn-know{background:rgba(234,255,0,.12);color:var(--yellow);border:1px solid rgba(234,255,0,.5);}
+  .btn-shuffle{
+    background:none;border:1px solid #333949;color:var(--muted);
+    margin-top:14px;padding:9px 16px;border-radius:999px;font-size:12px;cursor:pointer;
+  }
+
+  .empty{
+    color:var(--muted);
+    font-size:14px;
+    padding:60px 20px;
+    text-align:center;
+    max-width:420px;
+  }
+
+  /* QUIZ MODE */
+  .quiz-card{
+    width:100%;max-width:640px;background:var(--ink-2);border-radius:20px;
+    padding:32px 40px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);
+  }
+  .quiz-q{font-size:15px;line-height:1.55;margin-bottom:20px;color:var(--paper);}
+  .quiz-opt{
+    display:block;width:100%;text-align:left;background:var(--ink);
+    border:1px solid #2a2f3d;color:var(--paper);padding:13px 16px;border-radius:10px;
+    margin-bottom:9px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;font-size:16px;
+    transition:border-color .15s ease;
+  }
+  .quiz-opt:hover{border-color:var(--yellow);}
+  .quiz-opt.correct{border-color:var(--yellow);background:rgba(234,255,0,.08);}
+  .quiz-opt.wrong{border-color:var(--pink);background:rgba(255,46,196,.08);}
+  .quiz-score{font-size:12px;color:var(--muted);margin-top:16px;}
+
+  footer{
+    margin-top:40px;
+    font-size:11px;
+    color:#4d5262;
+    text-align:center;
+    max-width:420px;
+  }
+  .pdf-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:14px;
+    font-size:11px;
+    color:#5a6070;
+    text-decoration:none;
+    border:1px solid #262b38;
+    padding:6px 13px;
+    border-radius:999px;
+    transition:all .15s ease;
+  }
+  .pdf-link:hover{
+    color:var(--cyan);
+    border-color:var(--cyan);
+  }
+
+  @media (max-width:600px){
+    .face{padding:28px 26px;}
+    .front .term{font-size:clamp(24px,8cqw,32px);}
+    .card{aspect-ratio:4/3;}
+  }
+
+  /* LISTA — rolagem estilo iPhone, com encaixe suave por linha */
+  .list-scroll{
+    width:100%;
+    max-width:640px;
+    max-height:min(66vh, 560px);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:y proximity;
+    background:var(--ink-2);
+    border-radius:20px;
+    padding:6px 0;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.5);
+  }
+  .list-scroll::-webkit-scrollbar{width:5px;}
+  .list-scroll::-webkit-scrollbar-thumb{background:#2a2f3d;border-radius:4px;}
+  .list-row{
+    scroll-snap-align:start;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+    padding:18px 28px;
+    border-bottom:1px solid #20242f;
+  }
+  .list-row:last-child{border-bottom:none;}
+  .list-left{min-width:0;}
+  .list-pos{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#6b7180;
+    margin-bottom:3px;
+  }
+  .list-term{
+    font-weight:700;
+    font-size:16px;
+    line-height:1.3;
+  }
+  .list-pt{
+    color:var(--yellow);
+    font-weight:600;
+    font-size:14px;
+    text-align:right;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-mark">
+    <img class="logo-img" alt="EIC" src="data:image/png;base64,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">
+    <span class="brand-text">Escola de Idiomas e Cultura</span>
+  </div>
+  <div class="brand" id="wordcount"></div>
+</header>
+
+<div class="title-row">
+  <h1>Vocabulário&nbsp;— Teens 1</h1>
+  <span class="level-badge">A1 · Beginner</span>
+</div>
+<p class="subtitle">Estudo por unidade e por categoria gramatical, baseado na wordlist oficial (Life 1). Vire a carta, marque o que já sabe e teste-se no modo quiz. Collocations do material aparecem destacadas no verso, quando existem.</p>
+
+<div class="units" id="units"></div>
+<div class="unit-theme" id="unitTheme"></div>
+<div class="categories" id="categories"></div>
+
+<div class="mode-toggle">
+  <button class="mode-btn active" data-mode="cards">Flashcards</button>
+  <button class="mode-btn" data-mode="quiz">Quiz</button>
+  <button class="mode-btn" data-mode="list">Lista</button>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label"><span id="progLabel">0 / 0 conhecidas</span><span id="progPct">0%</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+</div>
+
+<div id="cardsMode">
+  <div class="stage">
+    <div class="card" id="card">
+      <div class="face front" id="faceFront">
+        <div class="pos" id="posFront"></div>
+        <div class="term" id="term"></div>
+        <div class="ipa" id="ipa"></div>
+        <div class="hint">toque para ver a definição</div>
+      </div>
+      <div class="face back" id="faceBack">
+        <div class="pos" id="posBack"></div>
+        <div class="pt" id="pt"></div>
+        <div class="def" id="def"></div>
+        <div class="example" id="example"></div>
+        <div class="colloc" id="colloc" style="display:none;"><b>Collocation</b><span id="collocText"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="ctrl-btn btn-review" id="btnReview">Don't know</button>
+    <button class="ctrl-btn btn-know" id="btnKnow">I know ✓</button>
+  </div>
+  <div style="text-align:center;"><button class="btn-shuffle" id="btnShuffle">embaralhar unidade</button></div>
+</div>
+
+<div id="quizMode" style="display:none;">
+  <div class="quiz-card">
+    <div class="quiz-q" id="quizQ"></div>
+    <div id="quizOpts"></div>
+    <div class="quiz-score" id="quizScore"></div>
+  </div>
+</div>
+
+<div id="listMode" style="display:none;">
+  <div class="list-scroll" id="listScroll"></div>
+</div>
+
+<footer>Unidades 1 a 6 completas (574 palavras) de 12 · dados extraídos da wordlist Life 1 (Cengage/National Geographic) · collocations do material aparecem destacadas no verso da carta quando existem.
+<div><a class="pdf-link" href="Teens1-wordlist.pdf" target="_blank" rel="noopener">⬇ Wordlist oficial (PDF)</a></div>
+</footer>
+
+<script>
+// ---------- DADOS (amostra — mesma estrutura pode receber todas as unidades) ----------
+const VOCAB = [
+  {id:1, unit:1, term:"again", pos:"Adverb", ipa:"/əˈɡen/", pt:"de novo, outra vez", def:"Quando você faz algo again, faz mais uma vez.", example:"look at the photo again"},
+  {id:2, unit:1, term:"hello", pos:"Exclamation", ipa:"/həˈləʊ/", pt:"olá", def:"Você diz hello quando encontra alguém.", example:"hello! I'm Vincent"},
+  {id:3, unit:1, term:"in pairs", pos:"Phrase", ipa:"/ɪn ˈpeəz/", pt:"em duplas", def:"Quando você faz algo in pairs, trabalha com mais uma pessoa.", example:"work in pairs"},
+  {id:4, unit:1, term:"listen", pos:"Verb", ipa:"/ˈlɪs(ə)n/", pt:"escutar, ouvir", def:"Quando você listen to something, usa os ouvidos para escutar.", example:"listen to the conversation", collocation:"listen to someone or something"},
+  {id:5, unit:1, term:"look", pos:"Verb", ipa:"/lʊk/", pt:"olhar", def:"Quando você look at something, usa os olhos para ver.", example:"look at the photo", collocation:"look at someone or something"},
+  {id:6, unit:1, term:"name", pos:"Noun", ipa:"/neɪm/", pt:"nome", def:"Seu name é a palavra que as pessoas usam para falar de você.", example:"my name's Fernando"},
+  {id:7, unit:1, term:"photo", pos:"Noun", ipa:"/ˈfəʊtəʊ/", pt:"foto", def:"Uma photo é uma imagem tirada com uma câmera.", example:"look at the photo", collocation:"a photo of something | take a photo"},
+  {id:8, unit:1, term:"read", pos:"Verb", ipa:"/riːd/", pt:"ler", def:"Quando você read, olha para as palavras numa página ou tela e entende o que dizem.", example:"read the instructions"},
+  {id:9, unit:1, term:"repeat", pos:"Verb", ipa:"/rɪˈpiːt/", pt:"repetir", def:"Quando você repeat algo, diz de novo.", example:"listen and repeat"},
+  {id:10, unit:1, term:"say", pos:"Verb", ipa:"/seɪ/", pt:"dizer, falar", def:"Quando você say algo, usa a voz para formar as palavras.", example:"say your name"},
+  {id:11, unit:1, term:"work", pos:"Verb", ipa:"/wɜːk/", pt:"trabalhar", def:"Quando você work, faz um trabalho ou tarefa.", example:"work in groups", collocation:"work on something"},
+  {id:12, unit:1, term:"alphabet", pos:"Noun", ipa:"/ˈælfəˌbet/", pt:"alfabeto", def:"O alphabet são as letras de uma língua.", example:"children learn the alphabet at school"},
+  {id:13, unit:1, term:"check", pos:"Verb", ipa:"/tʃek/", pt:"checar, conferir", def:"Quando você check algo, olha para ver se está certo.", example:"check your answers"},
+  {id:14, unit:1, term:"hi", pos:"Exclamation", ipa:"/haɪ/", pt:"oi", def:"Você diz hi quando vê um amigo; é outro jeito de dizer 'olá'.", example:"hi Sofia nice to see you"},
+  {id:15, unit:1, term:"letter", pos:"Noun", ipa:"/ˈletə/", pt:"letra", def:"Uma letter é um símbolo usado para escrever palavras.", example:"A is the first letter of the alphabet"},
+  {id:16, unit:1, term:"nice", pos:"Adjective", ipa:"/naɪs/", pt:"legal, simpático(a)", def:"Quando algo ou alguém é nice, você gosta e acha bom.", example:"she's a nice person"},
+  {id:17, unit:1, term:"nice to meet you", pos:"Phrase", ipa:"/ˌnaɪs tə ˈmiːt ju:/", pt:"prazer em conhecê-lo(a)", def:"Você diz isso quando conhece alguém pela primeira vez.", example:"\"I'm Lena\"—\"I'm Hon nice to meet you\""},
+  {id:18, unit:1, term:"other", pos:"Determiner", ipa:"/ˈʌðə/", pt:"outro(a)", def:"Other significa diferente de você ou do que já foi dito.", example:"do you want this one or the other one?"},
+  {id:19, unit:1, term:"please", pos:"Adverb", ipa:"/pliːz/", pt:"por favor", def:"Você diz please quando pede algo de um jeito educado.", example:"can you open the door, please?"},
+  {id:20, unit:1, term:"quiz", pos:"Noun", ipa:"/kwɪz/", pt:"questionário, quiz", def:"Um quiz é um conjunto de perguntas que você responde num jogo ou competição.", example:"an online quiz"},
+  {id:21, unit:1, term:"reading", pos:"Noun uncount", ipa:"/ˈriːdɪŋ/", pt:"leitura", def:"Reading é a atividade de olhar palavras e entendê-las.", example:"I like reading"},
+  {id:22, unit:1, term:"speak", pos:"Verb", ipa:"/spiːk/", pt:"falar", def:"Quando você speak, diz palavras que as pessoas entendem.", example:"speak to your teacher", collocation:"speak to someone"},
+  {id:23, unit:1, term:"spell", pos:"Verb", ipa:"/spel/", pt:"soletrar", def:"Quando você spell uma palavra, diz as letras na ordem certa.", example:"can you spell your name?"},
+  {id:24, unit:1, term:"student", pos:"Noun", ipa:"/ˈstjuːd(ə)nt/", pt:"aluno(a), estudante", def:"Um student é alguém que estuda na escola ou faculdade.", example:"I'm a student at Nottingham University"},
+  {id:25, unit:1, term:"word", pos:"Noun", ipa:"/wɜːd/", pt:"palavra", def:"Uma word é um grupo de letras que tem significado.", example:"do you know the word \"believe\"?"},
+  {id:26, unit:1, term:"write", pos:"Verb", ipa:"/raɪt/", pt:"escrever", def:"Quando você write, coloca marcas no papel ou digita para formar palavras.", example:"write your name at the top"},
+  {id:27, unit:1, term:"American", pos:"Adjective", ipa:"/əˈmerɪkən/", pt:"americano(a)", def:"Alguém ou algo American é dos Estados Unidos.", example:"who is the American president?"},
+  {id:28, unit:1, term:"around", pos:"Preposition", ipa:"/əˈraʊnd/", pt:"ao redor de", def:"Around significa em uma área, por perto.", example:"there are many different people around the world", collocation:"around the world"},
+  {id:29, unit:1, term:"Brazilian", pos:"Adjective", ipa:"/brəˈzɪliən/", pt:"brasileiro(a)", def:"Alguém ou algo Brazilian é do Brasil.", example:"my wife is Brazilian"},
+  {id:30, unit:1, term:"British", pos:"Adjective", ipa:"/ˈbrɪtɪʃ/", pt:"britânico(a)", def:"Alguém ou algo British é do Reino Unido.", example:"are you British?"},
+  {id:31, unit:1, term:"chart", pos:"Noun", ipa:"/tʃɑrt/", pt:"gráfico, tabela", def:"Um chart é um espaço no papel ou na tela com informações.", example:"write the names in the chart"},
+  {id:32, unit:1, term:"Chinese", pos:"Adjective", ipa:"/tʃaɪˈniːz/", pt:"chinês, chinesa", def:"Alguém ou algo Chinese é da China.", example:"a Chinese passport"},
+  {id:33, unit:1, term:"class", pos:"Noun", ipa:"/klɑːs/", pt:"turma, aula", def:"Uma class é um grupo de alunos.", example:"there are 30 students in my class"},
+  {id:34, unit:1, term:"Colombian", pos:"Adjective", ipa:"/kəˈlʌmbiən/", pt:"colombiano(a)", def:"Alguém ou algo Colombian é da Colômbia.", example:"they sell Colombian coffee at the store"},
+  {id:35, unit:1, term:"country", pos:"Noun", ipa:"/ˈkʌntri/", pt:"país", def:"Um country é uma área que tem seu próprio governo.", example:"there are students from 23 countries at my college"},
+  {id:36, unit:1, term:"Ecuadorian", pos:"Adjective", ipa:"/ˌekwəˈdɔːriən/", pt:"equatoriano(a)", def:"Alguém ou algo Ecuadorian é do Equador.", example:"an Ecuadorian friend"},
+  {id:37, unit:1, term:"Egyptian", pos:"Adjective", ipa:"/ɪˈʤɪpʃən/", pt:"egípcio(a)", def:"Alguém ou algo Egyptian é do Egito.", example:"I am Egyptian"},
+  {id:38, unit:1, term:"from", pos:"Preposition", ipa:"/frɒm/", pt:"de (origem)", def:"From é usado para dizer de onde alguém nasceu ou veio.", example:"I am from Argentina"},
+  {id:39, unit:1, term:"individual", pos:"Adjective", ipa:"/ˌɪndɪˈvɪdʒuəl/", pt:"individual", def:"Um individual é uma coisa ou pessoa única, separada das outras.", example:"we help each individual child in the school"},
+  {id:40, unit:1, term:"Japanese", pos:"Adjective", ipa:"/ˌdʒæpəˈniːz/", pt:"japonês, japonesa", def:"Alguém ou algo Japanese é do Japão.", example:"she loves Japanese food"},
+  {id:41, unit:1, term:"Mexican", pos:"Adjective", ipa:"/ˈmeksɪkən/", pt:"mexicano(a)", def:"Alguém ou algo Mexican é do México.", example:"a Mexican dance"},
+  {id:42, unit:1, term:"nationality", pos:"Noun", ipa:"/ˌnæʃəˈnæləti/", pt:"nacionalidade", def:"Sua nationality é o país de onde você vem.", example:"what nationality is she?"},
+  {id:43, unit:1, term:"padel", pos:"Noun", ipa:"/ˈpædəl/", pt:"padel (esporte)", def:"Padel é um esporte parecido com tênis, jogado numa quadra menor.", example:"we play padel on Sundays", collocation:"play padel"},
+  {id:44, unit:1, term:"partner", pos:"Noun", ipa:"/ˈpɑːtnə/", pt:"parceiro(a), colega", def:"Seu partner é a pessoa com quem você trabalha, por exemplo em duplas.", example:"ask your partner to check your answers"},
+  {id:45, unit:1, term:"Saudi Arabian", pos:"Adjective", ipa:"/ˌsaʊdi əˈreɪbiən/", pt:"saudita", def:"Alguém ou algo Saudi Arabian é da Arábia Saudita.", example:"I have a Saudi Arabian friend"},
+  {id:46, unit:1, term:"Spanish", pos:"Adjective", ipa:"/ˈspænɪʃ/", pt:"espanhol(a)", def:"Alguém ou algo Spanish é da Espanha.", example:"a Spanish passport"},
+  {id:47, unit:1, term:"test", pos:"Verb", ipa:"/test/", pt:"testar", def:"Quando você test alguém, faz perguntas para ver o que a pessoa sabe.", example:"test your partner"},
+  {id:48, unit:1, term:"this is", pos:"Phrase", ipa:"/ˈðɪs ɪz/", pt:"este(a) é", def:"Você usa this is para apresentar algo ou alguém.", example:"this is a pen"},
+  {id:49, unit:1, term:"Vietnamese", pos:"Adjective", ipa:"/ˌvjetnəˈmiːz/", pt:"vietnamita", def:"Alguém ou algo Vietnamese é do Vietnã.", example:"a Vietnamese restaurant"},
+  {id:50, unit:1, term:"best wishes", pos:"Phrase", ipa:"/best ˈwɪʃɪz/", pt:"votos de felicidade", def:"Você usa best wishes para desejar coisas boas a alguém, geralmente no fim de um e-mail.", example:"I send my best wishes to your family"},
+  {id:51, unit:1, term:"bye", pos:"Exclamation", ipa:"/baɪ/", pt:"tchau", def:"Você diz bye quando se despede de alguém.", example:"\"see you tomorrow.\"—\"OK, bye\""},
+  {id:52, unit:1, term:"conversation", pos:"Noun", ipa:"/ˌkɒnvəˈseɪʃ(ə)n/", pt:"conversa", def:"Uma conversation é quando duas ou mais pessoas conversam sobre algo.", example:"a long conversation about soccer", collocation:"a conversation about something | a conversation"},
+  {id:53, unit:1, term:"correct", pos:"Adjective", ipa:"/kəˈrekt/", pt:"correto(a)", def:"Quando algo é correct, está certo, sem erro.", example:"choose the correct option"},
+  {id:54, unit:1, term:"email", pos:"Noun", ipa:"/ˈiːmeɪl/", pt:"e-mail", def:"Um email é uma mensagem enviada pela internet.", example:"I need to check my email"},
+  {id:55, unit:1, term:"email address", pos:"Noun", ipa:"/ˈiːmeɪl əˌdres/", pt:"endereço de e-mail", def:"Seu email address são as letras e números usados para enviar um e-mail para você.", example:"I need your email address"},
+  {id:56, unit:1, term:"fine", pos:"Adjective", ipa:"/faɪn/", pt:"bem, tranquilo(a)", def:"Quando algo é fine, está bom, sem problema.", example:"take a taxi if you want, but the bus is fine for me"},
+  {id:57, unit:1, term:"good afternoon", pos:"Exclamation", ipa:"/ˌɡʊd ɑːftəˈnuːn/", pt:"boa tarde", def:"Você diz isso quando vê alguém durante a tarde.", example:"good afternoon, Ms. Thomson"},
+  {id:58, unit:1, term:"goodbye", pos:"Exclamation", ipa:"/ˌɡʊdˈbaɪ/", pt:"adeus, tchau", def:"Você diz goodbye quando se despede de alguém.", example:"I must go now, goodbye"},
+  {id:59, unit:1, term:"good evening", pos:"Exclamation", ipa:"/ˌɡʊd ˈiːvnɪŋ/", pt:"boa noite (ao chegar)", def:"Você diz isso quando vê alguém durante a noite.", example:"good evening, everyone"},
+  {id:60, unit:1, term:"good morning", pos:"Exclamation", ipa:"/ˌɡʊd ˈmɔːnɪŋ/", pt:"bom dia", def:"Você diz isso quando vê alguém de manhã.", example:"good morning, Mr. Alexander"},
+  {id:61, unit:1, term:"good night", pos:"Exclamation", ipa:"/ˌɡʊd ˈnaɪt/", pt:"boa noite (ao se despedir)", def:"Você diz isso antes de ir dormir.", example:"good night, Mom. Good night, Dad"},
+  {id:62, unit:1, term:"great", pos:"Adjective", ipa:"/ɡreɪt/", pt:"ótimo(a)", def:"Quando você diz que algo é great, quer dizer que gosta muito e acha muito bom.", example:"Birmingham is a great place to live"},
+  {id:63, unit:1, term:"how are you", pos:"Phrase", ipa:"/haʊ ər ˈjuː/", pt:"como você está", def:"Você pergunta isso pra saber como a pessoa está se sentindo.", example:"how are you today?"},
+  {id:64, unit:1, term:"message", pos:"Noun", ipa:"/ˈmesɪdʒ/", pt:"mensagem", def:"Uma message é quando você escreve para alguém com uma informação.", example:"write a message", collocation:"write a message | send a message"},
+  {id:65, unit:1, term:"number", pos:"Noun", ipa:"/ˈnʌmbə/", pt:"número", def:"Um number é uma palavra ou símbolo que representa uma quantidade.", example:"a million is a big number"},
+  {id:66, unit:1, term:"same", pos:"Adjective", ipa:"/seɪm/", pt:"mesmo(a), igual", def:"Quando duas coisas são the same, não há diferença entre elas.", example:"I have the same jacket as you", collocation:"the same as something or someone"},
+  {id:67, unit:1, term:"teacher", pos:"Noun", ipa:"/ˈtiːtʃə/", pt:"professor(a)", def:"Um teacher é alguém que trabalha numa escola e ensina os alunos.", example:"my teacher is really nice"},
+  {id:68, unit:1, term:"thanks", pos:"Exclamation", ipa:"/θæŋks/", pt:"obrigado(a)", def:"Você diz thanks para mostrar que está contente com algo que te deram ou disseram.", example:"\"here's your coffee.\"—\"thanks\""},
+  {id:69, unit:1, term:"underline", pos:"Verb", ipa:"/ˌʌndəˈlaɪn/", pt:"sublinhar", def:"Quando você underline uma palavra, desenha uma linha embaixo dela.", example:"underline all the names of countries in the text"},
+  {id:70, unit:1, term:"bag", pos:"Noun", ipa:"/bæɡ/", pt:"bolsa, mochila", def:"Uma bag é algo que você carrega, com coisas dentro.", example:"I need to pack my bag"},
+  {id:71, unit:1, term:"book", pos:"Noun", ipa:"/bʊk/", pt:"livro", def:"Um book é um conjunto de folhas com texto para você ler.", example:"this is my favorite book", collocation:"read a book"},
+  {id:72, unit:1, term:"city", pos:"Noun", ipa:"/ˈsɪti/", pt:"cidade", def:"Uma city é uma cidade grande onde muita gente mora e trabalha.", example:"I don't like living in a city"},
+  {id:73, unit:1, term:"classroom", pos:"Noun", ipa:"/ˈklɑːsˌruːm/", pt:"sala de aula", def:"Uma classroom é uma sala onde você tem aula.", example:"it's very cold in the classroom this morning"},
+  {id:74, unit:1, term:"color", pos:"Noun", ipa:"/ˈkʌlə/", pt:"cor", def:"Color é como vermelho, azul, verde, amarelo etc.", example:"what color is your bike?"},
+  {id:75, unit:1, term:"desk", pos:"Noun", ipa:"/desk/", pt:"escrivaninha, mesa", def:"Uma desk é uma mesa que você usa no escritório ou no trabalho.", example:"there's a computer and a phone on my desk"},
+  {id:76, unit:1, term:"double", pos:"Adjective", ipa:"/ˈdʌbəl/", pt:"dobro, duplo(a)", def:"Double significa que tem algo duas vezes, por exemplo duas letras iguais seguidas.", example:"find the double letters"},
+  {id:77, unit:1, term:"everyone", pos:"Pronoun", ipa:"/ˈevriˌwʌn/", pt:"todo mundo", def:"Everyone significa cada pessoa.", example:"hello, everyone"},
+  {id:78, unit:1, term:"home", pos:"Noun", ipa:"/həʊm/", pt:"casa, lar", def:"Home é o lugar onde uma pessoa mora.", example:"this is my home"},
+  {id:79, unit:1, term:"ID card", pos:"Noun", ipa:"/ˌaɪ ˈdi ˌkɑːd/", pt:"carteira de identidade", def:"Um ID card é um cartão que você carrega e que diz quem você é.", example:"my ID card has my photograph on it"},
+  {id:80, unit:1, term:"international", pos:"Adjective", ipa:"/ˌɪntəˈnæʃ(ə)nəl/", pt:"internacional", def:"Algo international envolve dois ou mais países.", example:"an international phone call (from one country to another)"},
+  {id:81, unit:1, term:"language", pos:"Noun", ipa:"/ˈlæŋɡwɪdʒ/", pt:"língua, idioma", def:"Uma language são as palavras que as pessoas usam para falar e escrever.", example:"how many languages can you speak?"},
+  {id:82, unit:1, term:"laptop", pos:"Noun", ipa:"/ˈlæptɒp/", pt:"notebook (computador)", def:"Um laptop é um computador pequeno que você pode carregar.", example:"this is my laptop"},
+  {id:83, unit:1, term:"late", pos:"Adjective", ipa:"/leɪt/", pt:"atrasado(a)", def:"Quando você está late, chega depois da hora combinada.", example:"don't be late for school again", collocation:"late for something | early for something"},
+  {id:84, unit:1, term:"open", pos:"Verb", ipa:"/ˈəʊpən/", pt:"abrir", def:"Quando você open um livro, mexe nele para ver a página que quer ler.", example:"open your books at page 24"},
+  {id:85, unit:1, term:"organization", pos:"Noun", ipa:"/ˌɔːɡənaɪˈzeɪʃən/", pt:"organização", def:"Uma organization é um grupo de pessoas que trabalham juntas em algo.", example:"an organization of farmers"},
+  {id:86, unit:1, term:"next time", pos:"Phrase", ipa:"/ˈnekst taɪm/", pt:"da próxima vez", def:"Next time significa a próxima vez que algo acontece.", example:"see you next time"},
+  {id:87, unit:1, term:"notebook", pos:"Noun", ipa:"/ˈnəʊtˌbʊk/", pt:"caderno", def:"Um notebook é um caderno onde você escreve anotações.", example:"write the words in your notebook"},
+  {id:88, unit:1, term:"pen", pos:"Noun", ipa:"/pen/", pt:"caneta", def:"Uma pen é o que você usa para escrever.", example:"write your answers with a pen", collocation:"in pen"},
+  {id:89, unit:1, term:"sit down", pos:"Phrasal verb", ipa:"/sɪt ˈdaʊn/", pt:"sentar", def:"Quando você sit down, você descansa apoiado no bumbum, geralmente numa cadeira.", example:"come in and sit down"},
+  {id:90, unit:1, term:"sorry", pos:"Adjective", ipa:"/ˈsɒri/", pt:"desculpa", def:"Você diz sorry depois de fazer algo errado.", example:"sorry I'm late", collocation:"sorry for doing something"},
+  {id:91, unit:1, term:"understand", pos:"Verb", ipa:"/ˌʌndəˈstænd/", pt:"entender", def:"Quando você understand algo, sabe o que significa ou como funciona.", example:"can you understand Italian?"},
+  {id:92, unit:1, term:"welcome", pos:"Verb", ipa:"/ˈwelkəm/", pt:"dar as boas-vindas", def:"Quando alguém diz welcome, está te recebendo bem num lugar.", example:"welcome to the class"},
+  {id:93, unit:1, term:"you're welcome", pos:"Exclamation", ipa:"/jɔː ˈwelkəm/", pt:"de nada", def:"Você diz isso quando alguém te agradece.", example:"\"thank you for the flowers\"—\"you're welcome\""},
+  {id:94, unit:1, term:"animal", pos:"Noun", ipa:"/ˈænɪm(ə)l/", pt:"animal", def:"Um animal é um ser vivo como um cachorro, uma vaca, um rato etc.", example:"wild animals (that do not live with people)"},
+  {id:95, unit:1, term:"baby", pos:"Noun", ipa:"/ˈbeɪbi/", pt:"bebê", def:"Um baby é uma criança bem pequena que ainda não anda nem fala.", example:"the baby is sleeping"},
+  {id:96, unit:1, term:"beautiful", pos:"Adjective", ipa:"/ˈbjuːtəf(ə)l/", pt:"bonito(a)", def:"Algo ou alguém beautiful é muito agradável de se olhar.", example:"it's a beautiful day today"},
+  {id:97, unit:1, term:"big", pos:"Adjective", ipa:"/bɪɡ/", pt:"grande", def:"Algo big é muito grande ou importante.", example:"New Year is a big celebration in China"},
+  {id:98, unit:1, term:"buffalo", pos:"Noun", ipa:"/ˈbʌfələʊ/", pt:"búfalo", def:"Um buffalo é um animal grande da família da vaca, com chifres na cabeça.", example:"the water buffalo is a big animal", collocation:"water buffalo"},
+  {id:99, unit:1, term:"climber", pos:"Noun", ipa:"/ˈklaɪmə(r)/", pt:"alpinista, escalador(a)", def:"Um climber é alguém que escala rochas ou montanhas por diversão.", example:"a group of mountain climbers"},
+  {id:100, unit:1, term:"clothes", pos:"Noun plural", ipa:"/kləʊðz/", pt:"roupas", def:"Clothes são as coisas que você veste no corpo, como camiseta e calça.", example:"I wear nice clothes to work", collocation:"wear clothes"},
+  {id:101, unit:1, term:"desert", pos:"Noun", ipa:"/ˈdezət/", pt:"deserto", def:"Um desert é uma área grande onde não chove muito e poucas plantas crescem.", example:"in the middle of the desert"},
+  {id:102, unit:1, term:"elephant", pos:"Noun", ipa:"/ˈelɪfənt/", pt:"elefante", def:"Um elephant é um animal cinza e grande, com uma tromba comprida.", example:"I see a baby elephant"},
+  {id:103, unit:1, term:"false", pos:"Adjective", ipa:"/fɔːls/", pt:"falso(a)", def:"Quando algo é false, não é verdadeiro nem correto.", example:"is it true or false?"},
+  {id:104, unit:1, term:"favorite", pos:"Adjective", ipa:"/ˈfeɪv(ə)rət/", pt:"favorito(a), preferido(a)", def:"Sua favorite coisa é a que você mais gosta entre um grupo.", example:"which is your favorite restaurant in Bristol?"},
+  {id:105, unit:1, term:"happy", pos:"Adjective", ipa:"/ˈhæpi/", pt:"feliz", def:"Quando você está happy, se sente muito bem e contente.", example:"you look happy today"},
+  {id:106, unit:1, term:"lion", pos:"Noun", ipa:"/ˈlaɪən/", pt:"leão", def:"Um lion é um grande felino selvagem, muito forte.", example:"there are lions in India"},
+  {id:107, unit:1, term:"man", pos:"Noun", ipa:"/mæn/", pt:"homem", def:"Um man é um adulto do sexo masculino.", example:"he's an interesting man"},
+  {id:108, unit:1, term:"mountain", pos:"Noun", ipa:"/ˈmaʊntɪn/", pt:"montanha", def:"Uma mountain é um pedaço de terra bem alto.", example:"Kilimanjaro is a tall mountain"},
+  {id:109, unit:1, term:"people", pos:"Noun plural", ipa:"/ˈpiːp(ə)l/", pt:"pessoas", def:"People é o plural de person.", example:"two people are at the restaurant"},
+  {id:110, unit:1, term:"photographer", pos:"Noun", ipa:"/fəˈtɒɡrəfə/", pt:"fotógrafo(a)", def:"Um photographer é alguém que tira fotos, principalmente como trabalho.", example:"a photographer for Time magazine", collocation:"take a photograph"},
+  {id:111, unit:1, term:"sentence", pos:"Noun", ipa:"/ˈsentəns/", pt:"frase", def:"Uma sentence é um grupo de palavras que forma uma unidade de um texto.", example:"a sentence usually has a subject and a verb"},
+  {id:112, unit:1, term:"small", pos:"Adjective", ipa:"/smɔːl/", pt:"pequeno(a)", def:"Algo small não é muito grande.", example:"Norwich is a small city"},
+  {id:113, unit:1, term:"top", pos:"Adjective", ipa:"/tɒp/", pt:"o melhor, o topo", def:"O top é a melhor parte de algo.", example:"top ten"},
+  {id:114, unit:1, term:"true", pos:"Adjective", ipa:"/truː/", pt:"verdadeiro(a)", def:"Quando algo é true, é real e correto.", example:"find the true sentence"},
+  {id:115, unit:1, term:"water", pos:"Noun uncount", ipa:"/ˈwɔːtə/", pt:"água", def:"Water é o líquido que cai como chuva e forma mares, rios e lagos.", example:"a glass of water"},
+  {id:116, unit:1, term:"whale", pos:"Noun", ipa:"/weɪl/", pt:"baleia", def:"Uma whale é um animal muito grande que vive no oceano.", example:"there are many whales in the sea near Canada"},
+  {id:117, unit:1, term:"woman", pos:"Noun", ipa:"/ˈwʊmən/", pt:"mulher", def:"Uma woman é um adulto do sexo feminino.", example:"a woman in a blue coat"},
+  {id:118, unit:1, term:"watch", pos:"Verb", ipa:"/wɒtʃ/", pt:"assistir, observar", def:"Quando você watch algo, olha por um tempo e vê o que acontece.", example:"watch the video"},
+  {id:119, unit:2, term:"beach", pos:"Noun", ipa:"/biːtʃ/", pt:"praia", def:"Uma beach é uma área de areia perto do mar.", example:"the children are at the beach", collocation:"play on a beach | sit on a beach"},
+  {id:120, unit:2, term:"evening", pos:"Noun", ipa:"/ˈiːvnɪŋ/", pt:"noite (início)", def:"Evening é a parte do dia entre a tarde e a noite.", example:"let's go to the movie theater this evening", collocation:"yesterday evening | this evening"},
+  {id:121, unit:2, term:"island", pos:"Noun", ipa:"/ˈaɪlənd/", pt:"ilha", def:"Uma island é um pedaço de terra pequeno cercado de água.", example:"the U.K. is an island"},
+  {id:122, unit:2, term:"morning", pos:"Noun", ipa:"/ˈmɔːnɪŋ/", pt:"manhã", def:"Morning é a parte do dia entre a madrugada e a tarde.", example:"what time do you get up in the morning?", collocation:"this morning | tomorrow morning"},
+  {id:123, unit:2, term:"night", pos:"Noun", ipa:"/naɪt/", pt:"noite", def:"Night é quando fica escuro e a maioria das pessoas dorme.", example:"ten o'clock at night", collocation:"at night"},
+  {id:124, unit:2, term:"park", pos:"Noun", ipa:"/pɑːk/", pt:"parque", def:"Um park é um espaço aberto com árvores e grama numa cidade.", example:"let's go for a walk in the park"},
+  {id:125, unit:2, term:"river", pos:"Noun", ipa:"/ˈrɪvə/", pt:"rio", def:"Um river é um curso de água comprido que corre por um país e vai até o mar.", example:"the river goes through the city"},
+  {id:126, unit:2, term:"sea", pos:"Noun", ipa:"/siː/", pt:"mar", def:"O sea é uma grande extensão de água que cobre boa parte da Terra.", example:"the Black sea"},
+  {id:127, unit:2, term:"café", pos:"Noun", ipa:"/ˈkæfeɪ/", pt:"café (lugar)", def:"Um café é um lugar onde você senta e toma chá ou café.", example:"let's go to a café"},
+  {id:128, unit:2, term:"Friday", pos:"Noun", ipa:"/ˈfraɪdeɪ/", pt:"sexta-feira", def:"Friday é o quinto dia da semana.", example:"see you on Friday"},
+  {id:129, unit:2, term:"friend", pos:"Noun", ipa:"/frend/", pt:"amigo(a)", def:"Um friend é alguém de quem você gosta e com quem passa tempo.", example:"I like to meet friends after work", collocation:"meet a friend | a close friend | a best friend"},
+  {id:130, unit:2, term:"vacation", pos:"Noun", ipa:"/veɪˈkeɪʃn/", pt:"férias", def:"Vacation é um período em que você não precisa trabalhar nem ir à escola.", example:"she is in Spain on vacation", collocation:"go on vacation"},
+  {id:131, unit:2, term:"Monday", pos:"Noun", ipa:"/ˈmʌndeɪ/", pt:"segunda-feira", def:"Monday é o primeiro dia da semana.", example:"I play soccer every Monday"},
+  {id:132, unit:2, term:"picnic", pos:"Noun", ipa:"/ˈpɪknɪk/", pt:"piquenique", def:"Um picnic é quando você come ao ar livre, geralmente num parque ou praia.", example:"we have a picnic in the park", collocation:"have a picnic | go on a picnic"},
+  {id:133, unit:2, term:"place", pos:"Noun", ipa:"/pleɪs/", pt:"lugar", def:"Um place é uma cidade ou uma área/prédio dentro de uma cidade.", example:"my town is a really boring place"},
+  {id:134, unit:2, term:"post", pos:"Verb", ipa:"/pəʊst/", pt:"postar", def:"Quando você post algo, coloca uma foto ou informação na internet.", example:"post a photo on social media", collocation:"post on social media"},
+  {id:135, unit:2, term:"Saturday", pos:"Noun", ipa:"/ˈsætədeɪ/", pt:"sábado", def:"Saturday é o sexto dia da semana.", example:"what time do you get up on a Saturday?"},
+  {id:136, unit:2, term:"Sunday", pos:"Noun", ipa:"/ˈsʌndeɪ/", pt:"domingo", def:"Sunday é o sétimo dia da semana.", example:"there's a concert this Sunday"},
+  {id:137, unit:2, term:"Thursday", pos:"Noun", ipa:"/ˈθɜːzdeɪ/", pt:"quinta-feira", def:"Thursday é o quarto dia da semana.", example:"the store stays open late on Thursday"},
+  {id:138, unit:2, term:"time", pos:"Noun", ipa:"/taɪm/", pt:"hora, tempo", def:"Time é usado para perguntar as horas, como 'oito horas'.", example:"what time do you have lunch?"},
+  {id:139, unit:2, term:"today", pos:"Adverb", ipa:"/təˈdeɪ/", pt:"hoje", def:"Today é o dia atual, agora.", example:"today is a nice day"},
+  {id:140, unit:2, term:"Tuesday", pos:"Noun", ipa:"/ˈtjuːzdeɪ/", pt:"terça-feira", def:"Tuesday é o segundo dia da semana.", example:"can we meet on Tuesday?"},
+  {id:141, unit:2, term:"Wednesday", pos:"Noun", ipa:"/ˈwenzdeɪ/", pt:"quarta-feira", def:"Wednesday é o terceiro dia da semana.", example:"I hope it doesn't rain on Wednesday"},
+  {id:142, unit:2, term:"with", pos:"Preposition", ipa:"/wɪð/", pt:"com", def:"With significa que algo tem ou está perto de outra coisa.", example:"I want to sit with you"},
+  {id:143, unit:2, term:"apartment", pos:"Noun", ipa:"/əˈpɑːtmənt/", pt:"apartamento", def:"Um apartment é um conjunto de cômodos para morar, geralmente num só andar de um prédio.", example:"I live in a two-bedroom apartment"},
+  {id:144, unit:2, term:"cold", pos:"Adjective", ipa:"/kəʊld/", pt:"frio(a)", def:"Quando está cold, a temperatura está bem baixa.", example:"it's very cold outside"},
+  {id:145, unit:2, term:"degree", pos:"Noun", ipa:"/dɪˈɡriː/", pt:"grau", def:"Um degree é uma unidade de temperatura.", example:"temperatures are around 36 degrees Celsius during the day"},
+  {id:146, unit:2, term:"different", pos:"Adjective", ipa:"/ˈdɪfrənt/", pt:"diferente", def:"Quando duas coisas são different, elas não são iguais.", example:"I want a different job", collocation:"different from something or someone | a difference between things"},
+  {id:147, unit:2, term:"group", pos:"Noun", ipa:"/ɡruːp/", pt:"grupo", def:"Um group é um número de pessoas ou coisas juntas.", example:"a group of people", collocation:"a group of | in a group"},
+  {id:148, unit:2, term:"hot", pos:"Adjective", ipa:"/hɒt/", pt:"quente", def:"Quando está hot, a temperatura está bem alta.", example:"it's very hot outside"},
+  {id:149, unit:2, term:"know", pos:"Verb", ipa:"/nəʊ/", pt:"saber, conhecer", def:"Quando você know algo, entende aquilo.", example:"I know the answer"},
+  {id:150, unit:2, term:"phew", pos:"Exclamation", ipa:"/fjuː/", pt:"ufa", def:"Você diz phew para mostrar surpresa ou alívio.", example:"phew! It's cold today"},
+  {id:151, unit:2, term:"ready", pos:"Adjective", ipa:"/ˈredi/", pt:"pronto(a)", def:"Quando você está ready para fazer algo, já pode fazer agora.", example:"are you ready to order now?", collocation:"ready to do something | ready for something"},
+  {id:152, unit:2, term:"warm", pos:"Adjective", ipa:"/wɔːm/", pt:"morno(a), agradável", def:"Quando está warm, a temperatura não está nem muito quente nem muito fria, é agradável.", example:"it's lovely and warm this afternoon"},
+  {id:153, unit:2, term:"where", pos:"Adverb", ipa:"/weə/", pt:"onde", def:"Você usa where para perguntar sobre a localização de algo.", example:"where are you?"},
+  {id:154, unit:2, term:"capital", pos:"Noun", ipa:"/ˈkæpɪt(ə)l/", pt:"capital", def:"A capital de um país é a cidade mais importante, geralmente onde fica o governo.", example:"Astana is the capital of Kazakhstan"},
+  {id:155, unit:2, term:"continent", pos:"Noun", ipa:"/ˈkɒntɪnənt/", pt:"continente", def:"Um continent é uma área grande do mundo, como a Ásia ou a África.", example:"Asia is a big continent"},
+  {id:156, unit:2, term:"exercise", pos:"Noun", ipa:"/ˈeksəsaɪz/", pt:"exercício", def:"Um exercise é uma tarefa que você precisa fazer.", example:"complete the exercise"},
+  {id:157, unit:2, term:"next to", pos:"Preposition", ipa:"/ˈnekst tə/", pt:"ao lado de", def:"Next to significa lado a lado ou bem perto.", example:"sit next to me"},
+  {id:158, unit:2, term:"plural", pos:"Adjective", ipa:"/ˈplʊərəl/", pt:"plural", def:"O plural de uma palavra é usado quando há mais de um.", example:"the plural of \"mouse\" is \"mice\""},
+  {id:159, unit:2, term:"page", pos:"Noun", ipa:"/peɪdʒ/", pt:"página", def:"Uma page é uma folha de um livro.", example:"turn the page"},
+  {id:160, unit:2, term:"popular", pos:"Adjective", ipa:"/ˈpɒpjʊlə/", pt:"popular", def:"Quando algo ou alguém é popular, muita gente gosta.", example:"he's very popular with his classmates"},
+  {id:161, unit:2, term:"similar", pos:"Adjective", ipa:"/ˈsɪmɪlə/", pt:"parecido(a), semelhante", def:"Similar significa que as coisas são quase iguais, mas não 100%.", example:"you are similar to your mom", collocation:"similar to | different from"},
+  {id:162, unit:2, term:"singular", pos:"Adjective", ipa:"/ˈsɪŋɡjʊlə/", pt:"singular", def:"Singular significa uma coisa só; o oposto de plural.", example:"the singular of \"apples\" is \"apple\""},
+  {id:163, unit:2, term:"symbol", pos:"Noun", ipa:"/ˈsɪmb(ə)l/", pt:"símbolo", def:"Um symbol é uma imagem ou objeto usado para mostrar uma ideia.", example:"the symbol of England is a lion", collocation:"a symbol of something"},
+  {id:164, unit:2, term:"tourist", pos:"Noun", ipa:"/ˈtʊərɪst/", pt:"turista", def:"Um tourist é alguém que está visitando um lugar de férias.", example:"Times Square is full of tourists"},
+  {id:165, unit:2, term:"what", pos:"Pronoun", ipa:"/wɒt/", pt:"o que, qual", def:"Você usa what numa pergunta para pedir informação sobre algo.", example:"what is your name?"},
+  {id:166, unit:2, term:"address", pos:"Noun", ipa:"/əˈdres/", pt:"endereço", def:"Seu address é o número da sua casa e o nome da rua e cidade onde você mora.", example:"tell me your address and telephone number"},
+  {id:167, unit:2, term:"capital letter", pos:"Noun", ipa:"/ˌkæpɪtl ˈletə/", pt:"letra maiúscula", def:"Uma capital letter é usada no início da primeira palavra de uma frase.", example:"don't forget to start each sentence with a capital letter"},
+  {id:168, unit:2, term:"card", pos:"Noun", ipa:"/kɑːd/", pt:"cartão", def:"Um card é algo que você usa para pagar, com dinheiro nele.", example:"what is the card number?", collocation:"card number"},
+  {id:169, unit:2, term:"document", pos:"Noun", ipa:"/ˈdɒkjʊmənt/", pt:"documento", def:"Um document é um papel com informações.", example:"here are your documents"},
+  {id:170, unit:2, term:"first name", pos:"Noun", ipa:"/ˈfɜːst neɪm/", pt:"primeiro nome", def:"Seu first name é o nome que vem antes do sobrenome.", example:"write your first name"},
+  {id:171, unit:2, term:"form", pos:"Noun", ipa:"/fɔːm/", pt:"formulário", def:"Um form é um documento com espaços para você escrever informações sobre você.", example:"complete the form", collocation:"complete a form | fill out a form"},
+  {id:172, unit:2, term:"help", pos:"Noun uncount", ipa:"/help/", pt:"ajuda", def:"Help é o ato de ajudar alguém a fazer algo.", example:"tigers need our help"},
+  {id:173, unit:2, term:"internet", pos:"Noun", ipa:"/ˈɪntəˌnet/", pt:"internet", def:"A internet é o sistema que os computadores do mundo usam para compartilhar informação.", example:"I use the internet for my homework"},
+  {id:174, unit:2, term:"key", pos:"Noun", ipa:"/kiː/", pt:"chave", def:"Uma key é um pedaço de metal com um formato especial usado para trancar e destrancar uma porta.", example:"I can't find my keys"},
+  {id:175, unit:2, term:"last name", pos:"Noun", ipa:"/ˈlɑːst neɪm/", pt:"sobrenome", def:"Seu last name é o nome de família que vem depois do primeiro nome.", example:"what is your last name?"},
+  {id:176, unit:2, term:"cell", pos:"Noun", ipa:"/sɛl/", pt:"celular", def:"Um cell (cell phone) é um telefone que você carrega com você.", example:"is this your cell?"},
+  {id:177, unit:2, term:"online", pos:"Adjective", ipa:"/ˈɒnlaɪn/", pt:"online", def:"Algo online acontece usando a internet.", example:"online shopping"},
+  {id:178, unit:2, term:"passport", pos:"Noun", ipa:"/ˈpɑːspɔːt/", pt:"passaporte", def:"Um passport é um documento oficial que diz quem você é e de que país você é.", example:"what's your passport number?"},
+  {id:179, unit:2, term:"personal information", pos:"Noun uncount", ipa:"/ˌpɜːsənl ɪnfəˈmeɪʃən/", pt:"informações pessoais", def:"Personal information são coisas como seu nome, idade e endereço.", example:"write your personal information here"},
+  {id:180, unit:2, term:"phone number", pos:"Noun", ipa:"/ˈfəʊn nʌmbə/", pt:"número de telefone", def:"Seu phone number é o número que as pessoas precisam saber pra te ligar.", example:"what's your phone number?"},
+  {id:181, unit:2, term:"profile", pos:"Noun", ipa:"/ˈprəʊfaɪl/", pt:"perfil", def:"Seu profile é informação sobre você na internet.", example:"write your profile"},
+  {id:182, unit:2, term:"registration", pos:"Noun", ipa:"/ˌredʒɪˈstreɪʃən/", pt:"cadastro, inscrição", def:"Registration é quando você dá informações para entrar ou começar algo, como um curso.", example:"complete the registration form", collocation:"registration form"},
+  {id:183, unit:2, term:"stress", pos:"Noun", ipa:"/stres/", pt:"acento tônico", def:"O stress numa palavra é a parte que você fala com mais força.", example:"the stress in the word \"Vietnamese\" is at the end"},
+  {id:184, unit:2, term:"ticket", pos:"Noun", ipa:"/ˈtɪkɪt/", pt:"bilhete, passagem, ingresso", def:"Um ticket é um papel ou mensagem eletrônica que você compra para viajar ou ir a um show.", example:"have you got the tickets?"},
+  {id:185, unit:2, term:"visa", pos:"Noun", ipa:"/ˈviːzə/", pt:"visto", def:"Um visa é um carimbo no passaporte que permite você entrar ou ficar num país.", example:"show me your visa"},
+  {id:186, unit:2, term:"bird", pos:"Noun", ipa:"/bɜːd/", pt:"pássaro", def:"Um bird é um animal que voa e tem asas.", example:"watch the birds"},
+  {id:187, unit:2, term:"boat", pos:"Noun", ipa:"/bəʊt/", pt:"barco", def:"Um boat é um veículo que anda na água.", example:"we have a boat on the river"},
+  {id:188, unit:2, term:"bus", pos:"Noun", ipa:"/bʌs/", pt:"ônibus", def:"Um bus é um veículo grande que carrega muita gente.", example:"I go to school by bus", collocation:"by bus"},
+  {id:189, unit:2, term:"car", pos:"Noun", ipa:"/kɑː/", pt:"carro", def:"Um car é um veículo com motor e quatro rodas.", example:"my car is outside"},
+  {id:190, unit:2, term:"each", pos:"Determiner", ipa:"/iːtʃ/", pt:"cada", def:"Each significa cada pessoa ou coisa, individualmente.", example:"each person in the room"},
+  {id:191, unit:2, term:"koala", pos:"Noun", ipa:"/kəʊˈɑːlə/", pt:"coala", def:"Um koala é um animal pequeno com pelo grosso cinza, orelhas grandes e sem rabo, da Austrália.", example:"there is a koala in the tree"},
+  {id:192, unit:2, term:"nature", pos:"Noun uncount", ipa:"/ˈneɪtʃə(r)/", pt:"natureza", def:"Nature são as plantas, animais, montanhas, rios etc. que não são feitos pelo homem.", example:"I'm interested in nature"},
+  {id:193, unit:2, term:"plane", pos:"Noun", ipa:"/pleɪn/", pt:"avião", def:"Um plane é um veículo que voa e carrega pessoas e coisas.", example:"the plane carries 260 passengers"},
+  {id:194, unit:2, term:"plant", pos:"Noun", ipa:"/plɑːnt/", pt:"planta", def:"Uma plant é um ser vivo como uma árvore ou um vegetal.", example:"there's a plant inside"},
+  {id:195, unit:2, term:"state", pos:"Noun", ipa:"/steɪt/", pt:"estado", def:"Um state é uma área grande de um país com governo próprio.", example:"there are 50 states in the United States"},
+  {id:196, unit:2, term:"transportation", pos:"Noun uncount", ipa:"/ˌtrænspərˈteɪʃn/", pt:"transporte", def:"Transportation é a forma como você se desloca, como carro, ônibus e trem.", example:"I take public transportation to work", collocation:"public transportation"},
+  {id:197, unit:2, term:"tree", pos:"Noun", ipa:"/triː/", pt:"árvore", def:"Uma tree é uma planta grande e alta com galhos e folhas.", example:"I like climbing trees"},
+  {id:198, unit:2, term:"compare", pos:"Verb", ipa:"/kəmˈpeə/", pt:"comparar", def:"Quando você compare algo, olha o que é igual ou diferente entre as coisas.", example:"compare the answers"},
+  {id:199, unit:3, term:"boy", pos:"Noun", ipa:"/bɔɪ/", pt:"menino", def:"Um boy é uma criança do sexo masculino.", example:"the two boys like to play in the garden"},
+  {id:200, unit:3, term:"brother", pos:"Noun", ipa:"/ˈbrʌðə/", pt:"irmão", def:"Seu brother tem o mesmo pai e mãe que você e é homem.", example:"I have one brother and one sister"},
+  {id:201, unit:3, term:"daughter", pos:"Noun", ipa:"/ˈdɔːtə/", pt:"filha", def:"A daughter de alguém é sua filha mulher.", example:"we have two sons and a daughter"},
+  {id:202, unit:3, term:"describe", pos:"Verb", ipa:"/dɪˈskraɪb/", pt:"descrever", def:"Quando você describe algo, dá informações sobre aquilo.", example:"describe your favorite movie"},
+  {id:203, unit:3, term:"family", pos:"Noun", ipa:"/ˈfæm(ə)li/", pt:"família", def:"Sua family são sua mãe, pai, irmãos etc.", example:"I have a big family"},
+  {id:204, unit:3, term:"father", pos:"Noun", ipa:"/ˈfɑːðə/", pt:"pai", def:"Seu father é o homem que é seu pai.", example:"his father is English"},
+  {id:205, unit:3, term:"girl", pos:"Noun", ipa:"/ɡɜːl/", pt:"menina", def:"Uma girl é uma criança do sexo feminino.", example:"the two girls like to play in the garden"},
+  {id:206, unit:3, term:"mother", pos:"Noun", ipa:"/ˈmʌðə/", pt:"mãe", def:"Sua mother é a mulher que é sua mãe.", example:"his mother is Welsh"},
+  {id:207, unit:3, term:"sister", pos:"Noun", ipa:"/ˈsɪstə/", pt:"irmã", def:"Sua sister tem o mesmo pai e mãe que você e é mulher.", example:"I have two sisters"},
+  {id:208, unit:3, term:"son", pos:"Noun", ipa:"/sʌn/", pt:"filho", def:"O son de alguém é seu filho homem.", example:"my son is in college now"},
+  {id:209, unit:3, term:"children", pos:"Noun plural", ipa:"/ˈtʃɪldrən/", pt:"crianças", def:"Children é o plural de child.", example:"the children like to play in the park"},
+  {id:210, unit:3, term:"coach", pos:"Noun", ipa:"/kəʊtʃ/", pt:"técnico(a)", def:"Um coach é alguém que ensina as pessoas a fazer algo, como um esporte.", example:"the coach helps us play better", collocation:"soccer coach | sports coach"},
+  {id:211, unit:3, term:"cousin", pos:"Noun", ipa:"/ˈkʌzən/", pt:"primo(a)", def:"Seu cousin é filho(a) do seu tio ou tia.", example:"I have two cousins"},
+  {id:212, unit:3, term:"husband", pos:"Noun", ipa:"/ˈhʌzbənd/", pt:"marido", def:"Seu husband é o homem com quem você é casada.", example:"this is my husband, Luis"},
+  {id:213, unit:3, term:"married", pos:"Adjective", ipa:"/ˈmærid/", pt:"casado(a)", def:"Quando você está married, tem marido ou esposa.", example:"he's married and has three children", collocation:"get married"},
+  {id:214, unit:3, term:"parent", pos:"Noun", ipa:"/ˈpeərənt/", pt:"pai/mãe", def:"Seus parents são seu pai e sua mãe.", example:"my parents are both teachers"},
+  {id:215, unit:3, term:"player", pos:"Noun", ipa:"/ˈpleɪə/", pt:"jogador(a)", def:"Um player é alguém que joga um esporte.", example:"she plays in the team"},
+  {id:216, unit:3, term:"team", pos:"Noun", ipa:"/tiːm/", pt:"time, equipe", def:"Um team é um grupo de pessoas que fazem algo juntas, como jogar um esporte.", example:"I play for a soccer team", collocation:"sports team | soccer team | basketball team"},
+  {id:217, unit:3, term:"wife", pos:"Noun", ipa:"/waɪf/", pt:"esposa", def:"Sua wife é a mulher com quem você é casado.", example:"he has a wife and three children"},
+  {id:218, unit:3, term:"young", pos:"Adjective", ipa:"/jʌŋ/", pt:"jovem", def:"Alguém young não é velho.", example:"young children"},
+  {id:219, unit:3, term:"about", pos:"Preposition", ipa:"/əˈbaʊt/", pt:"sobre", def:"About significa sobre o assunto de algo.", example:"read about Lauren James"},
+  {id:220, unit:3, term:"beard", pos:"Noun", ipa:"/bɪəd/", pt:"barba", def:"A beard é o pelo que cresce no rosto de alguém.", example:"I have a beard", collocation:"have a beard | grow a beard"},
+  {id:221, unit:3, term:"best friend", pos:"Noun", ipa:"/best ˈfrend/", pt:"melhor amigo(a)", def:"Seu best friend é o amigo que você mais gosta entre todos.", example:"my best friend lives in the same street as me"},
+  {id:222, unit:3, term:"blonde", pos:"Adjective", ipa:"/blɒnd/", pt:"loiro(a)", def:"Blonde descreve cabelo da cor amarela.", example:"my mom has blonde hair", collocation:"blonde hair"},
+  {id:223, unit:3, term:"classmate", pos:"Noun", ipa:"/ˈklɑːsˌmeɪt/", pt:"colega de classe", def:"Um classmate é alguém que está na mesma turma que você na escola.", example:"I like most of my classmates"},
+  {id:224, unit:3, term:"eye", pos:"Noun", ipa:"/aɪ/", pt:"olho", def:"Seus eyes são as duas partes redondas do rosto com as quais você vê.", example:"she has brown hair and blue eyes"},
+  {id:225, unit:3, term:"hair", pos:"Noun uncount", ipa:"/heə/", pt:"cabelo", def:"Seu hair é tudo que cresce no topo e nas laterais da sua cabeça.", example:"I need to wash my hair"},
+  {id:226, unit:3, term:"how old", pos:"Phrase", ipa:"/haʊ əʊld/", pt:"quantos anos", def:"Você usa how old para perguntar a idade de alguém.", example:"how old are you?"},
+  {id:227, unit:3, term:"long", pos:"Adjective", ipa:"/lɒŋ/", pt:"comprido(a), longo(a)", def:"Quando o cabelo de alguém é long, passa dos ombros.", example:"my brother has long hair", collocation:"long hair | short hair"},
+  {id:228, unit:3, term:"old", pos:"Adjective", ipa:"/əʊld/", pt:"velho(a)", def:"Alguém old não é jovem.", example:"an old man"},
+  {id:229, unit:3, term:"school", pos:"Noun", ipa:"/skuːl/", pt:"escola", def:"School é o lugar onde as pessoas vão para aprender coisas.", example:"Jack's not at home—he's at school", collocation:"go to school | be at school"},
+  {id:230, unit:3, term:"short", pos:"Adjective", ipa:"/ʃɔːt/", pt:"baixo(a), curto(a)", def:"Alguém short não é muito alto.", example:"both my parents are short"},
+  {id:231, unit:3, term:"tall", pos:"Adjective", ipa:"/tɔːl/", pt:"alto(a)", def:"Quando alguém é tall, é longe dos pés até a cabeça.", example:"my father is very tall"},
+  {id:232, unit:3, term:"yourself", pos:"Pronoun", ipa:"/jɔːˈself/", pt:"você mesmo(a)", def:"Você usa yourself quando está falando sobre você.", example:"write sentences about yourself"},
+  {id:233, unit:3, term:"April", pos:"Noun", ipa:"/ˈeɪprəl/", pt:"abril", def:"April é o quarto mês do ano.", example:"my birthday is in April"},
+  {id:234, unit:3, term:"August", pos:"Noun", ipa:"/ˈɔːɡəst/", pt:"agosto", def:"August é o oitavo mês do ano.", example:"August is very hot in Spain"},
+  {id:235, unit:3, term:"birthday", pos:"Noun", ipa:"/ˈbɜːθdeɪ/", pt:"aniversário", def:"Seu birthday é o dia em que você nasceu.", example:"my birthday is in February"},
+  {id:236, unit:3, term:"celebration", pos:"Noun", ipa:"/ˌseləˈbreɪʃ(ə)n/", pt:"celebração", def:"Uma celebration é uma atividade que você faz para mostrar que um dia é especial.", example:"a birthday celebration"},
+  {id:237, unit:3, term:"count", pos:"Verb", ipa:"/kaʊnt/", pt:"contar", def:"Quando você count, diz 1, 2, 3, 4 etc.", example:"count the people"},
+  {id:238, unit:3, term:"December", pos:"Noun", ipa:"/dɪˈsembə/", pt:"dezembro", def:"December é o décimo segundo mês do ano.", example:"his birthday is in December"},
+  {id:239, unit:3, term:"experience", pos:"Noun", ipa:"/ɪkˈspɪərɪəns/", pt:"experiência", def:"Uma experience é algo que você vive na sua vida.", example:"have an experience"},
+  {id:240, unit:3, term:"fantastic", pos:"Adjective", ipa:"/fænˈtæstɪk/", pt:"fantástico(a)", def:"Algo fantastic é muito bom.", example:"this food is fantastic"},
+  {id:241, unit:3, term:"February", pos:"Noun", ipa:"/ˈfebruəri/", pt:"fevereiro", def:"February é o segundo mês do ano.", example:"her birthday is in February"},
+  {id:242, unit:3, term:"firework", pos:"Noun", ipa:"/ˈfaɪəwɜːk/", pt:"fogos de artifício", def:"Um firework é uma coisa pequena que sobe ao céu, faz barulho e tem cores diferentes.", example:"we watch the fireworks on New Year's Eve"},
+  {id:243, unit:3, term:"fun", pos:"Adjective", ipa:"/fʌn/", pt:"divertido(a)", def:"Quando algo é fun, você se diverte muito com aquilo.", example:"Seoul is a fun city", collocation:"have fun"},
+  {id:244, unit:3, term:"important", pos:"Adjective", ipa:"/ɪmˈpɔː(r)t(ə)nt/", pt:"importante", def:"Quando algo ou alguém é important, tem um grande efeito ou muito poder.", example:"English and Spanish are important languages", collocation:"important to someone | important for something"},
+  {id:245, unit:3, term:"January", pos:"Noun", ipa:"/ˈdʒænjuəri/", pt:"janeiro", def:"January é o primeiro mês do ano.", example:"it snows in January"},
+  {id:246, unit:3, term:"July", pos:"Noun", ipa:"/dʒʊˈlaɪ/", pt:"julho", def:"July é o sétimo mês do ano.", example:"we go on vacation in July"},
+  {id:247, unit:3, term:"June", pos:"Noun", ipa:"/dʒuːn/", pt:"junho", def:"June é o sexto mês do ano.", example:"school finishes at the end of June"},
+  {id:248, unit:3, term:"March", pos:"Noun", ipa:"/mɑːtʃ/", pt:"março", def:"March é o terceiro mês do ano.", example:"it is still cold in March"},
+  {id:249, unit:3, term:"May", pos:"Noun", ipa:"/meɪ/", pt:"maio", def:"May é o quinto mês do ano.", example:"there are 31 days in May"},
+  {id:250, unit:3, term:"meal", pos:"Noun", ipa:"/miːl/", pt:"refeição", def:"Uma meal é uma comida que você come de uma vez, como o almoço.", example:"a nice meal"},
+  {id:251, unit:3, term:"month", pos:"Noun", ipa:"/mʌnθ/", pt:"mês", def:"Um month é uma das doze partes do ano.", example:"January is a cold month"},
+  {id:252, unit:3, term:"Mother's Day", pos:"Noun", ipa:"/ˈmʌðəz deɪ/", pt:"Dia das Mães", def:"Mother's Day é um feriado em que se celebram as mães.", example:"Mother's Day is a different day every year in the U.K."},
+  {id:253, unit:3, term:"neighbor", pos:"Noun", ipa:"/ˈneɪbə/", pt:"vizinho(a)", def:"Um neighbor é alguém que mora na casa ou apartamento ao lado do seu.", example:"my neighbor is very friendly"},
+  {id:254, unit:3, term:"New Year", pos:"Noun", ipa:"/njuː jɪə/", pt:"Ano Novo", def:"New Year é a celebração do início do ano.", example:"we celebrate the New Year with friends"},
+  {id:255, unit:3, term:"noisy", pos:"Adjective", ipa:"/ˈnɔɪzi/", pt:"barulhento(a)", def:"Quando algo ou alguém é noisy, faz muito barulho.", example:"the neighbors are noisy"},
+  {id:256, unit:3, term:"November", pos:"Noun", ipa:"/nəʊˈvembə/", pt:"novembro", def:"November é o décimo primeiro mês do ano.", example:"Thanksgiving is the last Thursday in November in the U.S."},
+  {id:257, unit:3, term:"October", pos:"Noun", ipa:"/ɒkˈtəʊbə/", pt:"outubro", def:"October é o décimo mês do ano.", example:"my birthday is in October"},
+  {id:258, unit:3, term:"question", pos:"Noun", ipa:"/ˈkwestʃ(ə)n/", pt:"pergunta", def:"Uma question é algo que você pergunta para alguém.", example:"does anyone have any questions for me?", collocation:"ask a question | answer a question"},
+  {id:259, unit:3, term:"quiet", pos:"Adjective", ipa:"/ˈkwaɪət/", pt:"quieto(a), silencioso(a)", def:"Quiet significa que não há som ou há pouco som.", example:"be quiet"},
+  {id:260, unit:3, term:"race", pos:"Noun", ipa:"/reɪs/", pt:"corrida", def:"Uma race é um evento esportivo em que você tenta ir mais rápido que os outros.", example:"the London Marathon is a race over 26 miles"},
+  {id:261, unit:3, term:"seconds", pos:"Noun plural", ipa:"/ˈsekəndz/", pt:"segundos", def:"Seconds são unidades de tempo; há 60 seconds em um minuto.", example:"count the seconds"},
+  {id:262, unit:3, term:"September", pos:"Noun", ipa:"/sepˈtembə/", pt:"setembro", def:"September é o nono mês do ano.", example:"school starts in September"},
+  {id:263, unit:3, term:"special", pos:"Adjective", ipa:"/ˈspeʃəl/", pt:"especial", def:"Quando algo é special, é importante para você.", example:"a special day"},
+  {id:264, unit:3, term:"street", pos:"Noun", ipa:"/striːt/", pt:"rua", def:"Uma street é um lugar com casas onde os carros costumam passar.", example:"I live on this street"},
+  {id:265, unit:3, term:"tablet", pos:"Noun", ipa:"/ˈtæblət/", pt:"tablet", def:"Um tablet é um computador pequeno e fino que você carrega facilmente.", example:"you cannot take your tablet into the classroom"},
+  {id:266, unit:3, term:"together", pos:"Adverb", ipa:"/təˈɡeðə/", pt:"juntos", def:"Together significa que pessoas ou coisas estão uma com a outra ou no mesmo lugar.", example:"we like to go to the movie theater together"},
+  {id:267, unit:3, term:"very", pos:"Adverb", ipa:"/ˈveri/", pt:"muito", def:"Very é usado quando você quer dizer que algo é mais ou mais forte.", example:"a very important day"},
+  {id:268, unit:3, term:"world", pos:"Noun", ipa:"/wɜːld/", pt:"mundo", def:"O world é todo o lugar onde vivemos.", example:"runners come here from all over the world"},
+  {id:269, unit:3, term:"actually", pos:"Adverb", ipa:"/ˈæktʃuəli/", pt:"na verdade", def:"Você usa actually para dizer 'de fato' ou 'realmente'.", example:"actually, I'm 21"},
+  {id:270, unit:3, term:"chocolate", pos:"Noun", ipa:"/ˈʧɒklət/", pt:"chocolate", def:"Chocolate é uma comida doce, geralmente marrom ou branca.", example:"I love chocolate"},
+  {id:271, unit:3, term:"come", pos:"Verb", ipa:"/kʌm/", pt:"vir", def:"Come significa ir até um lugar.", example:"come to my party!"},
+  {id:272, unit:3, term:"congratulations", pos:"Exclamation", ipa:"/kənˌɡrætʃʊˈleɪʃ(ə)nz/", pt:"parabéns", def:"Você diz congratulations para mostrar que está feliz por algo bom que aconteceu com alguém.", example:"congratulations on your new baby"},
+  {id:273, unit:3, term:"Father's Day", pos:"Noun", ipa:"/ˈfɑːðəz deɪ/", pt:"Dia dos Pais", def:"Father's Day é um dia em que se celebram os pais.", example:"happy Father's Day!"},
+  {id:274, unit:3, term:"flower", pos:"Noun", ipa:"/ˈflaʊə(r)/", pt:"flor", def:"Flowers são as partes coloridas de uma planta ou árvore.", example:"those flowers smell lovely"},
+  {id:275, unit:3, term:"graduation", pos:"Noun", ipa:"/ˌɡrædʒuˈeɪʃən/", pt:"formatura", def:"Graduation é uma cerimônia no fim da faculdade em que você recebe seu diploma.", example:"your graduation day is very special"},
+  {id:276, unit:3, term:"house", pos:"Noun", ipa:"/haʊs/", pt:"casa", def:"Uma house é um prédio onde uma pessoa ou família mora.", example:"we live in a big house"},
+  {id:277, unit:3, term:"invitation", pos:"Noun", ipa:"/ˌɪnvɪˈteɪʃ(ə)n/", pt:"convite", def:"Um invitation é quando alguém te pergunta se você quer ir a algo que está organizando.", example:"an invitation to Alice's wedding", collocation:"an invitation to something | accept an invitation | invite someone to something"},
+  {id:278, unit:3, term:"kind", pos:"Adjective", ipa:"/kaɪnd/", pt:"gentil, bondoso(a)", def:"Alguém kind é legal e ajuda outras pessoas.", example:"she's always very kind and helpful", collocation:"be kind of someone"},
+  {id:279, unit:3, term:"new baby", pos:"Noun", ipa:"/njuː ˈbeɪbi/", pt:"recém-nascido(a)", def:"Um new baby é um bebê bem novinho, com poucos dias de vida.", example:"congratulations on your new baby"},
+  {id:280, unit:3, term:"party", pos:"Noun", ipa:"/ˈpɑːti/", pt:"festa", def:"Uma party é um evento onde as pessoas se divertem comendo, dançando e conversando.", example:"the party is on Saturday"},
+  {id:281, unit:3, term:"present", pos:"Noun", ipa:"/ˈprez(ə)nt/", pt:"presente", def:"Um present é algo que você dá para alguém, por exemplo no aniversário.", example:"I need to buy my dad a birthday present", collocation:"a birthday present | give someone a present"},
+  {id:282, unit:3, term:"wedding", pos:"Noun", ipa:"/ˈwedɪŋ/", pt:"casamento", def:"Um wedding é um evento em que duas pessoas se casam.", example:"my friend's wedding is in July"},
+  {id:283, unit:3, term:"well done", pos:"Phrase", ipa:"/wel ˈdʌn/", pt:"muito bem, parabéns", def:"Você diz well done para elogiar o que alguém fez.", example:"well done on your exam results!"},
+  {id:284, unit:3, term:"another", pos:"Determiner", ipa:"/əˈnʌðə/", pt:"outro(a)", def:"Another significa alguém ou algo diferente de você.", example:"here's another one"},
+  {id:285, unit:3, term:"car race", pos:"Noun", ipa:"/ˈkɑː reɪs/", pt:"corrida de carros", def:"Uma car race é quando carros correm um contra o outro para vencer.", example:"Formula 1 is a car race"},
+  {id:286, unit:3, term:"connect", pos:"Verb", ipa:"/kəˈnekt/", pt:"conectar", def:"Quando as coisas connect, elas se juntam.", example:"let's connect on social media"},
+  {id:287, unit:3, term:"festival", pos:"Noun", ipa:"/ˈfestɪv(ə)l/", pt:"festival", def:"Um festival é um período em que muitos eventos acontecem em um lugar, como shows.", example:"a three-day rock festival", collocation:"a music/jazz/rock/theater festival"},
+  {id:288, unit:3, term:"present", pos:"Noun", ipa:"/ˈprɛznt/", pt:"presente", def:"Um present é algo que você dá para alguém por um motivo especial, como aniversário.", example:"here's a present for your birthday", collocation:"give a gift | buy a gift"},
+  {id:289, unit:3, term:"goal", pos:"Noun", ipa:"/ɡəʊl/", pt:"meta, objetivo", def:"Um goal é algo que você trabalha para conseguir ou alcançar.", example:"she works hard to achieve her goals", collocation:"achieve a goal | reach a goal"},
+  {id:290, unit:3, term:"interest", pos:"Noun", ipa:"/ˈɪntrɪst/", pt:"interesse", def:"Seus interests são atividades que você gosta de fazer.", example:"we have similar interests"},
+  {id:291, unit:3, term:"interesting", pos:"Adjective", ipa:"/ˈɪntrəstɪŋ/", pt:"interessante", def:"Alguém interesting faz você querer ouvir o que a pessoa diz.", example:"we met some interesting people on vacation"},
+  {id:292, unit:3, term:"local", pos:"Adjective", ipa:"/ˈləʊkəl/", pt:"local", def:"Quando algo é local pra você, fica na sua área ou bairro.", example:"a local festival"},
+  {id:293, unit:3, term:"near", pos:"Adjective", ipa:"/nɪə/", pt:"perto", def:"Near significa perto de algo.", example:"I live near here"},
+  {id:294, unit:3, term:"pancake", pos:"Noun", ipa:"/ˈpænkeɪk/", pt:"panqueca", def:"Um pancake é algo redondo e chato que você cozinha e come, geralmente no café da manhã.", example:"I make pancakes for breakfast", collocation:"make pancakes | eat pancakes"},
+  {id:295, unit:3, term:"partnership", pos:"Noun", ipa:"/ˈpɑːtnəʃɪp/", pt:"parceria", def:"Uma partnership é um acordo em que duas ou mais pessoas ou empresas trabalham juntas.", example:"the companies have a partnership"},
+  {id:296, unit:3, term:"record", pos:"Verb", ipa:"/rɪˈkɔːd/", pt:"gravar", def:"Quando você record algo, você filma.", example:"record the presentation"},
+  {id:297, unit:3, term:"university", pos:"Noun", ipa:"/ˌjuːnɪˈvɜː(r)səti/", pt:"universidade", def:"Uma university é um lugar onde as pessoas estudam depois da escola.", example:"students go to university", collocation:"go to university | be at university"},
+  {id:298, unit:3, term:"card", pos:"Noun", ipa:"/kɑːd/", pt:"cartão", def:"Um card é um papel grosso, geralmente com uma imagem, em que você escreve uma mensagem para alguém.", example:"this card is for my brother", collocation:"a birthday card"},
+  {id:299, unit:3, term:"men", pos:"Noun plural", ipa:"/men/", pt:"homens", def:"Men é o plural de man.", example:"my father and brother are men"},
+  {id:300, unit:3, term:"women", pos:"Noun plural", ipa:"/ˈwɪmɪn/", pt:"mulheres", def:"Women é o plural de woman.", example:"18"},
+  {id:301, unit:4, term:"airport", pos:"Noun", ipa:"/ˈeəˌpɔːt/", pt:"aeroporto", def:"Um airport é onde os aviões decolam e pousam.", example:"let's meet at the airport tomorrow"},
+  {id:302, unit:4, term:"bridge", pos:"Noun", ipa:"/brɪdʒ/", pt:"ponte", def:"Uma bridge é um caminho que passa por cima de algo, como um rio.", example:"there are 37 bridges across the River Seine in Paris"},
+  {id:303, unit:4, term:"building", pos:"Noun", ipa:"/ˈbɪldɪŋ/", pt:"prédio, edifício", def:"Um building é algo como uma casa ou loja, com paredes, portas e janelas.", example:"there are some very tall buildings in Shanghai"},
+  {id:304, unit:4, term:"center", pos:"Noun", ipa:"/ˈsentə(r)/", pt:"centro", def:"O center de uma cidade é a parte principal, com lojas e escritórios.", example:"let's take a taxi to the center of town"},
+  {id:305, unit:4, term:"city hall", pos:"Noun", ipa:"/sɪti ˈhɔːl/", pt:"prefeitura", def:"City hall é o prédio onde fica o governo de uma cidade.", example:"we went to city hall for a meeting"},
+  {id:306, unit:4, term:"famous", pos:"Adjective", ipa:"/ˈfeɪməs/", pt:"famoso(a)", def:"Quando muita gente sabe sobre algo, essa coisa é famous.", example:"the Eiffel Tower is very famous"},
+  {id:307, unit:4, term:"light", pos:"Noun", ipa:"/laɪt/", pt:"luz, lâmpada", def:"Uma light é um objeto que usa eletricidade e gera luz.", example:"look at the lights"},
+  {id:308, unit:4, term:"office", pos:"Noun", ipa:"/ˈɒfɪs/", pt:"escritório", def:"Um office é um prédio ou sala onde as pessoas trabalham, geralmente sentadas em mesas.", example:"my office is on the second floor"},
+  {id:309, unit:4, term:"bank", pos:"Noun", ipa:"/bæŋk/", pt:"banco", def:"Um bank é um prédio que guarda o dinheiro das pessoas.", example:"the bank opens at nine in the morning"},
+  {id:310, unit:4, term:"bus station", pos:"Noun", ipa:"/ˈbʌs steɪʃn/", pt:"rodoviária", def:"Uma bus station é onde os ônibus começam e terminam suas viagens.", example:"meet me outside the bus station"},
+  {id:311, unit:4, term:"parking lot", pos:"Noun", ipa:"/ˈpɑrkɪŋ lɑt/", pt:"estacionamento", def:"Um parking lot é um lugar onde você deixa seu carro por um tempo.", example:"the parking lot is full"},
+  {id:312, unit:4, term:"movie theater", pos:"Noun", ipa:"/ˈmuvi ˈθiət̮ər/", pt:"cinema", def:"Um movie theater é onde você vai assistir a filmes.", example:"there are two movie theaters in my town"},
+  {id:313, unit:4, term:"I'm not sure", pos:"Phrase", ipa:"/aɪm nɒt ˈʃʊə/", pt:"não tenho certeza", def:"Você diz isso quando não sabe a resposta pra uma pergunta.", example:"\"is Danny coming to the party?\"—\"I'm not sure\""},
+  {id:314, unit:4, term:"information center", pos:"Noun", ipa:"/ɪnfəˈmeɪʃ(ə)n ˌsentə/", pt:"centro de informações", def:"Um information center é onde você consegue informação sobre museus, restaurantes, hotéis etc.", example:"where's the information center?"},
+  {id:315, unit:4, term:"hospital", pos:"Noun", ipa:"/ˈhɒspɪt(ə)l/", pt:"hospital", def:"Um hospital é onde médicos e enfermeiros ajudam pessoas doentes ou machucadas.", example:"she works in the hospital"},
+  {id:316, unit:4, term:"market", pos:"Noun", ipa:"/ˈmɑːkɪt/", pt:"mercado, feira", def:"Um market é um lugar numa cidade onde as pessoas trazem coisas para vender.", example:"there's a market here every Wednesday"},
+  {id:317, unit:4, term:"museum", pos:"Noun", ipa:"/mjuːˈziːəm/", pt:"museu", def:"Um museum é um prédio onde as pessoas vão ver coisas interessantes sobre arte, história etc.", example:"the museum is near the train station"},
+  {id:318, unit:4, term:"new", pos:"Adjective", ipa:"/njuː/", pt:"novo(a)", def:"Algo new não é velho.", example:"she has a new car"},
+  {id:319, unit:4, term:"old", pos:"Adjective", ipa:"/əʊld/", pt:"velho(a), antigo(a)", def:"Algo old não é novo.", example:"an old car"},
+  {id:320, unit:4, term:"opposite", pos:"Adjective", ipa:"/ˈɒpəzɪt/", pt:"em frente, oposto", def:"Opposite significa do outro lado de algo.", example:"the building is opposite my house"},
+  {id:321, unit:4, term:"supermarket", pos:"Noun", ipa:"/ˈsuːpəˌmɑːkɪt/", pt:"supermercado", def:"Um supermarket é uma loja grande que vende vários tipos de comida e outras coisas.", example:"I need to go to the supermarket"},
+  {id:322, unit:4, term:"train station", pos:"Noun", ipa:"/ˈtreɪn ˌsteɪʃ(ə)n/", pt:"estação de trem", def:"Uma train station é onde os trens param para os passageiros entrarem e saírem.", example:"it's a five-minute walk to the train station"},
+  {id:323, unit:4, term:"excuse me", pos:"Phrase", ipa:"/ɪkˈskjuːz miː/", pt:"com licença, desculpe", def:"Você diz excuse me quando quer falar com alguém.", example:"excuse me, can you help me?"},
+  {id:324, unit:4, term:"ferry", pos:"Noun", ipa:"/ˈferi/", pt:"balsa", def:"Uma ferry é um barco que leva pessoas de um lugar para outro.", example:"we take the ferry to the island", collocation:"take a ferry | ferry stop"},
+  {id:325, unit:4, term:"map", pos:"Noun", ipa:"/mæp/", pt:"mapa", def:"Um map é um desenho de um lugar, mostrando ruas, rios, montanhas etc.", example:"can you show me your street on the map?"},
+  {id:326, unit:4, term:"midday", pos:"Noun", ipa:"/ˌmɪdˈdeɪ/", pt:"meio-dia", def:"Midday são as doze horas do meio do dia.", example:"we have lunch at midday"},
+  {id:327, unit:4, term:"midnight", pos:"Noun", ipa:"/ˈmɪdnaɪt/", pt:"meia-noite", def:"Midnight são as doze horas do meio da noite.", example:"the train arrives at midnight"},
+  {id:328, unit:4, term:"phone", pos:"Noun", ipa:"/fəʊn/", pt:"telefone", def:"Um phone é algo que você usa para ligar e mandar mensagem.", example:"I need a new phone", collocation:"phone number | phone call"},
+  {id:329, unit:4, term:"stop", pos:"Verb", ipa:"/stɒp/", pt:"parar; ponto (de ônibus)", def:"Um stop é um lugar onde você espera um transporte, como um ônibus.", example:"wait at the bus stop"},
+  {id:330, unit:4, term:"town", pos:"Noun", ipa:"/taʊn/", pt:"cidade (pequena)", def:"Uma town é um lugar com vários prédios onde as pessoas moram, maior que uma vila e menor que uma city.", example:"I live in a small town near Bratislava"},
+  {id:331, unit:4, term:"art", pos:"Noun uncount", ipa:"/ɑː(r)t/", pt:"arte", def:"Art são coisas como pinturas e desenhos que as pessoas gostam de olhar.", example:"there is art on the street"},
+  {id:332, unit:4, term:"artist", pos:"Noun", ipa:"/ˈɑːtɪst/", pt:"artista", def:"Um artist é alguém que faz arte, como pinturas e desenhos.", example:"the artist paints beautiful pictures"},
+  {id:333, unit:4, term:"century", pos:"Noun", ipa:"/ˈsenʧəri/", pt:"século", def:"Um century são 100 anos.", example:"we live in the 21st century", collocation:"21st century"},
+  {id:334, unit:4, term:"contemporary", pos:"Adjective", ipa:"/kənˈtempərəri/", pt:"contemporâneo(a)", def:"Contemporary significa moderno ou do tempo atual.", example:"the contemporary art museum in Kanazawa", collocation:"contemporary art"},
+  {id:335, unit:4, term:"exhibition", pos:"Noun", ipa:"/ˌeksɪˈbɪʃən/", pt:"exposição", def:"Uma exhibition é onde você vai ver arte ou objetos de artistas.", example:"we visit the a lot of art exhibitions", collocation:"art exhibition"},
+  {id:336, unit:4, term:"expensive", pos:"Adjective", ipa:"/ɪkˈspensɪv/", pt:"caro(a)", def:"Algo expensive custa muito dinheiro.", example:"an expensive watch"},
+  {id:337, unit:4, term:"garden", pos:"Noun", ipa:"/ˈɡɑːd(ə)n/", pt:"jardim", def:"Um garden é um pedaço de terra fora de casa onde você planta flores e árvores.", example:"we have a big garden behind our house"},
+  {id:338, unit:4, term:"open", pos:"Adjective", ipa:"/ˈəʊpən/", pt:"aberto(a)", def:"Quando uma loja, negócio ou parque está open, as pessoas podem entrar.", example:"the art gallery is open every day"},
+  {id:339, unit:4, term:"opinion", pos:"Noun", ipa:"/əˈpɪnjən/", pt:"opinião", def:"A opinion de alguém é o que a pessoa pensa e acredita.", example:"what's the writer's opinion?", collocation:"in my opinion"},
+  {id:340, unit:4, term:"review", pos:"Noun", ipa:"/rɪˈvjuː/", pt:"resenha, avaliação", def:"Um review é quando alguém dá sua opinião sobre algo, como um restaurante ou filme, e escreve sobre isso.", example:"here's a review of the new book"},
+  {id:341, unit:4, term:"star", pos:"Noun", ipa:"/stɑː/", pt:"estrela", def:"Uma star é algo que você vê no céu à noite.", example:"I see the stars"},
+  {id:342, unit:4, term:"swimming pool", pos:"Noun", ipa:"/ˈswɪmɪŋ puːl/", pt:"piscina", def:"Uma swimming pool é um lugar cheio de água onde você pode nadar.", example:"we are at the swimming pool", collocation:"go in a swimming pool"},
+  {id:343, unit:4, term:"visit", pos:"Verb", ipa:"/ˈvɪzɪt/", pt:"visitar", def:"Quando você visit um lugar, vai até lá para conhecer por um tempo curto.", example:"I visit Florence every year"},
+  {id:344, unit:4, term:"about", pos:"Preposition", ipa:"/əˈbaʊt/", pt:"sobre", def:"About é usado quando você se refere a algo.", example:"read about the artist"},
+  {id:345, unit:4, term:"amazing", pos:"Adjective", ipa:"/əˈmeɪzɪŋ/", pt:"incrível", def:"Quando algo é amazing, você acha surpreendente e muito bom.", example:"elephants are amazing animals"},
+  {id:346, unit:4, term:"anything else", pos:"Phrase", ipa:"/ˈenɪθɪŋ els/", pt:"mais alguma coisa", def:"Você usa anything else para perguntar se a pessoa quer mais alguma coisa.", example:"would you like anything else?"},
+  {id:347, unit:4, term:"apple", pos:"Noun", ipa:"/ˈæp(ə)l/", pt:"maçã", def:"Uma apple é uma fruta com casca vermelha ou verde.", example:"eat an apple a day—it's good for you"},
+  {id:348, unit:4, term:"banana", pos:"Noun", ipa:"/bəˈnɑːnə/", pt:"banana", def:"Uma banana é uma fruta comprida e curva com casca grossa.", example:"a kilogram of bananas"},
+  {id:349, unit:4, term:"buy", pos:"Verb", ipa:"/baɪ/", pt:"comprar", def:"Quando você buy algo, você paga dinheiro para ter aquilo.", example:"I want to buy a new phone"},
+  {id:350, unit:4, term:"cake", pos:"Noun", ipa:"/keɪk/", pt:"bolo", def:"Cake é uma comida doce feita com farinha, ovos e açúcar, assada no forno.", example:"a piece of cake"},
+  {id:351, unit:4, term:"city center", pos:"Noun", ipa:"/ˌsɪti ˈsentə/", pt:"centro da cidade", def:"O city center é a parte do meio de uma cidade, onde ficam lojas, teatros, restaurantes etc.", example:"the station is in the city center"},
+  {id:352, unit:4, term:"coffee", pos:"Noun uncount", ipa:"/ˈkɒfi/", pt:"café (bebida)", def:"Coffee é uma bebida feita com grãos escuros de uma planta chamada cafeeiro.", example:"a cup of coffee"},
+  {id:353, unit:4, term:"cookie", pos:"Noun", ipa:"/ˈkʊki/", pt:"biscoito", def:"Um cookie é uma comida pequena e doce, redonda e chata.", example:"eat a cookie"},
+  {id:354, unit:4, term:"day trip", pos:"Phrase", ipa:"/deɪ trɪp/", pt:"excursão de um dia", def:"Quando você faz um day trip, você se diverte num lugar novo por um dia.", example:"take a day trip to the countryside", collocation:"take a day trip"},
+  {id:355, unit:4, term:"dollar", pos:"Noun", ipa:"/ˈdɒlə/", pt:"dólar", def:"Dollars são o dinheiro usado nos Estados Unidos.", example:"the T-shirt costs 10 dollars"},
+  {id:356, unit:4, term:"food", pos:"Noun uncount", ipa:"/fuːd/", pt:"comida", def:"Food são coisas como pão, verduras, carne e peixe que você come pra viver.", example:"Thai food is very good"},
+  {id:357, unit:4, term:"fruit juice", pos:"Noun uncount", ipa:"/ˈfruːt ˌdʒuːs/", pt:"suco de fruta", def:"Fruit juice é o líquido que vem de dentro de uma fruta, como laranja ou maçã.", example:"a bottle of fruit juice"},
+  {id:358, unit:4, term:"here you are", pos:"Phrase", ipa:"/ˈhɪə juː ɑː/", pt:"aqui está", def:"Você diz here you are quando entrega algo para alguém.", example:"you need your keys—here you are"},
+  {id:359, unit:4, term:"large", pos:"Adjective", ipa:"/lɑːdʒ/", pt:"grande", def:"Algo large é bem grande.", example:"he lives in a large apartment in Bangkok"},
+  {id:360, unit:4, term:"medium", pos:"Adjective", ipa:"/ˈmiːdiəm/", pt:"médio(a)", def:"Quando algo é medium, não é grande nem pequeno, é tamanho do meio.", example:"would you like small, medium, or large?"},
+  {id:361, unit:4, term:"price", pos:"Noun", ipa:"/praɪs/", pt:"preço", def:"O price de algo é quanto ele custa.", example:"what's the price of that sofa?"},
+  {id:362, unit:4, term:"salad", pos:"Noun", ipa:"/ˈsæləd/", pt:"salada", def:"Salad é um prato de vegetais frios que você não cozinha.", example:"I like to eat a salad for lunch"},
+  {id:363, unit:4, term:"sandwich", pos:"Noun", ipa:"/ˈsænwɪtʃ/", pt:"sanduíche", def:"Um sandwich são duas fatias de pão com outra comida no meio, como queijo.", example:"take some sandwiches for your lunch"},
+  {id:364, unit:4, term:"snack", pos:"Noun", ipa:"/snæk/", pt:"lanche", def:"Um snack é uma comidinha que as pessoas comem entre as refeições.", example:"we can have a snack on the train", collocation:"have a snack"},
+  {id:365, unit:4, term:"soup", pos:"Noun uncount", ipa:"/suːp/", pt:"sopa", def:"Soup é uma comida feita com carne ou vegetais, bem líquida.", example:"a bowl of tomato soup"},
+  {id:366, unit:4, term:"tea", pos:"Noun uncount", ipa:"/tiː/", pt:"chá", def:"Tea é uma bebida feita colocando água quente sobre folhas secas de uma planta de chá.", example:"a cup of tea"},
+  {id:367, unit:4, term:"trip", pos:"Noun", ipa:"/trɪp/", pt:"viagem", def:"Uma trip é uma jornada que você faz até algum lugar.", example:"I hope you have a good trip"},
+  {id:368, unit:4, term:"writer", pos:"Noun", ipa:"/ˈraɪtə(r)/", pt:"escritor(a)", def:"Um writer é alguém que escreve livros ou textos para jornais e revistas.", example:"Dickens is a famous writer"},
+  {id:369, unit:4, term:"agree", pos:"Verb", ipa:"/əˈɡriː/", pt:"concordar", def:"Quando você agree, você pensa ou acredita a mesma coisa que outra pessoa.", example:"I agree with you on this", collocation:"agree with | agree to"},
+  {id:370, unit:4, term:"lake", pos:"Noun", ipa:"/leɪk/", pt:"lago", def:"Um lake é uma grande área de água cercada de terra.", example:"we swim in the lake"},
+  {id:371, unit:4, term:"shopping", pos:"Noun uncount", ipa:"/ˈʃɒpɪŋ/", pt:"compras", def:"Shopping é a atividade de comprar coisas em lojas.", example:"do you go shopping on Sundays?", collocation:"go shopping"},
+  {id:372, unit:4, term:"sign", pos:"Noun", ipa:"/saɪn/", pt:"placa", def:"Um sign é algo com escrita ou desenho que te dá alguma informação.", example:"the name of the store is on the sign"},
+  {id:373, unit:4, term:"mineral water", pos:"Noun uncount", ipa:"/ˈmɪnərəl wɔːtə/", pt:"água mineral", def:"Mineral water é água que vem da terra e você compra numa garrafa.", example:"a one-liter bottle of mineral water"},
+  {id:374, unit:5, term:"basketball", pos:"Noun uncount", ipa:"/ˈbɑːskɪtˌbɔːl/", pt:"basquete", def:"Basketball é um jogo em que você joga dentro de uma quadra e tenta jogar a bola dentro de um aro.", example:"do you play basketball?", collocation:"play basketball | a basketball match"},
+  {id:375, unit:5, term:"competition", pos:"Noun", ipa:"/ˌkɒmpɪˈtɪʃən/", pt:"competição", def:"Uma competition é uma atividade em que as pessoas tentam vencer ou ser melhores que os outros.", example:"the prize for the competition is thousands of dollars", collocation:"win a competition"},
+  {id:376, unit:5, term:"dislikes", pos:"Noun plural", ipa:"/dɪsˈlaɪks/", pt:"coisas que você não gosta", def:"Dislikes são coisas que uma pessoa não gosta ou não curte.", example:"they discussed their likes and dislikes"},
+  {id:377, unit:5, term:"final", pos:"Adjective", ipa:"/ˈfaɪnəl/", pt:"final", def:"Quando algo é final, é o último ou está no fim.", example:"the final day of the competition"},
+  {id:378, unit:5, term:"game", pos:"Noun", ipa:"/ɡeɪm/", pt:"jogo", def:"Um game é uma atividade que as pessoas jogam por diversão.", example:"watch the soccer game"},
+  {id:379, unit:5, term:"golf", pos:"Noun", ipa:"/ɡɒlf/", pt:"golfe", def:"Golf é um esporte em que os jogadores usam tacos para acertar uma bolinha em buracos.", example:"they play golf in the afternoon", collocation:"golf course | play golf"},
+  {id:380, unit:5, term:"half", pos:"Adjective", ipa:"/hɑːf/", pt:"metade", def:"Half significa 50% de algo.", example:"you can study here for half a day", collocation:"half a day"},
+  {id:381, unit:5, term:"hundred", pos:"Noun", ipa:"/ˈhʌndrəd/", pt:"cem", def:"Hundred é o número 100.", example:"it costs a hundred dollars"},
+  {id:382, unit:5, term:"lady", pos:"Noun", ipa:"/ˈleɪdi/", pt:"senhora, moça", def:"Uma lady é uma mulher.", example:"a nice lady"},
+  {id:383, unit:5, term:"likes", pos:"Noun plural", ipa:"/laɪks/", pt:"coisas que você gosta", def:"Likes são coisas que uma pessoa curte.", example:"what are your likes and dislikes?"},
+  {id:384, unit:5, term:"love", pos:"Verb", ipa:"/lʌv/", pt:"amar, adorar", def:"Quando você love algo ou alguém, gosta muito, muito mesmo.", example:"they love their sport"},
+  {id:385, unit:5, term:"million", pos:"Noun", ipa:"/ˈmɪljən/", pt:"milhão", def:"Million é o número 1.000.000.", example:"the World Cup prize is thirty million dollars"},
+  {id:386, unit:5, term:"money", pos:"Noun uncount", ipa:"/ˈmʌni/", pt:"dinheiro", def:"Money é o que você dá para alguém quando compra algo.", example:"how much money do you have with you?"},
+  {id:387, unit:5, term:"play", pos:"Verb", ipa:"/ˈpleɪ/", pt:"jogar", def:"Quando você play um jogo ou esporte, você o pratica.", example:"they like to play soccer in the park"},
+  {id:388, unit:5, term:"prize", pos:"Noun", ipa:"/praɪz/", pt:"prêmio", def:"Um prize é algo que você ganha por vencer uma competição.", example:"the prize is $200", collocation:"win a prize | first, second, etc. prize"},
+  {id:389, unit:5, term:"sport", pos:"Noun", ipa:"/spɔːt/", pt:"esporte", def:"Sport são jogos como futebol, basquete ou tênis.", example:"what is your favorite sport?"},
+  {id:390, unit:5, term:"thousand", pos:"Noun", ipa:"/ˈθaʊz(ə)nd/", pt:"mil", def:"Thousand é o número 1.000.", example:"it's a thousand kilometers from here to Bratislava"},
+  {id:391, unit:5, term:"ball", pos:"Noun", ipa:"/bɔːl/", pt:"bola", def:"Uma ball é um objeto redondo usado em jogos e esportes.", example:"catch the ball", collocation:"kick a ball | catch a ball"},
+  {id:392, unit:5, term:"baseball", pos:"Noun uncount", ipa:"/ˈbeɪsˌbɔːl/", pt:"beisebol", def:"Baseball é um jogo ao ar livre em que os jogadores tentam bater na bola e correr pelo campo.", example:"baseball is a sport for two teams"},
+  {id:393, unit:5, term:"bike", pos:"Noun", ipa:"/baɪk/", pt:"bicicleta", def:"Uma bike tem duas rodas e você anda pedalando.", example:"she can ride a bike", collocation:"ride a bike"},
+  {id:394, unit:5, term:"breakfast", pos:"Noun", ipa:"/ˈbrekfəst/", pt:"café da manhã", def:"Breakfast é a refeição que você come de manhã.", example:"what's for breakfast?", collocation:"have breakfast | have something for breakfast"},
+  {id:395, unit:5, term:"club", pos:"Noun", ipa:"/klʌb/", pt:"clube", def:"Um club é um grupo de pessoas que gostam de fazer a mesma atividade juntas.", example:"I'm in a painting club"},
+  {id:396, unit:5, term:"cycling", pos:"Noun uncount", ipa:"/ˈsaɪklɪŋ/", pt:"ciclismo", def:"Cycling é o esporte ou atividade de andar de bicicleta.", example:"his brother is very good at cycling"},
+  {id:397, unit:5, term:"rugby", pos:"Noun uncount", ipa:"/ˈrʌɡbi/", pt:"rúgbi", def:"Rugby é um esporte em que os jogadores correm com a bola tentando levá-la até a linha do outro time.", example:"she plays rugby for a local team", collocation:"play rugby | rugby team | rugby match"},
+  {id:398, unit:5, term:"running", pos:"Noun uncount", ipa:"/ˈrʌnɪŋ/", pt:"corrida", def:"Running é a ação ou esporte de correr.", example:"a running race"},
+  {id:399, unit:5, term:"swimming", pos:"Noun uncount", ipa:"/ˈswɪmɪŋ/", pt:"natação", def:"Swimming é o esporte ou atividade de nadar.", example:"do you want to go swimming?", collocation:"swimming pool | swimming costume"},
+  {id:400, unit:5, term:"team sport", pos:"Noun", ipa:"/tiːm spɔːt/", pt:"esporte de equipe", def:"Um team sport é um esporte em que as pessoas jogam juntas como um time contra outro.", example:"soccer is my favorite team sport"},
+  {id:401, unit:5, term:"tennis", pos:"Noun uncount", ipa:"/ˈtenɪs/", pt:"tênis (esporte)", def:"Tennis é um jogo em que você bate numa bola por cima de uma rede.", example:"I play tennis every weekend"},
+  {id:402, unit:5, term:"triathlon", pos:"Noun", ipa:"/traɪˈæθlən/", pt:"triatlo", def:"Triathlon é um esporte em que as pessoas nadam, andam de bicicleta e depois correm.", example:"a triathlon is very difficult"},
+  {id:403, unit:5, term:"TV", pos:"Noun", ipa:"/ˌtiːˈviː/", pt:"TV, televisão", def:"Uma TV é uma máquina na sua casa que mostra imagens e sons.", example:"what's on TV tonight?", collocation:"be on TV | watch TV"},
+  {id:404, unit:5, term:"volleyball", pos:"Noun uncount", ipa:"/ˈvɒlibɔːl/", pt:"vôlei", def:"Volleyball é um jogo em que dois times de seis jogadores usam as mãos para acertar uma bola grande por cima de uma rede alta.", example:"we play volleyball at the beach", collocation:"play volleyball | volleyball court"},
+  {id:405, unit:5, term:"action movie", pos:"Noun", ipa:"/ˈækʃən ˈmuvi/", pt:"filme de ação", def:"Um action movie é um tipo de filme em que muitas coisas emocionantes acontecem.", example:"I love action movies"},
+  {id:406, unit:5, term:"doctor", pos:"Noun", ipa:"/ˈdɒktə/", pt:"médico(a)", def:"Um doctor é uma pessoa que cuida de quem não está bem de saúde.", example:"I want to be a doctor"},
+  {id:407, unit:5, term:"especially", pos:"Adverb", ipa:"/ɪˈspeʃəli/", pt:"especialmente", def:"Você usa especially quando quer dizer que algo é mais importante que outras coisas.", example:"I love ice cream, especially chocolate"},
+  {id:408, unit:5, term:"fashion", pos:"Noun uncount", ipa:"/ˈfæʃən/", pt:"moda", def:"Fashion é sobre os estilos de roupa e coisas que as pessoas usam.", example:"she doesn't like fashion very much"},
+  {id:409, unit:5, term:"movie", pos:"Noun", ipa:"/ˈmuvi/", pt:"filme", def:"Um movie são imagens em movimento que contam uma história.", example:"what time does the movie start?"},
+  {id:410, unit:5, term:"fish", pos:"Noun", ipa:"/fɪʃ/", pt:"peixe", def:"Um fish é um animal que vive na água.", example:"I don't like eating fish"},
+  {id:411, unit:5, term:"fishing", pos:"Noun uncount", ipa:"/ˈfɪʃɪŋ/", pt:"pesca", def:"Fishing é a atividade de pescar peixes.", example:"She enjoys fishing with his father"},
+  {id:412, unit:5, term:"hip hop", pos:"Noun", ipa:"/hɪp hɒp/", pt:"hip hop", def:"Hip hop é um estilo de música em que as pessoas falam mas não cantam.", example:"24"},
+  {id:413, unit:5, term:"hobby", pos:"Noun", ipa:"/ˈhɒbi/", pt:"hobby, passatempo", def:"O hobby de alguém é uma atividade que a pessoa faz porque gosta.", example:"my hobbies are reading and cycling"},
+  {id:414, unit:5, term:"interest", pos:"Noun", ipa:"/ˈɪntrəst/", pt:"interesse", def:"Seus interests são as coisas que você gosta de fazer.", example:"my interests are music, sports, and travel"},
+  {id:415, unit:5, term:"job", pos:"Noun", ipa:"/dʒɒb/", pt:"emprego, trabalho", def:"O job de alguém é o trabalho que a pessoa faz todo dia para ganhar dinheiro.", example:"he has a job in a factory"},
+  {id:416, unit:5, term:"kilogram", pos:"Noun", ipa:"/ˈkɪləɡræm/", pt:"quilograma", def:"Um kilogram é uma forma de medir quanto peso algo tem.", example:"how many kilograms is this box?"},
+  {id:417, unit:5, term:"member", pos:"Noun", ipa:"/ˈmembə(r)/", pt:"membro", def:"Um member é alguém que faz parte de uma organização ou grupo de pessoas.", example:"we're both members of the tennis club"},
+  {id:418, unit:5, term:"monster fish", pos:"Noun", ipa:"/ˈmɒnstə fɪʃ/", pt:"peixe monstro", def:"Monster fish são peixes bem grandes.", example:"his videos about monster fish are amazing"},
+  {id:419, unit:5, term:"music", pos:"Noun uncount", ipa:"/ˈmjuːzɪk/", pt:"música", def:"Music são sons agradáveis feitos ao cantar ou tocar instrumentos.", example:"I like listening to music"},
+  {id:420, unit:5, term:"podcast", pos:"Noun", ipa:"/ˈpɒdkɑːst/", pt:"podcast", def:"Um podcast é algo que você escuta parecido com um programa de rádio, mas online.", example:"she listens to podcasts when she's at home", collocation:"listen to a podcast"},
+  {id:421, unit:5, term:"presenter", pos:"Noun", ipa:"/prɪˈzentə/", pt:"apresentador(a)", def:"Um presenter é alguém que apresenta as partes de um programa de TV ou podcast.", example:"my parents are TV presenters"},
+  {id:422, unit:5, term:"professor", pos:"Noun", ipa:"/prəˈfesə/", pt:"professor(a) universitário(a)", def:"Um professor é um professor de universidade ou faculdade.", example:"she is a professor at the university", collocation:"university professor"},
+  {id:423, unit:5, term:"punk", pos:"Noun uncount", ipa:"/pʌŋk/", pt:"punk", def:"Punk é um estilo de música rock dos anos 70 e 80 que é bem barulhento.", example:"they listen to punk rock music"},
+  {id:424, unit:5, term:"science fiction", pos:"Noun uncount", ipa:"/ˌsaɪəns ˈfɪkʃən/", pt:"ficção científica", def:"Science fiction é um tipo de filme, livro ou programa de TV sobre o futuro, tecnologia, espaço etc.", example:"watch a science fiction movie"},
+  {id:425, unit:5, term:"scientist", pos:"Noun", ipa:"/ˈsaɪəntɪst/", pt:"cientista", def:"Um scientist é alguém cujo trabalho é estudar assuntos como física, química ou biologia.", example:"I want to be a scientist"},
+  {id:426, unit:5, term:"scuba diving", pos:"Noun uncount", ipa:"/ˈskuːbə ˌdaɪvɪŋ/", pt:"mergulho (com cilindro)", def:"Scuba diving é o esporte de nadar debaixo d'água usando equipamento especial para respirar.", example:"a scuba diving vacation"},
+  {id:427, unit:5, term:"show", pos:"Noun", ipa:"/ʃəʊ/", pt:"programa (de TV)", def:"Um show é um programa de TV ou algo que você assiste.", example:"he doesn't like wildlife shows"},
+  {id:428, unit:5, term:"story", pos:"Noun", ipa:"/ˈstɔːri/", pt:"história", def:"Uma story é a descrição de eventos do início ao fim, que pode ser real ou não.", example:"it is a good story"},
+  {id:429, unit:5, term:"true crime", pos:"Noun", ipa:"/truː ˈkraɪm/", pt:"true crime (crime real)", def:"True crime é quando algo fala sobre crimes reais, o que aconteceu e o final.", example:"I love to listen to true crime podcasts", collocation:"true crime podcast"},
+  {id:430, unit:5, term:"video game", pos:"Noun", ipa:"/ˈvɪdɪəʊ geɪm/", pt:"videogame", def:"Um video game é um jogo que você joga no computador, com imagens em movimento.", example:"I've got a new video game"},
+  {id:431, unit:5, term:"wildlife show", pos:"Noun", ipa:"/ˈwaɪldlaɪf ˌʃəʊ/", pt:"programa sobre vida selvagem", def:"Um wildlife show é um programa de TV que dá informações sobre animais, plantas etc.", example:"David Attenborough makes wildlife shows"},
+  {id:432, unit:5, term:"wow", pos:"Exclamation", ipa:"/waʊ/", pt:"uau", def:"Você diz wow para mostrar que está surpreso com algo.", example:"wow, that's a big fish!"},
+  {id:433, unit:5, term:"autistic", pos:"Adjective", ipa:"/ɔːˈtɪstɪk/", pt:"autista", def:"Quando alguém é autistic, o cérebro funciona de um jeito diferente da maioria das pessoas.", example:"her son is autistic and loves numbers"},
+  {id:434, unit:5, term:"cook", pos:"Verb", ipa:"/kʊk/", pt:"cozinhar", def:"Quando você cook uma comida, você a prepara deixando pronta para comer.", example:"cook the chicken for an hour"},
+  {id:435, unit:5, term:"cooking", pos:"Noun uncount", ipa:"/ˈkʊkɪŋ/", pt:"cozinhar (atividade)", def:"Cooking é a atividade de preparar comida deixando-a pronta pra comer.", example:"I really enjoy cooking"},
+  {id:436, unit:5, term:"dance", pos:"Verb", ipa:"/dɑːns/", pt:"dançar", def:"Quando você dance, move seu corpo ao som da música.", example:"I love to dance"},
+  {id:437, unit:5, term:"dancing", pos:"Noun uncount", ipa:"/ˈdɑːnsɪŋ/", pt:"dança", def:"Dancing é a atividade de se mexer no ritmo da música por diversão.", example:"do you enjoy dancing?"},
+  {id:438, unit:5, term:"draw", pos:"Verb", ipa:"/drɔː/", pt:"desenhar", def:"Quando você draw, você faz um desenho com caneta ou lápis.", example:"my son likes to draw pictures of cars"},
+  {id:439, unit:5, term:"drawing", pos:"Noun", ipa:"/ˈdrɔːɪŋ/", pt:"desenho", def:"Um drawing é uma imagem feita com caneta ou lápis.", example:"Stephen's drawings are very big"},
+  {id:440, unit:5, term:"drive", pos:"Verb", ipa:"/ˈdraɪv/", pt:"dirigir", def:"Quando você drive um carro, você o controla enquanto ele se move.", example:"he drives a taxi"},
+  {id:441, unit:5, term:"finish", pos:"Verb", ipa:"/ˈfɪnɪʃ/", pt:"terminar", def:"Quando você finish algo, você para de fazer aquilo.", example:"I finish work at six"},
+  {id:442, unit:5, term:"follower", pos:"Noun", ipa:"/ˈfɒləʊə/", pt:"seguidor(a)", def:"Um follower é alguém que te apoia nas redes sociais curtindo e seguindo você.", example:"I have lots of social media followers", collocation:"social media followers"},
+  {id:443, unit:5, term:"guitar", pos:"Noun", ipa:"/ɡɪˈtɑː/", pt:"violão, guitarra", def:"Um guitar é um instrumento musical com seis cordas que você toca com os dedos.", example:"I like to play the guitar"},
+  {id:444, unit:5, term:"learning", pos:"Noun uncount", ipa:"/ˈlɜː(r)nɪŋ/", pt:"aprendizado", def:"Learning é a atividade de estudar algo em detalhe e conhecer bem sobre aquilo.", example:"learning to read is important"},
+  {id:445, unit:5, term:"meter", pos:"Noun", ipa:"/ˈmiːtə/", pt:"metro", def:"Um meter é uma unidade usada para dizer o comprimento de algo.", example:"it is four meters long"},
+  {id:446, unit:5, term:"painting", pos:"Noun uncount", ipa:"/ˈpeɪntɪŋ/", pt:"pintura", def:"Painting é a atividade de fazer imagens usando tinta e pincel.", example:"we do painting at school"},
+  {id:447, unit:5, term:"photographic memory", pos:"Noun", ipa:"/ˌfəʊtəˈɡræfɪk ˈmeməri/", pt:"memória fotográfica", def:"Quando você tem uma photographic memory, você consegue lembrar de informações ou imagens muito bem.", example:"the man has a photographic memory", collocation:"have a photographic memory"},
+  {id:448, unit:5, term:"piano", pos:"Noun", ipa:"/piˈænəʊ/", pt:"piano", def:"Um piano é um instrumento musical grande que você toca apertando teclas.", example:"can you play the piano?"},
+  {id:449, unit:5, term:"picture", pos:"Noun", ipa:"/ˈpɪktʃə(r)/", pt:"imagem, desenho", def:"Uma picture é um desenho, pintura ou foto de alguém ou algo.", example:"there's a nice picture on the wall", collocation:"a picture of someone or something"},
+  {id:450, unit:5, term:"play", pos:"Verb", ipa:"/pleɪ/", pt:"tocar (instrumento)", def:"Quando você play, você faz uma atividade como um esporte ou toca um instrumento.", example:"I like to play soccer with friends", collocation:"play soccer | play the piano"},
+  {id:451, unit:5, term:"remember", pos:"Verb", ipa:"/rɪˈmembə(r)/", pt:"lembrar", def:"Quando você remember algo, ainda está na sua mente e você consegue falar sobre aquilo.", example:"he can remember the story"},
+  {id:452, unit:5, term:"sing", pos:"Verb", ipa:"/sɪŋ/", pt:"cantar", def:"Quando você sing, faz sons musicais com a voz.", example:"please sing us a song"},
+  {id:453, unit:5, term:"taxi", pos:"Noun", ipa:"/ˈtæksi/", pt:"táxi", def:"Um taxi é um carro que leva as pessoas até onde elas querem ir, e elas pagam por isso.", example:"let's call a taxi to take us to the airport", collocation:"take a taxi | taxi driver"},
+  {id:454, unit:5, term:"activity", pos:"Noun", ipa:"/ækˈtɪvɪti/", pt:"atividade", def:"Uma activity é algo que as pessoas fazem por diversão.", example:"plan an activity for the weekend"},
+  {id:455, unit:5, term:"boring", pos:"Adjective", ipa:"/ˈbɔːrɪŋ/", pt:"chato(a), tedioso(a)", def:"Quando algo é boring, não é interessante.", example:"the movie is really boring"},
+  {id:456, unit:5, term:"burger", pos:"Noun", ipa:"/ˈbɜːɡə/", pt:"hambúrguer", def:"Um burger é uma comida achatada e redonda, geralmente de carne.", example:"let's make some burgers"},
+  {id:457, unit:5, term:"easy", pos:"Adjective", ipa:"/ˈiːzi/", pt:"fácil", def:"Quando algo é easy, não é difícil de fazer.", example:"the test is very easy"},
+  {id:458, unit:5, term:"hard", pos:"Adjective", ipa:"/hɑːd/", pt:"difícil", def:"Quando algo é hard, é muito difícil e precisa de muito esforço.", example:"the triathlon is a very hard event", collocation:"hard work"},
+  {id:459, unit:5, term:"how about", pos:"Phrase", ipa:"/haʊ əˈbaʊt/", pt:"que tal", def:"Você usa how about quando está sugerindo algo para alguém.", example:"how about we play soccer?"},
+  {id:460, unit:5, term:"idea", pos:"Noun", ipa:"/aɪˈdɪə/", pt:"ideia", def:"Uma idea é um pensamento ou plano que alguém tem.", example:"that's a great idea (a very good plan)"},
+  {id:461, unit:5, term:"I'm sorry", pos:"Phrase", ipa:"/aɪm ˈsɒri/", pt:"sinto muito, desculpa", def:"Você diz I'm sorry quando pede desculpas por algo.", example:"I'm sorry that I upset you", collocation:"I'm sorry for | I'm sorry about"},
+  {id:462, unit:5, term:"invite", pos:"Verb", ipa:"/ɪnˈvaɪt/", pt:"convidar", def:"Quando você invite alguém para algo, pede para a pessoa fazer aquilo com você.", example:"I want to invite you to my party"},
+  {id:463, unit:5, term:"let me know", pos:"Phrase", ipa:"/ˌlet mi ˈnəʊ/", pt:"me avise", def:"Você usa let me know quando quer que alguém te conte algo.", example:"let me know if you need any help"},
+  {id:464, unit:5, term:"lunch", pos:"Noun", ipa:"/lʌntʃ/", pt:"almoço", def:"Lunch é a refeição que você come no meio do dia.", example:"what time do you have lunch?", collocation:"have lunch | have something for lunch | go out"},
+  {id:465, unit:5, term:"of course", pos:"Adverb", ipa:"/ɒv kɔːs/", pt:"claro, é claro", def:"Você usa of course pra mostrar que concorda com alguém e pode fazer o que a pessoa está pedindo.", example:"password\""},
+  {id:466, unit:5, term:"open air", pos:"Adjective", ipa:"/ˌəʊpən ˈeə/", pt:"ao ar livre", def:"Quando algo é open air, é do lado de fora e não tem paredes nem teto.", example:"let's go to the open air movie theater", collocation:"open air movie theater"},
+  {id:467, unit:5, term:"pasta", pos:"Noun uncount", ipa:"/ˈpæstə/", pt:"macarrão, massa", def:"Pasta é uma comida da Itália feita de farinha e água.", example:"do you want more pasta?"},
+  {id:468, unit:5, term:"response", pos:"Noun", ipa:"/rɪˈspɒns/", pt:"resposta", def:"Uma response é uma resposta a algo que alguém disse.", example:"please can I have a response to my question?", collocation:"get a response"},
+  {id:469, unit:5, term:"suggestion", pos:"Noun", ipa:"/səˈdʒestʃ(ə)n/", pt:"sugestão", def:"Quando você faz uma suggestion, descreve um plano ou possibilidade para alguém pensar a respeito.", example:"I agree with Malcolm's suggestion"},
+  {id:470, unit:5, term:"terrible", pos:"Adjective", ipa:"/ˈterɪbəl/", pt:"terrível", def:"Quando algo é terrible, é muito ruim ou desagradável.", example:"the weather is terrible"},
+  {id:471, unit:5, term:"tomorrow", pos:"Adverb", ipa:"/təˈmɒrəʊ/", pt:"amanhã", def:"Tomorrow é o dia depois de hoje.", example:"it's my birthday tomorrow"},
+  {id:472, unit:5, term:"tonight", pos:"Adverb", ipa:"/təˈnaɪt/", pt:"hoje à noite", def:"Tonight é a noite de hoje.", example:"see you tonight"},
+  {id:473, unit:5, term:"weekend", pos:"Noun", ipa:"/ˌwiːkˈend/", pt:"fim de semana", def:"O weekend é sábado e domingo, quando a maioria das pessoas não trabalha.", example:"let's go to the beach this weekend", collocation:"this weekend | next weekend"},
+  {id:474, unit:5, term:"at first", pos:"Phrase", ipa:"/æt ˈfɜːst/", pt:"no começo", def:"Você usa at first para falar sobre o início de algo.", example:"at first, he is happy"},
+  {id:475, unit:5, term:"at the end", pos:"Phrase", ipa:"/æt ði ˈend/", pt:"no final", def:"Você usa at the end para falar sobre a última parte de algo.", example:"at the end, he is happy"},
+  {id:476, unit:5, term:"bad", pos:"Adjective", ipa:"/bæd/", pt:"ruim", def:"Quando algo é bad, não é bom.", example:"a bad situation"},
+  {id:477, unit:5, term:"bored", pos:"Adjective", ipa:"/bɔː(r)d/", pt:"entediado(a)", def:"Quando você está bored, não está se divertindo porque não tem interesse no que está fazendo.", example:"my job is really boring"},
+  {id:478, unit:5, term:"climbing", pos:"Noun uncount", ipa:"/ˈklaɪmɪŋ/", pt:"escalada", def:"Climbing é o esporte ou atividade de escalar rochas ou montanhas.", example:"we go climbing every year in France"},
+  {id:479, unit:5, term:"college", pos:"Noun", ipa:"/ˈkɒlɪdʒ/", pt:"faculdade", def:"Um college é uma escola para pessoas de cerca de 17 ou 18 anos.", example:"I'm a student at the local college"},
+  {id:480, unit:5, term:"exam", pos:"Noun", ipa:"/ɪɡˈzæm/", pt:"prova, exame", def:"Um exam é um teste formal do conhecimento ou habilidade de alguém.", example:"my sister has a exam today", collocation:"have an exam | take an exam"},
+  {id:481, unit:5, term:"excited", pos:"Adjective", ipa:"/ɪkˈsaɪtɪd/", pt:"animado(a), empolgado(a)", def:"Quando você está excited, está muito feliz com algo.", example:"I'm so excited about the concert!"},
+  {id:482, unit:5, term:"expression", pos:"Noun", ipa:"/ɪkˈspreʃən/", pt:"expressão (facial)", def:"Uma expression é o jeito que alguém aparenta, por exemplo no rosto.", example:"the expression on his face tells me he is annoyed"},
+  {id:483, unit:5, term:"feeling", pos:"Noun", ipa:"/ˈfiːlɪŋ/", pt:"sentimento", def:"Um feeling é uma emoção, como quando você está feliz, triste ou animado.", example:"he shares his feelings"},
+  {id:484, unit:5, term:"good", pos:"Adjective", ipa:"/ɡʊd/", pt:"bom, boa", def:"Quando algo é good, é certo pra situação.", example:"a good book"},
+  {id:485, unit:5, term:"good job", pos:"Phrase", ipa:"/ɡʊd ˈdʒɒb/", pt:"bom trabalho", def:"Quando alguém diz good job pra você, significa que você fez algo bem.", example:"good job on this"},
+  {id:486, unit:5, term:"kind of", pos:"Phrase", ipa:"/ˈkaɪnd əv/", pt:"meio que, tipo", def:"Quando alguém diz kind of, quer dizer 'de certa forma'.", example:"I'm kind of hungry"},
+  {id:487, unit:5, term:"negative", pos:"Adjective", ipa:"/ˈneɡətɪv/", pt:"negativo(a)", def:"Algo negative é ruim.", example:"they want to make positive changes to the school"},
+  {id:488, unit:5, term:"positive", pos:"Adjective", ipa:"/ˈpɒzɪtɪv/", pt:"positivo(a)", def:"Algo positive é bom ou útil.", example:"I hope my teacher says positive things about my work"},
+  {id:489, unit:5, term:"sad", pos:"Adjective", ipa:"/sæd/", pt:"triste", def:"Sad significa infeliz.", example:"I feel sad when it rains"},
+  {id:490, unit:5, term:"safari park", pos:"Noun", ipa:"/səˈfɑːri pɑːk/", pt:"parque safári", def:"Um safari park é um parque grande com animais, onde os visitantes podem dirigir e ver os animais no ambiente deles.", example:"there are a lot of animals at the safari park"},
+  {id:491, unit:5, term:"scary", pos:"Adjective", ipa:"/ˈskeəri/", pt:"assustador(a)", def:"Quando algo é scary, faz você sentir medo.", example:"the movie is really scary", collocation:"scared of"},
+  {id:492, unit:5, term:"try", pos:"Verb", ipa:"/traɪ/", pt:"tentar", def:"Quando você try, faz um esforço pra fazer algo.", example:"try to say the words"},
+  {id:493, unit:5, term:"worried", pos:"Adjective", ipa:"/ˈwʌrɪd/", pt:"preocupado(a)", def:"Quando você está worried, se sente nervoso sobre algo que pode acontecer.", example:"he is worried about his sister", collocation:"worried about"},
+  {id:494, unit:5, term:"Arabic", pos:"Noun", ipa:"/ˈærəbɪk/", pt:"árabe (idioma)", def:"Arabic é a língua que as pessoas falam em muitos países do Oriente Médio e Norte da África.", example:"she speaks Arabic"},
+  {id:495, unit:5, term:"comedy", pos:"Noun", ipa:"/ˈkɒmədi/", pt:"comédia", def:"Uma comedy é um filme engraçado que te faz rir.", example:"my favorite kind of movie is comedy"},
+  {id:496, unit:5, term:"French", pos:"Noun", ipa:"/frenʧ/", pt:"francês (idioma)", def:"French é a língua que as pessoas falam na França e em outros países.", example:"I speak French"},
+  {id:497, unit:5, term:"pizza", pos:"Noun", ipa:"/ˈpiːtsə/", pt:"pizza", def:"Pizza é uma comida achatada e redonda que vem da Itália.", example:"I love to eat pizza"},
+  {id:498, unit:5, term:"professional", pos:"Adjective", ipa:"/prəˈfeʃ(ə)nəl/", pt:"profissional", def:"Você usa professional para falar de algo que você faz por dinheiro, não como hobby.", example:"she's a professional diver"},
+  {id:499, unit:5, term:"ride", pos:"Verb", ipa:"/raɪd/", pt:"andar (de bike/moto)", def:"Quando você ride uma bicicleta ou moto, você senta nela e a faz andar.", example:"can you ride a bike?"},
+  {id:500, unit:5, term:"swim", pos:"Verb", ipa:"/swɪm/", pt:"nadar", def:"Quando você swim, você se move na água usando braços e pernas.", example:"I can swim 100 meters", collocation:"go swimming | go for a swim"},
+  {id:501, unit:6, term:"fall", pos:"Noun", ipa:"/fɔl/", pt:"outono", def:"Fall é a estação depois do verão e antes do inverno.", example:"in Europe fall is in September and October"},
+  {id:502, unit:6, term:"daily", pos:"Adjective", ipa:"/ˈdeɪli/", pt:"diário(a)", def:"Quando algo é daily, acontece todo dia.", example:"my daily routine"},
+  {id:503, unit:6, term:"dry", pos:"Adjective", ipa:"/draɪ/", pt:"seco(a)", def:"Quando o tempo está dry, não chove.", example:"the weather is dry and sunny"},
+  {id:504, unit:6, term:"night", pos:"Noun", ipa:"/naɪt/", pt:"noite", def:"Night é quando fica escuro e a maioria das pessoas dorme.", example:"ten o'clock at night", collocation:"at night"},
+  {id:505, unit:6, term:"rainy", pos:"Adjective", ipa:"/ˈreɪni/", pt:"chuvoso(a)", def:"Quando está rainy, está chovendo.", example:"a rainy September day"},
+  {id:506, unit:6, term:"season", pos:"Noun", ipa:"/ˈsiːzən/", pt:"estação (do ano)", def:"Uma season é uma das quatro épocas do ano: primavera, verão, outono e inverno.", example:"what's your favorite season?"},
+  {id:507, unit:6, term:"spring", pos:"Noun", ipa:"/sprɪŋ/", pt:"primavera", def:"Spring é a estação depois do inverno e antes do verão.", example:"spring is my favorite time of year"},
+  {id:508, unit:6, term:"summer", pos:"Noun", ipa:"/ˈsʌmə(r)/", pt:"verão", def:"Summer é a estação em que faz calor, depois da primavera e antes do outono.", example:"it's very hot in Rome in the summer"},
+  {id:509, unit:6, term:"winter", pos:"Noun", ipa:"/ˈwɪntə(r)/", pt:"inverno", def:"Winter é a estação em que faz frio, entre o outono e a primavera.", example:"winters are very cold in Alaska"},
+  {id:510, unit:6, term:"alarm clock", pos:"Noun", ipa:"/əˈlɑːm klɒk/", pt:"despertador", def:"Um alarm clock é um relógio que faz um barulho alto na hora em que você quer acordar.", example:"I set my alarm clock for 6:30", collocation:"set an alarm clock | an alarm clock goes off"},
+  {id:511, unit:6, term:"article", pos:"Noun", ipa:"/ˈɑːtɪkl/", pt:"artigo", def:"Um article é um texto que você encontra em jornais, revistas ou na internet.", example:"read the article"},
+  {id:512, unit:6, term:"bookstore", pos:"Noun", ipa:"/ˈbʊkstɔr/", pt:"livraria", def:"Uma bookstore é uma loja onde você compra livros.", example:"I often buy new books at the bookstore", collocation:"read a book | write a book"},
+  {id:513, unit:6, term:"dinner", pos:"Noun", ipa:"/ˈdɪnə/", pt:"jantar", def:"Dinner é a refeição que as pessoas comem à noite.", example:"do you want to go out for dinner (go to a restaurant)?", collocation:"have dinner | go out for dinner | have something"},
+  {id:514, unit:6, term:"get up", pos:"Phrasal verb", ipa:"/get ˈʌp/", pt:"levantar (da cama)", def:"Quando você get up, sai da cama de manhã depois de dormir à noite.", example:"what time do you get up?"},
+  {id:515, unit:6, term:"go to bed", pos:"Phrase", ipa:"/ɡəʊ tə ˈbed/", pt:"ir dormir", def:"Quando você go to bed, você deita para dormir.", example:"it's time to go to bed"},
+  {id:516, unit:6, term:"live with", pos:"Phrase", ipa:"/ˈlɪv wɪð/", pt:"morar com", def:"Live with alguém significa dividir uma casa com essa pessoa.", example:"I live with my family in Lagos"},
+  {id:517, unit:6, term:"observatory", pos:"Noun", ipa:"/əbˈzɜːvətəri/", pt:"observatório", def:"Um observatory é um prédio que as pessoas usam para olhar o céu à noite.", example:"she works at the observatory"},
+  {id:518, unit:6, term:"routine", pos:"Noun", ipa:"/ruːˈtiːn/", pt:"rotina", def:"Uma routine é um jeito regular de fazer algo.", example:"I have the same morning routine every day", collocation:"daily routine | food routine | exercise routine"},
+  {id:519, unit:6, term:"store", pos:"Noun", ipa:"/stɔr/", pt:"loja", def:"Uma store é um lugar onde você vai comprar coisas.", example:"a store that sells clothes"},
+  {id:520, unit:6, term:"start", pos:"Verb", ipa:"/stɑː(r)t/", pt:"começar", def:"Quando você start algo, começa a fazer aquilo.", example:"I start work at eight in the morning", collocation:"start to do something"},
+  {id:521, unit:6, term:"study", pos:"Verb", ipa:"/ˈstʌdi/", pt:"estudar", def:"Quando você study, lê livros ou artigos para aprender sobre algo, na escola ou faculdade.", example:"she's studying science in college"},
+  {id:522, unit:6, term:"bread", pos:"Noun uncount", ipa:"/bred/", pt:"pão", def:"Bread é uma comida feita de farinha, água e geralmente fermento.", example:"a slice of bread and butter"},
+  {id:523, unit:6, term:"egg", pos:"Noun", ipa:"/eɡ/", pt:"ovo", def:"Um egg é uma coisa pequena e arredondada com casca fina que vem de aves.", example:"a box of eggs"},
+  {id:524, unit:6, term:"fruit", pos:"Noun", ipa:"/fruːt/", pt:"fruta", def:"Fruit são coisas como maçãs e laranjas, doces, que você pode comer.", example:"they eat a lot of fruit in Italy"},
+  {id:525, unit:6, term:"meat", pos:"Noun uncount", ipa:"/miːt/", pt:"carne", def:"Meat é a parte de um animal ou ave que fica sob a pele e que as pessoas comem.", example:"is there any meat in this soup?"},
+  {id:526, unit:6, term:"potato", pos:"Noun", ipa:"/pəˈteɪtəʊ/", pt:"batata", def:"Potatoes são vegetais que crescem debaixo da terra.", example:"two kilos of potatoes"},
+  {id:527, unit:6, term:"restaurant", pos:"Noun", ipa:"/ˈrestrɒnt/", pt:"restaurante", def:"Um restaurant é um lugar onde você vai comer comida que alguém cozinha e traz até você.", example:"this is our favorite restaurant", collocation:"eat at a restaurant | go to a restaurant"},
+  {id:528, unit:6, term:"rice", pos:"Noun uncount", ipa:"/raɪs/", pt:"arroz", def:"Rice é uma comida branca ou marrom, que é a parte de cima de um tipo de capim.", example:"do you want rice or chips?"},
+  {id:529, unit:6, term:"sell", pos:"Verb", ipa:"/sel/", pt:"vender", def:"Sell significa dar coisas para as pessoas e elas te dão dinheiro por isso.", example:"there are different types of potatoes to sell", collocation:"for sale"},
+  {id:530, unit:6, term:"skewer", pos:"Noun", ipa:"/ˈskjuːə/", pt:"espetinho", def:"Um skewer é um pauzinho fino e pontudo que você usa para segurar comida junta.", example:"meat skewers"},
+  {id:531, unit:6, term:"spring roll", pos:"Noun", ipa:"/sprɪŋ ˈrəʊl/", pt:"rolinho primavera", def:"Um spring roll é uma massa fina recheada com vegetais, carne ou frutos do mar, enrolada e frita ou assada.", example:"I love to eat spring rolls"},
+  {id:532, unit:6, term:"stall", pos:"Noun", ipa:"/stɔːl/", pt:"banca (de mercado)", def:"Um stall é um lugar pequeno onde as pessoas vendem coisas, geralmente num mercado ou na rua.", example:"we have a food stall at the market", collocation:"food stall | market stall"},
+  {id:533, unit:6, term:"street food", pos:"Noun", ipa:"/ˈstriːt fuːd/", pt:"comida de rua", def:"Street food é comida que você compra de pessoas que vendem na rua.", example:"there's great street food in Thailand"},
+  {id:534, unit:6, term:"vegetable", pos:"Noun", ipa:"/ˈvedʒtəb(ə)l/", pt:"vegetal, verdura", def:"Vegetables são plantas como repolho, cenoura ou batata que você come.", example:"it's important to eat fresh vegetables"},
+  {id:535, unit:6, term:"cloudy", pos:"Adjective", ipa:"/ˈklaʊdi/", pt:"nublado(a)", def:"Quando está cloudy, há nuvens no céu.", example:"a cold and cloudy afternoon"},
+  {id:536, unit:6, term:"foggy", pos:"Adjective", ipa:"/ˈfɒɡi/", pt:"com neblina", def:"Quando o tempo está foggy, há muita neblina no ar perto do chão, dificultando enxergar.", example:"a foggy day"},
+  {id:537, unit:6, term:"go", pos:"Verb", ipa:"/ɡəʊ/", pt:"ir", def:"Quando você go, você se move de um lugar para outro.", example:"I go to school at 8 a.m."},
+  {id:538, unit:6, term:"outside", pos:"Adverb", ipa:"/ˌaʊtˈsaɪd/", pt:"do lado de fora", def:"Quando você está outside, não está dentro de um prédio.", example:"I'm not going outside—it's raining"},
+  {id:539, unit:6, term:"skiing", pos:"Noun", ipa:"/ˈskiːɪŋ/", pt:"esqui", def:"Skiing é uma atividade em que você usa roupas especiais e esquis nos pés e desce uma área com muita neve.", example:"we go skiing in Colorado", collocation:"go skiing"},
+  {id:540, unit:6, term:"snowy", pos:"Adjective", ipa:"/ˈsnəʊi/", pt:"nevado(a)", def:"Quando está snowy, está nevando.", example:"a snowy January afternoon"},
+  {id:541, unit:6, term:"south", pos:"Noun", ipa:"/saʊθ/", pt:"sul", def:"O south é a direção para a parte de baixo de um mapa.", example:"the city is in the south of the country"},
+  {id:542, unit:6, term:"stay", pos:"Verb", ipa:"/steɪ/", pt:"ficar", def:"Quando você stay, permanece em um lugar e não sai.", example:"I like to stay at home when it's cold", collocation:"stay at home"},
+  {id:543, unit:6, term:"sunny", pos:"Adjective", ipa:"/ˈsʌni/", pt:"ensolarado(a)", def:"Quando está sunny, o sol está brilhando.", example:"it's a nice sunny day—let's have a picnic"},
+  {id:544, unit:6, term:"weather", pos:"Noun uncount", ipa:"/ˈweðə(r)/", pt:"clima, tempo", def:"Weather são as condições lá fora: chuva, sol, neve, frio etc.", example:"the weather is very hot in August"},
+  {id:545, unit:6, term:"windy", pos:"Adjective", ipa:"/ˈwɪndi/", pt:"ventoso(a)", def:"Quando está windy, o vento está muito forte.", example:"I don't want to go out, it's too windy"},
+  {id:546, unit:6, term:"year", pos:"Noun", ipa:"/jɪə(r)/", pt:"ano", def:"Um year é um período de tempo; a Terra dá uma volta ao redor do sol em um year.", example:"our vacation is in Greece this year", collocation:"this year | next year"},
+  {id:547, unit:6, term:"clean", pos:"Verb", ipa:"/kliːn/", pt:"limpar", def:"Clean significa tirar a sujeira ou a bagunça de algo.", example:"we clean the park near college"},
+  {id:548, unit:6, term:"cold", pos:"Adjective", ipa:"/kəʊld/", pt:"com frio", def:"Quando você está cold, se sente desconfortável porque a temperatura está muito baixa.", example:"it's cold outside"},
+  {id:549, unit:6, term:"feel well", pos:"Phrase", ipa:"/fiːl ˈwel/", pt:"sentir-se bem (de saúde)", def:"Feel well significa estar saudável.", example:"I don't feel well today, I'm sick", collocation:"don't feel well"},
+  {id:550, unit:6, term:"hot", pos:"Adjective", ipa:"/hɒt/", pt:"com calor", def:"Quando você está hot, se sente desconfortável porque a temperatura está muito alta.", example:"open the window if you're too hot"},
+  {id:551, unit:6, term:"hungry", pos:"Adjective", ipa:"/ˈhʌŋɡri/", pt:"com fome", def:"Quando você está hungry, quer comer alguma coisa o quanto antes.", example:"I'm always hungry after I go swimming"},
+  {id:552, unit:6, term:"matter", pos:"Noun", ipa:"/ˈmætə/", pt:"problema, questão", def:"Quando alguém pergunta 'what's the matter?', está perguntando o que está errado.", example:"what's the matter with you?", collocation:"what's the matter?"},
+  {id:553, unit:6, term:"paragraph", pos:"Noun", ipa:"/ˈpærəˌɡrɑːf/", pt:"parágrafo", def:"Um paragraph é um trecho de texto numa página, geralmente com várias frases, que começa numa linha nova.", example:"the first paragraph of your essay is very important"},
+  {id:554, unit:6, term:"part", pos:"Noun", ipa:"/pɑːt/", pt:"parte", def:"Uma part de algo é um pedaço ou área daquilo.", example:"which part of Brazil do you live in?"},
+  {id:555, unit:6, term:"problem", pos:"Noun", ipa:"/ˈprɒbləm/", pt:"problema", def:"Um problem é algo que você não gosta e que é difícil de parar ou mudar.", example:"you can talk to me about any problems you have"},
+  {id:556, unit:6, term:"project", pos:"Noun", ipa:"/ˈprɒʤekt/", pt:"projeto", def:"Um project é um trabalho que tem um objetivo no final.", example:"work on a project"},
+  {id:557, unit:6, term:"right now", pos:"Phrase", ipa:"/raɪt naʊ/", pt:"agora mesmo", def:"Right now significa neste momento.", example:"I'm busy right now, but I'll help you later"},
+  {id:558, unit:6, term:"thirsty", pos:"Adjective", ipa:"/ˈθɜː(r)sti/", pt:"com sede", def:"Quando você está thirsty, quer beber algo o quanto antes.", example:"take some water with you in case you get thirsty"},
+  {id:559, unit:6, term:"tired", pos:"Adjective", ipa:"/ˈtaɪə(r)d/", pt:"cansado(a)", def:"Quando você está tired, quer dormir ou descansar.", example:"you must be tired after playing soccer all afternoon"},
+  {id:560, unit:6, term:"volunteer", pos:"Noun", ipa:"/ˌvɒlənˈtɪə/", pt:"voluntário(a)", def:"Um volunteer é alguém que se oferece para fazer algo sem receber dinheiro por isso.", example:"a volunteer team"},
+  {id:561, unit:6, term:"wet", pos:"Adjective", ipa:"/wet/", pt:"molhado(a)", def:"Quando algo ou alguém está wet, está coberto de água ou outro líquido.", example:"you look wet—is it raining outside?"},
+  {id:562, unit:6, term:"cabbage", pos:"Noun", ipa:"/ˈkæbɪʤ/", pt:"repolho", def:"Cabbage é um vegetal verde ou roxo.", example:"she makes salad with cabbage and carrots"},
+  {id:563, unit:6, term:"community", pos:"Noun", ipa:"/kəˈmjuːnəti/", pt:"comunidade", def:"Uma community são todas as pessoas que vivem e trabalham juntas numa área.", example:"we are a small village community here"},
+  {id:564, unit:6, term:"farm", pos:"Noun", ipa:"/fɑːm/", pt:"fazenda", def:"Uma farm é uma área grande no campo com plantações e animais para alimento.", example:"my family has a farm where they grow rice"},
+  {id:565, unit:6, term:"free", pos:"Adjective", ipa:"/friː/", pt:"grátis, livre", def:"Quando algo é free, você pode ter sem pagar por isso.", example:"there is a free concert in the park", collocation:"for free"},
+  {id:566, unit:6, term:"ice cream", pos:"Noun", ipa:"/ˈaɪs kriːm/", pt:"sorvete", def:"Ice cream é uma comida doce e gelada feita de leite, com sabores diferentes.", example:"we eat ice cream at the park"},
+  {id:567, unit:6, term:"only", pos:"Adverb", ipa:"/ˈəʊnli/", pt:"só, apenas", def:"Only é usado para dizer que há só uma quantidade pequena de algo.", example:"there are only four or five houses near the lake"},
+  {id:568, unit:6, term:"oyster", pos:"Noun", ipa:"/ˈɔɪstə/", pt:"ostra", def:"Uma oyster é um molusco grande e achatado, com uma casca dura por fora e mole por dentro.", example:"an oyster farm"},
+  {id:569, unit:6, term:"planet", pos:"Noun", ipa:"/ˈplænɪt/", pt:"planeta", def:"Um planet é algo no espaço que se move ao redor de uma estrela.", example:"the planet Earth is our home"},
+  {id:570, unit:6, term:"sustainable", pos:"Adjective", ipa:"/səˈsteɪnəbl/", pt:"sustentável", def:"Quando algo é sustainable, não prejudica o meio ambiente.", example:"sustainable energy"},
+  {id:571, unit:6, term:"type", pos:"Noun", ipa:"/taɪp/", pt:"tipo", def:"Um type de algo é uma parte que é parecida com um grupo maior.", example:"similar types of potatoes"},
+  {id:572, unit:6, term:"band", pos:"Noun", ipa:"/bænd/", pt:"banda", def:"Uma band é um grupo de pessoas que tocam música juntas.", example:"my brother is in a band", collocation:"in a band"},
+  {id:573, unit:6, term:"company", pos:"Noun", ipa:"/ˈkʌmp(ə)ni/", pt:"empresa", def:"Uma company é uma organização de negócios.", example:"Microsoft is a big company"},
+  {id:574, unit:6, term:"have", pos:"Verb", ipa:"/hæv/", pt:"ter, tomar (refeição)", def:"Quando você have almoço, jantar etc., você come.", example:"we have lunch at midday"},
+];
+
+// ---------- ESTADO ----------
+let currentUnit = 1;
+let currentPool = [];
+let currentIndex = 0;
+let progress = {}; // {id: 'known' | 'review'}
+let quizScore = {correct:0, total:0};
+
+// nível A1: sem priorização de categoria por padrão — mostra tudo da unidade
+const PRIORITY_CATEGORIES = [];
+let activeCategories = new Set(PRIORITY_CATEGORIES);
+
+// tema/título de cada unidade, direto do sumário do livro (Life 1)
+const UNIT_THEMES = {
+  1:"Hello", 2:"My World", 3:"Family and Friends", 4:"Places",
+  5:"Hobbies", 6:"Daily Life", 7:"Work and Study", 8:"Vacations",
+  9:"Past Events", 10:"True Stories", 11:"My Weekend", 12:"Plans and Dreams"
+};
+
+const els = {
+  units: document.getElementById('units'),
+  unitTheme: document.getElementById('unitTheme'),
+  categories: document.getElementById('categories'),
+  card: document.getElementById('card'),
+  posFront: document.getElementById('posFront'),
+  posBack: document.getElementById('posBack'),
+  term: document.getElementById('term'),
+  ipa: document.getElementById('ipa'),
+  pt: document.getElementById('pt'),
+  def: document.getElementById('def'),
+  example: document.getElementById('example'),
+  colloc: document.getElementById('colloc'),
+  collocText: document.getElementById('collocText'),
+  progFill: document.getElementById('progFill'),
+  progLabel: document.getElementById('progLabel'),
+  progPct: document.getElementById('progPct'),
+  wordcount: document.getElementById('wordcount'),
+  cardsMode: document.getElementById('cardsMode'),
+  quizMode: document.getElementById('quizMode'),
+  listMode: document.getElementById('listMode'),
+  listScroll: document.getElementById('listScroll'),
+  quizQ: document.getElementById('quizQ'),
+  quizOpts: document.getElementById('quizOpts'),
+  quizScore: document.getElementById('quizScore'),
+};
+
+async function loadProgress(){
+  try{
+    const raw = localStorage.getItem('eic-teens1-vocab-progress');
+    progress = raw ? JSON.parse(raw) : {};
+  }catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ localStorage.setItem('eic-teens1-vocab-progress', JSON.stringify(progress)); }catch(e){}
+}
+
+function buildUnitPills(){
+  const units = [...new Set(VOCAB.map(w=>w.unit))].sort((a,b)=>a-b);
+  els.units.innerHTML = '';
+  units.forEach(u=>{
+    const btn = document.createElement('button');
+    btn.className = 'unit-pill' + (u===currentUnit ? ' active' : '');
+    btn.textContent = 'Unidade ' + u;
+    btn.onclick = ()=>{ currentUnit = u; currentIndex = 0; refreshAll(); };
+    els.units.appendChild(btn);
+  });
+  els.unitTheme.textContent = UNIT_THEMES[currentUnit] || '';
+}
+
+function buildCategoryPills(){
+  // categorias reais presentes na wordlist inteira, prioridade primeiro, resto em ordem alfabética
+  const allCats = [...new Set(VOCAB.map(w=>w.pos))];
+  const rest = allCats.filter(c=>!PRIORITY_CATEGORIES.includes(c)).sort();
+  const ordered = [...PRIORITY_CATEGORIES.filter(c=>allCats.includes(c)), ...rest];
+
+  els.categories.innerHTML = '';
+
+  // "Todas" fica ativa quando NENHUMA categoria específica está marcada — ou seja, mostrando tudo.
+  // Clicar em categorias individuais é sempre uma escolha positiva (marcar o que quer estudar),
+  // nunca um "desmarcar tudo o resto" às cegas.
+  const showingAll = activeCategories.size === 0;
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-pill cat-all' + (showingAll ? ' active' : '');
+  allBtn.textContent = showingAll ? 'Todas ✓' : 'Todas';
+  allBtn.onclick = ()=>{
+    activeCategories = new Set();
+    currentIndex = 0;
+    refreshAll();
+  };
+  els.categories.appendChild(allBtn);
+
+  ordered.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.className = 'cat-pill' + (activeCategories.has(cat) ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = ()=>{
+      if(activeCategories.has(cat)) activeCategories.delete(cat);
+      else activeCategories.add(cat);
+      currentIndex = 0;
+      refreshAll();
+    };
+    els.categories.appendChild(btn);
+  });
+}
+
+function poolForUnit(){
+  return VOCAB.filter(w=>w.unit===currentUnit && (activeCategories.size===0 || activeCategories.has(w.pos)));
+}
+
+function shuffle(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function capFirst(str){
+  if(!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function renderCard(){
+  els.card.classList.remove('flipped');
+  currentPool = currentPool.length ? currentPool : poolForUnit();
+  if(!currentPool.length){
+    els.cardsMode.querySelector('.stage').innerHTML = '<div class="empty">Nenhuma palavra dessa categoria nesta unidade. Toque em "Todas" acima pra ver tudo.</div>';
+    return;
+  }
+  const w = currentPool[currentIndex % currentPool.length];
+  els.posFront.textContent = w.pos;
+  els.posBack.textContent = w.pos;
+  els.term.textContent = capFirst(w.term);
+  els.ipa.textContent = w.ipa;
+  els.pt.textContent = w.pt;
+  els.def.textContent = capFirst(w.def);
+  els.example.textContent = capFirst(w.example);
+  if(w.collocation){
+    els.collocText.textContent = ' ' + capFirst(w.collocation);
+    els.colloc.style.display = 'block';
+  } else {
+    els.colloc.style.display = 'none';
+  }
+}
+
+function renderList(){
+  const pool = poolForUnit();
+  els.listScroll.innerHTML = '';
+  if(!pool.length){
+    els.listScroll.innerHTML = '<div class="empty">Nenhuma palavra dessa categoria nesta unidade.</div>';
+    return;
+  }
+  pool.forEach(w=>{
+    const row = document.createElement('div');
+    row.className = 'list-row';
+    row.innerHTML =
+      '<div class="list-left">' +
+        '<div class="list-pos">' + w.pos + '</div>' +
+        '<div class="list-term">' + capFirst(w.term) + '</div>' +
+      '</div>' +
+      '<div class="list-pt">' + w.pt + '</div>';
+    els.listScroll.appendChild(row);
+  });
+}
+
+function updateProgressBar(){
+  const pool = poolForUnit();
+  const known = pool.filter(w=>progress[w.id]==='known').length;
+  const pct = pool.length ? Math.round((known/pool.length)*100) : 0;
+  els.progFill.style.width = pct + '%';
+  els.progLabel.textContent = known + ' / ' + pool.length + ' conhecidas';
+  els.progPct.textContent = pct + '%';
+  els.wordcount.textContent = pool.length + ' palavras';
+}
+
+function nextCard(){
+  currentIndex = (currentIndex + 1) % Math.max(currentPool.length,1);
+  renderCard();
+}
+
+function refreshAll(){
+  buildUnitPills();
+  buildCategoryPills();
+  currentPool = poolForUnit();
+  currentIndex = 0;
+  renderCard();
+  updateProgressBar();
+  buildQuiz();
+  renderList();
+}
+
+// ---------- EVENTOS: FLASHCARDS ----------
+els.card.addEventListener('click', ()=> els.card.classList.toggle('flipped'));
+
+document.getElementById('btnKnow').addEventListener('click', async ()=>{
+  const w = currentPool[currentIndex % currentPool.length];
+  if(!w) return;
+  progress[w.id] = 'known';
+  await saveProgress();
+  updateProgressBar();
+  nextCard();
+});
+document.getElementById('btnReview').addEventListener('click', async ()=>{
+  const w = currentPool[currentIndex % currentPool.length];
+  if(!w) return;
+  progress[w.id] = 'review';
+  await saveProgress();
+  updateProgressBar();
+  nextCard();
+});
+document.getElementById('btnShuffle').addEventListener('click', ()=>{
+  currentPool = shuffle(poolForUnit());
+  currentIndex = 0;
+  renderCard();
+});
+
+// ---------- MODO QUIZ ----------
+function buildQuiz(){
+  const pool = poolForUnit();
+  if(pool.length < 4){
+    els.quizQ.textContent = 'Poucas palavras nessa combinação de unidade + categoria. Toque em "Todas" acima ou troque de unidade.';
+    els.quizOpts.innerHTML = '';
+    return;
+  }
+  const correctWord = pool[Math.floor(Math.random()*pool.length)];
+  const distractors = shuffle(pool.filter(w=>w.id!==correctWord.id)).slice(0,3);
+  const options = shuffle([correctWord, ...distractors]);
+
+  els.quizQ.textContent = capFirst(correctWord.def);
+  els.quizOpts.innerHTML = '';
+  options.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.textContent = capFirst(opt.term);
+    b.dataset.id = opt.id;
+    b.onclick = ()=>{
+      const buttons = els.quizOpts.querySelectorAll('.quiz-opt');
+      buttons.forEach(btn=>btn.onclick=null);
+      quizScore.total++;
+      if(opt.id === correctWord.id){
+        b.classList.add('correct');
+        quizScore.correct++;
+      }else{
+        b.classList.add('wrong');
+        buttons.forEach(btn=>{ if(Number(btn.dataset.id)===correctWord.id) btn.classList.add('correct'); });
+      }
+      els.quizScore.textContent = 'Acertos: ' + quizScore.correct + ' / ' + quizScore.total;
+      setTimeout(buildQuiz, 1100);
+    };
+    els.quizOpts.appendChild(b);
+  });
+  els.quizScore.textContent = 'Acertos: ' + quizScore.correct + ' / ' + quizScore.total;
+}
+
+// ---------- TOGGLE MODO ----------
+document.querySelectorAll('.mode-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const mode = btn.dataset.mode;
+    els.cardsMode.style.display = mode==='cards' ? 'flex' : 'none';
+    els.quizMode.style.display = mode==='quiz' ? 'flex' : 'none';
+    els.listMode.style.display = mode==='list' ? 'flex' : 'none';
+    if(mode==='quiz') buildQuiz();
+    if(mode==='list') renderList();
+  });
+});
+
+// ---------- INIT ----------
+(async function init(){
+  await loadProgress();
+  refreshAll();
+})();
+</script>
+</body>
+</html>

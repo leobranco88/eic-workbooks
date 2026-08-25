@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Possessives & Have/Has · Neural English · EIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:   #0D1FFF;
+  --orange: #FF3C38;
+  --ink:    #0A0A0A;
+  --mid:    #545454;
+  --light:  #E8E8E4;
+  --snow:   #F6F6F4;
+  --white:  #FFFFFF;
+
+  --a:  #0D1FFF;
+  --b:  #107A5A;
+  --c:  #F5006A;
+  --y:  #FFA10A;
+
+  --a-tint: #EEF1FF;
+  --b-tint: #E8F5F0;
+  --c-tint: #FFE6EF;
+  --y-tint: #FFF3E0;
+
+  --neon: #F2FF3D;
+  --neon-ink: #0A0A0A;
+
+  --ok:   #107A5A;
+  --ok-tint: #E8F5F0;
+  --bad:  #F5006A;
+  --bad-tint: #FFE6EF;
+
+  --content-w: clamp(900px, 62vw, 1240px);
+  --text-w: clamp(640px, 48vw, 920px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+::selection { background: var(--neon); color: var(--neon-ink); }
+::-moz-selection { background: var(--neon); color: var(--neon-ink); }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 60px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+}
+.nav-left { display: flex; align-items: center; }
+.nav-logo { height: 30px; display: block; }
+.nav-module {
+  display: flex; align-items: center; gap: 8px;
+  margin-left: 16px; padding-left: 16px;
+  border-left: 1px solid var(--light);
+}
+.nav-module-label {
+  font-size: clamp(9px, calc(7.422px + 0.4207vw), 15.5px); font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid);
+}
+.nav-module-name {
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 900;
+  letter-spacing: -0.01em; color: var(--white);
+  background: var(--orange); padding: 4px 11px; border-radius: 7px;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-level {
+  font-size: clamp(9.7px, calc(8.017px + 0.4544vw), 16.74px); font-weight: 700; color: var(--mid);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.nav-link {
+  display: flex; align-items: center; gap: 5px;
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 700; color: var(--ink);
+  text-decoration: none; transition: color 0.15s;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--orange); }
+.nav-link svg { flex-shrink: 0; }
+.nav-pdf-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ink); color: var(--white);
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 17px); font-weight: 800;
+  padding: 8px 14px; border-radius: 100px; text-decoration: none;
+  transition: background 0.15s, transform 0.15s; white-space: nowrap;
+}
+.nav-pdf-btn:hover { background: var(--orange); transform: translateY(-1px); }
+.nav-pdf-btn svg { flex-shrink: 0; }
+@media (max-width: 720px) {
+  .nav-level { display: none; }
+  .nav-right { gap: 10px; }
+  .nav-pdf-btn span, .nav-link span.nav-link-text { display: none; }
+  .nav-pdf-btn { padding: 8px 10px; }
+}
+
+/* ── PROGRESS RAIL ───────────────────────────────────── */
+.rail {
+  display: flex; gap: 8px; padding: 18px 60px 0;
+  max-width: var(--content-w); margin: 0 auto;
+}
+.rail-step {
+  flex: 1; height: 5px; border-radius: 3px;
+  background: var(--light); overflow: hidden; position: relative;
+}
+.rail-step.filled { background: var(--ink); }
+.rail-labels {
+  display: flex; justify-content: space-between;
+  max-width: var(--content-w); margin: 8px auto 0; padding: 0 60px;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  padding: 48px 60px 40px;
+  max-width: var(--content-w); margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block; width: 24px; height: 3px;
+  background: var(--orange); border-radius: 2px;
+}
+h1 {
+  font-size: clamp(38px, 4.2vw + 20px, 96px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+h1 .n1 { color: var(--a); }
+h1 .n2 { color: var(--c); }
+.hero-sub {
+  font-size: clamp(15.3px, calc(12.618px + 0.7152vw), 26.35px); font-weight: 400;
+  color: var(--mid); line-height: 1.7;
+  max-width: var(--text-w);
+}
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+
+/* ── SECTION SHELL ────────────────────────────────────── */
+section.part {
+  max-width: var(--content-w); margin: 0 auto;
+  padding: 56px 60px;
+  border-top: 1px solid var(--light);
+}
+.part-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 10px;
+}
+.part-eyebrow .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 900;
+}
+.part h2 {
+  font-size: clamp(24px, 2vw + 15px, 52px);
+  font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.part-intro { font-size: clamp(13.95px, calc(11.503px + 0.6524vw), 24.03px); color: var(--mid); line-height: 1.7; max-width: var(--text-w); margin-bottom: 28px; }
+.part-intro strong { color: var(--ink); }
+
+/* ── NEON CALLOUT ─────────────────────────────────────── */
+.neon-box {
+  background: var(--neon); color: var(--neon-ink);
+  border-radius: 14px; padding: 22px 26px;
+  font-size: clamp(13.95px, calc(11.503px + 0.6524vw), 24.03px); line-height: 1.65; font-weight: 500;
+  margin: 20px 0 28px;
+}
+.neon-box b { font-weight: 800; }
+mark.hl {
+  background: var(--neon); color: var(--neon-ink);
+  padding: 1px 5px; border-radius: 4px; font-weight: 700;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+/* ── VOCAB TOOLTIP (orange dotted underline, tap/click to show) ─ */
+.voc {
+  border-bottom: 1.5px dotted var(--orange);
+  color: inherit; font-weight: 700; cursor: pointer;
+  position: relative;
+}
+.voc-bubble {
+  position: fixed; z-index: 999;
+  background: var(--ink); color: var(--white);
+  font-size: clamp(12px, 0.6vw + 10px, 16px); font-weight: 600; line-height: 1.4;
+  padding: 8px 12px; border-radius: 8px;
+  max-width: min(82vw, 340px); text-align: center;
+  opacity: 0; transform: translateY(4px);
+  pointer-events: none; transition: opacity .15s, transform .15s;
+}
+.voc-bubble.show { opacity: 1; transform: translateY(0); }
+
+/* ── GRAMMAR CARD ─────────────────────────────────────── */
+.grammar-card {
+  background: var(--snow); border-radius: 16px; padding: 28px 30px;
+  margin-bottom: 28px;
+}
+.grammar-row { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+.grammar-row:last-child { margin-bottom: 0; }
+.grammar-tag {
+  flex-shrink: 0; width: 96px; text-align: center;
+  font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 900; letter-spacing: -0.01em;
+  padding: 5px 4px; border-radius: 7px; color: var(--white);
+}
+.tag-i { background: var(--a); }
+.tag-you { background: var(--b); }
+.tag-he { background: var(--c); }
+.tag-she { background: var(--y); }
+.tag-it { background: var(--ink); }
+.tag-we { background: var(--a); }
+.tag-they { background: var(--c); }
+.tag-have { background: var(--a); }
+.tag-has { background: var(--c); }
+.tag-nothave { background: var(--bad); }
+.tag-nothas { background: var(--bad); }
+.tag-sing { background: var(--a); }
+.tag-plur { background: var(--c); }
+.grammar-text { font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); color: var(--ink); }
+.grammar-text .ex { color: var(--mid); font-style: italic; }
+.grammar-text .ex mark.hl { font-style: normal; }
+
+/* ── HAVE/HAS COMPARISON TABLE ────────────────────────── */
+.have-table {
+  display: grid;
+  grid-template-columns: 128px 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.have-head {
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--mid); padding: 0 4px 2px;
+}
+.have-row-label {
+  display: flex; align-items: center;
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 800; color: var(--white);
+  border-radius: 12px; padding: 14px 12px;
+  text-align: center; justify-content: center; line-height: 1.35;
+}
+.have-row-label.grp-do { background: var(--a); }
+.have-row-label.grp-does { background: var(--c); }
+.have-cell {
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.have-cell.grp-do { background: var(--a-tint); }
+.have-cell.grp-does { background: var(--c-tint); }
+.have-verb-pill {
+  display: inline-flex; align-self: flex-start;
+  font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 900; letter-spacing: -0.01em;
+  padding: 4px 12px; border-radius: 100px; color: var(--white);
+}
+.grp-do .have-verb-pill { background: var(--a); }
+.grp-does .have-verb-pill { background: var(--c); }
+.have-ex { font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); color: var(--ink); line-height: 1.6; }
+.have-ex mark.hl { font-weight: 800; }
+
+@media (max-width: 720px) {
+  .have-table { grid-template-columns: 1fr; }
+  .have-row-label { border-radius: 12px 12px 0 0; }
+}
+
+/* ── AVATARS ──────────────────────────────────────────── */
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 900; color: var(--white);
+  flex-shrink: 0;
+}
+.av-tom    { background: var(--a); }
+.av-mia    { background: var(--c); }
+.av-jake   { background: var(--b); }
+.av-sophie { background: var(--y); }
+.av-daniel { background: #6C4EFF; }
+.av-lena   { background: #00A6A6; }
+
+/* ── MATCH GAME ───────────────────────────────────────── */
+.match-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+.match-col-label { font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mid); margin-bottom: 10px; }
+.match-btn {
+  display: block; width: 100%; text-align: left;
+  background: var(--white); border: 2px solid var(--light);
+  border-radius: 10px; padding: 13px 16px; margin-bottom: 10px;
+  font-family: inherit; font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); font-weight: 700; color: var(--ink);
+  cursor: pointer; transition: all 0.12s;
+}
+.match-btn:hover:not(.matched):not(:disabled) { border-color: var(--ink); }
+.match-btn.selected { border-color: var(--ink); background: var(--snow); }
+.match-btn.matched { border-color: var(--ok); background: var(--ok-tint); color: var(--ok); cursor: default; }
+.match-btn.wrong { border-color: var(--bad); background: var(--bad-tint); animation: shake 0.3s; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+
+.match-pt {
+  display: block; font-size: clamp(10.35px, calc(8.537px + 0.4835vw), 17.82px); font-weight: 600; font-style: italic;
+  color: var(--mid); margin-top: 0; max-height: 0; opacity: 0;
+  overflow: hidden; transition: opacity 0.35s ease, max-height 0.35s ease, margin-top 0.35s ease;
+}
+.match-btn.matched .match-pt { color: var(--ok); }
+.match-btn.selected .match-pt, .match-btn.matched .match-pt { opacity: 1; max-height: 18px; margin-top: 3px; }
+
+.match-progress {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 700; color: var(--mid);
+}
+.match-progress-bar { flex: 1; height: 6px; background: var(--light); border-radius: 4px; overflow: hidden; }
+.match-progress-fill { height: 100%; background: var(--ok); width: 0%; transition: width 0.3s; }
+
+.sentences-panel { display: none; }
+.sentences-panel.show { display: block; }
+.sent-card {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--snow); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+}
+.sent-card .txt { font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px); line-height: 1.6; }
+.sent-card .txt b { font-weight: 800; }
+.sent-pair-label {
+  font-size: clamp(9.45px, calc(7.792px + 0.4421vw), 16.28px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--mid); margin: 18px 0 8px;
+}
+.sent-pair-label:first-child { margin-top: 0; }
+
+.reveal-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: 2px solid var(--ink); border-radius: 8px;
+  padding: 10px 18px; font-family: inherit; font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 800;
+  color: var(--ink); cursor: pointer; transition: all 0.12s;
+}
+.reveal-toggle:hover { background: var(--ink); color: var(--white); }
+.reveal-toggle:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.completion-msg {
+  display: none; align-items: center; gap: 10px;
+  background: var(--ok-tint); color: var(--ok); font-weight: 800; font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px);
+  border-radius: 10px; padding: 12px 16px; margin-bottom: 20px;
+}
+.completion-msg.show { display: flex; }
+
+/* ── QUIZ ITEMS ───────────────────────────────────────── */
+.quiz-item {
+  border: 1px solid var(--light); border-radius: 14px;
+  padding: 20px 22px; margin-bottom: 14px;
+}
+.quiz-top { display: flex; gap: 12px; align-items: flex-start; }
+.quiz-sentence { font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px); line-height: 1.6; font-weight: 500; padding-top: 4px; }
+.blank-pill {
+  display: inline-block; min-width: 64px; text-align: center;
+  border-bottom: 2px dashed var(--mid); color: transparent; user-select: none;
+}
+.quiz-options { display: flex; gap: 10px; margin: 14px 0 0 46px; flex-wrap: wrap; }
+.opt-btn {
+  background: var(--white); border: 2px solid var(--light); border-radius: 8px;
+  padding: 9px 18px; font-family: inherit; font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); font-weight: 700; color: var(--ink);
+  cursor: pointer; transition: all 0.12s;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ink); }
+.opt-btn.correct { border-color: var(--ok); background: var(--ok-tint); color: var(--ok); }
+.opt-btn.incorrect { border-color: var(--bad); background: var(--bad-tint); color: var(--bad); }
+.opt-btn:disabled { cursor: default; }
+
+.hint-btn {
+  margin: 12px 0 0 46px;
+  background: none; border: none; font-family: inherit;
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 700; color: var(--a); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.hint-btn:hover { text-decoration: underline; }
+.hint-text {
+  display: none; margin: 8px 0 0 46px;
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); color: var(--mid); font-style: italic;
+}
+.hint-text.show { display: block; }
+
+.explain {
+  display: none; margin: 12px 0 0 46px;
+  background: var(--snow); border-radius: 10px; padding: 12px 16px;
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); line-height: 1.6; color: var(--ink);
+}
+.explain.show { display: block; }
+.explain b { color: var(--a); }
+
+/* ── ERROR CARDS ──────────────────────────────────────── */
+.error-card {
+  border: 1px solid var(--light); border-radius: 14px;
+  padding: 18px 22px; margin-bottom: 14px;
+}
+.error-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.error-row:last-child { margin-bottom: 0; }
+.error-tag {
+  flex-shrink: 0; width: 74px; text-align: center;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 900; letter-spacing: 0.03em;
+  padding: 4px 0; border-radius: 6px; color: var(--white);
+}
+.error-tag.wrong { background: var(--bad); }
+.error-tag.right { background: var(--ok); }
+.error-sentence { font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); }
+.error-sentence.wrong-text { color: var(--mid); text-decoration: line-through; text-decoration-color: var(--bad); }
+
+/* ── MACHINE (Do/Does + Have) ─────────────────────────── */
+.machine-shell {
+  background: var(--ink); color: var(--white);
+  border-radius: 22px; padding: 30px 30px 26px;
+}
+.machine-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.machine-badge { font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; padding: 5px 11px; border-radius: 100px; background: rgba(255,255,255,0.12); color: var(--white); }
+.machine-badge.resolved-do { background: var(--a-tint); color: var(--a); }
+.machine-badge.resolved-does { background: var(--c-tint); color: var(--c); }
+.machine-char-line { display: flex; align-items: center; gap: 8px; }
+.machine-char-line .avatar { width: 26px; height: 26px; font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); }
+.machine-char-line span { font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); color: rgba(255,255,255,0.65); font-weight: 600; }
+
+.machine-context {
+  background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px); font-weight: 700; line-height: 1.5;
+}
+.machine-context .obj-hl { background: var(--neon); color: var(--neon-ink); border-radius: 4px; padding: 1px 5px; }
+
+.machine-stage {
+  background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 14px; padding: 22px 16px; display: flex; justify-content: center; align-items: center;
+  min-height: 74px; margin-bottom: 18px;
+}
+.machine-tile-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.machine-tile {
+  font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); font-weight: 800; padding: 9px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2); color: var(--white);
+  position: relative; transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.machine-tile.ghost { opacity: 0; transform: translateY(-12px) scale(.85); border-style: dashed; }
+.machine-tile.ghost.show { opacity: 1; transform: none; }
+.machine-tile.pop { animation: mpop .4s ease; }
+@keyframes mpop { 0%{transform:scale(.7);opacity:0;} 60%{transform:scale(1.08);} 100%{transform:scale(1);opacity:1;} }
+.machine-tile .m-tag { position: absolute; top: -19px; left: 50%; transform: translateX(-50%); font-size: clamp(8.1px, calc(6.68px + 0.3786vw), 13.95px); text-transform: uppercase; letter-spacing: .05em; font-weight: 800; color: rgba(255,255,255,0.55); white-space: nowrap; }
+
+.machine-step-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.machine-step { display: flex; gap: 12px; align-items: flex-start; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 14px; background: rgba(255,255,255,0.03); opacity: .45; transition: all .25s; }
+.machine-step.active { opacity: 1; background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.4); }
+.machine-step.done { opacity: .7; }
+.machine-step-num { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--white); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; }
+.machine-step-title { font-weight: 800; font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); margin-bottom: 2px; color: var(--white); }
+.machine-step-text { font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); color: rgba(255,255,255,0.65); line-height: 1.5; }
+.machine-step-text strong { color: var(--white); }
+.machine-step-btn { margin-top: 8px; background: var(--neon); color: var(--neon-ink); border: none; border-radius: 8px; padding: 7px 14px; font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 800; cursor: pointer; font-family: inherit; }
+.machine-step-btn:hover { filter: brightness(0.95); }
+
+.machine-choice-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.machine-choice-btn {
+  border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); border-radius: 9px;
+  padding: 7px 13px; font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 700; cursor: pointer;
+  font-family: inherit; color: var(--white); transition: border-color .15s, background .15s, color .15s;
+}
+.machine-choice-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.6); }
+.machine-choice-btn.correct { background: var(--ok); border-color: var(--ok); color: var(--white); }
+.machine-choice-btn.wrong { background: var(--bad); border-color: var(--bad); color: var(--white); }
+.machine-choice-btn:disabled { cursor: default; }
+.machine-choice-btn.shake { animation: mshake .35s; }
+@keyframes mshake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+.machine-confirm { font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); color: var(--neon); font-weight: 700; margin-top: 8px; }
+
+.machine-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; flex-wrap: wrap; gap: 10px; }
+.machine-reset { background: none; border: none; color: rgba(255,255,255,0.6); font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); cursor: pointer; text-decoration: underline; font-family: inherit; padding: 0; }
+.machine-dots { display: flex; gap: 6px; }
+.machine-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+.machine-dots span.on { background: var(--neon); }
+
+.machine-final-question { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: var(--neon); color: var(--neon-ink); font-weight: 800; font-size: clamp(15.3px, calc(12.618px + 0.7152vw), 26.35px); opacity: 0; max-height: 0; overflow: hidden; transition: all .3s; }
+.machine-final-question.show { opacity: 1; max-height: 100px; }
+
+.machine-warning {
+  margin-top: 22px; padding: 16px 18px; border-radius: 14px;
+  background: var(--ink); border: 1px dashed var(--c);
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); line-height: 1.6; color: var(--white);
+}
+.machine-warning b { color: var(--neon); }
+
+/* ── GLOSSARY ─────────────────────────────────────────── */
+.gloss-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gloss-item {
+  background: var(--snow); border-radius: 12px; padding: 14px 16px;
+}
+.gloss-term { font-weight: 800; font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px); color: var(--ink); }
+.gloss-term .voc { border: none; cursor: default; }
+.gloss-pt { font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); color: var(--mid); margin-top: 2px; }
+.gloss-ex { font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); color: var(--mid); font-style: italic; margin-top: 6px; }
+
+/* ── OUTCOMES (interactive) ───────────────────────────── */
+.outcomes {
+  background: var(--white); border: 1px solid var(--light);
+  border-radius: 16px; padding: 24px 26px;
+}
+.outcomes-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+.outcomes-header h3 { font-size: clamp(16.2px, calc(13.36px + 0.7573vw), 27.9px); font-weight: 900; }
+.outcomes-counter { font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 800; color: var(--mid); }
+.outcomes-sub { font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); color: var(--mid); margin-bottom: 14px; }
+.outcome-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  background: var(--white); border: 1px solid var(--light); border-left: 4px solid var(--y);
+  border-radius: 10px; padding: 11px 14px; margin-bottom: 6px; cursor: pointer;
+  font-family: inherit; transition: all 0.15s;
+}
+.outcome-item:last-child { margin-bottom: 0; }
+.outcome-item:hover { border-color: var(--mid); }
+.outcome-item:hover.confirmed { border-color: var(--a); }
+.outcome-check {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--y); display: flex; align-items: center; justify-content: center;
+  color: transparent; background: transparent; font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 900;
+  transition: all 0.15s;
+}
+.outcome-text { font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px); color: var(--ink); line-height: 1.5; }
+.outcome-item.confirmed { border-color: var(--a); border-left-color: var(--a); }
+.outcome-item.confirmed .outcome-check { background: var(--a); border-color: var(--a); color: var(--white); }
+.outcome-item.confirmed .outcome-text { font-weight: 800; }
+
+.outcomes-continue-wrap { display: flex; justify-content: flex-end; margin-top: 22px; }
+.outcomes-continue-btn {
+  background: var(--ink); color: var(--white); font-weight: 800; font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px);
+  padding: 14px 22px; border-radius: 12px; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s;
+}
+.outcomes-continue-btn:hover { background: #222; }
+
+footer { padding: 32px 60px 60px; text-align: center; font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); color: var(--mid); }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 720px) {
+  .nav, .hero, section.part, footer, .rail, .rail-labels { padding-left: 22px; padding-right: 22px; }
+  .match-wrap { grid-template-columns: 1fr; gap: 10px; }
+  .quiz-options, .hint-btn, .hint-text, .explain { margin-left: 0; }
+  .quiz-top { flex-direction: column; }
+  .error-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .gloss-list { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <img src="data:image/png;base64,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" alt="EIC" class="nav-logo">
+    <div class="nav-module">
+      <span class="nav-module-label">Neural English</span>
+      <span class="nav-module-name">Possessives &amp; Have/Has</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <span class="nav-level">Básico</span>
+    <a href="StorySearch-Family.html" class="nav-link">
+      <span class="nav-link-text">Story Search</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a href="Grammar-Worksheet-Possessives-HaveHas.pdf" class="nav-pdf-btn" download>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+      <span>PDF</span>
+    </a>
+  </div>
+</nav>
+
+<div class="rail">
+  <div class="rail-step filled"></div>
+  <div class="rail-step filled"></div>
+  <div class="rail-step"></div>
+  <div class="rail-step"></div>
+</div>
+<div class="rail-labels">
+  <span>Possessivos</span>
+  <span>Possessive 's</span>
+  <span>Have &amp; Has</span>
+  <span>Máquina</span>
+</div>
+
+<header class="hero">
+  <div class="hero-eyebrow">Grammar · Nível Básico</div>
+  <h1>Isso é <span class="n1">meu.</span><br>Você <span class="n2">tem</span> isso?</h1>
+  <p class="hero-sub">
+    Duas perguntas resolvem quase tudo nesta aula: <strong>de quem é</strong> uma coisa
+    (possessive adjectives e o possessive <mark class="hl">'s</mark>), e <strong>o que cada
+    pessoa tem</strong> (have / has). No final, a <strong>Máquina de 4 Passos</strong> treina
+    exatamente o ponto onde a maioria erra: montar a pergunta com <mark class="hl">does</mark> +
+    <mark class="hl">have</mark> — nunca does + has.
+  </p>
+</header>
+
+<!-- ═══════════════════ PART 1 — POSSESSIVE ADJECTIVES ═══════════════════ -->
+<section class="part" id="part1">
+  <div class="part-eyebrow"><span class="num">1</span> De quem é?</div>
+  <h2>Possessive Adjectives</h2>
+  <p class="part-intro">
+    Cada pronome sujeito (I, you, he...) tem um adjetivo possessivo correspondente. Ele sempre vem
+    <strong>antes de um substantivo</strong> — nunca sozinho.
+  </p>
+
+  <div class="grammar-card">
+    <div class="grammar-row"><span class="grammar-tag tag-i">I</span><span class="grammar-text"><b>my</b> — <span class="ex">This is <mark class="hl">my</mark> phone.</span></span></div>
+    <div class="grammar-row"><span class="grammar-tag tag-you">you</span><span class="grammar-text"><b>your</b> — <span class="ex">Is that <mark class="hl">your</mark> bag?</span></span></div>
+    <div class="grammar-row"><span class="grammar-tag tag-he">he</span><span class="grammar-text"><b>his</b> — <span class="ex">Tom lost <mark class="hl">his</mark> keys.</span></span></div>
+    <div class="grammar-row"><span class="grammar-tag tag-she">she</span><span class="grammar-text"><b>her</b> — <span class="ex">Sophie updated <mark class="hl">her</mark> resume.</span></span></div>
+    <div class="grammar-row"><span class="grammar-tag tag-it">it</span><span class="grammar-text"><b>its</b> — <span class="ex">The company raised <mark class="hl">its</mark> prices.</span></span></div>
+    <div class="grammar-row"><span class="grammar-tag tag-we">we</span><span class="grammar-text"><b>our</b> — <span class="ex">We finished <mark class="hl">our</mark> project.</span></span></div>
+    <div class="grammar-row"><span class="grammar-tag tag-they">they</span><span class="grammar-text"><b>their</b> — <span class="ex">Tom and Mia forgot <mark class="hl">their</mark> tickets.</span></span></div>
+  </div>
+
+  <div class="neon-box">
+    <b>Cuidado com a pegadinha:</b> <mark class="hl">it's</mark> (com apóstrofo) = <b>it is</b> ou
+    <b>it has</b>. <mark class="hl">its</mark> (sem apóstrofo) = possessivo, "dele/dela" (de uma
+    coisa). São duas palavras completamente diferentes que só se parecem na escrita.
+  </div>
+
+  <div class="neon-box">
+    <b>Outra pegadinha:</b> <mark class="hl">their</mark> não é só para grupos de pessoas — vale
+    para <b>coisas, objetos e animais no plural</b> também.
+    <span class="ex" style="display:block;margin-top:6px;color:var(--neon-ink);opacity:.75;">
+      The two hotels raised their prices. · The dogs wagged their tails.
+    </span>
+  </div>
+
+  <p class="part-intro" style="margin-bottom:16px;">
+    Encontre os 7 pares: cada pronome sujeito tem um adjetivo possessivo correspondente.
+  </p>
+
+  <div class="match-progress">
+    <span id="matchCount">0 / 7 pares</span>
+    <div class="match-progress-bar"><div class="match-progress-fill" id="matchFill"></div></div>
+  </div>
+
+  <div class="match-wrap">
+    <div>
+      <div class="match-col-label">Subject Pronoun</div>
+      <div id="matchLeft"></div>
+    </div>
+    <div>
+      <div class="match-col-label">Possessive Adjective</div>
+      <div id="matchRight"></div>
+    </div>
+  </div>
+
+  <div class="completion-msg" id="matchComplete">✓ Todos os 7 pares encontrados. Veja cada um em uma frase real.</div>
+
+  <button class="reveal-toggle" id="revealSentencesBtn" disabled>Ver frases de exemplo</button>
+
+  <div class="sentences-panel" id="sentencesPanel"></div>
+
+  <p class="part-intro" style="margin: 28px 0 16px;">
+    Agora complete: o contexto sempre deixa claro quem é o dono.
+  </p>
+
+  <div id="quiz1"></div>
+</section>
+
+<!-- ═══════════════════ PART 2 — POSSESSIVE 'S ═══════════════════ -->
+<section class="part" id="part2">
+  <div class="part-eyebrow"><span class="num">2</span> Nome + 's</div>
+  <h2>Possessive 's</h2>
+  <p class="part-intro">
+    Para dizer de quem é algo usando um <strong>nome</strong> (não um pronome), o inglês não usa
+    "of" como o português usa "de" — ele gruda um <mark class="hl">'s</mark> direto no dono.
+  </p>
+
+  <div class="grammar-card">
+    <div class="grammar-row">
+      <span class="grammar-tag tag-sing">um dono</span>
+      <span class="grammar-text">nome/pessoa no <b>singular</b> → <b>'s</b>
+        <span class="ex">Hetain<mark class="hl">'s</mark> car · This is Sophie<mark class="hl">'s</mark> bag. · The student<mark class="hl">'s</mark> house (um aluno).</span></span>
+    </div>
+    <div class="grammar-row">
+      <span class="grammar-tag tag-plur">vários donos</span>
+      <span class="grammar-text">substantivo <b>plural</b> (já termina em s) → só o apóstrofo <b>'</b>
+        <span class="ex">the students<mark class="hl">'</mark> house (vários alunos) · the brothers<mark class="hl">'</mark> room · the girls<mark class="hl">'</mark> bags.</span></span>
+    </div>
+  </div>
+
+  <p class="part-intro" style="margin-bottom:16px;">
+    Complete com a forma certa — repare se é <strong>um</strong> dono ou <strong>vários</strong>.
+  </p>
+
+  <div id="quiz2"></div>
+</section>
+
+<!-- ═══════════════════ PART 3 — HAVE & HAS ═══════════════════ -->
+<section class="part" id="part3">
+  <div class="part-eyebrow"><span class="num">3</span> O que cada um tem</div>
+  <h2>Have &amp; Has</h2>
+  <p class="part-intro">
+    <mark class="hl">Have</mark> e <mark class="hl">has</mark> são o mesmo verbo — a escolha
+    depende só do sujeito. Isso vale para frases afirmativas e negativas.
+  </p>
+
+  <div class="have-table">
+    <div class="have-head"></div>
+    <div class="have-head">Afirmativa</div>
+    <div class="have-head">Negativa</div>
+
+    <div class="have-row-label grp-do">I · you<br>we · they</div>
+    <div class="have-cell grp-do">
+      <span class="have-verb-pill">have</span>
+      <span class="have-ex">I <mark class="hl">have</mark> two brothers. · They <mark class="hl">have</mark> a shared office.</span>
+    </div>
+    <div class="have-cell grp-do">
+      <span class="have-verb-pill">don't have</span>
+      <span class="have-ex">We <mark class="hl">don't have</mark> any classes on Sundays.</span>
+    </div>
+
+    <div class="have-row-label grp-does">he · she · it</div>
+    <div class="have-cell grp-does">
+      <span class="have-verb-pill">has</span>
+      <span class="have-ex">Tom <mark class="hl">has</mark> a big family. · The hotel <mark class="hl">has</mark> a pool.</span>
+    </div>
+    <div class="have-cell grp-does">
+      <span class="have-verb-pill">doesn't have</span>
+      <span class="have-ex">Mia <mark class="hl">doesn't have</mark> a car.</span>
+    </div>
+  </div>
+
+  <p class="part-intro" style="margin-bottom:16px;">
+    Complete cada frase com have, has, don't have ou doesn't have.
+  </p>
+
+  <div id="quiz3"></div>
+</section>
+
+<!-- ═══════════════════ PART 4 — THE MACHINE ═══════════════════ -->
+<section class="part" id="part4">
+  <div class="part-eyebrow"><span class="num">4</span> Train the path, not the answer</div>
+  <h2>Máquina de 4 Passos: a pergunta com Have</h2>
+  <p class="part-intro">
+    Aqui mora o erro mais comum do nível básico: <span class="voc" data-tip="não é auxiliar de verbo" tabindex="0">"does"</span>
+    já mostra o "s" — então o verbo principal da pergunta <strong>nunca</strong> leva s. É sempre
+    <mark class="hl">Does he have...?</mark>, nunca "Does he has...?". A máquina treina esse
+    caminho até virar automático.
+  </p>
+
+  <div class="machine-shell">
+    <div class="machine-top">
+      <span class="machine-badge" id="hvBadge">Qual auxiliar?</span>
+      <div class="machine-char-line" id="hvCharLine"></div>
+    </div>
+    <div class="machine-context" id="hvContext"></div>
+    <div class="machine-stage"><div class="machine-tile-row" id="hvTileRow"></div></div>
+    <div class="machine-step-list" id="hvStepList"></div>
+    <div class="machine-final-question" id="hvFinalQuestion"></div>
+    <div class="machine-nav">
+      <button class="machine-reset" id="hvReset">reiniciar este exemplo</button>
+      <div class="machine-dots" id="hvDots"></div>
+      <button class="machine-step-btn" id="hvNextBtn" style="opacity:0;pointer-events:none;">Próximo exemplo →</button>
+    </div>
+  </div>
+
+  <div class="machine-warning">
+    <b>Regra fixa:</b> no verbo principal da pergunta com have, o "s" nunca aparece duas vezes.
+    Ele mora no <b>does</b> ou não existe (<b>do</b>) — o verbo have fica sempre no formato base.
+  </div>
+</section>
+
+<!-- ═══════════════════ PART 5 — MIXED PRACTICE ═══════════════════ -->
+<section class="part" id="part5">
+  <div class="part-eyebrow"><span class="num">5</span> Tudo junto</div>
+  <h2>Pratique tudo junto</h2>
+  <p class="part-intro">
+    Sem aviso de qual assunto vem a seguir — exatamente como vai aparecer numa conversa real.
+  </p>
+
+  <div id="quizFinal"></div>
+</section>
+
+<!-- ═══════════════════ GLOSSARY ═══════════════════ -->
+<section class="part" id="glossary">
+  <div class="part-eyebrow"><span class="num">✓</span> Vocabulário desta aula</div>
+  <h2>Glossário</h2>
+  <p class="part-intro">
+    Expressões e collocations que apareceram nos exemplos — passe o mouse (ou toque) nas palavras
+    com sublinhado laranja ao longo da aula para ver a dica na hora.
+  </p>
+  <div class="gloss-list">
+    <div class="gloss-item"><div class="gloss-term">a shared office</div><div class="gloss-pt">um escritório compartilhado</div><div class="gloss-ex">Sophie and Jake have a shared office.</div></div>
+    <div class="gloss-item"><div class="gloss-term">a spare charger</div><div class="gloss-pt">um carregador reserva</div><div class="gloss-ex">Does Mia have a spare charger?</div></div>
+    <div class="gloss-item"><div class="gloss-term">a project deadline</div><div class="gloss-pt">um prazo de entrega do projeto</div><div class="gloss-ex">They have a project deadline on Friday.</div></div>
+    <div class="gloss-item"><div class="gloss-term">before the meeting starts</div><div class="gloss-pt">antes da reunião começar</div><div class="gloss-ex">Do you have a few minutes before the meeting starts?</div></div>
+    <div class="gloss-item"><div class="gloss-term">on the third floor</div><div class="gloss-pt">no terceiro andar</div><div class="gloss-ex">Jake's office is on the third floor.</div></div>
+    <div class="gloss-item"><div class="gloss-term">to wag its tail</div><div class="gloss-pt">abanar o rabo</div><div class="gloss-ex">The dog always wags its tail when it sees Tom.</div></div>
+    <div class="gloss-item"><div class="gloss-term">to raise prices</div><div class="gloss-pt">aumentar os preços</div><div class="gloss-ex">The company raised its prices this year.</div></div>
+    <div class="gloss-item"><div class="gloss-term">to take the bus</div><div class="gloss-pt">pegar o ônibus</div><div class="gloss-ex">Mia doesn't have a car — she takes the bus every day.</div></div>
+  </div>
+</section>
+
+<section class="part" id="outcomes">
+  <div class="outcomes">
+    <div class="outcomes-header">
+      <h3>My Outcomes</h3>
+      <span class="outcomes-counter" id="outcomesCounter">0 / 5 confirmados</span>
+    </div>
+    <p class="outcomes-sub">Clique em cada frase que você sente que já domina.</p>
+    <div id="outcomesList">
+      <button class="outcome-item" data-key="o1"><span class="outcome-check">✓</span><span class="outcome-text">Uso o adjetivo possessivo certo para cada pronome (my, your, his, her, its, our, their).</span></button>
+      <button class="outcome-item" data-key="o2"><span class="outcome-check">✓</span><span class="outcome-text">Não confundo it's (it is) com its (possessivo).</span></button>
+      <button class="outcome-item" data-key="o3"><span class="outcome-check">✓</span><span class="outcome-text">Formo o possessive 's corretamente para um dono e para vários donos (s').</span></button>
+      <button class="outcome-item" data-key="o4"><span class="outcome-check">✓</span><span class="outcome-text">Escolho have ou has certo em frases afirmativas e negativas.</span></button>
+      <button class="outcome-item" data-key="o5"><span class="outcome-check">✓</span><span class="outcome-text">Monto perguntas com do/does + have sem nunca escrever "has" na pergunta.</span></button>
+    </div>
+  </div>
+  <div class="outcomes-continue-wrap">
+    <a class="outcomes-continue-btn" href="/hub.html">Voltar para a Hub →</a>
+  </div>
+</section>
+
+<footer>Neural English · EIC — Escola de Idiomas e Cultura</footer>
+
+<script>
+(function(){
+
+  var NAMES = { tom:'Tom', mia:'Mia', jake:'Jake', sophie:'Sophie', daniel:'Daniel', lena:'Lena' };
+  function avatar(charKey){
+    return '<span class="avatar av-' + charKey + '">' + NAMES[charKey].charAt(0) + '</span>';
+  }
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  /* ══════════════ PART 1: SUBJECT PRONOUN ↔ POSSESSIVE ADJECTIVE MATCH ══════════════ */
+  var POSS_PAIRS = [
+    { id:0, a:'I',    b:'my',    ptA:'eu',       ptB:'meu / minha' },
+    { id:1, a:'you',  b:'your',  ptA:'você',     ptB:'seu / sua' },
+    { id:2, a:'he',   b:'his',   ptA:'ele',      ptB:'dele' },
+    { id:3, a:'she',  b:'her',   ptA:'ela',      ptB:'dela' },
+    { id:4, a:'it',   b:'its',   ptA:'isso/aquilo', ptB:'dele/dela (de coisa)' },
+    { id:5, a:'we',   b:'our',   ptA:'nós',      ptB:'nosso / nossa' },
+    { id:6, a:'they', b:'their', ptA:'eles/elas',ptB:'deles / delas' }
+  ];
+
+  var leftItems = shuffle(POSS_PAIRS.map(function(p){ return { id: p.id, text: p.a, pt: p.ptA }; }));
+  var rightItems = shuffle(POSS_PAIRS.map(function(p){ return { id: p.id, text: p.b, pt: p.ptB }; }));
+
+  var matchLeft = document.getElementById('matchLeft');
+  var matchRight = document.getElementById('matchRight');
+  var matchCountEl = document.getElementById('matchCount');
+  var matchFillEl = document.getElementById('matchFill');
+  var matchCompleteEl = document.getElementById('matchComplete');
+  var revealBtn = document.getElementById('revealSentencesBtn');
+  var sentencesPanel = document.getElementById('sentencesPanel');
+
+  var foundCount = 0;
+  var selLeft = null, selRight = null;
+  var TOTAL_PAIRS = POSS_PAIRS.length;
+
+  function renderMatchCol(container, items, side){
+    container.innerHTML = items.map(function(it){
+      return '<button class="match-btn" data-side="' + side + '" data-id="' + it.id + '">' +
+        it.text + '<span class="match-pt">' + it.pt + '</span></button>';
+    }).join('');
+  }
+  renderMatchCol(matchLeft, leftItems, 'left');
+  renderMatchCol(matchRight, rightItems, 'right');
+
+  function updateProgress(){
+    matchCountEl.textContent = foundCount + ' / ' + TOTAL_PAIRS + ' pares';
+    matchFillEl.style.width = (foundCount / TOTAL_PAIRS * 100) + '%';
+    if (foundCount === TOTAL_PAIRS) {
+      matchCompleteEl.classList.add('show');
+      revealBtn.disabled = false;
+    }
+  }
+
+  function onMatchClick(e){
+    var btn = e.target.closest('.match-btn');
+    if (!btn || btn.classList.contains('matched')) return;
+    var side = btn.dataset.side;
+
+    if (side === 'left') {
+      if (selLeft) selLeft.classList.remove('selected');
+      selLeft = btn; btn.classList.add('selected');
+    } else {
+      if (selRight) selRight.classList.remove('selected');
+      selRight = btn; btn.classList.add('selected');
+    }
+
+    if (selLeft && selRight) {
+      if (selLeft.dataset.id === selRight.dataset.id) {
+        selLeft.classList.remove('selected'); selRight.classList.remove('selected');
+        selLeft.classList.add('matched'); selRight.classList.add('matched');
+        foundCount++;
+        selLeft = null; selRight = null;
+        updateProgress();
+      } else {
+        var l = selLeft, r = selRight;
+        l.classList.add('wrong'); r.classList.add('wrong');
+        setTimeout(function(){
+          l.classList.remove('wrong','selected');
+          r.classList.remove('wrong','selected');
+        }, 450);
+        selLeft = null; selRight = null;
+      }
+    }
+  }
+  matchLeft.addEventListener('click', onMatchClick);
+  matchRight.addEventListener('click', onMatchClick);
+
+  var POSS_SENTENCES = [
+    { pair:'I → my',    sentence:'I lost my keys before the trip.', char:'tom' },
+    { pair:'you → your',sentence:'You always bring your laptop to work.', char:'mia' },
+    { pair:'he → his',  sentence:'Jake shares his notes with the class.', char:'jake' },
+    { pair:'she → her', sentence:'Sophie updated her resume last week.', char:'sophie' },
+    { pair:'it → its',  sentence:'The company raised its prices this year.', char:'daniel' },
+    { pair:'we → our',  sentence:'We finished our project early.', char:'lena' },
+    { pair:'they → their', sentence:'Tom and Mia forgot their tickets at home.', char:'sophie' }
+  ];
+
+  function renderSentences(){
+    sentencesPanel.innerHTML = POSS_SENTENCES.map(function(p){
+      return '<div class="sent-pair-label">' + p.pair + '</div>' +
+        '<div class="sent-card">' + avatar(p.char) +
+        '<div class="txt">' + p.sentence + '</div></div>';
+    }).join('');
+  }
+
+  revealBtn.addEventListener('click', function(){
+    var showing = sentencesPanel.classList.toggle('show');
+    if (showing && !sentencesPanel.innerHTML) renderSentences();
+    revealBtn.textContent = showing ? 'Esconder' : 'Ver frases de exemplo';
+  });
+
+  /* ══════════════ GENERIC QUIZ BUILDER (2 options, fill-in-blank) ══════════════ */
+  function buildTextQuiz(containerId, items, prefix){
+    var container = document.getElementById(containerId);
+    var order = shuffle(items.map(function(it, i){ return i; }));
+    container.innerHTML = order.map(function(origIndex){
+      var it = items[origIndex];
+      return '<div class="quiz-item">' +
+        '<div class="quiz-top">' + avatar(it.char) +
+          '<div class="quiz-sentence">' + it.before + '<span class="blank-pill">____</span>' + it.after + '</div>' +
+        '</div>' +
+        '<div class="quiz-options" id="' + prefix + '-opts-' + origIndex + '">' +
+          shuffle(it.options).map(function(opt){
+            return '<button class="opt-btn" data-val="' + opt + '" onclick="' + prefix + 'Check(' + origIndex + ',\'' + opt.replace(/'/g, "\\'") + '\')">' + opt + '</button>';
+          }).join('') +
+        '</div>' +
+        (it.hint ? '<button class="hint-btn" onclick="' + prefix + 'Hint(' + origIndex + ')">Precisa de uma dica?</button>' +
+        '<div class="hint-text" id="' + prefix + '-hint-' + origIndex + '">' + it.hint + '</div>' : '') +
+        '<div class="explain" id="' + prefix + '-explain-' + origIndex + '">' + it.explain + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function checkTextQuiz(items, prefix, idx, val){
+    var it = items[idx];
+    var opts = document.querySelectorAll('#' + prefix + '-opts-' + idx + ' .opt-btn');
+    opts.forEach(function(b){
+      b.disabled = true;
+      if (b.dataset.val === it.correct) b.classList.add('correct');
+      else if (b.dataset.val === val) b.classList.add('incorrect');
+    });
+    document.getElementById(prefix + '-explain-' + idx).classList.add('show');
+  }
+
+  window.q1Hint = function(idx){ document.getElementById('q1-hint-' + idx).classList.toggle('show'); };
+  window.qfHint = function(idx){ document.getElementById('qf-hint-' + idx).classList.toggle('show'); };
+
+  /* ══════════════ QUIZ 1: possessive adjectives ══════════════ */
+  var QUIZ1 = [
+    { before:'Mia forgot ', after:' password again — she needs to reset it.', char:'mia',
+      options:['her','his','their'], correct:'her',
+      explain:'<b>Mia</b> é mulher (she) → possessive adjective é <b>her</b>.' },
+    { before:'The dog always wags ', after:' tail when it sees Tom.', char:'tom',
+      options:['its','it\u2019s','his'], correct:'its',
+      hint:'It\u2019s (com apóstrofo) = "it is". Aqui não é isso.',
+      explain:'<b>its</b> — possessivo de uma coisa/animal, sem apóstrofo. "It\u2019s" seria "it is".' },
+    { before:'Tom and Jake wash ', after:' car every Saturday.', char:'jake',
+      options:['their','his','its'], correct:'their',
+      explain:'Dois donos (Tom e Jake) = they → <b>their</b>.' },
+    { before:'I need to charge ', after:' phone before we leave.', char:'sophie',
+      options:['my','your','her'], correct:'my',
+      explain:'O sujeito é <b>I</b> → <b>my</b>.' },
+    { before:'You always forget ', after:' keys at home.', char:'jake',
+      options:['your','our','his'], correct:'your',
+      explain:'A frase fala diretamente com "you" → <b>your</b>.' },
+    { before:'', after:' almost 8 o\u2019clock — we need to hurry.', char:'daniel',
+      options:['Its','It\u2019s','Their'], correct:'It\u2019s',
+      hint:'Pense: "it IS almost 8 o\u2019clock".',
+      explain:'<b>It\u2019s</b> = it is. Aqui não é posse de nada, é a contração de "it is".' }
+  ];
+  window.q1Check = function(idx, val){ checkTextQuiz(QUIZ1, 'q1', idx, val); };
+  buildTextQuiz('quiz1', QUIZ1, 'q1');
+
+  /* ══════════════ QUIZ 2: possessive 's ══════════════ */
+  var QUIZ2 = [
+    { before:'This is ', after:' bag — she left it on the chair.', char:'sophie',
+      options:['Sophie\u2019s','Sophies\u2019','Sophie'], correct:'Sophie\u2019s',
+      explain:'Um dono (Sophie, singular) → <b>Sophie\u2019s</b>.' },
+    { before:'', after:' office is on the third floor.', char:'jake',
+      options:['Jake\u2019s','Jakes\u2019','Jake'], correct:'Jake\u2019s',
+      explain:'Um dono (Jake, singular) → <b>Jake\u2019s</b>.' },
+    { before:'Two teachers share this room. This is the ', after:' classroom.', char:'daniel',
+      options:['teachers\u2019','teacher\u2019s','teachers'], correct:'teachers\u2019',
+      hint:'"Two teachers" já está no plural.',
+      explain:'Vários donos (two teachers) → substantivo já termina em s, então só o apóstrofo: <b>teachers\u2019</b>.' },
+    { before:'That is my ', after:' car — she lent it to me for the weekend.', char:'mia',
+      options:['sister\u2019s','sisters\u2019','sister'], correct:'sister\u2019s',
+      explain:'Um dono (uma irmã, singular) → <b>sister\u2019s</b>.' },
+    { before:'The three brothers share a room. This is the ', after:' room.', char:'lena',
+      options:['brothers\u2019','brother\u2019s','brothers'], correct:'brothers\u2019',
+      hint:'"Three brothers" — mais de um dono.',
+      explain:'Vários donos (three brothers) → <b>brothers\u2019</b>.' }
+  ];
+  window.q2Check = function(idx, val){ checkTextQuiz(QUIZ2, 'q2', idx, val); };
+  buildTextQuiz('quiz2', QUIZ2, 'q2');
+
+  /* ══════════════ QUIZ 3: have / has / don't have / doesn't have ══════════════ */
+  var QUIZ3 = [
+    { before:'Tom ', after:' a big family — three brothers and two sisters.', char:'tom',
+      options:['has','have','having'], correct:'has',
+      explain:'Sujeito <b>Tom</b> (he) → <b>has</b>.' },
+    { before:'I ', after:' two brothers and one sister.', char:'sophie',
+      options:['have','has','having'], correct:'have',
+      explain:'Sujeito <b>I</b> → <b>have</b>.' },
+    { before:'Sophie and Jake ', after:' a shared office on the third floor.', char:'jake',
+      options:['have','has','having'], correct:'have',
+      explain:'Dois sujeitos (they) → <b>have</b>.' },
+    { before:'Mia ', after:' a car — she takes the bus every day.', char:'mia',
+      options:['doesn\u2019t have','don\u2019t have','not have'], correct:'doesn\u2019t have',
+      explain:'Sujeito <b>Mia</b> (she) + negativo → <b>doesn\u2019t have</b>.' },
+    { before:'We ', after:' any classes on Sundays.', char:'daniel',
+      options:['don\u2019t have','doesn\u2019t have','not have'], correct:'don\u2019t have',
+      explain:'Sujeito <b>we</b> + negativo → <b>don\u2019t have</b>.' },
+    { before:'The building ', after:' an elevator, so we always use the stairs.', char:'lena',
+      options:['doesn\u2019t have','don\u2019t have','not have'], correct:'doesn\u2019t have',
+      hint:'"The building" = it.',
+      explain:'Sujeito <b>the building</b> (it) + negativo → <b>doesn\u2019t have</b>.' }
+  ];
+  window.q3Check = function(idx, val){ checkTextQuiz(QUIZ3, 'q3', idx, val); };
+  buildTextQuiz('quiz3', QUIZ3, 'q3');
+
+  /* ══════════════ FINAL MIXED QUIZ ══════════════ */
+  var QUIZF = [
+    { before:'Lena spilled coffee on ', after:' shirt this morning.', char:'lena',
+      options:['her','his','their'], correct:'her',
+      explain:'<b>Lena</b> é mulher (she) → <b>her</b>.' },
+    { before:'This is ', after:' notebook — please give it back to her.', char:'sophie',
+      options:['Sophie\u2019s','Sophies\u2019','Sophie'], correct:'Sophie\u2019s',
+      explain:'Um dono (Sophie, singular) → <b>Sophie\u2019s</b>.' },
+    { before:'Jake ', after:' a lot of homework tonight.', char:'jake',
+      options:['has','have','having'], correct:'has',
+      explain:'Sujeito <b>Jake</b> (he) → <b>has</b>.' },
+    { before:'', after:'', char:'mia', isSentenceChoice:true,
+      prompt:'Qual pergunta está certa?',
+      options:['Does Mia have a spare charger?','Does Mia has a spare charger?','Do Mia have a spare charger?'],
+      correct:'Does Mia have a spare charger?',
+      explain:'O "s" já está em <b>does</b> — o verbo principal fica sempre em <b>have</b>, nunca "has". E "Mia" (she) precisa de <b>does</b>, não do.' },
+    { before:'', after:' time for lunch — let\u2019s go!', char:'daniel',
+      options:['It\u2019s','Its','Their'], correct:'It\u2019s',
+      hint:'Pense: "it IS time for lunch".',
+      explain:'<b>It\u2019s</b> = it is. Não é posse de nada aqui.' },
+    { before:'The two brothers share a car. This is the ', after:' car.', char:'tom',
+      options:['brothers\u2019','brother\u2019s','brothers'], correct:'brothers\u2019',
+      explain:'Vários donos (two brothers) → <b>brothers\u2019</b>.' },
+    { before:'We ', after:' time to stop for coffee — the meeting starts in five minutes.', char:'lena',
+      options:['don\u2019t have','doesn\u2019t have','not have'], correct:'don\u2019t have',
+      explain:'Sujeito <b>we</b> + negativo → <b>don\u2019t have</b>.' },
+    { before:'', after:'', char:'jake', isSentenceChoice:true,
+      prompt:'Qual pergunta está certa?',
+      options:['Do Tom and Jake have a car?','Does Tom and Jake have a car?','Do Tom and Jake has a car?'],
+      correct:'Do Tom and Jake have a car?',
+      explain:'Tom e Jake juntos = they → o auxiliar certo é <b>do</b>, não does. E o verbo principal fica sempre em <b>have</b>.' }
+  ];
+
+  function buildMixedQuiz(containerId, items, prefix){
+    var container = document.getElementById(containerId);
+    var order = shuffle(items.map(function(it, i){ return i; }));
+    container.innerHTML = order.map(function(origIndex){
+      var it = items[origIndex];
+      if (it.isSentenceChoice) {
+        return '<div class="quiz-item">' +
+          '<div class="quiz-top">' + avatar(it.char) +
+            '<div class="quiz-sentence">' + it.prompt + '</div>' +
+          '</div>' +
+          '<div class="quiz-options" id="' + prefix + '-opts-' + origIndex + '" style="flex-direction:column;align-items:flex-start;">' +
+            shuffle(it.options).map(function(opt){
+              return '<button class="opt-btn" data-val="' + opt + '" style="width:100%;text-align:left;" onclick="' + prefix + 'Check(' + origIndex + ',\'' + opt.replace(/'/g, "\\'") + '\')">' + opt + '</button>';
+            }).join('') +
+          '</div>' +
+          '<div class="explain" id="' + prefix + '-explain-' + origIndex + '">' + it.explain + '</div>' +
+        '</div>';
+      }
+      return '<div class="quiz-item">' +
+        '<div class="quiz-top">' + avatar(it.char) +
+          '<div class="quiz-sentence">' + it.before + '<span class="blank-pill">____</span>' + it.after + '</div>' +
+        '</div>' +
+        '<div class="quiz-options" id="' + prefix + '-opts-' + origIndex + '">' +
+          shuffle(it.options).map(function(opt){
+            return '<button class="opt-btn" data-val="' + opt + '" onclick="' + prefix + 'Check(' + origIndex + ',\'' + opt.replace(/'/g, "\\'") + '\')">' + opt + '</button>';
+          }).join('') +
+        '</div>' +
+        (it.hint ? '<button class="hint-btn" onclick="' + prefix + 'Hint(' + origIndex + ')">Precisa de uma dica?</button>' +
+        '<div class="hint-text" id="' + prefix + '-hint-' + origIndex + '">' + it.hint + '</div>' : '') +
+        '<div class="explain" id="' + prefix + '-explain-' + origIndex + '">' + it.explain + '</div>' +
+      '</div>';
+    }).join('');
+  }
+  window.qfCheck = function(idx, val){ checkTextQuiz(QUIZF, 'qf', idx, val); };
+  buildMixedQuiz('quizFinal', QUIZF, 'qf');
+
+})();
+</script>
+
+<script>
+(function(){
+
+  var PRONOUN_POOL = ['I','you','he','she','it','we','they'];
+  var AUX_POOL = ['Do','Does','Is'];
+  var VERB_POOL = ['have','has','having'];
+
+  var NAMES = { tom:'Tom', mia:'Mia', jake:'Jake', sophie:'Sophie', daniel:'Daniel', lena:'Lena' };
+  function avatarFor(charKey){
+    if (charKey === 'both') return ['tom','jake'];
+    return [charKey];
+  }
+  function avatarHTML(keys){
+    return keys.map(function(k){ return '<span class="avatar av-' + k + '">' + NAMES[k].charAt(0) + '</span>'; }).join('');
+  }
+
+  var HV = [
+    {
+      char: 'tom', subject: 'Tom', pronoun: 'he', aux: 'Does',
+      sentence: 'Tom has a meeting <span class="obj-hl">this afternoon</span>.',
+      object: 'a meeting this afternoon',
+      question: 'Does Tom have a meeting this afternoon?',
+      subjectNote: '\u2713 "Tom" = he.',
+      auxNote: 'Presente + "Tom" (he) \u2192 o auxiliar \u00e9 does.'
+    },
+    {
+      char: 'sophie', subject: 'Sophie', pronoun: 'she', aux: 'Does',
+      sentence: 'Sophie has two cats <span class="obj-hl">at home</span>.',
+      object: 'two cats at home',
+      question: 'Does Sophie have two cats at home?',
+      subjectNote: '\u2713 "Sophie" = she.',
+      auxNote: 'Presente + "Sophie" (she) \u2192 o auxiliar \u00e9 does.'
+    },
+    {
+      char: 'lena', subject: 'The hotel', pronoun: 'it', aux: 'Does',
+      sentence: 'The hotel has <span class="obj-hl">a swimming pool</span>.',
+      object: 'a swimming pool',
+      question: 'Does the hotel have a swimming pool?',
+      subjectNote: '\u2713 "the hotel" = it.',
+      auxNote: 'Presente + "the hotel" (it) \u2192 mesmo padr\u00e3o de he/she, o auxiliar \u00e9 does. IT passa despercebido!'
+    },
+    {
+      char: 'both', subject: 'Jake and Mia', pronoun: 'they', aux: 'Do',
+      sentence: 'Jake and Mia have <span class="obj-hl">a project deadline on Friday</span>.',
+      object: 'a project deadline on Friday',
+      question: 'Do Jake and Mia have a project deadline on Friday?',
+      subjectNote: '\u2713 "Jake and Mia" = they.',
+      auxNote: 'Presente + "they" \u2192 o auxiliar \u00e9 do, sem s.'
+    },
+    {
+      char: 'daniel', subject: 'You', pronoun: 'you', aux: 'Do',
+      sentence: 'You have <span class="obj-hl">a few minutes before the meeting starts</span>.',
+      object: 'a few minutes before the meeting starts',
+      question: 'Do you have a few minutes before the meeting starts?',
+      subjectNote: '\u2713 "you" j\u00e1 \u00e9 o pronome.',
+      auxNote: 'Presente + "you" \u2192 o auxiliar \u00e9 do, sem s.'
+    }
+  ];
+
+  var curEx = 0, curStep = 0;
+  var badge = document.getElementById('hvBadge');
+  var charLine = document.getElementById('hvCharLine');
+  var contextEl = document.getElementById('hvContext');
+  var tileRow = document.getElementById('hvTileRow');
+  var stepList = document.getElementById('hvStepList');
+  var finalQ = document.getElementById('hvFinalQuestion');
+  var dots = document.getElementById('hvDots');
+  var nextBtn = document.getElementById('hvNextBtn');
+  var resetBtn = document.getElementById('hvReset');
+
+  function shuffled(arr, mustInclude){
+    var pool = arr.slice();
+    if (pool.indexOf(mustInclude) === -1) pool.push(mustInclude);
+    for (var i = pool.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+    }
+    return pool;
+  }
+
+  function buildSteps(ex){
+    return [
+      {
+        key: 'subject',
+        title: 'Sujeito e pron\u00f4me',
+        prompt: 'Qual pron\u00f4me substitui "' + ex.subject + '"?',
+        pool: shuffled(PRONOUN_POOL, ex.pronoun),
+        correct: ex.pronoun,
+        confirm: ex.subjectNote
+      },
+      {
+        key: 'aux',
+        title: 'Do ou Does?',
+        prompt: 'Presente simples \u2014 com esse pron\u00f4me, o auxiliar \u00e9...',
+        pool: shuffled(AUX_POOL, ex.aux),
+        correct: ex.aux,
+        confirm: ex.auxNote
+      },
+      {
+        key: 'verb',
+        title: 'Have ou Has?',
+        prompt: 'No verbo principal da pergunta, usamos...',
+        pool: shuffled(VERB_POOL, 'have'),
+        correct: 'have',
+        confirm: '\u2713 HAVE \u2014 mesmo com he/she/it, o verbo na pergunta nunca leva "s". O ' + ex.aux.toLowerCase() + ' j\u00e1 resolve isso.'
+      },
+      {
+        key: 'assemble',
+        title: 'Monta a pergunta',
+        text: 'Auxiliar + sujeito + have + resto: <strong>' + ex.question + '</strong>'
+      }
+    ];
+  }
+
+  function stepIndexOf(steps, key){
+    for (var i = 0; i < steps.length; i++){ if (steps[i].key === key) return i; }
+    return -1;
+  }
+
+  function choiceRow(options, correct, onCorrect){
+    var id = 'hvchoice_' + Math.random().toString(36).slice(2);
+    window[id] = function(btn, value){
+      if (value === correct){
+        var group = btn.parentNode.querySelectorAll('.machine-choice-btn');
+        group.forEach(function(b){ b.disabled = true; });
+        btn.classList.add('correct');
+        setTimeout(function(){ onCorrect(); }, 350);
+      } else {
+        btn.classList.add('wrong', 'shake');
+        setTimeout(function(){ btn.classList.remove('wrong', 'shake'); }, 500);
+      }
+    };
+    var html = '<div class="machine-choice-row">' + options.map(function(opt){
+      return '<button class="machine-choice-btn" onclick="' + id + '(this,\'' + opt.replace(/'/g, "\\'") + '\')">' + opt + '</button>';
+    }).join('') + '</div>';
+    return html;
+  }
+
+  function render(){
+    var ex = HV[curEx];
+    var steps = buildSteps(ex);
+
+    var subjIdx = stepIndexOf(steps, 'subject');
+    var auxIdx = stepIndexOf(steps, 'aux');
+    var verbIdx = stepIndexOf(steps, 'verb');
+
+    var auxResolved = curStep > auxIdx;
+    if (auxResolved){
+      badge.textContent = ex.aux + ' \u2014 j\u00e1 decidido';
+      badge.className = 'machine-badge ' + (ex.aux === 'Do' ? 'resolved-do' : 'resolved-does');
+    } else {
+      badge.textContent = 'Qual auxiliar?';
+      badge.className = 'machine-badge';
+    }
+
+    var avKeys = avatarFor(ex.char);
+    charLine.innerHTML = avatarHTML(avKeys) + '<span>Exemplo com ' + ex.subject + '</span>';
+
+    contextEl.innerHTML = ex.sentence;
+
+    var subjShow = curStep > subjIdx;
+    var subjPop = curStep === subjIdx + 1;
+    var auxShow = curStep > auxIdx;
+    var auxPop = curStep === auxIdx + 1;
+    var verbShow = curStep > verbIdx;
+    var verbPop = curStep === verbIdx + 1;
+    var objShow = curStep >= steps.length;
+    var objPop = curStep === steps.length;
+
+    tileRow.innerHTML =
+      '<div class="machine-tile ghost ' + (auxShow?'show':'') + ' ' + (auxPop?'pop':'') + '">' +
+        (auxShow ? '<span class="m-tag">auxiliar</span>' : '') + ex.aux +
+      '</div>' +
+      '<div class="machine-tile ghost ' + (subjShow?'show':'') + ' ' + (subjPop?'pop':'') + '">' +
+        (subjShow ? '<span class="m-tag">sujeito</span>' : '') + ex.subject +
+      '</div>' +
+      '<div class="machine-tile ' + (verbPop?'pop':'') + '" style="' + (verbShow?'':'opacity:.35') + '">' +
+        (verbShow ? '<span class="m-tag">verbo</span>' : '') + 'have' +
+      '</div>' +
+      '<div class="machine-tile ' + (objPop?'pop':'') + '" style="' + (objShow?'':'opacity:.35') + '">' + ex.object + '</div>';
+
+    stepList.innerHTML = '';
+    steps.forEach(function(s, i){
+      var n = i + 1;
+      var cls = curStep >= n ? 'done' : (curStep === n - 1 ? 'active' : '');
+      var wrap = document.createElement('div');
+      wrap.className = 'machine-step ' + cls;
+      var titleHTML = '<div class="machine-step-num">' + n + '</div><div>' +
+        '<div class="machine-step-title">Passo ' + n + ' \u2014 ' + s.title + '</div>';
+
+      if (s.key === 'assemble'){
+        var body = titleHTML + '<div class="machine-step-text">' + (curStep >= i ? s.text : 'Auxiliar + sujeito + have + resto \u2014 falta completar os passos acima.') + '</div>';
+        if (curStep === i){
+          body += '<button class="machine-step-btn" onclick="hvFinish()">Ver pergunta completa</button>';
+        }
+        body += '</div>';
+        wrap.innerHTML = body;
+        stepList.appendChild(wrap);
+        return;
+      }
+
+      if (curStep > i){
+        wrap.innerHTML = titleHTML + '<div class="machine-confirm">' + s.confirm + '</div></div>';
+        stepList.appendChild(wrap);
+      } else if (curStep === i){
+        wrap.innerHTML = titleHTML + '<div class="machine-step-text">' + s.prompt + '</div></div>';
+        stepList.appendChild(wrap);
+        var holder = wrap.querySelector('div > div:last-child');
+        holder.insertAdjacentHTML('beforeend', choiceRow(s.pool, s.correct, function(){ curStep++; render(); }));
+      } else {
+        wrap.innerHTML = titleHTML + '<div class="machine-step-text">' + s.prompt + '</div></div>';
+        stepList.appendChild(wrap);
+      }
+    });
+
+    if (curStep >= steps.length){
+      finalQ.textContent = ex.question;
+      finalQ.classList.add('show');
+      nextBtn.style.opacity = 1;
+      nextBtn.style.pointerEvents = 'auto';
+    } else {
+      finalQ.classList.remove('show');
+      nextBtn.style.opacity = 0;
+      nextBtn.style.pointerEvents = 'none';
+    }
+
+    dots.innerHTML = HV.map(function(_, i){ return '<span class="' + (i === curEx ? 'on' : '') + '"></span>'; }).join('');
+  }
+
+  window.hvFinish = function(){
+    var ex = HV[curEx];
+    var steps = buildSteps(ex);
+    curStep = steps.length;
+    render();
+  };
+  resetBtn.addEventListener('click', function(){ curStep = 0; render(); });
+  nextBtn.addEventListener('click', function(){
+    curEx = (curEx + 1) % HV.length;
+    curStep = 0;
+    render();
+  });
+
+  render();
+})();
+</script>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'eic-outcomes-possessives-havehas';
+  var list = document.getElementById('outcomesList');
+  var counter = document.getElementById('outcomesCounter');
+  var items = Array.prototype.slice.call(list.querySelectorAll('.outcome-item'));
+  var total = items.length;
+
+  function loadState(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function saveState(state){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  var state = loadState();
+
+  function updateCounter(){
+    var confirmed = items.filter(function(it){ return it.classList.contains('confirmed'); }).length;
+    counter.textContent = confirmed + ' / ' + total + ' confirmados';
+  }
+
+  items.forEach(function(it){
+    var key = it.dataset.key;
+    if (state[key]) it.classList.add('confirmed');
+    it.addEventListener('click', function(){
+      it.classList.toggle('confirmed');
+      state[key] = it.classList.contains('confirmed');
+      saveState(state);
+      updateCounter();
+    });
+  });
+
+  updateCounter();
+})();
+</script>
+
+<script>
+(function(){
+  var bubble = document.createElement('div');
+  bubble.className = 'voc-bubble';
+  document.body.appendChild(bubble);
+  var active = null;
+
+  function showTip(el){
+    bubble.textContent = el.getAttribute('data-tip') || '';
+    bubble.classList.add('show');
+    var rect = el.getBoundingClientRect();
+    var bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+    var left = rect.left + rect.width / 2 - bw / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
+    var top = rect.top - bh - 10;
+    if (top < 8) { top = rect.bottom + 10; }
+    bubble.style.left = left + 'px';
+    bubble.style.top = top + 'px';
+  }
+  function hideTip(){
+    bubble.classList.remove('show');
+    active = null;
+  }
+
+  document.querySelectorAll('.voc[data-tip]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (active === el) { hideTip(); return; }
+      active = el;
+      showTip(el);
+    });
+  });
+  document.addEventListener('click', hideTip);
+  window.addEventListener('scroll', hideTip, true);
+  window.addEventListener('resize', hideTip);
+})();
+</script>
+
+</body>
+</html>
