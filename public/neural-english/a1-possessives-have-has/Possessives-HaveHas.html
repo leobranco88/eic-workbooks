@@ -691,6 +691,12 @@ footer { padding: 32px 60px 60px; text-align: center; font-size: clamp(10.8px, c
   </p>
 
   <div id="quiz2"></div>
+
+  <p class="part-intro" style="margin: 32px 0 16px;">
+    Agora sem espaço em branco pra preencher — só o contexto. Quantos donos tem?
+  </p>
+
+  <div id="quiz2b"></div>
 </section>
 
 <!-- ═══════════════════ PART 3 — HAVE & HAS ═══════════════════ -->
@@ -1023,6 +1029,64 @@ footer { padding: 32px 60px 60px; text-align: center; font-size: clamp(10.8px, c
   ];
   window.q2Check = function(idx, val){ checkTextQuiz(QUIZ2, 'q2', idx, val); };
   buildTextQuiz('quiz2', QUIZ2, 'q2');
+
+  /* ══════════════ QUIZ 2b: singular ou plural — só pelo contexto ══════════════ */
+  function buildContextQuiz(containerId, items, prefix){
+    var container = document.getElementById(containerId);
+    var order = shuffle(items.map(function(it, i){ return i; }));
+    container.innerHTML = order.map(function(origIndex){
+      var it = items[origIndex];
+      return '<div class="quiz-item">' +
+        '<div class="quiz-top">' + avatar(it.char) +
+          '<div class="quiz-sentence">' + it.context + '<br><span style="color:var(--mid);font-weight:400;font-size:0.85em;">' + it.prompt + '</span></div>' +
+        '</div>' +
+        '<div class="quiz-options" id="' + prefix + '-opts-' + origIndex + '">' +
+          shuffle(it.options).map(function(opt){
+            return '<button class="opt-btn" data-val="' + opt.replace(/"/g, '&quot;') + '" onclick="' + prefix + 'Check(' + origIndex + ',\'' + opt.replace(/'/g, "\\'") + '\')">' + opt + '</button>';
+          }).join('') +
+        '</div>' +
+        '<div class="explain" id="' + prefix + '-explain-' + origIndex + '">' + it.explain + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  var QUIZ2B = [
+    { char:'sophie', context:'Two girls share one locker at school.',
+      prompt:'Como dizemos "o armário delas" nesse caso?',
+      options:['the girls\u2019 locker','the girl\u2019s locker'], correct:'the girls\u2019 locker',
+      explain:'<b>Two girls</b> = mais de um dono → <b>girls\u2019</b>, só o apóstrofo.' },
+    { char:'jake', context:'Only one dentist works at this clinic.',
+      prompt:'Complete: this is...',
+      options:['the dentist\u2019s office','the dentists\u2019 office'], correct:'the dentist\u2019s office',
+      explain:'<b>Only one dentist</b> = um dono só → <b>dentist\u2019s</b>.' },
+    { char:'tom', context:'Two sisters opened a small bakery, and only the two of them run it.',
+      prompt:'Como dizemos "a padaria delas"?',
+      options:['the sisters\u2019 bakery','the sister\u2019s bakery'], correct:'the sisters\u2019 bakery',
+      explain:'<b>Two sisters... run it</b> — a padaria é das duas → <b>sisters\u2019</b>, mais de um dono.' },
+    { char:'mia', context:'My cousin has a small apartment downtown.',
+      prompt:'Complete: this is...',
+      options:['my cousin\u2019s apartment','my cousins\u2019 apartment'], correct:'my cousin\u2019s apartment',
+      explain:'<b>My cousin</b> (singular) = um dono → <b>cousin\u2019s</b>.' },
+    { char:'daniel', context:'The five players on the team share a locker room.',
+      prompt:'Como dizemos "o vestiário deles"?',
+      options:['the players\u2019 locker room','the player\u2019s locker room'], correct:'the players\u2019 locker room',
+      explain:'<b>Five players</b> = vários donos → <b>players\u2019</b>.' },
+    { char:'lena', context:'There\u2019s only one manager in this store.',
+      prompt:'Complete: everyone follows...',
+      options:['the manager\u2019s decisions','the managers\u2019 decisions'], correct:'the manager\u2019s decisions',
+      explain:'<b>Only one manager</b> = um dono só → <b>manager\u2019s</b>.' },
+    { char:'sophie', context:'Both of my parents work from home.',
+      prompt:'Complete: this is...',
+      options:['my parents\u2019 office','my parent\u2019s office'], correct:'my parents\u2019 office',
+      explain:'<b>Both parents</b> = dois donos → <b>parents\u2019</b>.' },
+    { char:'jake', context:'The teacher graded every student\u2019s test one by one — never in groups.',
+      prompt:'Complete: she checked...',
+      options:['each student\u2019s name','each students\u2019 name'], correct:'each student\u2019s name',
+      hint:'"Each" fala de um de cada vez, mesmo quando o grupo é grande.',
+      explain:'<b>Each</b> é sempre singular, mesmo se o grupo for grande → <b>student\u2019s</b>.' }
+  ];
+  window.q2bCheck = function(idx, val){ checkTextQuiz(QUIZ2B, 'q2b', idx, val); };
+  buildContextQuiz('quiz2b', QUIZ2B, 'q2b');
 
   /* ══════════════ QUIZ 3: have / has / don't have / doesn't have ══════════════ */
   var QUIZ3 = [

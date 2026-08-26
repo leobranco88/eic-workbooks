@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Service in a Crisis · Supply Chain & Inventory · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;--purple:#6D5BD0;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+::selection{background:var(--hi);color:var(--ink)}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:22px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-nav{display:flex;align-items:center;gap:14px}
+.hdr-nav a{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s}
+.hdr-nav a:hover{color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:900px){.hdr-meta,.hdr-nav{display:none}}
+
+.pw{max-width:960px;margin:0 auto;padding:0 56px}
+@media(max-width:760px){.pw{padding:0 24px}}
+
+.hero{background:var(--dark);padding:140px 0 64px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--orange)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.hero-title{font-size:clamp(28px,4vw,42px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;max-width:660px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.75;max-width:620px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hero-tag{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:5px 13px}
+
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex:none}
+.sec-tag{font-size:16px;font-weight:900;color:var(--ink)}
+.sec-sub{font-size:13px;color:var(--mid);line-height:1.6;margin:0 0 26px 38px;max-width:620px}
+
+.section{padding:56px 0}
+.section:nth-child(even){background:#fff}
+
+/* vocab rows (reused pattern) */
+.vocab-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.vocab-row{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.vocab-term{font-size:14.5px;font-weight:800;color:var(--ink);border-bottom:2px dotted var(--teal);cursor:help;position:relative;flex-shrink:0}
+.vocab-term:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:0;background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:50}
+.vocab-example{font-size:13px;color:var(--mid);font-style:italic;line-height:1.6}
+
+.example-block{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:8px}
+.example-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.example-text{font-size:14px;color:rgba(255,255,255,.85);line-height:1.75}
+.example-text b{color:#fff;border-bottom:2px solid var(--teal)}
+
+.practice-trigger{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:none;border-radius:24px;padding:13px 26px;font-size:13px;font-weight:700;letter-spacing:.02em;cursor:pointer;font-family:Inter,sans-serif;margin-top:8px}
+.practice-trigger svg{width:15px;height:15px}
+
+.practice-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600}
+.practice-overlay.open{display:block}
+.practice-drawer{position:fixed;top:0;right:-460px;width:420px;max-width:92vw;height:100%;background:#0D0704;border-left:1px solid rgba(255,255,255,.08);z-index:601;transition:right .3s ease;display:flex;flex-direction:column;font-family:Inter,sans-serif}
+.practice-drawer.open{right:0}
+.practice-header{padding:22px 24px 16px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.practice-title{font-size:15px;font-weight:800;color:#fff}
+.practice-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.practice-progress-track{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.practice-progress-fill{height:100%;width:0%;background:var(--orange);transition:width .3s}
+.practice-progress-label{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
+.practice-body{flex:1;overflow-y:auto;padding:20px 24px 40px}
+.pex-item{margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pex-num{font-size:10px;font-weight:800;color:var(--orange);margin-bottom:8px}
+.pex-sentence{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:10px}
+.pex-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:13px;color:#fff;font-family:Inter,sans-serif;margin-bottom:8px}
+.pex-input:focus{outline:none;border-color:var(--orange)}
+.pex-input.correct{border-color:#4CAF88;background:rgba(76,175,136,.08)}
+.pex-input.incorrect{border-color:var(--red);background:rgba(192,57,43,.14)}
+.pex-btnrow{display:flex;gap:8px}
+.pex-check{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.08);border:none;border-radius:16px;padding:6px 14px;cursor:pointer;font-family:Inter,sans-serif}
+.pex-answer{display:none;margin-top:10px;background:rgba(232,98,26,.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.6}
+.pex-answer.show{display:block}
+.pex-answer strong{color:#fff}
+
+.dialogue{background:var(--ink);border-radius:14px;padding:20px 22px;margin-bottom:20px}
+.dialogue-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.dline{display:flex;gap:10px;margin-bottom:12px;font-size:13.5px;line-height:1.6}
+.dline:last-child{margin-bottom:0}
+.dspeaker{flex:none;width:64px;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding-top:2px}
+.dline.a .dspeaker{color:var(--teal)}
+.dline.b .dspeaker{color:rgba(255,255,255,.5)}
+.dtext{color:rgba(255,255,255,.85)}
+.dtext b{color:#fff;border-bottom:2px solid var(--orange)}
+
+/* de-escalation practice */
+.scenario-block{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:20px}
+.scenario-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.scenario-msg{background:var(--paper);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:12px 15px;font-size:13.5px;font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:14px}
+.scenario-q{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.tone-card{background:var(--paper);border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:10px;cursor:pointer;transition:all .15s ease}
+.tone-card:last-child{margin-bottom:0}
+.tone-card:hover{border-color:var(--orange)}
+.tone-card-tag{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.tone-card-text{font-size:12.5px;color:var(--ink);line-height:1.55;font-style:italic}
+.tone-card.correct{border-color:var(--teal);background:#EAF6F5}
+.tone-card.correct .tone-card-tag{color:var(--teal)}
+.tone-card.wrong{border-color:var(--red);background:#FBEAE8}
+.tone-card.wrong .tone-card-tag{color:var(--red)}
+.tone-fb{display:none;font-size:11.5px;color:var(--mid);line-height:1.5;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)}
+.tone-card.revealed .tone-fb{display:block}
+
+.practice-bank{padding:14px 24px 18px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.practice-bank-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
+.practice-bank-list{display:flex;flex-wrap:wrap;gap:6px}
+.bank-chip{font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border-radius:12px;padding:4px 10px;cursor:help;position:relative;transition:all .2s}
+.bank-chip:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--hi);color:var(--ink);font-size:11px;font-weight:700;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
+.bank-chip:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--hi);pointer-events:none;z-index:100}
+.bank-chip.used{color:var(--teal);background:rgba(13,122,138,.18);font-weight:700}
+.bank-chip.used::after{content:attr(data-pt);color:var(--ink)}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+@media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center;gap:8px}.footer-copy{text-align:center}}
+
+/* sliding nav sidebar */
+.nav-toggle{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+.nav-toggle:hover{background:rgba(255,255,255,.16)}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300}
+.nav-overlay.open{display:block}
+.nav-sidebar{position:fixed;top:0;left:-300px;width:280px;max-width:85vw;height:100%;background:#fff;z-index:301;transition:left .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-sidebar.open{left:0}
+.nav-sidebar-head{background:var(--dark);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex:none}
+.nav-sidebar-head span{font-size:14px;font-weight:900}
+.nav-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.nav-sidebar-body{flex:1;overflow-y:auto;padding:18px 12px 30px}
+.nav-group{margin-bottom:20px}
+.nav-group-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding:0 12px;margin-bottom:8px}
+.nav-link{display:block;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;margin-bottom:2px;transition:background .15s ease}
+.nav-link:hover{background:var(--surface)}
+.nav-link.active{background:var(--surface);color:var(--teal);font-weight:800}
+</style>
+</head>
+<body>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+<nav class="nav-sidebar" id="navSidebar">
+  <div class="nav-sidebar-head">
+    <span>EIC escola</span>
+    <button class="nav-close" onclick="closeNav()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="nav-sidebar-body">
+    <div class="nav-group">
+      <div class="nav-group-label">Foundations</div>
+      <a href="supplier-reasons.html" class="nav-link">When Suppliers Walk Away</a>
+      <a href="supplier-qualification.html" class="nav-link">Qualifying a Supplier</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Grammar</div>
+      <a href="not-as-agreed-practice.html" class="nav-link">Should, Must &amp; Supposed To</a>
+      <a href="story-search.html" class="nav-link">Story Search</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Vocabulary</div>
+      <a href="contract-language.html" class="nav-link">Contract Language</a>
+      <a href="incoterms.html" class="nav-link">Incoterms</a>
+      <a href="quality-complaints.html" class="nav-link">Quality Complaints</a>
+      <a href="shipping-crisis-2021.html" class="nav-link">2021 Shipping Crisis</a>
+      <a href="customer-service-delays.html" class="nav-link active">Customer Service</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Case Journeys</div>
+      <a href="quality-journey.html" class="nav-link">Quality Journey</a>
+    </div>
+  </div>
+</nav>
+
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Supply Chain &amp; Inventory · Quick Lesson</span>
+    <button class="nav-toggle" onclick="openNav()" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Quick Lesson &middot; Real Voices</span></div>
+    <h1 class="hero-title">When the Customer Calls &mdash; <em>handling delays with care</em></h1>
+    <p class="hero-sub">Juliana works Customer Service at Torres Beverages &mdash; the same company where Fatima was fighting the 2021 shipping crisis from the supply side. While Fatima chased containers and vendors, Juliana was the one on the phone, explaining the delay to clients who just wanted their order. This is the language of managing an upset customer without losing your cool &mdash; or the relationship.</p>
+    <div class="hero-meta">
+      <span class="hero-tag">Juliana &middot; Customer Service, Torres Beverages</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">Managing Expectations</span></div>
+    <p class="sec-sub">A parte que evita a maior parte das ligações bravas: avisar antes que o cliente precise perguntar.</p>
+
+    <div class="vocab-list">
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="manter alguém informado">keep [someone] posted</span>
+        <span class="vocab-example">&mdash; send updates before they have to ask for one</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="gerenciar expectativas">manage expectations</span>
+        <span class="vocab-example">&mdash; be honest about timing instead of promising the best case</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="entrar em contato de forma proativa">reach out proactively</span>
+        <span class="vocab-example">&mdash; contact the customer before they contact you</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="um cronograma realista">a realistic timeline</span>
+        <span class="vocab-example">&mdash; a date you can actually stand behind</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="sinalizar, avisar sobre um atraso">flag a delay</span>
+        <span class="vocab-example">&mdash; raise the issue early, before it becomes a surprise</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="pior cenário possível">worst-case scenario</span>
+        <span class="vocab-example">&mdash; useful to mention so the real outcome feels better</span>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-label">In Juliana's words</div>
+      <div class="example-text">"The moment Fatima's team <b>flagged a delay</b> on the container shipment, I didn't wait for clients to call me &mdash; I <b>reached out proactively</b>. I'd rather <b>manage expectations</b> early with a <b>realistic timeline</b> than promise something I can't control and disappoint them later."</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">02</span><span class="sec-tag">De-escalating a Frustrated Customer</span></div>
+    <p class="sec-sub">Quando o aviso não foi suficiente e o cliente já está do outro lado da linha, bravo.</p>
+
+    <div class="vocab-list">
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="entendo completamente sua frustração">I completely understand your frustration</span>
+        <span class="vocab-example">&mdash; validate the feeling before defending the situation</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="eu ouço você, entendo seu ponto">I hear you</span>
+        <span class="vocab-example">&mdash; short, genuine, shows you're actually listening</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="deixa eu verificar isso">let me look into that</span>
+        <span class="vocab-example">&mdash; a concrete next step, not just an apology</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="agradeço sua paciência">I appreciate your patience</span>
+        <span class="vocab-example">&mdash; acknowledges the wait without over-apologizing</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="reverter a situação">turn this around</span>
+        <span class="vocab-example">&mdash; fix a bad experience, not just the shipment</span>
+      </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="fazer um esforço extra, ir além do esperado">go the extra mile</span>
+        <span class="vocab-example">&mdash; do a little more than what's strictly required</span>
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-label">In Juliana's words</div>
+      <div class="example-text">"When a client is angry, the worst thing you can do is get defensive. <b>I hear you</b>, <b>I completely understand your frustration</b> &mdash; that comes first, always. Then <b>let me look into that</b>, so they know something is actually happening. If we're the ones who dropped the ball, I try to <b>go the extra mile</b> to <b>turn it around</b>."</div>
+    </div>
+
+    <button class="practice-trigger" onclick="openPractice()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      Practice this vocabulary &mdash; open exercise
+    </button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">03</span><span class="sec-tag">The Call</span></div>
+    <p class="sec-sub">Um cliente liga bravo por causa do atraso &mdash; o mesmo atraso que a Fatima estava tentando resolver do outro lado.</p>
+
+    <div class="dialogue">
+      <div class="dialogue-label">Phone Call &middot; Juliana &amp; Marcus (client, a distributor)</div>
+      <div class="dline b"><span class="dspeaker">Marcus</span><span class="dtext">This is the third time my order has been delayed. I have clients asking me where their stock is, and I have no answer for them.</span></div>
+      <div class="dline a"><span class="dspeaker">Juliana</span><span class="dtext">Marcus, <b>I completely understand your frustration</b> &mdash; three delays in a row is not okay, and I'm not going to pretend it is.</span></div>
+      <div class="dline b"><span class="dspeaker">Marcus</span><span class="dtext">So what's actually happening? I keep getting vague answers.</span></div>
+      <div class="dline a"><span class="dspeaker">Juliana</span><span class="dtext">Fair. Here's the real situation: there's a global container shortage affecting the whole industry, not just us. <b>Let me look into that</b> shipment specifically and call you back within the hour with a <b>realistic timeline</b> &mdash; not a guess.</span></div>
+      <div class="dline b"><span class="dspeaker">Marcus</span><span class="dtext">Okay. I appreciate you being straight with me, at least.</span></div>
+      <div class="dline a"><span class="dspeaker">Juliana</span><span class="dtext"><b>I appreciate your patience</b>, Marcus. And going forward, I'll <b>reach out proactively</b> the moment anything changes &mdash; you won't have to chase me for updates again.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">04</span><span class="sec-tag">Now You Try: De-escalating Tension</span></div>
+    <p class="sec-sub">Três clientes, três momentos de tensão. Pra cada um, toque nas três respostas pra ver qual é a mais profissional &mdash; e por quê.</p>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Scenario 1</div>
+      <div class="scenario-msg">"This is the third delay this month! I don't even know why I bother ordering from you anymore."</div>
+      <div class="scenario-q">How should Juliana respond?</div>
+
+      <div class="tone-card" onclick="revealTone(this, false)">
+        <div class="tone-card-tag">Version A</div>
+        <div class="tone-card-text">"Oh no, I'm SO sorry, this is terrible, I feel awful about this, please don't be upset with us..."</div>
+        <div class="tone-fb">Too passive. Over-apologizing and begging for the customer's understanding puts the emotional weight on Juliana, not on solving the problem.</div>
+      </div>
+
+      <div class="tone-card" onclick="revealTone(this, true)">
+        <div class="tone-card-tag">Version B</div>
+        <div class="tone-card-text">"I hear you &mdash; three delays in one month would frustrate me too. Let me pull up your account and figure out exactly what's going on."</div>
+        <div class="tone-fb">This is the balanced response. It validates the frustration in one sentence, then moves straight into action &mdash; no over-apologizing, no defensiveness.</div>
+      </div>
+
+      <div class="tone-card" onclick="revealTone(this, false)">
+        <div class="tone-card-tag">Version C</div>
+        <div class="tone-card-text">"To be fair, most of these delays are outside our control &mdash; it's the whole industry, not just us."</div>
+        <div class="tone-fb">Too defensive. Even if it's true, leading with an excuse before acknowledging the customer's frustration makes it sound like you're minimizing the problem.</div>
+      </div>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Scenario 2</div>
+      <div class="scenario-msg">"You promised this would ship last week. Now it's 'still processing'? What does that even mean?"</div>
+      <div class="scenario-q">How should Juliana respond?</div>
+
+      <div class="tone-card" onclick="revealTone(this, false)">
+        <div class="tone-card-tag">Version A</div>
+        <div class="tone-card-text">"Um, I'm not totally sure, let me check with someone and maybe get back to you sometime today..."</div>
+        <div class="tone-fb">Too passive. "Not totally sure" and "maybe" make Juliana sound unprepared, and the customer is left with no real timeline at all.</div>
+      </div>
+
+      <div class="tone-card" onclick="revealTone(this, true)">
+        <div class="tone-card-tag">Version B</div>
+        <div class="tone-card-text">"Good question &mdash; let me check the exact status right now instead of giving you a vague answer, and I'll explain what's actually happening."</div>
+        <div class="tone-fb">This is the balanced response. It names the real issue &mdash; a vague answer isn't good enough &mdash; and commits to something concrete right away.</div>
+      </div>
+
+      <div class="tone-card" onclick="revealTone(this, false)">
+        <div class="tone-card-tag">Version C</div>
+        <div class="tone-card-text">"It means it's still processing. These things take time, there's not much I can tell you beyond that."</div>
+        <div class="tone-fb">Too dismissive. Repeating the same vague phrase back at the customer, with no offer to look further, will only escalate the tension.</div>
+      </div>
+    </div>
+
+    <div class="scenario-block">
+      <div class="scenario-label">Scenario 3</div>
+      <div class="scenario-msg">"Honestly, I'm done. I'm calling your competitor after this."</div>
+      <div class="scenario-q">How should Juliana respond?</div>
+
+      <div class="tone-card" onclick="revealTone(this, false)">
+        <div class="tone-card-tag">Version A</div>
+        <div class="tone-card-text">"Please don't go, please, I'll do literally anything, just give us one more chance, I'm begging you..."</div>
+        <div class="tone-fb">Too passive. Begging shifts the power entirely to the customer and can come across as unprofessional, even if the intention is good.</div>
+      </div>
+
+      <div class="tone-card" onclick="revealTone(this, true)">
+        <div class="tone-card-tag">Version B</div>
+        <div class="tone-card-text">"I don't want to lose your business over something we can fix. Give me five minutes to make this right before you decide."</div>
+        <div class="tone-fb">This is the balanced response. It's confident, specific ("five minutes"), and focused on action &mdash; not on convincing the customer emotionally to stay.</div>
+      </div>
+
+      <div class="tone-card" onclick="revealTone(this, false)">
+        <div class="tone-card-tag">Version C</div>
+        <div class="tone-card-text">"That's completely your call, but I doubt they'll treat you any differently given what's going on right now."</div>
+        <div class="tone-fb">Too aggressive. Implying the competitor won't be any better sounds like a threat or a dare, not customer service &mdash; and can push the customer to leave just to prove a point.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC &middot; Escola de Idiomas e Cultura</span>
+  <div class="footer-copy">Supply Chain &amp; Inventory &middot; Customer Service in a Crisis</div>
+</footer>
+
+<div class="practice-overlay" id="practiceOverlay" onclick="closePractice()"></div>
+
+<div class="practice-drawer" id="practiceDrawer">
+  <div class="practice-header">
+    <div class="practice-title-row">
+      <span class="practice-title">Practice: Customer Service in a Crisis</span>
+      <button class="practice-close" onclick="closePractice()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="practice-progress-track"><div class="practice-progress-fill" id="practiceProgressFill"></div></div>
+    <div class="practice-progress-label" id="practiceProgressLabel">0 of 12 checked</div>
+  </div>
+
+  <div class="practice-bank">
+    <div class="practice-bank-label">Word bank</div>
+    <div class="practice-bank-list" id="practiceBankList">
+      <span class="bank-chip" data-word="posted" data-pt="informado">posted</span>
+      <span class="bank-chip" data-word="manage" data-pt="gerenciar">manage</span>
+      <span class="bank-chip" data-word="look into" data-pt="verificar">look into</span>
+      <span class="bank-chip" data-word="flag" data-pt="sinalizar">flag</span>
+      <span class="bank-chip" data-word="extra mile" data-pt="esforço extra">extra mile</span>
+      <span class="bank-chip" data-word="worst-case" data-pt="pior cenário">worst-case</span>
+      <span class="bank-chip" data-word="patience" data-pt="paciência">patience</span>
+      <span class="bank-chip" data-word="frustration" data-pt="frustração">frustration</span>
+      <span class="bank-chip" data-word="turn around" data-pt="reverter">turn around</span>
+      <span class="bank-chip" data-word="proactively" data-pt="de forma proativa">proactively</span>
+      <span class="bank-chip" data-word="realistic" data-pt="realista">realistic</span>
+      <span class="bank-chip" data-word="hear" data-pt="ouço, entendo">hear</span>
+    </div>
+  </div>
+
+  <div class="practice-body">
+
+    <div class="pex-item">
+      <div class="pex-num">01 &middot; Managing Expectations</div>
+      <div class="pex-sentence">Juliana always tries to keep her clients ______, even when there's bad news.</div>
+      <input class="pex-input" id="pex1" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'posted')">Check</button></div>
+      <div class="pex-answer" id="pexA1"><strong>posted</strong> &mdash; as in "keep someone posted."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">02 &middot; Managing Expectations</div>
+      <div class="pex-sentence">Rather than wait for the client to call, Juliana ______ reaches out with updates.</div>
+      <input class="pex-input" id="pex2" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'proactively')">Check</button></div>
+      <div class="pex-answer" id="pexA2"><strong>proactively</strong> &mdash; before being asked.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">03 &middot; Managing Expectations</div>
+      <div class="pex-sentence">She promised Marcus a ______ timeline, not just a hopeful guess.</div>
+      <input class="pex-input" id="pex3" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow3"><button class="pex-check" onclick="checkPex(3,'realistic')">Check</button></div>
+      <div class="pex-answer" id="pexA3"><strong>realistic</strong> &mdash; a date she can actually stand behind.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">04 &middot; Managing Expectations</div>
+      <div class="pex-sentence">As soon as Fatima's team noticed a problem, they had to ______ the delay internally.</div>
+      <input class="pex-input" id="pex4" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow4"><button class="pex-check" onclick="checkPex(4,'flag')">Check</button></div>
+      <div class="pex-answer" id="pexA4"><strong>flag</strong> &mdash; raise it early, before it's a surprise.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">05 &middot; Managing Expectations</div>
+      <div class="pex-sentence">It's often smart to mention the ______ scenario, so the real outcome feels like good news.</div>
+      <input class="pex-input" id="pex5" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow5"><button class="pex-check" onclick="checkPex(5,'worst-case')">Check</button></div>
+      <div class="pex-answer" id="pexA5"><strong>worst-case</strong> &mdash; as in "worst-case scenario."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">06 &middot; Managing Expectations</div>
+      <div class="pex-sentence">Being honest about timing instead of promising the best case is how you ______ expectations.</div>
+      <input class="pex-input" id="pex6" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow6"><button class="pex-check" onclick="checkPex(6,'manage')">Check</button></div>
+      <div class="pex-answer" id="pexA6"><strong>manage</strong> &mdash; as in "manage expectations."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">07 &middot; De-escalating</div>
+      <div class="pex-sentence">Juliana told Marcus she completely understood his ______ before explaining anything else.</div>
+      <input class="pex-input" id="pex7" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow7"><button class="pex-check" onclick="checkPex(7,'frustration')">Check</button></div>
+      <div class="pex-answer" id="pexA7"><strong>frustration</strong> &mdash; naming the feeling first, before defending anything.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">08 &middot; De-escalating</div>
+      <div class="pex-sentence">"I ______ you" is short, but it shows the customer you're actually listening.</div>
+      <input class="pex-input" id="pex8" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow8"><button class="pex-check" onclick="checkPex(8,'hear')">Check</button></div>
+      <div class="pex-answer" id="pexA8"><strong>hear</strong> &mdash; as in "I hear you."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">09 &middot; De-escalating</div>
+      <div class="pex-sentence">Instead of just apologizing, Juliana said she would ______ the shipment personally.</div>
+      <input class="pex-input" id="pex9" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow9"><button class="pex-check" onclick="checkPex(9,'look into')">Check</button></div>
+      <div class="pex-answer" id="pexA9"><strong>look into</strong> &mdash; a concrete next step, not just an apology.</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">10 &middot; De-escalating</div>
+      <div class="pex-sentence">Marcus thanked her for her honesty, and Juliana thanked him for his ______.</div>
+      <input class="pex-input" id="pex10" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow10"><button class="pex-check" onclick="checkPex(10,'patience')">Check</button></div>
+      <div class="pex-answer" id="pexA10"><strong>patience</strong> &mdash; as in "I appreciate your patience."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">11 &middot; De-escalating</div>
+      <div class="pex-sentence">When Torres Beverages was at fault, Juliana tried to go the ______ to fix the relationship, not just the order.</div>
+      <input class="pex-input" id="pex11" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow11"><button class="pex-check" onclick="checkPex(11,'extra mile')">Check</button></div>
+      <div class="pex-answer" id="pexA11"><strong>extra mile</strong> &mdash; as in "go the extra mile."</div>
+    </div>
+
+    <div class="pex-item">
+      <div class="pex-num">12 &middot; De-escalating</div>
+      <div class="pex-sentence">A bad experience can still ______, if the person handling it takes real ownership.</div>
+      <input class="pex-input" id="pex12" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow12"><button class="pex-check" onclick="checkPex(12,'turn around')">Check</button></div>
+      <div class="pex-answer" id="pexA12"><strong>turn around</strong> &mdash; fix a bad experience, not just the shipment.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function revealTone(card, isCorrect){
+  var sel = window.getSelection();
+  if (sel && sel.toString().length > 0) return;
+  card.classList.toggle('revealed');
+  card.classList.remove('correct','wrong');
+  card.classList.add(isCorrect ? 'correct' : 'wrong');
+}
+
+function openNav(){
+  document.getElementById('navOverlay').classList.add('open');
+  document.getElementById('navSidebar').classList.add('open');
+}
+function closeNav(){
+  document.getElementById('navOverlay').classList.remove('open');
+  document.getElementById('navSidebar').classList.remove('open');
+}
+
+function openPractice() {
+  document.getElementById('practiceOverlay').classList.add('open');
+  document.getElementById('practiceDrawer').classList.add('open');
+}
+function closePractice() {
+  document.getElementById('practiceOverlay').classList.remove('open');
+  document.getElementById('practiceDrawer').classList.remove('open');
+}
+
+var pexChecked = {};
+
+function normalizeAns(s) {
+  return s.toLowerCase().trim().replace(/[.,!?"']/g, '').replace(/\s+/g, ' ');
+}
+
+function checkPex(n, correctAnswer) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  var userVal = normalizeAns(input.value);
+  var correctNorm = normalizeAns(correctAnswer);
+  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+
+  answerBox.classList.add('show');
+  input.classList.toggle('correct', isCorrect);
+  input.classList.toggle('incorrect', !isCorrect);
+
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+
+  if (!pexChecked[n]) {
+    pexChecked[n] = true;
+    updatePracticeProgress();
+    var target = correctAnswer.toLowerCase();
+    document.querySelectorAll('.bank-chip').forEach(function(chip) {
+      if (chip.dataset.word.toLowerCase() === target) chip.classList.add('used');
+    });
+  }
+}
+
+function hidePex(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = '<button class="pex-check" onclick="checkPexAgain(' + n + ')">Show again</button>';
+}
+
+function checkPexAgain(n) {
+  var answerBox = document.getElementById('pexA' + n);
+  var input = document.getElementById('pex' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  answerBox.classList.add('show');
+  var isCorrect = input.classList.contains('correct');
+  if (isCorrect) {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button>';
+  } else {
+    btnRow.innerHTML = '<button class="pex-check" onclick="hidePex(' + n + ')">Hide</button><button class="pex-check" onclick="retryPex(' + n + ')">Try again</button>';
+  }
+}
+
+function retryPex(n) {
+  var input = document.getElementById('pex' + n);
+  var answerBox = document.getElementById('pexA' + n);
+  var btnRow = document.getElementById('pexBtnRow' + n);
+  input.value = '';
+  input.classList.remove('correct');
+  input.classList.remove('incorrect');
+  answerBox.classList.remove('show');
+  btnRow.innerHTML = btnRow.dataset.checkHtml;
+  input.focus();
+}
+
+function updatePracticeProgress() {
+  var total = 12;
+  var done = Object.keys(pexChecked).length;
+  document.getElementById('practiceProgressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('practiceProgressLabel').textContent = done + ' of ' + total + ' checked';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.pex-btnrow').forEach(function(row){
+    row.dataset.checkHtml = row.innerHTML;
+  });
+});
+</script>
+
+</body>
+</html>

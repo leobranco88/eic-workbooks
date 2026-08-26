@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Deduction · Present vs Past · Classroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0B1B2E; --panel:#122844; --panel2:#17325A;
+  --border:#2A4468; --mid:#9CA9C0;
+  --neon:#D6FF3F; --neon2:#33F6E8; --coral:#FF5470;
+  --must:#33F6E8; --might:#D6FF3F; --cant:#FF5470;
+  --green:#3DDC97; --green-bg:rgba(61,220,151,.15);
+  --red-bg:rgba(255,84,112,.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--ink);color:#F2F4F8;font-size:19px;line-height:1.5}
+::selection{background:var(--neon);color:var(--ink)}
+.pw{max-width:980px;margin:0 auto;padding:0 40px 100px}
+@media(max-width:720px){.pw{padding:0 22px 80px}body{font-size:17px}}
+
+.topbar{background:var(--ink);color:#fff;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--neon)}
+.topbar-brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em}
+.topbar-brand strong{font-size:20px;font-weight:900;display:block;line-height:1.1}
+.topbar-meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);text-align:right}
+.tv-tag{display:inline-block;margin-top:4px;font-size:10px;letter-spacing:.1em;background:var(--neon);color:var(--ink);padding:2px 8px;border-radius:10px;font-weight:800}
+.navbar{background:var(--panel);border-bottom:1px solid var(--border);padding:10px 40px;position:sticky;top:64px;z-index:99;display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px}
+.navbar a{color:var(--mid);text-decoration:none;font-weight:700}
+.navbar a.active{color:#fff;border-bottom:2px solid var(--neon)}
+.pdfbar{background:var(--panel2);border-bottom:1px solid var(--border);padding:8px 40px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.pdfbar a{color:var(--neon);font-weight:700;text-decoration:none}
+.pdfbar a:hover{text-decoration:underline}
+
+.hero{padding:44px 0 24px;border-bottom:2px solid var(--border)}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--neon2)}
+.hero h1{font-size:52px;font-weight:900;line-height:1.08;margin-top:10px;letter-spacing:-0.02em}
+.hero h1 span{color:var(--neon)}
+.hero-sub{font-size:18px;color:#CBD3E1;line-height:1.6;margin-top:16px;max-width:760px}
+.level-tag{display:inline-block;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;background:var(--panel2);border:1px solid var(--neon2);color:var(--neon2);padding:4px 12px;border-radius:12px}
+.ganbare{text-align:center;margin-top:20px}
+.ganbare .kanji{font-size:40px}
+.ganbare .romaji{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:.1em;margin-top:4px}
+
+.section{padding:44px 0;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.section-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:24px}
+.s-num{font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--neon);font-weight:700}
+.s-title{font-size:30px;font-weight:900}
+.s-sub{font-size:15px;color:var(--mid);margin-top:2px}
+
+.reading{background:var(--panel);border-radius:20px;padding:36px 40px;border:1px solid var(--border)}
+.reading-byline{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);letter-spacing:.08em;margin-bottom:18px;text-transform:uppercase}
+.reading p{margin-bottom:18px;font-size:19px;line-height:1.75;color:#EDEDF0}
+.reading p:last-child{margin-bottom:0}
+.target{color:var(--ink);background:var(--neon);padding:1px 6px;border-radius:5px;font-weight:700}
+.target.past{background:var(--coral);color:#1a0a0d}
+.tt{border-bottom:2px dotted var(--neon2);cursor:help}
+
+.glossary{margin-top:22px;background:var(--panel2);border-radius:16px;padding:22px 26px;border:1px solid var(--border)}
+.glossary-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:14px}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}
+@media(max-width:640px){.g-grid{grid-template-columns:1fr}}
+.g-item{font-size:15px;line-height:1.45}
+.g-word{font-weight:800;color:#fff}
+.g-pt{color:var(--neon2);font-size:13px;margin-left:4px}
+.g-jp{color:var(--mid);font-size:12.5px;display:block;margin-top:1px}
+
+.rule-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:6px}
+@media(max-width:900px){.rule-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{border-radius:18px;padding:22px 20px;background:var(--panel2);border:2px solid var(--border)}
+.rule-card.must{border-color:var(--must)}
+.rule-card.might{border-color:var(--might)}
+.rule-card.cant{border-color:var(--cant)}
+.rule-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.rule-name{font-size:23px;font-weight:900;margin-top:6px}
+.rule-card.must .rule-name{color:var(--must)}
+.rule-card.might .rule-name{color:var(--might)}
+.rule-card.cant .rule-name{color:var(--cant)}
+.rule-pct{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);margin-top:2px}
+.rule-def{font-size:14.5px;line-height:1.55;margin-top:12px;color:#D1D5DB}
+.rule-ex{font-size:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);color:#9CA3AF;font-style:italic}
+
+.ask-box{margin-top:22px;background:var(--neon);border-radius:16px;padding:20px 24px;font-size:17px;line-height:1.55;color:var(--ink)}
+.ask-box b{font-weight:900}
+
+.tip-box{margin-top:16px;background:var(--panel);border:2px dashed var(--neon2);border-radius:16px;padding:20px 24px}
+.tip-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:8px}
+.tip-text{font-size:16.5px;line-height:1.6;color:#E5E7EB}
+.tip-text code{background:var(--panel2);padding:2px 8px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--neon)}
+
+.realtalk{margin-top:16px;background:var(--panel2);border-left:4px solid var(--neon2);border-radius:0 14px 14px 0;padding:18px 22px}
+.realtalk-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:6px}
+.realtalk p{font-size:15.5px;line-height:1.6;color:#D1D5DB}
+
+.solved-card{background:var(--panel);border:2px solid #fff;border-radius:18px;padding:24px 26px;margin-bottom:18px}
+.solved-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:var(--ink);padding:4px 12px;border-radius:14px;margin-bottom:14px}
+.solved-context{font-size:17px;color:#E5E7EB;line-height:1.6;margin-bottom:16px}
+.solved-clue{background:var(--neon);color:var(--ink);padding:1px 6px;border-radius:4px;font-weight:800}
+.solved-answer{font-size:21px;font-weight:700;color:#fff;background:var(--panel2);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.solved-answer b{color:var(--must)}
+.solved-answer.cant b{color:var(--cant)}
+.solved-why{font-size:15px;line-height:1.6;color:#9CA3AF}
+.solved-why b{color:#fff}
+
+.ex-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px 28px;margin-bottom:18px}
+.ex-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--neon);font-weight:700;margin-bottom:10px}
+.ex-context{font-size:16px;color:#B8C0D4;line-height:1.6;margin-bottom:16px}
+.ex-sentence{font-size:22px;line-height:1.85;font-weight:600;color:#F5F5F7}
+.blank-sel{appearance:none;background:var(--panel2);border:2px solid var(--border);border-radius:10px;
+  padding:6px 34px 6px 14px;font-family:inherit;font-size:20px;font-weight:700;color:#fff;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8' fill='%23D6FF3F'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;margin:0 4px}
+.blank-sel:focus{outline:3px solid var(--neon2)}
+.blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
+.blank-sel.wrong{background-color:var(--red-bg);border-color:var(--cant);color:var(--cant)}
+.ex-actions{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--neon);color:var(--ink)}
+.btn-check:hover{background:#e8ff7a}
+.btn-reset{background:transparent;color:#fff;border:2px solid var(--border);display:none}
+.btn-reset.show{display:inline-block}
+.btn-reset:hover{border-color:#fff}
+.ex-feedback{font-size:16px;font-weight:700;display:none}
+.ex-feedback.show{display:block}
+.ex-feedback.good{color:var(--green)}
+.ex-feedback.bad{color:var(--cant)}
+
+.write-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px 28px;margin-bottom:18px}
+.write-scenario{font-size:16px;color:#B8C0D4;line-height:1.6;margin-bottom:16px}
+.write-task{font-size:17px;color:#fff;font-weight:600;margin-bottom:10px;padding-left:20px;position:relative}
+.write-task::before{content:"✎";position:absolute;left:0;color:var(--neon2)}
+.write-line{border:none;border-bottom:2px solid var(--border);background:transparent;width:100%;font-family:inherit;font-size:18px;color:#fff;padding:8px 4px;margin-bottom:16px}
+.write-line:focus{outline:none;border-bottom-color:var(--neon2)}
+.write-line:last-of-type{margin-bottom:0}
+.btn-reveal-inline{margin-top:16px;background:transparent;border:2px solid var(--neon2);color:var(--neon2);font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:9px 18px;cursor:pointer;border-radius:10px}
+.btn-reveal-inline:hover,.btn-reveal-inline.active{background:var(--neon2);color:var(--ink)}
+.write-answer{display:none;margin-top:16px;background:var(--panel2);border-left:4px solid var(--neon2);border-radius:0 12px 12px 0;padding:16px 20px}
+.write-answer.show{display:block}
+.wa-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--neon2);margin-bottom:9px;font-weight:700}
+.wa-line{font-size:17px;color:#F2F4F8;margin-bottom:7px;line-height:1.5}
+.wa-line:last-child{margin-bottom:0}
+.wa-line b{color:var(--neon)}
+
+.pattern-box{background:var(--panel2);border-radius:16px;padding:24px 28px;border:1px solid var(--border);margin-bottom:20px}
+.pattern-row{display:flex;gap:18px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border)}
+.pattern-row:last-child{border-bottom:none}
+.pattern-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--neon2);min-width:110px;flex-shrink:0}
+.pattern-ex{font-size:17px;color:#F2F4F8}
+.pattern-ex em{color:var(--mid);font-size:14px;display:block;margin-top:2px;font-style:normal}
+
+.speak-box{background:var(--panel2);border:2px solid var(--neon2);border-radius:18px;padding:26px 28px}
+.speak-label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:14px}
+.speak-q{font-size:19px;line-height:1.6;margin-bottom:14px;padding-left:22px;position:relative}
+.speak-q::before{content:"♦";position:absolute;left:0;color:var(--neon2)}
+.speak-q:last-child{margin-bottom:0}
+
+footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+
+#gl-tip{display:none;position:fixed;z-index:9999;background:#F5F2ED;color:#0A0A0F;border-radius:10px;padding:12px 16px;
+  max-width:280px;font-size:14px;line-height:1.45;box-shadow:0 12px 34px rgba(0,0,0,.45);border:1px solid #D9D5CF}
+#gl-tip-pt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#0F8C82;margin-bottom:4px}
+#gl-tip-jp{font-size:12px;color:#6B7280;margin-top:6px;padding-top:6px;border-top:1px dashed #D9D5CF}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand"><strong>EIC.</strong>DEDUCTION · PRESENT &amp; PAST · TOSHIE</div>
+  <div class="topbar-meta">GRAMMAR · MODALS OF DEDUCTION<br><span class="tv-tag">TV / PROJECTOR MODE</span></div>
+</div>
+<div class="navbar">
+  <a href="deduction-classroom.html" class="active">Classroom</a>
+  <a href="deduction-homework.html">Homework</a>
+</div>
+<div class="pdfbar">⬇ <a href="deduction-classroom.pdf">Download PDF version</a></div>
+
+<div class="pw">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Grammar Lab · Round 2 · Classroom</div>
+    <h1>What probably <span>happened</span>?</h1>
+    <p class="hero-sub">Dedução em inglês muda de forma dependendo do momento: agora (must be) ou no passado (must have been). A certeza não muda, só a distância no tempo muda a estrutura. Hoje praticamos as duas com situações de viagem, hotéis e aeroportos.</p>
+    <div class="level-tag">TEXTO ADAPTADO · NÍVEL B1+</div>
+    <div class="ganbare"><div class="kanji">頑張れ</div><div class="romaji">ganbare · you've got this</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">01</span><div><div class="s-title">The Missing Suitcase</div><div class="s-sub">Leitura · By Yuki Tanaka, travel essayist</div></div></div>
+    <div class="reading">
+      <div class="reading-byline">Kansai Airport · 11:40pm · a short travel story</div>
+      <p>The bags stopped coming twenty minutes ago, and mine never appeared. A woman next to me <span class="tt" data-tip="shrugged">shrugged</span>. "It <span class="target">must be</span> stuck on the flight from Seoul," she said. She sounded very <span class="tt" data-tip="calm">calm</span>, like someone who has seen this before. It wasn't really a <span class="tt" data-tip="guess">guess</span>. It felt more like a <span class="tt" data-tip="conclusion">conclusion</span>.</p>
+      <p>An airport worker walked past with a tablet. She didn't stop, so I asked her <span class="tt" data-tip="directly">directly</span>. "It <span class="target">could be</span> on the next flight," she said. "Or it <span class="target">might be</span> sitting in Seoul until tomorrow. Hard to say." Two <span class="tt" data-tip="possibility">possibilities</span>. Both still open.</p>
+      <p>I thought back to check-in in São Paulo. The agent took a long time with my tag. I <span class="target past">must have missed</span> the <span class="tt" data-tip="connection">connection</span> by just a few minutes. Or maybe not. The tag <span class="target past">could have fallen off</span> somewhere between gates. I <span class="target past">can't have imagined</span> the whole thing. The tracking number was real, right there on my phone.</p>
+      <p>What <span class="tt" data-tip="struckme">struck me</span>, waiting under the airport lights, was how naturally we use these expressions when we don't know the truth. We don't say "I don't know." We say "it must be," "it could have been," "it can't have." We build a small, temporary certainty out of <span class="tt" data-tip="clues">clues</span>. When my suitcase finally came out an hour later, it hadn't been in Seoul at all. It <span class="target past">must have been loaded</span> late in São Paulo. The ground team simply <span class="tt" data-tip="ranoutof">ran out of time</span>.</p>
+    </div>
+
+    <div class="glossary">
+      <div class="glossary-label">Glossário · palavras e expressões desta leitura</div>
+      <div class="g-grid">
+        <div class="g-item"><span class="g-word">shrugged</span><span class="g-pt">deu de ombros</span><span class="g-jp">肩をすくめた</span></div>
+        <div class="g-item"><span class="g-word">calm</span><span class="g-pt">calmo, tranquilo</span><span class="g-jp">落ち着いた</span></div>
+        <div class="g-item"><span class="g-word">guess</span><span class="g-pt">chute, suposição</span><span class="g-jp">推測</span></div>
+        <div class="g-item"><span class="g-word">conclusion</span><span class="g-pt">conclusão</span><span class="g-jp">結論</span></div>
+        <div class="g-item"><span class="g-word">directly</span><span class="g-pt">diretamente</span><span class="g-jp">直接に</span></div>
+        <div class="g-item"><span class="g-word">possibility</span><span class="g-pt">possibilidade</span><span class="g-jp">可能性</span></div>
+        <div class="g-item"><span class="g-word">connection</span><span class="g-pt">conexão (voo)</span><span class="g-jp">乗り継ぎ</span></div>
+        <div class="g-item"><span class="g-word">to fall off</span><span class="g-pt">cair, se soltar</span><span class="g-jp">外れる・落ちる</span></div>
+        <div class="g-item"><span class="g-word">something struck me</span><span class="g-pt">algo me chamou a atenção</span><span class="g-jp">心に浮かんだ</span></div>
+        <div class="g-item"><span class="g-word">clues</span><span class="g-pt">pistas</span><span class="g-jp">手がかり</span></div>
+        <div class="g-item"><span class="g-word">to run out of time</span><span class="g-pt">ficar sem tempo</span><span class="g-jp">時間切れになる</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">02</span><div><div class="s-title">Deduction · Present</div><div class="s-sub">O que provavelmente é verdade agora</div></div></div>
+
+    <div class="rule-grid">
+      <div class="rule-card must">
+        <div class="rule-label">Quase certeza</div>
+        <div class="rule-name">must be</div>
+        <div class="rule-pct">~95% de certeza</div>
+        <p class="rule-def">Você tem evidência forte. A conclusão é quase inevitável.</p>
+        <p class="rule-ex">"The lights are off. She must be asleep."</p>
+      </div>
+      <div class="rule-card might">
+        <div class="rule-label">Possibilidade</div>
+        <div class="rule-name">might / may be</div>
+        <div class="rule-pct">~40 a 60% de certeza</div>
+        <p class="rule-def">Uma possibilidade real, sem evidência forte de nenhum lado.</p>
+        <p class="rule-ex">"He might be at the gym. I'm not sure."</p>
+      </div>
+      <div class="rule-card might">
+        <div class="rule-label">Possibilidade</div>
+        <div class="rule-name">could be</div>
+        <div class="rule-pct">~40 a 60% de certeza</div>
+        <p class="rule-def">Quase igual a "might be". Outra opção em aberto.</p>
+        <p class="rule-ex">"That could be our flight being called."</p>
+      </div>
+      <div class="rule-card cant">
+        <div class="rule-label">Quase impossível</div>
+        <div class="rule-name">can't be</div>
+        <div class="rule-pct">~95% de impossibilidade</div>
+        <p class="rule-def">A evidência torna a ideia praticamente impossível.</p>
+        <p class="rule-ex">"That can't be our gate. It changed an hour ago."</p>
+      </div>
+    </div>
+
+    <div class="ask-box"><b>A regra de ouro:</b> nunca use "mustn't be" para dedução negativa. Para dizer que algo é quase impossível, use <b>can't be</b>.</div>
+
+    <div class="tip-box">
+      <div class="tip-label">Dica extra</div>
+      <div class="tip-text">Todos esses modais de dedução vêm seguidos de <code>be</code> + adjetivo ou substantivo, ou de um verbo com <code>-ing</code> quando descrevem uma ação em progresso: <code>"She must be traveling right now."</code> A estrutura de certeza não muda, só o verbo depois muda de forma.</div>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Evidência forte → must be</span>
+      <p class="solved-context">The hotel lobby is completely empty and <span class="solved-clue">every light in the building is off</span> at 2am.</p>
+      <div class="solved-answer">The front desk <b>must be</b> closed for the night.</div>
+      <p class="solved-why"><b>Por quê "must be":</b> a evidência (luzes apagadas, lobby vazio, 2 da manhã) é forte o suficiente para uma conclusão quase certa. Não é opinião, é a leitura mais lógica dos fatos.</p>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Evidência contraditória → can't be</span>
+      <p class="solved-context">The boarding pass clearly says <span class="solved-clue">Gate 14</span>, but the screen above this gate shows a completely different flight number.</p>
+      <div class="solved-answer cant">This <b>can't be</b> the right gate.</div>
+      <p class="solved-why"><b>Por quê "can't be":</b> a evidência na tela contradiz a suposição. Quando algo é logicamente impossível dado o que você vê, é "can't be", nunca "mustn't be".</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">02.1</span><div><div class="s-title">Practice · Present Deduction</div><div class="s-sub">Escolha o modal certo pelo contexto</div></div></div>
+
+    <div class="ex-card">
+      <div class="ex-num">01</div>
+      <p class="ex-context">The suitcase on the belt has a name tag with someone else's name on it, clearly visible.</p>
+      <p class="ex-sentence">This <select class="blank-sel" data-correct="can't be"><option value="">___</option><option value="must be">must be</option><option value="might be">might be</option><option value="can't be">can't be</option></select> my suitcase.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">02</div>
+      <p class="ex-context">Two lights are on in the ryokan, and you can faintly hear water running behind one of the doors.</p>
+      <p class="ex-sentence">Someone <select class="blank-sel" data-correct="must be"><option value="">___</option><option value="might be">might be</option><option value="must be">must be</option><option value="can't be">can't be</option></select> taking a bath right now.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">03</div>
+      <p class="ex-context">You see a number you don't know calling. It could be the hotel, or it could be something else. No way to know yet.</p>
+      <p class="ex-sentence">It <select class="blank-sel" data-correct="might be"><option value="">___</option><option value="must be">must be</option><option value="can't be">can't be</option><option value="might be">might be</option></select> the hotel calling to confirm.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">04</div>
+      <p class="ex-context">Every clock in the train station shows the same time, and it matches your phone exactly.</p>
+      <p class="ex-sentence">The station clock <select class="blank-sel" data-correct="must be"><option value="">___</option><option value="can't be">can't be</option><option value="must be">must be</option><option value="might be">might be</option></select> accurate.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">05</div>
+      <p class="ex-context">The receptionist checked your name twice and found nothing, but the system had a technical problem this morning.</p>
+      <p class="ex-sentence">The reservation <select class="blank-sel" data-correct="could be"><option value="">___</option><option value="must be">must be</option><option value="could be">could be</option><option value="can't be">can't be</option></select> under a different name by mistake.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">06</div>
+      <p class="ex-context">The tour guide is wearing a thick winter coat, gloves, and a scarf, even though you're standing outside together.</p>
+      <p class="ex-sentence">She <select class="blank-sel" data-correct="must be"><option value="">___</option><option value="can't be">can't be</option><option value="might be">might be</option><option value="must be">must be</option></select> freezing.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">03</span><div><div class="s-title">Deduction · Past</div><div class="s-sub">O que provavelmente aconteceu</div></div></div>
+
+    <div class="rule-grid">
+      <div class="rule-card must">
+        <div class="rule-label">Quase certeza sobre o passado</div>
+        <div class="rule-name">must have been</div>
+        <div class="rule-pct">~95% de certeza</div>
+        <p class="rule-def">Você olha para trás e a conclusão é quase inevitável.</p>
+        <p class="rule-ex">"The room was freezing. The heater must have broken."</p>
+      </div>
+      <div class="rule-card might">
+        <div class="rule-label">Possibilidade sobre o passado</div>
+        <div class="rule-name">might / could have been</div>
+        <div class="rule-pct">~40 a 60% de certeza</div>
+        <p class="rule-def">Uma explicação possível para algo que já aconteceu.</p>
+        <p class="rule-ex">"She might have left early. I didn't see her go."</p>
+      </div>
+      <div class="rule-card might">
+        <div class="rule-label">Possibilidade sobre o passado</div>
+        <div class="rule-name">may have been</div>
+        <div class="rule-pct">~40 a 60% de certeza</div>
+        <p class="rule-def">Mesma força de "might have". Mais formal.</p>
+        <p class="rule-ex">"The delay may have been caused by weather."</p>
+      </div>
+      <div class="rule-card cant">
+        <div class="rule-label">Quase impossível no passado</div>
+        <div class="rule-name">can't have been</div>
+        <div class="rule-pct">~95% de impossibilidade</div>
+        <p class="rule-def">A evidência torna essa versão do passado praticamente impossível.</p>
+        <p class="rule-ex">"He can't have taken the early train. He was still here at 8am."</p>
+      </div>
+    </div>
+
+    <div class="ask-box"><b>Formando o passado:</b> modal + <b>have</b> + particípio passado. "Must have missed", "could have fallen", "can't have imagined". O verbo depois de "have" nunca muda de forma.</div>
+
+    <div class="realtalk">
+      <div class="realtalk-label">Real Talk · なぜこの構文が難しいか</div>
+      <p>日本語には「〜したに違いない」という言い方がありますが、英語では「今の推測」と「過去の推測」をはっきり分けます。<b>must be</b>は「今」起きていることへの推測、<b>must have been</b>は「すでに終わったこと」への推測です。<b>have + 過去分詞</b>を足すだけで過去の推測になる、と覚えると簡単です。</p>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Conclusão forte sobre o passado</span>
+      <p class="solved-context">You return to your hotel room and <span class="solved-clue">the towels have been changed and the bed is freshly made</span>, though you didn't request anything.</p>
+      <div class="solved-answer">Housekeeping <b>must have come</b> while you were out.</div>
+      <p class="solved-why"><b>Por quê "must have come":</b> as evidências físicas tornam essa a explicação quase certa para algo que já aconteceu. Presente da evidência, passado da ação.</p>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Impossibilidade sobre o passado</span>
+      <p class="solved-context">Your colleague says he saw you at the airport yesterday at 6am, but <span class="solved-clue">you have a boarding pass showing you landed in a different city at 5am</span> that same morning.</p>
+      <div class="solved-answer cant">That <b>can't have been</b> me.</div>
+      <p class="solved-why"><b>Por quê "can't have been":</b> a evidência contradiz a afirmação. Impossibilidade lógica sobre o passado é sempre "can't have", nunca "mustn't have".</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">03.1</span><div><div class="s-title">Practice · Past Deduction</div><div class="s-sub">Modal + have + particípio</div></div></div>
+
+    <div class="ex-card">
+      <div class="ex-num">01</div>
+      <p class="ex-context">You wake up and find your window wide open, curtains soaked, and puddles on the floor.</p>
+      <p class="ex-sentence">It <select class="blank-sel" data-correct="must have rained"><option value="">___</option><option value="might have rained">might have rained</option><option value="must have rained">must have rained</option><option value="can't have rained">can't have rained</option></select> heavily during the night.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">02</div>
+      <p class="ex-context">The guide said the shrine closes at 4pm every day this month. You're looking at photos of it fully lit and open at 9pm, dated last week.</p>
+      <p class="ex-sentence">Those photos <select class="blank-sel" data-correct="can't have been"><option value="">___</option><option value="must have been">must have been</option><option value="can't have been">can't have been</option><option value="might have been">might have been</option></select> taken at the shrine, at least not this month.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">03</div>
+      <p class="ex-context">Your friend didn't answer any messages for six hours during the flight. Perfectly explainable, but you can't confirm exactly why yet.</p>
+      <p class="ex-sentence">She <select class="blank-sel" data-correct="might have turned"><option value="">___</option><option value="must have turned">must have turned</option><option value="can't have turned">can't have turned</option><option value="might have turned">might have turned</option></select> her phone off during the flight.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">04</div>
+      <p class="ex-context">The receipt on the table shows two coffees and two pastries, though you were traveling alone all morning.</p>
+      <p class="ex-sentence">Someone <select class="blank-sel" data-correct="must have joined"><option value="">___</option><option value="might have joined">might have joined</option><option value="can't have joined">can't have joined</option><option value="must have joined">must have joined</option></select> you at the café. This receipt is for two people.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">05</div>
+      <p class="ex-context">Your flight landed at 11pm and the hotel is a 40 minute taxi ride away, yet a text says you checked in at 11:05pm.</p>
+      <p class="ex-sentence">That message <select class="blank-sel" data-correct="can't have been"><option value="">___</option><option value="could have been">could have been</option><option value="must have been">must have been</option><option value="can't have been">can't have been</option></select> sent at the right time. The times don't match.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">06</div>
+      <p class="ex-context">Your umbrella is missing from the stand where you left it, but three other umbrellas that look almost identical are still there.</p>
+      <p class="ex-sentence">Someone <select class="blank-sel" data-correct="could have taken"><option value="">___</option><option value="must have taken">must have taken</option><option value="can't have taken">can't have taken</option><option value="could have taken">could have taken</option></select> it by mistake. They do look alike.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">04</span><div><div class="s-title">Mixed Practice</div><div class="s-sub">Presente ou passado? A pista está no tempo do contexto</div></div></div>
+
+    <div class="ex-card">
+      <div class="ex-num">01</div>
+      <p class="ex-context">Right now, every seat at the gate is empty and the departure screen shows nothing about this flight anymore.</p>
+      <p class="ex-sentence">They <select class="blank-sel" data-correct="must have"><option value="">___</option><option value="must be">must be</option><option value="can't be">can't be</option><option value="must have">must have</option></select> already boarded everyone.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">02</div>
+      <p class="ex-context">Right now, you can hear two voices speaking Japanese quietly through the thin wall next to your room.</p>
+      <p class="ex-sentence">The couple next door <select class="blank-sel" data-correct="must be"><option value="">___</option><option value="must have been">must have been</option><option value="can't have been">can't have been</option><option value="must be">must be</option></select> awake still.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">03</div>
+      <p class="ex-context">Looking back at last night, the streets were completely silent by 9pm, which is unusual for that neighbourhood.</p>
+      <p class="ex-sentence">There <select class="blank-sel" data-correct="must have been"><option value="">___</option><option value="must be">must be</option><option value="must have been">must have been</option><option value="can't be">can't be</option></select> some kind of local event keeping everyone indoors, or maybe just a quiet Tuesday.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">04</div>
+      <p class="ex-context">You're looking at the departures board right now and this gate number simply doesn't exist on the whole board.</p>
+      <p class="ex-sentence">This <select class="blank-sel" data-correct="can't be"><option value="">___</option><option value="must be">must be</option><option value="can't have been">can't have been</option><option value="can't be">can't be</option></select> the correct gate number.</p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">05</span><div><div class="s-title">Asking &amp; Answering</div><div class="s-sub">Como perguntar e responder usando dedução</div></div></div>
+
+    <div class="pattern-box">
+      <div class="pattern-row"><span class="pattern-tag">Yes/No</span><span class="pattern-ex">"Could this be a mistake?"<em>Modal no início, como qualquer pergunta de sim/não.</em></span></div>
+      <div class="pattern-row"><span class="pattern-tag">Yes/No · past</span><span class="pattern-ex">"Might they have missed the train?"<em>Modal + subject + have + particípio.</em></span></div>
+      <div class="pattern-row"><span class="pattern-tag">Wh-question</span><span class="pattern-ex">"What could be causing the delay?"<em>Wh-word antes do modal.</em></span></div>
+      <div class="pattern-row"><span class="pattern-tag">Wh · past</span><span class="pattern-ex">"Why might the flight have been cancelled?"<em>Wh-word + modal + subject + have + particípio.</em></span></div>
+      <div class="pattern-row"><span class="pattern-tag">Short answer</span><span class="pattern-ex">"It could be, yes." · "Probably not, it can't be." · "It must have been, I think."<em>Resposta curta, sem repetir a frase toda.</em></span></div>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Exemplo resolvido · pergunta + resposta curta</span>
+      <p class="solved-context">Your hotel room smells strongly of smoke, even though you booked a non-smoking room.</p>
+      <div class="solved-answer">Q: "What could have happened in this room?"<br>A: "Someone must have smoked here. The smell is too strong to be anything else."</div>
+      <p class="solved-why"><b>Por quê funciona:</b> a pergunta usa "could have" porque você ainda não sabe a causa, só quer investigar. A resposta usa "must have" porque agora você está dando sua conclusão mais provável, com confiança.</p>
+    </div>
+
+    <div class="write-card">
+      <div class="write-scenario"><b>Situação:</b> A friend's phone has been off all day, with no reply to any message.</div>
+      <p class="write-task">Write a yes/no question using "might have":</p>
+      <input class="write-line" type="text" placeholder="Write your question here...">
+      <p class="write-task">Write a short answer using "must have":</p>
+      <input class="write-line" type="text" placeholder="Write your short answer here...">
+      <button class="btn-reveal-inline" onclick="toggleWrite(this)">Show example</button>
+      <div class="write-answer">
+        <div class="wa-label">Example</div>
+        <div class="wa-line"><b>Q:</b> Might her phone have died?</div>
+        <div class="wa-line"><b>A:</b> It must have. She never leaves it off this long.</div>
+      </div>
+    </div>
+
+    <div class="write-card">
+      <div class="write-scenario"><b>Situação:</b> The restaurant you booked is dark and empty when you arrive, though the sign says "Open."</div>
+      <p class="write-task">Write a wh-question using "could be" (present):</p>
+      <input class="write-line" type="text" placeholder="Write your question here...">
+      <p class="write-task">Write a short answer using "can't be":</p>
+      <input class="write-line" type="text" placeholder="Write your short answer here...">
+      <button class="btn-reveal-inline" onclick="toggleWrite(this)">Show example</button>
+      <div class="write-answer">
+        <div class="wa-label">Example</div>
+        <div class="wa-line"><b>Q:</b> What could be going on here?</div>
+        <div class="wa-line"><b>A:</b> It can't be open. Everything is dark and locked.</div>
+      </div>
+    </div>
+
+    <div class="write-card">
+      <div class="write-scenario"><b>Situação:</b> Your suitcase arrived with a small new scratch on the side.</div>
+      <p class="write-task">Write a wh-question using "might have happened" (past):</p>
+      <input class="write-line" type="text" placeholder="Write your question here...">
+      <p class="write-task">Write a short answer using "must have":</p>
+      <input class="write-line" type="text" placeholder="Write your short answer here...">
+      <button class="btn-reveal-inline" onclick="toggleWrite(this)">Show example</button>
+      <div class="write-answer">
+        <div class="wa-label">Example</div>
+        <div class="wa-line"><b>Q:</b> What might have happened to it during the flight?</div>
+        <div class="wa-line"><b>A:</b> It must have happened during loading. It wasn't there before.</div>
+      </div>
+    </div>
+
+    <div class="write-card">
+      <div class="write-scenario"><b>Situação:</b> Every shop on the street is closed at 3pm on a Tuesday, which feels unusual.</div>
+      <p class="write-task">Write a yes/no question using "must be" (present):</p>
+      <input class="write-line" type="text" placeholder="Write your question here...">
+      <p class="write-task">Write a short answer using "could be":</p>
+      <input class="write-line" type="text" placeholder="Write your short answer here...">
+      <button class="btn-reveal-inline" onclick="toggleWrite(this)">Show example</button>
+      <div class="write-answer">
+        <div class="wa-label">Example</div>
+        <div class="wa-line"><b>Q:</b> Must there be some kind of holiday today?</div>
+        <div class="wa-line"><b>A:</b> There could be. I'm not sure, but it would explain it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">06</span><div><div class="s-title">Speaking Corner</div><div class="s-sub">Fale com o professor · use pelo menos 3 modais de dedução</div></div></div>
+    <div class="speak-box">
+      <div class="speak-label">Discussion · 4 questions</div>
+      <p class="speak-q">Think of a time something confusing happened while traveling: a missing bag, a wrong room, a delayed train. What did you think must have happened, in the moment?</p>
+      <p class="speak-q">Look around this room right now. What's one thing you could make a deduction about? Try "that must be…" or "that can't be…".</p>
+      <p class="speak-q">Have you ever been completely wrong about a deduction? What turned out to be the real explanation?</p>
+      <p class="speak-q">A colleague didn't answer any messages all weekend. Give three possible explanations, using must have, might have, and could have.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>EIC Escola de Idiomas e Cultura · Deduction Present &amp; Past · Round 2 · Aluno: Toshie · Classroom Edition</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div><div id="gl-tip-jp"></div></div>
+
+<script>
+function checkEx(btn){
+  var card = btn.closest('.ex-card');
+  var selects = card.querySelectorAll('.blank-sel');
+  var allCorrect = true;
+  selects.forEach(function(s){
+    s.classList.remove('correct','wrong');
+    if (s.value === '') { allCorrect = false; return; }
+    if (s.value === s.getAttribute('data-correct')) {
+      s.classList.add('correct');
+    } else {
+      s.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  var fb = card.querySelector('.ex-feedback');
+  var resetBtn = card.querySelector('.btn-reset');
+  fb.classList.add('show');
+  if (allCorrect) {
+    fb.textContent = 'Correct!';
+    fb.className = 'ex-feedback show good';
+    resetBtn.classList.remove('show');
+  } else {
+    fb.textContent = 'Not quite yet. De onde vem a certeza, ou a falta dela? Presente ou passado?';
+    fb.className = 'ex-feedback show bad';
+    resetBtn.classList.add('show');
+  }
+}
+function resetEx(btn){
+  var card = btn.closest('.ex-card');
+  card.querySelectorAll('.blank-sel').forEach(function(s){
+    s.value = '';
+    s.classList.remove('correct','wrong');
+  });
+  var fb = card.querySelector('.ex-feedback');
+  fb.classList.remove('show');
+  fb.textContent = '';
+  btn.classList.remove('show');
+}
+function toggleWrite(btn){
+  var card = btn.closest('.write-card');
+  var ans = card.querySelector('.write-answer');
+  var show = ans.classList.toggle('show');
+  btn.textContent = show ? 'Hide example' : 'Show example';
+  btn.classList.toggle('active', show);
+}
+document.querySelectorAll('.blank-sel').forEach(function(s){
+  s.addEventListener('change', function(){ s.classList.remove('correct','wrong'); });
+});
+
+(function() {
+  var TIPS = {
+    "shrugged": {pt: "deu de ombros", def: "Moved the shoulders up to show you don't know or don't mind.", jp: "肩をすくめた"},
+    "calm": {pt: "calmo, tranquilo", def: "Relaxed, not worried or nervous.", jp: "落ち着いた"},
+    "guess": {pt: "chute, suposição", def: "Something you say without being sure it's true.", jp: "推測"},
+    "conclusion": {pt: "conclusão", def: "The final decision you reach after thinking about something.", jp: "結論"},
+    "directly": {pt: "diretamente", def: "Straight, without waiting or going through someone else.", jp: "直接に"},
+    "possibility": {pt: "possibilidade", def: "Something that could happen, but isn't certain.", jp: "可能性"},
+    "connection": {pt: "conexão (voo)", def: "A second flight that continues your trip.", jp: "乗り継ぎ"},
+    "struckme": {pt: "me chamou a atenção", def: "\"Something struck me\" = it suddenly made me think about it.", jp: "心に浮かんだ"},
+    "clues": {pt: "pistas", def: "Small pieces of evidence that help you understand something.", jp: "手がかり"},
+    "ranoutof": {pt: "ficou sem tempo", def: "\"To run out of time\" = to have no more time left.", jp: "時間切れになる"}
+  };
+
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    var tipJp = document.getElementById("gl-tip-jp");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      function show(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tipJp.textContent = data.jp;
+        tip.style.display = "block";
+        moveTip(e);
+      }
+      el.addEventListener("mouseenter", show);
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        show(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 130, window.innerWidth - 280));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 18) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>
