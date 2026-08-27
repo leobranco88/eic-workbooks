@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wrap-Up: Complete as Histórias · Neural English · EIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:   #0D1FFF;
+  --orange: #FF3C38;
+  --ink:    #0A0A0A;
+  --mid:    #545454;
+  --light:  #E8E8E4;
+  --snow:   #F6F6F4;
+  --white:  #FFFFFF;
+
+  --a:  #0D1FFF;
+  --b:  #107A5A;
+  --c:  #F5006A;
+  --y:  #FFA10A;
+
+  --a-tint: #EEF1FF;
+  --b-tint: #E8F5F0;
+  --c-tint: #FFE6EF;
+  --y-tint: #FFF3E0;
+
+  --neon: #F2FF3D;
+  --neon-ink: #0A0A0A;
+
+  --ok:   #107A5A;
+  --ok-tint: #E8F5F0;
+  --bad:  #F5006A;
+  --bad-tint: #FFE6EF;
+
+  --content-w: clamp(900px, 62vw, 1240px);
+  --text-w: clamp(640px, 48vw, 920px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+::selection { background: var(--neon); color: var(--neon-ink); }
+::-moz-selection { background: var(--neon); color: var(--neon-ink); }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 60px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+}
+.nav-left { display: flex; align-items: center; }
+.nav-logo { height: 30px; display: block; }
+.nav-module {
+  display: flex; align-items: center; gap: 8px;
+  margin-left: 16px; padding-left: 16px;
+  border-left: 1px solid var(--light);
+}
+.nav-module-label { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+.nav-module-name { font-size: 13px; font-weight: 900; letter-spacing: -0.01em; color: var(--white); background: var(--orange); padding: 4px 11px; border-radius: 7px; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-level { font-size: 12px; font-weight: 700; color: var(--mid); letter-spacing: 0.04em; text-transform: uppercase; }
+.nav-link { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; color: var(--ink); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
+.nav-link:hover { color: var(--orange); }
+.nav-link svg { flex-shrink: 0; }
+.nav-pdf-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ink); color: var(--white);
+  font-size: 12.5px; font-weight: 800;
+  padding: 8px 14px; border-radius: 100px; text-decoration: none;
+  transition: background 0.15s, transform 0.15s; white-space: nowrap;
+}
+.nav-pdf-btn:hover { background: var(--orange); transform: translateY(-1px); }
+.nav-pdf-btn svg { flex-shrink: 0; }
+@media (max-width: 780px) {
+  .nav-level { display: none; }
+  .nav-right { gap: 10px; }
+  .nav-link span.nav-link-text { display: none; }
+  .nav-pdf-btn span { display: none; }
+  .nav-pdf-btn { padding: 8px 10px; }
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero { padding: 48px 60px 32px; max-width: var(--content-w); margin: 0 auto; }
+.hero-eyebrow {
+  font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 18px; display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 3px; background: var(--orange); border-radius: 2px; }
+h1 { font-size: clamp(38px, 4.2vw + 20px, 88px); font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 6px; }
+h1 .n1 { color: var(--a); }
+h1 .n2 { color: var(--c); }
+.hero-title-pt { font-size: clamp(15px, 0.6vw + 13px, 20px); font-weight: 700; font-style: italic; color: var(--mid); margin-bottom: 20px; }
+.hero-sub { font-size: 17px; font-weight: 400; color: var(--mid); line-height: 1.7; max-width: var(--text-w); }
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+.hero-sub-pt {
+  font-size: 15px; font-weight: 400; font-style: italic; color: var(--mid); line-height: 1.7;
+  max-width: var(--text-w); margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--light);
+}
+.hero-sub-pt strong { color: var(--ink); font-weight: 600; font-style: normal; }
+
+/* ── SECTION SHELL ────────────────────────────────────── */
+section.part { max-width: var(--content-w); margin: 0 auto; padding: 44px 60px; border-top: 1px solid var(--light); }
+.part-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-bottom: 10px; }
+.part-eyebrow .num { width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
+.part h2 { font-size: clamp(24px, 2vw + 15px, 46px); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
+.h2-pt { font-size: clamp(14px, 0.4vw + 12px, 18px); font-weight: 700; font-style: italic; color: var(--mid); margin-bottom: 16px; }
+.part-intro { font-size: 15.5px; color: var(--mid); line-height: 1.7; max-width: var(--text-w); margin-bottom: 20px; }
+.part-intro strong { color: var(--ink); font-weight: 700; }
+
+/* ── VOCAB TOOLTIP (orange dotted underline, tap/click to show) ─ */
+.voc { border-bottom: 1.5px dotted var(--orange); color: inherit; font-weight: 700; cursor: pointer; position: relative; }
+.voc-bubble {
+  position: fixed; z-index: 999; background: var(--ink); color: var(--white);
+  font-size: clamp(12px, 0.6vw + 10px, 16px); font-weight: 600; line-height: 1.4;
+  padding: 8px 12px; border-radius: 8px; max-width: min(82vw, 340px); text-align: center;
+  opacity: 0; transform: translateY(4px); pointer-events: none; transition: opacity .15s, transform .15s;
+}
+.voc-bubble.show { opacity: 1; transform: translateY(0); }
+
+/* ── AVATARS ──────────────────────────────────────────── */
+.avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; color: var(--white); flex-shrink: 0; }
+.av-tom { background: var(--a); }
+.av-mia { background: var(--c); }
+.av-jake { background: var(--b); }
+.av-sophie { background: var(--y); }
+.av-daniel { background: #6C4EFF; }
+.av-lena { background: #00A6A6; }
+
+/* ── CLOZE TEXT CARD ──────────────────────────────────── */
+.cloze-card { background: var(--snow); border-radius: 16px; padding: 28px 30px; margin-bottom: 20px; }
+.cloze-card p { font-size: clamp(15px, 0.5vw + 13px, 20px); line-height: 2.6; color: var(--ink); }
+.cloze-card .char-line { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+.cloze-card .char-line span.story-title { font-size: 13px; color: var(--mid); font-weight: 700; margin-left: 4px; }
+.cloze-blank { display: inline-flex; gap: 5px; vertical-align: middle; margin: 2px 3px; }
+.cloze-chip {
+  font-family: 'Inter', sans-serif; font-size: 0.6em; font-weight: 800;
+  padding: 4px 12px; border-radius: 8px; border: 2px solid var(--light);
+  background: var(--white); color: var(--ink); cursor: pointer; transition: all 0.12s;
+}
+.cloze-chip:hover:not(:disabled) { border-color: var(--ink); }
+.cloze-chip.correct { background: var(--ok-tint); border-color: var(--ok); color: var(--ok); }
+.cloze-chip.incorrect { background: var(--bad-tint); border-color: var(--bad); color: var(--bad); }
+.cloze-chip:disabled { cursor: default; }
+.cloze-resolved { font-weight: 800; color: var(--ok); background: var(--ok-tint); padding: 2px 10px; border-radius: 8px; margin: 0 3px; }
+.cloze-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; font-size: 13px; font-weight: 700; color: var(--mid); }
+.cloze-progress-bar { flex: 1; height: 6px; background: var(--light); border-radius: 4px; overflow: hidden; }
+.cloze-progress-fill { height: 100%; background: var(--ok); width: 0%; transition: width 0.3s; }
+.cloze-reset { background: none; border: none; font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--a); cursor: pointer; text-decoration: underline; }
+
+.completion-msg { display: none; align-items: center; gap: 10px; background: var(--ok-tint); color: var(--ok); font-weight: 800; font-size: 14px; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; }
+.completion-msg.show { display: flex; }
+
+/* ── OUTCOMES (interactive) ───────────────────────────── */
+.outcomes { background: var(--white); border: 1px solid var(--light); border-radius: 16px; padding: 24px 26px; }
+.outcomes-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+.outcomes-header h3 { font-size: 18px; font-weight: 900; }
+.outcomes-counter { font-size: 13px; font-weight: 800; color: var(--mid); }
+.outcomes-sub { font-size: 13.5px; color: var(--mid); margin-bottom: 14px; }
+.outcome-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  background: var(--white); border: 1px solid var(--light); border-left: 4px solid var(--y);
+  border-radius: 10px; padding: 11px 14px; margin-bottom: 6px; cursor: pointer;
+  font-family: inherit; transition: all 0.15s;
+}
+.outcome-item:last-child { margin-bottom: 0; }
+.outcome-item:hover { border-color: var(--mid); }
+.outcome-item:hover.confirmed { border-color: var(--a); }
+.outcome-check {
+  flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--y);
+  display: flex; align-items: center; justify-content: center; color: transparent; background: transparent;
+  font-size: 12px; font-weight: 900; transition: all 0.15s;
+}
+.outcome-text { font-size: 14.5px; color: var(--ink); line-height: 1.5; }
+.outcome-item.confirmed { border-color: var(--a); border-left-color: var(--a); }
+.outcome-item.confirmed .outcome-check { background: var(--a); border-color: var(--a); color: var(--white); }
+.outcome-item.confirmed .outcome-text { font-weight: 800; }
+
+footer { padding: 32px 60px 60px; text-align: center; font-size: 12px; color: var(--mid); }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 720px) {
+  .nav, .hero, section.part, footer { padding-left: 22px; padding-right: 22px; }
+  .voc-bubble { max-width: 78vw; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <img src="data:image/png;base64,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" alt="EIC" class="nav-logo">
+    <div class="nav-module">
+      <span class="nav-module-label">Neural English</span>
+      <span class="nav-module-name">Wrap-Up</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <span class="nav-level">Básico</span>
+    <a href="Possessives-HaveHas.html" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      <span class="nav-link-text">Possessives &amp; Have/Has</span>
+    </a>
+    <a href="StorySearch-Family.html" class="nav-link">
+      <span class="nav-link-text">Story Search</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a href="WrapUp-Cloze-Worksheet.pdf" class="nav-pdf-btn" download>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+      <span>PDF</span>
+    </a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">Wrap-Up · Do / Does + Have · Possessives</div>
+  <h1>Complete the <span class="n1">Stories</span></h1>
+  <p class="hero-title-pt">Complete as histórias</p>
+  <p class="hero-sub">
+    Three short texts, everything from the lesson mixed together — <strong>possessive adjectives,
+    possessive 's, have/has, and do/does + have</strong>. Click the correct option in each gap.
+    Words with an orange dotted underline have a quick translation — just tap them.
+  </p>
+  <p class="hero-sub-pt">
+    Três textos curtos, misturando tudo da aula — <strong>adjetivos possessivos, possessive 's,
+    have/has e do/does + have</strong>. Clique na opção certa em cada lacuna. Palavras com sublinhado
+    laranja pontilhado têm uma tradução rápida — é só tocar.
+  </p>
+</header>
+
+<!-- ═══════════════════ TEXT 1 ═══════════════════ -->
+<section class="part" id="text1">
+  <div class="part-eyebrow"><span class="num">1</span> Text 1 · Texto 1</div>
+  <h2>A Weekend at Jake's</h2>
+  <p class="h2-pt">Um fim de semana na casa do Jake</p>
+  <p class="part-intro">Click the correct option in each gap. <span style="font-style:italic;">(Clique na opção certa em cada lacuna.)</span></p>
+
+  <div class="cloze-progress">
+    <span id="clozeCount1">0 / 8 corretas</span>
+    <div class="cloze-progress-bar"><div class="cloze-progress-fill" id="clozeFill1"></div></div>
+    <button class="cloze-reset" onclick="resetCloze(1)">reiniciar</button>
+  </div>
+
+  <div class="cloze-card">
+    <div class="char-line">
+      <span class="avatar av-sophie">S</span><span class="avatar av-jake">J</span>
+      <span class="story-title">Sophie, Jake, Tom &amp; Mia</span>
+    </div>
+    <p id="clozeText1"></p>
+  </div>
+
+  <div class="completion-msg" id="clozeComplete1">✓ Texto 1 completo — parabéns!</div>
+</section>
+
+<!-- ═══════════════════ TEXT 2 ═══════════════════ -->
+<section class="part" id="text2">
+  <div class="part-eyebrow"><span class="num">2</span> Text 2 · Texto 2</div>
+  <h2>Daniel's New Desk</h2>
+  <p class="h2-pt">A mesa nova do Daniel</p>
+  <p class="part-intro">Click the correct option in each gap. <span style="font-style:italic;">(Clique na opção certa em cada lacuna.)</span></p>
+
+  <div class="cloze-progress">
+    <span id="clozeCount2">0 / 8 corretas</span>
+    <div class="cloze-progress-bar"><div class="cloze-progress-fill" id="clozeFill2"></div></div>
+    <button class="cloze-reset" onclick="resetCloze(2)">reiniciar</button>
+  </div>
+
+  <div class="cloze-card">
+    <div class="char-line">
+      <span class="avatar av-daniel">D</span><span class="avatar av-lena">L</span>
+      <span class="story-title">Daniel &amp; Lena</span>
+    </div>
+    <p id="clozeText2"></p>
+  </div>
+
+  <div class="completion-msg" id="clozeComplete2">✓ Texto 2 completo — parabéns!</div>
+</section>
+
+<!-- ═══════════════════ TEXT 3 ═══════════════════ -->
+<section class="part" id="text3">
+  <div class="part-eyebrow"><span class="num">3</span> Text 3 · Texto 3</div>
+  <h2>Sophie's Birthday</h2>
+  <p class="h2-pt">O aniversário da Sophie</p>
+  <p class="part-intro">Click the correct option in each gap. <span style="font-style:italic;">(Clique na opção certa em cada lacuna.)</span></p>
+
+  <div class="cloze-progress">
+    <span id="clozeCount3">0 / 8 corretas</span>
+    <div class="cloze-progress-bar"><div class="cloze-progress-fill" id="clozeFill3"></div></div>
+    <button class="cloze-reset" onclick="resetCloze(3)">reiniciar</button>
+  </div>
+
+  <div class="cloze-card">
+    <div class="char-line">
+      <span class="avatar av-sophie">S</span><span class="avatar av-jake">J</span><span class="avatar av-daniel">D</span>
+      <span class="story-title">Sophie, Jake &amp; Daniel</span>
+    </div>
+    <p id="clozeText3"></p>
+  </div>
+
+  <div class="completion-msg" id="clozeComplete3">✓ Texto 3 completo — parabéns!</div>
+</section>
+
+<section class="part" id="outcomes">
+  <div class="outcomes">
+    <div class="outcomes-header">
+      <h3>My Outcomes</h3>
+      <span class="outcomes-counter" id="outcomesCounter">0 / 4 confirmados</span>
+    </div>
+    <p class="outcomes-sub">Click each sentence you feel you've mastered. <span style="font-style:italic;">(Clique em cada frase que você sente que já domina.)</span></p>
+    <div id="outcomesList">
+      <button class="outcome-item" data-key="o1"><span class="outcome-check">✓</span><span class="outcome-text">Consigo completar um texto corrido usando have/has, possessive 's e adjetivos possessivos juntos.</span></button>
+      <button class="outcome-item" data-key="o2"><span class="outcome-check">✓</span><span class="outcome-text">Não confundo mais 's (um dono) com s' (vários donos) dentro de um texto.</span></button>
+      <button class="outcome-item" data-key="o3"><span class="outcome-check">✓</span><span class="outcome-text">Escolho Do ou Does certo mesmo no meio de uma história, sem pistas isoladas.</span></button>
+      <button class="outcome-item" data-key="o4"><span class="outcome-check">✓</span><span class="outcome-text">Aprendi pelo menos 3 expressões novas (spare key, stapler, wrapping paper...).</span></button>
+    </div>
+  </div>
+</section>
+
+<footer>Neural English · EIC — Escola de Idiomas e Cultura</footer>
+
+<script>
+(function(){
+
+  /* ══════════════ VOCAB TOOLTIP ══════════════ */
+  var bubble = document.createElement('div');
+  bubble.className = 'voc-bubble';
+  document.body.appendChild(bubble);
+  var activeVoc = null;
+
+  function showTip(el){
+    bubble.textContent = el.getAttribute('data-tip') || '';
+    bubble.classList.add('show');
+    var rect = el.getBoundingClientRect();
+    var bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+    var left = rect.left + rect.width / 2 - bw / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
+    var top = rect.top - bh - 10;
+    if (top < 8) { top = rect.bottom + 10; }
+    bubble.style.left = left + 'px';
+    bubble.style.top = top + 'px';
+  }
+  function hideTip(){ bubble.classList.remove('show'); activeVoc = null; }
+
+  function wireVocTooltips(){
+    document.querySelectorAll('.voc[data-tip]').forEach(function(el){
+      if (el.dataset.wired) return;
+      el.dataset.wired = '1';
+      el.addEventListener('click', function(e){
+        e.stopPropagation();
+        if (activeVoc === el) { hideTip(); return; }
+        activeVoc = el;
+        showTip(el);
+      });
+    });
+  }
+  document.addEventListener('click', hideTip);
+  window.addEventListener('scroll', hideTip, true);
+  window.addEventListener('resize', hideTip);
+
+  /* ══════════════ SHUFFLE ══════════════ */
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  /* ══════════════ GENERIC CLOZE ENGINE ══════════════ */
+  var CLOZES = {
+    1: {
+      template:
+        "Every year, Sophie packs a bag to visit __b1__ cousin, Jake, for a weekend. Jake __b2__ a small apartment near the airport, and this weekend __b3__ sister visits too. " +
+        "\u201cDo you __b4__ a <span class=\"voc\" data-tip=\"chave reserva\">spare key</span>?\u201d Sophie asks. \u201c__b5__ Jake have a spare key for the guests?\u201d Tom wonders. " +
+        "Jake __b6__ a spare key, but he has a code for the <span class=\"voc\" data-tip=\"porta da frente\">front door</span>. Tom and Mia are Jake\u2019s <span class=\"voc\" data-tip=\"vizinhos\">neighbors</span>, and they __b7__ two cats. " +
+        "This weekend, the cats\u2019 owners are away, so Jake feeds __b8__ cats too. It\u2019s always a busy weekend at Jake\u2019s building!",
+      data: {
+        b1: { options:['her','his'], correct:'her' },
+        b2: { options:['has','have'], correct:'has' },
+        b3: { options:['Jake\u2019s','Jakes\u2019'], correct:'Jake\u2019s' },
+        b4: { options:['have','has'], correct:'have' },
+        b5: { options:['Does','Do'], correct:'Does' },
+        b6: { options:['doesn\u2019t have','don\u2019t have'], correct:'doesn\u2019t have' },
+        b7: { options:['have','has'], correct:'have' },
+        b8: { options:['their','his'], correct:'their' }
+      }
+    },
+    2: {
+      template:
+        "Daniel starts his new job on Monday. This is __b1__ desk, right next to Lena\u2019s desk. Lena __b2__ a lot of photos on her desk — they\u2019re pictures of __b3__ nieces. " +
+        "Daniel doesn\u2019t have any decorations yet. \u201c__b4__ you have a spare <span class=\"voc\" data-tip=\"grampeador\">stapler</span>?\u201d Daniel asks Lena. " +
+        "\u201cDoes the office have extra supplies?\u201d he wonders. The office __b5__ a <span class=\"voc\" data-tip=\"armário de suprimentos\">supply closet</span>, but it has a shared <span class=\"voc\" data-tip=\"gaveta\">drawer</span>. " +
+        "Lena and Sophie __b6__ the desks near the window, and __b7__ view is beautiful. Daniel __b8__ any complaints — he\u2019s excited about his first week!",
+      data: {
+        b1: { options:['his','her'], correct:'his' },
+        b2: { options:['has','have'], correct:'has' },
+        b3: { options:['her','their'], correct:'her' },
+        b4: { options:['Do','Does'], correct:'Do' },
+        b5: { options:['doesn\u2019t have','don\u2019t have'], correct:'doesn\u2019t have' },
+        b6: { options:['have','has'], correct:'have' },
+        b7: { options:['their','her'], correct:'their' },
+        b8: { options:['doesn\u2019t have','don\u2019t have'], correct:'doesn\u2019t have' }
+      }
+    },
+    3: {
+      template:
+        "It\u2019s __b1__ birthday, and Sophie has a small party at her house. Jake brings a present, but he __b2__ any <span class=\"voc\" data-tip=\"papel de embrulho\">wrapping paper</span>. " +
+        "\u201c__b3__ Daniel have some tape?\u201d Jake asks. Daniel __b4__ a <span class=\"voc\" data-tip=\"rolo de fita\">roll of tape</span> in his bag. Sophie\u2019s friends all __b5__ cards for her. " +
+        "\u201cDo we have enough chairs for everyone?\u201d Sophie asks. The <span class=\"voc\" data-tip=\"sala de estar\">living room</span> __b6__ enough chairs, but the kitchen has extra ones. " +
+        "Sophie\u2019s neighbors bring __b7__ own chairs too. Even Sophie\u2019s little brother __b8__ a chair to bring — it\u2019s always a great party!",
+      data: {
+        b1: { options:['Sophie\u2019s','Sophies\u2019'], correct:'Sophie\u2019s' },
+        b2: { options:['doesn\u2019t have','don\u2019t have'], correct:'doesn\u2019t have' },
+        b3: { options:['Does','Do'], correct:'Does' },
+        b4: { options:['has','have'], correct:'has' },
+        b5: { options:['have','has'], correct:'have' },
+        b6: { options:['doesn\u2019t have','don\u2019t have'], correct:'doesn\u2019t have' },
+        b7: { options:['their','his'], correct:'their' },
+        b8: { options:['has','have'], correct:'has' }
+      }
+    }
+  };
+
+  var solved = { 1:0, 2:0, 3:0 };
+
+  function renderCloze(n){
+    var conf = CLOZES[n];
+    solved[n] = 0;
+    document.getElementById('clozeComplete' + n).classList.remove('show');
+    var parts = conf.template.split(/(__b\d+__)/);
+    document.getElementById('clozeText' + n).innerHTML = parts.map(function(part){
+      var m = part.match(/^__b(\d+)__$/);
+      if (!m) return part;
+      var id = 'b' + m[1];
+      var opts = shuffle(conf.data[id].options);
+      return '<span class="cloze-blank" data-blank="' + id + '">' + opts.map(function(opt){
+        return '<button class="cloze-chip" onclick="clozeCheck(' + n + ',this,\'' + id + '\',\'' + opt.replace(/'/g, "\\'") + '\')">' + opt + '</button>';
+      }).join('') + '</span>';
+    }).join('');
+    updateClozeProgress(n);
+    wireVocTooltips();
+  }
+
+  function updateClozeProgress(n){
+    var total = Object.keys(CLOZES[n].data).length;
+    document.getElementById('clozeCount' + n).textContent = solved[n] + ' / ' + total + ' corretas';
+    document.getElementById('clozeFill' + n).style.width = (solved[n] / total * 100) + '%';
+    if (solved[n] === total) document.getElementById('clozeComplete' + n).classList.add('show');
+  }
+
+  window.clozeCheck = function(n, btn, id, val){
+    var blank = CLOZES[n].data[id];
+    var wrap = btn.parentNode;
+    if (val === blank.correct){
+      var chips = wrap.querySelectorAll('.cloze-chip');
+      chips.forEach(function(c){ c.disabled = true; });
+      btn.classList.add('correct');
+      solved[n]++;
+      setTimeout(function(){
+        wrap.outerHTML = '<span class="cloze-resolved">' + blank.correct + '</span>';
+        updateClozeProgress(n);
+      }, 450);
+    } else {
+      btn.classList.add('incorrect');
+      setTimeout(function(){ btn.classList.remove('incorrect'); }, 450);
+    }
+  };
+
+  window.resetCloze = function(n){ renderCloze(n); };
+
+  renderCloze(1);
+  renderCloze(2);
+  renderCloze(3);
+
+})();
+</script>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'eic-outcomes-wrapup-cloze';
+  var list = document.getElementById('outcomesList');
+  var counter = document.getElementById('outcomesCounter');
+  var items = Array.prototype.slice.call(list.querySelectorAll('.outcome-item'));
+  var total = items.length;
+
+  function loadState(){
+    try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch (e) { return {}; }
+  }
+  function saveState(state){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  var state = loadState();
+
+  function updateCounter(){
+    var confirmed = items.filter(function(it){ return it.classList.contains('confirmed'); }).length;
+    counter.textContent = confirmed + ' / ' + total + ' confirmados';
+  }
+
+  items.forEach(function(it){
+    var key = it.dataset.key;
+    if (state[key]) it.classList.add('confirmed');
+    it.addEventListener('click', function(){
+      it.classList.toggle('confirmed');
+      state[key] = it.classList.contains('confirmed');
+      saveState(state);
+      updateCounter();
+    });
+  });
+  updateCounter();
+})();
+</script>
+
+</body>
+</html>
