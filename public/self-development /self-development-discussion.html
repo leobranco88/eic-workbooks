@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discussion: The Growth Edge · EIC MBA English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--violet:#5B3DF5;--coral:#FF6B4A;--gold:#E8A33D;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+#gl-tip{display:none;position:fixed;z-index:500;max-width:240px;background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none}
+#gl-tip-pt{font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px}
+#gl-tip-def{font-size:12px;line-height:1.5;color:rgba(255,255,255,.85)}
+.tt{border-bottom:2px dotted var(--gold);cursor:help;font-weight:700;color:inherit}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-logo{font-family:Inter,sans-serif;font-weight:900;font-size:16px;letter-spacing:.02em;color:#EFEFEF}
+.hdr-logo span{color:var(--violet)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:#FFE89C;padding:3px 12px;border-radius:20px}
+
+.hero{margin-top:96px;background:var(--dark);padding:60px 24px 64px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(91,61,245,.16) 0%,transparent 70%)}
+.hero-eyebrow{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);margin-bottom:22px;position:relative}
+.hero-title{font-family:Inter,sans-serif;font-size:clamp(32px,4.6vw,54px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-.01em;max-width:760px;margin:0 auto 22px;position:relative}
+.hero-title em{font-style:italic;color:var(--coral)}
+.hero-dek{font-size:16px;color:rgba(255,255,255,.5);max-width:56ch;margin:0 auto;line-height:1.75;position:relative}
+
+.pw{max-width:760px;margin:0 auto;padding:0 24px}
+
+.theme{padding:80px 0;border-bottom:1px solid var(--border)}
+.theme:nth-child(even){background:#fff}
+.theme-head{margin-bottom:44px}
+.theme-tag{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.theme-num{font-family:Inter,sans-serif;font-size:15px;font-weight:700;color:var(--violet)}
+.theme-line{flex:1;height:1px;background:var(--border)}
+.theme-title{font-family:Inter,sans-serif;font-size:30px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.2}
+.theme-title em{font-style:italic;color:var(--coral)}
+.theme-dek{font-size:15px;color:var(--mid);line-height:1.7;margin-top:12px;max-width:56ch}
+
+.q-list{display:flex;flex-direction:column}
+.q-item{display:flex;gap:22px;padding:26px 0;border-top:1px solid var(--border)}
+.q-item:first-child{border-top:none}
+.q-mark{font-family:Inter,sans-serif;font-size:26px;font-weight:600;color:var(--border);flex-shrink:0;width:36px;line-height:1.3}
+.q-body{flex:1}
+.q-main{font-size:17px;font-weight:700;color:var(--ink);line-height:1.55;margin-bottom:8px}
+.q-follow{font-size:13.5px;color:var(--mid);line-height:1.65;font-style:italic}
+
+.insp-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:.02em}
+.insp-link::before{content:"✦";font-size:11px}
+.insp-content{display:none;margin-top:10px;padding:14px 16px;background:var(--surface);border-radius:10px;border-left:3px solid var(--gold)}
+.insp-content.show{display:block}
+.insp-tag{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.insp-text{font-size:13.5px;color:var(--ink);line-height:1.65;font-style:italic}
+
+.toolkit{background:var(--dark);padding:72px 24px}
+.toolkit-inner{max-width:760px;margin:0 auto}
+.toolkit-eyebrow{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);margin-bottom:16px}
+.toolkit-title{font-family:Inter,sans-serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:10px}
+.toolkit-sub{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:32px;max-width:56ch}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.tk-grid{grid-template-columns:1fr}}
+.tk-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:16px 18px}
+.tk-phrase{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.tk-pt{font-size:11.5px;color:var(--gold);font-weight:600}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.06)}
+.footer-logo{font-family:Inter,sans-serif;font-weight:900;font-size:14px;color:rgba(255,255,255,.25)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+
+@media(max-width:640px){
+  .hero{padding:88px 20px 52px}
+  .theme{padding:56px 0}
+  .pw{padding:0 20px}
+  .q-item{gap:16px}
+  .q-mark{width:28px;font-size:22px}
+  .toolkit{padding:56px 20px}
+  .footer{padding:24px 20px;flex-direction:column;text-align:center}
+  .footer-copy{text-align:center}
+}
+
+.module-nav{position:fixed;top:56px;left:0;right:0;z-index:190;background:#050B16;display:flex;justify-content:center;gap:4px;padding:0 16px;height:40px;align-items:center;overflow-x:auto;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.module-nav::-webkit-scrollbar{display:none}
+.module-nav a{font-size:11px;font-weight:700;letter-spacing:.03em;color:rgba(255,255,255,.4);text-decoration:none;padding:6px 12px;border-radius:20px;white-space:nowrap;transition:all .15s}
+.module-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.module-nav a.active{color:#fff;background:var(--violet)}
+
+</style>
+</head>
+<body>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<header class="hdr">
+  <div class="hdr-logo">EIC <span>·</span> Discussion</div>
+  <div class="hdr-badge">MBA English</div>
+</header>
+
+<nav class="module-nav">
+  <a href="self-development-lead-in.html">Lead-in</a>
+  <a href="self-development-documents.html">Documents</a>
+  <a href="self-development-grammar.html">Grammar</a>
+  <a href="self-development-discussion.html" class="active">Discussion</a>
+  <a href="the-growth-edge-article.html">Reading</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">The Growth Edge · Speaking</div>
+  <h1 class="hero-title">Twenty-four questions, <em>no right answers.</em></h1>
+  <p class="hero-dek">Pick a question, take a position, and defend it out loud. Some of these have a clean answer. Most don't, and that's exactly the point.</p>
+</section>
+
+<section class="theme"><div class="pw">
+  <div class="theme-head">
+    <div class="theme-tag"><span class="theme-num">01</span><div class="theme-line"></div></div>
+    <h2 class="theme-title">Comfort Zone vs. <em>Growth Edge</em></h2>
+    <p class="theme-dek">On risk, readiness, and the discomfort that's actually doing something useful.</p>
+  </div>
+  <div class="q-list">
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What separates a <span class="tt" data-pt="desafio acima do nível atual" data-def="a role or task deliberately assigned above someone's current skill level">stretch assignment</span> from a <span class="tt" data-pt="colocado(a) numa fria, destinado(a) a fracassar" data-def="placed in a situation designed, or very likely, to make you fail, often due to unfair expectations or missing resources">setup for failure</span>?</div>
+      <div class="q-follow">Is the difference in the assignment itself, or in how much support comes with it?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"For me, the difference is resourcing: a stretch assignment usually comes with someone checking in on you. A setup for failure looks identical on paper, but nobody's actually invested in whether you succeed."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Is it possible to overprepare for a challenge?</div>
+      <div class="q-follow">What would that even look like in practice?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"You can overprepare in one specific way: when preparing becomes a way of avoiding starting. At some point, more research stops adding information and starts being a stall tactic."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What role does support, a mentor, a <span class="tt" data-pt="colíder, colíder técnico" data-def="a second person who formally shares leadership of a project">co-lead</span>, play in turning a reckless risk into a calculated one?</div>
+      <div class="q-follow">Can the exact same decision be reckless for one person and calculated for another?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Real-world reference</div><div class="insp-text">"Whitney Johnson's S-Curve framework suggests real support usually means someone a few steps ahead of you on the same curve, not simply someone above you."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">When should a company push someone past their comfort zone, and when is that simply unfair?</div>
+      <div class="q-follow">Who should get to decide where that line is, the company or the individual?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"It's fair when the person has a real say in the decision. It stops being fair the moment it's assigned without consent, disguised as an opportunity."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What is lost when someone always waits until they feel completely ready?</div>
+      <div class="q-follow">Is there anything gained by waiting, too?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"What's lost is momentum, and often the assignment itself, since someone else says yes in the meantime. What's gained is avoiding a genuinely bad fit, which does happen sometimes."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Can <span class="tt" data-pt="síndrome do impostor" data-def="the persistent feeling of being a fraud despite real evidence of competence">imposter syndrome</span> ever be useful?</div>
+      <div class="q-follow">If so, what is it actually protecting a person from?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Real-world reference</div><div class="insp-text">"Basima Tewfik's research, published in Harvard Business Review, found people with strong imposter feelings were rated as more interpersonally effective by colleagues, the doubt made them more attentive, not less capable."</div></div>
+    </div></div>
+  </div>
+</div></section>
+
+<section class="theme"><div class="pw">
+  <div class="theme-head">
+    <div class="theme-tag"><span class="theme-num">02</span><div class="theme-line"></div></div>
+    <h2 class="theme-title">Why Feedback <em>Culture</em> Is Harder Than It Looks</h2>
+    <p class="theme-dek">On honesty, tact, and who actually carries the responsibility.</p>
+  </div>
+  <div class="q-list">
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Why do most workplaces claim to value honesty but quietly reward <span class="tt" data-pt="suavizar, adoçar (a verdade)" data-def="softening the truth so much that it stops being useful">sugarcoating</span>?</div>
+      <div class="q-follow">Is that a failure of individuals, or of the system around them?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"It's systemic more than personal: performance reviews tie feedback to numbers that affect pay, so managers soften language to avoid conflict, even when they see the real problem clearly."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What responsibility does the person receiving feedback have, not just the person giving it?</div>
+      <div class="q-follow">Can feedback fail even when it's delivered perfectly?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"The receiver has to actually ask clarifying questions instead of absorbing feedback silently. Even excellent feedback dies on arrival without that."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Is written feedback, email, Slack, ever a real substitute for a conversation?</div>
+      <div class="q-follow">What does a written message lose that a conversation keeps?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"Written feedback loses tone and timing, you can't read the pause before someone responds, which is often where the real information lives."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What's the difference between feedback that changes behavior and feedback that just makes someone feel judged?</div>
+      <div class="q-follow">Can the exact same words do either, depending on delivery?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Real-world reference</div><div class="insp-text">"Kim Scott's Radical Candor framework argues it comes down to combining directness with visible care. Without both together, even accurate feedback tends to get rejected."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">How does power change what "honest" should look like?</div>
+      <div class="q-follow">Should a boss giving feedback to a report sound different from a peer giving feedback to a peer?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"Yes: a boss's "honest" feedback carries consequences a peer's doesn't, so it usually needs more care, not less directness."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Should feedback culture apply upward, employees giving feedback to leaders?</div>
+      <div class="q-follow">What makes that version of the conversation harder?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"It's harder because the risk is asymmetric, the employee usually has more to lose than the leader does if the conversation goes badly."</div></div>
+    </div></div>
+  </div>
+</div></section>
+
+<section class="theme"><div class="pw">
+  <div class="theme-head">
+    <div class="theme-tag"><span class="theme-num">03</span><div class="theme-line"></div></div>
+    <h2 class="theme-title">The Ambition Trap: <em>Contentment or Complacency?</em></h2>
+    <p class="theme-dek">On plateaus, restlessness, and how to tell the two apart.</p>
+  </div>
+  <div class="q-list">
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Is there a point where ambition stops being productive and starts being self-destructive?</div>
+      <div class="q-follow">What would that turning point actually look like?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"The turning point is usually when the goal stops being about the work itself and becomes purely about comparison to other people."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What signals a <span class="tt" data-pt="estagnação na carreira" data-def="a period where career growth has stopped or slowed dramatically">career plateau</span> before you consciously notice it?</div>
+      <div class="q-follow">Is it visible from the inside at all, or only in hindsight?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Real-world reference</div><div class="insp-text">"Whitney Johnson's S-Curve describes this as the flattening top of the curve: learning slows dramatically, but it often still feels like competence, not stagnation."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Can two people with identical careers, on paper, have completely different relationships to ambition?</div>
+      <div class="q-follow">What would explain the difference between them?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"The difference is usually whether the person chose the plateau, or just stopped noticing it."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Is contentment a skill, or just the absence of pressure?</div>
+      <div class="q-follow">Can it be learned, or does it only happen to you?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"It's a skill, because it requires actively deciding to stop measuring yourself against a moving target. That takes practice, not just luck."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What role does comparison to other people play in whether ambition feels healthy or exhausting?</div>
+      <div class="q-follow">Would ambition still exist at all without anyone to compare yourself to?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"Almost all of it, honestly. Remove other people from the picture and most "ambition" turns out to be about relative position, not the work itself."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">If <span class="tt" data-pt="inquietação" data-def="a constant, restless desire for change without a clear direction">restlessness</span> isn't tied to a specific goal, what is it actually about?</div>
+      <div class="q-follow">Is it always a problem to solve, or sometimes just a phase to sit with?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"Sometimes it isn't a problem to solve at all, just a signal that something unrelated to career actually needs attention."</div></div>
+    </div></div>
+  </div>
+</div></section>
+
+<section class="theme"><div class="pw">
+  <div class="theme-head">
+    <div class="theme-tag"><span class="theme-num">04</span><div class="theme-line"></div></div>
+    <h2 class="theme-title">Redefining Success on <em>Your</em> Own Terms</h2>
+    <p class="theme-dek">On inherited definitions, and what's left once you remove them.</p>
+  </div>
+  <div class="q-list">
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">How much of someone's definition of success is shaped by fear of judgment rather than genuine desire?</div>
+      <div class="q-follow">Is it possible to fully separate the two?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Real-world reference</div><div class="insp-text">"Psychologist Megan Dalla-Camina argues most inherited definitions of success are really about avoiding disappointment from someone specific, a parent, a mentor, more than genuine desire."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Is it possible to redefine success without changing your actual circumstances?</div>
+      <div class="q-follow">Or does the definition only really count once it changes a decision?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"It probably only counts once it changes an actual decision. Otherwise it's just a nicer story about the exact same life."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What would have to be true for someone to feel successful even without external recognition?</div>
+      <div class="q-follow">Is that realistic, or mostly theoretical?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Real-world reference</div><div class="insp-text">"A career-success survey from Florida Atlantic University found work-life balance and genuine interest in the work ranked above wealth for most people. Recognition wasn't even near the top."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">Should a definition of success stay the same across an entire career, or change with it?</div>
+      <div class="q-follow">What would force it to change?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"It should probably change. A definition of success at 25 that never updates by 45 was likely borrowed, not built."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">What's the risk of defining success too narrowly? Too broadly?</div>
+      <div class="q-follow">Which mistake is more common, and which is more costly?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"Too narrow, and one setback ruins everything. Too broad, and nothing ever counts as achieving it. Narrow is more common, and probably more costly."</div></div>
+    </div></div>
+    <div class="q-item"><div class="q-mark">—</div><div class="q-body">
+      <div class="q-main">If you removed every measure of success that other people can actually see, what would be left?</div>
+      <div class="q-follow">Would there be anything left at all?</div>
+      <div class="insp-link" onclick="toggleInsp(this)">Need inspiration?</div>
+      <div class="insp-content"><div class="insp-tag">Example answer</div><div class="insp-text">"Honestly, that's the real test. If nothing is left once you remove what others can see, the definition was never fully yours to begin with."</div></div>
+    </div></div>
+  </div>
+</div></section>
+
+<div class="toolkit">
+  <div class="toolkit-inner">
+    <div class="toolkit-eyebrow">Before You Start Talking</div>
+    <h2 class="toolkit-title">Language for taking a position</h2>
+    <p class="toolkit-sub">You don't need to agree with your partner, and you don't need a final answer. Use these to disagree, concede a point, or shift the frame without losing the thread.</p>
+    <div class="tk-grid">
+      <div class="tk-card"><div class="tk-phrase">"I'd push back on that."</div><div class="tk-pt">Eu discordaria disso.</div></div>
+      <div class="tk-card"><div class="tk-phrase">"Fair point, but consider this..."</div><div class="tk-pt">Ponto válido, mas considere isso...</div></div>
+      <div class="tk-card"><div class="tk-phrase">"On the flip side..."</div><div class="tk-pt">Por outro lado...</div></div>
+      <div class="tk-card"><div class="tk-phrase">"Let's argue their strongest case first."</div><div class="tk-pt">Vamos primeiro defender o argumento mais forte do outro lado.</div></div>
+      <div class="tk-card"><div class="tk-phrase">"Playing devil's advocate here..."</div><div class="tk-pt">Só pra provocar o contraponto...</div></div>
+      <div class="tk-card"><div class="tk-phrase">"I see where you're coming from, but..."</div><div class="tk-pt">Entendo seu ponto de vista, mas...</div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">EIC</div>
+  <p class="footer-copy"><strong>EIC · MBA English · The Growth Edge</strong><br>Discussion · B1+</p>
+</footer>
+
+<script>
+(function() {
+  var tip = document.getElementById('gl-tip');
+  var tipPt = document.getElementById('gl-tip-pt');
+  var tipDef = document.getElementById('gl-tip-def');
+  var activeEl = null;
+
+  function position(el) {
+    var r = el.getBoundingClientRect();
+    tip.style.display = 'block';
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var left = Math.max(8, Math.min(r.left + r.width/2 - tw/2, window.innerWidth - tw - 8));
+    var top = r.top - th - 12;
+    if (top < 8) top = r.bottom + 12;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function show(el) {
+    tipPt.textContent = el.dataset.pt || '';
+    tipDef.textContent = el.dataset.def || '';
+    activeEl = el;
+    position(el);
+  }
+  function hide() { tip.style.display = 'none'; activeEl = null; }
+
+  document.querySelectorAll('.tt').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { show(el); });
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (activeEl === el) { hide(); } else { show(el); }
+    });
+  });
+  document.addEventListener('click', hide);
+  window.addEventListener('scroll', function() { if (activeEl) position(activeEl); }, true);
+})();
+
+function toggleInsp(link) {
+  if (!link.dataset.original) link.dataset.original = link.textContent;
+  var content = link.nextElementSibling;
+  var nowShowing = content.classList.toggle('show');
+  link.textContent = nowShowing ? 'Hide' : link.dataset.original;
+}
+</script>
+</body>
+</html>

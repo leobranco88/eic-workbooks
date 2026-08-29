@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Growth Edge: Four Questions Every Career Eventually Asks · EIC Reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--violet:#5B3DF5;--coral:#FF6B4A;--gold:#E8A33D;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-logo{font-family:Inter,sans-serif;font-weight:900;font-size:16px;letter-spacing:.02em;color:#EFEFEF}
+.hdr-logo span{color:var(--violet)}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.12);padding:3px 12px;border-radius:20px}
+
+.article-hero{background:var(--dark);padding:160px 24px 56px;text-align:center}
+.hero-eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);margin-bottom:18px}
+.hero-title{font-family:Inter,sans-serif;font-size:clamp(30px,4.2vw,50px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-.01em;max-width:820px;margin:0 auto 20px}
+.hero-title em{font-style:italic;color:var(--coral)}
+.hero-dek{font-size:17px;color:rgba(255,255,255,.55);max-width:560px;margin:0 auto 24px;line-height:1.6}
+.hero-byline{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.04em}
+.hero-byline b{color:rgba(255,255,255,.55)}
+
+.article-body{max-width:660px;margin:0 auto;padding:56px 24px 40px}
+.lead::first-letter{font-family:Inter,sans-serif;font-size:64px;font-weight:700;color:var(--violet);float:left;line-height:.8;padding-right:10px;padding-top:6px}
+p{font-size:17px;line-height:1.85;color:#1a1a2e;margin-bottom:22px}
+h2{font-family:Inter,sans-serif;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.01em;margin:48px 0 18px;line-height:1.25}
+strong{color:var(--ink)}
+
+blockquote{font-family:Inter,sans-serif;font-style:italic;font-size:23px;line-height:1.5;color:var(--ink);border-left:3px solid var(--coral);padding:4px 0 4px 24px;margin:36px 0;max-width:560px}
+blockquote cite{display:block;font-family:Inter,sans-serif;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-top:10px}
+
+.divider{width:40px;height:2px;background:var(--border);margin:40px auto}
+
+.reflect-box{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:28px 30px;margin:44px 0}
+.reflect-label{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:16px}
+.reflect-q{font-size:15px;font-weight:700;color:var(--ink);line-height:1.55;margin-bottom:14px;padding-left:18px;position:relative}
+.reflect-q:last-child{margin-bottom:0}
+.reflect-q::before{content:"—";position:absolute;left:0;color:var(--coral)}
+
+.vocab-recap{background:var(--surface);border-radius:16px;padding:24px 28px;margin:32px 0 8px}
+.vocab-recap-label{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:14px}
+.vocab-chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.vocab-chip{font-size:12px;font-weight:600;padding:6px 12px;border-radius:20px;background:#fff;color:var(--ink);border:1px solid var(--border)}
+
+.further-reading{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin:40px 0}
+.fr-label{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.fr-item{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:8px}
+.fr-item:last-child{margin-bottom:0}
+.fr-item strong{color:var(--ink)}
+.fr-item em{font-style:italic}
+
+.footer{background:var(--dark);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer-logo{font-family:Inter,sans-serif;font-weight:900;font-size:14px;color:rgba(255,255,255,.25)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+.footer-copy strong{color:rgba(255,255,255,.32)}
+
+.tt{border-bottom:2px dotted var(--gold);cursor:help;font-weight:700;color:inherit}
+#gl-tip{display:none;position:fixed;z-index:500;max-width:240px;background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none}
+#gl-tip-pt{font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px}
+#gl-tip-def{font-size:12px;line-height:1.5;color:rgba(255,255,255,.85)}
+
+@media(max-width:720px){
+  .hdr{padding:0 20px}
+  .article-hero{padding:140px 20px 44px}
+  .article-body{padding:40px 20px 32px}
+  p{font-size:16px}
+  blockquote{font-size:20px;padding-left:18px}
+  .footer{padding:24px 20px;flex-direction:column;text-align:center}
+  .footer-copy{text-align:center}
+}
+
+.module-nav{position:fixed;top:56px;left:0;right:0;z-index:190;background:#050B16;display:flex;justify-content:center;gap:4px;padding:0 16px;height:40px;align-items:center;overflow-x:auto;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.module-nav::-webkit-scrollbar{display:none}
+.module-nav a{font-size:11px;font-weight:700;letter-spacing:.03em;color:rgba(255,255,255,.4);text-decoration:none;padding:6px 12px;border-radius:20px;white-space:nowrap;transition:all .15s}
+.module-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.module-nav a.active{color:#fff;background:var(--violet)}
+
+</style>
+</head>
+<body>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
+
+<header class="hdr">
+  <div class="hdr-logo">EIC <span>·</span> Reading</div>
+  <div class="hdr-badge">MBA English</div>
+</header>
+
+<nav class="module-nav">
+  <a href="self-development-lead-in.html">Lead-in</a>
+  <a href="self-development-documents.html">Documents</a>
+  <a href="self-development-grammar.html">Grammar</a>
+  <a href="self-development-discussion.html">Discussion</a>
+  <a href="the-growth-edge-article.html" class="active">Reading</a>
+</nav>
+
+<section class="article-hero">
+  <div class="hero-eyebrow">Self-Development · Home Reading</div>
+  <h1 class="hero-title">The Growth Edge: Four Questions Every <em>Career</em> Eventually Asks</h1>
+  <p class="hero-dek">Every professional reaches the same four forks in the road. The difference is not whether you face them, it's whether you notice you're standing at one.</p>
+  <p class="hero-byline">EIC Editorial <b>· MBA English Reading</b> · 6 min read</p>
+</section>
+
+<article class="article-body">
+
+<p class="lead">No one sends you a calendar invite for the moment your career actually changes direction. It usually looks smaller than that: an offer you weren't sure you'd earned, a piece of feedback you didn't want to give, a comfortable Tuesday that quietly turns into five comfortable years. Most people only recognize these moments in hindsight. The goal of this article is to help you recognize one while you're still standing in it.</p>
+
+<p>Coaches sometimes call that moment a person's <strong>growth edge</strong>: the border between what you already master and what still challenges you. Not the comfortable middle of your skill set, and not the overwhelming deep end either, just the narrow band in between where discomfort is doing something useful. The four situations below all live on that edge.</p>
+
+<h2>Comfort Zone vs. <span class="tt" data-pt="fronteira de crescimento" data-def="the point between what you already master and what still challenges you">Growth Edge</span></h2>
+<p>Every organization eventually offers someone a <strong>stretch assignment</strong>: a role that exceeds their current skill set, on purpose. Whitney Johnson, who built her early career as a Wall Street analyst before turning the theory of disruptive innovation toward individual careers, describes this with what she calls the <strong>S-Curve</strong>: learning speeds up, then plateaus, and staying on a flattening curve because it feels safe is still a decision, just one whose cost doesn't show up right away.</p>
+<p>This is where <strong>imposter syndrome</strong> tends to show up, and it's worth saying plainly: it shows up for almost everyone, including the people whose careers look effortless from the outside. Basima Tewfik, a researcher at MIT Sloan, ran a series of field studies on people who reported strong imposter feelings at work. Her finding, published in Harvard Business Review, cuts against the usual assumption: the self-doubt pushed people toward a more attentive, other-focused way of working, and colleagues rated them as more effective, not less. Doubt, in other words, is not automatically a liability.</p>
+<p>The useful question isn't "do I feel ready?" It's "is this a <strong>calculated risk</strong> or a reckless one?" A calculated risk has a plan attached to it, support you've asked for, a scope you understand even if you haven't mastered it yet. A reckless one is just hope wearing a suit.</p>
+
+<blockquote>"The people who wait until they feel fully ready almost never get the assignment that would have made them ready."<cite>On stretch assignments</cite></blockquote>
+
+<h2>Why Feedback Culture Is Harder Than It Looks</h2>
+<p>Most companies say they want a "feedback culture." Almost none of them define what that actually requires, which is why it so often collapses into one of two failure modes: <strong>sugarcoating</strong>, where the truth gets so softened it stops being useful, or bluntness, where the truth arrives with no consideration for how it lands.</p>
+<p>Kim Scott, a former executive at Google and Apple, built a widely used framework around this exact tension. In her book <em>Radical Candor</em>, she maps feedback along two axes: how directly you challenge someone, and how personally you care about them. Direct without care becomes what she calls Obnoxious Aggression. Care without directness becomes Ruinous Empathy, the failure mode she found most common, and arguably the most damaging over time, since the person never actually learns what needs to change.</p>
+<p><strong>Constructive criticism</strong> sits in the narrow space where both are present. It names the specific problem instead of a vague impression. It focuses on the work, not the person's character. And it comes with an offer to help fix it, not just a verdict.</p>
+
+<blockquote>"Kind and honest are not opposites. But they take real effort to hold together, and most people default to one at the expense of the other."<cite>On giving feedback that lands</cite></blockquote>
+
+<h2>The Ambition Trap: Contentment or Complacency?</h2>
+<p>Here is an uncomfortable fact about careers: contentment and <strong>complacency</strong> feel identical from the inside. Both show up as "I'm happy where I am." Whitney Johnson's S-Curve is useful here too: the flat top of the curve, where growth has slowed almost to nothing, feels exactly like stability, whether you got there by choice or simply by not paying attention. The difference only becomes visible from the outside, or in hindsight, which is exactly what makes this dilemma so easy to avoid thinking about.</p>
+<p>One rough test: contentment is a conclusion you arrived at by actually asking the question. Complacency is what happens when you stopped asking it. Healthy ambition, meanwhile, is usually tied to something specific you could name if pressed. <strong>Restlessness</strong> just wants change, without much interest in what the change would actually be for. Neither comfort nor ambition is automatically the right answer here. The trap is not examining which one you're actually experiencing.</p>
+
+<blockquote>"Ask yourself: did I choose this, or did I just stop asking the question?"<cite>On telling contentment from complacency</cite></blockquote>
+
+<h2>Redefining Success on Your Own Terms</h2>
+<p>Most people never actually choose their definition of success. They inherit one, from a parent, a first boss, a culture that measured worth in titles and salary long before they were old enough to question it. That inherited definition can work for decades without ever being examined, which is precisely the problem: it was never actually tested against what the person holding it wants.</p>
+<p>A recent survey out of Florida Atlantic University, led by management professor Michael Harai, asked working adults to rank what actually made a career feel successful. Covering basic financial security landed near the top of the list, people do want the essentials taken care of, but pure wealth accumulation ranked far lower, behind work-life balance, genuine interest in the work itself, and a sense of contributing to something beyond the paycheck. The inherited definition of success, it turns out, tends to overweight exactly the piece that matters least once the basics are covered. Psychologist Megan Dalla-Camina makes a related point in her writing on the subject: a version of success that requires abandoning your own values or well-being to sustain it was never really success, however it looked from the outside.</p>
+<p>A useful exercise, borrowed from executive coaching, is to try defining success out loud, in under thirty seconds, without using the words "money" or "position." Most people find this harder than expected. That difficulty is informative. It usually means the inherited definition is still doing most of the talking.</p>
+
+<blockquote>"A borrowed definition of success is still someone else's, no matter how long you've been carrying it."<cite>On defining success for yourself</cite></blockquote>
+
+<div class="further-reading">
+  <div class="fr-label">Where These Ideas Come From</div>
+  <p class="fr-item"><strong>Basima Tewfik</strong>, "Impostor Syndrome Has Its Advantages," <em>Harvard Business Review</em>, May–June 2022.</p>
+  <p class="fr-item"><strong>Whitney Johnson</strong>, <em>Disrupt Yourself</em> and <em>Smart Growth</em> — the S-Curve framework for personal and career growth.</p>
+  <p class="fr-item"><strong>Kim Scott</strong>, <em>Radical Candor: Be a Kick-Ass Boss Without Losing Your Humanity</em>.</p>
+  <p class="fr-item"><strong>Michael Harai et al.</strong>, career success survey, Florida Atlantic University College of Business.</p>
+  <p class="fr-item"><strong>Megan Dalla-Camina</strong>, "Redefining Success on Your Own Terms," <em>Psychology Today</em>, 2025.</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="reflect-box">
+  <div class="reflect-label">Questions to Sit With</div>
+  <p class="reflect-q">What makes a risk calculated instead of reckless, in your own work right now?</p>
+  <p class="reflect-q">What is the difference, for you, between being blunt and being constructive?</p>
+  <p class="reflect-q">Is there a part of your career where you've stopped asking whether you're content or complacent?</p>
+  <p class="reflect-q">If you removed the words "money" and "position," what would be left of your definition of success?</p>
+</div>
+
+<div class="vocab-recap">
+  <div class="vocab-recap-label">Vocabulary From This Article</div>
+  <div class="vocab-chip-row">
+    <span class="vocab-chip">stretch assignment</span>
+    <span class="vocab-chip">imposter syndrome</span>
+    <span class="vocab-chip">calculated risk</span>
+    <span class="vocab-chip">sugarcoating</span>
+    <span class="vocab-chip">constructive criticism</span>
+    <span class="vocab-chip">complacency</span>
+    <span class="vocab-chip">restlessness</span>
+    <span class="vocab-chip">inherited definition</span>
+  </div>
+</div>
+
+</article>
+
+<footer class="footer">
+  <div class="footer-logo">EIC</div>
+  <p class="footer-copy"><strong>EIC — Escola de Idiomas e Cultura</strong><br>Material didático protegido · eicschool.com.br</p>
+</footer>
+
+<script>
+(function() {
+  var tip = document.getElementById('gl-tip');
+  var tipPt = document.getElementById('gl-tip-pt');
+  var tipDef = document.getElementById('gl-tip-def');
+  if (!tip) return;
+  var activeEl = null;
+
+  function position(el) {
+    var r = el.getBoundingClientRect();
+    tip.style.display = 'block';
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var left = Math.max(8, Math.min(r.left + r.width/2 - tw/2, window.innerWidth - tw - 8));
+    var top = r.top - th - 12;
+    if (top < 8) top = r.bottom + 12;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function show(el) {
+    tipPt.textContent = el.dataset.pt || '';
+    tipDef.textContent = el.dataset.def || '';
+    activeEl = el;
+    position(el);
+  }
+  function hide() { tip.style.display = 'none'; activeEl = null; }
+
+  document.querySelectorAll('.tt').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { show(el); });
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (activeEl === el) { hide(); } else { show(el); }
+    });
+  });
+  document.addEventListener('click', hide);
+  window.addEventListener('scroll', function() { if (activeEl) position(activeEl); }, true);
+})();
+</script>
+</body>
+</html>

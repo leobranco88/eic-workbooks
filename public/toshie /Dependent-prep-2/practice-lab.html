@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Lab · Dependent Prepositions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --molten:#B3261E; --brick:#C17F3F; --cream:#ffffff; --navy:#1C2B36; --steel:#7C93A8; --paper:#EDF1F2;
+    --border:rgba(28,43,54,.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif; background:var(--paper); color:var(--navy); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:860px; margin:0 auto; padding:0 24px;}
+
+  header.top{position:sticky; top:0; z-index:100; background:var(--navy); padding:14px 0; box-shadow:0 2px 10px rgba(0,0,0,.12);}
+  header.top .wrap{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .brand{color:#fff; font-weight:900; font-size:14px; letter-spacing:.02em;}
+  .brand span{color:var(--steel);}
+  .page-nav{display:flex; gap:4px; flex-wrap:wrap;}
+  .page-nav a{color:rgba(255,255,255,.65); text-decoration:none; font-size:12.5px; font-weight:700; padding:7px 12px; border-radius:100px; transition:all .15s;}
+  .page-nav a:hover{color:#fff; background:rgba(255,255,255,.08);}
+  .page-nav a.active{color:var(--navy); background:#fff;}
+  .pdf-btn{background:var(--brick); color:#fff; text-decoration:none; font-size:12px; font-weight:800; padding:8px 16px; border-radius:100px; white-space:nowrap;}
+
+  .hero{padding:52px 0 8px; text-align:center;}
+  .kicker{font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--brick); margin-bottom:14px;}
+  h1.title{font-size:clamp(30px,6vw,46px); font-weight:900; letter-spacing:-.02em; line-height:1.05;}
+  h1.title span{color:var(--brick);}
+  .subtitle{font-size:15px; opacity:.7; margin:14px auto 0; max-width:560px;}
+
+  .content{max-width:800px; margin:0 auto; padding:36px 24px 90px;}
+
+  .sec-block{margin-top:44px;}
+  .sec-head{display:flex; align-items:center; gap:12px; margin-bottom:6px;}
+  .sec-chip{width:28px; height:28px; border-radius:8px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; flex:none;}
+  .sec-chip.b{background:var(--steel);}
+  .sec-chip.c{background:var(--brick);}
+  .sec-title{font-size:19px; font-weight:900; letter-spacing:-.01em; text-transform:uppercase;}
+  .sec-sub{font-size:13px; opacity:.65; margin:6px 0 20px 40px; max-width:600px;}
+
+  .item-grid{display:flex; flex-direction:column; gap:12px;}
+  .item-card{background:#fff; border:1px solid var(--border); border-radius:10px; padding:16px 18px;}
+  .item-num{display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--paper); border:1px solid var(--border); font-size:11px; font-weight:800; margin-right:8px;}
+  .item-text{font-size:14.5px; line-height:1.6; margin-bottom:12px;}
+  .item-text b{color:var(--brick);}
+
+  .btn-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .opt-btn{border:1.5px solid var(--border); background:var(--paper); font-family:'Inter',sans-serif; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:8px; cursor:pointer; color:var(--navy); transition:all .12s;}
+  .opt-btn:hover{border-color:var(--steel);}
+  .opt-btn.correct{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .opt-btn.wrong{background:rgba(179,38,30,.12); border-color:var(--molten); color:var(--molten);}
+  .opt-btn[disabled]{cursor:default; opacity:.55;}
+  .opt-btn.correct[disabled]{opacity:1;}
+  .opt-btn.wrong[disabled]{opacity:1;}
+
+  .field-row{display:flex; align-items:center; gap:8px; margin-top:2px;}
+  .field-label{font-size:11px; opacity:.55; font-weight:700; text-transform:uppercase; letter-spacing:.04em; flex:none; width:70px;}
+  .field-input{flex:1; border:none; border-bottom:1.5px solid rgba(28,43,54,.25); background:transparent; font-family:'Inter',sans-serif; font-size:13.5px; color:var(--navy); padding:4px 2px;}
+  .field-input:focus{outline:none; border-bottom-color:var(--brick);}
+
+  .reveal-wrap{position:relative; cursor:pointer; border-radius:8px; margin-top:12px; padding:10px 12px; background:var(--paper); border:1.5px dashed var(--border); transition:border-color .15s;}
+  .reveal-wrap:hover{border-color:var(--brick);}
+  .reveal-wrap.revealed{padding:0; border:none; background:none; margin-top:10px;}
+  .check-line{font-size:12.5px; font-weight:600; line-height:1.6; filter:blur(6px); transition:filter .25s ease; user-select:none;}
+  .reveal-wrap.revealed .check-line{filter:blur(0); user-select:text;}
+  .check-line .check-label{font-size:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; opacity:.5; display:block; margin-bottom:3px;}
+  .check-line b{color:var(--brick);}
+  .reveal-hint{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:flex; align-items:center; gap:6px; white-space:nowrap; background:var(--navy); color:#fff; padding:7px 14px; border-radius:100px; font-size:11px; font-weight:800; pointer-events:none; opacity:1; transition:opacity .2s ease; box-shadow:0 6px 16px rgba(0,0,0,.2);}
+  .reveal-wrap.revealed .reveal-hint{opacity:0;}
+
+  footer{padding:40px 0 56px; text-align:center;}
+  footer p{font-size:12px; opacity:.5;}
+  footer a{color:var(--navy); text-decoration:none; font-weight:600;}
+
+  .ref-grid{display:flex; flex-direction:column; gap:14px;}
+  .ref-group{background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px 18px;}
+  .ref-prep{display:inline-block; font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--navy); padding:3px 10px; border-radius:100px; margin-bottom:10px;}
+  .ref-row{display:flex; gap:10px; padding:6px 0; border-bottom:1px solid var(--border); font-size:13px; align-items:baseline; flex-wrap:wrap;}
+  .ref-row:last-child{border-bottom:none;}
+  .ref-phrase{font-weight:800; color:var(--brick); min-width:170px;}
+  .ref-ex{opacity:.72; font-size:12.5px; flex:1;}
+  .ref-tag{font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; opacity:.45; margin-left:auto; flex:none;}
+
+  @media(max-width:600px){
+    .ref-phrase{min-width:auto; width:100%;}
+    .ref-tag{margin-left:0;}
+    .field-row{flex-direction:column; align-items:stretch; gap:3px;}
+    .field-label{width:auto;}
+    .sec-sub{margin-left:0;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">EIC <span>·</span> Dependent Prepositions</div>
+    <nav class="page-nav">
+      <a href="starting-over.html">Lesson</a>
+      <a href="practice-lab.html" class="active">Practice</a>
+      <a href="reading-lab.html">Reading</a>
+      <a href="practice-hub.html">Drills</a>
+      <a href="context-lab.html">Context</a>
+      <a href="story-search.html">Search</a>
+      <a href="prediction-lab.html">Ask &amp; Confirm</a>
+    </nav>
+    <a class="pdf-btn" href="starting-over-completo.pdf">Download PDF ↓</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Dependent Prepositions · Practice Lab</span>
+    <h1 class="title">Lock It <span>In</span></h1>
+    <p class="subtitle">Three rounds: pick the right preposition, pick the right verb form, then build the
+    question yourself.</p>
+  </div>
+</section>
+
+<div class="content">
+
+  <div class="sec-block">
+    <div class="sec-head">
+      <div class="sec-chip">A</div>
+      <div class="sec-title">Fill in the Preposition</div>
+    </div>
+    <div class="sec-sub">The verb or adjective is fixed, but the preposition still depends on you. Pick the one that belongs.</div>
+    <div class="item-grid" id="gridA"></div>
+  </div>
+
+  <div class="sec-block">
+    <div class="sec-head">
+      <div class="sec-chip b">B</div>
+      <div class="sec-title">Gerund Check</div>
+    </div>
+    <div class="sec-sub">Right after a preposition, the verb always takes the -ING form. No exceptions.</div>
+    <div class="item-grid" id="gridB"></div>
+  </div>
+
+  <div class="sec-block">
+    <div class="sec-head">
+      <div class="sec-chip c">C</div>
+      <div class="sec-title">Ask the Question</div>
+    </div>
+    <div class="sec-sub">Turn the statement into a question. Keep the preposition at the end, exactly where it belongs.</div>
+    <div class="item-grid" id="gridC"></div>
+  </div>
+
+  <div class="sec-block">
+    <div class="sec-head">
+      <div class="sec-chip" style="background:var(--steel);">D</div>
+      <div class="sec-title">The Full Arsenal</div>
+    </div>
+    <div class="sec-sub">Every verb and adjective from this unit, organized by preposition. Not for memorizing in one sitting — for coming back to.</div>
+    <div class="ref-grid" id="gridD"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>EIC · Escola de Idiomas e Cultura · Adult B2+ · Dependent Prepositions</p>
+    <p style="margin-top:6px;"><a href="reading-lab.html">Next: Reading Lab →</a></p>
+  </div>
+</footer>
+
+<script>
+const DATA_A = [
+  {n:1, text:'She is really good ______ solving problems under pressure.', opts:['in','for','at'], correct:2},
+  {n:2, text:'He is tired ______ waiting for an answer.', opts:['of','in','to'], correct:0},
+  {n:3, text:"I'm interested ______ learning more about UX design.", opts:['about','in','for'], correct:1},
+  {n:4, text:'They insisted ______ paying for dinner.', opts:['at','on','with'], correct:1},
+  {n:5, text:"We're really looking forward ______ seeing you again.", opts:['for','at','to'], correct:2},
+  {n:6, text:'She is proud ______ finishing the marathon.', opts:['of','about','in'], correct:0},
+  {n:7, text:'He is responsible ______ managing the whole team.', opts:['of','on','for'], correct:2},
+  {n:8, text:'I still believe ______ second chances.', opts:['on','in','at'], correct:1},
+  {n:9, text:'My sister complains ______ everything lately.', opts:['about','of','for'], correct:0},
+  {n:10, text:'We depend ______ each other more than we admit.', opts:['in','at','on'], correct:2},
+  {n:11, text:'He apologized ______ being late without any real explanation.', opts:['for','of','about'], correct:0},
+  {n:12, text:'After three years there, she was very familiar ______ the neighborhood.', opts:['with','to','in'], correct:0},
+  {n:13, text:'They finally succeeded ______ finding a solution everyone agreed on.', opts:['at','in','on'], correct:1},
+  {n:14, text:'He was accused ______ lying to his own manager.', opts:['of','for','with'], correct:0},
+  {n:15, text:"We're not really committed ______ that plan yet — it's still an idea.", opts:['with','for','to'], correct:2},
+  {n:16, text:'The whole trip made her more aware ______ her surroundings.', opts:['for','of','at'], correct:1},
+  {n:17, text:'He blamed the delay ______ the weather, not on the airline.', opts:['on','for','of'], correct:0},
+  {n:18, text:"I'm not very keen ______ traveling during the rainy season.", opts:['for','on','about'], correct:1}
+];
+
+const DATA_B = [
+  {n:1, text:"She's interested in ______ French.", opts:['learning','learn'], correct:0},
+  {n:2, text:"He's afraid of ______ his job.", opts:['lose','losing'], correct:1},
+  {n:3, text:"I'm tired of ______ in line.", opts:['wait','waiting'], correct:1},
+  {n:4, text:'They insisted on ______ the bill.', opts:['paying','pay'], correct:0},
+  {n:5, text:"We're looking forward to ______ you.", opts:['see','seeing'], correct:1},
+  {n:6, text:"She's good at ______ puzzles.", opts:['solving','solve'], correct:0},
+  {n:7, text:"He's responsible for ______ the project.", opts:['managing','manage'], correct:0},
+  {n:8, text:"I dream of ______ the world.", opts:['travel','traveling'], correct:1},
+  {n:9, text:"I'm still not used to ______ up this early. <em style='opacity:.6;font-size:11.5px;'>(be used to ≠ used to — remember?)</em>", opts:['wake','waking'], correct:1},
+  {n:10, text:'He apologized for ______ late to the meeting.', opts:['being','be'], correct:0},
+  {n:11, text:'They finally succeeded in ______ the contract before the deadline.', opts:['sign','signing'], correct:1},
+  {n:12, text:"She's tired of ______ for the bus every single morning.", opts:['waiting','wait'], correct:0}
+];
+
+const DATA_C = [
+  {n:1, statement:"Marina is excited about the new job.", question:"What is Marina excited about?"},
+  {n:2, statement:"He is afraid of flying.", question:"What is he afraid of?"},
+  {n:3, statement:"They are looking forward to the weekend.", question:"What are they looking forward to?"},
+  {n:4, statement:"Marina is thinking about her old apartment.", question:"What is Marina thinking about?"},
+  {n:5, statement:"She depends on her parents.", question:"Who does she depend on?"},
+  {n:6, statement:"He is responsible for the budget.", question:"What is he responsible for?"},
+  {n:7, statement:"The client is interested in your proposal.", question:"What is the client interested in?"},
+  {n:8, statement:"She is proud of her promotion.", question:"What is she proud of?"}
+];
+
+const DATA_D = [
+  { prep:'ABOUT', items:[
+    ['worry about','She worries about everything before a trip.','v'],
+    ['care about','He really cares about doing a good job.','v'],
+    ['complain about','My sister complains about everything lately.','v'],
+    ['excited about','We are excited about the weekend.','adj'],
+    ['serious about','Is he serious about changing careers?','adj']
+  ]},
+  { prep:'AT', items:[
+    ['good at / bad at','She is good at solving problems fast.','adj'],
+    ['surprised at','I was surprised at how quiet the city was.','adj'],
+    ['laugh at','They laughed at the old joke.','v']
+  ]},
+  { prep:'FOR', items:[
+    ['responsible for','She is responsible for the whole team.','adj'],
+    ['famous for','This town is famous for its bread.','adj'],
+    ['apply for','He applied for a new position.','v'],
+    ['wait for','We waited for almost an hour.','v'],
+    ['apologize for','I apologized for the confusion.','v'],
+    ['ready for','Are you ready for the trip?','adj']
+  ]},
+  { prep:'FROM', items:[
+    ['suffer from','He suffers from constant back pain.','v'],
+    ['different from','This city is different from what I expected.','adj'],
+    ['prevent (sb) from','The delay prevented us from arriving on time.','v'],
+    ['recover from','She recovered from the flu quickly.','v']
+  ]},
+  { prep:'IN', items:[
+    ['interested in','I am interested in learning more.','adj'],
+    ['believe in','I still believe in second chances.','v'],
+    ['succeed in','They succeeded in finding a solution.','v'],
+    ['involved in','She got involved in the project early.','adj'],
+    ['participate in','Everyone participated in the discussion.','v']
+  ]},
+  { prep:'OF', items:[
+    ['proud of','He is proud of finishing the marathon.','adj'],
+    ['afraid of','She is afraid of losing her job.','adj'],
+    ['aware of','I wasn\u2019t aware of the change.','adj'],
+    ['capable of','He is capable of much more than this.','adj'],
+    ['accuse (sb) of','They accused him of lying.','v'],
+    ['dream of','I dream of traveling the world.','v'],
+    ['tired of','I am tired of waiting.','adj']
+  ]},
+  { prep:'ON', items:[
+    ['depend on','We depend on each other.','v'],
+    ['insist on','They insisted on paying.','v'],
+    ['rely on','You can rely on her completely.','v'],
+    ['concentrate on','Try to concentrate on one thing at a time.','v'],
+    ['keen on','I\u2019m not keen on early flights.','adj']
+  ]},
+  { prep:'TO', items:[
+    ['look forward to','We are looking forward to seeing you.','v'],
+    ['object to','She objected to the new schedule.','v'],
+    ['committed to','He is committed to finishing on time.','adj'],
+    ['accustomed to','I\u2019m not accustomed to this heat.','adj'],
+    ['react to','He reacted badly to the news.','v']
+  ]},
+  { prep:'WITH', items:[
+    ['deal with','She deals with problems calmly.','v'],
+    ['satisfied with','Are you satisfied with the result?','adj'],
+    ['familiar with','I\u2019m familiar with this part of town.','adj'],
+    ['agree with','I mostly agree with you.','v'],
+    ['cope with','He copes with stress well.','v']
+  ]}
+];
+
+function renderRefGrid(){
+  return DATA_D.map(g => `
+    <div class="ref-group">
+      <span class="ref-prep">${g.prep}</span>
+      ${g.items.map(it => `
+        <div class="ref-row">
+          <span class="ref-phrase">${it[0]}</span>
+          <span class="ref-ex">${it[1]}</span>
+          <span class="ref-tag">${it[2]==='v'?'verb':'adj'}</span>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function renderMCQ(d, gridId, single){
+  const btns = d.opts.map((o,i) => `<button class="opt-btn" data-i="${i}" onclick="checkAnswer(this, ${d.correct})">${o}</button>`).join('');
+  return `
+    <div class="item-card">
+      <div class="item-text"><span class="item-num">${d.n}</span>${d.text}</div>
+      <div class="btn-row">${btns}</div>
+    </div>`;
+}
+
+function checkAnswer(btn, correctIndex){
+  const row = btn.parentElement;
+  const buttons = row.querySelectorAll('.opt-btn');
+  const chosen = parseInt(btn.dataset.i);
+  buttons.forEach(b => b.disabled = true);
+  if (chosen === correctIndex){
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    buttons[correctIndex].classList.add('correct');
+  }
+}
+
+function renderOpen(d){
+  return `
+    <div class="item-card">
+      <div class="item-text"><span class="item-num">${d.n}</span>${d.statement}</div>
+      <div class="field-row">
+        <span class="field-label">Question</span>
+        <input class="field-input" type="text" placeholder="What / Who...?">
+      </div>
+      <div class="reveal-wrap" onclick="toggleReveal(this)">
+        <div class="check-line">
+          <span class="check-label">Model question</span>
+          <b>${d.question}</b>
+        </div>
+        <div class="reveal-hint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          Show model question
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleReveal(el){ el.classList.toggle('revealed'); }
+
+document.getElementById('gridA').innerHTML = DATA_A.map(d => renderMCQ(d)).join('');
+document.getElementById('gridB').innerHTML = DATA_B.map(d => renderMCQ(d)).join('');
+document.getElementById('gridC').innerHTML = DATA_C.map(renderOpen).join('');
+document.getElementById('gridD').innerHTML = renderRefGrid();
+</script>
+
+</body>
+</html>

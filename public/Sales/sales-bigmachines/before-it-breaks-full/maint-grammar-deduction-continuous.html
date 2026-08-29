@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Before It Breaks · Deduction Continuous</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628; --paper:#F5F2ED; --surface:#EAE7E1; --border:#D9D5CF;
+  --teal:#0D7A8A; --teal-lt:#1A9BAE; --orange:#E8621A; --violet:#5B4FCF;
+  --hi:#F5FF00; --mid:#6B7280;
+  --coral:#E63946; --coral-bg:rgba(230,57,70,.08);
+  --green:#1E8E5A; --green-bg:rgba(30,142,90,.08);
+  --must:#0D7A8A; --might:#5B4FCF; --cant:#E63946;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);font-size:19px;line-height:1.5}
+::selection{background:var(--hi);color:var(--ink)}
+.pw{max-width:980px;margin:0 auto;padding:0 40px 100px}
+@media(max-width:720px){.pw{padding:0 22px 80px}body{font-size:17px}}
+
+.topbar{background:var(--ink);color:#fff;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--orange);flex-wrap:wrap;gap:10px}
+.topbar-brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em}
+.topbar-brand strong{font-size:19px;font-weight:900;display:block;line-height:1.1}
+.topbar-nav{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.topbar-nav a{color:rgba(255,255,255,.7);text-decoration:none;font-weight:700}
+.topbar-nav a:hover{color:#fff}
+.topbar-nav a.pill{background:var(--orange);color:#fff;padding:6px 14px;border-radius:16px;font-weight:800;letter-spacing:.05em}
+@media(max-width:640px){.topbar{padding:14px 20px}}
+
+.hero{padding:44px 0 24px;border-bottom:2px solid var(--border)}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+.hero h1{font-size:44px;font-weight:900;line-height:1.1;margin-top:10px;letter-spacing:-0.02em;color:var(--ink)}
+.hero-sub{font-size:18px;color:#3B4657;line-height:1.6;margin-top:16px;max-width:760px}
+.tag-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.level-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;background:var(--surface);border:1px solid var(--teal);color:var(--teal);padding:4px 12px;border-radius:12px}
+.bonus-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;background:#FFF3D6;border:1px solid var(--orange);color:#8a4a0f;padding:4px 12px;border-radius:12px}
+
+.section{padding:44px 0;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.section-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:24px}
+.s-num{font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--orange);font-weight:700}
+.s-title{font-size:30px;font-weight:900;color:var(--ink)}
+.s-sub{font-size:15px;color:var(--mid);margin-top:2px}
+
+.reading{background:#fff;border-radius:20px;padding:36px 40px;border:2px solid var(--ink)}
+.reading-byline{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);letter-spacing:.08em;margin-bottom:18px;text-transform:uppercase}
+.reading p{margin-bottom:18px;font-size:19px;line-height:1.75;color:var(--ink)}
+.reading p:last-child{margin-bottom:0}
+.target{color:var(--ink);background:var(--hi);padding:1px 6px;border-radius:5px;font-weight:700}
+.target.cant{background:var(--coral);color:#fff}
+.tt{border-bottom:2px dotted var(--teal);cursor:help}
+
+.glossary{margin-top:22px;background:#fff;border-radius:16px;padding:22px 26px;border:2px solid var(--ink)}
+.glossary-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.g-grid{display:flex;flex-wrap:wrap;gap:10px}
+.g-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:14px;line-height:1.4}
+.g-word{font-weight:800;color:var(--ink)}
+.g-word::after{content:":"}
+.g-pt{color:var(--teal);font-size:13px;margin-left:4px}
+
+.rule-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:6px}
+@media(max-width:900px){.rule-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{border-radius:18px;padding:22px 20px;background:#fff;border:2px solid var(--ink);border-left-width:7px}
+.rule-card.must{border-left-color:var(--must)}
+.rule-card.might{border-left-color:var(--might)}
+.rule-card.cant{border-left-color:var(--cant)}
+.rule-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.rule-name{font-size:19px;font-weight:900;margin-top:6px}
+.rule-card.must .rule-name{color:var(--must)}
+.rule-card.might .rule-name{color:var(--might)}
+.rule-card.cant .rule-name{color:var(--cant)}
+.rule-pct{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);margin-top:2px}
+.rule-def{font-size:14.5px;line-height:1.55;margin-top:12px;color:var(--ink)}
+.rule-ex{font-size:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);color:var(--mid);font-style:italic}
+
+.ask-box{margin-top:22px;background:var(--hi);border-radius:16px;padding:20px 24px;font-size:17px;line-height:1.55;color:var(--ink)}
+.ask-box b{font-weight:900}
+
+.tip-box{margin-top:16px;background:#fff;border:2px dashed var(--violet);border-radius:16px;padding:20px 24px}
+.tip-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:8px}
+.tip-text{font-size:16.5px;line-height:1.6;color:var(--ink)}
+.tip-text code{background:var(--surface);padding:2px 8px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--ink)}
+
+.contrast-table{width:100%;border-collapse:collapse;margin-top:22px;font-size:15.5px;background:#fff;border:2px solid var(--ink);border-radius:16px;overflow:hidden}
+.contrast-table th{background:var(--ink);color:#fff;padding:12px 16px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.contrast-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink)}
+.contrast-table tr:last-child td{border-bottom:none}
+.contrast-table tr:nth-child(even) td{background:var(--surface)}
+.contrast-table td b{color:var(--must)}
+
+.solved-card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:24px 26px;margin-top:18px}
+.solved-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:4px 12px;border-radius:14px;margin-bottom:14px}
+.solved-context{font-size:17px;color:var(--ink);line-height:1.6;margin-bottom:16px}
+.solved-clue{background:var(--hi);color:var(--ink);padding:1px 6px;border-radius:4px;font-weight:800}
+.solved-answer{font-size:19px;font-weight:700;color:var(--ink);background:var(--surface);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.solved-answer b{color:var(--must)}
+.solved-why{font-size:15px;line-height:1.6;color:var(--mid)}
+.solved-why b{color:var(--ink)}
+
+.ex-card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:26px 28px;margin-bottom:18px}
+.ex-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--orange);font-weight:700;margin-bottom:10px}
+.ex-context{font-size:16px;color:#3B4657;line-height:1.6;margin-bottom:16px}
+.ex-sentence{font-size:20px;line-height:1.85;font-weight:600;color:var(--ink)}
+.ex-sentence .verb-hint{font-weight:400;font-style:italic;color:var(--mid);font-size:16px}
+.ex-line{border:none;border-bottom:2px solid var(--border);background:transparent;font-family:inherit;font-size:20px;font-weight:700;color:var(--ink);padding:3px 6px;min-width:230px}
+.ex-line:focus{outline:none;border-bottom-color:var(--teal)}
+.ex-actions{margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{border:none;border-radius:12px;padding:11px 20px;font-family:inherit;font-size:15.5px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--ink);color:#fff}
+.btn-check:hover{background:#1a2c47}
+.ex-answer{display:none;margin-top:16px;background:var(--surface);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;padding:14px 18px}
+.ex-answer.show{display:block}
+.ea-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin-bottom:6px;font-weight:700}
+.ea-text{font-size:17px;font-weight:700;color:var(--ink)}
+
+.pattern-box{background:#fff;border-radius:16px;padding:24px 28px;border:2px solid var(--ink)}
+.pattern-row{display:flex;gap:18px;flex-wrap:wrap;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border)}
+.pattern-row:last-child{border-bottom:none}
+.pattern-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);min-width:110px;flex-shrink:0}
+.pattern-ex{font-size:17px;color:var(--ink)}
+
+.speak-box{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:26px 28px;counter-reset:speakq}
+.speak-label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.speak-q{font-size:19px;line-height:1.6;margin-bottom:16px;padding-left:38px;position:relative;counter-increment:speakq;color:var(--ink)}
+.speak-q::before{content:counter(speakq, decimal-leading-zero);position:absolute;left:0;top:2px;width:24px;height:24px;border-radius:7px;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.speak-q:last-child{margin-bottom:0}
+
+footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+
+#gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:10px;padding:12px 16px;
+  max-width:280px;font-size:14px;line-height:1.45;box-shadow:0 12px 34px rgba(0,0,0,.2);border:1.5px solid var(--ink)}
+#gl-tip-pt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand"><strong>EIC.</strong>B1+ · BEFORE IT BREAKS · DEDUCTION CONTINUOUS</div>
+  <div class="topbar-nav">
+    <a href="maint-grammar-deduction.html">&larr; Deduction Present &amp; Past</a>
+    <a href="maint-documents.html">Documents</a>
+  </div>
+</div>
+
+<div class="pw">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Grammar Lab · Bonus Page</div>
+    <h1>Was it happening?</h1>
+    <p class="hero-sub">Uma extensão da dedução no passado. Em vez de "aconteceu e terminou", às vezes você quer dizer "estava acontecendo naquele momento". Para isso, o inglês usa modal + <b>have been</b> + verbo-<b>ing</b>.</p>
+    <div class="tag-row">
+      <div class="level-tag">B1+ · COMPLEMENTA A AULA DE DEDUÇÃO</div>
+      <div class="bonus-tag">BONUS · NORTHWIND HQ</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">01</span><div><div class="s-title">Something Was Happening Here</div><div class="s-sub">By Alex Morgan · Northwind HQ, 6am</div></div></div>
+    <div class="reading">
+      <div class="reading-byline">Compressor room · Northwind HQ · early shift</div>
+      <p>Carlos and I walked into the compressor room at 6am. The floor near Unit 4 felt warm. A thin <span class="tt" data-tip="puddle">puddle</span> of oil sat under the casing, still wet. Someone <span class="target">must have been working</span> here, maybe just an hour before us.</p>
+      <p>Carlos checked the <span class="tt" data-tip="shift">shift</span> log. Nothing was written for the night. Nobody <span class="target">must have been watching</span> this unit overnight. The sensor data showed a <span class="tt" data-tip="steady">steady</span> climb in temperature, all the way until 4am.</p>
+      <p>Emma joined us later with a different idea. The compressor <span class="target">might have been running</span> on its own, just responding to demand from the line. Or steam from another pipe <span class="target">might have been leaking</span> into the room, which could explain the warm floor without anyone actually there.</p>
+      <p>We checked the <span class="tt" data-tip="badgelog">badge log</span> next. It <span class="target cant">can't have been</span> Carlos's night team. They <span class="target cant">can't have been working</span> in this room. The doors stayed locked until 5:45am, and nobody signed in before that.</p>
+    </div>
+
+    <div class="glossary">
+      <div class="glossary-label">Glossário · palavras desta leitura</div>
+      <div class="g-grid">
+        <div class="g-item"><span class="g-word">puddle</span><span class="g-pt">poça</span></div>
+        <div class="g-item"><span class="g-word">shift</span><span class="g-pt">turno</span></div>
+        <div class="g-item"><span class="g-word">steady</span><span class="g-pt">constante, estável</span></div>
+        <div class="g-item"><span class="g-word">to leak</span><span class="g-pt">vazar</span></div>
+        <div class="g-item"><span class="g-word">badge log</span><span class="g-pt">registro de crachá</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">02</span><div><div class="s-title">A Forma Contínua</div><div class="s-sub">Modal + have been + verbo-ing</div></div></div>
+
+    <div class="rule-grid">
+      <div class="rule-card must"><div class="rule-label">~95%</div><div class="rule-name">must have been + -ing</div><p class="rule-def">Quase certeza de que algo estava em andamento.</p><p class="rule-ex">"The floor was warm. Someone must have been working here."</p></div>
+      <div class="rule-card might"><div class="rule-label">~40 a 60%</div><div class="rule-name">might/could have been + -ing</div><p class="rule-def">Possibilidade de uma ação em progresso no passado.</p><p class="rule-ex">"The compressor might have been running on its own."</p></div>
+      <div class="rule-card might"><div class="rule-label">~40 a 60%</div><div class="rule-name">may have been + -ing</div><p class="rule-def">Igual a "might have been". Mais formal, comum em relatórios.</p><p class="rule-ex">"Steam may have been leaking from a nearby pipe."</p></div>
+      <div class="rule-card cant"><div class="rule-label">~95%</div><div class="rule-name">can't have been + -ing</div><p class="rule-def">Praticamente impossível que a ação estivesse ocorrendo.</p><p class="rule-ex">"They can't have been working there. The doors were locked."</p></div>
+    </div>
+
+    <div class="ask-box"><b>A ideia central:</b> a forma simples ("must have skipped") descreve uma ação completa. A forma contínua ("must have been skipping", quando faz sentido) descreve uma ação <b>em progresso</b> num momento específico do passado. É a mesma lógica do Present Continuous vs. Present Simple, só que aplicada à dedução.</div>
+
+    <table class="contrast-table">
+      <tr><th>Contexto</th><th>Simples (ação completa)</th><th>Contínua (em andamento)</th></tr>
+      <tr><td>O chão ainda estava quente e o óleo não tinha secado.</td><td>Someone <b>must have worked</b> here.</td><td>Someone <b>must have been working</b> here when the shift ended.</td></tr>
+      <tr><td>O sensor mostrou um aumento constante a noite toda, sem quedas.</td><td>The unit <b>must have overheated</b>.</td><td>The unit <b>must have been overheating</b> for hours before anyone noticed.</td></tr>
+      <tr><td>O registro de crachá mostra as portas trancadas a noite toda.</td><td>It <b>can't have been</b> Carlos's team.</td><td>They <b>can't have been working</b> there. The doors were locked.</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <div class="tip-label">Como escolher</div>
+      <div class="tip-text">Pistas de contexto que pedem a forma <b>contínua</b>: <code>when I arrived</code>, <code>at that moment</code>, <code>still</code>, <code>for two hours</code>, <code>on and off</code>. Pistas que pedem a forma <b>simples</b>: <code>already</code>, <code>by the time</code>, ou evidência de um resultado já finalizado (peça já trocada, relatório já assinado, tarefa já concluída).</div>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Simples vs. contínua</span>
+      <p class="solved-context">You walk into the compressor room and find Carlos's toolbox open, <span class="solved-clue">a wrench still lying across the casing</span>, and <span class="solved-clue">the panel light blinking mid-cycle</span>.</p>
+      <div class="solved-answer">He <b>must have been repairing</b> the unit when something interrupted him.</div>
+      <p class="solved-why"><b>Por que a forma contínua:</b> a ferramenta ficou largada no meio da tarefa e a luz do painel ainda pisca no meio do ciclo. As evidências apontam para uma ação interrompida, em andamento, não uma ação já concluída.</p>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Impossibilidade contínua</span>
+      <p class="solved-context">Emma says the compressor was running fine all afternoon, but <span class="solved-clue">the maintenance log shows the whole plant lost power from 1pm to 3pm</span>.</p>
+      <div class="solved-answer">It <b>can't have been running</b> all afternoon. There was no power for two hours.</div>
+      <p class="solved-why"><b>Por que "can't have been running":</b> a evidência (a falta de energia) torna fisicamente impossível a ação contínua alegada.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">03</span><div><div class="s-title">Practice</div><div class="s-sub">Simples ou contínua? Escreva a forma completa</div></div></div>
+
+    <div class="ex-card"><div class="ex-num">01</div>
+      <p class="ex-context">The gauge needle is still slightly warm to the touch, and the readout hasn't fully reset.</p>
+      <p class="ex-sentence">The compressor <input class="ex-line" type="text" placeholder="write your answer..."> until just a few minutes ago. <span class="verb-hint">(run)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been running</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">02</div>
+      <p class="ex-context">Carlos's radio was found still transmitting static in an empty hallway.</p>
+      <p class="ex-sentence">He <input class="ex-line" type="text" placeholder="write your answer..."> someone on the radio right before he left. <span class="verb-hint">(call)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been calling</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">03</div>
+      <p class="ex-context">The log shows a slow, steady temperature rise, with no sudden spike at any point.</p>
+      <p class="ex-sentence">The bearing <input class="ex-line" type="text" placeholder="write your answer..."> down gradually, not all at once. <span class="verb-hint">(wear)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been wearing</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">04</div>
+      <p class="ex-context">The printer in the office felt warm, and a stack of fresh maintenance reports sat uncollected on the tray.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> it just moments before you arrived. <span class="verb-hint">(use)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been using</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">05</div>
+      <p class="ex-context">Fresh oil footprints led straight from the tank to Unit 4, though no one else was on shift.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> that path earlier. <span class="verb-hint">(walk)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have walked</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">06</div>
+      <p class="ex-context">The plant's badge log confirms the power was out for the entire night, yet Carlos insists the display was lit at 2am.</p>
+      <p class="ex-sentence">The display <input class="ex-line" type="text" placeholder="write your answer..."> at 2am. It's simply not possible without power. <span class="verb-hint">(work)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">can't have been working</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">07</div>
+      <p class="ex-context">Emma says she spent the whole shift inspecting the pipes, but the inspection checklist is still blank and unsigned.</p>
+      <p class="ex-sentence">She <input class="ex-line" type="text" placeholder="write your answer..."> the pipes all shift. The checklist hasn't moved. <span class="verb-hint">(inspect)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">can't have been inspecting</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">08</div>
+      <p class="ex-context">You open the panel and find a fully replaced, already-cooled bearing sitting in place.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> this hours ago. <span class="verb-hint">(replace)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have replaced</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">04</span><div><div class="s-title">Quick Patterns</div><div class="s-sub">Perguntando sobre ações em andamento</div></div></div>
+    <div class="pattern-box">
+      <div class="pattern-row"><span class="pattern-tag">Yes/No</span><span class="pattern-ex">"Could Carlos have been checking the gauge when the alarm went off?"</span></div>
+      <div class="pattern-row"><span class="pattern-tag">Wh-question</span><span class="pattern-ex">"What could the team have been doing during the outage?"</span></div>
+      <div class="pattern-row"><span class="pattern-tag">Short answer</span><span class="pattern-ex">"He must have been, yes." · "She can't have been. She was on a call with me."</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">05</span><div><div class="s-title">Speaking Corner</div><div class="s-sub">Fale com o professor</div></div></div>
+    <div class="speak-box">
+      <div class="speak-label">Discussion · 3 questions</div>
+      <p class="speak-q">What's the difference between saying "He must have left" and "He must have been leaving"? Why might that difference matter in a maintenance report?</p>
+      <p class="speak-q">Why might a report use the continuous form ("was overheating") instead of the simple form ("overheated") to describe a problem?</p>
+      <p class="speak-q">What kind of physical evidence usually points to an action that was still in progress, rather than one that's already finished?</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>EIC Escola de Idiomas e Cultura &middot; Deduction Continuous &middot; Bonus Page &middot; Before It Breaks &middot; Aluno: Rafael</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div></div>
+
+<script>
+function toggleAns(btn){
+  var card = btn.closest('.ex-card');
+  var ans = card.querySelector('.ex-answer');
+  var show = ans.classList.toggle('show');
+  btn.textContent = show ? 'Hide answer' : 'Reveal answer';
+}
+
+(function() {
+  var TIPS = {
+    "puddle": {pt: "poça"},
+    "shift": {pt: "turno"},
+    "steady": {pt: "constante, estável"},
+    "badgelog": {pt: "registro de crachá"}
+  };
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var data = TIPS[el.dataset.tip];
+      if (!data) return;
+      function show(e) {
+        tipPt.textContent = data.pt;
+        tip.style.display = "block";
+        moveTip(e);
+      }
+      function moveTip(e) {
+        var x = Math.max(8, Math.min(e.clientX - 130, window.innerWidth - 280));
+        tip.style.left = x + "px";
+        tip.style.top = (e.clientY - tip.offsetHeight - 18) + "px";
+      }
+      el.addEventListener("mouseenter", show);
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        show(e);
+      });
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>
