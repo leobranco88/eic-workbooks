@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>WH Questions & Contractions · Neural English · EIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:   #0D1FFF;
+  --orange: #FF3C38;
+  --ink:    #0A0A0A;
+  --mid:    #5C5C5C;
+  --light:  #E8E8E4;
+  --snow:   #F6F6F4;
+  --white:  #FFFFFF;
+
+  --neon: #F2FF3D;
+  --neon-pink: #FF3EC8;
+  --neon-ink: #0A0A0A;
+
+  --ok:   #107A5A;
+  --ok-tint: #E8F5F0;
+  --bad:  #F5006A;
+
+  --grp-is: #0D1FFF;
+  --grp-has: #FF3C38;
+  --grp-would: #107A5A;
+  --grp-had: #C2185B;
+
+  --content-w: clamp(680px, 62vw, 980px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--neon-pink); color: var(--white); }
+
+/* ── NAV ─────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 60px); height: 60px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+}
+.nav-left { display: flex; align-items: center; }
+.nav-logo { font-size: 15px; font-weight: 900; letter-spacing: -0.02em; }
+.nav-module {
+  display: flex; align-items: center; gap: 8px;
+  margin-left: 16px; padding-left: 16px;
+  border-left: 1px solid var(--light);
+}
+.nav-module-label {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid);
+}
+.nav-module-name {
+  font-size: 13px; font-weight: 900;
+  letter-spacing: -0.01em; color: var(--white);
+  background: var(--orange); padding: 4px 11px; border-radius: 7px;
+}
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-counter {
+  font-size: 12px; font-weight: 800; color: var(--ink);
+  background: var(--snow); border: 1px solid var(--light);
+  padding: 6px 12px; border-radius: 20px; white-space: nowrap;
+}
+.nav-counter b { color: var(--neon-pink); }
+.nav-pdf {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 800; color: var(--white);
+  background: var(--ink); text-decoration: none;
+  padding: 7px 14px; border-radius: 20px; white-space: nowrap;
+  transition: background 0.15s;
+}
+.nav-pdf:hover { background: var(--neon-pink); }
+.nav-pdf svg { flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .nav { padding: 0 14px; }
+  .nav-module-label { display: none; }
+  .nav-counter-label { display: none; }
+  .nav-pdf-label { display: none; }
+  .nav-pdf { padding: 8px; }
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 60px) 30px;
+  max-width: var(--content-w); margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block; width: 24px; height: 3px;
+  background: var(--orange); border-radius: 2px;
+}
+h1 {
+  font-size: clamp(28px, 4.2vw, 42px);
+  font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+h1 .accent { color: var(--neon-pink); }
+.hero-sub {
+  font-size: clamp(14.5px, 1.5vw, 16.5px); font-weight: 400;
+  color: var(--mid); line-height: 1.7;
+  max-width: min(66ch, 100%); margin-bottom: 6px;
+}
+.hero-sub strong { color: var(--ink); font-weight: 700; }
+
+.jump-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.jump-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 800; color: var(--ink);
+  background: var(--snow); border: 1.5px solid var(--light);
+  padding: 9px 16px; border-radius: 20px; text-decoration: none;
+  transition: border-color 0.15s;
+}
+.jump-pill:hover { border-color: var(--ink); }
+.jump-pill b { color: var(--neon-pink); }
+
+/* ── PART DIVIDER ─────────────────────────────────────── */
+.part-divider {
+  max-width: var(--content-w); margin: 0 auto;
+  padding: clamp(28px, 4vw, 36px) clamp(20px, 5vw, 60px) 0;
+}
+.part-divider-inner {
+  background: var(--ink); color: var(--white); border-radius: 16px;
+  padding: 20px 26px; display: flex; align-items: center; gap: 14px;
+}
+.part-divider-num {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--neon-pink); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 900;
+}
+.part-divider-title { font-size: 16px; font-weight: 900; letter-spacing: -0.01em; }
+.part-divider-sub { font-size: 12px; color: #C9C9C9; margin-top: 2px; }
+
+/* ── SECTION SHELL ────────────────────────────────────── */
+section.part {
+  max-width: var(--content-w); margin: 0 auto;
+  padding: clamp(28px, 5vw, 40px) clamp(20px, 5vw, 60px);
+  border-top: 1px solid var(--light);
+}
+.part-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 10px;
+}
+.part-eyebrow .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; flex-shrink: 0;
+}
+.part h2 {
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 900; letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.part-intro { font-size: clamp(14px, 1.4vw, 15.5px); color: var(--mid); line-height: 1.7; max-width: min(68ch, 100%); margin-bottom: 24px; }
+.part-intro strong { color: var(--ink); }
+
+mark.hl {
+  background: var(--neon); color: var(--neon-ink);
+  padding: 1px 5px; border-radius: 4px; font-weight: 700;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+.cx {
+  font-weight: 800; color: var(--ink);
+  text-decoration: underline; text-decoration-style: dotted;
+  text-decoration-color: var(--mid); text-underline-offset: 3px;
+}
+
+/* ── FAMILY / PATTERN GRIDS ───────────────────────────── */
+.fam-grid, .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+@media (max-width: 720px) { .fam-grid, .pattern-grid { grid-template-columns: 1fr; } }
+.fam-card, .pattern-card {
+  background: var(--snow); border-radius: 16px; padding: 22px 24px;
+  border-top: 4px solid var(--blue);
+}
+.fam-card.f2 { border-top-color: var(--orange); }
+.fam-tag, .pattern-tag {
+  display: inline-block; font-size: 11px; font-weight: 900;
+  letter-spacing: 0.03em; color: var(--white); background: var(--blue);
+  padding: 4px 10px; border-radius: 6px; margin-bottom: 12px;
+}
+.fam-card.f2 .fam-tag { background: var(--orange); }
+.fam-title { font-size: 17px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.01em; }
+.fam-text, .pattern-rule { font-size: 14px; color: var(--mid); line-height: 1.65; margin-bottom: 14px; }
+.pattern-rule { font-size: 12.5px; margin-bottom: 8px; }
+.fam-text strong, .pattern-rule strong { color: var(--ink); }
+.fam-ex-list { font-size: 13.5px; line-height: 1.9; }
+.fam-ex-list .orig { color: var(--mid); }
+.fam-ex-list .arrow { color: var(--ink); font-weight: 700; margin: 0 6px; }
+.fam-ex-list .q { color: var(--ink); font-weight: 700; }
+.fam-ex-list .aux { color: var(--blue); font-weight: 900; }
+.fam-card.f2 .fam-ex-list .aux { color: var(--orange); }
+.pattern-ex { font-size: 13px; color: var(--ink); font-weight: 600; }
+
+.trap-box {
+  background: var(--ink); color: var(--white);
+  border-radius: 14px; padding: 20px 24px;
+  font-size: 14px; line-height: 1.7; margin-bottom: 8px;
+}
+.trap-box b { color: var(--neon-pink); }
+.trap-box .ex { color: #C9C9C9; font-style: italic; }
+
+/* ── WORKED EXAMPLE ───────────────────────────────────── */
+.example-box {
+  background: var(--white); border: 2px solid var(--ink); border-radius: 16px;
+  padding: 24px 26px; margin-top: 4px; margin-bottom: 16px;
+}
+.example-tag {
+  font-size: 10.5px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--white); background: var(--ink); padding: 4px 10px; border-radius: 6px;
+  display: inline-block; margin-bottom: 14px;
+}
+.example-en { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.example-pt { font-size: 13px; font-style: italic; color: var(--mid); margin-bottom: 16px; }
+.example-think {
+  font-size: 13.5px; color: var(--mid); line-height: 1.7;
+  background: var(--snow); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;
+}
+.example-think b { color: var(--ink); }
+.example-q {
+  font-size: 17px; font-weight: 900; color: var(--white);
+  background: var(--neon-pink); display: inline-block; padding: 6px 12px; border-radius: 8px;
+}
+
+/* ── HOWTO / INSTRUCTIONS ─────────────────────────────── */
+.howto-box {
+  background: var(--snow); border: 1px solid var(--light); border-radius: 14px;
+  padding: 18px 22px; margin-bottom: 26px;
+}
+.howto-title {
+  font-size: 11px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 14px;
+}
+.howto-box ul { list-style: none; }
+.howto-box li { padding-left: 28px; position: relative; margin-bottom: 16px; }
+.howto-box li:last-child { margin-bottom: 0; }
+.howto-box li::before {
+  content: ''; position: absolute; left: 0; top: 3px;
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 2px solid var(--ink); background: var(--white);
+}
+.howto-en { font-size: 14.5px; font-weight: 500; color: var(--ink); line-height: 1.5; }
+.howto-en b { font-weight: 800; }
+.howto-pt { font-size: 12px; font-style: italic; font-weight: 400; color: var(--mid); line-height: 1.5; margin-top: 2px; }
+.howto-pt b { font-weight: 600; color: var(--mid); }
+
+/* ── EXERCISE CARDS ───────────────────────────────────── */
+.ex-list { display: flex; flex-direction: column; gap: 16px; }
+.ex-card {
+  background: var(--snow); border-radius: 16px; padding: 22px 24px;
+  border: 1px solid var(--light);
+}
+.ex-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+.ex-num {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 900;
+}
+.ex-en { font-size: clamp(15px, 1.6vw, 16.5px); font-weight: 600; color: var(--ink); line-height: 1.55; }
+.ex-pt { font-size: 12.5px; font-style: italic; color: var(--mid); font-weight: 400; margin-top: 4px; line-height: 1.5; }
+
+/* micro-quiz (contractions section only) */
+.micro-quiz { margin: 14px 0 16px; }
+.micro-label { font-size: 12px; font-weight: 700; color: var(--mid); margin-bottom: 8px; }
+.micro-label .cx-hl { color: var(--ink); font-weight: 900; }
+.opt-row { display: flex; gap: 10px; }
+.opt-btn {
+  font-family: inherit; font-size: 13px; font-weight: 800;
+  color: var(--ink); background: var(--white); border: 2px solid var(--light);
+  border-radius: 8px; padding: 9px 18px; cursor: pointer; transition: all 0.12s;
+}
+.opt-btn:hover { border-color: var(--ink); }
+.opt-btn.opt-correct { background: var(--ok); border-color: var(--ok); color: var(--white); }
+.opt-btn.opt-wrong { background: var(--bad); border-color: var(--bad); color: var(--white); }
+
+.ex-input {
+  width: 100%; font-family: inherit; font-size: 14.5px;
+  padding: 11px 14px; border-radius: 10px; border: 1.5px solid var(--light);
+  background: var(--white); color: var(--ink); margin-bottom: 12px;
+}
+.ex-input:focus { outline: none; border-color: var(--ink); }
+.ex-input::placeholder { color: #A8A8A8; font-style: italic; }
+
+.ex-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.reveal-btn {
+  font-family: inherit; font-size: 13px; font-weight: 800;
+  letter-spacing: 0.02em; color: var(--white); background: var(--ink);
+  border: none; border-radius: 8px; padding: 10px 18px; cursor: pointer;
+  transition: background 0.15s;
+}
+.reveal-btn:hover { background: var(--neon-pink); }
+.reveal-btn.showing { background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); }
+
+.check-btn {
+  font-family: inherit; font-size: 13px; font-weight: 800;
+  letter-spacing: 0.02em; color: var(--ink); background: var(--neon);
+  border: none; border-radius: 8px; padding: 10px 18px; cursor: pointer;
+  transition: filter 0.15s;
+}
+.check-btn:hover { filter: brightness(0.93); }
+
+.ex-feedback { margin-top: 14px; padding: 14px 16px; border-radius: 10px; display: none; }
+.ex-feedback.show { display: block; }
+.ex-feedback.verdict-ok { background: var(--ok-tint); }
+.ex-feedback.verdict-close { background: #FFF3D6; }
+.ex-feedback.verdict-off { background: #FDE7EE; }
+.feedback-verdict { font-size: 13px; font-weight: 900; letter-spacing: 0.01em; margin-bottom: 8px; }
+.verdict-ok .feedback-verdict { color: var(--ok); }
+.verdict-close .feedback-verdict { color: #8A6300; }
+.verdict-off .feedback-verdict { color: var(--bad); }
+.feedback-diff { font-size: 14.5px; line-height: 1.8; }
+.diff-match { color: var(--ink); }
+.diff-wrong { color: var(--bad); text-decoration: line-through; margin: 0 1px; }
+.diff-missing { color: var(--orange); border-bottom: 1.5px dashed var(--orange); font-weight: 700; margin: 0 1px; }
+.feedback-hint { font-size: 12.5px; color: var(--mid); margin-top: 8px; font-style: italic; }
+.feedback-format {
+  font-size: 12.5px; color: var(--ink); margin-top: 10px; padding-top: 10px;
+  border-top: 1px dashed rgba(0,0,0,0.15); font-weight: 700;
+}
+.feedback-format span { color: var(--bad); }
+
+.ex-answer { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--light); display: none; }
+.ex-answer.show { display: block; }
+.ex-answer-tags { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.fam-badge, .type-badge {
+  font-size: 10.5px; font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--white); background: var(--blue); padding: 4px 9px; border-radius: 6px;
+}
+.fam-badge.f2 { background: var(--orange); }
+.tense-badge {
+  font-size: 10.5px; font-weight: 800; letter-spacing: 0.02em;
+  color: var(--ink); background: var(--white); border: 1px solid var(--light);
+  padding: 4px 9px; border-radius: 6px;
+}
+.ex-think { font-size: 13px; color: var(--mid); line-height: 1.65; margin-bottom: 10px; }
+.ex-think b { color: var(--ink); }
+.ex-question {
+  font-size: 17px; font-weight: 900; color: var(--white);
+  background: var(--neon-pink); display: inline-block; padding: 6px 12px; border-radius: 8px;
+}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+.footer {
+  max-width: var(--content-w); margin: 0 auto;
+  padding: 32px clamp(20px, 5vw, 60px) 60px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.footer-note { font-size: 13px; color: var(--mid); }
+.footer-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.master-btn {
+  font-family: inherit; font-size: 12.5px; font-weight: 800;
+  color: var(--ink); background: var(--white); border: 1.5px solid var(--ink);
+  border-radius: 8px; padding: 9px 16px; cursor: pointer;
+}
+.master-btn:hover { background: var(--ink); color: var(--white); }
+.nav-link-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 800; color: var(--ink);
+  background: var(--white); border: 1.5px solid var(--ink);
+  padding: 9px 16px; border-radius: 8px; text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-link-pill:hover { background: var(--ink); color: var(--white); }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <span class="nav-logo">EIC</span>
+    <div class="nav-module">
+      <span class="nav-module-label">Homework</span>
+      <span class="nav-module-name">WH &amp; Contractions</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-counter"><b id="counterVal">0</b> / <span id="counterTotal">31</span> <span class="nav-counter-label">reveladas</span></div>
+    <a class="nav-pdf" href="Neural-English-WHQuestions-Contractions.pdf" download>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12"/>
+        <path d="M7 10l5 5 5-5"/>
+        <path d="M4 19h16"/>
+      </svg>
+      <span class="nav-pdf-label">Baixar PDF · Download</span>
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Neural English · Two-part practice</div>
+  <h1>Train the path.<br>Not the <span class="accent">answer.</span></h1>
+  <p class="hero-sub">
+    <strong>Part 1</strong> builds WH questions across mixed tenses. <strong>Part 2</strong> zooms into 's and 'd —
+    the two contractions that hide an auxiliary and trip almost everyone up.
+  </p>
+  <p class="hero-sub">
+    A <strong>Parte 1</strong> constrói perguntas WH em tempos verbais variados. A <strong>Parte 2</strong> foca em 's e 'd —
+    as duas contrações que escondem um auxiliar e confundem quase todo mundo.
+  </p>
+  <div class="jump-row">
+    <a class="jump-pill" href="#part1"><b>1</b> WH Questions</a>
+    <a class="jump-pill" href="#part2"><b>2</b> 's &amp; 'd</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PART 1 — WH QUESTIONS · MIXED TENSES                    -->
+<!-- ══════════════════════════════════════════════════════ -->
+
+<div class="part-divider" id="part1">
+  <div class="part-divider-inner">
+    <div class="part-divider-num">1</div>
+    <div>
+      <div class="part-divider-title">WH Questions · Mixed Tenses</div>
+      <div class="part-divider-sub">Every sentence is an answer. Build the question. · Cada frase é uma resposta. Construa a pergunta.</div>
+    </div>
+  </div>
+</div>
+
+<section class="part" id="familias">
+  <div class="part-eyebrow"><span class="num">1</span>As duas famílias</div>
+  <h2>Toda pergunta faz uma de duas coisas.</h2>
+  <p class="part-intro">
+    Não importa o tempo verbal — presente, passado, passado perfeito, futuro — toda pergunta em inglês
+    <strong>ou cria um auxiliar do zero, ou pega um que já existe e o move</strong> para antes do sujeito.
+    Decida isso primeiro. O resto é montagem.
+  </p>
+
+  <div class="fam-grid">
+    <div class="fam-card f1">
+      <span class="fam-tag">Família 1</span>
+      <div class="fam-title">Adiciona auxiliar</div>
+      <p class="fam-text">
+        A frase original <strong>não tem</strong> auxiliar — só o verbo principal sozinho, no presente ou no passado simples.
+        A pergunta precisa criar um auxiliar do zero: <strong>Do / Does</strong> no presente, <strong>Did</strong> no passado.
+        O verbo principal volta para a forma base.
+      </p>
+      <div class="fam-ex-list">
+        <div><span class="orig">She works from home.</span><span class="arrow">→</span><span class="q">Where <span class="aux">does</span> she work from?</span></div>
+        <div><span class="orig">They arrived last night.</span><span class="arrow">→</span><span class="q">When <span class="aux">did</span> they arrive?</span></div>
+      </div>
+    </div>
+
+    <div class="fam-card f2">
+      <span class="fam-tag">Família 2</span>
+      <div class="fam-title">Inverte o auxiliar que já existe</div>
+      <p class="fam-text">
+        A frase original <strong>já tem</strong> um auxiliar — is, are, was, were, has, have, had, will, would, can, could,
+        should, might. A pergunta só <strong>inverte a ordem</strong>: o auxiliar pula para antes do sujeito. O verbo principal não muda.
+      </p>
+      <div class="fam-ex-list">
+        <div><span class="orig">She is working from home.</span><span class="arrow">→</span><span class="q">Where <span class="aux">is</span> she working from?</span></div>
+        <div><span class="orig">They had already arrived.</span><span class="arrow">→</span><span class="q">When <span class="aux">had</span> they already arrived?</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trap-box">
+    <b>Cuidado com 's e 'd.</b> Essas contrações escondem qual auxiliar está por trás — e isso muda a família e o tempo verbal.
+    <span class="ex">'s</span> pode ser <b>is</b> (com adjetivo ou -ing: "she's tired", "she's working") ou <b>has</b>
+    (com particípio passado: "she's finished"). <span class="ex">'d</span> pode ser <b>had</b> (com particípio: "she'd finished")
+    ou <b>would</b> (com verbo base: "she'd love that"). Veja a Parte 2 para praticar isso a fundo.
+  </div>
+</section>
+
+<section class="part" id="exemplo">
+  <div class="part-eyebrow"><span class="num">2</span>Exemplo resolvido</div>
+  <h2>Assim que o raciocínio funciona.</h2>
+  <p class="part-intro">
+    Leia a frase, decida a família, monte a pergunta. Este exemplo já está resolvido — use-o como modelo para os 15 abaixo.
+  </p>
+
+  <div class="example-box">
+    <span class="example-tag">Modelo</span>
+    <div class="example-en">He's finally finished the marathon after months of training.</div>
+    <div class="example-pt">Ele finalmente terminou a maratona depois de meses de treino.</div>
+    <div class="example-think">
+      <b>Pense:</b> "finished" é particípio passado, então 's = has (presente perfeito) — "he has finished."
+      "The marathon" é uma coisa, então a pergunta começa com What. Família 2: o auxiliar já existe, só inverte.
+    </div>
+    <div class="example-q">→ What has he finally finished after months of training?</div>
+  </div>
+</section>
+
+<section class="part" id="exercicios-wh">
+  <div class="part-eyebrow"><span class="num">3</span>Sua vez — 15 frases</div>
+  <h2>Crie a pergunta para cada resposta.</h2>
+  <p class="part-intro">
+    A parte destacada em <mark class="hl">amarelo</mark> é a informação que sua pergunta precisa buscar.
+    Escreva sua tentativa e clique em <strong>Verificar</strong> para receber uma correção automática, ou em
+    <strong>Revelar resposta</strong> para ver o modelo completo direto.
+  </p>
+
+  <div class="howto-box">
+    <div class="howto-title">Before you start · Antes de começar</div>
+    <ul>
+      <li>
+        <div class="howto-en">Write the <b>complete sentence</b> — subject, auxiliary, and verb, not just the WH word.</div>
+        <div class="howto-pt">Escreva a frase completa — sujeito, auxiliar e verbo, não só a WH word.</div>
+      </li>
+      <li>
+        <div class="howto-en">Start with a <b>capital letter</b> and end with a <b>question mark</b> (?) — the checker below verifies this.</div>
+        <div class="howto-pt">Comece com letra maiúscula e termine com ponto de interrogação (?) — o verificador abaixo confere isso.</div>
+      </li>
+      <li>
+        <div class="howto-en">The yellow part is the <b>answer</b> — don't copy it into your question.</div>
+        <div class="howto-pt">A parte em amarelo é a resposta — não a copie dentro da sua pergunta.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ex-list" id="exListWH"></div>
+</section>
+
+<div class="footer" style="border-top: 1px solid var(--light);">
+  <div class="footer-note">Fim da Parte 1</div>
+  <a class="nav-link-pill" href="#part2">
+    Ir para 's &amp; 'd
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PART 2 — 'S AND 'D                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+
+<div class="part-divider" id="part2">
+  <div class="part-divider-inner">
+    <div class="part-divider-num">2</div>
+    <div>
+      <div class="part-divider-title">'s and 'd — which one is it?</div>
+      <div class="part-divider-sub">Decode the contraction, then build the question. · Decifre a contração, depois construa a pergunta.</div>
+    </div>
+  </div>
+</div>
+
+<section class="part" id="patterns">
+  <div class="part-eyebrow"><span class="num">1</span>The four patterns · Os quatro padrões</div>
+  <h2>Look at the word right after.</h2>
+  <p class="part-intro">
+    You never guess. The word immediately after the contraction tells you everything you need.
+    Olhe sempre para a palavra logo depois da contração — ela entrega a resposta.
+  </p>
+
+  <div class="pattern-grid">
+    <div class="pattern-card" style="border-top-color:var(--grp-is);">
+      <span class="pattern-tag" style="background:var(--grp-is);">'S = IS</span>
+      <p class="pattern-rule">Followed by an <strong>adjective</strong> or a verb in <strong>-ing</strong>. Describes a state or something happening now.<br>
+      <em>Seguido de adjetivo ou verbo em -ing. Descreve um estado ou algo acontecendo agora.</em></p>
+      <div class="pattern-ex">She's tired. &middot; She's working.</div>
+    </div>
+    <div class="pattern-card" style="border-top-color:var(--grp-has);">
+      <span class="pattern-tag" style="background:var(--grp-has);">'S = HAS</span>
+      <p class="pattern-rule">Followed by a <strong>past participle</strong> (usually -ed, or irregular: gone, done, seen...). Reports something completed.<br>
+      <em>Seguido de particípio passado. Relata algo já concluído.</em></p>
+      <div class="pattern-ex">She's finished. &middot; She's gone.</div>
+    </div>
+    <div class="pattern-card" style="border-top-color:var(--grp-would);">
+      <span class="pattern-tag" style="background:var(--grp-would);">'D = WOULD</span>
+      <p class="pattern-rule">Followed by a <strong>base verb</strong> (no -ed, no -ing). Usually a wish, preference, or hypothesis.<br>
+      <em>Seguido de verbo na forma base. Geralmente um desejo, preferência ou hipótese.</em></p>
+      <div class="pattern-ex">She'd love that. &middot; She'd rather stay.</div>
+    </div>
+    <div class="pattern-card" style="border-top-color:var(--grp-had);">
+      <span class="pattern-tag" style="background:var(--grp-had);">'D = HAD</span>
+      <p class="pattern-rule">Followed by a <strong>past participle</strong>. Describes something that happened before another past moment.<br>
+      <em>Seguido de particípio passado. Descreve algo que aconteceu antes de outro momento no passado.</em></p>
+      <div class="pattern-ex">She'd finished before I arrived.</div>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="exemplos-cx">
+  <div class="part-eyebrow"><span class="num">2</span>Solved examples · Exemplos resolvidos</div>
+  <h2>One 's, one 'd.</h2>
+
+  <div class="example-box">
+    <span class="example-tag">'S EXAMPLE</span>
+    <div class="example-en">Mia's finished her portfolio for the interview.</div>
+    <div class="example-pt">Mia terminou o portfólio dela para a entrevista.</div>
+    <div class="example-think"><b>Think / Pense:</b> "finished" is a past participle right after 's, so 's = has (present perfect) — "Mia has finished." The auxiliary already exists, just invert it.</div>
+    <div class="example-q">→ What has Mia finished for the interview?</div>
+  </div>
+
+  <div class="example-box">
+    <span class="example-tag">'D EXAMPLE</span>
+    <div class="example-en">He'd love to see the northern lights someday.</div>
+    <div class="example-pt">Ele adoraria ver a aurora boreal algum dia.</div>
+    <div class="example-think"><b>Think / Pense:</b> "love" is a base verb right after 'd, so 'd = would — "he would love." The auxiliary already exists, just invert it.</div>
+    <div class="example-q">→ What would he love to see someday?</div>
+  </div>
+</section>
+
+<section class="part" id="exercicios-cx">
+  <div class="part-eyebrow"><span class="num">3</span>Your turn — 16 sentences · Sua vez — 16 frases</div>
+  <h2>Decode it, then question it.</h2>
+  <p class="part-intro">
+    First, tap what the contraction means. Then write the full question and check it.<br>
+    Primeiro, toque no que a contração significa. Depois escreva a pergunta completa e verifique.
+  </p>
+
+  <div class="howto-box">
+    <div class="howto-title">Before you start · Antes de começar</div>
+    <ul>
+      <li>
+        <div class="howto-en">Look at the word <b>right after</b> 's or 'd — that decides everything.</div>
+        <div class="howto-pt">Olhe a palavra logo depois de 's ou 'd — isso decide tudo.</div>
+      </li>
+      <li>
+        <div class="howto-en">Start with a <b>capital letter</b> and end with a <b>question mark</b> (?) — the checker below verifies this.</div>
+        <div class="howto-pt">Comece com letra maiúscula e termine com ponto de interrogação (?) — o verificador abaixo confere isso.</div>
+      </li>
+      <li>
+        <div class="howto-en">The highlighted part is the <b>answer</b> — don't copy it into your question.</div>
+        <div class="howto-pt">A parte destacada é a resposta — não a copie dentro da sua pergunta.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ex-list" id="exListContractions"></div>
+</section>
+
+<div class="footer" style="border-top: 1px solid var(--light);">
+  <div class="footer-note">Fim da Parte 2</div>
+  <a class="nav-link-pill" href="#part1">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
+    Voltar para WH Questions
+  </a>
+</div>
+
+<div class="footer">
+  <div class="footer-note">Neural English · EIC — Escola de Idiomas e Cultura</div>
+  <div class="footer-actions">
+    <button class="master-btn" id="masterBtn">Revelar todas</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// UTILIDADES COMPARTILHADAS
+// ═══════════════════════════════════════════════════════
+function normalizeText(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[^a-z0-9'\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function tokenize(s) {
+  var norm = normalizeText(s);
+  return norm.length ? norm.split(' ') : [];
+}
+
+function diffTokens(a, b) {
+  var n = a.length, m = b.length;
+  var dp = [];
+  for (var i = 0; i <= n; i++) { dp.push(new Array(m + 1).fill(0)); }
+  for (var i2 = n - 1; i2 >= 0; i2--) {
+    for (var j2 = m - 1; j2 >= 0; j2--) {
+      if (a[i2] === b[j2]) dp[i2][j2] = dp[i2 + 1][j2 + 1] + 1;
+      else dp[i2][j2] = Math.max(dp[i2 + 1][j2], dp[i2][j2 + 1]);
+    }
+  }
+  var i = 0, j = 0, ops = [];
+  while (i < n && j < m) {
+    if (a[i] === b[j]) { ops.push({ type: 'match', word: a[i] }); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) { ops.push({ type: 'del', word: a[i] }); i++; }
+    else { ops.push({ type: 'ins', word: b[j] }); j++; }
+  }
+  while (i < n) { ops.push({ type: 'del', word: a[i] }); i++; }
+  while (j < m) { ops.push({ type: 'ins', word: b[j] }); j++; }
+  return ops;
+}
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+// checa maiúscula inicial e ponto de interrogação final na resposta ORIGINAL (não normalizada)
+function checkFormatting(raw) {
+  var trimmed = raw.trim();
+  var hasCapital = /^[A-ZÀ-Ý]/.test(trimmed);
+  var hasQuestionMark = /\?\s*$/.test(trimmed);
+  return { hasCapital: hasCapital, hasQuestionMark: hasQuestionMark };
+}
+
+var revealedCount = 0;
+var TOTAL_EXERCISES = 0; // definido depois de montar os dois conjuntos
+var counterVal = document.getElementById('counterVal');
+var counterTotal = document.getElementById('counterTotal');
+
+function bumpCounter(delta) {
+  revealedCount += delta;
+  if (revealedCount < 0) revealedCount = 0;
+  counterVal.textContent = revealedCount;
+  updateMasterBtn();
+}
+
+var allCards = [];
+var masterBtn = document.getElementById('masterBtn');
+function updateMasterBtn() {
+  masterBtn.textContent = (revealedCount >= TOTAL_EXERCISES) ? 'Esconder todas' : 'Revelar todas';
+}
+masterBtn.addEventListener('click', function () {
+  var shouldReveal = revealedCount < TOTAL_EXERCISES;
+  for (var i = 0; i < allCards.length; i++) {
+    var isShowing = allCards[i]._answer.classList.contains('show');
+    if (shouldReveal && !isShowing) { allCards[i]._btn.click(); }
+    else if (!shouldReveal && isShowing) { allCards[i]._btn.click(); }
+  }
+});
+
+function runChecker(raw, item, feedback) {
+  if (!raw || !normalizeText(raw).length) {
+    feedback.className = 'ex-feedback show verdict-off';
+    feedback.innerHTML = '<div class="feedback-verdict">Escreva sua pergunta no campo acima antes de verificar.</div>';
+    return;
+  }
+
+  var studentTokens = tokenize(raw);
+  var targets = [item.q];
+  if (item.qCore) targets.push(item.qCore);
+
+  var best = null;
+  for (var t = 0; t < targets.length; t++) {
+    var targetTokens = tokenize(targets[t]);
+    var ops = diffTokens(studentTokens, targetTokens);
+    var matches = 0;
+    for (var o = 0; o < ops.length; o++) { if (ops[o].type === 'match') matches++; }
+    var denom = Math.max(studentTokens.length, targetTokens.length, 1);
+    var sim = matches / denom;
+    if (!best || sim > best.sim) best = { sim: sim, ops: ops };
+  }
+
+  var fmt = checkFormatting(raw);
+  var fmtIssues = [];
+  if (!fmt.hasCapital) fmtIssues.push('comece com <span>letra maiúscula</span>');
+  if (!fmt.hasQuestionMark) fmtIssues.push('termine com <span>ponto de interrogação (?)</span>');
+
+  var verdictClass, verdictText, hintText;
+  if (best.sim >= 0.999 && fmtIssues.length === 0) {
+    verdictClass = 'verdict-ok';
+    verdictText = 'Correto — a estrutura e a formatação estão certinhas.';
+    hintText = '';
+  } else if (best.sim >= 0.999 && fmtIssues.length > 0) {
+    verdictClass = 'verdict-close';
+    verdictText = 'A estrutura está certa, mas falta formatação.';
+    hintText = '';
+  } else if (best.sim >= 0.75) {
+    verdictClass = 'verdict-close';
+    verdictText = 'Quase lá — falta ajustar um detalhe.';
+    hintText = 'Palavras riscadas: sobrando ou erradas. Palavras sublinhadas em laranja: faltando.';
+  } else {
+    verdictClass = 'verdict-off';
+    verdictText = item.offMessage || 'Ainda não — reveja a estrutura da pergunta.';
+    hintText = 'Palavras riscadas: sobrando ou erradas. Palavras sublinhadas em laranja: faltando.';
+  }
+
+  var diffHTML = '';
+  for (var d = 0; d < best.ops.length; d++) {
+    var op = best.ops[d];
+    if (op.type === 'match') diffHTML += '<span class="diff-match">' + op.word + '</span> ';
+    else if (op.type === 'del') diffHTML += '<span class="diff-wrong">' + op.word + '</span> ';
+    else diffHTML += '<span class="diff-missing">' + op.word + '</span> ';
+  }
+
+  var formatHTML = '';
+  if (fmtIssues.length > 0) {
+    formatHTML = '<div class="feedback-format">Formatação: ' + fmtIssues.join(' e ') + '.</div>';
+  }
+
+  feedback.className = 'ex-feedback show ' + verdictClass;
+  feedback.innerHTML =
+    '<div class="feedback-verdict">' + verdictText + '</div>' +
+    '<div class="feedback-diff">' + diffHTML + '</div>' +
+    (hintText ? '<div class="feedback-hint">' + hintText + '</div>' : '') +
+    formatHTML;
+}
+
+// ═══════════════════════════════════════════════════════
+// PARTE 1 — WH QUESTIONS · MIXED TENSES
+// ═══════════════════════════════════════════════════════
+var EXERCISES_WH = [
+  {
+    en: 'Mia is designing a new <mark class="hl">logo</mark> for a client right now.',
+    pt: 'Mia está desenhando um novo logo para um cliente agora.',
+    fam: 2, tense: 'Presente contínuo',
+    think: '"Is" já está na frase (Family 2) — só inverte. "A new logo" é uma coisa, então What.',
+    q: 'What is Mia designing for a client right now?',
+    qCore: 'What is Mia designing for a client?'
+  },
+  {
+    en: 'Sophie found her passport <mark class="hl">under the couch</mark>.',
+    pt: 'Sophie achou o passaporte dela embaixo do sofá.',
+    fam: 1, tense: 'Passado simples',
+    think: 'Não há auxiliar na frase original (Family 1) — cria Did. "Under the couch" é um lugar, então Where.',
+    q: 'Where did Sophie find her passport?'
+  },
+  {
+    en: 'Sophie has been learning Spanish <mark class="hl">for two years</mark>.',
+    pt: 'Sophie está aprendendo espanhol há dois anos.',
+    fam: 2, tense: 'Presente perfeito contínuo',
+    think: '"Has" já está na frase (Family 2) — só inverte. "For two years" é duração, então How long.',
+    q: 'How long has Sophie been learning Spanish?'
+  },
+  {
+    en: 'Tom calls <mark class="hl">his mentor</mark> every Friday afternoon.',
+    pt: 'Tom liga para o mentor dele toda sexta à tarde.',
+    fam: 1, tense: 'Presente simples',
+    think: 'Não há auxiliar (Family 1) — sujeito he/she/it, então cria Does. "His mentor" é uma pessoa, então Who.',
+    q: 'Who does Tom call every Friday afternoon?',
+    qCore: 'Who does Tom call?'
+  },
+  {
+    en: 'Lena had already left the office <mark class="hl">because she felt sick</mark>.',
+    pt: 'Lena já tinha saído do escritório porque estava se sentindo mal.',
+    fam: 2, tense: 'Passado perfeito',
+    think: '"Had" já está na frase (Family 2) — só inverte. O motivo pede Why.',
+    q: 'Why had Lena already left the office?'
+  },
+  {
+    en: 'Mia can speak <mark class="hl">three languages</mark> fluently.',
+    pt: 'Mia consegue falar três idiomas fluentemente.',
+    fam: 2, tense: 'Modal (can)',
+    think: '"Can" já está na frase (Family 2) — só inverte. "Three languages" é quantidade, então How many.',
+    q: 'How many languages can Mia speak fluently?',
+    qCore: 'How many languages can Mia speak?'
+  },
+  {
+    en: "She'd already finished <mark class=\"hl\">her homework</mark> before dinner.",
+    pt: 'Ela já tinha terminado o dever de casa antes do jantar.',
+    fam: 2, tense: 'Passado perfeito (contração)',
+    think: '"Finished" é particípio passado, então \'d = had (Family 2) — só inverte. "Her homework" é uma coisa, então What.',
+    q: 'What had she already finished before dinner?',
+    qCore: 'What had she already finished?'
+  },
+  {
+    en: 'Jake has visited Portugal <mark class="hl">three times</mark>.',
+    pt: 'Jake visitou Portugal três vezes.',
+    fam: 2, tense: 'Presente perfeito',
+    think: '"Has" já está na frase (Family 2) — só inverte. "Three times" é frequência, então How many times.',
+    q: 'How many times has Jake visited Portugal?'
+  },
+  {
+    en: 'Tom and Mia go to the gym <mark class="hl">twice a week</mark>.',
+    pt: 'Tom e Mia vão à academia duas vezes por semana.',
+    fam: 1, tense: 'Presente simples',
+    think: 'Não há auxiliar (Family 1) — sujeito plural, então cria Do. "Twice a week" é frequência, então How often.',
+    q: 'How often do Tom and Mia go to the gym?'
+  },
+  {
+    en: 'Daniel was repairing <mark class="hl">his bike</mark> when the rain started.',
+    pt: 'Daniel estava consertando a bicicleta dele quando a chuva começou.',
+    fam: 2, tense: 'Passado contínuo',
+    think: '"Was" já está na frase (Family 2) — só inverte. "His bike" é uma coisa, então What.',
+    q: 'What was Daniel repairing when the rain started?',
+    qCore: 'What was Daniel repairing?'
+  },
+  {
+    en: 'Sophie has to work overtime <mark class="hl">because of the deadline</mark>.',
+    pt: 'Sophie precisa trabalhar horas extras por causa do prazo.',
+    fam: 1, tense: 'Presente simples (have to)',
+    think: '"Have to" é o verbo principal, não um auxiliar — a frase não tem auxiliar de verdade (Family 1), então cria Does. O motivo pede Why.',
+    q: 'Why does Sophie have to work overtime?'
+  },
+  {
+    en: 'Daniel apologized to <mark class="hl">his neighbor</mark> after the noise complaint.',
+    pt: 'Daniel se desculpou com o vizinho dele depois da reclamação de barulho.',
+    fam: 1, tense: 'Passado simples',
+    think: 'Não há auxiliar (Family 1) — cria Did. "His neighbor" é uma pessoa ligada por "to", então Who... to?',
+    q: 'Who did Daniel apologize to after the noise complaint?',
+    qCore: 'Who did Daniel apologize to?'
+  },
+  {
+    en: 'Jake will finish the report <mark class="hl">by Thursday</mark>.',
+    pt: 'Jake vai terminar o relatório até quinta-feira.',
+    fam: 2, tense: 'Futuro (will)',
+    think: '"Will" já está na frase (Family 2) — só inverte. "By Thursday" é tempo, então When.',
+    q: 'When will Jake finish the report?'
+  },
+  {
+    en: "He's really nervous <mark class=\"hl\">about the exam</mark> tomorrow.",
+    pt: 'Ele está realmente nervoso com a prova amanhã.',
+    fam: 2, tense: 'Presente simples (contração)',
+    think: '"Nervous" é adjetivo, não particípio, então \'s = is (Family 2) — só inverte, mantém is. O motivo do nervosismo pede What... about.',
+    q: 'What is he nervous about tomorrow?',
+    qCore: 'What is he nervous about?'
+  },
+  {
+    en: 'Tom is going to move to <mark class="hl">a new apartment</mark> next month.',
+    pt: 'Tom vai se mudar para um apartamento novo mês que vem.',
+    fam: 2, tense: 'Futuro (going to)',
+    think: '"Is" já está na frase (Family 2) — só inverte. "A new apartment" é um lugar, então Where.',
+    q: 'Where is Tom going to move next month?',
+    qCore: 'Where is Tom going to move?'
+  }
+];
+
+function buildCardWH(item, index) {
+  var card = document.createElement('div');
+  card.className = 'ex-card';
+
+  var head = document.createElement('div');
+  head.className = 'ex-head';
+  var num = document.createElement('div');
+  num.className = 'ex-num';
+  num.textContent = index + 1;
+  var textWrap = document.createElement('div');
+  var en = document.createElement('div');
+  en.className = 'ex-en';
+  en.innerHTML = item.en;
+  var pt = document.createElement('div');
+  pt.className = 'ex-pt';
+  pt.textContent = item.pt;
+  textWrap.appendChild(en);
+  textWrap.appendChild(pt);
+  head.appendChild(num);
+  head.appendChild(textWrap);
+  card.appendChild(head);
+
+  var input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'ex-input';
+  input.placeholder = 'Sua pergunta completa...';
+  card.appendChild(input);
+
+  var actions = document.createElement('div');
+  actions.className = 'ex-actions';
+  var checkBtn = document.createElement('button');
+  checkBtn.type = 'button';
+  checkBtn.className = 'check-btn';
+  checkBtn.textContent = 'Verificar';
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'reveal-btn';
+  btn.textContent = 'Revelar resposta';
+  actions.appendChild(checkBtn);
+  actions.appendChild(btn);
+  card.appendChild(actions);
+
+  var feedback = document.createElement('div');
+  feedback.className = 'ex-feedback';
+  card.appendChild(feedback);
+
+  var answer = document.createElement('div');
+  answer.className = 'ex-answer';
+  var tags = document.createElement('div');
+  tags.className = 'ex-answer-tags';
+  var famBadge = document.createElement('span');
+  famBadge.className = 'fam-badge' + (item.fam === 2 ? ' f2' : '');
+  famBadge.textContent = 'Família ' + item.fam;
+  var tenseBadge = document.createElement('span');
+  tenseBadge.className = 'tense-badge';
+  tenseBadge.textContent = item.tense;
+  tags.appendChild(famBadge);
+  tags.appendChild(tenseBadge);
+  var think = document.createElement('div');
+  think.className = 'ex-think';
+  think.innerHTML = '<b>Pense:</b> ' + item.think;
+  var question = document.createElement('div');
+  question.className = 'ex-question';
+  question.textContent = item.q;
+  answer.appendChild(tags);
+  answer.appendChild(think);
+  answer.appendChild(question);
+  card.appendChild(answer);
+
+  btn.addEventListener('click', function () {
+    var isShowing = answer.classList.contains('show');
+    if (isShowing) {
+      answer.classList.remove('show');
+      btn.classList.remove('showing');
+      btn.textContent = 'Revelar resposta';
+      bumpCounter(-1);
+    } else {
+      answer.classList.add('show');
+      btn.classList.add('showing');
+      btn.textContent = 'Esconder resposta';
+      bumpCounter(1);
+    }
+  });
+
+  item.offMessage = 'Ainda não — reveja a família (' + (item.fam === 1 ? 'adiciona auxiliar' : 'inverte auxiliar') + ') e o tempo verbal (' + item.tense + ').';
+  checkBtn.addEventListener('click', function () { runChecker(input.value, item, feedback); });
+
+  card._btn = btn;
+  card._answer = answer;
+  return card;
+}
+
+var listWH = document.getElementById('exListWH');
+for (var iWH = 0; iWH < EXERCISES_WH.length; iWH++) {
+  var cardWH = buildCardWH(EXERCISES_WH[iWH], iWH);
+  listWH.appendChild(cardWH);
+  allCards.push(cardWH);
+}
+
+// ═══════════════════════════════════════════════════════
+// PARTE 2 — 'S AND 'D
+// ═══════════════════════════════════════════════════════
+var TYPE_META = {
+  is:    { label: "'S = IS",    color: 'var(--grp-is)',    quiz: [['is', 'IS'], ['has', 'HAS']] },
+  has:   { label: "'S = HAS",   color: 'var(--grp-has)',   quiz: [['is', 'IS'], ['has', 'HAS']] },
+  would: { label: "'D = WOULD", color: 'var(--grp-would)', quiz: [['would', 'WOULD'], ['had', 'HAD']] },
+  had:   { label: "'D = HAD",   color: 'var(--grp-had)',   quiz: [['would', 'WOULD'], ['had', 'HAD']] }
+};
+
+var EXERCISES_CX = [
+  {
+    en: 'Mia<span class="cx">\u2019s</span> really excited about <mark class="hl">the concert this weekend</mark>.',
+    pt: 'Mia está realmente animada com o show neste fim de semana.',
+    type: 'is', tense: 'Presente simples (contração)', cxChar: "'s",
+    think: '"Excited" is an adjective right after \u2019s, so \u2019s = is. Just invert it.',
+    q: 'What is Mia excited about this weekend?',
+    qCore: 'What is Mia excited about?'
+  },
+  {
+    en: 'She<span class="cx">\u2019d</span> love to travel around <mark class="hl">Southeast Asia</mark> someday.',
+    pt: 'Ela adoraria viajar pelo sudeste asiático algum dia.',
+    type: 'would', tense: 'Modal hipotético (contração)', cxChar: "'d",
+    think: '"Love" is a base verb right after \u2019d, so \u2019d = would. Just invert it.',
+    q: 'Where would she love to travel someday?',
+    qCore: 'Where would she love to travel?'
+  },
+  {
+    en: 'Lena<span class="cx">\u2019s</span> finished <mark class="hl">the report</mark> ahead of schedule.',
+    pt: 'Lena terminou o relatório antes do prazo.',
+    type: 'has', tense: 'Presente perfeito (contração)', cxChar: "'s",
+    think: '"Finished" is a past participle right after \u2019s, so \u2019s = has. Just invert it.',
+    q: 'What has Lena finished ahead of schedule?',
+    qCore: 'What has Lena finished?'
+  },
+  {
+    en: 'He<span class="cx">\u2019d</span> already booked the tickets <mark class="hl">before the price went up</mark>.',
+    pt: 'Ele já tinha reservado as passagens antes do preço subir.',
+    type: 'had', tense: 'Passado perfeito (contração)', cxChar: "'d",
+    think: '"Booked" is a past participle right after \u2019d, so \u2019d = had. Just invert it.',
+    q: 'When had he already booked the tickets?'
+  },
+  {
+    en: 'Tom<span class="cx">\u2019s</span> working <mark class="hl">from the new office downtown</mark>.',
+    pt: 'Tom está trabalhando no novo escritório no centro.',
+    type: 'is', tense: 'Presente contínuo (contração)', cxChar: "'s",
+    think: '"Working" ends in -ing right after \u2019s, so \u2019s = is. Just invert it.',
+    q: 'Where is Tom working from?'
+  },
+  {
+    en: 'He<span class="cx">\u2019d</span> rather <mark class="hl">work from home</mark> on Fridays.',
+    pt: 'Ele preferiria trabalhar de casa nas sextas.',
+    type: 'would', tense: 'Modal hipotético (contração)', cxChar: "'d",
+    think: '"Rather work" uses a base verb right after \u2019d, so \u2019d = would. Just invert it.',
+    q: 'What would he rather do on Fridays?'
+  },
+  {
+    en: 'Daniel<span class="cx">\u2019s</span> forgotten <mark class="hl">his umbrella</mark> again.',
+    pt: 'Daniel esqueceu o guarda-chuva dele de novo.',
+    type: 'has', tense: 'Presente perfeito (contração)', cxChar: "'s",
+    think: '"Forgotten" is a past participle right after \u2019s, so \u2019s = has. Just invert it.',
+    q: 'What has Daniel forgotten again?',
+    qCore: 'What has Daniel forgotten?'
+  },
+  {
+    en: 'She<span class="cx">\u2019d</span> never tried <mark class="hl">sushi</mark> before that trip.',
+    pt: 'Ela nunca tinha experimentado sushi antes daquela viagem.',
+    type: 'had', tense: 'Passado perfeito (contração)', cxChar: "'d",
+    think: '"Tried" is a past participle right after \u2019d, so \u2019d = had. Just invert it.',
+    q: 'What had she never tried before that trip?',
+    qCore: 'What had she never tried?'
+  },
+  {
+    en: 'Sophie<span class="cx">\u2019s</span> busy with <mark class="hl">the final exams this month</mark>.',
+    pt: 'Sophie está ocupada com as provas finais este mês.',
+    type: 'is', tense: 'Presente simples (contração)', cxChar: "'s",
+    think: '"Busy" is an adjective right after \u2019s, so \u2019s = is. Just invert it.',
+    q: 'What is Sophie busy with this month?',
+    qCore: 'What is Sophie busy with?'
+  },
+  {
+    en: 'They<span class="cx">\u2019d</span> prefer <mark class="hl">a quiet table near the window</mark>.',
+    pt: 'Eles prefeririam uma mesa tranquila perto da janela.',
+    type: 'would', tense: 'Modal hipotético (contração)', cxChar: "'d",
+    think: '"Prefer" is a base verb right after \u2019d, so \u2019d = would. Just invert it.',
+    q: 'What would they prefer?'
+  },
+  {
+    en: 'Mia<span class="cx">\u2019s</span> moved to <mark class="hl">a bigger apartment downtown</mark>.',
+    pt: 'Mia se mudou para um apartamento maior no centro.',
+    type: 'has', tense: 'Presente perfeito (contração)', cxChar: "'s",
+    think: '"Moved" is a past participle right after \u2019s, so \u2019s = has. Just invert it.',
+    q: 'Where has Mia moved?'
+  },
+  {
+    en: 'They<span class="cx">\u2019d</span> finished the meeting <mark class="hl">before lunch</mark>.',
+    pt: 'Eles tinham terminado a reunião antes do almoço.',
+    type: 'had', tense: 'Passado perfeito (contração)', cxChar: "'d",
+    think: '"Finished" is a past participle right after \u2019d, so \u2019d = had. Just invert it.',
+    q: 'When had they finished the meeting?'
+  },
+  {
+    en: 'Jake<span class="cx">\u2019s</span> driving <mark class="hl">to the airport</mark> right now.',
+    pt: 'Jake está dirigindo para o aeroporto agora.',
+    type: 'is', tense: 'Presente contínuo (contração)', cxChar: "'s",
+    think: '"Driving" ends in -ing right after \u2019s, so \u2019s = is. Just invert it.',
+    q: 'Where is Jake driving right now?',
+    qCore: 'Where is Jake driving?'
+  },
+  {
+    en: 'She<span class="cx">\u2019d</span> definitely recommend <mark class="hl">that course</mark> to a beginner.',
+    pt: 'Ela recomendaria com certeza aquele curso para um iniciante.',
+    type: 'would', tense: 'Modal hipotético (contração)', cxChar: "'d",
+    think: '"Recommend" is a base verb right after \u2019d, so \u2019d = would. Just invert it.',
+    q: 'What would she recommend to a beginner?'
+  },
+  {
+    en: 'Tom<span class="cx">\u2019s</span> already spoken to <mark class="hl">the manager</mark> about it.',
+    pt: 'Tom já falou com o gerente sobre isso.',
+    type: 'has', tense: 'Presente perfeito (contração)', cxChar: "'s",
+    think: '"Spoken" is a past participle right after \u2019s, so \u2019s = has. Just invert it.',
+    q: 'Who has Tom already spoken to about it?',
+    qCore: 'Who has Tom spoken to?'
+  },
+  {
+    en: 'He<span class="cx">\u2019d</span> left his phone <mark class="hl">at the restaurant</mark> by accident.',
+    pt: 'Ele tinha deixado o celular no restaurante sem querer.',
+    type: 'had', tense: 'Passado perfeito (contração)', cxChar: "'d",
+    think: '"Left" is a past participle right after \u2019d, so \u2019d = had. Just invert it.',
+    q: 'Where had he left his phone by accident?',
+    qCore: 'Where had he left his phone?'
+  }
+];
+
+function buildCardCX(item, index) {
+  var meta = TYPE_META[item.type];
+  var card = document.createElement('div');
+  card.className = 'ex-card';
+
+  var head = document.createElement('div');
+  head.className = 'ex-head';
+  var num = document.createElement('div');
+  num.className = 'ex-num';
+  num.textContent = index + 1;
+  var textWrap = document.createElement('div');
+  var en = document.createElement('div');
+  en.className = 'ex-en';
+  en.innerHTML = item.en;
+  var pt = document.createElement('div');
+  pt.className = 'ex-pt';
+  pt.textContent = item.pt;
+  textWrap.appendChild(en);
+  textWrap.appendChild(pt);
+  head.appendChild(num);
+  head.appendChild(textWrap);
+  card.appendChild(head);
+
+  var quiz = document.createElement('div');
+  quiz.className = 'micro-quiz';
+  var label = document.createElement('div');
+  label.className = 'micro-label';
+  label.innerHTML = '<span class="cx-hl">' + item.cxChar + '</span> here means:';
+  quiz.appendChild(label);
+  var optRow = document.createElement('div');
+  optRow.className = 'opt-row';
+  var options = shuffle(meta.quiz);
+  var optBtns = [];
+  options.forEach(function (opt) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'opt-btn';
+    b.textContent = opt[1];
+    b.dataset.value = opt[0];
+    optBtns.push(b);
+    optRow.appendChild(b);
+  });
+  quiz.appendChild(optRow);
+  card.appendChild(quiz);
+  optBtns.forEach(function (bt) {
+    bt.addEventListener('click', function () {
+      optBtns.forEach(function (b) { b.classList.remove('opt-correct', 'opt-wrong'); });
+      if (bt.dataset.value === item.type) {
+        bt.classList.add('opt-correct');
+      } else {
+        bt.classList.add('opt-wrong');
+        optBtns.forEach(function (b) { if (b.dataset.value === item.type) b.classList.add('opt-correct'); });
+      }
+    });
+  });
+
+  var input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'ex-input';
+  input.placeholder = 'Sua pergunta completa...';
+  card.appendChild(input);
+
+  var actions = document.createElement('div');
+  actions.className = 'ex-actions';
+  var checkBtn = document.createElement('button');
+  checkBtn.type = 'button';
+  checkBtn.className = 'check-btn';
+  checkBtn.textContent = 'Verificar';
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'reveal-btn';
+  btn.textContent = 'Revelar resposta';
+  actions.appendChild(checkBtn);
+  actions.appendChild(btn);
+  card.appendChild(actions);
+
+  var feedback = document.createElement('div');
+  feedback.className = 'ex-feedback';
+  card.appendChild(feedback);
+
+  var answer = document.createElement('div');
+  answer.className = 'ex-answer';
+  var tags = document.createElement('div');
+  tags.className = 'ex-answer-tags';
+  var typeBadge = document.createElement('span');
+  typeBadge.className = 'type-badge';
+  typeBadge.style.background = meta.color;
+  typeBadge.textContent = meta.label;
+  var tenseBadge = document.createElement('span');
+  tenseBadge.className = 'tense-badge';
+  tenseBadge.textContent = item.tense;
+  tags.appendChild(typeBadge);
+  tags.appendChild(tenseBadge);
+  var think = document.createElement('div');
+  think.className = 'ex-think';
+  think.innerHTML = '<b>Pense:</b> ' + item.think;
+  var question = document.createElement('div');
+  question.className = 'ex-question';
+  question.textContent = item.q;
+  answer.appendChild(tags);
+  answer.appendChild(think);
+  answer.appendChild(question);
+  card.appendChild(answer);
+
+  btn.addEventListener('click', function () {
+    var isShowing = answer.classList.contains('show');
+    if (isShowing) {
+      answer.classList.remove('show');
+      btn.classList.remove('showing');
+      btn.textContent = 'Revelar resposta';
+      bumpCounter(-1);
+    } else {
+      answer.classList.add('show');
+      btn.classList.add('showing');
+      btn.textContent = 'Esconder resposta';
+      bumpCounter(1);
+    }
+  });
+
+  item.offMessage = 'Ainda não — reveja o que ' + item.cxChar + ' significa aqui (' + meta.label + ').';
+  checkBtn.addEventListener('click', function () { runChecker(input.value, item, feedback); });
+
+  card._btn = btn;
+  card._answer = answer;
+  return card;
+}
+
+var listCX = document.getElementById('exListContractions');
+for (var iCX = 0; iCX < EXERCISES_CX.length; iCX++) {
+  var cardCX = buildCardCX(EXERCISES_CX[iCX], iCX);
+  listCX.appendChild(cardCX);
+  allCards.push(cardCX);
+}
+
+TOTAL_EXERCISES = EXERCISES_WH.length + EXERCISES_CX.length;
+counterTotal.textContent = TOTAL_EXERCISES;
+updateMasterBtn();
+</script>
+
+</body>
+</html>
