@@ -151,6 +151,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="nav-group-label">Grammar</div>
       <a href="not-as-agreed-practice.html" class="nav-link">Should, Must &amp; Supposed To</a>
       <a href="story-search.html" class="nav-link">Story Search</a>
+      <a href="comparative-intensifiers.html" class="nav-link">Much Better, Not Very Better</a>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Vocabulary</div>
@@ -158,6 +159,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <a href="incoterms.html" class="nav-link">Incoterms</a>
       <a href="quality-complaints.html" class="nav-link">Quality Complaints</a>
       <a href="shipping-crisis-2021.html" class="nav-link active">2021 Shipping Crisis</a>
+      <a href="customer-service-delays.html" class="nav-link">Customer Service</a>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Case Journeys</div>
@@ -221,11 +223,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <span class="vocab-term" data-pt="os prazos de entrega triplicaram">lead times tripled</span>
         <span class="vocab-example">— orders that used to take weeks started taking months</span>
       </div>
+      <div class="vocab-row">
+        <span class="vocab-term" data-pt="acompanhar o ritmo da demanda">keep pace with demand</span>
+        <span class="vocab-example">— production growing as fast as what people actually need</span>
+      </div>
     </div>
 
     <div class="example-block">
       <div class="example-label">In Fatima's words</div>
-      <div class="example-text">"Container prices went from two thousand dollars to twenty thousand in a matter of months. Ships were stuck outside the port for weeks — that's <b>port congestion</b> at its worst. Everyone was fighting over the same equipment, and if you didn't already have a relationship with your carrier, you were at the back of the line."</div>
+      <div class="example-text">"Container prices went from two thousand dollars to twenty thousand in a matter of months. Ships were stuck outside the port for weeks — that's <b>port congestion</b> at its worst. Everyone was fighting over the same equipment, and if you didn't already have a relationship with your carrier, you were at the back of the line. Most of the world's containers are made in China, and factories simply couldn't <b>keep pace with demand</b> — so even once the ports cleared up, there still weren't enough boxes to go around."</div>
     </div>
   </div>
 </section>
@@ -307,7 +313,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       </button>
     </div>
     <div class="practice-progress-track"><div class="practice-progress-fill" id="practiceProgressFill"></div></div>
-    <div class="practice-progress-label" id="practiceProgressLabel">0 of 12 checked</div>
+    <div class="practice-progress-label" id="practiceProgressLabel">0 of 13 checked</div>
   </div>
 
   <div class="practice-bank">
@@ -321,6 +327,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <span class="bank-chip" data-word="nearshoring" data-pt="aproximação da produção">nearshoring</span>
       <span class="bank-chip" data-word="shortage" data-pt="escassez">shortage</span>
       <span class="bank-chip" data-word="absorb" data-pt="absorver">absorb</span>
+      <span class="bank-chip" data-word="keep pace" data-pt="acompanhar o ritmo">keep pace</span>
       <span class="bank-chip" data-word="skyrocketed" data-pt="dispararam">skyrocketed</span>
       <span class="bank-chip" data-word="blockage" data-pt="bloqueio">blockage</span>
       <span class="bank-chip" data-word="long-term" data-pt="de longo prazo">long-term</span>
@@ -426,6 +433,14 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-answer" id="pexA12"><strong>long-term</strong> &mdash; as in "long-term contracts."</div>
     </div>
 
+    <div class="pex-item">
+      <div class="pex-num">13 &middot; The Crisis</div>
+      <div class="pex-sentence">Most containers are made in China, and factories couldn't ______ with the sudden spike in demand.</div>
+      <input class="pex-input" id="pex13" placeholder="Type your answer">
+      <div class="pex-btnrow" id="pexBtnRow13"><button class="pex-check" onclick="checkPex(13,'keep pace')">Check</button></div>
+      <div class="pex-answer" id="pexA13"><strong>keep pace</strong> &mdash; as in "keep pace with demand."</div>
+    </div>
+
   </div>
 
 </div>
@@ -516,7 +531,7 @@ function retryPex(n) {
 }
 
 function updatePracticeProgress() {
-  var total = 12;
+  var total = 13;
   var done = Object.keys(pexChecked).length;
   document.getElementById('practiceProgressFill').style.width = (done / total * 100) + '%';
   document.getElementById('practiceProgressLabel').textContent = done + ' of ' + total + ' checked';

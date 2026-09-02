@@ -159,9 +159,9 @@
 /* glossary tooltips in the story */
 .gloss{border-bottom:1.5px dotted var(--orange); cursor:help; position:relative;}
 .gloss:hover::after, .gloss:focus::after{
-  content:attr(data-pt); position:absolute; bottom:calc(100% + 7px); left:0;
+  content:attr(data-pt); position:absolute; bottom:calc(100% + 7px); left:50%; transform:translateX(-50%);
   background:var(--navy); color:#fff; font-size:11px; font-weight:600;
-  white-space:normal; width:max-content; max-width:200px; padding:6px 10px;
+  white-space:normal; width:max-content; max-width:190px; padding:6px 10px;
   border-radius:6px; pointer-events:none; z-index:60; line-height:1.4;
   box-shadow:0 6px 16px rgba(0,0,0,.2);
 }
@@ -203,6 +203,12 @@
 .ww-role{font-size:10px;color:var(--mid);margin-bottom:10px;font-style:italic}
 .ww-person{font-size:11.5px;font-weight:700;color:var(--navy);background:rgba(255,255,255,.65);border-radius:8px;padding:5px 8px;margin-top:5px}
 .ww-person-role{display:block;font-size:9.5px;font-weight:600;color:var(--mid)}
+.ww-pain-label{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.12);text-align:left}
+.ww-pain-text{font-size:10.5px;color:var(--navy);text-align:left;margin-top:3px;line-height:1.45}
+.ww-box.supplier .ww-pain-label{color:var(--d)}
+.ww-box.client .ww-pain-label{color:var(--b)}
+.ww-box.center .ww-pain-label{color:var(--navy)}
+.ww-box.candidate .ww-pain-label{color:var(--a)}
 .ww-arrow-wrap{display:flex;flex-direction:column;align-items:center;flex:none;padding:0 2px}
 .ww-arrow{font-size:20px;color:var(--mid);line-height:1}
 .ww-arrow-label{font-size:8px;text-transform:uppercase;letter-spacing:.04em;color:var(--mid)}
@@ -229,7 +235,7 @@
 .letter-subject{font-weight:700;margin-bottom:16px;font-size:13.5px}
 .letter-text p{font-size:13px;line-height:1.85;margin-bottom:14px;color:#222}
 .letter-text .gloss{border-bottom:1.5px dotted var(--orange);cursor:help;position:relative}
-.letter-text .gloss:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:0;background:var(--navy);color:#fff;font-size:10.5px;font-weight:600;font-family:'Inter',sans-serif;white-space:normal;width:max-content;max-width:190px;padding:5px 9px;border-radius:6px;pointer-events:none;z-index:60;line-height:1.4}
+.letter-text .gloss:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:10.5px;font-weight:600;font-family:'Inter',sans-serif;white-space:normal;width:max-content;max-width:170px;padding:5px 9px;border-radius:6px;pointer-events:none;z-index:60;line-height:1.4}
 .letter-sign{margin-top:24px;font-size:13px;line-height:1.7}
 .letter-hint{font-family:'Inter',sans-serif;font-size:11px;color:var(--mid);text-align:center;margin-top:14px;font-style:italic}
 </style>
@@ -253,6 +259,7 @@
       <div class="nav-group-label">Grammar</div>
       <a href="not-as-agreed-practice.html" class="nav-link">Should, Must &amp; Supposed To</a>
       <a href="story-search.html" class="nav-link active">Story Search</a>
+      <a href="comparative-intensifiers.html" class="nav-link">Much Better, Not Very Better</a>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Vocabulary</div>
@@ -320,6 +327,8 @@
         <div class="ww-company">VanderChem</div>
         <div class="ww-role">Supplier &middot; Rotterdam</div>
         <div class="ww-person">Lars<span class="ww-person-role">Account Manager</span></div>
+        <div class="ww-pain-label">Pain Point</div>
+        <div class="ww-pain-text">3-week delay, expired export license, no notice given</div>
       </div>
 
       <div class="ww-arrow-wrap"><span class="ww-arrow">&#8594;</span><span class="ww-arrow-label">supplies</span></div>
@@ -329,6 +338,8 @@
         <div class="ww-role">Mariana's company</div>
         <div class="ww-person">Mariana Voss<span class="ww-person-role">Supply Chain Manager</span></div>
         <div class="ww-person">David<span class="ww-person-role">Analyst</span></div>
+        <div class="ww-pain-label">Under Pressure</div>
+        <div class="ww-pain-text">Must decide by Friday: renew VanderChem or switch suppliers</div>
       </div>
 
       <div class="ww-arrow-wrap"><span class="ww-arrow">&#8594;</span><span class="ww-arrow-label">supplies</span></div>
@@ -337,6 +348,8 @@
         <div class="ww-company">Frigorex</div>
         <div class="ww-role">BioSource's client</div>
         <div class="ww-person">Rafael Moura<span class="ww-person-role">Procurement Director</span></div>
+        <div class="ww-pain-label">Pain Point</div>
+        <div class="ww-pain-text">Waiting on the enzyme shipment, patience wearing thin</div>
       </div>
     </div>
 
@@ -345,6 +358,8 @@
       <div class="ww-box candidate">
         <div class="ww-company">Halvorsen Ingredients</div>
         <div class="ww-role">Backup supplier &middot; Rotterdam</div>
+        <div class="ww-pain-label">Why They Stand Out</div>
+        <div class="ww-pain-text">Proven track record &mdash; documented a force majeure claim honestly last year</div>
       </div>
     </div>
   </div>

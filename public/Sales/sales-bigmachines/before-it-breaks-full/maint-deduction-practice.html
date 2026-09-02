@@ -27,6 +27,24 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);fon
 .topbar-nav a{color:rgba(255,255,255,.75);text-decoration:none;font-weight:700}
 .topbar-nav a:hover{color:#fff}
 
+.page-flex{min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;height:100%;width:230px;background:var(--ink);padding:24px 0;z-index:300;overflow-y:auto;box-shadow:4px 0 24px rgba(0,0,0,.3);transform:translateX(-100%);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.sidebar.open{transform:translateX(0)}
+.sidebar-label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 22px 12px}
+.sidebar a{display:flex;align-items:center;gap:10px;padding:12px 22px;text-decoration:none;color:rgba(255,255,255,.65);font-size:14px;font-weight:600;border-left:3px solid transparent}
+.sidebar a:hover{background:rgba(255,255,255,.06);color:#fff}
+.sidebar a.current{background:rgba(232,98,26,.12);border-left-color:var(--orange);color:#fff;cursor:default}
+.sidebar-main{width:100%}
+.sidebar-toggle{display:flex;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:#fff;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.sidebar-close{display:flex;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;align-items:center;justify-content:center;position:absolute;top:18px;right:18px}
+.sidebar .sidebar-label,.sidebar a{opacity:0;transform:translateY(22px) rotate(4deg);transform-origin:left bottom;transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.sidebar.animated .sidebar-label{opacity:1;transform:translateY(0) rotate(0);transition-delay:.22s}
+.sidebar.animated a:nth-of-type(1){opacity:1;transform:translateY(0) rotate(0);transition-delay:.30s}
+.sidebar.animated a:nth-of-type(2){opacity:1;transform:translateY(0) rotate(0);transition-delay:.38s}
+.sidebar.animated a:nth-of-type(3){opacity:1;transform:translateY(0) rotate(0);transition-delay:.46s}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:299}
+.sidebar-overlay.open{display:block}
+
 .hero{padding:36px 0 20px;border-bottom:2px solid var(--border)}
 .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
 .hero h1{font-size:36px;font-weight:900;line-height:1.15;margin-top:8px;color:var(--ink)}
@@ -40,16 +58,16 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);fon
 .btn-checkall:hover{background:#c9540f}
 .score{font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:700;color:var(--ink)}
 
-.list{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:6px 26px}
-.prow{padding:16px 0;border-bottom:1px solid var(--border)}
+.list{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:4px 20px}
+.prow{padding:12px 0;border-bottom:1px solid var(--border)}
 .prow:last-child{border-bottom:none}
-.prow-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--orange);font-weight:700;letter-spacing:.05em}
-.prow-context{font-size:14.5px;color:var(--mid);margin-top:3px;margin-bottom:6px;line-height:1.45}
-.prow-sentence{font-size:17.5px;color:var(--ink);line-height:1.7}
-.blank-sel{appearance:none;background:#fff;border:2px solid var(--ink);border-radius:9px;
-  padding:5px 30px 5px 12px;font-family:inherit;font-size:16.5px;font-weight:700;color:var(--ink);cursor:pointer;
+.prow-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--orange);font-weight:700;letter-spacing:.05em}
+.prow-context{font-size:13px;color:var(--mid);margin-top:2px;margin-bottom:5px;line-height:1.4}
+.prow-sentence{font-size:15.5px;color:var(--ink);line-height:1.55}
+.blank-sel{appearance:none;background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  padding:4px 26px 4px 10px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8' fill='%230A1628'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;margin:0 3px}
+  background-repeat:no-repeat;background-position:right 9px center;margin:0 2px}
 .blank-sel:focus{outline:3px solid var(--teal-lt)}
 .blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
 .blank-sel.wrong{background-color:var(--coral-bg);border-color:var(--coral);color:var(--coral)}
@@ -68,13 +86,31 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:36px 0 10px;fon
 </head>
 <body>
 
+<div class="page-flex">
+  <div class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="closeSidebar()" aria-label="Fechar menu">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="sidebar-label">Deduction · Before It Breaks</div>
+    <a href="maint-grammar-deduction.html">Deduction · Present &amp; Past</a>
+    <a href="maint-deduction-practice.html" class="current">Extra Practice</a>
+    <a href="maint-grammar-deduction-continuous.html">Was it happening? (Bonus)</a>
+  </div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar-main">
+
 <div class="topbar">
-  <div class="topbar-brand"><strong>EIC.</strong>B1+ · BEFORE IT BREAKS · DEDUCTION PRACTICE</div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <button class="sidebar-toggle" onclick="openSidebar()" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="topbar-brand"><strong>EIC.</strong>B1+ · BEFORE IT BREAKS · DEDUCTION PRACTICE</div>
+  </div>
   <div class="topbar-nav">
-    <a href="maint-grammar-deduction.html">&larr; Back to lesson</a>
     <a href="maint-documents.html">Documents</a>
   </div>
 </div>
+
 
 <div class="pw">
   <div class="hero">
@@ -100,6 +136,9 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:36px 0 10px;fon
 </div>
 
 <footer>EIC Escola de Idiomas e Cultura &middot; Deduction Practice &middot; Before It Breaks &middot; Aluno: Rafael</footer>
+
+  </div>
+</div>
 
 <div id="gl-tip"><div id="gl-tip-pt"></div></div>
 
@@ -136,6 +175,24 @@ var ITEMS = [
   { context: "The technician swears he never left the panel <span class=\"tt\" data-tip=\"unattended\">unattended</span>.", pre: "According to him, nobody", post: "the room without him noticing.", correct: "can't have entered", options: ["must have entered","could have entered","can't have entered","didn't enter"] }
 ];
 
+function playSidebarAnim(){
+  var sb = document.getElementById('sidebar');
+  if (!sb) return;
+  sb.classList.remove('animated');
+  void sb.offsetWidth;
+  sb.classList.add('animated');
+}
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  playSidebarAnim();
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 function shuffle(arr){
   for (var i = arr.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));

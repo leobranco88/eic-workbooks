@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Deduction Continuous · Bonus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A0A0F; --paper:#FAFAF7; --mid:#6B7280; --border:#D1D5DB; --surface:#F3F4F6;
+  --navy:#0F3460; --neon2:#0F8C82; --coral:#E63946;
+  --must:#0F8C82; --cant:#E63946;
+  --green:#0F766E; --green-bg:#ECFDF5; --red-bg:#FEF2F2;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);font-size:14.5px;line-height:1.55}
+::selection{background:#BFE8FF;color:var(--ink)}
+.pw{max-width:820px;margin:0 auto;padding:0 36px 80px}
+@media(max-width:640px){.pw{padding:0 18px 60px}}
+
+.topbar{background:var(--navy);color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--neon2)}
+.topbar-brand{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em}
+.topbar-brand strong{font-size:15px;font-weight:900;display:block;line-height:1.1}
+.topbar-meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#B8C7DC;text-align:right}
+
+.navbar{background:#fff;border-bottom:1px solid var(--border);padding:8px 24px;position:sticky;top:41px;z-index:99;display:flex;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px}
+.navbar a{color:var(--mid);text-decoration:none;font-weight:600}
+.navbar a.active{color:var(--ink);font-weight:800;border-bottom:2px solid var(--neon2)}
+.pdfbar{background:var(--surface);border-bottom:1px solid var(--border);padding:6px 24px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px}
+.pdfbar a{color:var(--ink);font-weight:700;text-decoration:none}
+.pdfbar a:hover{text-decoration:underline}
+
+.hero{padding:28px 0 20px;border-bottom:2px solid var(--ink)}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--neon2)}
+.hero h1{font-size:28px;font-weight:900;line-height:1.1;margin-top:8px;letter-spacing:-.02em}
+.hero-sub{font-size:12.5px;color:var(--mid);line-height:1.6;margin-top:10px;max-width:640px}
+.level-tag{display:inline-block;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;background:#EAF2FF;border:1px solid var(--navy);color:var(--navy);padding:3px 10px;border-radius:10px}
+.bonus-tag{display:inline-block;margin-top:10px;margin-left:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;background:#FFF7CC;border:1px solid #E8DA8F;color:#7A6A00;padding:3px 10px;border-radius:10px}
+.ganbare{text-align:center;margin-top:14px}
+.ganbare .kanji{font-size:26px}
+.ganbare .romaji{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:var(--mid);letter-spacing:.1em;margin-top:2px}
+
+.section{padding:26px 0;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.section-hd{margin-bottom:14px}
+.s-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--neon2);font-weight:700;margin-right:8px}
+.s-title{font-size:17px;font-weight:900}
+.s-sub{font-size:11px;color:var(--mid);margin-top:1px}
+
+.reading{background:#fff;border-radius:12px;padding:20px 22px;border:1px solid var(--border)}
+.reading-byline{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--mid);letter-spacing:.08em;margin-bottom:10px;text-transform:uppercase}
+.reading p{margin-bottom:11px;font-size:13.5px;line-height:1.65}
+.reading p:last-child{margin-bottom:0}
+.target{background:#DCEEFF;padding:1px 4px;border-radius:3px;font-weight:700}
+.target.cant{background:#FFD8DE}
+.tt{border-bottom:1.5px dotted var(--neon2);cursor:help}
+
+.glossary{margin-top:14px;background:var(--surface);border-radius:10px;padding:14px 16px;border:1px solid var(--border)}
+.glossary-label{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--neon2);margin-bottom:9px}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
+@media(max-width:560px){.g-grid{grid-template-columns:1fr}}
+.g-item{font-size:11px;line-height:1.4}
+.g-word{font-weight:800;color:var(--ink)}
+.g-pt{color:var(--neon2);font-size:10px;margin-left:3px}
+.g-jp{color:var(--mid);font-size:9.5px;display:block;margin-top:0}
+
+.rule-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
+@media(max-width:640px){.rule-grid{grid-template-columns:1fr 1fr}}
+.rule-card{border-radius:10px;padding:12px 13px;background:var(--surface);border:1.5px solid var(--border)}
+.rule-card.must{border-color:var(--must)}
+.rule-card.cant{border-color:var(--cant)}
+.rule-label{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.rule-name{font-size:14px;font-weight:900;margin-top:3px}
+.rule-card.must .rule-name{color:var(--must)}
+.rule-card.cant .rule-name{color:var(--cant)}
+.rule-def{font-size:10.5px;line-height:1.5;margin-top:6px;color:#374151}
+.rule-ex{font-size:10px;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);color:var(--mid);font-style:italic}
+
+.ask-box{margin-top:14px;background:#EAF2FF;border-radius:10px;padding:11px 14px;font-size:12px;line-height:1.5;color:var(--ink)}
+.ask-box b{font-weight:800}
+
+.tip-box{margin-top:10px;background:#fff;border:1.5px dashed var(--neon2);border-radius:10px;padding:11px 14px}
+.tip-label{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:4px}
+.tip-text{font-size:11.5px;line-height:1.55;color:#374151}
+.tip-text code{background:var(--surface);padding:1px 6px;border-radius:5px;font-family:'IBM Plex Mono',monospace;font-weight:700}
+
+.contrast-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:11.5px}
+.contrast-table th{background:var(--ink);color:#fff;padding:7px 10px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase}
+.contrast-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.contrast-table tr:nth-child(even) td{background:var(--surface)}
+.contrast-table td b{color:var(--must)}
+
+.solved-card{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.solved-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--navy);color:#fff;padding:3px 10px;border-radius:10px;margin-bottom:10px}
+.solved-context{font-size:12px;color:#374151;line-height:1.55;margin-bottom:10px}
+.solved-clue{background:#FFF176;padding:1px 4px;border-radius:3px;font-weight:800}
+.solved-answer{font-size:13px;font-weight:700;background:var(--surface);border-radius:8px;padding:10px 12px;margin-bottom:10px;line-height:1.6}
+.solved-answer b{color:var(--must)}
+.solved-why{font-size:11px;color:#6B7280;line-height:1.55}
+.solved-why b{color:var(--ink)}
+
+.ex-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.ex-num{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--neon2);font-weight:700;margin-bottom:6px}
+.ex-context{font-size:11px;color:#4B5563;line-height:1.55;margin-bottom:10px}
+.ex-sentence{font-size:13.5px;line-height:1.75;font-weight:600}
+.ex-sentence .verb-hint{font-weight:400;font-style:italic;color:var(--mid);font-size:12px}
+.ex-line{border:none;border-bottom:1.5px solid var(--border);background:transparent;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--ink);padding:2px 4px;min-width:220px}
+.ex-line:focus{outline:none;border-bottom-color:var(--neon2)}
+.ex-actions{margin-top:11px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:none;border-radius:8px;padding:7px 14px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer}
+.btn-check{background:var(--ink);color:#fff}
+.btn-check:hover{background:#000}
+.btn-reset{background:#fff;color:var(--ink);border:1.5px solid var(--border);display:none}
+.btn-reset.show{display:inline-block}
+.ex-feedback{font-size:11px;font-weight:700;display:none}
+.ex-feedback.show{display:block}
+.ex-feedback.good{color:var(--green)}
+.ex-feedback.bad{color:var(--cant)}
+.ex-answer{display:none;margin-top:11px;background:var(--surface);border-left:3px solid var(--neon2);border-radius:0 8px 8px 0;padding:10px 14px}
+.ex-answer.show{display:block}
+.ea-label{font-family:'IBM Plex Mono',monospace;font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--neon2);margin-bottom:5px;font-weight:700}
+.ea-text{font-size:12.5px;font-weight:700;color:var(--ink)}
+
+.pattern-box{background:var(--surface);border-radius:10px;padding:14px 16px;border:1px solid var(--border);margin-bottom:12px}
+.pattern-row{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--border)}
+.pattern-row:last-child{border-bottom:none}
+.pattern-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--neon2);min-width:90px;flex-shrink:0}
+.pattern-ex{font-size:11.5px;color:var(--ink)}
+
+.speak-box{background:var(--surface);border:1.5px solid var(--neon2);border-radius:12px;padding:16px 18px}
+.speak-label{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:8px}
+.speak-q{font-size:12.5px;line-height:1.55;margin-bottom:8px;padding-left:16px;position:relative}
+.speak-q::before{content:"♦";position:absolute;left:0;color:var(--neon2)}
+.speak-q:last-child{margin-bottom:0}
+
+footer{text-align:center;font-size:10px;color:var(--mid);padding:26px 0 10px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+
+#gl-tip{display:none;position:fixed;z-index:9999;background:#0F3460;color:#fff;border-radius:9px;padding:10px 14px;
+  max-width:250px;font-size:12px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);border:1px solid #0A2A4D}
+#gl-tip-pt{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7FE8DC;margin-bottom:3px}
+#gl-tip-jp{font-size:10.5px;color:#B8C7DC;margin-top:5px;padding-top:5px;border-top:1px dashed #2A4B6E}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand"><strong>EIC.</strong>DEDUCTION CONTINUOUS · TOSHIE</div>
+  <div class="topbar-meta">GRAMMAR · BONUS PAGE</div>
+</div>
+<div class="navbar">
+  <a href="deduction-classroom.html">Classroom</a>
+  <a href="deduction-homework.html">Homework</a>
+  <a href="deduction-continuous.html" class="active">Continuous · Bonus</a>
+</div>
+<div class="pdfbar">⬇ <a href="deduction-continuous.pdf">Download PDF version</a></div>
+
+<div class="pw">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Grammar Lab · Bonus Page</div>
+    <h1>Was it happening?</h1>
+    <p class="hero-sub">Uma extensão da dedução no passado: em vez de "aconteceu e terminou", às vezes você quer dizer "estava acontecendo naquele momento". Para isso, o inglês usa modal + <b>have been</b> + verbo-<b>ing</b>.</p>
+    <div class="level-tag">TEXTO ADAPTADO · NÍVEL B1+</div>
+    <div class="bonus-tag">EXTRA · COMPLEMENTA A AULA DE DEDUÇÃO</div>
+    <div class="ganbare"><div class="kanji">頑張れ</div><div class="romaji">ganbare · you've got this</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">01</span><span class="s-title">The Room Above Mine</span><div class="s-sub">Leitura · By Yuki Tanaka</div></div>
+    <div class="reading">
+      <div class="reading-byline">A small hotel · somewhere near Kyoto · 2am</div>
+      <p>Something above my room kept making noise all night. Feet moving. A chair <span class="tt" data-tip="scraping">scraping</span>. A door closing softly. It was 2am. Someone up there <span class="target">must have been walking</span> around, back and forth, unable to sleep either.</p>
+      <p>In the morning, I asked the front desk about it. The receptionist looked <span class="tt" data-tip="confused">confused</span>. "That room is empty," she said. "No one has stayed there this week." The noise <span class="target cant">can't have been coming</span> from the hallway either. I could hear it directly above me, not beside me.</p>
+      <p>I thought about it on the train home. It <span class="target">might have been</span> the pipes, <span class="tt" data-tip="settling">settling</span> as the building cooled down. Or the sound <span class="target">might have been coming</span> from a completely different room, one floor away, <span class="tt" data-tip="echoing">echoing</span> strangely through the old walls. I'll never know for <span class="tt" data-tip="certain">certain</span>. But something, somewhere, <span class="target">must have been happening</span>.</p>
+    </div>
+
+    <div class="glossary">
+      <div class="glossary-label">Glossário · palavras desta leitura</div>
+      <div class="g-grid">
+        <div class="g-item"><span class="g-word">to scrape</span><span class="g-pt">arrastar, raspar</span><span class="g-jp">こすれる音を立てる</span></div>
+        <div class="g-item"><span class="g-word">confused</span><span class="g-pt">confuso(a)</span><span class="g-jp">困惑した</span></div>
+        <div class="g-item"><span class="g-word">to settle (a building)</span><span class="g-pt">acomodar-se, assentar</span><span class="g-jp">（建物が）落ち着く</span></div>
+        <div class="g-item"><span class="g-word">to echo</span><span class="g-pt">ecoar</span><span class="g-jp">響く</span></div>
+        <div class="g-item"><span class="g-word">certain</span><span class="g-pt">certo, seguro</span><span class="g-jp">確実な</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">02</span><span class="s-title">A forma contínua</span><div class="s-sub">Modal + have been + verbo-ing</div></div>
+
+    <div class="rule-grid">
+      <div class="rule-card must"><div class="rule-label">~95%</div><div class="rule-name">must have been + -ing</div><p class="rule-def">Quase certeza de que algo estava em andamento.</p><p class="rule-ex">"The lights were on. Someone must have been cooking."</p></div>
+      <div class="rule-card"><div class="rule-label">~50%</div><div class="rule-name">might/could have been + -ing</div><p class="rule-def">Possibilidade de uma ação em progresso no passado.</p><p class="rule-ex">"She might have been sleeping when you called."</p></div>
+      <div class="rule-card"><div class="rule-label">~50%</div><div class="rule-name">may have been + -ing</div><p class="rule-def">Igual a might have been, mais formal.</p><p class="rule-ex">"They may have been waiting outside."</p></div>
+      <div class="rule-card cant"><div class="rule-label">~95%</div><div class="rule-name">can't have been + -ing</div><p class="rule-def">Praticamente impossível que a ação estivesse ocorrendo.</p><p class="rule-ex">"He can't have been driving that fast here."</p></div>
+    </div>
+
+    <div class="ask-box"><b>A ideia central:</b> a forma simples ("must have missed") descreve uma ação completa. A forma contínua ("must have been missing" — quando faz sentido) descreve uma ação <b>em progresso</b> num momento específico do passado. É a mesma lógica do Present Continuous vs. Present Simple, só que aplicada à dedução.</div>
+
+    <table class="contrast-table">
+      <tr><th>Contexto</th><th>Simples (ação completa)</th><th>Contínua (em andamento)</th></tr>
+      <tr><td>Panelas ainda na cozinha, cheiro de comida</td><td>Someone <b>must have cooked</b> dinner.</td><td>Someone <b>must have been cooking</b> when you arrived.</td></tr>
+      <tr><td>Cabelo molhado, respiração ofegante</td><td>She <b>must have exercised</b>.</td><td>She <b>must have been exercising</b> right before you called.</td></tr>
+      <tr><td>Barreiras de concreto tornam a velocidade impossível</td><td>A car <b>can't have driven</b> that fast.</td><td>A car <b>can't have been driving</b> that fast here.</td></tr>
+    </table>
+
+    <div class="tip-box">
+      <div class="tip-label">Como escolher</div>
+      <div class="tip-text">Pistas de contexto que pedem a forma <b>contínua</b>: "when I arrived", "at that moment", "still", "for two hours", "on and off". Pistas que pedem a forma <b>simples</b>: "already", "by the time", evidência de um resultado finalizado (prato pronto, e-mail respondido, tarefa concluída).</div>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Simples vs. contínua</span>
+      <p class="solved-context">You come home and find your roommate's laptop open, a <span class="solved-clue">half-written email on the screen</span>, and <span class="solved-clue">coffee still warm</span> beside it.</p>
+      <div class="solved-answer">She <b>must have been answering</b> emails when something interrupted her.</div>
+      <p class="solved-why"><b>Por quê a forma contínua:</b> o e-mail está pela metade e o café ainda está quente. As evidências apontam para uma ação interrompida, em andamento, não uma ação já concluída.</p>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Impossibilidade contínua</span>
+      <p class="solved-context">Your friend says he was watching TV all evening, but <span class="solved-clue">the remote's batteries died three days ago and were never replaced</span>.</p>
+      <div class="solved-answer">He <b>can't have been watching</b> TV all evening. There's no way to turn it on.</div>
+      <p class="solved-why"><b>Por quê "can't have been watching":</b> a evidência (pilhas mortas) torna fisicamente impossível a ação contínua alegada.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">03</span><span class="s-title">Practice</span><div class="s-sub">Simples ou contínua? Escreva a forma completa</div></div>
+
+    <div class="ex-card"><div class="ex-num">01</div>
+      <p class="ex-context">You knock on the bathroom door, and you can hear water running behind it.</p>
+      <p class="ex-sentence">She <input class="ex-line" type="text" placeholder="write your answer..."> a shower. <span class="verb-hint">(take)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been taking</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">02</div>
+      <p class="ex-context">Your neighbour's music was loud, on and off, for nearly two hours after midnight.</p>
+      <p class="ex-sentence">They <input class="ex-line" type="text" placeholder="write your answer..."> a party. <span class="verb-hint">(have)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been having</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">03</div>
+      <p class="ex-context">The car's engine was still warm, but it was parked perfectly and every door was locked.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> it recently. <span class="verb-hint">(drive)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have driven</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">04</div>
+      <p class="ex-context">The photocopier felt warm and a stack of fresh pages sat uncollected on the tray when you walked in.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> it just moments before you arrived. <span class="verb-hint">(use)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have been using</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">05</div>
+      <p class="ex-context">The trail was covered in fresh, clear footprints, though no one else was in sight.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> this trail earlier. <span class="verb-hint">(walk)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have walked</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">06</div>
+      <p class="ex-context">The shop's power was cut for the entire night, confirmed by the electric company, yet a witness swears the lights were on at 2am.</p>
+      <p class="ex-sentence">Staff <input class="ex-line" type="text" placeholder="write your answer..."> there at 2am. It's simply not possible. <span class="verb-hint">(work)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">can't have been working</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">07</div>
+      <p class="ex-context">Your sister says she spent the whole afternoon reading, but the bookmark is still on page one and the book looks untouched.</p>
+      <p class="ex-sentence">She <input class="ex-line" type="text" placeholder="write your answer..."> all afternoon. The book hasn't moved. <span class="verb-hint">(read)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">can't have been reading</div></div>
+    </div>
+
+    <div class="ex-card"><div class="ex-num">08</div>
+      <p class="ex-context">You open the oven and find a perfectly baked, fully cooled cake sitting on the rack.</p>
+      <p class="ex-sentence">Someone <input class="ex-line" type="text" placeholder="write your answer..."> this hours ago. <span class="verb-hint">(bake)</span></p>
+      <div class="ex-actions"><button class="btn btn-check" onclick="toggleAns(this)">Reveal answer</button></div>
+      <div class="ex-answer"><div class="ea-label">Answer</div><div class="ea-text">must have baked</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">04</span><span class="s-title">Quick Patterns</span><div class="s-sub">Perguntando sobre ações em andamento</div></div>
+    <div class="pattern-box">
+      <div class="pattern-row"><span class="pattern-tag">Yes/No</span><span class="pattern-ex">"Could he have been sleeping when you knocked?"</span></div>
+      <div class="pattern-row"><span class="pattern-tag">Wh-question</span><span class="pattern-ex">"What could they have been doing all that time?"</span></div>
+      <div class="pattern-row"><span class="pattern-tag">Short answer</span><span class="pattern-ex">"He must have been, yes." · "She can't have been. She was with me."</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">05</span><span class="s-title">Speaking Corner</span></div>
+    <div class="speak-box">
+      <div class="speak-label">Discussion</div>
+      <p class="speak-q">Think of a strange noise or unexplained moment from a trip. What do you think must have been happening, and why?</p>
+      <p class="speak-q">Compare: "He must have left" vs. "He must have been leaving." What's the difference in meaning?</p>
+      <p class="speak-q">Describe a moment you walked into a room and could tell something had just been happening there, before you arrived.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>EIC Escola de Idiomas e Cultura · Deduction Continuous · Bonus Page · Aluno: Toshie</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div><div id="gl-tip-jp"></div></div>
+
+<script>
+function toggleAns(btn){
+  var card = btn.closest('.ex-card');
+  var ans = card.querySelector('.ex-answer');
+  var show = ans.classList.toggle('show');
+  btn.textContent = show ? 'Hide answer' : 'Reveal answer';
+}
+
+(function() {
+  var TIPS = {
+    "scraping": {pt: "arrastando, raspando", def: "Making a rough sound by dragging something along a surface.", jp: "こすれる音を立てる"},
+    "confused": {pt: "confuso(a)", def: "Not understanding what is happening.", jp: "困惑した"},
+    "settling": {pt: "acomodando-se, assentando", def: "A building slowly shifting or making small noises as it cools or ages.", jp: "（建物が）落ち着く"},
+    "echoing": {pt: "ecoando", def: "A sound repeating or bouncing off walls.", jp: "響く"},
+    "certain": {pt: "certo, seguro", def: "Completely sure about something.", jp: "確実な"}
+  };
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    var tipJp = document.getElementById("gl-tip-jp");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      function show(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tipJp.textContent = data.jp;
+        tip.style.display = "block";
+        moveTip(e);
+      }
+      el.addEventListener("mouseenter", show);
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        show(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 115, window.innerWidth - 240));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 16) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -22,6 +22,24 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);fon
 .pw{max-width:980px;margin:0 auto;padding:0 40px 100px}
 @media(max-width:720px){.pw{padding:0 22px 80px}body{font-size:17px}}
 
+.page-flex{min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;height:100%;width:230px;background:var(--ink);padding:24px 0;z-index:300;overflow-y:auto;box-shadow:4px 0 24px rgba(0,0,0,.3);transform:translateX(-100%);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.sidebar.open{transform:translateX(0)}
+.sidebar-label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 22px 12px}
+.sidebar a{display:flex;align-items:center;gap:10px;padding:12px 22px;text-decoration:none;color:rgba(255,255,255,.65);font-size:14px;font-weight:600;border-left:3px solid transparent}
+.sidebar a:hover{background:rgba(255,255,255,.06);color:#fff}
+.sidebar a.current{background:rgba(232,98,26,.12);border-left-color:var(--orange);color:#fff;cursor:default}
+.sidebar-main{width:100%}
+.sidebar-toggle{display:flex;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:#fff;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.sidebar-close{display:flex;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;align-items:center;justify-content:center;position:absolute;top:18px;right:18px}
+.sidebar .sidebar-label,.sidebar a{opacity:0;transform:translateY(22px) rotate(4deg);transform-origin:left bottom;transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.sidebar.animated .sidebar-label{opacity:1;transform:translateY(0) rotate(0);transition-delay:.22s}
+.sidebar.animated a:nth-of-type(1){opacity:1;transform:translateY(0) rotate(0);transition-delay:.30s}
+.sidebar.animated a:nth-of-type(2){opacity:1;transform:translateY(0) rotate(0);transition-delay:.38s}
+.sidebar.animated a:nth-of-type(3){opacity:1;transform:translateY(0) rotate(0);transition-delay:.46s}
+.sidebar.animated a:nth-of-type(4){opacity:1;transform:translateY(0) rotate(0);transition-delay:.54s}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:299}
+.sidebar-overlay.open{display:block}
 .topbar{background:var(--ink);color:#fff;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--orange);flex-wrap:wrap;gap:10px}
 .topbar-brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em}
 .topbar-brand strong{font-size:19px;font-weight:900;display:block;line-height:1.1}
@@ -116,16 +134,16 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);fon
 .tip-text{font-size:16.5px;line-height:1.6;color:var(--ink)}
 .tip-text code{background:var(--surface);padding:2px 8px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--ink)}
 
-.warn-box{margin-top:16px;background:#fff;border:2px dashed var(--coral);border-radius:16px;padding:20px 24px}
-.warn-label{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
-.warn-text{font-size:16.5px;line-height:1.6;color:var(--ink)}
-.warn-text code{background:var(--coral-bg);padding:2px 8px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--coral)}
-.warn-compare{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.warn-box{margin-top:12px;background:#fff;border:2px dashed var(--coral);border-radius:14px;padding:14px 17px}
+.warn-label{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px}
+.warn-text{font-size:13.5px;line-height:1.5;color:var(--ink)}
+.warn-text code{background:var(--coral-bg);padding:1px 6px;border-radius:5px;font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--coral)}
+.warn-compare{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
 @media(max-width:640px){.warn-compare{grid-template-columns:1fr}}
-.warn-c{background:var(--surface);border-radius:12px;padding:14px 16px;border:1px solid var(--border)}
-.warn-c .wc-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
-.warn-c .wc-en{font-size:15.5px;font-weight:700;color:var(--ink)}
-.warn-c .wc-pt{font-size:13.5px;color:var(--teal);margin-top:4px}
+.warn-c{background:var(--surface);border-radius:10px;padding:10px 12px;border:1px solid var(--border)}
+.warn-c .wc-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:4px}
+.warn-c .wc-en{font-size:13px;font-weight:700;color:var(--ink)}
+.warn-c .wc-pt{font-size:11.5px;color:var(--teal);margin-top:3px}
 
 .scale-card{background:#fff;border-radius:18px;padding:26px 30px;border:2px solid var(--ink);margin-bottom:16px}
 .scale-sticky{position:sticky;top:78px;z-index:40;box-shadow:0 14px 30px rgba(0,0,0,.18)}
@@ -146,54 +164,57 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);fon
 .scale-labels div.must{color:var(--must)}
 .scale-sub{text-align:center;font-size:12.5px;color:var(--mid);margin-top:14px}
 
-.solved-card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:24px 26px;margin-bottom:18px}
-.solved-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:4px 12px;border-radius:14px;margin-bottom:14px}
-.solved-context{font-size:17px;color:var(--ink);line-height:1.6;margin-bottom:16px}
+.solved-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.solved-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;padding:3px 9px;border-radius:10px;margin-bottom:8px}
+.solved-context{font-size:13.5px;color:var(--ink);line-height:1.5;margin-bottom:9px}
 .solved-clue{background:var(--hi);color:var(--ink);padding:1px 6px;border-radius:4px;font-weight:800}
-.solved-answer{font-size:20px;font-weight:700;color:var(--ink);background:var(--surface);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.solved-answer{font-size:15px;font-weight:700;color:var(--ink);background:var(--surface);border-radius:9px;padding:9px 12px;margin-bottom:9px}
 .solved-answer b{color:var(--must)}
 .solved-answer.cant b{color:var(--cant)}
-.solved-why{font-size:15px;line-height:1.6;color:var(--mid)}
+.solved-why{font-size:12px;line-height:1.5;color:var(--mid)}
 .solved-why b{color:var(--ink)}
+.solved-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:14px}
+.solved-grid .solved-card{margin-bottom:0}
+@media(max-width:640px){.solved-grid{grid-template-columns:1fr}}
 
-.ex-card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:26px 28px;margin-bottom:18px}
-.ex-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--orange);font-weight:700;margin-bottom:10px}
-.ex-context{font-size:16px;color:#3B4657;line-height:1.6;margin-bottom:16px}
-.ex-sentence{font-size:21px;line-height:1.85;font-weight:600;color:var(--ink)}
-.blank-sel{appearance:none;background:#fff;border:2px solid var(--ink);border-radius:10px;
-  padding:6px 34px 6px 14px;font-family:inherit;font-size:19px;font-weight:700;color:var(--ink);cursor:pointer;
+.ex-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.ex-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--orange);font-weight:700;margin-bottom:6px}
+.ex-context{font-size:13.5px;color:#3B4657;line-height:1.5;margin-bottom:8px}
+.ex-sentence{font-size:17px;line-height:1.6;font-weight:600;color:var(--ink)}
+.blank-sel{appearance:none;background:#fff;border:1.5px solid var(--ink);border-radius:8px;
+  padding:4px 28px 4px 11px;font-family:inherit;font-size:16px;font-weight:700;color:var(--ink);cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8' fill='%230A1628'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 12px center;margin:0 4px}
+  background-repeat:no-repeat;background-position:right 10px center;margin:0 3px}
 .blank-sel:focus{outline:3px solid var(--teal-lt)}
 .blank-sel.correct{background-color:var(--green-bg);border-color:var(--green);color:var(--green)}
 .blank-sel.wrong{background-color:var(--coral-bg);border-color:var(--cant);color:var(--cant)}
-.ex-actions{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.btn{border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer}
+.ex-actions{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:none;border-radius:9px;padding:7px 15px;font-family:inherit;font-size:13.5px;font-weight:800;cursor:pointer}
 .btn-check{background:var(--ink);color:#fff}
 .btn-check:hover{background:#1a2c47}
-.btn-reset{background:#fff;color:var(--ink);border:2px solid var(--border);display:none}
+.btn-reset{background:#fff;color:var(--ink);border:1.5px solid var(--border);display:none}
 .btn-reset.show{display:inline-block}
 .btn-reset:hover{border-color:var(--ink)}
-.ex-feedback{font-size:16px;font-weight:700;display:none}
+.ex-feedback{font-size:13.5px;font-weight:700;display:none}
 .ex-feedback.show{display:block}
 .ex-feedback.good{color:var(--green)}
 .ex-feedback.bad{color:var(--cant)}
 
-.write-card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:26px 28px;margin-bottom:18px}
-.write-scenario{font-size:16px;color:#3B4657;line-height:1.6;margin-bottom:16px}
-.write-hint{font-size:14px;color:var(--ink);background:var(--surface);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:8px 14px;margin-bottom:16px}
+.write-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.write-scenario{font-size:13.5px;color:#3B4657;line-height:1.5;margin-bottom:8px}
+.write-hint{font-size:12.5px;color:var(--ink);background:var(--surface);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:6px 11px;margin-bottom:8px}
 .write-hint b{color:var(--ink)}
-.write-task{font-size:17px;color:var(--ink);font-weight:600;margin-bottom:10px;padding-left:20px;position:relative}
+.write-task{font-size:15px;color:var(--ink);font-weight:600;margin-bottom:6px;padding-left:18px;position:relative}
 .write-task::before{content:"✎";position:absolute;left:0;color:var(--teal)}
-.write-line{border:none;border-bottom:2px solid var(--border);background:transparent;width:100%;font-family:inherit;font-size:18px;color:var(--ink);padding:8px 4px;margin-bottom:16px}
+.write-line{border:none;border-bottom:2px solid var(--border);background:transparent;width:100%;font-family:inherit;font-size:15px;color:var(--ink);padding:5px 3px;margin-bottom:8px}
 .write-line:focus{outline:none;border-bottom-color:var(--teal)}
 .write-line:last-of-type{margin-bottom:0}
-.btn-reveal-inline{margin-top:16px;background:transparent;border:2px solid var(--teal);color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:9px 18px;cursor:pointer;border-radius:10px}
+.btn-reveal-inline{margin-top:8px;background:transparent;border:1.5px solid var(--teal);color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:6px 13px;cursor:pointer;border-radius:8px}
 .btn-reveal-inline:hover,.btn-reveal-inline.active{background:var(--teal);color:#fff}
-.write-answer{display:none;margin-top:16px;background:var(--surface);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;padding:16px 20px}
+.write-answer{display:none;margin-top:10px;background:var(--surface);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:10px 14px}
 .write-answer.show{display:block}
-.wa-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:9px;font-weight:700}
-.wa-line{font-size:17px;color:var(--ink);margin-bottom:7px;line-height:1.5}
+.wa-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin-bottom:6px;font-weight:700}
+.wa-line{font-size:14px;color:var(--ink);margin-bottom:5px;line-height:1.45}
 .wa-line:last-child{margin-bottom:0}
 .wa-line b{color:var(--orange)}
 
@@ -263,12 +284,28 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-brand"><strong>EIC.</strong>B1+ · BEFORE IT BREAKS · DEDUCTION</div>
-  <div class="topbar-nav">
-    <a href="maint-documents.html">&larr; Documents</a>
+<div class="page-flex">
+  <div class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="closeSidebar()" aria-label="Fechar menu">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="sidebar-label">Deduction · Before It Breaks</div>
+    <a href="maint-grammar-deduction.html" class="current">Deduction · Present &amp; Past</a>
     <a href="maint-deduction-practice.html">Extra Practice</a>
     <a href="maint-grammar-deduction-continuous.html">Was it happening? (Bonus)</a>
+  </div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar-main">
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:14px">
+    <button class="sidebar-toggle" onclick="openSidebar()" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="topbar-brand"><strong>EIC.</strong>B1+ · BEFORE IT BREAKS · DEDUCTION</div>
+  </div>
+  <div class="topbar-nav">
+    <a href="maint-documents.html">&larr; Documents</a>
     <a href="maint-stakeholders.html" class="pill">Stakeholder Map</a>
   </div>
 </div>
@@ -470,6 +507,7 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
       <div class="scale-sub">impossível &rarr; possível &rarr; quase certo</div>
     </div>
 
+    <div class="solved-grid">
     <div class="solved-card">
       <span class="solved-tag">Evidência forte → must be</span>
       <p class="solved-context">The panel light is completely dark and <span class="solved-clue">the <span class="tt" data-tip="needle">needle</span> hasn't moved in ten minutes</span>, even though the line is clearly running.</p>
@@ -482,6 +520,7 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
       <p class="solved-context">The maintenance log clearly shows <span class="solved-clue">this exact bearing was replaced two weeks ago</span>, but Carlos is pointing straight at it as the source of the sound.</p>
       <div class="solved-answer cant">This <b>can't be</b> the same bearing failing again already.</div>
       <p class="solved-why"><b>Por quê "can't be":</b> o log contradiz a suposição. Quando algo é logicamente improvável dado o que você vê nos dados, é "can't be", nunca "mustn't be".</p>
+    </div>
     </div>
 
     <div class="section-hd" style="margin-top:36px"><span class="s-num">02.1</span><div><div class="s-title">Practice · Present Deduction</div><div class="s-sub">Escolha o modal certo pelo contexto</div></div></div>
@@ -575,13 +614,14 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
 
     <div class="warn-box">
       <div class="warn-label">&#9888; Watch out</div>
-      <div class="warn-text">"<code>could</code>" sozinho no passado, sem "<code>have</code>", quase sempre significa <b>habilidade geral</b>, não dedução. O "have" é o que muda tudo.</div>
+      <div class="warn-text">"<code>could</code>" sozinho, referindo-se ao passado, descreve uma <b>habilidade geral</b> que a pessoa tinha, uma capacidade contínua, não um evento específico. Pra fazer uma dedução sobre uma situação específica do passado, usamos "<code>could have</code>" + particípio. Não é o "have" que "causa" a dedução, são dois usos diferentes de "could": um pra capacidade geral, outro pra possibilidade sobre um momento específico.</div>
       <div class="warn-compare">
         <div class="warn-c"><div class="wc-tag">Habilidade</div><div class="wc-en">"Carlos could fix any compressor <span class="tt" data-tip="blindfolded">blindfolded</span>."</div><div class="wc-pt">Ele era capaz de consertar, sabia fazer isso.</div></div>
         <div class="warn-c"><div class="wc-tag">Dedução</div><div class="wc-en">"He could have fixed it before the shift ended."</div><div class="wc-pt">Talvez ele tenha consertado, não temos certeza.</div></div>
       </div>
     </div>
 
+    <div class="solved-grid">
     <div class="solved-card">
       <span class="solved-tag">Conclusão forte sobre o passado</span>
       <p class="solved-context">The log shows <span class="solved-clue">a three week gap</span> exactly where the lubrication cycle was scheduled to run.</p>
@@ -594,6 +634,7 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
       <p class="solved-context">The technician insists it was normal wear, but <span class="solved-clue">wear and tear happens gradually, it doesn't create a three week gap in the schedule</span>.</p>
       <div class="solved-answer cant">This <b>can't have been</b> just wear and tear.</div>
       <p class="solved-why"><b>Por quê "can't have been":</b> a lógica dos dados contradiz a explicação. Impossibilidade sobre o passado é sempre "can't have", nunca "mustn't have".</p>
+    </div>
     </div>
 
     <div class="section-hd" style="margin-top:36px"><span class="s-num">03.1</span><div><div class="s-title">Practice · Past Deduction</div><div class="s-sub">Modal + have + particípio</div></div></div>
@@ -665,7 +706,7 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
     <div class="ex-card">
       <div class="ex-num">04</div>
       <p class="ex-context">The report shows the unit ran non-stop for 400 hours without a single inspection logged.</p>
-      <p class="ex-sentence">Nobody <select class="blank-sel" data-correct="can't have inspected"><option value="">___</option><option value="might have inspected">might have inspected</option><option value="can't have inspected">can't have inspected</option><option value="must have inspected">must have inspected</option></select> it in that whole window.</p>
+      <p class="ex-sentence">The maintenance team <select class="blank-sel" data-correct="can't have inspected"><option value="">___</option><option value="might have inspected">might have inspected</option><option value="can't have inspected">can't have inspected</option><option value="must have inspected">must have inspected</option></select> it in that whole window.</p>
       <div class="ex-actions"><button class="btn btn-check" onclick="checkEx(this)">Check</button><button class="btn btn-reset" onclick="resetEx(this)">Tentar de novo</button><span class="ex-feedback"></span></div>
     </div>
 
@@ -762,6 +803,9 @@ footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;fon
 </div>
 
 <footer>EIC Escola de Idiomas e Cultura &middot; Deduction Present &amp; Past &middot; Before It Breaks &middot; Aluno: Rafael</footer>
+
+  </div>
+</div>
 
 <button class="exp-fab" onclick="openExploded()">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -904,6 +948,24 @@ function toggleAudio(btn){
     audio.play();
     btn.classList.add('playing');
   }
+}
+function playSidebarAnim(){
+  var sb = document.getElementById('sidebar');
+  if (!sb) return;
+  sb.classList.remove('animated');
+  void sb.offsetWidth;
+  sb.classList.add('animated');
+}
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  playSidebarAnim();
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 function openVoc(){
   document.getElementById('vocPanel').classList.add('open');

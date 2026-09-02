@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Comparative Qualifiers · Classroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#12181F; --paper:#FFFFFF; --panel:#F4F5F7; --panel2:#ECEEF2;
+  --border:#D7DBE3; --mid:#6B7280;
+  --neon:#EAFB6B; --neon-ink:#3D4A00; --neon2:#0F8C82; --coral:#E63946;
+  --must:#0F8C82; --might:#A66D00; --equal:#1D4ED8; --cant:#E63946;
+  --green:#0F766E; --green-bg:#ECFDF5;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);font-size:19px;line-height:1.5}
+::selection{background:var(--neon);color:var(--neon-ink)}
+.pw{max-width:980px;margin:0 auto;padding:0 40px 100px}
+@media(max-width:720px){.pw{padding:0 22px 80px}body{font-size:17px}}
+
+.topbar{background:var(--ink);color:#fff;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--neon2)}
+.topbar-brand{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em}
+.topbar-brand strong{font-size:20px;font-weight:900;display:block;line-height:1.1}
+.topbar-meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B8C0CC;text-align:right}
+.tv-tag{display:inline-block;margin-top:4px;font-size:10px;letter-spacing:.1em;background:var(--neon2);color:#fff;padding:2px 8px;border-radius:10px;font-weight:800}
+.navbar{background:var(--panel);border-bottom:1px solid var(--border);padding:10px 40px;position:sticky;top:64px;z-index:99;display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px}
+.navbar a{color:var(--mid);text-decoration:none;font-weight:700}
+.navbar a.active{color:var(--ink);border-bottom:2px solid var(--neon2)}
+.pdfbar{background:var(--panel2);border-bottom:1px solid var(--border);padding:8px 40px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.pdfbar a{color:var(--neon2);font-weight:700;text-decoration:none}
+.pdfbar a:hover{text-decoration:underline}
+
+.hero{padding:44px 0 24px;border-bottom:2px solid var(--border)}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--neon2)}
+.hero h1{font-size:50px;font-weight:900;line-height:1.08;margin-top:10px;letter-spacing:-0.02em}
+.hero h1 span{color:var(--neon2)}
+.hero-sub{font-size:18px;color:#3A4250;line-height:1.6;margin-top:16px;max-width:760px}
+.level-tag{display:inline-block;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;background:var(--panel);border:1px solid var(--neon2);color:var(--neon2);padding:4px 12px;border-radius:12px}
+.ganbare{text-align:center;margin-top:20px}
+.ganbare .kanji{font-size:40px}
+.ganbare .romaji{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:.1em;margin-top:4px}
+
+.section{padding:44px 0;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.section-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:24px}
+.s-num{font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--neon2);font-weight:700;margin-right:2px}
+.s-title{font-size:29px;font-weight:900}
+.s-sub{font-size:15px;color:var(--mid);margin-top:2px}
+
+.reading{background:var(--panel);border-radius:20px;padding:36px 40px;border:1px solid var(--border)}
+.reading-byline{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);letter-spacing:.08em;margin-bottom:18px;text-transform:uppercase}
+.reading p{margin-bottom:18px;font-size:19px;line-height:1.75;color:#1F2530}
+.reading p:last-child{margin-bottom:0}
+.target{color:var(--neon-ink);background:var(--neon);padding:1px 6px;border-radius:5px;font-weight:700}
+.target.neg{background:#FFD9DE;color:#7A1420}
+.tt{border-bottom:2px dotted var(--neon2);cursor:help}
+
+.glossary{margin-top:22px;background:var(--panel2);border-radius:16px;padding:22px 26px;border:1px solid var(--border)}
+.glossary-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:14px}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}
+@media(max-width:640px){.g-grid{grid-template-columns:1fr}}
+.g-item{font-size:15px;line-height:1.45}
+.g-word{font-weight:800;color:var(--ink)}
+.g-pt{color:var(--neon2);font-size:13px;margin-left:4px}
+.g-jp{color:var(--mid);font-size:12.5px;display:block;margin-top:1px}
+
+.rule-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:6px}
+@media(max-width:900px){.rule-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.rule-grid{grid-template-columns:1fr}}
+.rule-card{border-radius:18px;padding:22px 20px;background:var(--panel);border:2px solid var(--border)}
+.rule-card.must{border-color:var(--must)}
+.rule-card.might{border-color:var(--might)}
+.rule-card.equal{border-color:var(--equal)}
+.rule-card.cant{border-color:var(--cant)}
+.rule-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.rule-name{font-size:22px;font-weight:900;margin-top:6px}
+.rule-card.must .rule-name{color:var(--must)}
+.rule-card.might .rule-name{color:var(--might)}
+.rule-card.equal .rule-name{color:var(--equal)}
+.rule-card.cant .rule-name{color:var(--cant)}
+.rule-pct{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mid);margin-top:2px}
+.rule-def{font-size:14.5px;line-height:1.55;margin-top:12px;color:#333A45}
+.rule-ex{font-size:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);color:#6B7280;font-style:italic}
+
+.ask-box{margin-top:22px;background:#FFF7CC;border:1px solid #E8DA8F;border-radius:16px;padding:20px 24px;font-size:17px;line-height:1.55;color:var(--ink)}
+.ask-box b{font-weight:900}
+
+.contrast-table{width:100%;border-collapse:collapse;margin-top:22px;font-size:15px}
+.contrast-table th{background:var(--ink);color:#fff;padding:9px 12px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.contrast-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.contrast-table tr:nth-child(even) td{background:var(--panel)}
+.contrast-table td b{color:var(--must)}
+
+.solved-card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:24px 26px;margin-bottom:18px}
+.solved-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:4px 12px;border-radius:14px;margin-bottom:14px}
+.solved-context{font-size:17px;color:#2B303A;line-height:1.6;margin-bottom:16px}
+.solved-clue{background:var(--neon);color:var(--neon-ink);padding:1px 6px;border-radius:4px;font-weight:800}
+.solved-answer{font-size:21px;font-weight:700;color:var(--ink);background:var(--panel);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.solved-answer b{color:var(--must)}
+.solved-why{font-size:15px;line-height:1.6;color:#4B5563}
+.solved-why b{color:var(--ink)}
+
+.ex-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px 28px;margin-bottom:18px}
+.ex-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--neon2);font-weight:700;margin-bottom:10px}
+.ex-context{font-size:16px;color:#4B5563;line-height:1.6;margin-bottom:16px}
+.ex-sentence{font-size:22px;line-height:1.85;font-weight:600;color:var(--ink)}
+.verb-hint{font-weight:400;font-style:italic;color:var(--mid);font-size:17px}
+.ex-line{border:none;border-bottom:2px solid var(--border);background:transparent;font-family:inherit;font-size:20px;font-weight:700;color:var(--ink);padding:2px 6px;min-width:260px}
+.ex-line:focus{outline:none;border-bottom-color:var(--neon2)}
+.ex-actions{margin-top:18px}
+.btn-reveal-inline{background:transparent;border:2px solid var(--neon2);color:var(--neon2);font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:9px 18px;cursor:pointer;border-radius:10px}
+.btn-reveal-inline:hover,.btn-reveal-inline.active{background:var(--neon2);color:#fff}
+.ex-answer{display:none;margin-top:16px;background:var(--panel2);border-left:4px solid var(--neon2);border-radius:0 12px 12px 0;padding:16px 20px}
+.ex-answer.show{display:block}
+.ea-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--neon2);margin-bottom:8px;font-weight:700}
+.ea-text{font-size:19px;font-weight:800;color:var(--ink)}
+.ea-alt{font-size:14.5px;color:var(--mid);margin-top:6px;font-style:italic}
+
+.speak-box{background:var(--panel2);border:2px solid var(--neon2);border-radius:18px;padding:26px 28px}
+.speak-label{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--neon2);margin-bottom:14px}
+.speak-q{font-size:19px;line-height:1.6;margin-bottom:14px;padding-left:22px;position:relative}
+.speak-q::before{content:"♦";position:absolute;left:0;color:var(--neon2)}
+.speak-q:last-child{margin-bottom:0}
+
+footer{text-align:center;font-size:13px;color:var(--mid);padding:40px 0 10px;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+
+#gl-tip{display:none;position:fixed;z-index:9999;background:var(--ink);color:#fff;border-radius:10px;padding:12px 16px;
+  max-width:280px;font-size:14px;line-height:1.45;box-shadow:0 12px 34px rgba(0,0,0,.25);border:1px solid #000}
+#gl-tip-pt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7FE8DC;margin-bottom:4px}
+#gl-tip-jp{font-size:12px;color:#B8C0CC;margin-top:6px;padding-top:6px;border-top:1px dashed #3A4250}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand"><strong>EIC.</strong>COMPARATIVE QUALIFIERS · TOSHIE</div>
+  <div class="topbar-meta">GRAMMAR · WAY BETTER / SLIGHTLY / NOT AS...AS<br><span class="tv-tag">TV / PROJECTOR MODE</span></div>
+</div>
+<div class="navbar">
+  <a href="qualifiers-classroom.html" class="active">Classroom</a>
+  <a href="qualifiers-homework.html">Homework</a>
+</div>
+<div class="pdfbar">⬇ <a href="qualifiers-classroom.pdf">Download PDF version</a></div>
+
+<div class="pw">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Grammar Lab · Round 1 · Classroom</div>
+    <h1>How much <span>better</span>?</h1>
+    <p class="hero-sub">Comparativos como "better" ou "more expensive" dizem que algo é diferente. Mas o inglês tem um jeito de dizer o tamanho dessa diferença: enorme (way better), pequena (slightly better), igual (just as good as) ou nenhuma vantagem (not as good as). Hoje aprendemos a medir a diferença.</p>
+    <div class="level-tag">TEXTO ADAPTADO · NÍVEL B1+</div>
+    <div class="ganbare"><div class="kanji">頑張れ</div><div class="romaji">ganbare · you've got this</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">01</span><div><div class="s-title">Kyoto or Osaka?</div><div class="s-sub">Leitura · By Yuki Tanaka, travel essayist</div></div></div>
+    <div class="reading">
+      <div class="reading-byline">A short essay on choosing between two cities</div>
+      <p>People always ask me which city I prefer, Kyoto or Osaka. Honestly, it depends on what you want. Kyoto is <span class="target">way quieter</span> than Osaka. The temples, the gardens, the <span class="tt" data-tip="narrow">narrow</span> streets all feel calmer. If you want peace, Kyoto wins easily.</p>
+      <p>Osaka, though, is <span class="target">a lot more fun</span> at night. The food scene is <span class="target">way better</span>, in my opinion, and the people are <span class="target">much more relaxed</span> with strangers. Kyoto can feel <span class="target">a little more formal</span> sometimes, almost too polite.</p>
+      <p><span class="tt" data-tip="budget">Prices</span> are <span class="target neg">not as different</span> as people think. Osaka is <span class="target">only slightly cheaper</span> for food, and hotels in both cities cost roughly the same. If price is your main worry, the city itself won't change much.</p>
+      <p>What surprised me most was the trains. Kyoto's local buses are <span class="target neg">nowhere near as convenient</span> as Osaka's subway system. In Osaka, everything <span class="tt" data-tip="transfer">connects</span>. In Kyoto, you often wait, <span class="tt" data-tip="transfer">transfer</span>, and wait again.</p>
+      <p>In the end, Kyoto is <span class="target">just as beautiful</span> as everyone says, but Osaka is <span class="target">far friendlier</span> for a short, easy trip. Choose based on what kind of <span class="tt" data-tip="exhausted">exhausted</span> you want to feel by the end of the day: peacefully tired, or happily worn out.</p>
+    </div>
+
+    <div class="glossary">
+      <div class="glossary-label">Glossário · palavras desta leitura</div>
+      <div class="g-grid">
+        <div class="g-item"><span class="g-word">narrow</span><span class="g-pt">estreito(a)</span><span class="g-jp">狭い</span></div>
+        <div class="g-item"><span class="g-word">budget / price</span><span class="g-pt">orçamento, preço</span><span class="g-jp">予算・価格</span></div>
+        <div class="g-item"><span class="g-word">convenient</span><span class="g-pt">conveniente, prático</span><span class="g-jp">便利な</span></div>
+        <div class="g-item"><span class="g-word">to transfer</span><span class="g-pt">fazer baldeação</span><span class="g-jp">乗り換える</span></div>
+        <div class="g-item"><span class="g-word">exhausted</span><span class="g-pt">exausto(a)</span><span class="g-jp">疲れ果てた</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">02</span><div><div class="s-title">Medindo a diferença</div><div class="s-sub">Qualifiers que intensificam ou suavizam o comparativo</div></div></div>
+
+    <div class="rule-grid">
+      <div class="rule-card must">
+        <div class="rule-label">Diferença enorme</div>
+        <div class="rule-name">way / far / a lot / much</div>
+        <div class="rule-pct">+ comparativo</div>
+        <p class="rule-def">A diferença é grande, óbvia, gritante.</p>
+        <p class="rule-ex">"This hotel is way more expensive than that one."</p>
+      </div>
+      <div class="rule-card might">
+        <div class="rule-label">Diferença pequena</div>
+        <div class="rule-name">slightly / a bit / a little</div>
+        <div class="rule-pct">+ comparativo</div>
+        <p class="rule-def">A diferença existe, mas é pequena, quase imperceptível.</p>
+        <p class="rule-ex">"The train is only slightly faster than the bus."</p>
+      </div>
+      <div class="rule-card equal">
+        <div class="rule-label">Sem diferença</div>
+        <div class="rule-name">just as ... as</div>
+        <div class="rule-pct">+ adjetivo base</div>
+        <p class="rule-def">As duas coisas são iguais nesse aspecto.</p>
+        <p class="rule-ex">"This restaurant is just as good as the other one."</p>
+      </div>
+      <div class="rule-card cant">
+        <div class="rule-label">Sem vantagem nenhuma</div>
+        <div class="rule-name">not as ... as / nowhere near as ... as</div>
+        <div class="rule-pct">+ adjetivo base</div>
+        <p class="rule-def">Uma coisa fica claramente abaixo da outra.</p>
+        <p class="rule-ex">"This hotel is nowhere near as comfortable as a ryokan."</p>
+      </div>
+    </div>
+
+    <div class="ask-box"><b>A regra de ouro:</b> "way" e "far" só combinam com a forma comparativa ("way better", "far more expensive"). Eles nunca aparecem dentro de uma estrutura "as...as". Não existe "way as good as", isso soa errado. Para intensificar uma estrutura de igualdade, use "just as...as".</div>
+
+    <table class="contrast-table">
+      <tr><th>Contexto</th><th>Estrutura</th><th>Exemplo</th></tr>
+      <tr><td>Apartamento de $3.000 vs. $1.200</td><td>Diferença enorme</td><td>Tokyo is <b>way more expensive than</b> Osaka.</td></tr>
+      <tr><td>Trem de 58min vs. 61min</td><td>Diferença pequena</td><td>The bullet train is <b>slightly faster than</b> the express.</td></tr>
+      <tr><td>Dois restaurantes, mesma nota 4.5</td><td>Sem diferença</td><td>This one is <b>just as good as</b> the other.</td></tr>
+      <tr><td>Hotel "5 estrelas" com ar-condicionado quebrado</td><td>Sem vantagem nenhuma</td><td>It's <b>nowhere near as luxurious as</b> it claims.</td></tr>
+    </table>
+
+    <div class="solved-card">
+      <span class="solved-tag">Diferença enorme</span>
+      <p class="solved-context">One hotel room costs <span class="solved-clue">$40 a night</span>. The other, right across the street, costs <span class="solved-clue">$400 a night</span>.</p>
+      <div class="solved-answer">This hotel is <b>way more expensive than</b> that one.</div>
+      <p class="solved-why"><b>Por quê "way more expensive":</b> a diferença de preço é enorme (10 vezes mais). "Way" e "far" combinam exatamente com esse tipo de diferença gritante.</p>
+    </div>
+
+    <div class="solved-card">
+      <span class="solved-tag">Diferença pequena</span>
+      <p class="solved-context">One train takes <span class="solved-clue">2 hours and 10 minutes</span>. The other takes <span class="solved-clue">2 hours and 15 minutes</span>.</p>
+      <div class="solved-answer">This train is <b>only slightly faster than</b> that one.</div>
+      <p class="solved-why"><b>Por quê "slightly faster":</b> a diferença é de apenas 5 minutos, quase nada. "Slightly", "a bit" e "a little" são para diferenças pequenas assim.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">02.1</span><div><div class="s-title">Practice</div><div class="s-sub">Escreva a frase completa a partir do adjetivo</div></div></div>
+
+    <div class="ex-card">
+      <div class="ex-num">01</div>
+      <p class="ex-context">Renting an apartment in Tokyo costs about $3,000 a month. A similar apartment in Osaka costs about $1,200.</p>
+      <p class="ex-sentence">Tokyo is <input class="ex-line" type="text" placeholder="write your answer..."> Osaka. <span class="verb-hint">(expensive · diferença enorme)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">way more expensive than</div><div class="ea-alt">also correct: far more expensive than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">02</div>
+      <p class="ex-context">A famous guidebook gives one guesthouse 2 stars and another 4.8 stars, mentioning dirty rooms and rude staff at the first one.</p>
+      <p class="ex-sentence">This guesthouse is <input class="ex-line" type="text" placeholder="write your answer..."> the other one. <span class="verb-hint">(good · sem vantagem nenhuma)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">nowhere near as good as</div><div class="ea-alt">also correct: not as good as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">03</div>
+      <p class="ex-context">The bullet train takes 58 minutes. The express train takes 61 minutes.</p>
+      <p class="ex-sentence">The bullet train is <input class="ex-line" type="text" placeholder="write your answer..."> the express train. <span class="verb-hint">(fast · diferença pequena)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">slightly faster than</div><div class="ea-alt">also correct: a bit faster than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">04</div>
+      <p class="ex-context">Both flights depart at the same time, cost exactly $340, and are non-stop on the same airline.</p>
+      <p class="ex-sentence">Flight A is <input class="ex-line" type="text" placeholder="write your answer..."> Flight B. <span class="verb-hint">(expensive · sem diferença)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">just as expensive as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">05</div>
+      <p class="ex-context">The new stadium holds 60,000 people. The old one held 15,000.</p>
+      <p class="ex-sentence">The new stadium is <input class="ex-line" type="text" placeholder="write your answer..."> the old one. <span class="verb-hint">(big · diferença enorme)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">way bigger than</div><div class="ea-alt">also correct: far bigger than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">06</div>
+      <p class="ex-context">Subway Line A carries 500,000 passengers a day. Line B carries 480,000.</p>
+      <p class="ex-sentence">Line A is <input class="ex-line" type="text" placeholder="write your answer..."> Line B. <span class="verb-hint">(crowded · diferença pequena)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ea-alt" style="display:none"></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">slightly more crowded than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">07</div>
+      <p class="ex-context">A budget hotel review says: "Clean, but the walls are paper thin. Nothing like a real ryokan experience."</p>
+      <p class="ex-sentence">This hotel is <input class="ex-line" type="text" placeholder="write your answer..."> a traditional ryokan. <span class="verb-hint">(comfortable · sem vantagem nenhuma)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">nowhere near as comfortable as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">08</div>
+      <p class="ex-context">Two restaurants both have exactly 4.5 stars on the same review site, same price range, same neighbourhood.</p>
+      <p class="ex-sentence">This restaurant is <input class="ex-line" type="text" placeholder="write your answer..."> the other one. <span class="verb-hint">(good · sem diferença)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">just as good as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">09</div>
+      <p class="ex-context">One backpack costs $15. A very similar one, just a different color, costs $180.</p>
+      <p class="ex-sentence">This backpack is <input class="ex-line" type="text" placeholder="write your answer..."> that one. <span class="verb-hint">(cheap · diferença enorme)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">way cheaper than</div><div class="ea-alt">also correct: far cheaper than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">10</div>
+      <p class="ex-context">Two coffee shops nearby are rated 4.6 and 4.7 stars.</p>
+      <p class="ex-sentence">This café is <input class="ex-line" type="text" placeholder="write your answer..."> that one. <span class="verb-hint">(popular · diferença pequena)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">slightly more popular than</div><div class="ea-alt">also correct: a bit more popular than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">11</div>
+      <p class="ex-context">Two guided tours both cost ¥3,000 and both last exactly 2 hours.</p>
+      <p class="ex-sentence">This tour is <input class="ex-line" type="text" placeholder="write your answer..."> that one. <span class="verb-hint">(long · sem diferença)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">just as long as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">12</div>
+      <p class="ex-context">A "beachfront" hotel turns out to be a 20 minute walk from the beach, with construction noise all night.</p>
+      <p class="ex-sentence">This hotel is <input class="ex-line" type="text" placeholder="write your answer..."> its brochure promised. <span class="verb-hint">(relaxing · sem vantagem nenhuma)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">nowhere near as relaxing as</div><div class="ea-alt">also correct: not as relaxing as</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">03</span><div><div class="s-title">Mixed Practice</div><div class="s-sub">Qual categoria a evidência pede?</div></div></div>
+
+    <div class="ex-card">
+      <div class="ex-num">01</div>
+      <p class="ex-context">A coffee here costs $2.00. The one at the station costs $2.05.</p>
+      <p class="ex-sentence">The coffee here is <input class="ex-line" type="text" placeholder="write your answer..."> the one at the station. <span class="verb-hint">(expensive · diferença pequena)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">slightly more expensive than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">02</div>
+      <p class="ex-context">Your suitcase weighs 8kg. Your friend's weighs 32kg.</p>
+      <p class="ex-sentence">Your friend's suitcase is <input class="ex-line" type="text" placeholder="write your answer..."> yours. <span class="verb-hint">(heavy · diferença enorme)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">way heavier than</div><div class="ea-alt">also correct: far heavier than</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">03</div>
+      <p class="ex-context">Two identical phones, same brand, same model, same specifications, same price.</p>
+      <p class="ex-sentence">This phone is <input class="ex-line" type="text" placeholder="write your answer..."> that one. <span class="verb-hint">(good · sem diferença)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">just as good as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">04</div>
+      <p class="ex-context">One tour guide has a 4.9 rating and ten years of experience. The other has a 1.5 rating and several complaints about missed meeting times.</p>
+      <p class="ex-sentence">The second guide is <input class="ex-line" type="text" placeholder="write your answer..."> the first one. <span class="verb-hint">(reliable · sem vantagem nenhuma)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">nowhere near as reliable as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">05</div>
+      <p class="ex-context">Two backpacks, both weighed at the airport, both exactly 1.5kg.</p>
+      <p class="ex-sentence">This backpack is <input class="ex-line" type="text" placeholder="write your answer..."> that one. <span class="verb-hint">(light · sem diferença)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">just as light as</div></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-num">06</div>
+      <p class="ex-context">One night bus takes 8 hours to arrive. The other takes 14 hours, with three extra stops.</p>
+      <p class="ex-sentence">This bus is <input class="ex-line" type="text" placeholder="write your answer..."> that one. <span class="verb-hint">(fast · diferença enorme)</span></p>
+      <div class="ex-actions"><button class="btn-reveal-inline" onclick="toggleAns(this)">Show example</button></div>
+      <div class="ex-answer"><div class="ea-label">Example</div><div class="ea-text">way faster than</div><div class="ea-alt">also correct: far faster than</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hd"><span class="s-num">04</span><div><div class="s-title">Speaking Corner</div><div class="s-sub">Fale com o professor · use pelo menos 3 qualifiers diferentes</div></div></div>
+    <div class="speak-box">
+      <div class="speak-label">Discussion · 3 questions</div>
+      <p class="speak-q">Compare two cities or neighbourhoods you know well. What's way different between them? What's just about the same?</p>
+      <p class="speak-q">Think of two products you've bought that were almost identical in quality but very different in price. Describe the difference using a qualifier.</p>
+      <p class="speak-q">Was there ever a time something was advertised as amazing but turned out nowhere near as good as promised? Tell the story.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>EIC Escola de Idiomas e Cultura · Comparative Qualifiers · Round 1 · Aluno: Toshie · Classroom Edition</footer>
+
+<div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div><div id="gl-tip-jp"></div></div>
+
+<script>
+function toggleAns(btn){
+  var card = btn.closest('.ex-card');
+  var ans = card.querySelector('.ex-answer');
+  var show = ans.classList.toggle('show');
+  btn.textContent = show ? 'Hide example' : 'Show example';
+  btn.classList.toggle('active', show);
+}
+
+(function() {
+  var TIPS = {
+    "narrow": {pt: "estreito(a)", def: "Not wide. The opposite of broad or spacious.", jp: "狭い"},
+    "budget": {pt: "orçamento, preço", def: "The amount of money available or the cost of something.", jp: "予算・価格"},
+    "transfer": {pt: "fazer baldeação, mudar de trem", def: "To change from one train or bus to another during a trip.", jp: "乗り換える"},
+    "exhausted": {pt: "exausto(a)", def: "Extremely tired, with no energy left.", jp: "疲れ果てた"}
+  };
+  function initTooltip() {
+    var tip = document.getElementById("gl-tip");
+    var tipPt = document.getElementById("gl-tip-pt");
+    var tipDef = document.getElementById("gl-tip-def");
+    var tipJp = document.getElementById("gl-tip-jp");
+    if (!tip) return;
+    document.querySelectorAll(".tt").forEach(function(el) {
+      var key = el.dataset.tip;
+      var data = TIPS[key];
+      if (!data) return;
+      function show(e) {
+        tipPt.textContent = data.pt;
+        tipDef.textContent = data.def;
+        tipJp.textContent = data.jp;
+        tip.style.display = "block";
+        moveTip(e);
+      }
+      el.addEventListener("mouseenter", show);
+      el.addEventListener("mousemove", moveTip);
+      el.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+      el.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (tip.style.display === "block") { tip.style.display = "none"; return; }
+        show(e);
+      });
+    });
+    function moveTip(e) {
+      var x = Math.max(8, Math.min(e.clientX - 130, window.innerWidth - 280));
+      tip.style.left = x + "px";
+      tip.style.top = (e.clientY - tip.offsetHeight - 18) + "px";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTooltip);
+  } else {
+    initTooltip();
+  }
+})();
+</script>
+
+</body>
+</html>
