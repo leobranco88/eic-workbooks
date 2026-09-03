@@ -16,12 +16,12 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 #gl-tip-def{font-size:12px;line-height:1.5;color:rgba(255,255,255,.85)}
 .tt{border-bottom:2px dotted var(--gold);cursor:help;font-weight:700;color:inherit}
 
-.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;gap:16px;padding:0 20px 0 16px;height:56px}
 .hdr-logo{font-family:Inter,sans-serif;font-weight:900;font-size:16px;letter-spacing:.02em;color:#EFEFEF}
 .hdr-logo span{color:var(--violet)}
-.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:#FFE89C;padding:3px 12px;border-radius:20px}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:#FFE89C;padding:3px 12px;border-radius:20px;margin-left:auto}
 
-.hero{margin-top:96px;background:var(--dark);padding:60px 24px 64px;text-align:center;position:relative;overflow:hidden}
+.hero{margin-top:56px;background:var(--dark);padding:100px 24px 64px;text-align:center;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(91,61,245,.16) 0%,transparent 70%)}
 .hero-eyebrow{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);margin-bottom:22px;position:relative}
 .hero-title{font-family:Inter,sans-serif;font-size:clamp(32px,4.6vw,54px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-.01em;max-width:760px;margin:0 auto 22px;position:relative}
@@ -82,11 +82,30 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   .footer-copy{text-align:center}
 }
 
-.module-nav{position:fixed;top:56px;left:0;right:0;z-index:190;background:#050B16;display:flex;justify-content:center;gap:4px;padding:0 16px;height:40px;align-items:center;overflow-x:auto;box-shadow:0 1px 0 rgba(255,255,255,.06)}
-.module-nav::-webkit-scrollbar{display:none}
-.module-nav a{font-size:11px;font-weight:700;letter-spacing:.03em;color:rgba(255,255,255,.4);text-decoration:none;padding:6px 12px;border-radius:20px;white-space:nowrap;transition:all .15s}
-.module-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
-.module-nav a.active{color:#fff;background:var(--violet)}
+
+
+.menu-btn{background:none;border:none;cursor:pointer;padding:4px 2px;display:flex;flex-direction:column;gap:3px;width:20px;flex-shrink:0}
+.menu-btn span{display:block;height:2px;background:#fff;border-radius:1px}
+
+.sidebar-overlay{position:fixed;inset:0;background:rgba(7,16,32,.5);z-index:250;display:none;opacity:0;transition:opacity .25s}
+.sidebar-overlay.open{display:block;opacity:1}
+.sidebar-panel{position:fixed;top:0;left:0;height:100vh;width:min(300px,86vw);background:#050B16;z-index:260;box-shadow:12px 0 40px rgba(0,0,0,.35);transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto}
+.sidebar-panel.open{transform:translateX(0)}
+.sidebar-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:#050B16}
+.sidebar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.01em}
+.sidebar-close{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.6);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-close:hover{color:#fff;border-color:#fff}
+.sidebar-body{padding:10px 12px 32px}
+.sidebar-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:16px 12px 8px}
+.sidebar-label:first-child{padding-top:6px}
+.sidebar-link{display:block;padding:10px 12px;border-radius:8px;font-size:13.5px;font-weight:700;color:rgba(255,255,255,.65);text-decoration:none;margin-bottom:2px}
+.sidebar-link:hover{background:rgba(255,255,255,.06);color:#fff}
+.sidebar-link.active{background:var(--violet);color:#fff}
+.sidebar-sublink{display:block;padding:8px 12px 8px 22px;border-radius:8px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:1px}
+.sidebar-sublink:hover{background:rgba(255,255,255,.05);color:#fff}
+.sidebar-sublink.active{background:rgba(91,61,245,.22);color:#fff}
+.sidebar-bonus{display:flex;align-items:center;gap:6px;padding:10px 12px;border-radius:8px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;margin-top:2px}
+.sidebar-bonus:hover{background:rgba(255,255,255,.06)}
 
 </style>
 </head>
@@ -95,17 +114,39 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 <div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
 
 <header class="hdr">
+  <button class="menu-btn" onclick="toggleSidebar(true)" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="hdr-logo">EIC <span>·</span> Discussion</div>
   <div class="hdr-badge">MBA English</div>
 </header>
 
-<nav class="module-nav">
-  <a href="self-development-lead-in.html">Lead-in</a>
-  <a href="self-development-documents.html">Documents</a>
-  <a href="self-development-grammar.html">Grammar</a>
-  <a href="self-development-discussion.html" class="active">Discussion</a>
-  <a href="the-growth-edge-article.html">Reading</a>
-</nav>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+<aside class="sidebar-panel" id="sidebar-panel">
+  <div class="sidebar-head">
+    <div class="sidebar-title">The Growth Edge</div>
+    <button class="sidebar-close" onclick="toggleSidebar(false)" aria-label="Close menu">✕</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="sidebar-label">Module</div>
+    <a href="self-development-lead-in.html" class="sidebar-link">Lead-in</a>
+    <a href="self-development-documents.html" class="sidebar-link">Documents</a>
+    <a href="self-development-grammar.html" class="sidebar-link">Grammar</a>
+    <a href="self-development-discussion.html" class="sidebar-link active">Discussion</a>
+    <a href="the-growth-edge-article.html" class="sidebar-link">Reading</a>
+    <div class="sidebar-label">Documents — Dilemmas</div>
+    <a href="self-development-documents.html#comfort-zone" class="sidebar-sublink">01 · Comfort Zone</a>
+    <a href="self-development-documents.html#feedback-culture" class="sidebar-sublink">02 · Feedback</a>
+    <a href="self-development-documents.html#ambition-contentment" class="sidebar-sublink">03 · Ambition</a>
+    <a href="self-development-documents.html#work-life-boundaries" class="sidebar-sublink">04 · Boundaries</a>
+    <a href="self-development-documents.html#failure-reinvention" class="sidebar-sublink">05 · Failure</a>
+    <a href="self-development-documents.html#mentorship-ego" class="sidebar-sublink">06 · Mentorship</a>
+    <a href="self-development-documents.html#authenticity-adaptation" class="sidebar-sublink">07 · Authenticity</a>
+    <a href="self-development-documents.html#discipline-motivation" class="sidebar-sublink">08 · Discipline</a>
+    <a href="self-development-documents.html#saying-no" class="sidebar-sublink">09 · Saying No</a>
+    <a href="self-development-documents.html#success-terms" class="sidebar-sublink">10 · Success</a>
+    <div class="sidebar-label">Bonus</div>
+    <a href="nina-interactive-scenes.html" class="sidebar-bonus">✦ Play it out with Nina</a>
+  </div>
+</aside>
 
 <section class="hero">
   <div class="hero-eyebrow">The Growth Edge · Speaking</div>
@@ -361,6 +402,15 @@ function toggleInsp(link) {
   var nowShowing = content.classList.toggle('show');
   link.textContent = nowShowing ? 'Hide' : link.dataset.original;
 }
+
+function toggleSidebar(open) {
+  document.getElementById('sidebar-panel').classList.toggle('open', open);
+  document.getElementById('sidebar-overlay').classList.toggle('open', open);
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') toggleSidebar(false);
+});
+
 </script>
 </body>
 </html>

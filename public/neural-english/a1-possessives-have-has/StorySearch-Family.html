@@ -859,7 +859,7 @@ footer { padding: 32px 60px 90px; text-align: center; font-size: 12px; color: va
 
   function renderAll(){
     var grid = document.getElementById('claimGrid');
-    var order = antiClumpShuffle(DATA);
+    var order = DATA; // ordem fixa — igual à do PDF impresso
     grid.innerHTML = order.map(function(d, i){ return renderClaim(d, i + 1); }).join('');
   }
 

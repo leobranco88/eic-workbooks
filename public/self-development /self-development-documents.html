@@ -11,21 +11,14 @@
 html{scroll-behavior:smooth}
 body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
 
-.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;gap:16px;padding:0 20px 0 16px;height:56px}
 .hdr-logo{font-family:Inter,sans-serif;font-weight:900;font-size:16px;letter-spacing:.02em;color:#EFEFEF;flex-shrink:0}
 .hdr-logo span{color:var(--violet)}
 .hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
-.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
-
-/* NAV */
-.doc-nav{position:sticky;top:96px;z-index:100;background:#fff;border-bottom:1px solid var(--border);padding:0 40px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;height:48px;align-items:center}
-.doc-nav::-webkit-scrollbar{display:none}
-.nav-btn{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--mid);font-family:Inter,sans-serif;transition:all .15s;white-space:nowrap;flex-shrink:0}
-.nav-btn:hover{border-color:var(--ink);color:var(--ink)}
-.nav-btn.active{color:#fff;border-color:transparent}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px;margin-left:auto}
 
 /* HERO */
-.hero-bar{background:var(--dark);padding:48px 56px 40px;margin-top:144px}
+.hero-bar{background:var(--dark);padding:48px 56px 40px;margin-top:56px}
 .hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .hero-eyebrow-line{width:24px;height:2px;background:var(--violet)}
 .hero-eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--violet)}
@@ -188,11 +181,30 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   .footer-copy{text-align:center}
 }
 
-.module-nav{position:fixed;top:56px;left:0;right:0;z-index:190;background:#050B16;display:flex;justify-content:center;gap:4px;padding:0 16px;height:40px;align-items:center;overflow-x:auto;box-shadow:0 1px 0 rgba(255,255,255,.06)}
-.module-nav::-webkit-scrollbar{display:none}
-.module-nav a{font-size:11px;font-weight:700;letter-spacing:.03em;color:rgba(255,255,255,.4);text-decoration:none;padding:6px 12px;border-radius:20px;white-space:nowrap;transition:all .15s}
-.module-nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
-.module-nav a.active{color:#fff;background:var(--violet)}
+
+
+.menu-btn{background:none;border:none;cursor:pointer;padding:4px 2px;display:flex;flex-direction:column;gap:3px;width:20px;flex-shrink:0}
+.menu-btn span{display:block;height:2px;background:#fff;border-radius:1px}
+
+.sidebar-overlay{position:fixed;inset:0;background:rgba(7,16,32,.5);z-index:250;display:none;opacity:0;transition:opacity .25s}
+.sidebar-overlay.open{display:block;opacity:1}
+.sidebar-panel{position:fixed;top:0;left:0;height:100vh;width:min(300px,86vw);background:#050B16;z-index:260;box-shadow:12px 0 40px rgba(0,0,0,.35);transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto}
+.sidebar-panel.open{transform:translateX(0)}
+.sidebar-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:#050B16}
+.sidebar-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.01em}
+.sidebar-close{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.6);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-close:hover{color:#fff;border-color:#fff}
+.sidebar-body{padding:10px 12px 32px}
+.sidebar-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:16px 12px 8px}
+.sidebar-label:first-child{padding-top:6px}
+.sidebar-link{display:block;padding:10px 12px;border-radius:8px;font-size:13.5px;font-weight:700;color:rgba(255,255,255,.65);text-decoration:none;margin-bottom:2px}
+.sidebar-link:hover{background:rgba(255,255,255,.06);color:#fff}
+.sidebar-link.active{background:var(--violet);color:#fff}
+.sidebar-sublink{display:block;padding:8px 12px 8px 22px;border-radius:8px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:1px}
+.sidebar-sublink:hover{background:rgba(255,255,255,.05);color:#fff}
+.sidebar-sublink.active{background:rgba(91,61,245,.22);color:#fff}
+.sidebar-bonus{display:flex;align-items:center;gap:6px;padding:10px 12px;border-radius:8px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;margin-top:2px}
+.sidebar-bonus:hover{background:rgba(255,255,255,.06)}
 
 </style>
 </head>
@@ -201,31 +213,40 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 <div id="gl-tip"><div id="gl-tip-pt"></div><div id="gl-tip-def"></div></div>
 
 <header class="hdr">
+  <button class="menu-btn" onclick="toggleSidebar(true)" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="hdr-logo">EIC <span>·</span> The Growth Edge</div>
   <div class="hdr-meta">Self-Development in English — B1+</div>
   <div class="hdr-badge">MBA English</div>
 </header>
 
-<nav class="module-nav">
-  <a href="self-development-lead-in.html">Lead-in</a>
-  <a href="self-development-documents.html" class="active">Documents</a>
-  <a href="self-development-grammar.html">Grammar</a>
-  <a href="self-development-discussion.html">Discussion</a>
-  <a href="the-growth-edge-article.html">Reading</a>
-</nav>
-
-<nav class="doc-nav">
-  <button class="nav-btn active" onclick="scrollToDoc('comfort-zone', this)">01 · Comfort Zone</button>
-  <button class="nav-btn" onclick="scrollToDoc('feedback-culture', this)">02 · Feedback</button>
-  <button class="nav-btn" onclick="scrollToDoc('ambition-contentment', this)">03 · Ambition</button>
-  <button class="nav-btn" onclick="scrollToDoc('work-life-boundaries', this)">04 · Boundaries</button>
-  <button class="nav-btn" onclick="scrollToDoc('failure-reinvention', this)">05 · Failure</button>
-  <button class="nav-btn" onclick="scrollToDoc('mentorship-ego', this)">06 · Mentorship</button>
-  <button class="nav-btn" onclick="scrollToDoc('authenticity-adaptation', this)">07 · Authenticity</button>
-  <button class="nav-btn" onclick="scrollToDoc('discipline-motivation', this)">08 · Discipline</button>
-  <button class="nav-btn" onclick="scrollToDoc('saying-no', this)">09 · Saying No</button>
-  <button class="nav-btn" onclick="scrollToDoc('success-terms', this)">10 · Success</button>
-</nav>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+<aside class="sidebar-panel" id="sidebar-panel">
+  <div class="sidebar-head">
+    <div class="sidebar-title">The Growth Edge</div>
+    <button class="sidebar-close" onclick="toggleSidebar(false)" aria-label="Close menu">✕</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="sidebar-label">Module</div>
+    <a href="self-development-lead-in.html" class="sidebar-link">Lead-in</a>
+    <a href="self-development-documents.html" class="sidebar-link active">Documents</a>
+    <a href="self-development-grammar.html" class="sidebar-link">Grammar</a>
+    <a href="self-development-discussion.html" class="sidebar-link">Discussion</a>
+    <a href="the-growth-edge-article.html" class="sidebar-link">Reading</a>
+    <div class="sidebar-label">Documents — Dilemmas</div>
+    <a href="#comfort-zone" class="sidebar-sublink" data-section="comfort-zone" onclick="toggleSidebar(false)">01 · Comfort Zone</a>
+    <a href="#feedback-culture" class="sidebar-sublink" data-section="feedback-culture" onclick="toggleSidebar(false)">02 · Feedback</a>
+    <a href="#ambition-contentment" class="sidebar-sublink" data-section="ambition-contentment" onclick="toggleSidebar(false)">03 · Ambition</a>
+    <a href="#work-life-boundaries" class="sidebar-sublink" data-section="work-life-boundaries" onclick="toggleSidebar(false)">04 · Boundaries</a>
+    <a href="#failure-reinvention" class="sidebar-sublink" data-section="failure-reinvention" onclick="toggleSidebar(false)">05 · Failure</a>
+    <a href="#mentorship-ego" class="sidebar-sublink" data-section="mentorship-ego" onclick="toggleSidebar(false)">06 · Mentorship</a>
+    <a href="#authenticity-adaptation" class="sidebar-sublink" data-section="authenticity-adaptation" onclick="toggleSidebar(false)">07 · Authenticity</a>
+    <a href="#discipline-motivation" class="sidebar-sublink" data-section="discipline-motivation" onclick="toggleSidebar(false)">08 · Discipline</a>
+    <a href="#saying-no" class="sidebar-sublink" data-section="saying-no" onclick="toggleSidebar(false)">09 · Saying No</a>
+    <a href="#success-terms" class="sidebar-sublink" data-section="success-terms" onclick="toggleSidebar(false)">10 · Success</a>
+    <div class="sidebar-label">Bonus</div>
+    <a href="nina-interactive-scenes.html" class="sidebar-bonus">✦ Play it out with Nina</a>
+  </div>
+</aside>
 
 <section class="hero-bar">
   <div class="hero-eyebrow">
@@ -1694,35 +1715,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 </footer>
 
 <script>
-function scrollToDoc(id, btn) {
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    b.classList.remove('active');
-    b.style.background = 'transparent';
-    b.style.color = '';
-    b.style.borderColor = '';
-  });
-  btn.classList.add('active');
-  btn.style.background = 'var(--violet)';
-  btn.style.borderColor = 'var(--violet)';
-  btn.style.color = '#fff';
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
 const sections = document.querySelectorAll('.doc-section, .trail-section');
-const navBtns = document.querySelectorAll('.nav-btn');
 const sectionIds = ['comfort-zone','feedback-culture','ambition-contentment','work-life-boundaries','failure-reinvention','mentorship-ego','authenticity-adaptation','discipline-motivation','saying-no','success-terms'];
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => {
     if (window.scrollY >= s.offsetTop - 120) current = s.id;
   });
-  navBtns.forEach((btn, i) => {
-    const isActive = sectionIds[i] === current;
-    btn.classList.toggle('active', isActive);
-    btn.style.background = isActive ? 'var(--violet)' : 'transparent';
-    btn.style.borderColor = isActive ? 'var(--violet)' : '';
-    btn.style.color = isActive ? '#fff' : '';
+  document.querySelectorAll('.sidebar-sublink[data-section]').forEach((link) => {
+    link.classList.toggle('active', link.dataset.section === current);
   });
 });
 
@@ -1865,6 +1866,15 @@ function playAudio(idx, btn) {
   activeIdx = idx;
   activeBtn = btn;
 }
+
+function toggleSidebar(open) {
+  document.getElementById('sidebar-panel').classList.toggle('open', open);
+  document.getElementById('sidebar-overlay').classList.toggle('open', open);
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') toggleSidebar(false);
+});
+
 </script>
 </body>
 </html>

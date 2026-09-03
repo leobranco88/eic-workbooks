@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Student Guide · Writing · Teens 5 and 6 · EIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0A0A; --mid:#6B6B6B; --light:#E8E8E4; --snow:#F6F6F4; --white:#FFF;
+  --orange:#FF3C38; --neon:#EAFF00; --neon-green:#00FF85;
+  --ok:#06A15C; --pencil:#1B3A6B; --hl:#FF2EC4; --neon-blue:#00E5FF;
+  --paper:#FCFCF8; --rule:#C8DAF0; --margin-line:#E8A9A2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased}
+::selection{background:var(--neon-green);color:#0A0A0A}
+
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,5vw,60px);height:60px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--light)}
+.nav-home{display:inline-flex;align-items:center;text-decoration:none;opacity:1;transition:opacity .14s}
+.nav-home:hover{opacity:.6}
+.nav-left{display:flex;align-items:center;gap:12px}
+.brand{font-weight:800;font-size:14px}
+.nav-module{display:flex;align-items:center;gap:8px;padding-left:12px;border-left:1px solid var(--light)}
+.nav-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.nav-tag{font-size:12.5px;font-weight:900;color:var(--white);background:var(--orange);padding:4px 11px;border-radius:7px}
+
+.wrap{max-width:920px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+.hero{padding:70px 0 38px}
+.eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);
+  margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:26px;height:3px;background:var(--orange);border-radius:2px}
+h1{font-size:clamp(36px,7vw,66px);font-weight:900;letter-spacing:-.038em;line-height:.97;margin-bottom:22px}
+h1 .o{color:var(--orange)}
+.lede{font-size:17.5px;color:var(--mid);line-height:1.65;max-width:600px}
+.lede b{color:var(--ink);font-weight:700}
+
+.section{padding:58px 0;border-top:1px solid var(--light)}
+.sec-num{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
+h2{font-size:clamp(26px,4.2vw,38px);font-weight:900;letter-spacing:-.028em;line-height:1.08;margin-bottom:16px}
+h3{font-size:19px;font-weight:800;letter-spacing:-.015em;margin:36px 0 12px}
+p{font-size:16.5px;line-height:1.7;margin-bottom:16px;max-width:64ch}
+.small{font-size:14px;color:var(--mid);line-height:1.6}
+
+/* Marca-texto vive só na prosa corrida das seções.
+   Dentro de componente (chip, lista, folha, caneta), negrito é apenas negrito. */
+b{background:none;color:inherit;padding:0}
+.section > p > b, .rule p > b, .notice p > b{
+  background:linear-gradient(180deg,transparent 9%,var(--hl) 9%,var(--hl) 93%,transparent 93%);
+  color:#fff;padding:0 3px;border-radius:1px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+/* a tese do guia leva o azul neon, com letra preta: azul neon é cor clara */
+.section > p.plainb > b{background:none;color:inherit;padding:0}
+.lede b{background:linear-gradient(180deg,transparent 9%,var(--neon-blue) 9%,var(--neon-blue) 93%,transparent 93%);
+  color:var(--ink);padding:0 3px;border-radius:1px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* ---------- demonstração das chaves ---------- */
+.demo{margin:30px 0 10px}
+.demo-title{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--mid);margin-bottom:4px}
+.demo-src{font-size:13px;color:var(--mid);margin-bottom:26px}
+
+.chave{display:grid;grid-template-columns:1fr 26px 190px;margin-bottom:22px;align-items:stretch}
+.chave-txt{font-size:15.5px;line-height:1.72;padding:4px 0}
+.chave-txt mark{background:var(--neon);padding:0 2px}
+
+/* a chave desenhada, entre o texto e a anotação */
+.brace{position:relative}
+.brace::before{content:'';position:absolute;left:9px;top:7px;bottom:7px;width:2px;
+  background:var(--pencil);border-radius:2px}
+.brace::after{content:'';position:absolute;left:9px;top:50%;width:9px;height:2px;
+  background:var(--pencil);border-radius:2px;transform:translateY(-1px)}
+
+.chave-lab{display:flex;align-items:center;padding-left:6px;
+  font-family:'Caveat',cursive;font-size:23px;font-weight:600;line-height:1.15;
+  color:var(--pencil);letter-spacing:.01em}
+.chave:nth-child(2) .chave-lab{transform:rotate(-1.4deg)}
+.chave:nth-child(3) .chave-lab{transform:rotate(.9deg)}
+.chave:nth-child(4) .chave-lab{transform:rotate(-.7deg)}
+.chave:nth-child(5) .chave-lab{transform:rotate(1.2deg)}
+
+/* ---------- folha de prova ---------- */
+.sheet{position:relative;background:#fff;border:1px solid #E0E0D8;border-radius:2px;
+  box-shadow:0 22px 46px -32px rgba(0,0,0,.42);padding:30px 30px 34px;margin:30px 0 26px}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:8.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--mid);
+  border-bottom:.8px solid var(--ink);padding-bottom:7px;margin-bottom:20px}
+.sheet-part{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  border-top:1.4px solid var(--ink);border-bottom:.8px solid var(--light);padding:7px 0;margin-bottom:18px}
+.sheet-part i{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;
+  font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--mid);margin-top:3px}
+.srctitle{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:17px;
+  letter-spacing:-.01em;margin:0 0 2px}
+.srcdeck{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:12.5px;
+  color:var(--mid);margin:0 0 16px}
+.annot{display:grid;grid-template-columns:1fr 26px 178px;align-items:stretch;
+  padding-left:32px;margin-bottom:14px}
+.ptext{font-family:Georgia,'Times New Roman',serif;font-size:13.6px;line-height:1.66;
+  margin:0;max-width:none;padding:2px 14px 2px 0}
+.ln{display:block;position:relative}
+.ln[data-n]::before{content:attr(data-n);position:absolute;left:-30px;width:20px;text-align:right;
+  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;color:#A8A8A8;top:4px}
+.ptext mark{background:var(--neon);padding:0 1px}
+.qpeek{margin-top:20px;padding-top:16px;border-top:.8px solid var(--light);
+  font-family:Georgia,'Times New Roman',serif;font-size:13.6px;line-height:1.6;color:#9A9A9A}
+.qpeek b{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.04em;color:#9A9A9A}
+.sheet-cap{font-size:12.5px;color:var(--mid);line-height:1.6;margin:0 0 30px}
+.margin-empty{display:flex;align-items:center;padding-left:6px}
+.margin-empty span{font-family:'Caveat',cursive;font-size:20px;color:#B9C4D4;
+  border-bottom:1.5px dashed #C9D2DE;padding-bottom:2px}
+
+/* ---------- exercício ---------- */
+.ex{border:1.5px solid var(--ink);border-radius:4px;padding:clamp(22px,3.5vw,32px);margin:30px 0}
+.ex-lab{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.ex h4{font-size:19px;font-weight:800;letter-spacing:-.015em;margin-bottom:14px}
+.ex-text{background:var(--snow);border-radius:4px;padding:20px 22px;font-size:15.5px;line-height:1.72;margin-bottom:20px}
+.btn{font:inherit;font-size:14px;font-weight:800;cursor:pointer;padding:11px 22px;border-radius:4px;
+  border:1.5px solid var(--ink);background:var(--ink);color:var(--white);transition:opacity .12s}
+.btn:hover{opacity:.85}
+.btn.ghost{background:transparent;color:var(--ink)}
+.reveal{display:none;position:relative;margin-top:22px;background:var(--paper);
+  border:1px solid #E4E4DC;border-radius:2px;padding:24px 28px 28px 56px;
+  box-shadow:0 1px 0 #EFEFE9, 0 14px 30px -26px rgba(0,0,0,.35);
+  background-image:repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 20px}
+.reveal.show{display:block}
+.reveal::before{content:'';position:absolute;top:0;bottom:0;left:38px;width:1.5px;background:var(--margin-line)}
+.reveal p{font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:var(--pencil);
+  margin:0 0 6px;max-width:none}
+.reveal p:last-child{margin-bottom:0}
+.reveal p b{background:none;color:var(--pencil);font-weight:700;padding:0;
+  border-bottom:2px solid var(--pencil)}
+.reveal p i{font-style:italic}
+.reveal .model{display:block;font-size:34px;margin-bottom:10px;transform:rotate(-1.2deg)}
+.model{display:inline-block;font-family:'Caveat',cursive;font-size:29px;font-weight:600;color:var(--pencil);
+  border-bottom:2px solid var(--pencil);padding-bottom:2px;margin-bottom:18px;transform:rotate(-1deg)}
+
+/* ---------- questão recortada da folha de prova ---------- */
+.qsheet{position:relative;background:#fff;border:1px solid #E0E0D8;border-radius:2px;
+  box-shadow:0 18px 38px -30px rgba(0,0,0,.4);padding:20px 24px 24px;margin:4px 0 18px}
+.exq-stem{font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.55;margin-bottom:12px}
+.exq-stem b{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.04em}
+.q-opts{list-style:none;margin:0}
+.exo{display:grid;grid-template-columns:36px 1fr 34px;align-items:start;padding:3px 0}
+.exl{font-family:Georgia,'Times New Roman',serif;font-size:13.5px;position:relative;
+  justify-self:start;padding-top:1px}
+.exl.circled{color:var(--pencil);font-weight:700}
+.exl.circled::after{content:'';position:absolute;left:-7px;right:-7px;top:-5px;bottom:-4px;
+  border:2px solid var(--pencil);border-radius:50%;transform:rotate(-3.5deg)}
+.ext{font-family:Georgia,'Times New Roman',serif;font-size:13.5px;line-height:1.55}
+.exo.right .ext{font-weight:700}
+.exm{width:24px;height:24px;justify-self:center;margin-top:-1px}
+
+/* ---------- questões trabalhadas ---------- */
+.q{padding:26px 0;border-top:1px solid var(--light)}
+.q:last-of-type{border-bottom:1px solid var(--light)}
+.q-tag{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.q-stem{font-size:16.5px;font-weight:700;line-height:1.55;margin-bottom:14px;max-width:64ch}
+.q-how{display:none;background:var(--snow);border-left:3px solid var(--neon);padding:16px 18px;border-radius:0 4px 4px 0;margin-top:6px}
+.q-how.show{display:block}
+.q-how p{font-size:15px;margin-bottom:10px;max-width:none}
+.q-how p:last-child{margin-bottom:0}
+.q-how .lab{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:4px}
+.q-how .hand{font-family:'Caveat',cursive;font-size:21px;font-weight:600;color:var(--pencil)}
+
+ul.clean{list-style:none;margin:20px 0 24px;counter-reset:dec}
+ul.clean li{font-size:16px;line-height:1.65;padding-left:44px;position:relative;margin-bottom:18px;max-width:64ch}
+ul.clean li::before{counter-increment:dec;content:counter(dec);position:absolute;left:0;top:-2px;
+  width:30px;text-align:center;font-family:'Caveat',cursive;font-size:30px;font-weight:700;
+  line-height:1.15;color:var(--pencil)}
+ul.clean li:nth-child(1)::before{transform:rotate(-4deg)}
+ul.clean li:nth-child(2)::before{transform:rotate(2.5deg)}
+ul.clean li:nth-child(3)::before{transform:rotate(-2deg)}
+ul.clean li:nth-child(4)::before{transform:rotate(3.5deg)}
+ul.clean li:nth-child(5)::before{transform:rotate(-3deg)}
+/* traço à mão embaixo do número, como quem numerou a lista depois */
+ul.clean li::after{content:'';position:absolute;left:6px;top:26px;width:17px;height:2px;
+  background:var(--pencil);border-radius:2px;opacity:.75}
+ul.clean li:nth-child(1)::after{transform:rotate(-3deg);width:19px}
+ul.clean li:nth-child(2)::after{transform:rotate(2deg);width:15px}
+ul.clean li:nth-child(3)::after{transform:rotate(-1.5deg);width:18px}
+ul.clean li:nth-child(4)::after{transform:rotate(3deg);width:16px}
+ul.clean li:nth-child(5)::after{transform:rotate(-2.5deg);width:19px}
+
+.rule{margin:22px 0;padding:18px 20px;background:var(--snow);border-left:3px solid var(--orange);border-radius:0 4px 4px 0}
+.rule p{margin:0;font-size:16px}
+
+.foot{border-top:1px solid var(--light);padding:34px 0 60px;font-size:12.5px;color:var(--mid);line-height:1.7}
+
+@media(max-width:700px){
+  .chave{grid-template-columns:1fr;gap:0}
+  .brace{display:none}
+  .chave-lab{padding:8px 0 0 0;font-size:22px;border-top:2px solid var(--pencil);margin-top:8px}
+  .chave:nth-child(n) .chave-lab{transform:none}
+  .sheet{padding:22px 18px 26px}
+  .annot{grid-template-columns:1fr;padding-left:0}
+  .ln{display:inline}
+  .ln[data-n]::before{display:none}
+  .ptext{padding-right:0;font-size:14.5px}
+}
+@media print{.nav,.btn{display:none}.reveal,.q-how{display:block}}
+
+
+
+
+/* ---------- título corrigido à mão ---------- */
+.hero h1{padding-top:1em}
+.fix{position:relative;display:inline-block;white-space:nowrap}
+.fix .old{color:var(--mid);position:relative}
+.fix .old svg{position:absolute;left:-4%;top:38%;width:108%;height:26px;overflow:visible;pointer-events:none}
+.fix .new{position:absolute;left:50%;bottom:100%;transform:translateX(-50%) rotate(-3.2deg);
+  font-family:'Caveat',cursive;font-weight:700;font-size:.66em;line-height:1;color:var(--pencil);
+  white-space:nowrap;margin-bottom:16px}
+.fix .caret{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);width:26px;height:13px;
+  margin-bottom:1px;color:var(--pencil)}
+@media(max-width:640px){
+  .fix .new{font-size:.72em}
+  .fix .old svg{height:18px}
+}
+
+
+/* ---------- checklist escrita à mão ---------- */
+.checknote{margin:26px 0 6px}
+.checknote .notepaper{max-width:580px}
+.chk-h{font-family:'Caveat',cursive;font-size:26px;line-height:34px;color:var(--pencil);font-weight:700}
+.chk{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;min-height:34px}
+.chk-box{width:24px;height:24px;justify-self:start}
+.chk:nth-of-type(2) .chk-box{transform:rotate(-2deg)}
+.chk:nth-of-type(3) .chk-box{transform:rotate(1.5deg)}
+.chk:nth-of-type(4) .chk-box{transform:rotate(-1deg)}
+.chk-t{font-family:'Caveat',cursive;font-size:25px;line-height:34px;color:var(--pencil)}
+.chk-f{font-family:'Caveat',cursive;font-size:23px;line-height:34px;color:var(--pencil);
+  margin-top:8px;border-top:2px solid var(--pencil);display:inline-block;transform:rotate(-.6deg)}
+@media(max-width:640px){
+  .chk-h,.chk-t{font-size:22px;line-height:32px}
+  .chk{grid-template-columns:28px 1fr;gap:8px;min-height:32px}
+  .chk-box{width:21px;height:21px}
+}
+
+/* ---------- recado à mão, sobre papel ---------- */
+.handnote-wrap{border-top:1px solid var(--light);padding:56px 0 10px}
+.notepaper{
+  position:relative;max-width:600px;background:var(--paper);
+  border:1px solid #E4E4DC;border-radius:2px;
+  box-shadow:0 1px 0 #EFEFE9, 0 16px 34px -26px rgba(0,0,0,.4);
+  padding:26px 30px 30px 62px;transform:rotate(-.7deg);
+  /* pauta com 34px de passo, igual ao line-height do texto */
+  background-image:repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px);
+  background-position:0 22px;
+}
+.notepaper::before{content:'';position:absolute;top:0;bottom:0;left:44px;width:1.5px;background:var(--margin-line)}
+.handnote{display:block}
+.handnote .star{position:absolute;left:12px;top:30px;width:24px;height:24px}
+.handnote p{font-family:'Caveat',cursive;font-size:27px;line-height:34px;color:var(--pencil);
+  margin:0;max-width:none}
+.handnote p u{text-decoration:none;border-bottom:2px solid var(--pencil);padding-bottom:1px}
+.handnote p .big{font-size:31px;font-weight:700}
+@media(max-width:640px){
+  .notepaper{padding:22px 20px 24px 48px;transform:none;
+    background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--rule) 31px 32px);
+    background-position:0 20px}
+  .notepaper::before{left:32px}
+  .handnote .star{left:7px;top:26px;width:20px;height:20px}
+  .handnote p{font-size:24px;line-height:32px}
+}
+
+/* ---------- marca ---------- */
+.logo-mark{display:inline-block;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABgCAYAAACKa/UAAAATMklEQVR42u1de5BkVXn//c65fXum7+3pfbi77rq+cEFFShYC8pLlGRWJWgVsNKgIVEgRLYMkhLIkCbHUQEJKymg0ktJoLFFry1IRDIoxPBYwwiQqLA8XeRSry7Lso6fv7dm5fe/58secO3Omt2fm9mNnhiSnamp2e7pPn/s73/kev/Od7xCL1whAAxAAmfuH4eHhlymljgRwFIDXk3y1iKwjuRJACGDI+WxLRMZJjgHYLSLPktxO8hGSD2utf7Vv375623d79jtlEA+x0E3Z750CLQiC1SRPBnAGgBNE5AiSy8np4YkUe9a2zxgAvwXwMIB7SN7ZaDRGAUw4zy8vFgBziTEAUK1WV2ZZ9nal1AUANpFc1gbW1HudcXKWMYvzW5z3KhdU2++vReRbQ0ND1+/Zs6fRL4hcIIlDDsbw8PBxSqlLSZ5Hco3zYPmSUnMA1UvLJ0LsJJIkROTnIvK2OI6ft99llhqAuQRkdpmeSfJKAOeSpAOau6wXohkAKUlfRG6Pougc+/1LCkCdg1OtVk8Ukb+wwOXSlubSsIhGLCXpATi50Wjc7465l+U1cKmrVCprgyD4oojcR/JcAEZEMscKLiZ4jrqVM/sRJu8QSJ1Uq9WLROR6kmtlsmX270uxLe/nw4MC0AOQhmG4CsBnAbzbTm9q/zYI8KTtdyfp71aKKCLPLjaAOXinAviqdXozu5T76d84il056mY+kHJrzjmMk1jwMq31ba6XsJAA5gNMwzC83Eqe50hdLy1/eA+AIqlcp1hE9gMYA9Ak2bIglEmGIlIjGZLUbf5kPhF0JZikZ4y5fmxs7IleDUg/VjhfLiYIgr9VSl0tk6OVHgxTHsp5rsMrIo+RfFBEHgTwiFLqGZIvjI2NRQCStrEMVyqVEQBrlFKvEZGjSR4P4Njc1+xgPT4XRdGfOC6MLBSAU+CFYfgvJC+2UtetWzIDOAva/Uqp72RZ9qNms/lwr1KRt1qttixN0+NJvh3ARhHRAB4heXMURXcvRig3pajDMPwGyd8XkRaAUg9LVVvg9ovIzVrrr4yNjT3QwbLTCdE6GRJ2GB/bdOhsLpwZhAHo2scLw/DmHsEzVv9oEakD+EKapp8/cODAs20MjenE0sxjnTtZaNeQuAZJ+pXuXgDUANIgCL5A8g96AG/KuIjIV7XWH6/X60/NMo5BO/jtfdL5zo60lgDEZig8byV8NQRbYNj2XnYBdBqG4cdIfqpL8ASAsVL3K2PMFc1m83b7Nz/n9JaKV50Dxy2dJVQ2Q7t/Y0HJy8IwPI/kt7s0GLnLQBH5V631FfV6fb8FX6xUAoCqVqsbAGwQkbUiUnH6N20UlZA0nVRDBwbGHaMhOUN6jDEHfN+/zRKuFIC0fe1/y/oVAc2xJsteDjClZ7aXdj8/ylG0xPZLQFhA7E21Wj3CuhNBF0vM5J8XkY/EcfxZR+oSAKhUKhuVUheJyFtJHmGD+wVrJGGM+asoij6xGfC3AMmjJ6+sHhaW/hLART65Bta1yozAiDyWkTcO/2jnTQ6I8xoNFYbh/SR/p4uYNgevYYx5T7PZ/IFDILTK5fKrSqXSJwG8xy5tzKWPDs1KBQC8AODsRhQ9RkD2vGXd+qqY75dK6uikJWgZMSAMBBRADWtSe0QzMd+stJ57P1ZD9Dx6LwuC4G+UUpu7iDBy8PaQPCeO4/9w9GUaBMG7tdbfI3lCHsm0SfxC/JCkR/J9URRtxWnQd65dX0Ypu6NcUhvjxCQGUCQU898EUwPTyqQVDOmjGyZYMXRrdBvn0nvVavUEAPfbvYUipGf+vv3GmLObzeaoq+/CMPwoyescTtBbBDuRWam/M4qiMz6zAeUrnsBEdPaajwa+vi6eMAkJfw7RFQVkJUWvJXKamsO59kTknzBzP6LIspgA8C4LnpczwJVK5SoLXmpf87A4LTdsXwPArU8glc1H+gAvy1Ix4NzjIkAjoEfAiFypZjEcWRAEf0xyo2N1i8ysEpGLbZjk5Q5rpVI5R2t9g9OXwuI1LSLIsuy/CMgWIGvs2btBAa+eMKJYZGyESoyAglNUB+kz1Wp1JYBrnaVbiB43xlwXx/E37bLNAEitVluulPqSJRsWcu9jNukjgAljzJ6ppaawakiTIsVCOwLMBBByueqg+8QYc5VSaqWj0+aTPM8Yc3ccxx/Lne7chUnT9KMk11pAF1PyZgBJUgYxk6p96VYqlZcC+KCVGF1kRkWkkabpxW1ObWYZ6ssL9rUgrp8dc1kptTwfaGqw+0AmQhabYAFEE6BgbzuAQvJDSqkRKzHzWl2r9z42MTHxlGM0crDO76KvhbTCFJHjBOBpgFetv2y7AZ4sKxopwtAIjK8Igdzr0uTZihUrRkhe5uirIu7AaBzHn29jdXOL/A5H7yyVRmuFLwYg522A5uhoC0Zu0h4VZIZf2tmNIaQlAkX1aeXqvlardYFlcIvoPlpm5Spn2eZgZQCGLYnJJQagFhGjlNoUhuF5VzyBiWtPgxdkQ/8wnmSjga98ESTSiaERGAjS4bL2kgyfqfx451a6MW8QBPcqpU6y1lcXkL4fRlH0tjbpUwDMyMjIa4wx2xx3ZrFAlNles3ssZ0VxvI0A4jPXry3p9JZSSR3bHsqBUMOKVB7RTLKvV5bv+kAeruXgHUXyRBslzKfw89SMT8whmatIlrGEm1JqlTHmPAIPbQb84Cc7frPzd9dsWpaaaxRwceBxLezGVmoERrAtaWU3Bj/e9SWXTMi5vmtJ/nWBmDcjqY0x98Zx/OYO1DgByMjIyApjzKY+pE/Ntp0wvaREzUKAuJKmZvscycTzvB9aio3XAvy4fRY5e3kN2j8mEb4ChqnvyfY7x5/77zPuQtpOZ+V7HKMkjynAuOQAvjeO45sdv+9/ReuJUK1Wq4eLyKMFIoVcmnaVy+XDB5Fft9AGxHG1pBtKf8tqyOYOlH6+R7HJGoUiy9czxnzfgjfrhvT69euH9+/f/0qXPSZpRISWGc6D+hm7bTlrfODAAXE/18EoiMMwy6RrN3vfWuusXq/vc8Y752Y6AcGW+TeecrA2daOXlFLfmUNSNYBs//79xwG4y1EJYv1LOpvw7pblDIvpeV6n3baOn8szWu3GvDi6buo9aZqmYRjuBHCH1vqzdkOr54wEF0AN4Fg7CDXP8lXGmL2e592HmSm4B79ZxOPkE2kMNuO0IzVfsK0keVSWZZeEYfiHURR9G33uD6tarfYKAIcV4PwMSZD8mbVaah7d59klZDBzY3wxf4zdUVwGYEsYhqe1hZ7dA2iMORJApYC7kYN13yxuxkESiIOTwxf7R1mqLbXx8Oft/02vK0SJyBvsEjBF9J8x5sE5PPxpRaj1Uk2ozNn2TCl1ZBAEm9BbUtQUgK8tGA4pEUlLpdLjRQC0ErjEXT6I3dxCzxJI8lUFOsjB2lWv13fOAyDbLPxSbhSRal/hoM0EmHcG7DLfCWC8iPNsU8leDO23fQFIckVRRkNEni9iQGwrFVnqiyx9APCTNia9awkMiy5hknuK6oslrgMTG3l9O47jbZhOqeveGnVDOYlI1AVV1A+Ag0rxYKdY3p5S2g7gQwX82XkjkcIPSnKiy757jSwOqf4UkX/LsuyPxsfHd/UbiXiHcJC6ixBrhoSIyI+swVJtzrjCzCMMM3jCtu0D99/KOs9PisjtcRz/xHm9rzTfnMvzCoLSDcNc6gV3AMyy7Jrx8fEHD6UB6cdwtHvkE0Xz8khWu5DAnqVbKVVziI5sHt+0W+AGlh+dG5EGJhMn54qF89dXFB38AIxIOuiHPRRNicjeLkR+TRei348RebEw3FAkn2snIudwOtdicr933o2iPv3AFw+AIvJUF4NePTIysq6gM+3h/0BTIvJ4wSWckfTSNH3t/wPoAKi13laAzp+SUKXUcUUAXOiM+0UDUCn1iIg0CzAsOWAnFzQkPe+BdNgwX7oA1uv1Z0k+WUAPKnui8k21Wm0Z5qHBu4mbnWasQVuHQ7wRNTAArZ81WoDWJ4BMKbXcGHMKDk6jaF/CO/sY11kvFkuc54jc1Y17YYw5b44HzLnDX7nfUbBpu5d7fhAEq1EszW5JAHh3wYM0+amid6xYsWK2zNNcih82xkRd0kUEYJRSNZI3YHrLcckuZQ2AExMT+3zffyfJdZg7GTxfxmGapo+0Wq1fYjrXZMbEtFqtyPf9tyqlXtmlJCnrMh1TLpebSZLcg+ksMlmKAHoAjO/7LyV5RoGHFZsXvbbVan1pFuOjbZ9Ve9y+26WYg/hW3/eDJEnuwvSRWI3psyazHuWa4/WB0zoKk/UPjgTwS3R3pGtTFEX3dGBNCECsHtvusDjdPkCexP5zEbk+DMNbd+3aFQ9IcLJBAZjPuAmC4B6l1CldpPjeEUXRW2YZUH7O+EaSH+mjHIpbX+EZAFtJ/sIYsxOTexud6ikYZ7Xkr7eMMTviOH7IfeZBAegBSKvV6gcAfKXgsVZDUhljzrIMbzuICoBUKpU1JB8lOdKDVXYlXnIg+3DQBcAvROQGmxzaN4jamTXWarUnWq3WJQCqBRgXYwvjvDFJkn9G5w0c3Wq1GuVyuU7yHZiu2tazqrGTZNBb0pIi+VKS5/u+vyxJktsxXRiyLwABwGs2mwdKpVJVKXU65j+alSv6daVSaW+r1fppB4ssAHSSJA+USqXjlFKvx/QxsH50dq8/uTSnJE8plUp7Wq3Wf/YDItuXXBAEqwA8TrJWQPHnM9tUSm0cGxv7NTonnbNWq9XSNP2pUuqIPstDDaIZu6TrWusNY2Nje9FjqrJq61Tbkpj/aJMjswITICTDLMu+gs4FvwQA6vX6Pq31uSLyW8vULGZiugIgSqnlWZad3WE19gRgbvGotf60MWZ3QSWrRSRVSr05CILr0XmXzwDQttDX2SLytAVxMcud5KvnqL5DubZO1djY2F6S11ojUWj/w4J4dRAE77PAlDq5I1EUPZpl2anGmK0kS5i/RNOChLOD/LCxD3qTiIxaSSnidGoRyUh+OQiCMyyIXicQx8fHd8RxfKaIfBrTZe6yBQaSmNzreXzQAE6dn8iy7HLrVM/HFcLh7zyS37UFK9JZJFEBaEVR9GcicpaIPGDTOXIgD3X5k5wxagK4wxlXX27MQT5cmqa/KZVKvlLqNBQ7cZ5bsiEAF/i+vzVJkqcxnYfs9k/rJz6ZJMmXy+XyMwBeTXKtlUg6UikDJFhzN6YE4FNxHN+GPrKzihTeYRiG95J8Uw+Fd2KSFzYajVswsyrbbHGpF4bh74nI+0me2aG6Odoc6F5WnLJh4beiKHpvW58DBXAqXrRHV0dthFJU8U4xMCLyp3Ec3zhHID+jaDcAVCqVtSRPBXCGrZp0GMmV/YRydiy/IfmZRqNxA9rKgh4KAKceuFqtvhPA93ooPpbTXzcrpT5snVaNzgd13G2CGSDXarXlaZquA7CG5HJjTMU5CZBPlJvBpdrIkpaIPF0ul3+2d+/esUGA1w295GGyeM6fa63/rofydxlJT0SeJHlFo9G41el3NjfGdcoHbVQGRmfpLhSv12q1tvq+v5LkSdZN0QUnKV+eK0le6Pv+4eVy+aEkSV6Ac0lAB5Dab3TIY9r5CFU1D6FqBjkT3Zh+nSTJD3zfP4zksV2A6PJvQvJoEbnE9/0VJLdnWbbPAc8rED2Ygj+u9XZvi1CDkuhe4j+VJMl3fN8/nOTGLkF0H2aI5MlKqUtLpdJhQ0NDLyRJsqPNImocfFix3Z3hLNLZDnj7JAwExL7KIAdBcJNS6rI+yiAbh20GgAcAfM8Yc3uz2XwIM+tFd93CMHwJyROMMecCONo664+KyNfjOP4xFvFGGxfETyqlrumzELex/lme6wwReYLkqD2bt00p9QyA3VEUNSywuVR5q1atGoqiaFmpVFqbZdkGAG8kebyIbLQlrA5W6sZ8MY7jD2K6wq8sJIAzjEO1Wr1URL5gjw/0w/XlussDDrofCSIyRnJMRJokWzaHpkwyADACYLjDPUxuKfipcsj25P0NcRxfjUUoBX+Qi1OtVk8Ska+SPNy5jKCf/k2bBdZdSHORywjMJI58XaPR2I4e90cGkTaRAvAajcb9WusTRORrVtewT9I0vw3CcxxvmcPaigO0N49OzolgZYw5px8sBpV3kgLQ9Xp9XxRFFxljLgSww8kRHITT2m5t2/27XqRdALx80cjETmw2JrcFvoHJOgyfs8xHxwv4lkIjuXepAAgHJB1F0e4oij5sjDkRwHetvtGOxC56nouIUCn17/3ExAt2LVoYhqeSvFJE3unUjl6sa9FaJMvGmFviOH4XluC1aJ2k3Fia6mil1KUALrDZYJ3cjUEC6hoZ92K+BwC8PYqiPUtVAjuFjVNhlb0s5W0AzgdwulLqJR3I06xtnLOVZC58NaSIPG4vZPl7AEVyw5cMgGhbrlMGxVYNPkFETheRkwC8juRLBnA5aQpgh4j8Qim1NU3TO8fHx3/uuFcvqstJO313R+scBMEakq8D8AYAr8dkYaB1AFaKSJXkkONYt+zmUB3AbpLP2sPUj4jItmq1ur1DStzArsf9H+14wLh9dIStAAAAAElFTkSuQmCC") no-repeat center/contain;
+  vertical-align:middle}
+.logo-full{display:inline-block;background:url("data:image/png;base64,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") no-repeat left center/contain}
+.nav-left .logo-mark{width:21.67px;height:26px;margin-right:2px}
+.sheet-head .logo-mark{width:12.50px;height:15px;margin-right:6px;position:relative;top:-1px}
+.foot .logo-full{width:84.33px;height:44px;margin-bottom:16px;display:block}
+@media print{.logo-mark,.logo-full{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+
+
+
+
+/* ---------- exemplo completo ---------- */
+.full{border:1px solid #E0E0D8;border-radius:2px;background:#fff;margin:16px 0 0;padding:0}
+.full-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  padding:12px 18px;border-bottom:.8px solid var(--light);background:var(--snow)}
+.full-l{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--mid)}
+.full-c{font-size:12.5px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.full-t{padding:16px 20px 6px}
+.full-t p{font-family:Georgia,'Times New Roman',serif;font-size:14.5px;line-height:1.75;
+  margin:0 0 12px;max-width:none}
+.full-n{font-family:'Caveat',cursive;font-size:19px;line-height:1.25;color:var(--pencil);
+  padding:0 20px 16px}
+
+/* ---------- modelo comentado dentro do gênero ---------- */
+.sample{border:1px solid #E0E0D8;border-radius:2px;background:var(--paper);margin:16px 0 0;
+  padding:14px 18px 18px}
+.sm-row{display:grid;grid-template-columns:1fr 24px 190px;align-items:start;margin-bottom:11px}
+.sm-row:last-child{margin-bottom:0}
+.sm-t{font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.75;
+  margin:0;padding:2px 14px 2px 0;max-width:none}
+.sm-t mark{background:var(--neon);padding:0 2px}
+.sm-t b{font-weight:700;background:none;color:inherit;padding:0}
+.sm-note{font-family:'Caveat',cursive;font-size:19px;line-height:1.2;color:var(--pencil);
+  padding-left:6px;padding-top:3px}
+
+/* rodapé: o que se espera e as frases-chave */
+.gen-foot{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:18px -22px -22px;
+  padding:18px 22px 20px;border-top:1px solid var(--light);background:var(--snow);
+  border-radius:0 0 3px 3px}
+.exp-h,.keys-h{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:9px}
+.exp-i{display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:start;margin-bottom:7px}
+.ex-box{width:19px;height:19px;margin-top:1px}
+.exp-t{font-size:14.5px;line-height:1.45}
+.keys-l{display:flex;flex-wrap:wrap;gap:6px}
+.key{font-family:Georgia,'Times New Roman',serif;font-size:13.5px;border:1px solid var(--ink);
+  border-radius:3px;padding:5px 10px;white-space:nowrap}
+@media(max-width:700px){
+  .sm-row{grid-template-columns:1fr}
+  .sm-row .brace{display:none}
+  .sm-note{padding:4px 0 10px;border-top:2px solid var(--pencil);margin-top:4px}
+  .gen-foot{grid-template-columns:1fr;gap:18px}
+  .key{white-space:normal}
+}
+
+/* ---------- as três decisões ---------- */
+.gen-q{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:24px 0 26px;
+  border-top:1.2px solid var(--ink);border-bottom:1px solid var(--light)}
+.gen-qi{display:flex;align-items:center;gap:11px;padding:15px 18px 15px 0;font-size:16px;font-weight:800;
+  letter-spacing:-.015em;border-right:1px solid var(--light)}
+.gen-qi:last-child{border-right:none}
+.gen-qn{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900}
+
+
+/* ---------- a lista é a escala de formalidade ---------- */
+.gens{position:relative;padding-left:34px}
+.axis{position:absolute;left:0;top:0;bottom:0;width:34px;display:flex;flex-direction:column;
+  align-items:center;justify-content:space-between;padding:6px 0}
+.axis-line{flex:1;width:3px;border-radius:2px;margin:10px 0;
+  background:linear-gradient(180deg,#FDE8DE 0%,#EDE4FA 22%,var(--light) 55%,#E2EDFA 100%)}
+.axis-l{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--mid);white-space:nowrap;writing-mode:vertical-rl;text-orientation:mixed}
+.axis-a{transform:rotate(180deg)}
+.gens-apart{margin-top:6px;padding-left:34px}
+.apart-l{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 4px -34px;padding-left:34px;border-top:1px dashed var(--light);padding-top:14px}
+@media(max-width:700px){
+  .gens,.gens-apart{padding-left:0}
+  .axis{display:none}
+  .apart-l{margin-left:0;padding-left:0}
+}
+
+/* ---------- lista de gêneros ---------- */
+.gens{margin:26px 0 30px;border-top:1px solid var(--light)}
+.gen{border-bottom:1px solid var(--light);transition:background .16s}
+/* aberto, o gênero vira um card que delimita todo o conteúdo */
+.gen.open{background:#fff;border-bottom-color:transparent;border-radius:3px;
+  box-shadow:0 1px 0 #F1F1EC, 0 22px 46px -30px rgba(0,0,0,.45), 0 0 0 1px #E6E6E0;
+  margin:10px 0 22px}
+.gen.open .gen-head{padding:18px 22px 14px}
+.gen.open + .gen{border-top:1px solid var(--light)}
+.gen-head{display:grid;grid-template-columns:210px 1fr 22px;gap:16px;align-items:center;
+  width:100%;background:none;border:none;font:inherit;text-align:left;padding:15px 0;cursor:pointer}
+.gen-head:hover .gen-n{color:var(--orange)}
+.gen-n{font-family:Georgia,'Times New Roman',serif;font-size:16.5px;font-weight:700;
+  letter-spacing:-.01em;transition:color .12s}
+.gen-w{font-size:14.5px;line-height:1.45;color:var(--mid)}
+.gen-r{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  justify-self:start;padding:4px 9px;border-radius:3px;white-space:nowrap}
+.reg-informal{background:#EDE4FA;color:#5B2E9D}
+.reg-formal{background:#E2EDFA;color:#1B3A6B}
+.reg-neutral{background:var(--light);color:var(--mid)}
+.reg-personal{background:#FDE8DE;color:#A64B12}
+.reg-none{background:#EAEAE4;color:#8A8A80}
+.gen-plus{position:relative;width:14px;height:14px;justify-self:center}
+.gen-plus::before,.gen-plus::after{content:'';position:absolute;background:var(--ink);transition:transform .2s}
+.gen-plus::before{left:0;top:6px;width:14px;height:2px}
+.gen-plus::after{left:6px;top:0;width:2px;height:14px}
+.gen.open .gen-plus::after{transform:scaleY(0)}
+.gen-body{display:none;padding:2px 22px 22px}
+.gen.open .gen-body{display:block}
+.gen-row{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;
+  padding:8px 0;border-top:1px solid var(--light)}
+.gen-l{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.gen-v{font-size:15.5px;line-height:1.55}
+.gen-sub{margin-top:12px;font-size:13.5px;color:var(--mid)}
+.gen-sub b{font-family:Georgia,'Times New Roman',serif;font-weight:700;color:var(--ink)}
+@media(max-width:700px){
+  .gen-q{grid-template-columns:1fr}
+  .gen-qi{border-right:none;border-bottom:1px solid var(--light);padding-right:0}
+  .gen-qi:last-child{border-bottom:none}
+  .gen-head{grid-template-columns:1fr 22px;gap:8px}
+  .gen.open .gen-head{padding:15px 16px 12px}
+  .gen-body{padding:2px 16px 16px}
+  .gen-foot{margin:16px -16px -16px;padding:16px}
+  .gen-w{grid-column:1}
+  .gen-row{grid-template-columns:1fr;gap:3px}
+}
+
+/* ---------- observação: comenta o que está logo acima ---------- */
+.notice{position:relative;margin:-4px 0 30px;padding:16px 22px 17px 58px;
+  background:var(--snow);border-radius:3px}
+.notice-ar{position:absolute;left:20px;top:16px;width:20px;height:28px}
+.notice-l{display:block;font-family:'Caveat',cursive;font-size:22px;line-height:1;
+  color:var(--pencil);font-weight:700;margin-bottom:5px}
+.notice p{font-size:16px;line-height:1.65;margin:0;max-width:60ch}
+.notice p + p{margin-top:0}
+.notice-down{background:#FFF8E6}
+
+
+/* ---------- navegação entre os guias ---------- */
+.gnav{display:flex;gap:2px;flex-wrap:wrap;padding:0 0 0 2px}
+.gnav-a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--mid);
+  font-size:13px;font-weight:700;letter-spacing:-.01em;padding:8px 12px;border-radius:3px;
+  transition:color .13s,background .13s}
+.gnav-a:hover{color:var(--ink);background:var(--snow)}
+.gnav-a.is-here{color:var(--ink);background:var(--ink);color:#fff}
+.gnav-i{width:19px;height:19px;flex:none}
+@media(max-width:860px){
+  .gnav-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .gnav-a{padding:8px 10px}
+}
+
+/* ---------- continue com ---------- */
+.cont{margin:10px 0 6px;padding-top:30px;border-top:1px solid var(--light)}
+.cont-h{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:14px}
+.cont-c{display:grid;grid-template-columns:34px 1fr 20px;gap:14px;align-items:center;
+  text-decoration:none;color:inherit;padding:15px 16px;border:1px solid var(--light);
+  border-radius:3px;margin-bottom:9px;transition:border-color .13s,background .13s}
+.cont-c:hover{border-color:var(--ink);background:var(--snow)}
+.cont-i{width:26px;height:26px;color:var(--pencil)}
+.cont-b{display:block}
+.cont-t{display:block;font-size:16.5px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.cont-d{display:block;font-size:14px;color:var(--mid);line-height:1.45;margin-top:3px}
+.cont-ar{width:16px;height:12px;color:var(--light);transition:color .13s,transform .16s}
+.cont-c:hover .cont-ar{color:var(--ink);transform:translateX(3px)}
+
+/* ---------- bilíngue ---------- */
+body.lang-en .pt{display:none}
+body:not(.lang-en) .en{display:none}
+.lang-toggle{display:flex;background:var(--ink);border-radius:100px;padding:3px;gap:2px}
+.lang-toggle button{border:none;background:transparent;color:rgba(255,255,255,.55);font-family:inherit;
+  font-size:11.5px;font-weight:800;padding:6px 14px;border-radius:100px;cursor:pointer;transition:all .15s}
+.lang-toggle button.active{background:var(--neon);color:var(--ink)}
+.btn .lbl-hide{display:none}
+.btn.open .lbl-show{display:none}
+.btn.open .lbl-hide{display:inline}
+
+/* ---------- marcação da frase ---------- */
+.legend{display:grid;gap:16px;margin:30px 0 34px;max-width:60ch}
+.legend-item{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center;
+  padding:14px 0;border-top:1px solid var(--light)}
+.legend-item:last-child{border-bottom:1px solid var(--light)}
+.legend-txt{font-size:15.5px;line-height:1.55}
+.mk{font-family:Georgia,'Times New Roman',serif;font-size:15px;position:relative;
+  display:inline-block;white-space:nowrap}
+.mk-circle{padding:1px 9px}
+.mk-circle::after{content:'';position:absolute;left:0;right:0;top:-4px;bottom:-3px;
+  border:2px solid var(--pencil);border-radius:48%/50%;transform:rotate(-1.6deg)}
+.mk-under{padding-bottom:3px;background:linear-gradient(to right,var(--pencil),var(--pencil)) 0 100%/100% 2px no-repeat}
+.mk-box{padding:1px 7px}
+.mk-box::after{content:'';position:absolute;left:0;right:0;top:-3px;bottom:-2px;
+  border:2px solid var(--pencil);border-radius:2px;transform:rotate(.5deg)}
+.mk-circle-in{position:relative;padding:0 6px}
+.mk-circle-in::after{content:'';position:absolute;left:0;right:0;top:-3px;bottom:-2px;
+  border:2px solid var(--pencil);border-radius:48%/50%;transform:rotate(1.4deg)}
+
+.marked{margin-bottom:26px}
+.msent{font-family:Georgia,'Times New Roman',serif;font-size:15.5px;line-height:2.5;
+  margin:0 0 6px;max-width:none}
+.mnote{font-family:'Caveat',cursive;font-size:22px;color:var(--pencil);line-height:1.2;
+  padding-left:2px;transform:rotate(-.5deg)}
+
+
+
+/* cada dica ganha a cor da caneta do seu doodle. Vermelho fica fora: no material inteiro ele significa erro. */
+ul.clean li:nth-child(1)::before{color:#1B3A6B}
+ul.clean li:nth-child(2)::before{color:#6B3FA0}
+ul.clean li:nth-child(3)::before{color:#1E8A5F}
+ul.clean li:nth-child(4)::before{color:#C97A05}
+ul.clean li:nth-child(1)::after{background:#1B3A6B}
+ul.clean li:nth-child(2)::after{background:#6B3FA0}
+ul.clean li:nth-child(3)::after{background:#1E8A5F}
+ul.clean li:nth-child(4)::after{background:#C97A05}
+
+
+/* ---------- doodles das dicas finais ---------- */
+ul.clean.dooded li{padding-left:92px}
+ul.clean.dooded li .dood{position:absolute;left:40px;top:-3px;
+  width:36px;height:36px;display:block;line-height:0;
+  color:var(--dc);transform:rotate(var(--dr))}
+ul.clean.dooded li .dood svg{width:36px;height:36px;display:block;overflow:visible}
+@media(max-width:640px){
+  ul.clean.dooded li{padding-left:76px}
+  ul.clean.dooded li .dood{left:32px;width:30px;height:30px}
+  ul.clean.dooded li .dood svg{width:30px;height:30px}
+}
+
+
+
+
+
+/* alternativa citada no meio da prosa, circulada como na folha */
+.opt-ref{position:relative;display:inline-block;padding:0 7px;margin:0 2px;
+  font-family:Georgia,'Times New Roman',serif;font-weight:700;color:var(--pencil)}
+.opt-ref::after{content:'';position:absolute;left:-4px;right:-4px;top:-3px;bottom:-2px;
+  border:2px solid var(--pencil);border-radius:48%/50%;transform:rotate(-4deg)}
+
+
+/* pares de sinônimo dentro dos recortes */
+.syn{background:linear-gradient(to right,var(--pencil),var(--pencil)) 0 100%/100% 2px no-repeat;
+  padding-bottom:2px;font-style:normal}
+.syn2{background:linear-gradient(to right,#C97A05,#C97A05) 0 100%/100% 2px no-repeat;
+  padding-bottom:2px;font-style:normal}
+.clip-link{display:flex;flex-direction:column;align-items:center;gap:5px}
+.clip-mec{font-family:'Caveat',cursive;font-size:17px;line-height:1;color:var(--pencil);
+  white-space:nowrap}
+@media(max-width:640px){
+  .clip-link{flex-direction:row;gap:10px;justify-content:flex-start;margin:2px 0 2px 18px}
+  .clip-link .clip-ar{transform:rotate(80deg)}
+}
+
+/* recortes de duas páginas do caderno, lado a lado */
+.clips{margin:30px 0 26px}
+.clip-row{display:grid;grid-template-columns:1fr 82px 1fr;gap:10px;align-items:center;
+  margin-bottom:20px}
+.clip{background:#fff;border:1px solid #E4E4DC;border-radius:2px;padding:14px 17px 16px;
+  box-shadow:0 1px 0 #F1F1EC, 0 12px 26px -20px rgba(0,0,0,.45);transform:rotate(var(--rot))}
+.clip-src{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mid);border-bottom:.8px solid var(--light);padding-bottom:6px;margin-bottom:9px}
+.clip p{margin:0;max-width:none;font-family:Georgia,'Times New Roman',serif;
+  font-size:14.5px;line-height:1.6}
+.clip-q p,.clip-q{font-style:italic}
+.clip-o{font-weight:700}
+.clip-ar{width:48px;height:18px;justify-self:center}
+@media(max-width:640px){
+  .clip-row{grid-template-columns:1fr;gap:6px}
+  .clip{transform:none}
+  .clip-ar{justify-self:start;transform:rotate(80deg);margin:2px 0 2px 18px}
+}
+
+
+/* correção à mão na margem da alternativa */
+.wide-side .exo{grid-template-columns:36px 1fr 28px 210px}
+.side{font-family:'Caveat',cursive;font-size:19px;line-height:1.2;color:var(--pencil);
+  padding-left:14px;align-self:center}
+.exo.right .side{font-weight:700}
+.anno .side{opacity:0;transform:translateX(-5px);transition:opacity .4s ease,transform .4s ease}
+.anno.on .side{opacity:1;transform:none}
+.anno .exo:nth-child(2) .side{transition-delay:.06s}
+.anno .exo:nth-child(3) .side{transition-delay:.12s}
+.anno .exo:nth-child(4) .side{transition-delay:.18s}
+@media(max-width:700px){
+  .wide-side .exo{grid-template-columns:36px 1fr 28px}
+  .side{grid-column:2 / span 2;padding:2px 0 6px;font-size:18px}
+}
+
+
+/* ---------- player e transcrição ---------- */
+.player{display:flex;align-items:center;gap:16px;border:1.5px solid var(--ink);
+  border-radius:4px;padding:13px 18px;margin:26px 0 0;background:#fff}
+.player-btn{flex:none;width:44px;height:44px;border-radius:50%;background:var(--ink);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  padding:0;transition:opacity .12s}
+.player-btn:hover{opacity:.85}
+.player-btn svg{width:17px;height:17px;margin-left:2px}
+.player.on .player-btn svg{margin-left:0}
+.wave{flex:1;display:flex;align-items:center;gap:3px;height:36px}
+.wave i{flex:1;min-width:2px;background:var(--light);border-radius:2px;
+  transition:background .35s ease}
+.player.on .wave i{background:var(--pencil)}
+.player-time{flex:none;font-size:12px;font-weight:700;color:var(--mid);font-variant-numeric:tabular-nums}
+.player-cap{font-size:12.5px;color:var(--mid);margin:9px 0 0;line-height:1.5}
+
+.script{display:none;margin-top:18px}
+.script.show{display:block}
+.script p{font-family:Georgia,'Times New Roman',serif;font-size:14.5px;line-height:2;
+  margin:0 0 14px;max-width:none;padding-left:96px;position:relative}
+.script .who{position:absolute;left:0;top:.35em;width:82px;text-align:right;
+  font-family:'Inter',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid);display:block}
+.lure{background:var(--neon);padding:0 3px;border-radius:2px}
+.truth{background:linear-gradient(to right,var(--pencil),var(--pencil)) 0 100%/100% 2px no-repeat;
+  padding-bottom:3px}
+.legend2{display:flex;flex-wrap:wrap;gap:20px;margin:18px 0 0;padding-top:14px;
+  border-top:.8px solid var(--light)}
+.legend2 span{font-size:13px;line-height:1.4;display:flex;align-items:center;gap:8px}
+.legend2 b{font-weight:700}
+
+/* comandos de listening anotados na margem */
+#skSheet .annot{grid-template-columns:1fr 26px 230px;padding-left:0;margin-bottom:6px}
+#skSheet .ptext{font-size:14.5px;line-height:1.7;padding:9px 16px 9px 0}
+#skSheet .chave-lab{font-size:21px;line-height:1.2}
+@media(max-width:700px){
+  #skSheet .annot{grid-template-columns:1fr}
+  #skSheet .chave-lab{padding:6px 0 12px;font-size:20px}
+}
+
+
+/* ---------- camadas de gatilho ---------- */
+.tier{border-top:1px solid var(--light);padding:24px 0 22px}
+.tier:last-of-type{border-bottom:1px solid var(--light);margin-bottom:26px}
+.tier-h{display:flex;align-items:center;gap:13px;font-size:19px;font-weight:800;
+  letter-spacing:-.02em;margin-bottom:7px}
+.tier-n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:900}
+.tier-rule{font-size:15px;line-height:1.55;color:var(--mid);margin:0 0 14px 41px;max-width:60ch}
+.toks{display:flex;flex-wrap:wrap;gap:7px;margin-left:41px}
+.tok{font-family:Georgia,'Times New Roman',serif;font-size:14.5px;
+  border:1.5px solid var(--ink);border-radius:3px;padding:5px 11px;white-space:nowrap}
+.tier-grp{margin-top:14px}
+.tier-sub{display:block;font-size:10.5px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mid);margin:0 0 7px 41px}
+.pairs{margin-left:41px;border-top:1px solid var(--light)}
+.pair{display:grid;grid-template-columns:118px 1fr;gap:18px;align-items:center;
+  padding:11px 0;border-bottom:1px solid var(--light)}
+.pair .tok{justify-self:start;font-weight:700}
+.pair-g{font-size:14.5px;line-height:1.5;color:var(--mid)}
+@media(max-width:640px){
+  .tier-rule,.toks,.tier-sub,.pairs{margin-left:0}
+  .pair{grid-template-columns:1fr;gap:6px}
+}
+
+
+/* marcas dentro do enunciado herdam a tipografia da folha */
+.exq-stem .mk{font-family:inherit;font-size:inherit;line-height:inherit}
+.exq-stem{line-height:2.1}
+
+/* lacuna dentro do enunciado da folha de prova */
+.exq-stem .gap{display:inline-block;width:96px;border-bottom:2px solid var(--ink);
+  margin:0 3px;vertical-align:baseline}
+
+/* ---------- lacuna que se preenche no reveal ---------- */
+.fillgap{display:inline-block;position:relative;min-width:104px;text-align:center;vertical-align:baseline}
+.fillgap .blank{display:inline-block;width:104px;border-bottom:2px solid var(--ink);
+  transition:opacity .3s ease}
+.anno.on .fillgap .blank{opacity:0}
+.fillgap .word{position:absolute;left:0;right:0;top:0;opacity:0;transition:opacity .45s ease .15s}
+.anno.on .fillgap .word{opacity:1}
+.mnote.wide{max-width:62ch;line-height:1.35}
+
+/* ---------- anotações que surgem no clique ---------- */
+.anno .mk-circle::after,.anno .mk-box::after,.anno .mk-circle-in::after,
+.anno .exl.circled::after{opacity:0;transition:opacity .4s ease}
+.anno.on .mk-circle::after,.anno.on .mk-box::after,.anno.on .mk-circle-in::after,
+.anno.on .exl.circled::after{opacity:1}
+.anno .mk-under{background-size:0 2px;transition:background-size .55s ease}
+.anno.on .mk-under{background-size:100% 2px}
+.anno .mnote{opacity:0;transform:translateY(5px);transition:opacity .4s ease,transform .4s ease}
+.anno.on .mnote{opacity:1;transform:none}
+.anno .exm svg{opacity:0;transition:opacity .4s ease}
+.anno.on .exm svg{opacity:1}
+.anno .marked:nth-of-type(2) .mnote{transition-delay:.10s}
+.anno .marked:nth-of-type(3) .mnote{transition-delay:.18s}
+.anno .marked:nth-of-type(4) .mnote{transition-delay:.26s}
+.anno-bar{display:flex;justify-content:flex-end;margin:0 0 12px}
+.fmt .anno-bar{margin-left:44px}
+.btn.tiny{font-size:12.5px;padding:8px 15px}
+@media(prefers-reduced-motion:reduce){.anno *,.anno.on *{transition:none !important}}
+@media(max-width:640px){.fmt .anno-bar{margin-left:0}}
+
+/* ---------- formatos de questão de vocabulário ---------- */
+.fmt{border-top:1px solid var(--light);padding:26px 0 6px}
+.fmt:last-of-type{border-bottom:1px solid var(--light);margin-bottom:34px}
+.fmt-h{display:flex;align-items:center;gap:14px;font-size:18px;font-weight:800;
+  letter-spacing:-.015em;margin-bottom:10px}
+.fmt-n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--orange);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900}
+.fmt-b{font-size:15.5px;line-height:1.62;margin:0 0 4px 44px;max-width:58ch}
+.fmt .qsheet{margin:16px 0 8px 44px}
+.qsheet .mnote{margin-top:12px;padding-top:10px;border-top:.8px solid var(--light)}
+
+/* ---------- tira de blocos ---------- */
+.strip{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 8px}
+.chip{border:1.5px solid var(--ink);border-radius:3px;padding:11px 14px;min-width:150px}
+.chip b{display:block;font-size:14px;font-weight:800;letter-spacing:-.01em;margin-bottom:3px}
+.chip span{display:block;font-size:12.5px;color:var(--mid);line-height:1.4}
+@media(max-width:640px){
+  .fmt-b,.fmt .qsheet{margin-left:0}
+  .chip{min-width:0;flex:1 1 100%}
+}
+
+/* ---------- famílias de vocabulário ---------- */
+.fams{margin:28px 0 10px;border-top:1px solid var(--light)}
+.fam{display:grid;grid-template-columns:74px 1fr;gap:18px;align-items:baseline;
+  padding:15px 0;border-bottom:1px solid var(--light)}
+.fam-n{font-size:30px;font-weight:900;letter-spacing:-.04em;color:var(--orange);text-align:right}
+.fam-t{font-size:16px;font-weight:700;line-height:1.4}
+.fam-t i{display:block;font-family:Georgia,'Times New Roman',serif;font-style:italic;
+  font-weight:400;font-size:14px;color:var(--mid);margin-top:3px}
+
+/* linhas de plano, sem caixa de tique */
+.plan-line{display:block;padding-left:2px}
+</style>
+</head>
+<body class="lang-en">
+
+<div class="nav">
+  <div class="nav-left">
+    <a class="nav-home" href="index.html" aria-label="EIC"><span class="logo-mark" aria-hidden="true"></span></a>
+    <div class="nav-module">
+      <span class="nav-label pt">Guia do aluno · Teens 5 e 6</span>
+      <span class="nav-label en">Student guide · Teens 5 and 6</span>
+      <span class="nav-tag">Writing</span>
+    </div>
+  </div>
+  <div class="lang-toggle">
+    <button id="btnEn" class="active" type="button">EN</button>
+    <button id="btnPt" type="button">PT</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+    <nav class="gnav" aria-label="Guias">
+        <a class="gnav-a" href="index.html"><svg class="gnav-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="16" height="12" rx="1.5" transform="rotate(-7 11 13)"/><rect x="7" y="10" width="16" height="12" rx="1.5" transform="rotate(4 15 16)"/></svg><span class="gnav-t"><span class="pt">Capa</span><span class="en">Home</span></span></a>
+        <a class="gnav-a" href="EIC-Guia-do-Aluno-Checkpoint.html"><svg class="gnav-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3c-2.6 0-2.6 8.5-5 8.5 2.4 0 2.4 8.5 5 8.5"/><path d="M10 11.5H4"/></svg><span class="gnav-t"><span class="pt">Reading</span><span class="en">Reading</span></span></a>
+        <a class="gnav-a" href="EIC-Guia-do-Aluno-Grammar-Vocab.html"><svg class="gnav-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="9" rx="8.5" ry="5.5" transform="rotate(-3 12 9)"/><path d="M5 19h14" stroke-width="2.4"/></svg><span class="gnav-t"><span class="pt">Grammar &amp; Vocabulary</span><span class="en">Grammar &amp; Vocabulary</span></span></a>
+        <a class="gnav-a" href="EIC-Guia-do-Aluno-Listening.html"><svg class="gnav-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6"/><path d="M9 6.5c2.6 2.6 2.6 8.4 0 11"/><path d="M14.5 3.5c4.3 4 4.3 13 0 17"/><path d="M20 1c5.6 5.2 5.6 16.8 0 22"/></svg><span class="gnav-t"><span class="pt">Listening</span><span class="en">Listening</span></span></a>
+        <a class="gnav-a is-here" href="EIC-Guia-do-Aluno-Writing.html" aria-current="page"><svg class="gnav-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-42 12 10)"><path d="M8.5 2h7v8h-7z"/><path d="M8.5 6h7"/><path d="M9.7 10h4.6l-1.3 5h-2z"/></g><path d="M2.5 20.5c5-2.2 11 1.8 19-1.4" stroke-width="2.6"/></svg><span class="gnav-t"><span class="pt">Writing</span><span class="en">Writing</span></span></a>
+    </nav>
+
+
+  <div class="hero">
+    <div class="eyebrow pt">Planejar, rascunhar, revisar o que importa</div>
+    <div class="eyebrow en">Plan, draft, revise what matters</div>
+    <h1 class="pt" aria-label="Não escreva mais. Escreva de novo."><span aria-hidden="true">Não escreva </span><span aria-hidden="true" class="fix"><span class="new">de novo</span><svg class="caret" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13 L13 3 L23 13"/></svg><span class="old">mais<svg viewBox="0 0 200 20" preserveAspectRatio="none" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-linecap="round"><path d="M3 13 C 40 6, 78 15, 118 8 S 176 12, 197 6"/></svg></span></span><span aria-hidden="true">.</span></h1>
+    <h1 class="en" aria-label="Do not write more. Write again."><span aria-hidden="true">Do not write </span><span aria-hidden="true" class="fix"><span class="new">again</span><svg class="caret" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13 L13 3 L23 13"/></svg><span class="old">more<svg viewBox="0 0 200 20" preserveAspectRatio="none" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-linecap="round"><path d="M3 13 C 40 6, 78 15, 118 8 S 176 12, 197 6"/></svg></span></span><span aria-hidden="true">.</span></h1>
+    <p class="lede pt">Writing é a única parte do checkpoint em que você controla o relógio e pode voltar atrás. As outras três são corrida. <b>Aqui você tem rascunho, e quase ninguém usa o rascunho para o que ele serve.</b></p>
+    <p class="lede en">Writing is the only part of the checkpoint where you control the clock and can go back. The other three are a race. <b>Here you get a draft, and almost nobody uses the draft for what it is for.</b></p>
+  </div>
+
+  <!-- ========== 1 ========== -->
+  <div class="section">
+    <div class="sec-num pt">1 · Antes de escrever</div>
+    <div class="sec-num en">1 · Before you write</div>
+    <h2 class="pt">Responda o que foi perguntado</h2>
+    <h2 class="en">Answer the question you were asked</h2>
+
+    <p class="pt">O comando de uma tarefa de writing quase nunca pede uma coisa só. Ele pede três, e as três valem ponto separado na correção. <b>Dá para escrever um texto bonito e perder nota por ter respondido dois de três.</b></p>
+    <p class="en">A writing task almost never asks for one thing. It asks for three, and each one is marked separately. <b>You can write a good text and lose marks for answering two out of three.</b></p>
+
+    <div class="anno-bar"><button class="btn ghost tiny" type="button" aria-expanded="false" data-anno="wTask"><span class="lbl-show"><span class="pt">Ver as anotações</span><span class="en">Show the annotations</span></span><span class="lbl-hide"><span class="pt">Esconder anotações</span><span class="en">Hide annotations</span></span></button></div>
+
+    <div class="sheet anno" id="wTask">
+      <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span>Escola de Idiomas e Cultura</span><span class="pt">Página 9</span><span class="en">Page 9</span></div>
+      <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Leia o comando duas vezes antes de começar.</i></span><span class="en">Part V · Writing<i>Read the task twice before you start.</i></span></div>
+
+      <div class="annot">
+        <p class="ptext">
+          <span class="ln">Some schools have banned mobile phones during break</span>
+          <span class="ln">time. <span class="mk mk-circle">Do you agree?</span> Write between 120 and 150 words</span>
+          <span class="ln">giving <span class="mk mk-circle">two reasons</span> and <span class="mk mk-circle">one example</span> from your own</span>
+          <span class="ln">experience.</span>
+        </p>
+        <div class="brace"></div>
+        <div class="chave-lab"><span class="pt">três coisas, três notas</span><span class="en">three things, three marks</span></div>
+      </div>
+
+      <div class="mnote"><span class="pt">Posição, dois motivos, um exemplo. Se faltar um, some a nota dele inteira.</span><span class="en">A position, two reasons, one example. Leave one out and its marks go with it.</span></div>
+    </div>
+
+    <h3 class="pt">O plano cabe em duas linhas</h3>
+    <h3 class="en">The plan fits in two lines</h3>
+
+    <p class="pt">Plano não é rascunho e não é frase pronta. São palavras soltas, no seu idioma se quiser, só para fixar a ordem antes de a mão começar a andar.</p>
+    <p class="en">A plan is not a draft and it is not finished sentences. It is loose words, in your own language if you like, just to lock the order before your hand starts moving.</p>
+
+    <div class="checknote">
+      <div class="notepaper">
+        <div class="chk-h"><span class="pt">Plano · 40 segundos</span><span class="en">Plan · 40 seconds</span></div>
+        <div class="chk-t plan-line"><span class="pt">concordo &middot; 1 conversam mais &middot; 2 menos briga online</span><span class="en">agree &middot; 1 they talk more &middot; 2 less online fighting</span></div>
+        <div class="chk-t plan-line"><span class="pt">ex: minha turma no ano passado</span><span class="en">ex: my class last year</span></div>
+      </div>
+    </div>
+
+    <div class="rule">
+      <p class="pt"><b>O que planejar realmente rende, sem exagero.</b> A pesquisa sobre isso é dividida: alguns estudos mostram ganho grande na variedade de estruturas, outros, com quase mil alunos, não acham ganho nenhum. O que aparece de forma consistente é <b>fluência</b>: com o plano pronto, você escreve mais dentro do mesmo tempo, porque não para para decidir o que vem depois.</p>
+      <p class="en"><b>What planning really buys you, without overselling it.</b> The research is split: some studies show a large gain in the variety of structures, others, with nearly a thousand learners, find no gain at all. What shows up consistently is <b>fluency</b>: with the plan ready, you write more in the same time, because you never stop to decide what comes next.</p>
+    </div>
+  </div>
+
+
+  <!-- ========== gêneros ========== -->
+  <div class="section">
+    <div class="sec-num pt">2 · O gênero</div>
+    <div class="sec-num en">2 · The genre</div>
+    <h2 class="pt">Dez gêneros, três decisões</h2>
+    <h2 class="en">Ten genres, three decisions</h2>
+
+    <p class="pt">O comando sempre diz que tipo de texto ele quer, e cada tipo tem convenções próprias. Parece muita coisa para decorar, mas não é: <b>o que muda de um gênero para outro são só três coisas.</b> O miolo é quase o mesmo.</p>
+    <p class="en">The task always says what kind of text it wants, and each kind has its own conventions. It looks like a lot to memorise, but it is not: <b>only three things change from one genre to the next.</b> The middle is nearly the same.</p>
+
+    <div class="gen-q">
+      <div class="gen-qi"><span class="gen-qn">1</span><span class="pt">Como abre</span><span class="en">How it opens</span></div>
+      <div class="gen-qi"><span class="gen-qn">2</span><span class="pt">Quão formal é</span><span class="en">How formal it is</span></div>
+      <div class="gen-qi"><span class="gen-qn">3</span><span class="pt">Como fecha</span><span class="en">How it closes</span></div>
+    </div>
+
+    <p class="pt">Responda essas três antes de escrever a primeira palavra e o gênero está resolvido. Abaixo, as três respostas para cada um.</p>
+    <p class="en">Answer those three before you write the first word and the genre is settled. Below, the three answers for each one.</p>
+
+    <div class="notice notice-down">
+      <svg class="notice-ar" viewBox="0 0 22 30" fill="none" stroke="var(--pencil)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 C 11 12, 7 20, 3 26"/><path d="M3 26 L11 23"/><path d="M3 26 L2.5 18"/></svg>
+      <span class="notice-l"><span class="pt">Atenção</span><span class="en">Careful</span></span>
+      <p class="pt"><b>Os modelos abaixo não são textos completos.</b> Cada um mostra só o esqueleto: a abertura, as viradas e o fecho, que é onde o gênero se decide. Uma resposta de verdade tem 120 a 150 palavras e parágrafos inteiros entre esses pontos. No Opinion essay você encontra a versão completa, para ver o tamanho real.</p>
+      <p class="en"><b>The models below are not complete texts.</b> Each shows only the skeleton: the opening, the turns and the closing, which is where the genre is decided. A real answer runs 120 to 150 words, with full paragraphs between those points. Inside Opinion essay you will find the complete version, so you can see the real length.</p>
+    </div>
+
+    <div class="gens">
+      <div class="axis"><span class="axis-l axis-a"><span class="pt">mais pessoal</span><span class="en">more personal</span></span><span class="axis-line"></span><span class="axis-l axis-b"><span class="pt">mais formal</span><span class="en">more formal</span></span></div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g0">
+          <span class="gen-n">Informal email or letter</span>
+          <span class="gen-w"><span class="pt">Para alguém que você conhece.</span><span class="en">To someone you know.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g0">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">Hi Ana, thanks for your message.</span><span class="en">Hi Ana, thanks for your message.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Contrações, phrasal verbs, perguntas diretas.</span><span class="en">Contractions, phrasal verbs, direct questions.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">Let me know what you think. See you soon,</span><span class="en">Let me know what you think. See you soon,</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>linking contrast</b></div>
+        <div class="sample" id="sm0">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 10</span><span class="en">Page 10</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><b>Hi Ana,</b></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Só o primeiro nome, sem título</span><span class="en">First name only, no title</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>Thanks for</mark> the photos, they made my week.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Abre respondendo ao que ela mandou</span><span class="en">Opens by answering what she sent</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">Things here are the same, except <span class="mk mk-under">I’ve</span> finally started guitar lessons on Wednesdays.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Contrações e detalhe do dia a dia</span><span class="en">Contractions and everyday detail</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>Any chance you</mark>’re coming down in July? <mark>Let me know.</mark></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Pergunta direta, sem rodeio</span><span class="en">A direct question, no throat-clearing</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><b>See you soon,</b><br>Bea</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Fecho curto, só o primeiro nome</span><span class="en">Short sign-off, first name only</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Trata a pessoa pelo primeiro nome</span><span class="en">Addresses the person by first name</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Usa contrações do início ao fim</span><span class="en">Uses contractions throughout</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Faz pelo menos uma pergunta direta</span><span class="en">Asks at least one direct question</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Fecha curto, sem fórmula formal</span><span class="en">Closes short, with no formal formula</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">Thanks for...</span><span class="key">Any chance you...?</span><span class="key">Let me know.</span><span class="key">See you soon,</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g7">
+          <span class="gen-n">Story</span>
+          <span class="gen-w"><span class="pt">Para fazer alguém sentir algo.</span><span class="en">To make someone feel something.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g7">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">No meio da ação. Nunca com contexto.</span><span class="en">In the middle of the action. Never with background.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Tempos passados, detalhe concreto, sem explicar.</span><span class="en">Past tenses, concrete detail, no explaining.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">A mudança, não o resumo do que aconteceu.</span><span class="en">The change, not a summary of what happened.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>using descriptive words</b></div>
+        <div class="sample" id="sm7">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 14</span><span class="en">Page 14</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><span class="mk mk-under">The bus pulled away just as I reached the corner.</span></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Começa dentro da ação, sem contexto</span><span class="en">Starts inside the action, with no background</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">I <span class="mk mk-under">had left</span> the ticket on the kitchen table, and I knew it before I checked my pocket.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Past perfect para o que veio antes</span><span class="en">Past perfect for what came before</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>By the time</mark> I got home, my father <mark>had already</mark> found it and was standing at the door, laughing.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Detalhe concreto, sem explicar o sentimento</span><span class="en">Concrete detail, without explaining the feeling</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>I never forgot</mark> a ticket again.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">A mudança, não o resumo do que houve</span><span class="en">The change, not a summary of what happened</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Começa no meio da ação</span><span class="en">Starts in the middle of the action</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Usa past simple e past perfect juntos</span><span class="en">Uses past simple and past perfect together</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Mostra o sentimento, não o explica</span><span class="en">Shows the feeling instead of explaining it</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">O fecho traz uma mudança</span><span class="en">The closing carries a change</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">just as...</span><span class="key">By the time...</span><span class="key">had already...</span><span class="key">I never forgot...</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g6">
+          <span class="gen-n">Review</span>
+          <span class="gen-w"><span class="pt">Para ajudar alguém a decidir.</span><span class="en">To help someone decide.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g6">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">O que é e o seu veredito, nas duas primeiras linhas.</span><span class="en">What it is and your verdict, in the first two lines.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Pessoal e descritivo. Aqui os adjetivos valem a pena.</span><span class="en">Personal and descriptive. Adjectives earn their keep here.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">Para quem serve, ou quem deve passar longe.</span><span class="en">Who it is for, or who should stay away.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>using descriptive words</b></div>
+        <div class="sample" id="sm6">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 13</span><span class="en">Page 13</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t">Café Vento is small, loud, and <span class="mk mk-under">the best place to</span> work near the station.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O que é e o veredito, na primeira linha</span><span class="en">What it is and your verdict, in the first line</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">The coffee is strong and cheap, and the bread comes out of the oven at four.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Detalhe concreto, não adjetivo solto</span><span class="en">Concrete detail, not a loose adjective</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>Do not expect</mark> a quiet table after five.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O ponto fraco, dito sem rodeio</span><span class="en">The drawback, said without hedging</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>Worth it if</mark> you like noise, <mark>avoid it if</mark> you do not.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Para quem serve e para quem não</span><span class="en">Who it is for and who it is not for</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">O veredito vem nas duas primeiras linhas</span><span class="en">The verdict comes in the first two lines</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Pelo menos um detalhe concreto</span><span class="en">At least one concrete detail</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Um ponto fraco, dito com honestidade</span><span class="en">One drawback, stated honestly</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Fecha dizendo para quem serve</span><span class="en">Closes by saying who it is for</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">the best place to...</span><span class="key">Do not expect...</span><span class="key">Worth it if...</span><span class="key">avoid it if...</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g2">
+          <span class="gen-n">Opinion essay</span>
+          <span class="gen-w"><span class="pt">Para defender uma posição.</span><span class="en">To defend one position.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g2">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">A posição em si, na primeira frase. Sem aquecimento.</span><span class="en">The position itself, in the first sentence. No warm-up.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Impessoal. Não repita <i>I think</i> em todo parágrafo.</span><span class="en">Impersonal. Do not repeat <i>I think</i> in every paragraph.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">A posição de novo, com o motivo mais forte.</span><span class="en">The position again, with the strongest reason.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>discourse markers</b></div>
+        <div class="sample" id="sm2">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 11</span><span class="en">Page 11</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><span class="mk mk-under">Schools should ban phones during break time.</span></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">A posição na primeira frase. Sem aquecimento</span><span class="en">The position in the first sentence. No warm-up</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>First,</mark> students talk to each other when screens are away. <mark>For example,</mark> in my class last year the break got noisier in a good way.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Motivo 1, com o exemplo colado nele</span><span class="en">Reason 1, with the example attached to it</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>Second,</mark> most arguments that reached the classroom had started online during the break.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Motivo 2. Um parágrafo, uma ideia</span><span class="en">Reason 2. One paragraph, one idea</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>For these reasons,</mark> <span class="mk mk-under">the ban is worth keeping</span>.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Retoma a posição, não resume o texto</span><span class="en">Restates the position, does not summarise the text</span></div>
+          </div>
+        </div>
+
+
+        <div class="full">
+          <div class="full-h">
+            <span class="full-l"><span class="pt">O mesmo texto, completo</span><span class="en">The same text, in full</span></span>
+            <span class="full-c">120 <span class="pt">palavras</span><span class="en">words</span></span>
+          </div>
+          <div class="full-t">
+            <p>Schools should ban phones during break time.</p>
+            <p>First, students talk to each other when screens are away. For example, in my class last year the break got noisier in a good way after the rule started: people who had never spoken before ended up sharing a table.</p>
+            <p>Second, most arguments that reached the classroom had started online during the break. Taking the phones out removed the audience, and with it most of the fighting.</p>
+            <p>Some people say that phones are needed in an emergency, and that is fair. A phone kept in a bag is still there if something happens; what the rule removes is the habit of scrolling, not the safety.</p>
+            <p>For these reasons, the ban is worth keeping.</p>
+          </div>
+          <div class="full-n"><span class="pt">O esqueleto acima são as linhas 1, 2, 3 e 5. O parágrafo 4 é o que falta na maioria das respostas: reconhecer o outro lado antes de fechar.</span><span class="en">The skeleton above is lines 1, 2, 3 and 5. Paragraph 4 is what most answers are missing: acknowledging the other side before closing.</span></div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">A posição aparece na primeira frase</span><span class="en">The position appears in the first sentence</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Dois motivos, um por parágrafo</span><span class="en">Two reasons, one per paragraph</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Pelo menos um exemplo concreto</span><span class="en">At least one concrete example</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">O fecho retoma a posição, sem repetir tudo</span><span class="en">The closing restates the position without repeating everything</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">First,</span><span class="key">Second,</span><span class="key">For example,</span><span class="key">For these reasons,</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g3">
+          <span class="gen-n">For and against</span>
+          <span class="gen-w"><span class="pt">O gêmeo do essay: os dois lados, depois a sua visão.</span><span class="en">The essay's twin: both sides, then your view.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g3">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">O debate, não o seu lado. O seu lado vem no fim.</span><span class="en">The debate, not your side. Your side comes last.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Equilibrado. Um parágrafo por lado, mesmo peso.</span><span class="en">Balanced. One paragraph for each side, same weight.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">A sua posição, dita uma vez e com clareza.</span><span class="en">Your position, stated once and clearly.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>discourse markers</b></div>
+        <div class="sample" id="sm3">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 12</span><span class="en">Page 12</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><span class="mk mk-under">Uniforms divide opinion in most schools.</span></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Abre pelo debate, não pelo seu lado</span><span class="en">Opens with the debate, not with your side</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>On the one hand,</mark> <mark>it could be argued that</mark> they remove the pressure to dress well and save families money.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Lado 1, com dois argumentos</span><span class="en">Side one, with two arguments</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>On the other hand,</mark> they cost more than people admit, and students find ways to compete anyway.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Lado 2, com o mesmo peso</span><span class="en">Side two, carrying the same weight</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>On balance,</mark> <span class="mk mk-under">the savings matter more than the freedom lost</span>.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Só agora aparece a sua posição</span><span class="en">Only now does your position appear</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Abre pelo debate, não pela sua opinião</span><span class="en">Opens with the debate, not with your opinion</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Um parágrafo por lado, mesmo tamanho</span><span class="en">One paragraph per side, same length</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Nenhum dos lados é caricato</span><span class="en">Neither side is made into a straw man</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">A posição aparece só no fim, uma vez</span><span class="en">The position appears only at the end, once</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">On the one hand,</span><span class="key">On the other hand,</span><span class="key">It could be argued that...</span><span class="key">On balance,</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g8">
+          <span class="gen-n">News article</span>
+          <span class="gen-w"><span class="pt">Para relatar o que aconteceu.</span><span class="en">To report what happened.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g8">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">O fato mais importante primeiro, não o mais antigo.</span><span class="en">The most important fact first, not the earliest one.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Terceira pessoa. Outros falam, não você.</span><span class="en">Third person. Other people speak, not you.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">Contexto, ou o que vem depois.</span><span class="en">Background, or what happens next.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>using quotations</b></div>
+        <div class="sample" id="sm8">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 14</span><span class="en">Page 14</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><span class="mk mk-under">A power cut left four hundred homes without electricity on Tuesday night.</span></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O fato mais importante primeiro</span><span class="en">The most important fact first</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">The fault began at a substation on Rua das Palmeiras at around 21:00.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Onde e quando, depois do quê</span><span class="en">Where and when, after the what</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>“We had candles ready by nine,” said</mark> Marta Alves, who lives on the street.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Outra pessoa fala, nunca você</span><span class="en">Someone else speaks, never you</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">Engineers <mark>restored power by</mark> 2 a.m. The company <mark>has not said</mark> what caused the fault.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O que vem depois, ou o que falta saber</span><span class="en">What happens next, or what is still unknown</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">O fato mais importante abre o texto</span><span class="en">The most important fact opens the text</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Onde e quando, logo em seguida</span><span class="en">Where and when, immediately after</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Pelo menos uma fala entre aspas</span><span class="en">At least one quotation</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Terceira pessoa do começo ao fim</span><span class="en">Third person from start to finish</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">said X, who...</span><span class="key">according to</span><span class="key">restored power by</span><span class="key">has not said</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g5">
+          <span class="gen-n">Proposal</span>
+          <span class="gen-w"><span class="pt">Para conseguir aprovação de algo.</span><span class="en">To get something approved.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g5">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">O que você propõe, de imediato.</span><span class="en">What you propose, immediately.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Voltado ao futuro: <i>would</i>, <i>could</i>, <i>this would allow</i>.</span><span class="en">Forward-looking: <i>would</i>, <i>could</i>, <i>this would allow</i>.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">O que você precisa de quem lê.</span><span class="en">What you need from the reader.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>making recommendations</b></div>
+        <div class="sample" id="sm5">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 13</span><span class="en">Page 13</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>I would like to propose</mark> a covered bike rack at the school entrance.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Diz o que propõe já na primeira linha</span><span class="en">Says what you propose in the very first line</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><span class="mk mk-under">At present,</span> students leave bikes against the fence, where they get wet and are easy to take.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O problema, em uma frase só</span><span class="en">The problem, in a single sentence</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>This would allow</mark> twenty bikes to stay dry and would take up the space of one parking bay.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O que mudaria, no condicional</span><span class="en">What would change, in the conditional</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>We would need</mark> approval from the head and quotes from two suppliers.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">O que você precisa de quem lê</span><span class="en">What you need from the reader</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">A proposta está na primeira linha</span><span class="en">The proposal is in the first line</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">O problema em uma frase, sem drama</span><span class="en">The problem in one sentence, without drama</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">O benefício vem no condicional</span><span class="en">The benefit comes in the conditional</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Termina com um pedido claro</span><span class="en">Ends with a clear ask</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">I would like to propose...</span><span class="key">At present,</span><span class="key">This would allow...</span><span class="key">We would need...</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g4">
+          <span class="gen-n">Report</span>
+          <span class="gen-w"><span class="pt">Para informar uma decisão.</span><span class="en">To inform a decision.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g4">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">Objetivo e escopo em uma linha. Pode usar títulos.</span><span class="en">Purpose and scope in one line. Headings are allowed.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Neutro. Nenhuma opinião até o fim.</span><span class="en">Neutral. No opinion until the end.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">Uma recomendação, não um resumo.</span><span class="en">A recommendation, not a summary.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>avoiding repetition</b></div>
+        <div class="sample" id="sm4">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 12</span><span class="en">Page 12</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><b>Purpose</b><br>This report <mark>examines</mark> the library opening hours.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Objetivo em uma linha, com título</span><span class="en">Purpose in one line, with a heading</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><b>Findings</b><br><mark>The findings show that</mark> the library closes at 16:00, when classes end. <mark>In a survey of</mark> thirty students, twenty-two said they could not use it.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Fatos e números. Nenhuma opinião aqui</span><span class="en">Facts and figures. No opinion here</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><b>Recommendation</b><br><mark>It is recommended that</mark> opening hours <span class="mk mk-under">be extended</span> to 18:00.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">A opinião só aparece agora, e vira recomendação</span><span class="en">The opinion only shows up now, as a recommendation</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Títulos separando as partes</span><span class="en">Headings separating the sections</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Nenhuma opinião na seção de fatos</span><span class="en">No opinion in the findings section</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">A recomendação fecha o texto</span><span class="en">The recommendation closes the text</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Impessoal: sem "eu acho"</span><span class="en">Impersonal: no "I think"</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">This report examines...</span><span class="key">The findings show that...</span><span class="key">In a survey of...</span><span class="key">It is recommended that...</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g1">
+          <span class="gen-n">Cover letter or formal email</span>
+          <span class="gen-w"><span class="pt">Para quem você não conhece, pedindo algo.</span><span class="en">To someone you do not know, asking for something.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g1">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">Dear Mr Duarte, I am writing to apply for...</span><span class="en">Dear Mr Duarte, I am writing to apply for...</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Sem contrações, formas completas, expressões fixas.</span><span class="en">No contractions, full forms, fixed expressions.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">I look forward to hearing from you. Yours sincerely,</span><span class="en">I look forward to hearing from you. Yours sincerely,</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>fixed expressions</b></div>
+        <div class="sample" id="sm1">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 11</span><span class="en">Page 11</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t"><b>Dear Mr Duarte,</b></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Nome de quem lê, nunca "Dear Sir"</span><span class="en">The reader by name, never "Dear Sir"</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>I am writing to</mark> apply for the weekend assistant position advertised in your bookshop window.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">A primeira linha já diz por que você escreve</span><span class="en">The first line already says why you are writing</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">I am seventeen and I have spent two years helping at my school library, where I learned to <span class="mk mk-under">work in a small team under pressure</span>.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Quem você é, e a qualidade que o anúncio pediu</span><span class="en">Who you are, and the quality the advert asked for</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">I am <span class="mk mk-under">reliable and well-organized</span>, and <mark>I would welcome the chance to</mark> contribute.</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Mais uma qualidade, com expressão fixa</span><span class="en">One more quality, with a fixed expression</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><mark>I look forward to hearing from you.</mark></p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Fecho fixo. Não invente aqui</span><span class="en">Fixed closing. Do not improvise here</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t"><b>Yours sincerely,</b><br>Sam Ribeiro</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Assinatura formal, com vírgula</span><span class="en">Formal sign-off, with a comma</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Diz por que escreve na primeira linha</span><span class="en">Says why you are writing in the first line</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Responde todos os pontos do anúncio</span><span class="en">Answers every point in the advert</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Nenhuma contração, do início ao fim</span><span class="en">No contractions, start to finish</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Fecho e assinatura no formato fixo</span><span class="en">Closing and sign-off in the fixed format</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">I am writing to...</span><span class="key">I would welcome the chance to...</span><span class="key">I look forward to hearing from you.</span><span class="key">Yours sincerely,</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gens gens-apart">
+      <div class="apart-l"><span class="pt">Fora da escala</span><span class="en">Off the scale</span></div>
+      <div class="gen">
+        <button class="gen-head" type="button" aria-expanded="false" data-gen="g9">
+          <span class="gen-n">Notes</span>
+          <span class="gen-w"><span class="pt">Para reduzir, não para comunicar.</span><span class="en">To reduce, not to communicate.</span></span>
+          <span class="gen-plus" aria-hidden="true"></span>
+        </button>
+        <div class="gen-body" id="g9">
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como abre</span><span class="en">How it opens</span></span><span class="gen-v"><span class="pt">Não há abertura. Não é prosa.</span><span class="en">There is no opening. It is not prose.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Registro</span><span class="en">Register</span></span><span class="gen-v"><span class="pt">Abreviações e símbolos. Sem frases completas.</span><span class="en">Abbreviations and symbols. No full sentences.</span></span></div>
+          <div class="gen-row"><span class="gen-l"><span class="pt">Como fecha</span><span class="en">How it closes</span></span><span class="gen-v"><span class="pt">Também não há fecho.</span><span class="en">There is no closing either.</span></span></div>
+          <div class="gen-sub"><span class="pt">No livro, vem junto com</span><span class="en">In the book, it comes paired with</span> <b>using abbreviations</b></div>
+        <div class="sample" id="sm9">
+          <div class="sheet-head"><span><span class="logo-mark" role="img" aria-label="EIC"></span> Escola de Idiomas e Cultura</span><span class="pt">Página 9</span><span class="en">Page 9</span></div>
+          <div class="sheet-part"><span class="pt">Parte V · Produção escrita<i>Modelo comentado. Uso em aula.</i></span><span class="en">Part V · Writing<i>Annotated model. Classroom use.</i></span></div>
+          <div class="sm-row">
+            <p class="sm-t">blue <mark>=</mark> last colour named <mark>·</mark> almost all langs</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Sem frase completa e sem verbo</span><span class="en">No complete sentence and no verb</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">Gladstone 1850s <mark>→</mark> ignored <mark>~</mark>100 yrs</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Setas e til no lugar de conectivos</span><span class="en">Arrows and tildes instead of connectors</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">why? pigment rare <mark>+</mark> hard to make</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Pergunta e resposta na mesma linha</span><span class="en">Question and answer on the same line</span></div>
+          </div>
+          <div class="sm-row">
+            <p class="sm-t">Egypt 2200 BCE <mark>=</mark> word came <mark>w/</mark> paint</p>
+            <div class="brace"></div>
+            <div class="sm-note"><span class="pt">Sinal de igual para relação de causa</span><span class="en">Equals sign for a cause relation</span></div>
+          </div>
+        </div>
+
+        <div class="gen-foot">
+          <div class="exp">
+            <div class="exp-h"><span class="pt">O que se espera</span><span class="en">What is expected</span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Nenhuma frase completa</span><span class="en">No complete sentences</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Abreviações e símbolos no lugar de palavras</span><span class="en">Abbreviations and symbols instead of words</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Uma ideia por linha</span><span class="en">One idea per line</span></span></div>
+            <div class="exp-i"><svg class="ex-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="exp-t"><span class="pt">Outra pessoa consegue recuperar o sentido</span><span class="en">Another person can recover the meaning</span></span></div>
+          </div>
+          <div class="keys">
+            <div class="keys-h"><span class="pt">Frases-chave</span><span class="en">Key phrases</span></div>
+            <div class="keys-l"><span class="key">=</span><span class="key">→</span><span class="key">w/</span><span class="key">~</span></div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="pt">O gênero muda a embalagem, não a ideia</h3>
+    <h3 class="en">The genre changes the packaging, not the idea</h3>
+
+    <p class="pt">Aqui está o mesmo pedido, escrito duas vezes.</p>
+    <p class="en">Here is the same request, written twice.</p>
+
+    <div class="clips">
+      <div class="clip-row">
+        <div class="clip clip-a" style="--rot:-0.6deg">
+          <div class="clip-src"><span class="pt">Como email</span><span class="en">As an email</span></div>
+          <p class="clip-q">&#8220;Hi Ms Costa, I hope you are well. A lot of us cannot use the library because it closes at four, right when classes end. Could we look at keeping it open until six? Let me know what you think.&#8221;</p>
+        </div>
+        <span class="clip-link"><svg class="clip-ar" viewBox="0 0 48 18" fill="none" stroke="var(--pencil)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 C 16 4, 30 14, 42 9"/><path d="M35 3.5 L42 9 L35 14.5"/></svg><span class="clip-mec"><span class="pt">mesma ideia</span><span class="en">same idea</span></span></span>
+        <div class="clip clip-b" style="--rot:0.5deg">
+          <div class="clip-src"><span class="pt">Como report</span><span class="en">As a report</span></div>
+          <p class="clip-o">Purpose. This report examines library opening hours. Findings. The library closes at 16:00, when classes end. Recommendation. Hours should be extended to 18:00.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <svg class="notice-ar" viewBox="0 0 22 30" fill="none" stroke="var(--pencil)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 28 C 11 18, 7 10, 3 4"/><path d="M3 4 L11 7"/><path d="M3 4 L2.5 12"/></svg><span class="notice-l"><span class="pt">Repare</span><span class="en">Notice</span></span>
+      <p class="pt">Os dois dizem exatamente a mesma coisa: a biblioteca fecha às quatro e deveria fechar às seis. <b>Nenhum é mais inteligente que o outro.</b> Se você sabe o conteúdo, escolher o gênero é escolher como embrulhar.</p>
+      <p class="en">Both say exactly the same thing: the library closes at four and should close at six. <b>Neither is smarter than the other.</b> If you know the content, choosing the genre is choosing how to wrap it.</p>
+    </div>
+  </div>
+
+  <!-- ========== 2 ========== -->
+  <div class="section">
+    <div class="sec-num pt">3 · O rascunho</div>
+    <div class="sec-num en">3 · The draft</div>
+    <h2 class="pt">Rascunho não é a versão feia da resposta</h2>
+    <h2 class="en">A draft is not the ugly version of the answer</h2>
+
+    <p class="pt">A maioria trata o rascunho como uma primeira tentativa que precisa já sair boa, e por isso trava na primeira frase. <b>O rascunho serve para pôr as ideias na ordem, não para escrevê-las bem.</b> A versão bonita é a segunda.</p>
+    <p class="en">Most people treat the draft as a first attempt that has to come out good already, which is why they freeze on the first sentence. <b>A draft is for getting the ideas in order, not for writing them well.</b> The good-looking version is the second one.</p>
+
+    <ul class="clean pt">
+      <li><b>Escreva o plano em frases, sem parar para corrigir.</b> Palavra que você não sabe, deixa em português e circula. Volta nela depois.</li>
+      <li><b>Uma ideia por parágrafo.</b> Se o parágrafo tem duas, ele não tem nenhuma clara.</li>
+      <li><b>Deixe a introdução para o fim.</b> É mais fácil apresentar um texto que já existe do que anunciar um que você ainda não escreveu.</li>
+    </ul>
+    <ul class="clean en">
+      <li><b>Turn the plan into sentences without stopping to correct.</b> A word you do not know, leave in Portuguese and circle it. Come back to it later.</li>
+      <li><b>One idea per paragraph.</b> If a paragraph has two, it has none of them clearly.</li>
+      <li><b>Leave the opening for last.</b> It is easier to introduce a text that already exists than to announce one you have not written yet.</li>
+    </ul>
+  </div>
+
+  <!-- ========== 3 ========== -->
+  <div class="section">
+    <div class="sec-num pt">4 · A revisão</div>
+    <div class="sec-num en">4 · Revising</div>
+    <h2 class="pt">Você já revisa. Revisa a coisa errada.</h2>
+    <h2 class="en">You already revise. You revise the wrong thing.</h2>
+
+    <p class="pt">Esse é o achado mais duro da pesquisa sobre escrita, e ele não é sobre preguiça. Alunos revisam bastante, só que quase tudo na superfície: ortografia, pontuação, uma palavra trocada. Num estudo com alunos do último ano do ensino médio, <b>mudanças de superfície foram 81,7% de todas as alterações feitas</b>, contra 18,3% de mudanças de conteúdo e estrutura.</p>
+    <p class="en">This is the hardest finding in the research on writing, and it is not about laziness. Students do revise a lot, but almost all of it on the surface: spelling, punctuation, a word swapped. In a study with final-year secondary students, <b>surface changes accounted for 81.7% of every change they made</b>, against 18.3% for content and structure.</p>
+
+    <p class="pt">Escritor experiente faz o contrário: mexe em organização, corta, junta parágrafo, troca a ordem. <b>Não é que ele erre menos ortografia. É que ele não gasta a revisão nisso.</b></p>
+    <p class="en">Experienced writers do the opposite: they move things around, cut, merge paragraphs, change the order. <b>It is not that they make fewer spelling mistakes. It is that they do not spend the revision on them.</b></p>
+
+    <div class="checknote">
+      <div class="notepaper">
+        <div class="chk-h"><span class="pt">Na revisão, antes de olhar ortografia:</span><span class="en">When revising, before you look at spelling:</span></div>
+        <div class="chk"><svg class="chk-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="chk-t"><span class="pt">Respondi os três pontos do comando?</span><span class="en">Did I answer all three points of the task?</span></span></div>
+        <div class="chk"><svg class="chk-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="chk-t"><span class="pt">Cada parágrafo tem uma ideia só?</span><span class="en">Does each paragraph carry one idea only?</span></span></div>
+        <div class="chk"><svg class="chk-box" viewBox="0 0 26 26" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="19" rx="2.5" stroke="var(--pencil)" stroke-width="2"/><path d="M6.5 13.5 L11 18.5 L24 3.5" stroke="#1E8A5F" stroke-width="2.6"/></svg><span class="chk-t"><span class="pt">Tem frase aqui que não diz nada?</span><span class="en">Is there a sentence here that says nothing?</span></span></div>
+        <div class="chk-f"><span class="pt">Ortografia é a última coisa, não a primeira</span><span class="en">Spelling comes last, not first</span></div>
+      </div>
+    </div>
+
+    <h3 class="pt">A frase que não diz nada</h3>
+    <h3 class="en">The sentence that says nothing</h3>
+
+    <p class="pt">É a mais comum das três, e a mais fácil de achar depois que você sabe procurar. Compare a abertura de um rascunho com a mesma abertura depois de cortada.</p>
+    <p class="en">It is the commonest of the three, and the easiest to spot once you know what to look for. Compare the opening of a draft with the same opening after cutting.</p>
+
+    <div class="clips">
+      <div class="clip-row">
+        <div class="clip clip-a" style="--rot:-0.7deg">
+          <div class="clip-src"><span class="pt">Rascunho · 31 palavras</span><span class="en">Draft · 31 words</span></div>
+          <p class="clip-q">&#8220;In my opinion, I think that mobile phones are a very important topic nowadays in the modern world of today. Personally, I believe that schools should ban them during break time.&#8221;</p>
+        </div>
+        <span class="clip-link"><svg class="clip-ar" viewBox="0 0 48 18" fill="none" stroke="var(--pencil)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 C 16 4, 30 14, 42 9"/><path d="M35 3.5 L42 9 L35 14.5"/></svg><span class="clip-mec"><span class="pt">corte</span><span class="en">cut</span></span></span>
+        <div class="clip clip-b" style="--rot:0.5deg">
+          <div class="clip-src"><span class="pt">Versão final · 7 palavras</span><span class="en">Final version · 7 words</span></div>
+          <p class="clip-o">&#8220;Schools should ban phones during break time.&#8221;</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <svg class="notice-ar" viewBox="0 0 22 30" fill="none" stroke="var(--pencil)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 28 C 11 18, 7 10, 3 4"/><path d="M3 4 L11 7"/><path d="M3 4 L2.5 12"/></svg><span class="notice-l"><span class="pt">Repare</span><span class="en">Notice</span></span>
+      <p class="pt">Vinte e quatro palavras a menos e nenhum conteúdo perdido. <b>Tudo que caiu era anúncio de opinião, não opinião.</b></p>
+      <p class="en">Twenty-four fewer words and no content lost. <b>Everything that went was announcing an opinion, not an opinion.</b></p>
+    </div>
+  </div>
+
+  <!-- ========== 4 ========== -->
+  <div class="section">
+    <div class="sec-num pt">5 · O que a nota premia</div>
+    <div class="sec-num en">5 · What the marking rewards</div>
+    <h2 class="pt">Texto longo não é texto bom</h2>
+    <h2 class="en">A long text is not a good text</h2>
+
+    <p class="pt">Esse é o mito mais caro de writing. Encher linha para chegar na contagem de palavras não sobe a nota: <b>na nossa correção, texto inflado perde ponto no critério de concisão.</b> A faixa de palavras existe para dizer o tamanho do problema, não para ser preenchida.</p>
+    <p class="en">This is the costliest myth in writing. Padding to reach the word count does not raise your mark: <b>in our marking, an inflated text loses points under concision.</b> The word range exists to tell you the size of the problem, not to be filled.</p>
+
+    <ul class="clean dooded pt">
+      <li><span class="dood" style="--dc:#1B3A6B;--dr:-4deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5 L31 5 L31 35 L9 35 Z"/><path d="M14 14 L26 14"/><path d="M14 21 L26 21"/><path d="M14 28 L21 28"/></svg></span><b>Conte os três pontos antes de entregar.</b> Aponte no seu texto onde cada um foi respondido. Se você não achar, o corretor também não acha.</li>
+      <li><span class="dood" style="--dc:#6B3FA0;--dr:3deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20 L34 20"/><path d="M12 12 L12 28"/><path d="M28 12 L28 28"/></svg></span><b>Corte antes de acrescentar.</b> Se está faltando palavra para a faixa, o problema quase sempre é falta de conteúdo, não de enfeite.</li>
+      <li><span class="dood" style="--dc:#1E8A5F;--dr:-2.5deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5 L20 35"/><path d="M11 14 L20 5 L29 14"/><path d="M8 35 L32 35"/></svg></span><b>Use as expressões da unidade, mas só onde encaixam.</b> Vocabulário enfiado à força não pontua, e o corretor percebe na hora.</li>
+      <li><span class="dood" style="--dc:#C97A05;--dr:4deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M20 11 L20 20 L27 24"/></svg></span><b>Guarde cinco minutos para a revisão.</b> Não é sobra de tempo, é parte da tarefa. Sem eles, você entrega o rascunho.</li>
+    </ul>
+    <ul class="clean dooded en">
+      <li><span class="dood" style="--dc:#1B3A6B;--dr:-4deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5 L31 5 L31 35 L9 35 Z"/><path d="M14 14 L26 14"/><path d="M14 21 L26 21"/><path d="M14 28 L21 28"/></svg></span><b>Count the three points before you hand it in.</b> Point to where each one is answered in your text. If you cannot find it, the marker will not either.</li>
+      <li><span class="dood" style="--dc:#6B3FA0;--dr:3deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20 L34 20"/><path d="M12 12 L12 28"/><path d="M28 12 L28 28"/></svg></span><b>Cut before you add.</b> If you are short of words for the range, the problem is almost always missing content, not missing decoration.</li>
+      <li><span class="dood" style="--dc:#1E8A5F;--dr:-2.5deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5 L20 35"/><path d="M11 14 L20 5 L29 14"/><path d="M8 35 L32 35"/></svg></span><b>Use the unit's expressions, but only where they fit.</b> Vocabulary forced in earns nothing, and the marker spots it instantly.</li>
+      <li><span class="dood" style="--dc:#C97A05;--dr:4deg" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="var(--dc)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="14"/><path d="M20 11 L20 20 L27 24"/></svg></span><b>Keep five minutes for revising.</b> It is not spare time, it is part of the task. Without it, you hand in the draft.</li>
+    </ul>
+  </div>
+
+  <div class="handnote-wrap">
+    <div class="notepaper">
+    <div class="handnote pt">
+      <svg class="star" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.5 L14.6 9.2 L21.5 9.6 L16.2 14 L18 20.8 L12 17 L6 20.8 L7.8 14 L2.5 9.6 L9.4 9.2 Z"/></svg>
+      <p><span class="big">Escrever é a única das quatro que sobra depois.</span> Ninguém vai te pedir para circular um gatilho no trabalho. Vão te pedir um e-mail que se explique sozinho. <u>Essa é a habilidade que continua rendendo.</u></p>
+    </div>
+    <div class="handnote en">
+      <svg class="star" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.5 L14.6 9.2 L21.5 9.6 L16.2 14 L18 20.8 L12 17 L6 20.8 L7.8 14 L2.5 9.6 L9.4 9.2 Z"/></svg>
+      <p><span class="big">Writing is the one of the four that outlives the test.</span> Nobody will ask you to circle a trigger at work. They will ask for an email that explains itself. <u>This is the skill that keeps paying.</u></p>
+    </div>
+    </div>
+  </div>
+
+  <div class="cont">
+    <div class="cont-h"><span class="pt">Continue com</span><span class="en">Carry on with</span></div>
+        <a class="cont-c" href="EIC-Guia-do-Aluno-Checkpoint.html"><svg class="cont-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3c-2.6 0-2.6 8.5-5 8.5 2.4 0 2.4 8.5 5 8.5"/><path d="M10 11.5H4"/></svg><span class="cont-b"><span class="cont-t">Reading</span><span class="cont-d pt">A chave na margem e as três leituras</span><span class="cont-d en">The margin brace and the three reads</span></span><svg class="cont-ar" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h12"/><path d="M9 2l4 4-4 4"/></svg></a>
+        <a class="cont-c" href="EIC-Guia-do-Aluno-Grammar-Vocab.html"><svg class="cont-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="9" rx="8.5" ry="5.5" transform="rotate(-3 12 9)"/><path d="M5 19h14" stroke-width="2.4"/></svg><span class="cont-b"><span class="cont-t">Grammar &amp; Vocabulary</span><span class="cont-d pt">As três marcas e os blocos de vocabulário</span><span class="cont-d en">The three marks and the vocabulary blocks</span></span><svg class="cont-ar" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h12"/><path d="M9 2l4 4-4 4"/></svg></a>
+        <a class="cont-c" href="EIC-Guia-do-Aluno-Listening.html"><svg class="cont-i" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6"/><path d="M9 6.5c2.6 2.6 2.6 8.4 0 11"/><path d="M14.5 3.5c4.3 4 4.3 13 0 17"/><path d="M20 1c5.6 5.2 5.6 16.8 0 22"/></svg><span class="cont-b"><span class="cont-t">Listening</span><span class="cont-d pt">Antes, durante, na hora de marcar e depois</span><span class="cont-d en">Before, during, when you choose and after</span></span><svg class="cont-ar" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h12"/><path d="M9 2l4 4-4 4"/></svg></a>
+  </div>
+
+  <div class="foot">
+    <span class="pt"><span class="logo-full" role="img" aria-label="EIC · Escola de Idiomas e Cultura"></span>Vargem Grande Paulista, SP · eicschool.com.br<br>
+    Guia do aluno para os checkpoints de Teens 5 e 6. Os dados sobre revisão vêm de Faigley e Witte (1981) e Yagelski; os dados sobre planejamento, de Ellis e Yuan (2004) e da meta-análise de Johnson e Abdi Tabari (2023).</span>
+    <span class="en"><span class="logo-full" role="img" aria-label="EIC · Escola de Idiomas e Cultura"></span>Vargem Grande Paulista, SP · eicschool.com.br<br>
+    Student guide for the Teens 5 and 6 checkpoints. The revision figures come from Faigley and Witte (1981) and Yagelski; the planning figures from Ellis and Yuan (2004) and the meta-analysis by Johnson and Abdi Tabari (2023).</span>
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+  var btnPt = document.getElementById('btnPt');
+  var btnEn = document.getElementById('btnEn');
+  function setLang(lang){
+    var en = (lang === 'en');
+    document.body.classList.toggle('lang-en', en);
+    document.documentElement.lang = en ? 'en' : 'pt-BR';
+    btnEn.classList.toggle('active', en);
+    btnPt.classList.toggle('active', !en);
+  }
+  btnEn.addEventListener('click', function(){ setLang('en'); });
+  btnPt.addEventListener('click', function(){ setLang('pt'); });
+  setLang('en');
+
+  document.addEventListener('click', function(ev){
+    var gh = ev.target.closest ? ev.target.closest('[data-gen]') : null;
+    if (gh) {
+      var row = gh.parentElement;
+      var aberto = row.classList.contains('open');
+      var lista = row.parentElement;
+      if (lista) lista.querySelectorAll('.gen').forEach(function(g){
+        g.classList.remove('open');
+        var b = g.querySelector('[data-gen]');
+        if (b) b.setAttribute('aria-expanded','false');
+      });
+      if (!aberto) { row.classList.add('open'); gh.setAttribute('aria-expanded','true'); }
+      return;
+    }
+    var btn = ev.target.closest ? ev.target.closest('[data-reveal]') : null;
+    if (!btn) return;
+    var target = document.getElementById(btn.getAttribute('data-reveal'));
+    if (!target) return;
+    var open = target.classList.contains('show');
+    target.classList.toggle('show', !open);
+    btn.classList.toggle('open', !open);
+  });
+
+  document.addEventListener('click', function(ev){
+    var btn = ev.target.closest ? ev.target.closest('[data-script]') : null;
+    if (btn) {
+      var sc = document.getElementById(btn.getAttribute('data-script'));
+      if (sc) {
+        var on = sc.classList.contains('show');
+        sc.classList.toggle('show', !on);
+        var player = btn.closest('.player');
+        if (player) player.classList.toggle('on', !on);
+        btn.setAttribute('aria-expanded', String(!on));
+      }
+      return;
+    }
+    btn = ev.target.closest ? ev.target.closest('[data-anno]') : null;
+    if (!btn) return;
+    var sheet = document.getElementById(btn.getAttribute('data-anno'));
+    if (!sheet) return;
+    var on = sheet.classList.contains('on');
+    sheet.classList.toggle('on', !on);
+    btn.classList.toggle('open', !on);
+    btn.setAttribute('aria-expanded', String(!on));
+  });
+})();
+</script>
+</body>
+</html>
