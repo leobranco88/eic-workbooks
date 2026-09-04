@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Contract Files · Ventix Compressors · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;--hi:#F5FF00;
+      --mid:#6B7280;--border:#D9D5CF;--dark:#071020;--doc:#FBFAF7;--red:#C0392B}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+::selection{background:var(--hi);color:var(--ink)}
+.pw{max-width:960px;margin:0 auto;padding:0 56px}
+@media(max-width:760px){.pw{padding:0 24px}}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:20px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-link{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;transition:color .15s ease}
+.hdr-link:hover{color:#fff}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:980px){.hdr-meta{display:none}}
+@media(max-width:620px){.hdr{padding:0 20px}.hdr-link{display:none}}
+
+.hero{background:var(--dark);padding:126px 0 66px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--orange)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.hero-title{font-size:clamp(30px,4.6vw,48px);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;max-width:640px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.75;max-width:560px}
+
+.section{padding:60px 0}
+.section.alt{background:#fff}
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex:none}
+.sec-tag{font-size:16px;font-weight:900}
+.sec-sub{font-size:13px;color:var(--mid);line-height:1.65;margin:0 0 34px 38px;max-width:600px}
+
+/* ---- documento como peça física, não card ---- */
+.doc{display:grid;grid-template-columns:132px 1fr;gap:30px;padding:30px 0;border-top:2px solid var(--ink)}
+.doc+.doc{border-top-width:1px;border-top-color:var(--border)}
+@media(max-width:720px){.doc{grid-template-columns:1fr;gap:16px}}
+.doc-spine{position:relative}
+.doc-mark{font-size:11px;font-weight:900;letter-spacing:.18em;color:var(--ink);line-height:1.5}
+.doc-ref{font-size:10px;color:var(--mid);line-height:1.6;margin-top:6px}
+.doc-chip{display:inline-block;margin-top:12px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:12px;background:var(--paper);border:1px solid var(--border);color:var(--mid)}
+.section.alt .doc-chip{background:#fff}
+.doc-title{font-size:22px;font-weight:900;line-height:1.2;letter-spacing:-.02em;margin-bottom:9px}
+.doc-title em{font-style:italic;color:var(--teal);font-weight:800}
+.doc-body{font-size:14px;line-height:1.75;color:var(--mid);max-width:540px}
+.doc-body b{color:var(--ink);font-weight:700}
+.doc-facts{display:flex;flex-wrap:wrap;gap:22px;margin:18px 0 20px}
+.fact{min-width:76px}
+.fact-n{font-size:20px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.fact-l{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-top:5px}
+.doc-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;text-decoration:none;border-radius:10px;padding:10px 18px;transition:all .15s ease}
+.btn-open{background:var(--ink);color:#fff}
+.btn-open:hover{background:var(--teal)}
+.btn-pdf{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+.btn-pdf:hover{border-color:var(--ink)}
+.btn-note{font-size:11px;color:var(--mid);line-height:1.5}
+
+/* ---- restante do contrato, sem card ---- */
+.rest{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;margin-top:6px}
+@media(max-width:640px){.rest{grid-template-columns:1fr}}
+.rest-row{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12.5px;line-height:1.5}
+.rest-n{font-weight:800;color:var(--mid);flex:none;min-width:20px}
+.rest-t{color:var(--ink)}
+.rest-row.on .rest-t{font-weight:700}
+.rest-row.on .rest-n{color:var(--ink)}
+.rest-tag{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);white-space:nowrap;align-self:center}
+
+.print{background:var(--doc);border:1px solid var(--border);border-radius:3px;box-shadow:0 12px 30px rgba(10,22,40,.08);padding:26px 30px;margin-top:8px}
+.print-k{font-size:10px;font-weight:900;letter-spacing:.16em;color:var(--ink);margin-bottom:10px}
+.print-b{font-size:13.5px;line-height:1.75;color:#333}
+.print-b b{color:var(--ink)}
+.print-list{margin-top:14px;display:grid;gap:7px}
+.print-item{display:flex;gap:9px;font-size:12.5px;line-height:1.6;color:#333}
+.print-item svg{flex:none;margin-top:3px;color:var(--mid)}
+
+.footer{background:var(--dark);padding:32px 56px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-nav{display:flex;gap:18px;flex-wrap:wrap}
+.footer-nav a{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none}
+.footer-nav a:hover{color:var(--hi)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+@media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center}.footer-copy{text-align:center}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Before It Breaks · Contract Files</span>
+    <a class="hdr-link" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-documents.html">Documents</a>
+    <a class="hdr-link" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-stakeholders.html">Stakeholders</a>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Ventix Compressors · Agreement SA-4471</span></div>
+    <h1 class="hero-title">The Contract Files, <em>the parts nobody reads</em></h1>
+    <p class="hero-sub">Northwind signed one agreement, but it decides two very different arguments. One says what Ventix has to fix for free. The other says what Ventix charges for. Rafael's job starts where they disagree.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">01</div><div class="sec-tag">Two documents on the desk</div></div>
+    <p class="sec-sub">Os dois saem do mesmo contrato. A Section 4 julga o que já aconteceu. O Exhibit B negocia o que ainda vai acontecer.</p>
+
+    <div class="doc">
+      <div class="doc-spine">
+        <div class="doc-mark">SECTION 4</div>
+        <div class="doc-ref">Internal Policy<br>Warranty Coverage<br>and Claims</div>
+        <span class="doc-chip">Looks backward</span>
+      </div>
+      <div>
+        <h2 class="doc-title">The Fine Print, <em>what is actually covered</em></h2>
+        <p class="doc-body">Uma peça quebrou e o cliente quer que a Ventix pague. A <b>Elena Cruz</b> lê cada sinistro contra os termos de garantia, não contra o que parece justo. Aqui o aluno decide dez casos com evidência na mesa: registro de manutenção, log de telemetria, análise de óleo e foto de teardown.</p>
+        <div class="doc-facts">
+          <div class="fact"><div class="fact-n">8</div><div class="fact-l">Cláusulas</div></div>
+          <div class="fact"><div class="fact-n">10</div><div class="fact-l">Sinistros</div></div>
+          <div class="fact"><div class="fact-n">2</div><div class="fact-l">Vereditos</div></div>
+        </div>
+        <div class="doc-acts">
+          <a class="btn btn-open" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-fine-print.html">
+            Open the policy
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-pdf" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/section-4-fine-print-worksheet.pdf" download>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PDF para imprimir
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc">
+      <div class="doc-spine">
+        <div class="doc-mark">EXHIBIT B</div>
+        <div class="doc-ref">Conditions Applicable<br>to Service Plans<br>Rev. 04</div>
+        <span class="doc-chip">Looks forward</span>
+      </div>
+      <div>
+        <h2 class="doc-title">The Service Plan, <em>and what it quietly leaves out</em></h2>
+        <p class="doc-body">O Northwind assinou um Service Plan e assumiu que a Ventix cuidaria da máquina. O <b>Owen Blake</b> passa a semana explicando a diferença entre o que o plano cobre, o que vira fatura e o que nunca foi problema da Ventix. Tem narração de todas as cláusulas em áudio.</p>
+        <div class="doc-facts">
+          <div class="fact"><div class="fact-n">8</div><div class="fact-l">Cláusulas</div></div>
+          <div class="fact"><div class="fact-n">10</div><div class="fact-l">Ligações</div></div>
+          <div class="fact"><div class="fact-n">3</div><div class="fact-l">Vereditos</div></div>
+        </div>
+        <div class="doc-acts">
+          <a class="btn btn-open" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-service-plan.html">
+            Open the exhibit
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-pdf" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/exhibit-b-service-plan-worksheet.pdf" download>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PDF para imprimir
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">02</div><div class="sec-tag">The rest of the agreement</div></div>
+    <p class="sec-sub">O contrato SA-4471 tem mais seções. Elas existem no universo do módulo, mesmo sem material próprio ainda, e vale o aluno saber que o documento continua depois do que ele leu.</p>
+
+    <div class="rest">
+      <div class="rest-row"><span class="rest-n">1</span><span class="rest-t">General</span></div>
+      <div class="rest-row"><span class="rest-n">2</span><span class="rest-t">Quotation Validity</span></div>
+      <div class="rest-row"><span class="rest-n">3</span><span class="rest-t">Credit</span></div>
+      <div class="rest-row on"><span class="rest-n">4</span><span class="rest-t">Warranty Coverage and Claims</span><span class="rest-tag">The Fine Print</span></div>
+      <div class="rest-row"><span class="rest-n">5</span><span class="rest-t">Title and Risk</span></div>
+      <div class="rest-row"><span class="rest-n">6</span><span class="rest-t">Price, Taxes and Duties</span></div>
+      <div class="rest-row"><span class="rest-n">7</span><span class="rest-t">Acceptance of the Goods</span></div>
+      <div class="rest-row"><span class="rest-n">8</span><span class="rest-t">Cancellation</span></div>
+      <div class="rest-row"><span class="rest-n">9</span><span class="rest-t">Returns</span></div>
+      <div class="rest-row"><span class="rest-n">10</span><span class="rest-t">Terms of Payment</span></div>
+      <div class="rest-row"><span class="rest-n">11</span><span class="rest-t">Delivery and Lead-Times</span></div>
+      <div class="rest-row"><span class="rest-n">12</span><span class="rest-t">Force Majeure</span></div>
+      <div class="rest-row"><span class="rest-n">13</span><span class="rest-t">Confidentiality</span></div>
+      <div class="rest-row"><span class="rest-n">14</span><span class="rest-t">Remote Monitoring</span></div>
+      <div class="rest-row"><span class="rest-n">15</span><span class="rest-t">Limitation of Liability</span></div>
+      <div class="rest-row on"><span class="rest-n">B</span><span class="rest-t">Conditions Applicable to Service Plans</span><span class="rest-tag">Exhibit B</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">03</div><div class="sec-tag">On paper</div></div>
+    <p class="sec-sub">Os dois cadernos impressos usam a mesma diagramação dos documentos na tela, para o aluno reconhecer o mesmo texto nos dois suportes.</p>
+
+    <div class="print">
+      <div class="print-k">CADERNO DO ALUNO</div>
+      <p class="print-b">Cada PDF traz o documento completo, os exercícios com espaço para escrever à mão e o <b>gabarito destacável na última página</b>. Imprima tudo e arranque a última folha antes de entregar.</p>
+      <div class="print-list">
+        <div class="print-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>
+          <span><b>Section 4</b>, seis páginas. Política, dez sinistros com evidência, vocabulário e gabarito.</span>
+        </div>
+        <div class="print-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>
+          <span><b>Exhibit B</b>, sete páginas. Anexo, quadro de preços, dez ligações, gatilhos de reajuste, objeção do concorrente e gabarito.</span>
+        </div>
+        <div class="print-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+          <span>A4, preto e branco, sem sangria. Sai igual em qualquer impressora de escritório.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC · Before It Breaks</span>
+  <nav class="footer-nav">
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-fine-print.html">Section 4</a>
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-service-plan.html">Exhibit B</a>
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-documents.html">Documents</a>
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-stakeholders.html">Stakeholder Map</a>
+  </nav>
+  <span class="footer-copy">Agreement SA-4471 · Ventix Compressors<br>Ventix e Northwind HQ são empresas fictícias.</span>
+</footer>
+
+</body>
+</html>

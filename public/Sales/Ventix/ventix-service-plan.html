@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Service Plan · Ventix Compressors · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;--purple:#6D5BD0;--pink:#C2306B;
+  --amber:#B8860B;--doc:#FBFAF7;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+::selection{background:var(--hi);color:var(--ink)}
+
+/* ---------- header / footer ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:20px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.hdr-link{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;transition:color .15s ease}
+.hdr-link:hover{color:#fff}
+.hdr-pdf{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--hi);text-decoration:none;border:1px solid rgba(245,255,0,.35);border-radius:20px;padding:4px 12px;transition:all .15s ease}
+.hdr-pdf:hover{background:var(--hi);color:var(--dark);border-color:var(--hi)}
+@media(max-width:760px){.hdr-pdf span{display:none}.hdr-pdf{padding:5px 8px}}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:980px){.hdr-meta{display:none}}
+@media(max-width:620px){.hdr{padding:0 20px}.hdr-link{display:none}}
+
+.footer{background:var(--dark);padding:32px 56px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-nav{display:flex;gap:18px;flex-wrap:wrap}
+.footer-nav a{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none}
+.footer-nav a:hover{color:var(--hi)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
+@media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center}.footer-copy{text-align:center}}
+
+.pw{max-width:960px;margin:0 auto;padding:0 56px}
+@media(max-width:760px){.pw{padding:0 24px}}
+
+/* ---------- hero ---------- */
+.hero{background:var(--dark);padding:132px 0 60px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--orange)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.hero-title{font-size:clamp(28px,4vw,42px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;max-width:680px}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.75;max-width:600px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hero-tag{font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:5px 13px}
+.hero-grid{display:grid;grid-template-columns:1fr 210px;gap:44px;align-items:center}
+@media(max-width:760px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+
+/* character byline: swap the .byline-frame contents for <img src="..."> when the photo exists */
+.byline{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;max-width:210px}
+.byline-frame{border-radius:10px;overflow:hidden;aspect-ratio:4/5;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.byline-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.byline-name{font-size:13px;font-weight:800;color:#fff;line-height:1.3}
+.byline-role{font-size:10.5px;color:rgba(255,255,255,.45);line-height:1.5;margin-top:3px}
+
+/* ---------- sections ---------- */
+.section{padding:56px 0}
+.section:nth-child(even){background:#fff}
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex:none}
+.sec-tag{font-size:16px;font-weight:900;color:var(--ink)}
+.sec-sub{font-size:13px;color:var(--mid);line-height:1.6;margin:0 0 26px 38px;max-width:640px}
+
+/* ---------- EXHIBIT B document ---------- */
+.exhibit{background:var(--doc);border:1px solid var(--border);box-shadow:0 14px 34px rgba(10,22,40,.09);padding:34px 40px 30px;font-family:Georgia,'Times New Roman',serif;color:#1a1a1a;position:relative;border-radius:3px}
+@media(max-width:700px){.exhibit{padding:24px 20px}}
+.exhibit-head{border-bottom:1px solid #b9b5ae;padding-bottom:14px;margin-bottom:8px}
+.exhibit-kicker{font-family:'Inter',sans-serif;font-size:19px;font-weight:900;letter-spacing:.22em;color:var(--ink)}
+.exhibit-ref{font-family:'Inter',sans-serif;font-size:9.5px;color:var(--mid);letter-spacing:.03em;margin-top:6px;line-height:1.6}
+.exhibit-note{font-family:'Inter',sans-serif;font-size:10px;color:var(--mid);font-style:italic;margin-bottom:22px;padding-top:8px}
+
+.clause{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:13px 0;border-bottom:1px dotted #cfcac2}
+.clause:last-of-type{border-bottom:none}
+.clause-id{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:800;color:var(--ink);padding-top:2px;letter-spacing:.02em}
+.clause-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:5px}
+.clause-title{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:800;color:var(--ink)}
+.clause-body{font-size:12.5px;line-height:1.72;color:#242424}
+@media(max-width:560px){.clause{grid-template-columns:1fr;gap:4px}}
+
+.plain-btn{font-family:'Inter',sans-serif;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--pink);background:none;border:none;border-bottom:1.5px solid rgba(194,48,107,.32);padding:0 0 2px;cursor:pointer;flex:none;transition:color .15s ease,border-color .15s ease}
+.plain-btn:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+.stamp{position:absolute;top:26px;right:30px;border:2px solid rgba(192,57,43,.42);border-radius:4px;padding:6px 11px;transform:rotate(-7deg);font-family:'Inter',sans-serif;color:rgba(192,57,43,.5);text-align:center;line-height:1.25;pointer-events:none}
+.stamp b{display:block;font-size:9.5px;font-weight:900;letter-spacing:.1em}
+.stamp span{display:block;font-size:7.5px;font-weight:700;letter-spacing:.05em;margin-top:2px}
+@media(max-width:700px){.stamp{display:none}}
+
+.neon{background:var(--hi);color:var(--ink);padding:1px 5px;border-radius:3px;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.clause.flash{background:var(--hi);border-radius:6px;transition:background 1.8s ease}
+.clause.playing{background:rgba(13,122,138,.06);border-radius:6px}
+
+/* discreet audio controls */
+.play-dot{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--mid);
+  cursor:pointer;display:none;align-items:center;justify-content:center;flex:none;padding:0;transition:all .15s ease}
+.play-dot.on{display:inline-flex}
+.play-dot:hover{border-color:var(--teal);color:var(--teal)}
+.play-dot.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.listen-all{display:none;align-items:center;gap:9px;background:none;border:none;padding:0;margin-bottom:16px;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal)}
+.listen-all.on{display:inline-flex}
+.listen-all:hover{color:var(--ink)}
+.listen-all .dot{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--teal);display:flex;align-items:center;justify-content:center;flex:none}
+.listen-all.active .dot{background:var(--teal);color:#fff}
+.audio-hint{display:none;font-size:11px;color:var(--mid);font-style:italic;margin-bottom:16px}
+.audio-hint.on{display:block}
+.audio-missing{display:none;font-size:11.5px;line-height:1.6;color:var(--red);background:#FBEAE8;border-left:3px solid var(--red);
+  border-radius:0 8px 8px 0;padding:9px 13px;margin-bottom:16px}
+.audio-missing.on{display:block}
+
+/* ---------- Pricing summary (offset, tabular, no card) ---------- */
+.summary-wrap{display:grid;grid-template-columns:1fr 372px;gap:38px;align-items:start;margin-top:34px}
+@media(max-width:860px){.summary-wrap{grid-template-columns:1fr;gap:24px}}
+.summary-intro{font-size:13px;line-height:1.75;color:var(--mid);padding-top:6px}
+.summary-intro b{color:var(--ink);font-weight:700}
+.summary{border-top:2.5px solid var(--ink);padding-top:14px;font-family:'Inter',sans-serif}
+.summary-kicker{font-size:9.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.summary-ref{font-size:9.5px;color:var(--mid);margin-top:3px;margin-bottom:14px}
+.srow{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px solid var(--border);font-size:11.5px;line-height:1.5}
+.srow span:first-child{color:var(--mid)}
+.srow span:last-child{color:var(--ink);font-weight:700;text-align:right}
+.plans{margin:16px 0 4px}
+.plans-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.plan-opt{display:flex;align-items:center;gap:9px;padding:4px 0;font-size:11.5px;color:var(--mid)}
+.plan-box{width:12px;height:12px;border:1.5px solid var(--mid);border-radius:2px;flex:none;display:flex;align-items:center;justify-content:center}
+.plan-opt.on{color:var(--ink);font-weight:800}
+.plan-opt.on .plan-box{border-color:var(--ink);background:var(--ink)}
+
+/* ---------- case cards ---------- */
+.case-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.section:nth-child(even) .case-card{background:var(--paper)}
+.case-num{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.case-scenario{font-size:14px;line-height:1.7;color:var(--ink);margin-bottom:16px}
+.case-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+@media(max-width:560px){.case-choice{grid-template-columns:1fr}}
+.case-btn{padding:11px 8px;border-radius:10px;border:1.5px solid var(--border);cursor:pointer;font-weight:700;font-size:12.5px;text-align:center;background:var(--paper);font-family:'Inter',sans-serif;transition:all .15s ease}
+.section:nth-child(even) .case-btn{background:#fff}
+.case-btn:hover:not(:disabled){border-color:var(--ink)}
+.case-btn.correct{background:#EAF6F5;border-color:var(--teal);color:var(--teal)}
+.case-btn.wrong{background:#FBEAE8;border-color:var(--red);color:var(--red);opacity:.75}
+.case-verdict{display:none;margin-top:14px;padding:13px 15px;background:var(--paper);border-left:3px solid var(--ink);border-radius:0 8px 8px 0;font-size:12.5px;line-height:1.65;color:var(--ink)}
+.section:nth-child(even) .case-verdict{background:#fff;border:1px solid var(--border);border-left:3px solid var(--ink)}
+.case-verdict.show{display:block}
+.reply-card{display:none;margin-top:10px;padding:12px 15px;background:#fff;border:1.5px solid var(--border);border-radius:10px}
+.section:nth-child(even) .reply-card{background:var(--paper)}
+.reply-card.show{display:block}
+.reply-label{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:6px}
+.reply-text{font-size:12.5px;line-height:1.7;color:var(--ink);font-style:italic}
+.case-tools{display:none;gap:16px;margin-top:11px;flex-wrap:wrap}
+.case-tools.show{display:flex}
+.tool-btn{background:none;border:none;color:var(--teal);font-size:11.5px;font-weight:700;cursor:pointer;padding:0;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:5px}
+.tool-btn:hover{text-decoration:underline}
+.tool-btn.muted{color:var(--mid)}
+
+/* ---------- trigger checklist ---------- */
+.trig{display:grid;grid-template-columns:1fr 168px;gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.trig:last-child{border-bottom:none}
+.trig-text{font-size:13.5px;line-height:1.65;color:var(--ink)}
+.trig-btns{display:flex;gap:7px}
+.trig-btn{flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:800;transition:all .15s ease}
+.section:nth-child(even) .trig-btn{background:var(--paper)}
+.trig-btn:hover:not(:disabled){border-color:var(--ink)}
+.trig-btn.correct{background:#EAF6F5;border-color:var(--teal);color:var(--teal)}
+.trig-btn.wrong{background:#FBEAE8;border-color:var(--red);color:var(--red);opacity:.75}
+.trig-why{display:none;grid-column:1 / -1;font-size:12px;line-height:1.6;color:var(--mid);padding:9px 13px;background:var(--paper);border-left:3px solid var(--amber);border-radius:0 8px 8px 0}
+.section:nth-child(even) .trig-why{background:#fff;border:1px solid var(--border);border-left:3px solid var(--amber)}
+.trig-why.show{display:block}
+@media(max-width:620px){.trig{grid-template-columns:1fr;gap:10px}.trig-btns{max-width:220px}}
+
+/* ---------- objection scene ---------- */
+.beat{margin-bottom:20px}
+.turn{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:12px 0}
+.turn-who{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);padding-top:3px;line-height:1.4}
+.turn-who b{display:block;color:var(--ink);font-size:11px;letter-spacing:0;text-transform:none;font-weight:800}
+.turn-said{font-size:14px;line-height:1.8;color:var(--ink)}
+.turn.client .turn-said{color:#2c3340;border-left:2px solid var(--border);padding-left:14px}
+.turn.rep .turn-said{border-left:2px solid var(--teal);padding-left:14px}
+@media(max-width:560px){.turn{grid-template-columns:1fr;gap:5px}}
+.gap{display:inline-block;min-width:132px;border:none;border-bottom:2px solid var(--teal);background:transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--ink);padding:1px 4px;text-align:center}
+.gap:focus{outline:none;background:rgba(13,122,138,.07)}
+.gap.ok{border-bottom-color:var(--teal);color:var(--teal)}
+.gap.no{border-bottom-color:var(--red);color:var(--red)}
+
+.bank{background:var(--ink);border-radius:14px;padding:18px 20px;margin:8px 0 24px}
+.bank-label{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--hi);margin-bottom:12px}
+.bank-items{display:flex;flex-wrap:wrap;gap:8px}
+.bank-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:18px}
+
+.frames{border-top:2.5px solid var(--ink);padding-top:16px;margin-top:8px}
+.frames-label{font-size:9.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:14px}
+.frame-row{padding:10px 0;border-bottom:1px solid var(--border)}
+.frame-row:last-child{border-bottom:none}
+.frame-en{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.6}
+.frame-pt{font-size:12px;color:var(--mid);line-height:1.6;margin-top:2px}
+
+/* ---------- extras log ---------- */
+.log{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:22px 24px}
+.section:nth-child(even) .log{background:var(--paper)}
+.log-row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+.log-row span:first-child{color:var(--ink)}
+.log-row span:last-child{font-weight:800;color:var(--ink);white-space:nowrap}
+.log-row.total{border-bottom:none;border-top:2px solid var(--ink);margin-top:4px;padding-top:12px;font-size:14px}
+.log-row.total span{font-weight:900}
+.log-body{display:none;margin-top:8px}
+.log-body.show{display:block}
+.compare{margin-top:18px;padding:16px 18px;background:var(--ink);border-radius:12px}
+.compare-line{display:flex;justify-content:space-between;gap:14px;padding:6px 0;font-size:13px;color:rgba(255,255,255,.65)}
+.compare-line b{color:#fff;font-weight:800}
+.compare-line.gap-line{border-top:1px solid rgba(255,255,255,.18);margin-top:8px;padding-top:12px}
+.compare-line.gap-line b{color:var(--hi)}
+
+/* ---------- teacher note ---------- */
+.teacher-note{background:#fff;border:1.5px dashed var(--purple);border-radius:14px;padding:18px 20px;margin-top:26px}
+.section:nth-child(even) .teacher-note{background:var(--paper)}
+.teacher-note-label{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.teacher-note-body{font-size:12.5px;line-height:1.75;color:var(--ink)}
+.teacher-note-body+.teacher-note-body{margin-top:14px}
+.teacher-note-body .pt-note{display:block;color:var(--mid);font-size:11px;font-weight:500;margin-top:2px}
+
+/* ---------- discussion ---------- */
+.disc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.disc{grid-template-columns:1fr}}
+.disc-q{border-left:3px solid var(--orange);padding:4px 0 4px 16px;font-size:14.5px;line-height:1.65;color:var(--ink);font-weight:500}
+
+/* ---------- plain english modal ---------- */
+.plain-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.6);z-index:210;align-items:center;justify-content:center;padding:24px}
+.plain-overlay.open{display:flex}
+.plain-modal{background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:86vh;overflow-y:auto;box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.plain-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:18px 22px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;border-radius:16px 16px 0 0}
+.plain-modal-eyebrow{font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+.plain-modal-title{font-size:15px;font-weight:900;color:var(--ink);margin-top:3px;line-height:1.25}
+.plain-modal-body{padding:20px 22px 24px}
+.plain-text{font-size:14px;line-height:1.8;color:var(--ink)}
+.plain-text b{background:var(--hi);padding:1px 5px;border-radius:3px;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.plain-example{margin-top:18px;background:var(--paper);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:13px 16px}
+.plain-example-label{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:7px}
+.plain-example p{font-size:13px;line-height:1.7;color:var(--ink)}
+.x-btn{width:28px;height:28px;border-radius:50%;background:var(--paper);border:none;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+
+/* ---------- glossary drawer ---------- */
+.vocab-fab{position:fixed;left:24px;bottom:24px;z-index:150;background:var(--ink);color:#fff;border:none;border-radius:26px;padding:12px 20px;font-family:'Inter',sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:9px;box-shadow:0 10px 26px rgba(10,22,40,.28)}
+.vocab-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.5);z-index:220}
+.vocab-overlay.open{display:block}
+.vocab-drawer{position:fixed;top:0;left:0;bottom:0;width:400px;max-width:88vw;background:var(--paper);z-index:230;transform:translateX(-100%);transition:transform .28s ease;display:flex;flex-direction:column}
+.vocab-drawer.open{transform:translateX(0)}
+.vocab-drawer-head{background:var(--ink);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex:none}
+.vocab-drawer-head span{font-size:14px;font-weight:800}
+.vocab-drawer-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+.vocab-drawer-body{flex:1;overflow-y:auto;padding:20px 20px 40px}
+.vocab-group{margin-bottom:24px}
+.vocab-group-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.vocab-drawer-row{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:8px}
+.vocab-drawer-term{font-size:12.5px;font-weight:800;color:var(--ink)}
+.vocab-drawer-pt{font-size:12px;color:var(--teal);font-weight:600;margin-top:2px}
+.vocab-drawer-ex{font-size:11px;color:var(--mid);margin-top:5px;font-style:italic;line-height:1.5}
+
+/* ---------- tooltip ---------- */
+.tt{border-bottom:2px dotted var(--teal);cursor:help}
+#gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:10px;padding:10px 14px;max-width:260px;font-size:13.5px;line-height:1.5;box-shadow:0 10px 28px rgba(0,0,0,.15);border:1px solid var(--border)}
+#gl-tip-label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <span class="hdr-meta">Before It Breaks · Contract Files</span>
+    <a class="hdr-link" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-fine-print.html">Section 4</a>
+    <a class="hdr-link" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-policy-hub.html">Contract Files</a>
+    <a class="hdr-pdf" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/exhibit-b-service-plan-worksheet.pdf" download title="Baixar caderno impresso"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>PDF</span></a>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Contract Files · Service Plans</span></div>
+        <h1 class="hero-title">The Service Plan, <em>and what it quietly leaves out</em></h1>
+        <p class="hero-sub">Northwind signed a Service Plan two years ago and assumed it meant "Ventix takes care of the machine". Owen spends his week explaining the difference between what the plan covers, what gets invoiced, and what was never Ventix's problem in the first place. Read the exhibit, then decide ten calls the way he would.</p>
+        <div class="hero-meta">
+          <span class="hero-tag">Owen Blake · Service Contracts, Ventix</span>
+          <span class="hero-tag">Exhibit B</span>
+        </div>
+      </div>
+      <div class="byline">
+        <div class="byline-frame"><img src="data:image/jpeg;base64,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" alt="Owen Blake" style="object-position:50% 22%"></div>
+        <div class="byline-name">Owen Blake</div>
+        <div class="byline-role">Service Contracts Coordinator<br>Ventix Compressors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 THE EXHIBIT ============ -->
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">01</div><div class="sec-tag">The Exhibit</div></div>
+    <p class="sec-sub">Este é um anexo, não o contrato. Ele fica preso ao final do acordo e quase ninguém lê. As expressões em neon são as que decidem cada ligação lá embaixo. Use o botão <b>Plain English</b> sempre que uma cláusula travar.</p>
+
+    <button class="listen-all" id="listenAll" onclick="toggleAll()">
+      <span class="dot" id="allIcon"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></span>
+      <span id="allLabel">Listen to the whole exhibit</span>
+    </button>
+    <p class="audio-hint" id="audioHint">Cada cláusula tem seu próprio play. Pausar e voltar continua de onde parou.</p>
+    <p class="audio-missing" id="audioMissing">Narração não encontrada. O arquivo <b>audio-data-service-plan.js</b> precisa estar na mesma pasta deste HTML.</p>
+
+    <div class="exhibit">
+      <div class="stamp"><b>RECEIVED</b><span>NORTHWIND HQ · 04 MAR</span></div>
+      <div class="exhibit-head">
+        <div class="exhibit-kicker">EXHIBIT B</div>
+        <div class="exhibit-ref">Conditions Applicable to Service Plans<br>Attached to and forming part of Service Agreement SA-4471 · Rev. 04 · Page 1 of 3</div>
+      </div>
+      <p class="exhibit-note">Where this Exhibit conflicts with the Quotation, the Quotation takes precedence.</p>
+
+      <div class="clause" id="c-b1">
+        <div class="clause-id">B.1</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Scope of Each Visit</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.1" onclick="playClip('B.1')" aria-label="Ouvir B.1"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.1')">Plain English</button></span></div>
+          <p class="clause-body">The Quotation states the number of visits per year and the activities to be carried out at each visit. Work that is not on that <span class="neon tt" data-tip="activitylist">activity list</span> is <span class="neon tt" data-tip="quotedseparately">quoted separately</span>. After each visit Ventix issues a service report, which must be <span class="neon tt" data-tip="signedoff">signed off</span> by a representative of the client. Equipment not named in the Quotation is <span class="neon tt" data-tip="outsidescope">outside the scope</span> of this Agreement.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b2">
+        <div class="clause-id">B.2</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Repairs, Consumables and Standby Air</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.2" onclick="playClip('B.2')" aria-label="Ouvir B.2"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.2')">Plain English</button></span></div>
+          <p class="clause-body">This Agreement covers inspection and scheduled maintenance. Repairs identified during a visit are recorded in the service report as a recommendation and quoted separately, except where the client holds the Total Responsibility Plan. Operating materials, <span class="neon tt" data-tip="consumables">consumables</span> and spare parts are <span class="neon tt" data-tip="billedseparately">billed separately</span> as required. <span class="neon tt" data-tip="standbyair">Standby air</span>, including the temporary hire of a replacement unit, is not included unless agreed in writing.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b3">
+        <div class="clause-id">B.3</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Working Hours, Access and Waiting Time</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.3" onclick="playClip('B.3')" aria-label="Ouvir B.3"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.3')">Plain English</button></span></div>
+          <p class="clause-body">Visits are carried out during normal working hours, Monday to Friday, 07:30 to 16:00, excluding public holidays. Work performed outside those hours is charged at the <span class="neon tt" data-tip="overtimerate">overtime rate</span> in force on the date of the visit. Where the technician waits more than thirty minutes for access to the unit, additional hours may be charged. Where access is refused and the visit has to be <span class="neon tt" data-tip="rescheduled">rescheduled</span>, travel time and <span class="neon tt" data-tip="mileage">mileage</span> are borne by the client.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b4">
+        <div class="clause-id">B.4</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Price Adjustments</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.4" onclick="playClip('B.4')" aria-label="Ouvir B.4"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.4')">Plain English</button></span></div>
+          <p class="clause-body">The annual price is reviewed on completion of each twelve months from the commencement date (the <span class="neon tt" data-tip="reviewdate">review date</span>). Regardless of the term, and even where the price is stated as fixed, the price is <span class="neon tt" data-tip="subjecttoadjustment">subject to adjustment</span> at any time if a major change occurs in the operating or site conditions of the unit. Major changes include moving the unit, even within the same facility; positioning other equipment so that cooling air intake is affected; electrical changes; and exceeding the estimated annual <span class="neon tt" data-tip="runninghours">running hours</span> stated in the Quotation by more than one thousand hours. The price is also subject to adjustment on any addition of service.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b5">
+        <div class="clause-id">B.5</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Client Responsibilities</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.5" onclick="playClip('B.5')" aria-label="Ouvir B.5"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.5')">Plain English</button></span></div>
+          <p class="clause-body">Under all Service Plans the client shall carry out the daily and weekly inspections set out in the instruction manual; use only genuine Ventix parts and approved lubricants; keep the unit within the environmental conditions recommended by Ventix; notify Ventix immediately of any change in operating or site conditions; and provide free and full access to the unit, together with adequate lighting, power and any lifting equipment required, at the client's own cost.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b6">
+        <div class="clause-id">B.6</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">When Ventix Is Not Obliged to Service</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.6" onclick="playClip('B.6')" aria-label="Ouvir B.6"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.6')">Plain English</button></span></div>
+          <p class="clause-body">Ventix shall not be <span class="neon tt" data-tip="obliged">obliged</span> to inspect or service the unit where the client has failed to perform its responsibilities under B.5; where a failure results from accidental or wilful damage by the client or a <span class="neon tt" data-tip="thirdparty">third party</span>, from interruption or fluctuation of electric power, or from introduced contamination; or where the unit has been operated <span class="neon tt" data-tip="outsideparameters">outside specified parameters</span>. In such cases Ventix may still attend the site, and the work is quoted as a repair.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b7">
+        <div class="clause-id">B.7</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Overhauls</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.7" onclick="playClip('B.7')" aria-label="Ouvir B.7"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.7')">Plain English</button></span></div>
+          <p class="clause-body">Where monitoring readings taken by Ventix indicate that an <span class="neon tt" data-tip="overhaul">overhaul</span> of the element or main motor is required, the client shall make the unit available. If the client fails to do so, Ventix's obligation to service that unit under this Agreement ceases. The overhaul is quoted separately. Where the Agreement is terminated early after an overhaul has been performed, the client shall pay the <span class="neon tt" data-tip="listprice">list price</span> of the overhaul.</p>
+        </div>
+      </div>
+
+      <div class="clause" id="c-b8">
+        <div class="clause-id">B.8</div>
+        <div>
+          <div class="clause-head"><span class="clause-title">Term, Renewal and Termination</span><span style="display:flex;align-items:center;gap:12px"><button class="play-dot" data-clip="B.8" onclick="playClip('B.8')" aria-label="Ouvir B.8"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg></button><button class="plain-btn" onclick="openPlain('B.8')">Plain English</button></span></div>
+          <p class="clause-body">The initial term is stated in the Quotation. The Agreement <span class="neon tt" data-tip="autorenew">renews automatically</span> for successive twelve-month periods unless either party gives written notice at least thirty days before the end of the current term. Either party may terminate on thirty days' written notice. Ventix may suspend or terminate with immediate effect where a major change occurs in the operating or site conditions, or where the client commits a continuing <span class="neon tt" data-tip="breach">breach</span> that is not remedied within thirty days of written notice. On termination the client is entitled to a refund for services already paid for but not performed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-wrap">
+      <div class="summary-intro">
+        <p>O anexo sozinho não responde nada. Ele diz <b>"as horas estimadas indicadas na Cotação"</b> sem dizer quantas são, e diz <b>"os equipamentos indicados na Cotação"</b> sem listar quais.</p>
+        <p style="margin-top:12px">Esses números estão no quadro ao lado, que é a página que o Northwind assinou. Você vai precisar dos dois abertos ao mesmo tempo. Repare especialmente em qual plano está marcado.</p>
+      </div>
+      <div class="summary">
+        <div class="summary-kicker">Pricing and Services Summary</div>
+        <div class="summary-ref">Agreement SA-4471 · Northwind HQ, Building C</div>
+
+        <div class="srow"><span>Covered equipment</span><span>Compressor NW-4471<br>Refrigerated dryer ND-118</span></div>
+        <div class="srow"><span>Visits per year</span><span>4</span></div>
+        <div class="srow"><span>Estimated running hours per year</span><span>4,000</span></div>
+        <div class="srow"><span>Rated pressure</span><span>100 PSI</span></div>
+        <div class="srow"><span>Normal working hours</span><span>Mon to Fri, 07:30 to 16:00</span></div>
+        <div class="srow"><span>Overtime rate</span><span>1.5 x standard labour</span></div>
+        <div class="srow"><span>Waiting time charged after</span><span>30 minutes</span></div>
+        <div class="srow"><span>Annual price</span><span>USD 9,800</span></div>
+        <div class="srow"><span>Initial term</span><span>24 months from 01 March</span></div>
+
+        <div class="plans">
+          <div class="plans-label">Plan selected</div>
+          <div class="plan-opt"><span class="plan-box"></span>Inspection Plan</div>
+          <div class="plan-opt"><span class="plan-box"></span>Parts Plan</div>
+          <div class="plan-opt on"><span class="plan-box"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Service Plan</div>
+          <div class="plan-opt"><span class="plan-box"></span>Extended Warranty+ Plan</div>
+          <div class="plan-opt"><span class="plan-box"></span>Total Responsibility Plan</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        Teacher's Note · Two Words Brazilians Get Wrong Here
+      </div>
+      <p class="teacher-note-body"><b>quote</b> and <b>budget</b>. Um <i>quote</i> é o preço que você manda para o cliente. Um <i>budget</i> é o dinheiro que a empresa reservou para gastar. "I'll send you a budget" soa como se você fosse mandar o orçamento interno da sua própria empresa.
+      <span class="pt-note">Orçamento que você envia = quote / quotation. Orçamento que você tem para gastar = budget.</span></p>
+      <p class="teacher-note-body"><b>schedule</b> and <b>program</b>. Em inglês você <i>schedules</i> uma visita, uma reunião, um overhaul. <i>Program</i> é o que você faz com uma máquina ou um software.
+      <span class="pt-note">Programar uma visita = schedule a visit. Programar o controlador = program the controller.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 THE CALLS ============ -->
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">02</div><div class="sec-tag">Ten Calls, Three Answers</div></div>
+    <p class="sec-sub">Toda ligação cai numa de três caixas. <b>Included</b> está no plano e não gera fatura. <b>Billable</b> a Ventix faz, mas cobra. <b>Not covered</b> não é responsabilidade da Ventix. A diferença entre as duas últimas é o que o cliente mais confunde, e é o que você precisa saber dizer.</p>
+    <div id="cases"></div>
+  </div>
+</section>
+
+<!-- ============ 03 PRICE REVIEW ============ -->
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">03</div><div class="sec-tag">Does This Trigger a Price Review?</div></div>
+    <p class="sec-sub">Oito situações do último ano do Northwind. A B.4 permite reajuste em alguns casos e não em outros. Decida rápido, sem reler o anexo inteiro.</p>
+    <div id="triggers"></div>
+  </div>
+</section>
+
+<!-- ============ 04 OBJECTION ============ -->
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">04</div><div class="sec-tag">The Competitor's Offer</div></div>
+    <p class="sec-sub">Michael Turner recebeu uma proposta de um concorrente e traz o argumento para o Alex. Complete as respostas do Alex usando o banco de palavras. O objetivo não é negar o que o concorrente disse, é mostrar onde olhar.</p>
+
+    <div class="bank">
+      <div class="bank-label">Word bank</div>
+      <div class="bank-items" id="bank"></div>
+    </div>
+
+    <div class="beat">
+      <div class="turn client">
+        <div class="turn-who"><b>Michael Turner</b>Northwind</div>
+        <div class="turn-said">Their offer is a fixed price for three years. No reviews, no adjustments. Yours can change in the middle of the term, and I have to explain that to David.</div>
+      </div>
+      <div class="turn rep">
+        <div class="turn-who"><b>Alex Morgan</b>Ventix</div>
+        <div class="turn-said">I understand why a fixed price sounds safer. What I would ask you to check is what sits <input class="gap" data-a="within the scope of" placeholder="1"> that fixed price, and what sits <input class="gap" data-a="outside the scope" placeholder="2">. Our price is <input class="gap" data-a="subject to adjustment" placeholder="3"> only when the operating conditions change, and every one of those triggers is something your team controls.</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="turn client">
+        <div class="turn-who"><b>Michael Turner</b>Northwind</div>
+        <div class="turn-said">They also say there is no fine print. Everything is included.</div>
+      </div>
+      <div class="turn rep">
+        <div class="turn-who"><b>Alex Morgan</b>Ventix</div>
+        <div class="turn-said">Then I would ask them one question. When the airend needs an overhaul in year two, is that <input class="gap" data-a="at no additional cost" placeholder="4">, or is it <input class="gap" data-a="quoted separately" placeholder="5">? That is the line that matters, and it is worth getting the answer in writing.</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="turn client">
+        <div class="turn-who"><b>Michael Turner</b>Northwind</div>
+        <div class="turn-said">And if it does not work out, we can just leave.</div>
+      </div>
+      <div class="turn rep">
+        <div class="turn-who"><b>Alex Morgan</b>Ventix</div>
+        <div class="turn-said">So can they, and that cuts both ways. I would look at the <input class="gap" data-a="notice period" placeholder="6"> on their side. If they can walk away in thirty days, a three-year fixed price only lasts as long as they want it to.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin:22px 0 30px">
+      <button class="tool-btn" onclick="checkGaps()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Check answers
+      </button>
+      <button class="tool-btn muted" onclick="clearGaps()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        Clear and try again
+      </button>
+    </div>
+
+    <div class="frames">
+      <div class="frames-label">Useful Language</div>
+      <div class="frame-row"><div class="frame-en">I understand why that sounds safer.</div><div class="frame-pt">Entendo por que isso parece mais seguro.</div></div>
+      <div class="frame-row"><div class="frame-en">What sits inside that price, and what sits outside it?</div><div class="frame-pt">O que está dentro desse preço e o que está fora dele?</div></div>
+      <div class="frame-row"><div class="frame-en">Then I would ask them one question.</div><div class="frame-pt">Então eu faria uma pergunta a eles.</div></div>
+      <div class="frame-row"><div class="frame-en">That is the line that matters.</div><div class="frame-pt">Essa é a linha que importa, é aí que está a diferença.</div></div>
+      <div class="frame-row"><div class="frame-en">It is worth getting that in writing.</div><div class="frame-pt">Vale a pena conseguir isso por escrito.</div></div>
+      <div class="frame-row"><div class="frame-en">That cuts both ways.</div><div class="frame-pt">Isso vale para os dois lados.</div></div>
+      <div class="frame-row"><div class="frame-en">Every trigger is something your team controls.</div><div class="frame-pt">Todo gatilho é algo que a sua equipe controla.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 THE EXTRAS LOG ============ -->
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><div class="sec-num">05</div><div class="sec-tag">What the Year Actually Cost</div></div>
+    <p class="sec-sub">Quatro das dez ligações viraram fatura. Some os extras e compare com o preço do plano seguinte. Esse é o business case do Alex, e ele sai do próprio exercício.</p>
+
+    <div class="log">
+      <button class="tool-btn" onclick="toggleLog()" id="logBtn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        Show the invoices
+      </button>
+      <div class="log-body" id="logBody">
+        <div class="log-row"><span>Saturday visit, overtime rate (B.3)</span><span>USD 640</span></div>
+        <div class="log-row"><span>Coupling replacement, quoted separately (B.2)</span><span>USD 1,450</span></div>
+        <div class="log-row"><span>Waiting time, fifty minutes on site (B.3)</span><span>USD 190</span></div>
+        <div class="log-row"><span>Airend overhaul (B.7)</span><span>USD 7,300</span></div>
+        <div class="log-row total"><span>Extras invoiced over twelve months</span><span>USD 9,580</span></div>
+
+        <div class="compare">
+          <div class="compare-line"><span>Service Plan, annual price</span><b>USD 9,800</b></div>
+          <div class="compare-line"><span>Extras invoiced on top</span><b>USD 9,580</b></div>
+          <div class="compare-line"><span>Total paid</span><b>USD 19,380</b></div>
+          <div class="compare-line gap-line"><span>Total Responsibility Plan, same unit</span><b>USD 17,400</b></div>
+        </div>
+
+        <p style="font-size:12.5px;line-height:1.75;color:var(--mid);margin-top:16px">
+          <b style="color:var(--ink)">Careful with this argument.</b> O overhaul acontece uma vez a cada vários anos. Num ano sem overhaul, o Northwind pagaria 12.080 dólares e o Service Plan sairia mais barato. O argumento honesto do Alex não é "o outro plano é sempre mais barato", é "você não sabe em qual ano você está". Se o aluno usar o número sem essa ressalva, o David Kim derruba na primeira reunião.
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top:34px">
+      <div class="frames-label" style="margin-bottom:16px">Talking Points</div>
+      <div class="disc">
+        <div class="disc-q">What makes a service contract feel fair to a client, even when it excludes things?</div>
+        <div class="disc-q">What is the difference between maintenance and a repair?</div>
+        <div class="disc-q">What makes a price adjustment clause acceptable rather than suspicious?</div>
+        <div class="disc-q">What is the difference between saying no and saying not included?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="footer-word">EIC · Before It Breaks</span>
+  <nav class="footer-nav">
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-fine-print.html">Section 4 · Warranty</a>
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-documents.html">Documents</a>
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-stakeholders.html">Stakeholder Map</a>
+    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-policy-hub.html">Contract Files</a>
+  </nav>
+  <span class="footer-copy">Exhibit B · Conditions Applicable to Service Plans<br>Ventix Compressors e Northwind HQ são empresas fictícias.</span>
+</footer>
+
+<button class="vocab-fab" onclick="openVocab()">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+  Glossary
+</button>
+
+<div class="vocab-overlay" id="vocabOverlay" onclick="closeVocab()"></div>
+<aside class="vocab-drawer" id="vocabDrawer">
+  <div class="vocab-drawer-head">
+    <span>Glossary · Service Plans</span>
+    <button class="vocab-drawer-close" onclick="closeVocab()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="vocab-drawer-body" id="vocabBody"></div>
+</aside>
+
+<div class="plain-overlay" id="plainOverlay" onclick="if(event.target===this)closePlain()">
+  <div class="plain-modal">
+    <div class="plain-modal-head">
+      <div>
+        <div class="plain-modal-eyebrow">Plain English</div>
+        <div class="plain-modal-title" id="plainTitle"></div>
+      </div>
+      <button class="x-btn" onclick="closePlain()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="plain-modal-body">
+      <div class="plain-text" id="plainText"></div>
+      <div class="plain-example">
+        <div class="plain-example-label">In practice</div>
+        <p id="plainEx"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="gl-tip"><div id="gl-tip-label">Português</div><div id="gl-tip-pt"></div></div>
+
+<!-- Narração do Exhibit B. Se o arquivo não existir, os botões de áudio simplesmente não aparecem. -->
+<script defer src="audio-data-service-plan.js" onerror="window.SP_AUDIO=null"></script>
+
+<script>
+/* ---------- shuffle ---------- */
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- tooltips ---------- */
+var TIPS = {
+  "activitylist":{pt:"lista de atividades previstas na visita"},
+  "quotedseparately":{pt:"orçado à parte, cobrado fora do plano"},
+  "signedoff":{pt:"assinado, aprovado formalmente"},
+  "outsidescope":{pt:"fora do escopo, não incluído"},
+  "consumables":{pt:"consumíveis (filtros, óleo, elementos)"},
+  "billedseparately":{pt:"faturado à parte"},
+  "standbyair":{pt:"ar reserva, compressor substituto temporário"},
+  "overtimerate":{pt:"tarifa de hora extra"},
+  "rescheduled":{pt:"reagendada, remarcada"},
+  "mileage":{pt:"quilometragem, custo de deslocamento"},
+  "reviewdate":{pt:"data-base de revisão anual"},
+  "subjecttoadjustment":{pt:"sujeito a reajuste"},
+  "runninghours":{pt:"horas de operação da máquina"},
+  "obliged":{pt:"obrigado a, tem o dever de"},
+  "thirdparty":{pt:"terceiro, empresa ou pessoa de fora"},
+  "outsideparameters":{pt:"fora dos parâmetros especificados"},
+  "overhaul":{pt:"revisão geral, recondicionamento"},
+  "listprice":{pt:"preço de tabela"},
+  "autorenew":{pt:"renova automaticamente"},
+  "breach":{pt:"descumprimento contratual"}
+};
+function initTooltips(){
+  var tip=document.getElementById("gl-tip"), tipPt=document.getElementById("gl-tip-pt");
+  if(!tip) return;
+  document.querySelectorAll(".tt").forEach(function(el){
+    var data=TIPS[el.dataset.tip]; if(!data) return;
+    function move(e){
+      var x=Math.max(8,Math.min(e.clientX-130,window.innerWidth-280));
+      tip.style.left=x+"px"; tip.style.top=(e.clientY-tip.offsetHeight-18)+"px";
+    }
+    function show(e){ tipPt.textContent=data.pt; tip.style.display="block"; move(e); }
+    el.addEventListener("mouseenter",show);
+    el.addEventListener("mousemove",move);
+    el.addEventListener("mouseleave",function(){tip.style.display="none";});
+    el.addEventListener("click",function(e){
+      e.preventDefault();
+      if(tip.style.display==="block"){tip.style.display="none";return;}
+      show(e);
+    });
+  });
+}
+
+/* ---------- plain english ---------- */
+var PLAIN={
+ "B.1":{t:"B.1 · Scope of Each Visit",
+  p:"The Quotation is the list. It says <b>how many visits</b> you get and <b>what the technician does</b> on each one. Anything not on that list gets a separate price. It also names <b>which machines</b> are covered, so a machine that is not on the list is not in the plan.",
+  e:"Northwind's Quotation covers the compressor and the dryer, four visits a year. A technician can check both on the same visit. If Northwind buys a second compressor, it is not covered until it is added to the Agreement."},
+ "B.2":{t:"B.2 · Repairs, Consumables and Standby Air",
+  p:"The plan is <b>maintenance, not repair</b>. The technician inspects and services the machine. When he finds something broken, he writes it in the report and Ventix sends a quote. Parts, oil and filters are invoiced. And if the machine stops, Ventix does <b>not</b> owe you a replacement unit for free.",
+  e:"During visit two the technician finds a worn coupling. The inspection was covered. The coupling is a repair, so it comes as a separate quote. Only the Total Responsibility Plan would have absorbed it."},
+ "B.3":{t:"B.3 · Working Hours, Access and Waiting Time",
+  p:"Visits happen <b>Monday to Friday, 07:30 to 16:00</b>. Want the technician on a Saturday? That is possible, at the overtime rate. If he arrives on time and cannot get to the machine, the clock starts: after <b>thirty minutes</b> the waiting can be invoiced. If he is sent away and has to come back, Northwind pays the travel.",
+  e:"A safety audit locks the compressor room. The technician waits fifty minutes. Twenty of those minutes are free, and the rest can appear on the invoice as an extra hour."},
+ "B.4":{t:"B.4 · Price Adjustments",
+  p:"Two different things can move the price. First, the <b>anniversary of the contract</b>, every twelve months. Second, and this surprises clients, <b>a change in how or where the machine runs</b>: moving it, blocking its air, changing the electrics, or running it more than a thousand hours above the estimate.",
+  e:"Northwind estimated 4,000 hours a year. If the machine runs 4,600 hours, nothing happens, because that is under the one thousand hour margin. At 5,300 hours, Ventix can re-price the contract."},
+ "B.5":{t:"B.5 · Client Responsibilities",
+  p:"The plan does not remove all the work from Northwind. Their own team still does the <b>daily and weekly checks</b> in the manual, still uses <b>genuine parts and approved oil</b>, still tells Ventix when something changes, and still has to let the technician in, with light, power and a forklift if one is needed.",
+  e:"Northwind's team tops up the oil between visits with a cheaper lubricant. That is a breach of B.5, and it moves the next failure outside the plan."},
+ "B.6":{t:"B.6 · When Ventix Is Not Obliged to Service",
+  p:"There are situations where Ventix can simply say <b>this is not ours</b>. Someone else damaged the machine. The power failed. Something contaminated the system. The client ignored the daily checks. The machine ran outside its limits. Ventix can still come and fix it, but as a <b>paid repair</b>, not as plan work.",
+  e:"An electrical contractor working on a different project damages the control panel. Ventix is not obliged to repair it under the plan. Owen can still send someone, with a quote attached."},
+ "B.7":{t:"B.7 · Overhauls",
+  p:"When Ventix's readings say the machine needs a <b>full overhaul</b>, Northwind has to release the machine. If they refuse, Ventix stops being responsible for servicing it at all. The overhaul itself is <b>always a separate price</b>. And if Northwind leaves the contract right after getting one, they pay the full list price for it.",
+  e:"Monitoring shows the airend is due. Northwind agrees, and Ventix quotes the overhaul separately. Making the machine available is an obligation. Paying for the overhaul is a separate line."},
+ "B.8":{t:"B.8 · Term, Renewal and Termination",
+  p:"The contract <b>renews itself</b> every twelve months. To stop it, someone has to write, at least <b>thirty days before the end</b>. Either side can also leave with thirty days' notice at any time. Ventix can leave immediately if conditions change badly or if Northwind breaks the contract and does not fix it in thirty days. Anything paid for and not delivered comes back.",
+  e:"Northwind pays annually in advance and terminates with two visits left. They are entitled to a refund for those two visits."}
+};
+function openPlain(k){
+  var d=PLAIN[k]; if(!d) return;
+  document.getElementById("plainTitle").textContent=d.t;
+  document.getElementById("plainText").innerHTML=d.p;
+  document.getElementById("plainEx").innerHTML=d.e;
+  document.getElementById("plainOverlay").classList.add("open");
+}
+function closePlain(){document.getElementById("plainOverlay").classList.remove("open");}
+
+/* ---------- glossary drawer ---------- */
+var GLOSS=[
+ {g:"Scope",items:[
+  ["within the scope of","dentro do escopo de","The dryer is within the scope of the agreement, so he can check it."],
+  ["outside the scope","fora do escopo","A second compressor is outside the scope until it is added."],
+  ["activity list","lista de atividades da visita","If it is not on the activity list, it is not part of the visit."],
+  ["standby air","ar reserva, máquina substituta","Standby air is not included unless we agree it in writing."],
+  ["consumables","consumíveis","Filters and oil are consumables, and they are billed separately."]]},
+ {g:"Money",items:[
+  ["quoted separately","orçado à parte","The repair is quoted separately from the plan."],
+  ["billed separately","faturado à parte","Spare parts are billed separately as required."],
+  ["at no additional cost","sem custo adicional","He can do that on the same visit at no additional cost."],
+  ["overtime rate","tarifa de hora extra","Saturday work is charged at the overtime rate."],
+  ["subject to adjustment","sujeito a reajuste","The annual price is subject to adjustment on the review date."],
+  ["list price","preço de tabela","Early termination means paying the list price of the overhaul."]]},
+ {g:"The machine and the site",items:[
+  ["running hours","horas de operação","The unit ran 1,300 hours above the estimate."],
+  ["rated pressure","pressão nominal","The unit is rated for 100 PSI."],
+  ["overhaul","revisão geral","Monitoring says the airend is due for an overhaul."],
+  ["outside specified parameters","fora dos parâmetros especificados","The unit was operated outside specified parameters."],
+  ["free access","acesso livre","The client provides free access to the unit."],
+  ["mileage","custo de deslocamento","Travel time and mileage are borne by the client."]]},
+ {g:"The contract",items:[
+  ["review date","data-base de revisão","The price is reviewed on each review date."],
+  ["renew automatically","renovar automaticamente","The agreement renews automatically every twelve months."],
+  ["notice period","prazo de aviso prévio","Either party may leave with a thirty-day notice period."],
+  ["breach","descumprimento","A continuing breach not remedied in thirty days ends the agreement."],
+  ["sign off on","assinar, dar aval a","Michael has to sign off on the service report."],
+  ["be obliged to","ser obrigado a","Ventix is not obliged to service the unit in that case."]]}
+];
+function buildGloss(){
+  var h="";
+  GLOSS.forEach(function(grp){
+    h+='<div class="vocab-group"><div class="vocab-group-label">'+grp.g+'</div>';
+    grp.items.forEach(function(it){
+      h+='<div class="vocab-drawer-row"><div class="vocab-drawer-term">'+it[0]+'</div>'+
+         '<div class="vocab-drawer-pt">'+it[1]+'</div>'+
+         '<div class="vocab-drawer-ex">'+it[2]+'</div></div>';
+    });
+    h+='</div>';
+  });
+  document.getElementById("vocabBody").innerHTML=h;
+}
+function openVocab(){document.getElementById("vocabOverlay").classList.add("open");document.getElementById("vocabDrawer").classList.add("open");}
+function closeVocab(){document.getElementById("vocabOverlay").classList.remove("open");document.getElementById("vocabDrawer").classList.remove("open");}
+
+/* ---------- cases ---------- */
+var CASES=[
+ {s:'Scheduled visit three of four. The technician works through the activity list, replaces the filters named in the Quotation, and Michael Turner signs the service report before he leaves.',
+  a:'inc',c:'B.1',id:'c-b1',
+  v:'<b>Included.</b> Under B.1, this is exactly what the Quotation describes. The visit is on the schedule, the activity list is complete, and the report is signed.',
+  r:'"That one is straightforward. Visit three was on the schedule, the activity list is complete, and Michael signed the report. Nothing to invoice."'},
+
+ {s:'Northwind asks for the next visit on a Saturday. The line cannot stop during the week, and Frank Dawson will not release the compressor on a production day.',
+  a:'bill',c:'B.3',id:'c-b3',
+  v:'<b>Billable.</b> Under B.3, Ventix can work outside normal hours, but the visit is charged at the overtime rate in force on that date.',
+  r:'"Saturday is not a problem. I do need to flag that work outside normal hours goes at the overtime rate, so this visit will show up on your next invoice."'},
+
+ {s:'During a routine visit the technician finds a worn coupling. It is not on the activity list. He records it in the service report as a recommendation.',
+  a:'bill',c:'B.2',id:'c-b2',
+  v:'<b>Billable.</b> Under B.2, the inspection is covered but the repair is not. Only the Total Responsibility Plan would absorb it, and the Summary shows Northwind holds the Service Plan.',
+  r:'"The inspection is covered, the coupling is not. Your plan covers scheduled maintenance, so I will send a separate quote for the replacement."'},
+
+ {s:'An electrical contractor working on an unrelated building project damages the compressor control panel. Northwind calls asking Ventix to replace it under the plan.',
+  a:'not',c:'B.6',id:'c-b6',
+  v:'<b>Not covered.</b> Under B.6, damage caused by a third party removes the obligation to service under the Agreement. Ventix may still attend, quoted as a repair.',
+  r:'"This one falls outside the agreement, because the damage came from third-party work. I can still get a technician out there, but it goes as a repair with a quote attached."'},
+
+ {s:'On a scheduled visit, Northwind asks the technician to also look at the refrigerated dryer, which has been running warm. The dryer appears on the Pricing and Services Summary.',
+  a:'inc',c:'B.1',id:'c-b1',
+  v:'<b>Included.</b> Under B.1, the scope follows the equipment named in the Quotation. The dryer is listed, so it is covered on the same visit.',
+  r:'"The dryer is on your summary, so it is inside the scope. He can look at it on the same visit at no additional cost."'},
+
+ {s:'The compressor is down for two days waiting for a part. Production is losing output. Northwind asks Ventix to send a rental unit free of charge, since they pay for a plan.',
+  a:'not',c:'B.2',id:'c-b2',
+  v:'<b>Not covered.</b> Under B.2, standby air and temporary hire are excluded unless agreed in writing. Nothing in SA-4471 adds them.',
+  r:'"I understand the pressure you are under. Standby air is not part of the plan, but I can have a rental unit on site today and quote it separately."'},
+
+ {s:'The technician arrives at the agreed time. The compressor room is locked for a safety audit and he waits fifty minutes before anyone can let him in.',
+  a:'bill',c:'B.3',id:'c-b3',
+  v:'<b>Billable.</b> Under B.3, waiting beyond thirty minutes can be charged. Twenty minutes were free, the rest can be invoiced as additional hours.',
+  r:'"He waited fifty minutes for access. Anything past thirty can be charged, so there will be an extra hour on this visit."'},
+
+ {s:'Northwind has hired a new operator. During a scheduled visit, Michael asks the technician to walk him through the controller settings before he leaves.',
+  a:'inc',c:'B.1',id:'c-b1',
+  v:'<b>Included.</b> Under B.1 this sits inside the visit already scheduled. Nothing extra is being performed and no separate work is required.',
+  r:'"That is part of the visit. He can take your new operator through the controller before he packs up, no charge."'},
+
+ {s:'Monitoring readings taken by Ventix show the airend is due for an overhaul. Northwind agrees and releases the machine for the work.',
+  a:'bill',c:'B.7',id:'c-b7',
+  v:'<b>Billable.</b> Under B.7, making the unit available is an obligation on the client, but the overhaul itself is always quoted separately.',
+  r:'"The readings say the airend needs an overhaul. Releasing the machine is on your side of the agreement, and the overhaul comes as a separate quote."'},
+
+ {s:'Between visits, Northwind\'s own maintenance team tops up the oil using a cheaper lubricant that is not on the approved list. Six weeks later a fault appears in the same system.',
+  a:'not',c:'B.5',id:'c-b5',
+  v:'<b>Not covered.</b> Under B.5 the client must use approved lubricants, and B.6 removes the obligation to service when B.5 has not been met.',
+  r:'"The log shows a top-up with a lubricant that is not on the approved list. That puts this one outside the plan. I can quote the repair, and I would like to talk about who handles your top-ups."'}
+];
+var LABELS={inc:"Included",bill:"Billable",not:"Not covered"};
+function buildCases(){
+  var h="";
+  CASES.forEach(function(c,i){
+    h+='<div class="case-card">'+
+       '<div class="case-num">Call '+(i+1)+'</div>'+
+       '<p class="case-scenario">'+c.s+'</p>'+
+       '<div class="case-choice">'+
+         '<button class="case-btn" data-k="inc" onclick="chooseCase(this)">Included</button>'+
+         '<button class="case-btn" data-k="bill" onclick="chooseCase(this)">Billable</button>'+
+         '<button class="case-btn" data-k="not" onclick="chooseCase(this)">Not covered</button>'+
+       '</div>'+
+       '<div class="case-verdict" data-ans="'+c.a+'">'+c.v+'</div>'+
+       '<div class="reply-card"><div class="reply-label">How Owen puts it</div><div class="reply-text">'+c.r+'</div></div>'+
+       '<div class="case-tools">'+
+         '<button class="tool-btn" onclick="jumpTo(\''+c.id+'\')">Open clause '+c.c+'</button>'+
+         '<button class="tool-btn muted" onclick="resetCase(this)">Hide and try again</button>'+
+       '</div>'+
+       '</div>';
+  });
+  document.getElementById("cases").innerHTML=h;
+}
+function chooseCase(btn){
+  var sel=window.getSelection(); if(sel&&sel.toString().length>0) return;
+  var card=btn.closest(".case-card");
+  var ans=card.querySelector(".case-verdict").dataset.ans;
+  var opts=card.querySelectorAll(".case-btn");
+  opts.forEach(function(o){o.classList.remove("correct","wrong");o.disabled=true;});
+  if(btn.dataset.k===ans){ btn.classList.add("correct"); }
+  else{
+    btn.classList.add("wrong");
+    opts.forEach(function(o){ if(o.dataset.k===ans) o.classList.add("correct"); });
+  }
+  card.querySelector(".case-verdict").classList.add("show");
+  card.querySelector(".reply-card").classList.add("show");
+  card.querySelector(".case-tools").classList.add("show");
+}
+function resetCase(btn){
+  var card=btn.closest(".case-card");
+  card.querySelectorAll(".case-btn").forEach(function(o){o.classList.remove("correct","wrong");o.disabled=false;});
+  card.querySelector(".case-verdict").classList.remove("show");
+  card.querySelector(".reply-card").classList.remove("show");
+  card.querySelector(".case-tools").classList.remove("show");
+}
+function jumpTo(id){
+  var el=document.getElementById(id); if(!el) return;
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+  el.classList.add("flash");
+  setTimeout(function(){el.classList.remove("flash");},1800);
+}
+
+/* ---------- triggers ---------- */
+var TRIG=[
+ {t:'Northwind moves the compressor twenty metres, to the other side of the same building.',a:'y',
+  w:'Yes. B.4 counts moving the unit as a major change, even inside the same facility. The air flow, the ambient temperature and the access all change.'},
+ {t:'The unit runs 4,600 hours over the year. The Quotation estimated 4,000.',a:'n',
+  w:'No. B.4 allows a margin of one thousand hours over the estimate. Six hundred hours is inside that margin.'},
+ {t:'The following year the unit runs 5,300 hours against the same 4,000 hour estimate.',a:'y',
+  w:'Yes. That is 1,300 hours above the estimate, past the one thousand hour margin in B.4.'},
+ {t:'A new packaging line is installed beside the compressor, partly blocking the cooling air intake.',a:'y',
+  w:'Yes. B.4 names cooling air intake specifically. The machine now runs hotter, and that changes the service it needs.'},
+ {t:'Northwind replaces David Kim with a new procurement manager.',a:'n',
+  w:'No. B.4 is about the operating and site conditions of the unit. Who signs the purchase order does not change how the machine runs.'},
+ {t:'The agreement reaches the end of its first twelve months.',a:'y',
+  w:'Yes. That is the review date in B.4, and the annual price is reviewed on completion of each twelve month period.'},
+ {t:'Ventix assigns a different technician to the account.',a:'n',
+  w:'No. Nothing in B.4 links the price to a named technician. This is a Ventix internal change.'},
+ {t:'Northwind adds a second compressor to the same agreement.',a:'y',
+  w:'Yes. B.4 ends with the addition of service, and a second unit is exactly that.'}
+];
+function buildTrig(){
+  var h="";
+  TRIG.forEach(function(x,i){
+    h+='<div class="trig">'+
+       '<div class="trig-text">'+x.t+'</div>'+
+       '<div class="trig-btns">'+
+         '<button class="trig-btn" data-k="y" onclick="chooseTrig(this)">Yes</button>'+
+         '<button class="trig-btn" data-k="n" onclick="chooseTrig(this)">No</button>'+
+       '</div>'+
+       '<div class="trig-why" data-ans="'+x.a+'">'+x.w+' <button class="tool-btn muted" style="margin-left:6px" onclick="resetTrig(this)">Hide</button></div>'+
+       '</div>';
+  });
+  document.getElementById("triggers").innerHTML=h;
+}
+function chooseTrig(btn){
+  var row=btn.closest(".trig");
+  var ans=row.querySelector(".trig-why").dataset.ans;
+  var opts=row.querySelectorAll(".trig-btn");
+  opts.forEach(function(o){o.classList.remove("correct","wrong");o.disabled=true;});
+  if(btn.dataset.k===ans){btn.classList.add("correct");}
+  else{btn.classList.add("wrong");opts.forEach(function(o){if(o.dataset.k===ans)o.classList.add("correct");});}
+  row.querySelector(".trig-why").classList.add("show");
+}
+function resetTrig(btn){
+  var row=btn.closest(".trig");
+  row.querySelectorAll(".trig-btn").forEach(function(o){o.classList.remove("correct","wrong");o.disabled=false;});
+  row.querySelector(".trig-why").classList.remove("show");
+}
+
+/* ---------- gap fill ---------- */
+var BANK=["notice period","running hours","quoted separately","within the scope of","list price","at no additional cost","outside the scope","subject to adjustment"];
+function buildBank(){
+  var items=shuffle(BANK.slice());
+  document.getElementById("bank").innerHTML=items.map(function(x){return '<span class="bank-chip">'+x+'</span>';}).join("");
+}
+function norm(s){return s.toLowerCase().replace(/[.,]/g,"").replace(/\s+/g," ").trim();}
+function checkGaps(){
+  document.querySelectorAll(".gap").forEach(function(g){
+    g.classList.remove("ok","no");
+    if(!g.value.trim()) return;
+    g.classList.add(norm(g.value)===norm(g.dataset.a)?"ok":"no");
+  });
+}
+function clearGaps(){
+  document.querySelectorAll(".gap").forEach(function(g){g.value="";g.classList.remove("ok","no");});
+}
+
+/* ---------- extras log ---------- */
+function toggleLog(){
+  var b=document.getElementById("logBody"), t=document.getElementById("logBtn");
+  var open=b.classList.toggle("show");
+  t.innerHTML=(open
+    ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5 19 1 12 1 12a19 19 0 0 1 5.1-5.9"/><path d="m1 1 22 22"/><path d="M9.9 4.2A10.9 10.9 0 0 1 12 4c7 0 11 8 11 8a19 19 0 0 1-2.8 3.9"/></svg> Hide the invoices'
+    : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg> Show the invoices');
+}
+
+
+/* ---------- audio ---------- */
+var AUDIO = null, CURRENT = null, CHAINING = false;
+var ORDER = ["B.1","B.2","B.3","B.4","B.5","B.6","B.7","B.8"];
+
+function hasAudio(){ return (typeof SP_AUDIO !== "undefined") && SP_AUDIO && Object.keys(SP_AUDIO).length > 0; }
+
+function initAudio(tries){
+  tries = tries || 0;
+  if(!hasAudio()){
+    if(tries < 8){ setTimeout(function(){ initAudio(tries+1); }, 250); return; }
+    document.getElementById("audioMissing").classList.add("on");
+    console.warn("[EIC] SP_AUDIO ausente. Coloque audio-data-service-plan.js na mesma pasta deste HTML.");
+    return;
+  }
+  document.getElementById("audioMissing").classList.remove("on");
+  AUDIO = new Audio();
+  AUDIO.preload = "none";
+  document.getElementById("listenAll").classList.add("on");
+  document.getElementById("audioHint").classList.add("on");
+  document.querySelectorAll(".play-dot").forEach(function(b){
+    if(SP_AUDIO[b.dataset.clip]) b.classList.add("on");
+  });
+  /* só o fim da faixa reseta a posição, pausa preserva o currentTime */
+  AUDIO.addEventListener("ended", function(){
+    AUDIO.currentTime = 0;
+    var finished = CURRENT;
+    paintIdle();
+    if(CHAINING){
+      var next = ORDER[ORDER.indexOf(finished) + 1];
+      if(next && SP_AUDIO[next]){ startClip(next, true); return; }
+      CHAINING = false; paintAll(false);
+    }
+    CURRENT = null;
+  });
+}
+
+function paintIdle(){
+  document.querySelectorAll(".play-dot").forEach(function(b){ b.classList.remove("active"); paintIcon(b, false); });
+  document.querySelectorAll(".clause").forEach(function(c){ c.classList.remove("playing"); });
+}
+function paintIcon(btn, playing){
+  btn.innerHTML = playing
+    ? '<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg>'
+    : '<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg>';
+}
+function paintAll(playing){
+  var el=document.getElementById("listenAll"), lab=document.getElementById("allLabel"), ic=document.getElementById("allIcon");
+  el.classList.toggle("active", playing);
+  lab.textContent = playing ? "Pause" : "Listen to the whole exhibit";
+  ic.innerHTML = playing
+    ? '<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg>'
+    : '<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg>';
+}
+function markCurrent(){
+  paintIdle();
+  var btn=document.querySelector('.play-dot[data-clip="'+CURRENT+'"]');
+  if(btn){ btn.classList.add("active"); paintIcon(btn, true); }
+  var cl=document.getElementById("c-b"+CURRENT.split(".")[1]);
+  if(cl) cl.classList.add("playing");
+}
+
+function startClip(id, scroll){
+  AUDIO.src = SP_AUDIO[id];
+  AUDIO.currentTime = 0;
+  CURRENT = id;
+  AUDIO.play();
+  markCurrent();
+  if(scroll){
+    var cl=document.getElementById("c-b"+id.split(".")[1]);
+    if(cl) cl.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+}
+
+function playClip(id){
+  if(!hasAudio() || !SP_AUDIO[id]) return;
+  if(CURRENT === id){
+    if(AUDIO.paused){ AUDIO.play(); markCurrent(); }
+    else { AUDIO.pause(); paintIdle(); }   /* pausa mantém a posição */
+    return;
+  }
+  CHAINING = false; paintAll(false);
+  startClip(id, false);
+}
+
+function toggleAll(){
+  if(!hasAudio()) return;
+  if(CHAINING && CURRENT && !AUDIO.paused){ AUDIO.pause(); paintIdle(); paintAll(false); return; }
+  if(CHAINING && CURRENT && AUDIO.paused){ AUDIO.play(); markCurrent(); paintAll(true); return; }
+  CHAINING = true; paintAll(true);
+  startClip(ORDER[0], true);
+}
+
+/* ---------- init ---------- */
+document.addEventListener("DOMContentLoaded",function(){
+  buildCases(); buildTrig(); buildBank(); buildGloss(); initTooltips(); initAudio();
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){closePlain();closeVocab();}
+  });
+});
+</script>
+</body>
+</html>
