@@ -91,6 +91,34 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .footer-nav a:hover{color:var(--hi)}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
 @media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center}.footer-copy{text-align:center}}
+
+/* navbar do modulo */
+.mn-open{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);
+  color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;padding:0;transition:background .15s ease}
+.mn-open:hover{background:rgba(255,255,255,.18)}
+.mn-veil{position:fixed;inset:0;background:rgba(7,16,32,.62);z-index:300;opacity:0;pointer-events:none;transition:opacity .26s ease}
+.mn-veil.on{opacity:1;pointer-events:auto}
+.mn{position:fixed;top:0;right:0;bottom:0;width:352px;max-width:86vw;background:#071020;z-index:310;
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.mn.on{transform:translateX(0)}
+.mn-top{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;flex:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.mn-top b{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.mn-x{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex:none;padding:0}
+.mn-body{flex:1;overflow-y:auto;padding:20px 22px 40px}
+.mn-grp{font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#E8621A;margin:22px 0 8px}
+.mn-grp:first-child{margin-top:0}
+.mn-a{display:flex;align-items:center;gap:11px;padding:9px 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);
+  opacity:0;transform:translateX(16px);transition:opacity .3s ease,transform .3s ease}
+.mn.on .mn-a{opacity:1;transform:translateX(0)}
+.mn-n{font-size:9.5px;font-weight:800;color:rgba(255,255,255,.28);min-width:17px;flex:none;letter-spacing:.04em}
+.mn-t{font-size:13.5px;font-weight:600;color:rgba(255,255,255,.72);line-height:1.4;transition:color .15s ease}
+.mn-a:hover .mn-t{color:#fff}
+.mn-a.here{border-bottom-color:rgba(245,255,0,.3)}
+.mn-a.here .mn-t{color:#F5FF00;font-weight:800}
+.mn-a.here .mn-n{color:#F5FF00}
+.mn-dot{width:5px;height:5px;border-radius:50%;background:#F5FF00;margin-left:auto;flex:none}
+.mn-foot{padding:16px 22px;border-top:1px solid rgba(255,255,255,.08);font-size:10.5px;line-height:1.6;color:rgba(255,255,255,.25);flex:none}
 </style>
 </head>
 <body>
@@ -99,8 +127,11 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   <span class="hdr-word">EIC escola</span>
   <div class="hdr-right">
     <span class="hdr-meta">Before It Breaks · Contract Files</span>
-    <a class="hdr-link" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-documents.html">Documents</a>
-    <a class="hdr-link" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-stakeholders.html">Stakeholders</a>
+    <a class="hdr-link" href="../before-it-breaks-full/maint-documents.html">Documents</a>
+    <a class="hdr-link" href="../before-it-breaks-full/maint-stakeholders.html">Stakeholders</a>
+    <button class="mn-open" onclick="mnOpen()" aria-label="Abrir navegação do módulo">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+</button>
     <span class="hdr-badge">B1+</span>
   </div>
 </header>
@@ -133,11 +164,11 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           <div class="fact"><div class="fact-n">2</div><div class="fact-l">Vereditos</div></div>
         </div>
         <div class="doc-acts">
-          <a class="btn btn-open" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-fine-print.html">
+          <a class="btn btn-open" href="ventix-fine-print.html">
             Open the policy
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <a class="btn btn-pdf" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/section-4-fine-print-worksheet.pdf" download>
+          <a class="btn btn-pdf" href="section-4-fine-print-worksheet.pdf" download>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             PDF para imprimir
           </a>
@@ -160,11 +191,11 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           <div class="fact"><div class="fact-n">3</div><div class="fact-l">Vereditos</div></div>
         </div>
         <div class="doc-acts">
-          <a class="btn btn-open" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-service-plan.html">
+          <a class="btn btn-open" href="ventix-service-plan.html">
             Open the exhibit
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <a class="btn btn-pdf" href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/exhibit-b-service-plan-worksheet.pdf" download>
+          <a class="btn btn-pdf" href="exhibit-b-service-plan-worksheet.pdf" download>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             PDF para imprimir
           </a>
@@ -229,13 +260,91 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 <footer class="footer">
   <span class="footer-word">EIC · Before It Breaks</span>
   <nav class="footer-nav">
-    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-fine-print.html">Section 4</a>
-    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/ventix-service-plan.html">Exhibit B</a>
-    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-documents.html">Documents</a>
-    <a href="https://eic-worksheets.web.app/Sales/sales-bigmachines/before-it-breaks-full/maint-stakeholders.html">Stakeholder Map</a>
+    <a href="ventix-fine-print.html">Section 4</a>
+    <a href="ventix-service-plan.html">Exhibit B</a>
+    <a href="../before-it-breaks-full/maint-documents.html">Documents</a>
+    <a href="../before-it-breaks-full/maint-stakeholders.html">Stakeholder Map</a>
   </nav>
   <span class="footer-copy">Agreement SA-4471 · Ventix Compressors<br>Ventix e Northwind HQ são empresas fictícias.</span>
 </footer>
+
+<div class="mn-veil" id="mnVeil" onclick="mnClose()"></div>
+<aside class="mn" id="mn">
+  <div class="mn-top">
+    <b>Before It Breaks</b>
+    <button class="mn-x" onclick="mnClose()" aria-label="Fechar">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="mn-body" id="mnBody"></div>
+  <div class="mn-foot">Ventix Compressors e Northwind HQ são empresas fictícias.</div>
+</aside>
+
+<script>
+/* ---- única coisa a editar: a lista ---- */
+var MN_HERE = "";                          /* arquivos nesta mesma pasta */
+var MN_MAIN = "../before-it-breaks-full/"; /* pasta do resto do modulo   */
+var NAV = [
+  ["Start", [
+    ["maint-lead-in.html", "Lead-in", false]
+  ]],
+  ["The ground", [
+    ["maint-facility.html", "The Facility", false],
+    ["maint-stakeholders.html", "Stakeholder Map", false],
+    ["maint-documents.html", "Documents", false],
+    ["maint-stage-map.html", "Stage Map", false]
+  ]],
+  ["Language", [
+    ["maint-grammar.html", "Grammar", false],
+    ["maint-grammar-conditional.html", "Conditionals", false],
+    ["maint-grammar-supposed-to.html", "Supposed To", false],
+    ["maint-grammar-deduction.html", "Deduction", false],
+    ["maint-grammar-deduction-continuous.html", "Deduction Continuous", false],
+    ["maint-deduction-practice.html", "Deduction Practice", false]
+  ]],
+  ["In action", [
+    ["maint-scenes.html", "Scenes", false],
+    ["closing-deal-deduction.html", "Closing the Deal", false],
+    ["ventix-service-ladder.html", "Service Ladder", false]
+  ]],
+  ["Contract files", [
+    ["ventix-policy-hub.html", "The Contract Files", true],
+    ["ventix-fine-print.html", "Section 4 · The Fine Print", true],
+    ["ventix-service-plan.html", "Exhibit B · The Service Plan", true]
+  ]]
+];
+
+(function buildNav(){
+  var here = (location.pathname.split("/").pop() || "").toLowerCase();
+  var n = 0, html = "";
+  NAV.forEach(function(grp){
+    html += '<div class="mn-grp">' + grp[0] + '</div>';
+    grp[1].forEach(function(it){
+      n++;
+      var on = it[0].toLowerCase() === here;
+      html += '<a class="mn-a' + (on ? ' here' : '') + '" href="' + (it[2] ? MN_HERE : MN_MAIN) + it[0] + '"'
+            + ' style="transition-delay:' + (n * 26) + 'ms">'
+            + '<span class="mn-n">' + (n < 10 ? "0" + n : n) + '</span>'
+            + '<span class="mn-t">' + it[1] + '</span>'
+            + (on ? '<span class="mn-dot"></span>' : '')
+            + '</a>';
+    });
+  });
+  document.getElementById("mnBody").innerHTML = html;
+})();
+
+function mnOpen(){
+  document.getElementById("mn").classList.add("on");
+  document.getElementById("mnVeil").classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+function mnClose(){
+  document.getElementById("mn").classList.remove("on");
+  document.getElementById("mnVeil").classList.remove("on");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", function(e){ if(e.key === "Escape") mnClose(); });
+</script>
 
 </body>
 </html>
