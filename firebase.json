@@ -1,13 +1,25 @@
 {
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "predeploy": [
-      "node generate-hub.cjs"
-    ]
-  }
+  "hosting": [
+    {
+      "target": "worksheets",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "predeploy": [
+        "node generate-hub.cjs"
+      ]
+    },
+    {
+      "target": "familia",
+      "public": "public-familia",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
 }
