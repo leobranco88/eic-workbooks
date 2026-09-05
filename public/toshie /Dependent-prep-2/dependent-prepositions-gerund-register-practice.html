@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Register Practice · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 12.5px; color: #374151; margin-top: 8px; line-height: 1.5; max-width: 560px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 13px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.55; }
+  .recap-box { background: var(--bg-light); border-left: 3px solid var(--ink); padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: #374151; line-height: 1.65; }
+  .recap-box b { color: var(--ink); }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 15px; align-items: flex-start; font-size: 14.5px; line-height: 1.7; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .cue { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--muted); }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 140px; margin: 0 2px; vertical-align: baseline; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    REGISTER PRACTICE · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html">Reading (Homework)</a>
+    <a href="the-wrong-room-wh-questions.html">Wh-Questions</a>
+    <a href="the-wrong-room-wh-tenses-homework.html">Mixed Tenses</a>
+    <a href="dependent-prepositions-gerund-addendum.html">Addendum (Classroom)</a>
+    <a href="dependent-prepositions-gerund-addendum-homework.html">Addendum (Homework)</a>
+    <a href="dependent-prepositions-gerund-register-practice.html" class="active">Register Practice</a>
+    <a href="dependent-prepositions-full-self-test.html">Full Self-Test</a>
+  </div>
+  <div class="topbar-meta">EXTRA · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="dependent-prepositions-gerund-register-practice.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Extra Practice</div>
+        <h1>Dependent Prepositions<br><span>— His or Him?</span></h1>
+        <div class="hero-sub">Mais prática com pronome antes do gerúndio — decidindo o registro sozinha, e desta vez também escrevendo o verbo.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ D ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · D</span>
+      <span class="s-title">Mais Prática</span>
+      <span class="s-pts">10 items</span>
+    </div>
+    <p class="instruction">Escreva a forma (possessivo ou pronome objeto) que falta antes do gerúndio. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Sena wasn't used to <span class="blank"><span class="ans-inline">their / them</span></span> changing rooms without asking. <span class="cue">(the staff)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">The manager was annoyed about <span class="blank"><span class="ans-inline">their / them</span></span> complaining every day. <span class="cue">(the guests)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">I couldn't stop thinking about <span class="blank"><span class="ans-inline">her</span></span> forgetting her passport. <span class="cue">(she)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">Rio was nervous about <span class="blank"><span class="ans-inline">my / me</span></span> meeting his family for the first time. <span class="cue">(I)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">Nobody warned us about <span class="blank"><span class="ans-inline">the airline's / the airline</span></span> canceling the flight. <span class="cue">(the airline)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">Sena admitted to <span class="blank"><span class="ans-inline">her</span></span> overreacting a little. <span class="cue">(she)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">We're excited about <span class="blank"><span class="ans-inline">your / you</span></span> finally visiting Japan. <span class="cue">(you)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">The hotel apologized for <span class="blank"><span class="ans-inline">their / them</span></span> losing our reservation. <span class="cue">(they)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">I'm counting on <span class="blank"><span class="ans-inline">his / him</span></span> arriving early to help set up. <span class="cue">(he)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">Toshie laughed about <span class="blank"><span class="ans-inline">our / us</span></span> getting lost on the first day. <span class="cue">(we)</span></div></div>
+  </div>
+
+  <!-- ═══ E ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · E</span>
+      <span class="s-title">Formal ou Informal? His or Him?</span>
+      <span class="s-pts">10 items</span>
+    </div>
+
+    <div class="recap-box"><b>Lembrando:</b> as duas formas estão certas gramaticalmente — a diferença é o registro. O possessivo (<b>his, her, their, Rio's</b>) soa mais formal e é mais comum na escrita cuidadosa (e-mails, cartas, relatórios). O pronome objeto (<b>him, her, them, Rio</b>) soa mais natural e é o que se ouve na fala e em mensagens do dia a dia.</div>
+
+    <p class="instruction">Nenhuma dica desta vez — decida pelo tom e pelas palavras da própria frase. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Honestly, I don't mind <span class="blank"><span class="ans-inline">him</span></span> tagging along. <span class="cue">(him / his)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">The committee objected to <span class="blank"><span class="ans-inline">their</span></span> changing the policy without notice. <span class="cue">(their / them)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">We would appreciate <span class="blank"><span class="ans-inline">his</span></span> confirming the refund in writing. <span class="cue">(his / him)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">Thanks for <span class="blank"><span class="ans-inline">you</span></span> helping out today, seriously. <span class="cue">(your / you)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">I was surprised at <span class="blank"><span class="ans-inline">the manager's</span></span> failing to respond to three emails. <span class="cue">(the manager's / the manager)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">I get why you're annoyed about <span class="blank"><span class="ans-inline">him</span></span> canceling last minute. <span class="cue">(his / him)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">I'm not bothered about <span class="blank"><span class="ans-inline">them</span></span> coming late, don't worry about it. <span class="cue">(their / them)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">We are grateful for <span class="blank"><span class="ans-inline">their</span></span> supporting this project from the start. <span class="cue">(their / them)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">Can you believe <span class="blank"><span class="ans-inline">Sena</span></span> forgetting the tickets again? <span class="cue">(Sena's / Sena)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">The hotel thanked us for <span class="blank"><span class="ans-inline">our</span></span> choosing to stay again. <span class="cue">(our / us)</span></div></div>
+  </div>
+
+  <!-- ═══ F ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · F</span>
+      <span class="s-title">Pronome + Verbo</span>
+      <span class="s-pts">10 items</span>
+    </div>
+    <p class="instruction">Desta vez, nada está pronto: escreva o pronome (ou possessivo) <b>e</b> a forma -ing do verbo dado. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">The manager insisted on <span class="blank"><span class="ans-inline">my / me waiting</span></span> in the lobby. <span class="cue">(I / wait)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">Sena was surprised at <span class="blank"><span class="ans-inline">his / him apologizing</span></span> so quickly. <span class="cue">(he / apologize)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">Rio wasn't happy about <span class="blank"><span class="ans-inline">their / them forgetting</span></span> the booking. <span class="cue">(they / forget)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">The whole team was excited about <span class="blank"><span class="ans-inline">Toshie's / Toshie joining</span></span> the trip. <span class="cue">(Toshie / join)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">I'm tired of <span class="blank"><span class="ans-inline">your / you canceling</span></span> plans at the last minute. <span class="cue">(you / cancel)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">She was proud of <span class="blank"><span class="ans-inline">its / it turning</span></span> out so well. <span class="cue">(it / turn)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">We were all surprised at <span class="blank"><span class="ans-inline">her leaving</span></span> so suddenly. <span class="cue">(she / leave)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">The hotel apologized for <span class="blank"><span class="ans-inline">their / them losing</span></span> our reservation. <span class="cue">(they / lose)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">I'm counting on <span class="blank"><span class="ans-inline">his / him arriving</span></span> early to help set up. <span class="cue">(he / arrive)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">Toshie laughed about <span class="blank"><span class="ans-inline">our / us getting</span></span> lost on the first day. <span class="cue">(we / get)</span></div></div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>

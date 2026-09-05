@@ -2219,8 +2219,8 @@ ul.clean.dooded li .dood svg{width:36px;height:36px;display:block;overflow:visib
       <figure class="dj-foto dj-m"><img loading="lazy" decoding="async" src="assets/img/10-travado-numa-palavra-olhando-para.webp" alt="Travado numa palavra, olhando para o lado"></figure>
       <p class="pt">Hoje eu travei em <i>maresia</i>. É aquele cheiro que a praia tem de manhã cedo, de sal e de barco velho. Eu não faço ideia de como se diz isso em inglês, e fiquei uns bons segundos olhando para o nada com a caneta parada no ar.</p>
       <p class="en">Today I <span class="gl" data-g="travei em">got stuck on</span> <i>maresia</i>. It is that smell the beach has early in the morning, salt and old boats. I have no idea how you say it in English, and I sat there for a good few seconds staring at nothing with my pen in the air.</p>
-      <p class="pt">Duas semanas atrás eu teria parado tudo para procurar. Hoje eu escrevi maresia mesmo, circulei e continuei.</p>
-      <p class="en">Two weeks ago I would have stopped everything to look it up. Today I wrote maresia anyway, circled it and <span class="gl" data-g="continuei">carried on</span>.</p>
+      <p class="pt">Duas semanas atrás eu teria parado tudo para procurar. Hoje eu escrevi <i>maresia</i> mesmo, circulei e continuei.</p>
+      <p class="en">Two weeks ago I would have stopped everything to look it up. Today I wrote <i>maresia</i> anyway, circled it and <span class="gl" data-g="continuei">carried on</span>.</p>
       <p class="pt">No fim da aula eu voltei nela. Não achei a palavra, mas achei um jeito: dá para dizer que o ar cheira a sal e a barco velho. Ficou melhor do que a palavra que eu queria.</p>
       <p class="en">At the end of the lesson I went back to it. I did not find the word, but I found <span class="gl" data-g="um jeito de contornar">a way round it</span>: you can say the air smells of salt and old boats. It came out better than the word I was after.</p>
       </section>
@@ -2343,30 +2343,39 @@ ul.clean.dooded li .dood svg{width:36px;height:36px;display:block;overflow:visib
   function marca(){
     document.querySelectorAll('.dj-dia').forEach(function(d,i){ d.classList.toggle('tocando', i===atual && tocando); });
   }
-  function carrega(i, toca){
-    atual=Math.max(0,Math.min(6,i)); a.src=FAIXAS[atual]; rotulo(); marca();
+  var carregado=-1;
+  function seleciona(i){                       // só troca o rótulo: não toca no áudio
+    atual=Math.max(0,Math.min(6,i)); rotulo(); marca();
+  }
+  function carrega(i, toca, rola){
+    atual=Math.max(0,Math.min(6,i));
+    if(carregado!==atual){ a.src=FAIXAS[atual]; carregado=atual; }
+    rotulo(); marca();
+    if(rola) vaiPara(atual);
     if(toca) a.play();
   }
   function vaiPara(i){
     var el=document.getElementById('dia-'+(i+1));
     if(!el) return;
+    var alvo = scroll.scrollTop + el.getBoundingClientRect().top
+               - scroll.getBoundingClientRect().top - 16;
     rolando=true;
-    scroll.scrollTo({top: el.offsetTop - 16, behavior:'smooth'});
-    setTimeout(function(){ rolando=false; }, 700);
+    scroll.scrollTo({top: Math.max(0,alvo), behavior:'smooth'});
+    clearTimeout(vaiPara._t);
+    vaiPara._t = setTimeout(function(){ rolando=false; }, 800);
   }
 
   bPlay.addEventListener('click', function(){
-    if(!a.src) carrega(atual,false);
-    if(a.paused){ a.play(); } else { a.pause(); }
+    if(a.paused){ carrega(atual,true,false); } else { a.pause(); }
   });
-  a.addEventListener('play', function(){ tocando=true; bPlay.innerHTML=S; marca(); vaiPara(atual); });
+  a.addEventListener('play', function(){ tocando=true; bPlay.innerHTML=S; marca(); });
   a.addEventListener('pause',function(){ tocando=false; bPlay.innerHTML=P; marca(); });
   a.addEventListener('timeupdate', function(){
     if(a.duration){ fill.style.width=(a.currentTime/a.duration*100)+'%'; }
     tempo.textContent=mmss(a.currentTime);
   });
   a.addEventListener('ended', function(){
-    if(atual<6){ carrega(atual+1,true); vaiPara(atual); }
+    if(atual<6){ carrega(atual+1,true,true); }
     else { tocando=false; bPlay.innerHTML=P; fill.style.width='0%'; marca(); }
   });
   barra.addEventListener('click', function(e){
@@ -2374,15 +2383,15 @@ ul.clean.dooded li .dood svg{width:36px;height:36px;display:block;overflow:visib
     var r=barra.getBoundingClientRect();
     a.currentTime=((e.clientX-r.left)/r.width)*a.duration;
   });
-  document.getElementById('plPrev').addEventListener('click',function(){ carrega(atual-1,tocando); vaiPara(atual); });
-  document.getElementById('plNext').addEventListener('click',function(){ carrega(atual+1,tocando); vaiPara(atual); });
+  document.getElementById('plPrev').addEventListener('click',function(){ carrega(atual-1,tocando,true); });
+  document.getElementById('plNext').addEventListener('click',function(){ carrega(atual+1,tocando,true); });
 
   // clicar no título do dia toca aquele dia
   document.querySelectorAll('.dj-dia .dj-data').forEach(function(p){
     p.style.cursor='pointer';
     p.addEventListener('click', function(){
       var n=parseInt(p.closest('.dj-dia').dataset.n,10)-1;
-      carrega(n,true);
+      carrega(n,true,true);
     });
   });
 
@@ -2392,7 +2401,7 @@ ul.clean.dooded li .dood svg{width:36px;height:36px;display:block;overflow:visib
     ents.forEach(function(e){
       if(e.isIntersecting){
         var n=parseInt(e.target.dataset.n,10)-1;
-        if(n!==atual){ carrega(n,false); }
+        if(n!==atual){ seleciona(n); }
       }
     });
   },{root:scroll, rootMargin:'-20% 0px -60% 0px', threshold:0});
@@ -2423,7 +2432,7 @@ ul.clean.dooded li .dood svg{width:36px;height:36px;display:block;overflow:visib
     document.querySelectorAll('.gl.on').forEach(function(x){ x.classList.remove('on'); });
   });
 
-  carrega(0,false);
+  carrega(0,false,false);
 })();
 </script>
 </body>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Gerund Addendum · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 12.5px; color: #374151; margin-top: 8px; line-height: 1.5; max-width: 560px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 11.5px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+  .scene-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+
+  /* DIALOGUE */
+  .dialogue { margin-bottom: 16px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 9px; font-size: 13px; line-height: 1.5; }
+  .dialogue-speaker { font-weight: 800; color: var(--accent); min-width: 42px; flex-shrink: 0; }
+  .dialogue-text b { color: var(--blue); }
+
+  .notice-box {
+    background: var(--bg-light); border-left: 3px solid var(--ink); padding: 10px 14px;
+    margin-bottom: 16px; font-size: 11.5px; color: #374151; line-height: 1.55;
+  }
+
+  /* RULE BOX */
+  .rule-box { border: 1.5px dashed var(--ink); padding: 16px 18px; margin-bottom: 8px; }
+  .quoted-line { background: var(--ink); color: var(--paper); padding: 8px 12px; margin-bottom: 12px; font-size: 13px; font-style: italic; }
+  .quoted-line b { color: var(--accent); font-style: normal; }
+  .rule-text { font-size: 12.5px; line-height: 1.6; margin-bottom: 12px; }
+  .pronoun-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .pronoun-pill { background: var(--ink); color: var(--paper); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; padding: 5px 12px; }
+  .pronoun-pill b { color: var(--accent); margin-right: 4px; }
+  .compare-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+  .compare-card { flex: 1; min-width: 220px; background: var(--bg-light); padding: 10px 12px; }
+  .compare-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .compare-card.wrong { background: #FEF2F2; }
+  .compare-card.wrong .compare-label { color: var(--accent); }
+  .compare-card.right { background: #ECFDF5; }
+  .compare-card.right .compare-label { color: var(--teal); }
+  .compare-ex { font-size: 12px; }
+  .compare-ex b { text-decoration: underline; }
+  .combo-box { margin-top: 12px; background: var(--ink); color: var(--paper); padding: 10px 14px; font-size: 12.5px; }
+  .combo-box b { color: var(--accent); }
+
+  /* EXERCISES */
+  .q-item { display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.6; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .cue { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 90px; margin: 0 2px; vertical-align: baseline; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .open-item { margin-bottom: 10px; }
+  .open-stem { font-size: 12.5px; margin-bottom: 4px; line-height: 1.5; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-stem .pt-line { display: block; }
+  .open-stem .jp-line { display: block; color: var(--teal); font-size: 11.5px; margin-top: 3px; font-style: italic; }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 11.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .compare-grid { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    GERUND ADDENDUM · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html">Reading (Homework)</a>
+    <a href="the-wrong-room-wh-questions.html">Wh-Questions</a>
+    <a href="the-wrong-room-wh-tenses-homework.html">Mixed Tenses</a>
+    <a href="dependent-prepositions-gerund-addendum.html" class="active">Addendum (Classroom)</a>
+    <a href="dependent-prepositions-gerund-addendum-homework.html">Addendum (Homework)</a>
+    <a href="dependent-prepositions-gerund-register-practice.html">Register Practice</a>
+    <a href="dependent-prepositions-full-self-test.html">Full Self-Test</a>
+  </div>
+  <div class="topbar-meta">EXTRA · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="dependent-prepositions-gerund-addendum.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Addendum</div>
+        <h1>Dependent Prepositions<br><span>— The -ing Addendum</span></h1>
+        <div class="hero-sub">Dois detalhes que aparecem toda vez que um gerúndio segue uma dependent preposition: quem realmente faz aquela ação, e como negá-la sem quebrar a estrutura.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 01 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">De Quem É Esse -ing?</span>
+    </div>
+    <div class="scene-note">Alguns dias depois do episódio do "The Wrong Room," Sena conta pro Rio como tudo terminou.</div>
+
+    <div class="dialogue">
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">So the manager actually apologized properly in the end?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">He did. I'm still tired of <b>hotels forgetting</b> my reservation like that, though.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">Fair enough. Honestly, I was surprised at <b>you staying</b> so calm about the whole thing.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">I wasn't that calm. Trust me.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">You seemed it. The manager was clearly impressed by <b>you handling</b> it so well.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">He actually said that?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">He did. And I'm proud of <b>you</b> for not losing your temper.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">I was closer to losing it than you think.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">Well, I'm just happy about <b>us</b> finally getting it all sorted out.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">Same here. I'm just not used to <b>things going</b> wrong like that.</span></div>
+    </div>
+
+    <div class="notice-box">Repare: o Rio usa a mesma estrutura várias vezes — "surprised at you staying", "impressed by you handling", "proud of you", "happy about us finally getting". O que essas frases têm em comum? Por que sempre aparece uma pessoa (you / us) bem antes do gerúndio? Tenta explicar com suas palavras antes de ler a regra.</div>
+
+    <div class="rule-box">
+      <div class="quoted-line">"I was surprised at <b>you staying</b> so calm about the whole thing."</div>
+      <p class="rule-text">Quem está calma nessa frase? Não é o Rio (quem fala), é a Sena — o "you" a quem ele se dirige. Sempre que quem faz a ação do <b>-ing</b> é <b>diferente</b> do sujeito da frase, você precisa nomear essa pessoa, bem antes do gerúndio.</p>
+      <p class="rule-text">Duas opções funcionam: um possessivo (mais formal, mais comum na escrita) ou um pronome objeto (mais comum na fala). Falantes nativos misturam as duas o tempo todo, e as duas estão certas.</p>
+      <div class="pronoun-grid">
+        <span class="pronoun-pill"><b>I</b>my / me</span>
+        <span class="pronoun-pill"><b>YOU</b>your / you</span>
+        <span class="pronoun-pill"><b>HE</b>his / him</span>
+        <span class="pronoun-pill"><b>SHE</b>her / her</span>
+        <span class="pronoun-pill"><b>IT</b>its / it</span>
+        <span class="pronoun-pill"><b>WE</b>our / us</span>
+        <span class="pronoun-pill"><b>THEY</b>their / them</span>
+        <span class="pronoun-pill"><b>UM NOME</b>Rio's / Rio</span>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <span class="compare-label">Mais formal / escrita</span>
+          <div class="compare-ex">Sena didn't mind <b>Rio's</b> asking so many questions.</div>
+        </div>
+        <div class="compare-card">
+          <span class="compare-label">Mais natural / fala</span>
+          <div class="compare-ex">Sena didn't mind <b>Rio</b> asking so many questions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Deixando o Gerúndio Negativo</span>
+    </div>
+    <div class="scene-note">Rio e Sena estão planejando a próxima viagem, e Rio está diferente do de sempre.</div>
+
+    <div class="dialogue">
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">Are you nervous about the new trip?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">A little. I'm afraid of <b>not finding</b> a good place to stay this time.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">That won't happen again, trust me.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">I'm also worried about <b>not having</b> enough time to see everything.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">We'll manage. Honestly, I'm excited about <b>not having</b> a strict schedule for once.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">That's very unlike you.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">I know. But I'm tired of <b>not enjoying</b> trips because of over-planning.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">I'm proud of you for admitting that.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">And I'm confident about <b>you not overpacking</b> this time.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">No promises.</span></div>
+    </div>
+
+    <div class="notice-box">Repare como o Rio e a Sena usam a mesma estrutura várias vezes — "afraid of not finding", "worried about not having", "tired of not enjoying", "confident about you not overpacking". Em cada uma, onde exatamente fica o "not"? Tenta perceber o padrão antes de ler a regra.</div>
+
+    <div class="rule-box">
+      <p class="rule-text">Para negar a ação, coloque o <b>not</b> bem na frente do gerúndio, não lá atrás perto da preposição. Colocar o "not" no lugar errado muda o sentido inteiro da frase.</p>
+      <div class="compare-grid">
+        <div class="compare-card wrong">
+          <span class="compare-label">Sentido errado</span>
+          <div class="compare-ex">She isn't worried about getting the room.</div>
+        </div>
+        <div class="compare-card right">
+          <span class="compare-label">O que você realmente quer dizer</span>
+          <div class="compare-ex">She's worried about <b>not</b> getting the room.</div>
+        </div>
+      </div>
+      <div class="combo-box">E sim, dá pra combinar as duas regras na mesma frase: nomeia quem está fazendo, depois nega.<br><br>Sena was afraid of <b>him not calling</b> back after the trip.</div>
+    </div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · A</span>
+      <span class="s-title">Complete com o pronome certo</span>
+      <span class="s-pts">12 items</span>
+    </div>
+    <p class="instruction">Escreva a forma (possessivo ou pronome objeto) que falta antes do gerúndio. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Sena was surprised at <span class="blank"><span class="ans-inline">him / his</span></span> apologizing so quickly. <span class="cue">(he)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">Rio wasn't happy about <span class="blank"><span class="ans-inline">their / them</span></span> forgetting the booking. <span class="cue">(they)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">The manager insisted on <span class="blank"><span class="ans-inline">my / me</span></span> waiting in the lobby. <span class="cue">(I)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">Sena complained about <span class="blank"><span class="ans-inline">our / us</span></span> being placed in the wrong room. <span class="cue">(we)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">Rio's mother was worried about <span class="blank"><span class="ans-inline">her</span></span> traveling alone at night. <span class="cue">(she)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">The whole staff was excited about <span class="blank"><span class="ans-inline">Rio's / Rio</span></span> joining the trip. <span class="cue">(Rio)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">The receptionist didn't mind <span class="blank"><span class="ans-inline">Sena's / Sena</span></span> asking so many questions. <span class="cue">(Sena)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">Toshie was used to <span class="blank"><span class="ans-inline">their / them</span></span> changing the itinerary at the last minute. <span class="cue">(they)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">I'm tired of <span class="blank"><span class="ans-inline">your / you</span></span> canceling plans at the last minute. <span class="cue">(you)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">She was proud of <span class="blank"><span class="ans-inline">its / it</span></span> turning out so well. <span class="cue">(it, referring to the trip)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">We were all surprised at <span class="blank"><span class="ans-inline">her</span></span> leaving so suddenly. <span class="cue">(she)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">Sena looked forward to <span class="blank"><span class="ans-inline">our / us</span></span> traveling together again next year. <span class="cue">(we)</span></div></div>
+  </div>
+
+  <!-- ═══ 04 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · B</span>
+      <span class="s-title">Deixe o gerúndio negativo</span>
+      <span class="s-pts">12 items</span>
+    </div>
+    <p class="instruction">Traduza usando preposição + not + gerúndio. Clique no número pra conferir.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> <span class="pt-line">Ele está com medo de <b>não conseguir</b> o quarto a tempo.</span><span class="jp-line">彼は時間内に部屋を確保できないのではないかと心配している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He's afraid of not getting the room in time.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> <span class="pt-line">Ela está preocupada em <b>não encontrar</b> as malas no aeroporto.</span><span class="jp-line">彼女は空港でスーツケースが見つからないのではないかと心配している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's worried about not finding the luggage at the airport.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> <span class="pt-line">Ela está cansada de <b>não ser levada</b> a sério pelo hotel.</span><span class="jp-line">彼女はホテルに真剣に受け止めてもらえないことにうんざりしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's tired of not being taken seriously by the hotel.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> <span class="pt-line">Eles têm orgulho de <b>não terem desistido</b> da viagem.</span><span class="jp-line">彼らは旅行を諦めなかったことを誇りに思っている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">They're proud of not giving up on the trip.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> <span class="pt-line">Sena está com medo de <b>não fazer</b> amigos na cidade nova.</span><span class="jp-line">セナは新しい街で友達ができないのではないかと心配している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Sena is afraid of not making friends in the new city.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> <span class="pt-line">Ele reclamou de <b>não ser avisado</b> sobre a troca de quarto.</span><span class="jp-line">彼は部屋の変更について知らされなかったことに文句を言った。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He complained about not being told about the room change.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> <span class="pt-line">Ela ainda não se acostumou a <b>não ter</b> o wi-fi funcionando.</span><span class="jp-line">彼女はまだWi-Fiが使えないことに慣れていない。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She still isn't accustomed to not having the wifi working.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> <span class="pt-line">Eu confio nele para <b>não desistir</b> no meio da viagem.</span><span class="jp-line">私は彼が旅の途中で諦めないと信じている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I rely on him not giving up halfway through the trip.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">9.</strong> <span class="pt-line">Ela vive pensando em <b>não ter aceitado</b> aquele quarto.</span><span class="jp-line">彼女はあの部屋を受け入れなかったことについて、ずっと考え続けている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She keeps thinking about not having accepted that room.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">10.</strong> <span class="pt-line">Ele é bom em <b>não deixar</b> transparecer o nervosismo.</span><span class="jp-line">彼は緊張を表に出さないことが得意だ。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He's good at not showing his nervousness.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">11.</strong> <span class="pt-line">Eles são capazes de <b>não desistir</b> mesmo nas piores situações.</span><span class="jp-line">彼らは最悪の状況でも諦めない能力がある。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">They're capable of not giving up even in the worst situations.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">12.</strong> <span class="pt-line">Ela está animada por <b>não ter que</b> acordar cedo amanhã.</span><span class="jp-line">彼女は明日早起きしなくていいことにわくわくしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's excited about not having to wake up early tomorrow.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>
