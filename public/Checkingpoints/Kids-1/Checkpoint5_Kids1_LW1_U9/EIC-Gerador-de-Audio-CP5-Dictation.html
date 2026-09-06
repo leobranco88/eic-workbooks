@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIC · Gerador de áudio · Ditado do Checkpoint 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141414; --mid:#6B6B6B; --line:#D8D8D0; --light:#E9E9E1;
+  --paper:#FCFCF8; --white:#FFFFFF; --snow:#F7F7F2;
+  --orange:#FF3C38; --pencil:#1B3A6B; --green:#1E8A5F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:34px 22px 90px}
+
+h1{font-size:clamp(24px,3.4vw,34px);line-height:1.12;letter-spacing:-.025em;
+  font-weight:800;margin:0 0 8px}
+.sub{color:var(--mid);margin:0 0 30px;max-width:62ch}
+h2{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mid);margin:34px 0 12px}
+
+.card{background:var(--white);border:1px solid var(--light);border-radius:4px;padding:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid);margin-bottom:5px}
+input[type=text],input[type=password],select,textarea{
+  width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:3px;
+  font:inherit;font-size:13.5px;background:var(--white);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pencil)}
+textarea{min-height:150px;resize:vertical;line-height:1.62}
+.hint{font-size:12px;color:var(--mid);margin:6px 0 0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+
+button{border:1px solid var(--line);background:var(--white);color:var(--ink);
+  border-radius:999px;padding:9px 18px;font:inherit;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.14s}
+button:hover:not(:disabled){border-color:var(--orange);color:var(--orange)}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+button.primary:hover:not(:disabled){background:var(--orange);border-color:var(--orange);color:#fff}
+
+.aviso{border-left:3px solid var(--orange);background:var(--snow);
+  padding:13px 16px;border-radius:0 3px 3px 0;font-size:13px;margin:0 0 26px}
+.aviso b{font-weight:800}
+
+.dia{border:1px solid var(--light);border-radius:4px;background:var(--white);
+  margin-bottom:12px;overflow:hidden}
+.dia-h{display:flex;align-items:center;gap:12px;padding:12px 16px;
+  border-bottom:1px solid var(--light);background:var(--snow)}
+.dia-n{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.dia-t{font-weight:700;flex:1 1 auto}
+.dia-c{font-size:12px;color:var(--mid);font-variant-numeric:tabular-nums}
+.dia-b{padding:14px 16px}
+.dia-r{display:flex;align-items:center;gap:12px;padding:0 16px 14px;flex-wrap:wrap}
+audio{height:34px;flex:1 1 240px;min-width:0}
+.st{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.st-e{background:#F0F0EA;color:var(--mid)}
+.st-g{background:#FFF0EF;color:var(--orange)}
+.st-o{background:#EAF6F0;color:var(--green)}
+.st-x{background:#FFEAEA;color:#B32020}
+a.dl{font-size:13px;font-weight:700;color:var(--pencil);text-decoration:none;
+  border-bottom:1px solid var(--line)}
+a.dl:hover{color:var(--orange);border-color:var(--orange)}
+.tags{margin-top:16px;padding-top:16px;border-top:1px solid var(--light)}
+.tags-l{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag-b{border:1px solid var(--line);background:var(--white);border-radius:999px;
+  padding:5px 11px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--pencil)}
+.tag-b:hover{border-color:var(--pencil);background:var(--snow);color:var(--pencil)}
+.tag-g{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--mid);margin:12px 0 0}
+.alerta{margin-top:14px;padding:11px 14px;border-left:3px solid var(--orange);
+  background:#FFF4F3;border-radius:0 3px 3px 0;font-size:12.5px;color:var(--ink);display:none}
+.alerta.on{display:block}
+.log{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  background:var(--snow);border:1px solid var(--light);border-radius:3px;
+  padding:12px 14px;white-space:pre-wrap;color:var(--mid);margin-top:14px;display:none}
+.log.on{display:block}
+@media(max-width:640px){.grid,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Gerador de áudio</h1>
+  <p class="sub">Ditado do Checkpoint 5, Kids 1. Uma faixa por item, sem pausas e sem repetição dentro do áudio: quem controla a repetição é o professor, clicando de novo no player. Todas as doze levam a mesma marcação, [calmly] [slowly], e a mesma moldura, "Number X.", de propósito: é a estrutura idêntica que segura a consistência entre as faixas. Teste o item 1 antes de gerar tudo, ele custa quase nada.</p>
+
+  <div class="aviso">
+    <b>Sobre a chave.</b> Ela fica só neste formulário, não é salva em lugar nenhum e não sai daqui a não ser para a ElevenLabs. Mesmo assim, use este arquivo <b>localmente</b> e nunca suba ele com a chave preenchida para o repositório.
+  </div>
+
+  <h2>Conexão</h2>
+  <div class="card">
+    <div class="grid">
+      <div>
+        <label for="key">Chave da API</label>
+        <input type="password" id="key" placeholder="sk_..." autocomplete="off">
+      </div>
+      <div>
+        <label for="voice">ID da voz</label>
+        <input type="text" id="voice" value="QzgYVYSNBgksoEWDkpKt" placeholder="21m00Tcm4TlvDq8ikWAM" autocomplete="off">
+        <p class="hint">Já vem com a Amanda Beans, voz oficial de Kids 1, 2 e 3. Não trocar entre checkpoints.</p>
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" id="btnVozes">Carregar minhas vozes</button>
+      <select id="selVozes" style="display:none;max-width:320px"></select>
+    </div>
+  </div>
+
+  <h2>Voz</h2>
+  <div class="card">
+    <div class="grid3">
+      <div>
+        <label for="modelo">Modelo</label>
+        <select id="modelo">
+          <option value="eleven_v3" selected>v3 · lê as marcações de tom</option>
+          <option value="eleven_multilingual_v2">Multilingual v2 · ignora as marcações</option>
+          <option value="eleven_turbo_v2_5">Turbo v2.5 · mais rápido</option>
+          <option value="eleven_flash_v2_5">Flash v2.5 · mais barato</option>
+        </select>
+      </div>
+      <div>
+        <label for="estab">Estabilidade <span id="vEstab">0,55</span></label>
+        <input type="range" id="estab" min="0" max="1" step="0.05" value="0.95" style="width:100%">
+        <p class="hint">Para ditado, 0,95. É o ajuste que mais segura a consistência entre as faixas.</p>
+      </div>
+      <div>
+        <label for="simil">Similaridade <span id="vSimil">0,80</span></label>
+        <input type="range" id="simil" min="0" max="1" step="0.05" value="0.80" style="width:100%">
+        <p class="hint">Quanto ela imita a voz original. Mantenha em 0,80.</p>
+      </div>
+    </div>
+    <div class="grid3" style="margin-top:14px">
+      <div>
+        <label for="veloc">Velocidade <span id="vVeloc">0,92</span></label>
+        <input type="range" id="veloc" min="0.7" max="1.2" step="0.01" value="0.78" style="width:100%">
+        <p class="hint">Para ditado, entre 0,75 e 0,85. O Multilingual v2 responde menos a este ajuste que o v3.</p>
+      </div>
+      <div>
+        <label for="estilo">Estilo <span id="vEstilo">0,10</span></label>
+        <input type="range" id="estilo" min="0" max="1" step="0.05" value="0.00" style="width:100%">
+      </div>
+      <div style="align-self:end">
+        <button type="button" id="btnTeste" style="width:100%">Testar com uma frase</button>
+      </div>
+    </div>
+    <div class="dia-r" style="padding:14px 0 0" id="areaTeste" hidden>
+      <audio id="audTeste" controls></audio>
+    </div>
+  </div>
+
+
+  <h2>Marcações de tom</h2>
+  <div class="card">
+    <p class="hint" style="margin:0 0 4px">Os textos já vêm marcados. Clique numa marcação da paleta para inserir onde o cursor está, ou tire todas se preferir uma leitura neutra. Elas só têm efeito no modelo <b>v3</b>.</p>
+
+    <div class="tag-g">Emoção</div>
+    <div class="tags-l" data-tags="[excited],[curious],[nervous],[sad],[happily],[sarcastic],[deadpan],[mischievously]"></div>
+
+    <div class="tag-g">Entrega</div>
+    <div class="tags-l" data-tags="[whispers],[softly],[quietly],[shouts],[dramatically],[calmly],[flatly],[slowly]"></div>
+
+    <div class="tag-g">Reação e pausa</div>
+    <div class="tags-l" data-tags="[sighs],[laughs],[chuckles],[hesitates],[clears throat],[short pause],[pause],[long pause]"></div>
+
+    <div class="row">
+      <button type="button" id="btnSugerir">Restaurar marcações</button>
+      <button type="button" id="btnLimpar">Tirar todas as marcações</button>
+    </div>
+    <div class="alerta" id="alertaModelo"></div>
+  </div>
+
+  <h2>As doze faixas do ditado</h2>
+  <div id="dias"></div>
+
+  <div class="row">
+    <button type="button" class="primary" id="btnTudo">Gerar as doze</button>
+    <button type="button" id="btnBaixar" disabled>Baixar todas</button>
+    <button type="button" id="btnCurl">Copiar comandos curl</button>
+    <span class="st st-e" id="geral">parado</span>
+  </div>
+  <div class="log" id="log"></div>
+
+</div>
+
+<script>
+const TEXTOS = [
+ ["01 \u00b7 Sleep.","[calmly] [slowly] Number one. Sleep."],
+ ["02 \u00b7 Music.","[calmly] [slowly] Number two. Music."],
+ ["03 \u00b7 Water.","[calmly] [slowly] Number three. Water."],
+ ["04 \u00b7 Lunch.","[calmly] [slowly] Number four. Lunch."],
+ ["05 \u00b7 Dinner.","[calmly] [slowly] Number five. Dinner."],
+ ["06 \u00b7 Breakfast.","[calmly] [slowly] Number six. Breakfast."],
+ ["07 \u00b7 Morning.","[calmly] [slowly] Number seven. Morning."],
+ ["08 \u00b7 Evening.","[calmly] [slowly] Number eight. Evening."],
+ ["09 \u00b7 Night.","[calmly] [slowly] Number nine. Night."],
+ ["10 \u00b7 I read every day.","[calmly] [slowly] Number ten. I read every day."],
+ ["11 \u00b7 Do you watch TV in the evening?","[calmly] [slowly] Number eleven. Do you watch TV in the evening?"],
+ ["12 \u00b7 I don't have a snack at night.","[calmly] [slowly] Number twelve. I don\'t have a snack at night."]
+];
+
+const NOMES = TEXTOS.map((_,i) => 'CP5_dictation_' + String(i+1).padStart(2,'0') + '.mp3');
+const $ = s => document.querySelector(s);
+const urls = new Array(TEXTOS.length).fill(null);
+
+// ---------- monta os blocos ----------
+$('#dias').innerHTML = TEXTOS.map(([t,txt],i)=>`
+  <div class="dia">
+    <div class="dia-h">
+      <span class="dia-n">${NOMES[i]}</span>
+      <span class="dia-t">${t}</span>
+      <span class="dia-c" id="c${i}">${txt.length} car.</span>
+      <span class="st st-e" id="s${i}">esperando</span>
+    </div>
+    <div class="dia-b"><textarea id="t${i}">${txt}</textarea></div>
+    <div class="dia-r" id="r${i}" hidden>
+      <audio id="a${i}" controls></audio>
+      <a class="dl" id="d${i}" download="${NOMES[i]}">baixar ${NOMES[i]}</a>
+    </div>
+  </div>`).join('');
+
+TEXTOS.forEach((_,i)=>{
+  $('#t'+i).addEventListener('input', e => $('#c'+i).textContent = e.target.value.length + ' car.');
+});
+
+// ---------- sliders ----------
+[['estab','vEstab'],['simil','vSimil'],['veloc','vVeloc'],['estilo','vEstilo']].forEach(([a,b])=>{
+  const el=$('#'+a), out=$('#'+b);
+  const mostra=()=>out.textContent=Number(el.value).toFixed(2).replace('.',',');
+  el.addEventListener('input',mostra); mostra();
+});
+
+function log(msg){ const l=$('#log'); l.classList.add('on'); l.textContent += msg + '\n'; l.scrollTop=l.scrollHeight; }
+function estado(i, cls, txt){ const e=$('#s'+i); e.className='st '+cls; e.textContent=txt; }
+
+function ajustes(){
+  return {
+    stability: parseFloat($('#estab').value),
+    similarity_boost: parseFloat($('#simil').value),
+    style: parseFloat($('#estilo').value),
+    speed: parseFloat($('#veloc').value),
+    use_speaker_boost: true
+  };
+}
+
+async function fala(texto){
+  const key=$('#key').value.trim(), voz=$('#voice').value.trim();
+  if(!key) throw new Error('Falta a chave da API.');
+  if(!voz) throw new Error('Falta o ID da voz.');
+  const r = await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+encodeURIComponent(voz), {
+    method:'POST',
+    headers:{'xi-api-key':key,'Content-Type':'application/json','Accept':'audio/mpeg'},
+    body: JSON.stringify({ text:texto, model_id:$('#modelo').value, voice_settings:ajustes() })
+  });
+  if(!r.ok){
+    let d=''; try{ d=JSON.stringify(await r.json()); }catch(e){ d=await r.text(); }
+    throw new Error('HTTP '+r.status+' · '+d.slice(0,300));
+  }
+  return await r.blob();
+}
+
+// ---------- vozes ----------
+$('#btnVozes').addEventListener('click', async ()=>{
+  const key=$('#key').value.trim();
+  if(!key){ log('Cole a chave primeiro.'); return; }
+  const b=$('#btnVozes'); b.disabled=true; b.textContent='carregando...';
+  try{
+    const r=await fetch('https://api.elevenlabs.io/v1/voices',{headers:{'xi-api-key':key}});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    const s=$('#selVozes');
+    s.innerHTML='<option value="">escolha uma voz…</option>'+
+      d.voices.map(v=>`<option value="${v.voice_id}">${v.name} · ${v.labels&&v.labels.gender||''} ${v.labels&&v.labels.age||''}</option>`).join('');
+    s.style.display=''; s.onchange=e=>{ if(e.target.value) $('#voice').value=e.target.value; };
+    log('Vozes carregadas: '+d.voices.length);
+  }catch(e){ log('Erro ao listar vozes: '+e.message); }
+  b.disabled=false; b.textContent='Carregar minhas vozes';
+});
+
+// ---------- teste ----------
+$('#btnTeste').addEventListener('click', async ()=>{
+  const b=$('#btnTeste'); b.disabled=true; b.textContent='gerando...';
+  try{
+    const blob=await fala('I hate the first two minutes. The blank sheet in front of me and everyone around me already writing, except me.');
+    $('#areaTeste').hidden=false;
+    $('#audTeste').src=URL.createObjectURL(blob);
+    $('#audTeste').play();
+    log('Teste gerado com sucesso.');
+  }catch(e){ log('Teste falhou: '+e.message); }
+  b.disabled=false; b.textContent='Testar com uma frase';
+});
+
+
+// ---------- marcações de tom (só valem no eleven_v3) ----------
+var ultimoFoco = null;
+for(var i=0;i<TEXTOS.length;i++){
+  (function(k){ $('#t'+k).addEventListener('focus', function(){ ultimoFoco=$('#t'+k); }); })(i);
+}
+
+document.querySelectorAll('.tags-l').forEach(function(linha){
+  linha.dataset.tags.split(',').forEach(function(t){
+    var b=document.createElement('button');
+    b.type='button'; b.className='tag-b'; b.textContent=t;
+    b.addEventListener('click', function(){ insere(t); });
+    linha.appendChild(b);
+  });
+});
+
+function insere(tag){
+  var ta = ultimoFoco || $('#t0');
+  var p = ta.selectionStart, q = ta.selectionEnd, v = ta.value;
+  var antes = v.slice(0,p).replace(/\s+$/,''), depois = v.slice(q).replace(/^\s+/,'');
+  ta.value = (antes ? antes+' ' : '') + tag + ' ' + depois;
+  var pos = (antes ? antes.length+1 : 0) + tag.length + 1;
+  ta.focus(); ta.setSelectionRange(pos,pos);
+  ta.dispatchEvent(new Event('input'));
+  confereModelo();
+}
+
+// onde cada marcação entra, por dia: [trecho âncora, marcação]
+var SUGESTOES = [
+  [["I hate the first two minutes","[sighs]"],
+   ["That was my first mistake of the day","[deadpan]"],
+   ["Two words that wiped out","[flatly]"]],
+  [["It is not a draft","[matter-of-fact]"],
+   ["Now I think for forty seconds","[brightly]"]],
+  [["The draft used to be the part","[sighs]"],
+   ["I have no idea how you say it","[hesitates]"],
+   ["It came out better than the word","[happily]"]],
+  [["I think that my favourite place in the world","[deadpan]"],
+   ["Seventeen words fewer","[dryly]"],
+   ["And the teacher could tell","[flatly]"]],
+  [["Malu stared at me the whole time","[quietly]"],
+   ["She said oh, and went back","[chuckles]"],
+   ["Now I read it very quietly","[softly]"]],
+  [["Handing it in is still the worst part","[flatly]"]],
+  [["I read it on the sofa","[softly]"],
+   ["She was not there","[warmly]"]]
+];
+
+$('#btnSugerir').addEventListener('click', function(){
+  var n=0;
+  SUGESTOES.forEach(function(lista,i){
+    var ta=$('#t'+i), v=ta.value;
+    lista.forEach(function(par){
+      var anc=par[0], tag=par[1];
+      if(v.indexOf(tag)>=0) return;            // já tem
+      var j=v.indexOf(anc);
+      if(j<0) return;                          // texto foi editado, pula
+      v = v.slice(0,j) + tag + ' ' + v.slice(j);
+      n++;
+    });
+    ta.value=v; ta.dispatchEvent(new Event('input'));
+  });
+  log(n+' marcações inseridas.');
+  confereModelo();
+});
+
+$('#btnLimpar').addEventListener('click', function(){
+  for(var i=0;i<TEXTOS.length;i++){
+    var ta=$('#t'+i);
+    ta.value = ta.value.replace(/\[[^\]\n]{1,28}\]\s*/g,'').replace(/[ \t]{2,}/g,' ');
+    ta.dispatchEvent(new Event('input'));
+  }
+  if($('#modelo').value==='eleven_v3'){ $('#modelo').value='eleven_multilingual_v2'; }
+  log('Marcações removidas. Modelo trocado para o multilingual v2, que é mais constante entre faixas.');
+  confereModelo();
+});
+
+function temTags(){
+  for(var i=0;i<TEXTOS.length;i++){ if(/\[[^\]\n]{1,28}\]/.test($('#t'+i).value)) return true; }
+  return false;
+}
+function confereModelo(){
+  var el=$('#alertaModelo'), m=$('#modelo').value, tags=temTags();
+  var limite=0;
+  for(var i=0;i<TEXTOS.length;i++){ limite=Math.max(limite,$('#t'+i).value.length); }
+  var msg='';
+  if(tags && m!=='eleven_v3'){
+    msg='<b>As marcações não vão funcionar.</b> O modelo selecionado é o '+m+
+        ', e só o <b>v3</b> interpreta colchetes. Nos outros, elas podem ser lidas em voz alta.';
+  } else if(m==='eleven_v3' && limite>2800){
+    msg='<b>Texto longo para o v3.</b> O limite dele é 3.000 caracteres e o dia mais longo tem '+limite+'. Divida o texto.';
+  } else if(m==='eleven_v3'){
+    msg='O v3 é mais expressivo e <b>menos constante entre gerações</b>. Se uma faixa sair diferente das outras, gere de novo só ela.';
+  }
+  el.innerHTML=msg; el.classList.toggle('on', !!msg);
+}
+$('#modelo').addEventListener('change', confereModelo);
+for(var i=0;i<TEXTOS.length;i++){ $('#t'+i).addEventListener('input', confereModelo); }
+confereModelo();
+
+// ---------- gerar as sete ----------
+$('#btnTudo').addEventListener('click', async ()=>{
+  const b=$('#btnTudo'); b.disabled=true;
+  $('#geral').className='st st-g'; $('#geral').textContent='gerando';
+  let ok=0;
+  for(let i=0;i<TEXTOS.length;i++){
+    estado(i,'st-g','gerando');
+    try{
+      const blob=await fala($('#t'+i).value.trim());
+      const u=URL.createObjectURL(blob); urls[i]=u;
+      $('#a'+i).src=u; $('#d'+i).href=u; $('#r'+i).hidden=false;
+      estado(i,'st-o','pronto'); ok++;
+      log(NOMES[i]+' · '+Math.round(blob.size/1024)+' KB');
+    }catch(e){
+      estado(i,'st-x','erro');
+      log(NOMES[i]+' falhou: '+e.message);
+      if(String(e.message).includes('Failed to fetch'))
+        log('  → o navegador pode estar bloqueando (CORS). Use o botão "Copiar comandos curl".');
+    }
+    await new Promise(r=>setTimeout(r,400));
+  }
+  $('#geral').className = ok===7 ? 'st st-o' : 'st st-x';
+  $('#geral').textContent = ok+' de 7';
+  $('#btnBaixar').disabled = ok===0;
+  b.disabled=false;
+});
+
+$('#btnBaixar').addEventListener('click', ()=>{
+  urls.forEach((u,i)=>{ if(!u) return;
+    setTimeout(()=>{ const a=document.createElement('a'); a.href=u; a.download=NOMES[i]; a.click(); }, i*350);
+  });
+});
+
+// ---------- fallback curl ----------
+$('#btnCurl').addEventListener('click', ()=>{
+  const voz=$('#voice').value.trim()||'VOICE_ID';
+  const s=ajustes();
+  const linhas=TEXTOS.map((_,i)=>{
+    const t=$('#t'+i).value.trim().replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\n/g,'\\n');
+    const payload = JSON.stringify({text:t.replace(/\\"/g,'"'), model_id:$('#modelo').value, voice_settings:s});
+    // aspas simples quebram o -d '...' do shell: fecha, escapa, reabre
+    const seguro = payload.split("'").join("'\\''");
+    return `curl -s -X POST "https://api.elevenlabs.io/v1/text-to-speech/${voz}" \\
+  -H "xi-api-key: $XI_API_KEY" -H "Content-Type: application/json" \\
+  -d '${seguro}' \\
+  --output ${NOMES[i]}`;
+  });
+  const txt='export XI_API_KEY="cole_sua_chave_aqui"\n\n'+linhas.join('\n\n');
+  navigator.clipboard.writeText(txt).then(
+    ()=>log('Comandos curl copiados. Cole no terminal, dentro da pasta onde quer os arquivos.'),
+    ()=>{ log('Não consegui copiar. Segue abaixo:'); log(txt); });
+});
+</script>
+</body>
+</html>
