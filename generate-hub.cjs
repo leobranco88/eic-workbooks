@@ -1,9 +1,13 @@
 const fs   = require('fs');
 const path = require('path');
 
-const PUBLIC = path.join(__dirname, 'public');
-const OUT    = path.join(PUBLIC, 'hub.html');
-const BASE   = 'https://eic-worksheets.web.app/';
+// Uma raiz por site do Firebase. O hub e escrito dentro de public/ e vai no ar
+// junto com o site worksheets, mas indexa os dois.
+const ROOTS = [
+  { dir: 'public',         base: 'https://eic-worksheets.web.app/', site: 'worksheets' },
+  { dir: 'public-familia', base: 'https://eic-familia.web.app/',    site: 'familia'    },
+];
+const OUT = path.join(__dirname, 'public', 'hub.html');
 
 function walk(dir, base) {
   const results = [];
@@ -19,17 +23,37 @@ function walk(dir, base) {
   return results;
 }
 
-const allFiles = walk(PUBLIC, '');
+const allFiles = [];
+ROOTS.forEach(root => {
+  const dir = path.join(__dirname, root.dir);
+  if (!fs.existsSync(dir)) { console.log(`- ${root.dir} nao existe, ignorado`); return; }
+  walk(dir, '').forEach(f => allFiles.push({ ...f, root }));
+});
 const htmlFiles = allFiles.filter(f => f.rel.endsWith('.html') && !f.rel.includes('hub.html'));
-const pdfSet    = new Set(allFiles.filter(f => f.rel.endsWith('.pdf')).map(f => f.rel));
+// o PDF irmao e procurado dentro do mesmo site, nunca no outro
+const pdfSet = new Set(allFiles.filter(f => f.rel.endsWith('.pdf'))
+                               .map(f => f.root.site + '::' + f.rel));
 
 function readHTML(full) {
   try { return fs.readFileSync(full, 'utf8'); } catch { return ''; }
 }
+const ENTIDADES = { '&middot;':'·', '&amp;':'&', '&nbsp;':' ', '&ndash;':'–', '&mdash;':'—',
+                    '&rsquo;':'’', '&lsquo;':'‘', '&quot;':'"', '&eacute;':'é', '&aacute;':'á',
+                    '&atilde;':'ã', '&ccedil;':'ç', '&oacute;':'ó', '&iacute;':'í', '&ecirc;':'ê' };
+function decodeEntidades(txt) {
+  return txt.replace(/&[a-z]+;/gi, e => ENTIDADES[e.toLowerCase()] ?? e)
+            .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n));
+}
 function extractTitle(html) {
   const m = html.match(/<title[^>]*>([^<]+)<\/title>/i);
   if (!m) return null;
-  return m[1].replace(/^EIC\s*[\|·]\s*/i,'').replace(/^EIC\s+[\w-]+\s*[\|·]\s*/i,'').trim();
+  return decodeEntidades(m[1]).replace(/^EIC\s*[\|·]\s*/i,'').replace(/^EIC\s+[\w-]+\s*[\|·]\s*/i,'').trim();
+}
+// overrides opcionais no proprio HTML: <meta name="hub-pdf" content="caderno.pdf">
+// aceita hub-title, hub-desc, hub-type, hub-project, hub-level e hub-pdf
+function meta(html, nome) {
+  const m = html.match(new RegExp('<meta\\s+name=["\']hub-' + nome + '["\']\\s+content=["\']([^"\']+)["\']', 'i'));
+  return m ? decodeEntidades(m[1]).trim() : null;
 }
 function extractDesc(html) {
   const m = html.match(/class=["'][^"']*(?:hero-sub|section-desc)[^"']*["'][^>]*>([^<]{20,200})/i);
@@ -46,11 +70,18 @@ function guessType(rel) {
   if (n.includes('episode') || n.includes('-ep'))   return 'Episódio';
   return 'Material';
 }
-function guessProject(rel, html) {
+function guessProject(rel, html, root) {
   const n = rel.toLowerCase(); const h = (html||'').toLowerCase();
+  const partes = rel.split(path.sep);
+  // no site da familia o projeto e a turma, nao a pasta raiz:
+  // apresentacao/kids2/guia.html -> Kids2-apresentacao
+  if (root.site === 'familia' && partes.length >= 2) {
+    const turma = partes[1];
+    return turma.charAt(0).toUpperCase() + turma.slice(1) + '-' + partes[0];
+  }
   if (n.includes('neural') || n.includes('a1') || h.includes('neural english')) return 'Neural English';
   if (n.includes('carry') || n.includes('will-going') || n.includes('wh-question') || h.includes('carry-on')) return 'Carry-on';
-  const folder = rel.split(path.sep)[0] || '';
+  const folder = partes[0] || '';
   return folder.charAt(0).toUpperCase() + folder.slice(1) || 'EIC';
 }
 function guessLevel(html) {
@@ -61,9 +92,15 @@ function guessLevel(html) {
   if (h.match(/\ba2\b/)) return 'A2';
   return '—';
 }
-function findPDF(rel) {
+function findPDF(rel, root, html) {
+  const marcado = meta(html, 'pdf');
+  if (marcado) {
+    const cand = path.join(path.dirname(rel), marcado);
+    if (pdfSet.has(root.site + '::' + cand)) return cand;
+  }
   const base = rel.replace(/\.html$/, '');
-  return [base+'-FICHA.pdf', base+'.pdf'].find(c => pdfSet.has(c)) || null;
+  return [base+'-FICHA.pdf', base+'.pdf']
+    .find(c => pdfSet.has(root.site + '::' + c)) || null;
 }
 
 const TYPE_COLORS = {
@@ -74,16 +111,17 @@ const TYPE_COLORS = {
   "Material":{"bg":"#F2ECE0","text":"#766E61"}
 };
 
-const materials = htmlFiles.map(({full,rel}) => {
+const materials = htmlFiles.map(({full,rel,root}) => {
   const html = readHTML(full);
+  const pdf  = findPDF(rel, root, html);
   return {
-    title:   extractTitle(html) || path.basename(rel,'.html').replace(/-/g,' '),
-    desc:    extractDesc(html),
-    type:    guessType(rel),
-    project: guessProject(rel, html),
-    level:   guessLevel(html),
-    url:     BASE + rel.replace(/\\/g,'/'),
-    pdf:     findPDF(rel) ? BASE + findPDF(rel).replace(/\\/g,'/') : null,
+    title:   meta(html,'title')   || extractTitle(html) || path.basename(rel,'.html').replace(/-/g,' '),
+    desc:    meta(html,'desc')    || extractDesc(html),
+    type:    meta(html,'type')    || guessType(rel),
+    project: meta(html,'project') || guessProject(rel, html, root),
+    level:   meta(html,'level')   || guessLevel(html),
+    url:     root.base + rel.replace(/\\/g,'/'),
+    pdf:     pdf ? root.base + pdf.replace(/\\/g,'/') : null,
   };
 }).sort((a,b) => a.project.localeCompare(b.project) || a.title.localeCompare(b.title));
 
@@ -186,4 +224,7 @@ r();
 </html>`;
 
 fs.writeFileSync(OUT, html);
-console.log(`✓ hub.html gerado com ${total} materiais (${totalPDF} PDFs) em ${projects.join(', ')}`);
+console.log(`✓ hub.html gerado com ${total} materiais (${totalPDF} PDFs) em ${projects.length} projetos`);
+console.log(`  ${OUT}`);
+materials.filter(m => m.url.includes('eic-familia'))
+         .forEach(m => console.log(`  familia · ${m.title}\n            ${m.url}`));
