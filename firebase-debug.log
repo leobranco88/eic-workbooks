@@ -94,3 +94,35 @@
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
 [error] 
 [error] Error: Failed to get Firebase project eic-bookclub. Please make sure the project exists and your account has permission to access it.
+[debug] [2026-09-08T14:20:01.495Z] ----------------------------------------------------------------------
+[debug] [2026-09-08T14:20:01.501Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2026-09-08T14:20:01.502Z] CLI Version:   15.24.0
+[debug] [2026-09-08T14:20:01.502Z] Platform:      darwin
+[debug] [2026-09-08T14:20:01.502Z] Node Version:  v24.14.0
+[debug] [2026-09-08T14:20:01.502Z] Detected Agent: unknown
+[debug] [2026-09-08T14:20:01.502Z] Time:          Tue Sep 08 2026 11:20:01 GMT-0300 (Brasilia Standard Time)
+[debug] [2026-09-08T14:20:01.502Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-09-08T14:20:02.415Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-09-08T14:20:02.415Z] > authorizing via signed-in user (leobranco@eicschool.com.br)
+[debug] [2026-09-08T14:20:02.415Z] [iam] checking project eic-bookclub for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-09-08T14:20:02.426Z] Checked if tokens are valid: true, expires at: 1788880795114
+[debug] [2026-09-08T14:20:02.426Z] Checked if tokens are valid: true, expires at: 1788880795114
+[debug] [2026-09-08T14:20:02.427Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-bookclub:testIamPermissions [none]
+[debug] [2026-09-08T14:20:02.427Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-bookclub:testIamPermissions  x-goog-user-project=eic-bookclub
+[debug] [2026-09-08T14:20:02.427Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-bookclub:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-09-08T14:20:04.001Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-bookclub:testIamPermissions 403
+[debug] [2026-09-08T14:20:04.002Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-bookclub:testIamPermissions {"error":{"code":403,"message":"Caller does not have required permission to use project eic-bookclub. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-bookclub and then retry. Propagation of the new permission may take a few minutes.","status":"PERMISSION_DENIED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"USER_PROJECT_DENIED","domain":"googleapis.com","metadata":{"containerInfo":"eic-bookclub","service":"cloudresourcemanager.googleapis.com","consoleUrl":"https://console.developers.google.com/iam-admin/iam?project=eic-bookclub","consumer":"projects/eic-bookclub"}},{"@type":"type.googleapis.com/google.rpc.LocalizedMessage","locale":"en-US","message":"Caller does not have required permission to use project eic-bookclub. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-bookclub and then retry. Propagation of the new permission may take a few minutes."},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Google developer console IAM admin","url":"https://console.developers.google.com/iam-admin/iam?project=eic-bookclub"}]}]}}
+[debug] [2026-09-08T14:20:04.003Z] [iam] error while checking permissions, command may fail: Request to https://cloudresourcemanager.googleapis.com/v1/projects/eic-bookclub:testIamPermissions had HTTP Error: 403, Caller does not have required permission to use project eic-bookclub. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=eic-bookclub and then retry. Propagation of the new permission may take a few minutes.
+[debug] [2026-09-08T14:20:04.004Z] Checked if tokens are valid: true, expires at: 1788880795114
+[debug] [2026-09-08T14:20:04.004Z] Checked if tokens are valid: true, expires at: 1788880795114
+[debug] [2026-09-08T14:20:04.004Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/eic-bookclub [none]
+[debug] [2026-09-08T14:20:04.466Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/eic-bookclub 403
+[debug] [2026-09-08T14:20:04.466Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/eic-bookclub {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-09-08T14:20:04.467Z] Request to https://firebase.googleapis.com/v1beta1/projects/eic-bookclub had HTTP Error: 403, The caller does not have permission
+[debug] [2026-09-08T14:20:04.470Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/eic-bookclub had HTTP Error: 403, The caller does not have permission
+    at responseToError (/usr/local/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] 
+[error] Error: Failed to get Firebase project eic-bookclub. Please make sure the project exists and your account has permission to access it.
