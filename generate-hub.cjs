@@ -176,6 +176,9 @@ body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);min
 .btn-o:hover{background:var(--orange);}
 .btn-d{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--line);border-radius:100px;padding:5px 11px;font-size:12px;font-weight:600;text-decoration:none;color:var(--muted);background:#fff;transition:all .15s;}
 .btn-d:hover{border-color:var(--orange);color:var(--orange);}
+.btn-c{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--line);border-radius:100px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--muted);background:#fff;font-family:inherit;cursor:pointer;transition:all .15s;}
+.btn-c:hover{border-color:var(--orange);color:var(--orange);}
+.btn-c.ok{border-color:#0E9F6E;color:#0E9F6E;}
 .empty{grid-column:1/-1;text-align:center;padding:48px 0;color:rgba(0,0,0,.2);font-size:14px;}
 footer{border-top:1px solid var(--line);padding:18px 28px;font-size:11px;color:var(--muted);text-align:center;}
 </style>
@@ -217,7 +220,19 @@ function r(){const l=f();
 document.getElementById('cnt').textContent=l.length+' material'+(l.length!==1?'is':'')+' encontrado'+(l.length!==1?'s':'');
 document.getElementById('tp').innerHTML=types.map(t=>\`<button class="pill\${at===t?' on-type':''}" onclick="at='\${t}';r()">\${t}</button>\`).join('');
 document.getElementById('pp').innerHTML=projs.map(p=>\`<button class="pill\${ap===p?' on-proj':''}" onclick="ap='\${p}';r()">\${p}</button>\`).join('');
-document.getElementById('grid').innerHTML=l.length===0?'<div class="empty">Nenhum material encontrado.</div>':l.map(m=>{const c=TC[m.type]||{bg:"#F2ECE0",text:"#766E61"};return\`<div class="card"><div class="card-top"><span class="tb" style="background:\${c.bg};color:\${c.text}">\${m.type}</span><span class="lb">\${m.level}</span><span class="pb">\${m.project}</span></div><div class="ctitle">\${m.title}</div><div class="cdesc">\${m.desc||'—'}</div><div class="actions"><a href="\${m.url}" target="_blank" class="btn-o">↗ Abrir</a>\${m.pdf?\`<a href="\${m.pdf}" download class="btn-d">↓ PDF</a>\`:''}</div></div>\`;}).join('');}
+document.getElementById('grid').innerHTML=l.length===0?'<div class="empty">Nenhum material encontrado.</div>':l.map(m=>{const c=TC[m.type]||{bg:"#F2ECE0",text:"#766E61"};return\`<div class="card"><div class="card-top"><span class="tb" style="background:\${c.bg};color:\${c.text}">\${m.type}</span><span class="lb">\${m.level}</span><span class="pb">\${m.project}</span></div><div class="ctitle">\${m.title}</div><div class="cdesc">\${m.desc||'—'}</div><div class="actions"><a href="\${m.url}" target="_blank" class="btn-o">↗ Abrir</a><button class="btn-c" onclick="cp(this,'\${m.url}')">⧉ Link</button>\${m.pdf?\`<a href="\${m.pdf}" download class="btn-d">↓ PDF</a>\`:''}</div></div>\`;}).join('');}
+function cp(btn,url){
+  const feito=()=>{const t=btn.textContent;btn.textContent='✓ Copiado';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent=t;btn.classList.remove('ok');},1600);};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(feito,()=>alt(url,feito));}
+  else{alt(url,feito);}
+}
+function alt(url,feito){
+  const ta=document.createElement('textarea');ta.value=url;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');feito();}catch(e){window.prompt('Copie o link:',url);}
+  document.body.removeChild(ta);
+}
 r();
 </script>
 </body>
