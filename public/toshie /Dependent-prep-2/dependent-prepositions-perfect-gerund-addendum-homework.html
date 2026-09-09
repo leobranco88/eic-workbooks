@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Simple vs Perfect Gerund · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+
+  .big-idea { background: var(--ink); color: var(--paper); padding: 18px 36px; }
+  .big-idea-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+  .big-idea p { font-size: 14px; line-height: 1.6; max-width: 680px; }
+  .big-idea b { color: #fff; text-decoration: underline; }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 25px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 12.5px; color: #374151; margin-top: 8px; line-height: 1.5; max-width: 580px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 13px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.55; }
+  .scene-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+
+  .dialogue { margin-bottom: 16px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 9px; font-size: 13.5px; line-height: 1.55; }
+  .dialogue-speaker { font-weight: 800; color: var(--accent); min-width: 42px; flex-shrink: 0; }
+  .dialogue-text b { color: var(--blue); }
+
+  .notice-box {
+    background: var(--bg-light); border-left: 3px solid var(--ink); padding: 10px 14px;
+    margin-bottom: 16px; font-size: 12.5px; color: #374151; line-height: 1.55;
+  }
+
+  .rule-box { border: 1.5px dashed var(--ink); padding: 16px 18px; margin-bottom: 8px; }
+  .rule-text { font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+  .quoted-line { background: var(--ink); color: var(--paper); padding: 8px 12px; margin-bottom: 12px; font-size: 13px; font-style: italic; }
+  .quoted-line b { color: var(--accent); font-style: normal; }
+  .timeline-box { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .timeline-card { flex: 1; min-width: 220px; background: var(--bg-light); padding: 10px 12px; }
+  .timeline-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .timeline-ex { font-size: 12.5px; }
+  .timeline-ex b { color: var(--teal); }
+  .verb-list { background: var(--ink); color: var(--paper); padding: 10px 14px; margin-bottom: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.8; }
+  .verb-list b { color: var(--accent); }
+  .combo-box { margin-top: 12px; background: var(--ink); color: var(--paper); padding: 10px 14px; font-size: 12.5px; }
+  .combo-box b { color: var(--accent); }
+
+  .group-grid { display: flex; flex-direction: column; gap: 12px; }
+  .group-card { border: 1.5px solid var(--ink); padding: 12px 16px; }
+  .group-card.type1 { border-left: 5px solid var(--teal); }
+  .group-card.type2 { border-left: 5px solid var(--accent); }
+  .group-card.type3 { border-left: 5px solid var(--blue); }
+  .group-title { font-weight: 800; font-size: 13.5px; margin-bottom: 4px; }
+  .group-desc { font-size: 12px; color: #374151; margin-bottom: 8px; line-height: 1.5; }
+  .group-words { display: flex; flex-wrap: wrap; gap: 6px; }
+  .group-word { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; background: var(--bg-light); padding: 4px 10px; }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 14px; align-items: flex-start; font-size: 13.5px; line-height: 1.65; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .cue { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 130px; margin: 0 2px; vertical-align: baseline; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 13.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .open-item { margin-bottom: 14px; }
+  .open-stem { font-size: 13.5px; margin-bottom: 4px; line-height: 1.55; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-stem .pt-line { display: block; }
+  .open-stem .jp-line { display: block; color: var(--teal); font-size: 12px; margin-top: 3px; font-style: italic; }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 12.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .timeline-box { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    SIMPLE VS PERFECT GERUND · HOMEWORK · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html">Reading (Homework)</a>
+    <a href="the-wrong-room-wh-questions.html">Wh-Questions</a>
+    <a href="the-wrong-room-wh-tenses-homework.html">Mixed Tenses</a>
+    <a href="dependent-prepositions-gerund-addendum.html">Addendum (Classroom)</a>
+    <a href="dependent-prepositions-gerund-addendum-homework.html">Addendum (Homework)</a>
+    <a href="dependent-prepositions-gerund-register-practice.html">Register Practice</a>
+    <a href="dependent-prepositions-full-self-test.html">Full Self-Test</a>
+    <a href="dependent-prepositions-perfect-gerund-addendum.html">Simple vs Perfect (Classroom)</a>
+    <a href="dependent-prepositions-perfect-gerund-addendum-homework.html" class="active">Simple vs Perfect (Homework)</a>
+  </div>
+  <div class="topbar-meta">EXTRA · HOMEWORK · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="dependent-prepositions-perfect-gerund-addendum-homework.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Homework</div>
+        <h1>Dependent Prepositions<br><span>— Simple or Perfect Gerund?</span></h1>
+        <div class="hero-sub">Prática direta: os três grupos como referência rápida, e os dois exercícios completos. Sem diálogo — já sabe a regra? Então mostra.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-idea">
+    <span class="big-idea-label">A ideia central, resumida</span>
+    <p>Esse addendum inteiro existe pra responder uma pergunta só: <b>como eu sei — e como eu sinalizo — que uma ação já aconteceu antes?</b> Grupo 1 e Grupo 2 respondem isso de formas diferentes (um o verbo já garante, o outro precisa do "having"). O Grupo 3 é a exceção que confirma a regra: ali não existe passado nenhum pra sinalizar.</p>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">Os Três Grupos</span>
+      <span class="s-pts">referência</span>
+    </div>
+    <p class="instruction">Separando por categoria: uns já apontam pro passado sozinhos, outros precisam do "having" pra ficar claro, e outros nem têm passado escondido nenhum.</p>
+
+    <div class="group-grid">
+      <div class="group-card type1">
+        <div class="group-title">1. Já olha pra trás — "having" é opcional</div>
+        <div class="group-desc">O próprio verbo já garante que a ação veio antes. Pode usar gerúndio simples ou perfeito, tanto faz.</div>
+        <div class="group-words">
+          <span class="group-word">apologize for</span>
+          <span class="group-word">forgive (sb) for</span>
+          <span class="group-word">confess to</span>
+          <span class="group-word">blame (sb) for</span>
+          <span class="group-word">accuse (sb) of</span>
+          <span class="group-word">thank (sb) for</span>
+          <span class="group-word">congratulate (sb) on</span>
+        </div>
+      </div>
+
+      <div class="group-card type2">
+        <div class="group-title">2. Não olha pra trás sozinho — "having" ajuda a esclarecer</div>
+        <div class="group-desc">O verbo/adjetivo não aponta pro passado por natureza. Sem outra pista no contexto, o "having" é quem deixa claro que a ação já aconteceu.</div>
+        <div class="group-words">
+          <span class="group-word">proud of</span>
+          <span class="group-word">interested in</span>
+          <span class="group-word">aware of</span>
+          <span class="group-word">ashamed of</span>
+          <span class="group-word">sure of</span>
+          <span class="group-word">confident about</span>
+          <span class="group-word">keep thinking about</span>
+        </div>
+      </div>
+
+      <div class="group-card type3">
+        <div class="group-title">3. Sem passado escondido — só gerúndio simples</div>
+        <div class="group-desc">Aqui não existe "antes" nenhum pra marcar — é atividade geral, gosto, opinião. Usar "having" soaria estranho.</div>
+        <div class="group-words">
+          <span class="group-word">keen on</span>
+          <span class="group-word">believe in</span>
+          <span class="group-word">look forward to</span>
+          <span class="group-word">good at</span>
+          <span class="group-word">capable of</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · A</span>
+      <span class="s-title">Faz Diferença Usar "Having"?</span>
+      <span class="s-pts">16 items</span>
+    </div>
+    <p class="instruction">Pra cada frase, decida: o verbo principal já deixa o "antes" óbvio (então "having" é opcional), ou o "having" muda/esclarece alguma coisa? Escreva as duas versões possíveis quando fizer sentido. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">The airline apologized for <span class="blank"><span class="ans-inline">canceling / having canceled</span></span> the flight without notice. <span class="cue">(cancel)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">Rio admitted to <span class="blank"><span class="ans-inline">eating / having eaten</span></span> the last cookie without asking. <span class="cue">(eat)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">Sena's keen on <span class="blank"><span class="ans-inline">trying</span></span> new restaurants whenever she travels. <span class="cue">(try)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">The employee was blamed for <span class="blank"><span class="ans-inline">sending / having sent</span></span> the wrong file. <span class="cue">(send)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">Rio is proud of <span class="blank"><span class="ans-inline">having stayed</span></span> calm during the emergency. <span class="cue">(stay)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">The company apologized for <span class="blank"><span class="ans-inline">leaving / having left</span></span> customers waiting so long. <span class="cue">(leave)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">Sena confessed to <span class="blank"><span class="ans-inline">missing / having missed</span></span> the meeting completely. <span class="cue">(miss)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">Rio is interested in <span class="blank"><span class="ans-inline">having visited</span></span> so many countries before turning twenty-five. <span class="cue">(visit)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">They were accused of <span class="blank"><span class="ans-inline">faking / having faked</span></span> the results. <span class="cue">(fake)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">We're looking forward to <span class="blank"><span class="ans-inline">seeing</span></span> the new office next week. <span class="cue">(see)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">Sena's ashamed of <span class="blank"><span class="ans-inline">having been</span></span> so unprepared for the interview. <span class="cue">(be)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">I keep thinking about <span class="blank"><span class="ans-inline">not having accepted</span></span> that job offer. <span class="cue">(not / accept)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">13.</span><div class="q-body">Rio's aware of <span class="blank"><span class="ans-inline">having made</span></span> mistakes like this before. <span class="cue">(make)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">14.</span><div class="q-body">They were thanked for <span class="blank"><span class="ans-inline">returning / having returned</span></span> the lost documents. <span class="cue">(return)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">15.</span><div class="q-body">Sena's sure of <span class="blank"><span class="ans-inline">having left</span></span> her keys at the office. <span class="cue">(leave)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">16.</span><div class="q-body">Rio forgave his colleague for <span class="blank"><span class="ans-inline">missing / having missed</span></span> the deadline. <span class="cue">(miss)</span></div></div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · B</span>
+      <span class="s-title">Traduza — Escolha a Forma Certa</span>
+      <span class="s-pts">16 items</span>
+    </div>
+    <p class="instruction">Traduza usando gerúndio simples ou perfeito, o que soar mais natural pro verbo em questão. Clique no número pra conferir.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> <span class="pt-line">A companhia aérea pediu desculpas por <b>ter cancelado</b> o voo sem aviso.</span><span class="jp-line">航空会社は予告なしにフライトをキャンセルしたことを謝罪した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">The airline apologized for having canceled the flight without notice.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> <span class="pt-line">Rio admitiu <b>ter comido</b> o último biscoito sem perguntar.</span><span class="jp-line">リオは聞かずに最後のクッキーを食べたことを認めた。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio admitted to eating the last cookie without asking.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> <span class="pt-line">Sena é apaixonada por <b>experimentar</b> novos restaurantes quando viaja.</span><span class="jp-line">セナは旅行するときに新しいレストランを試すことに夢中だ。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Sena is keen on trying new restaurants whenever she travels.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> <span class="pt-line">O funcionário foi culpado por <b>ter enviado</b> o arquivo errado.</span><span class="jp-line">その社員は間違ったファイルを送ったことで責められた。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">The employee was blamed for sending the wrong file.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> <span class="pt-line">Rio se orgulha de <b>ter ficado</b> calmo durante a emergência.</span><span class="jp-line">リオは緊急事態の間ずっと冷静でいられたことを誇りに思っている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio is proud of having stayed calm during the emergency.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> <span class="pt-line">A empresa pediu desculpas por <b>ter deixado</b> os clientes esperando tanto tempo.</span><span class="jp-line">会社はお客様を長時間待たせたことを謝罪した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">The company apologized for leaving customers waiting so long.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> <span class="pt-line">Sena confessou <b>ter esquecido</b> completamente da reunião.</span><span class="jp-line">セナは会議を完全に忘れていたことを白状した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Sena confessed to missing the meeting completely.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> <span class="pt-line">Rio se interessa por <b>ter visitado</b> tantos países antes de completar vinte e cinco anos.</span><span class="jp-line">リオは二十五歳になる前にたくさんの国を訪れたことに興味がある。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio is interested in having visited so many countries before turning twenty-five.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">9.</strong> <span class="pt-line">Eles foram acusados de <b>terem falsificado</b> os resultados.</span><span class="jp-line">彼らは結果を偽造したと非難された。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">They were accused of faking the results.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">10.</strong> <span class="pt-line">Estamos ansiosos para <b>ver</b> o novo escritório semana que vem.</span><span class="jp-line">私たちは来週新しいオフィスを見るのを楽しみにしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">We're looking forward to seeing the new office next week.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">11.</strong> <span class="pt-line">Sena está envergonhada de <b>ter ficado</b> tão despreparada pra entrevista.</span><span class="jp-line">セナは面接にあまり準備ができていなかったことを恥じている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Sena's ashamed of having been so unprepared for the interview.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">12.</strong> <span class="pt-line">Eu fico pensando em <b>não ter aceitado</b> aquela proposta de emprego.</span><span class="jp-line">私はあの仕事のオファーを受け入れなかったことについて、ずっと考え続けている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I keep thinking about not having accepted that job offer.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">13.</strong> <span class="pt-line">Rio está ciente de já <b>ter cometido</b> erros como esse antes.</span><span class="jp-line">リオは以前にもこのような間違いをしたことを自覚している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio's aware of having made mistakes like this before.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">14.</strong> <span class="pt-line">Eles foram agradecidos por <b>terem devolvido</b> os documentos perdidos.</span><span class="jp-line">彼らはなくした書類を返してくれたことに感謝された。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">They were thanked for returning the lost documents.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">15.</strong> <span class="pt-line">Sena tem certeza de <b>ter deixado</b> as chaves no escritório.</span><span class="jp-line">セナはオフィスに鍵を置き忘れたと確信している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Sena's sure of having left her keys at the office.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">16.</strong> <span class="pt-line">Rio perdoou o colega por <b>ter perdido</b> o prazo.</span><span class="jp-line">リオは同僚が締め切りを逃したことを許した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio forgave his colleague for missing the deadline.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>

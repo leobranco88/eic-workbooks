@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Simple vs Perfect Gerund · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+
+  .big-idea { background: var(--ink); color: var(--paper); padding: 18px 36px; }
+  .big-idea-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+  .big-idea p { font-size: 14px; line-height: 1.6; max-width: 680px; }
+  .big-idea b { color: #fff; text-decoration: underline; }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 25px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 12.5px; color: #374151; margin-top: 8px; line-height: 1.5; max-width: 580px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 13px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.55; }
+  .scene-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+
+  .dialogue { margin-bottom: 16px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 9px; font-size: 13.5px; line-height: 1.55; }
+  .dialogue-speaker { font-weight: 800; color: var(--accent); min-width: 42px; flex-shrink: 0; }
+  .dialogue-text b { color: var(--blue); }
+
+  .notice-box {
+    background: var(--bg-light); border-left: 3px solid var(--ink); padding: 10px 14px;
+    margin-bottom: 16px; font-size: 12.5px; color: #374151; line-height: 1.55;
+  }
+
+  .rule-box { border: 1.5px dashed var(--ink); padding: 16px 18px; margin-bottom: 8px; }
+  .rule-text { font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+  .quoted-line { background: var(--ink); color: var(--paper); padding: 8px 12px; margin-bottom: 12px; font-size: 13px; font-style: italic; }
+  .quoted-line b { color: var(--accent); font-style: normal; }
+  .timeline-box { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .timeline-card { flex: 1; min-width: 220px; background: var(--bg-light); padding: 10px 12px; }
+  .timeline-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .timeline-ex { font-size: 12.5px; }
+  .timeline-ex b { color: var(--teal); }
+  .verb-list { background: var(--ink); color: var(--paper); padding: 10px 14px; margin-bottom: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.8; }
+  .verb-list b { color: var(--accent); }
+  .combo-box { margin-top: 12px; background: var(--ink); color: var(--paper); padding: 10px 14px; font-size: 12.5px; }
+  .combo-box b { color: var(--accent); }
+
+  .group-grid { display: flex; flex-direction: column; gap: 12px; }
+  .group-card { border: 1.5px solid var(--ink); padding: 12px 16px; }
+  .group-card.type1 { border-left: 5px solid var(--teal); }
+  .group-card.type2 { border-left: 5px solid var(--accent); }
+  .group-card.type3 { border-left: 5px solid var(--blue); }
+  .group-title { font-weight: 800; font-size: 13.5px; margin-bottom: 4px; }
+  .group-desc { font-size: 12px; color: #374151; margin-bottom: 8px; line-height: 1.5; }
+  .group-words { display: flex; flex-wrap: wrap; gap: 6px; }
+  .group-word { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; background: var(--bg-light); padding: 4px 10px; }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 14px; align-items: flex-start; font-size: 13.5px; line-height: 1.65; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .cue { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 130px; margin: 0 2px; vertical-align: baseline; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 13.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .g-tag { display: none; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; margin-left: 6px; vertical-align: middle; }
+  .q-item.revealed .g-tag { display: inline-block; }
+  .g-tag.opt { background: #ECFDF5; color: var(--teal); border: 1px solid var(--teal); }
+  .g-tag.req { background: #FEF2F2; color: var(--accent); border: 1px solid var(--accent); }
+  .g-tag.none { background: #EFF6FF; color: var(--blue); border: 1px solid var(--blue); }
+
+  .open-item { margin-bottom: 14px; }
+  .open-stem { font-size: 13.5px; margin-bottom: 4px; line-height: 1.55; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-stem .pt-line { display: block; }
+  .open-stem .jp-line { display: block; color: var(--teal); font-size: 12px; margin-top: 3px; font-style: italic; }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 12.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .timeline-box { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    SIMPLE VS PERFECT GERUND · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html">Reading (Homework)</a>
+    <a href="the-wrong-room-wh-questions.html">Wh-Questions</a>
+    <a href="the-wrong-room-wh-tenses-homework.html">Mixed Tenses</a>
+    <a href="dependent-prepositions-gerund-addendum.html">Addendum (Classroom)</a>
+    <a href="dependent-prepositions-gerund-addendum-homework.html">Addendum (Homework)</a>
+    <a href="dependent-prepositions-gerund-register-practice.html">Register Practice</a>
+    <a href="dependent-prepositions-full-self-test.html">Full Self-Test</a>
+    <a href="dependent-prepositions-perfect-gerund-addendum.html" class="active">Simple vs Perfect (Classroom)</a>
+    <a href="dependent-prepositions-perfect-gerund-addendum-homework.html">Simple vs Perfect (Homework)</a>
+  </div>
+  <div class="topbar-meta">EXTRA · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="dependent-prepositions-perfect-gerund-addendum.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Addendum</div>
+        <h1>Dependent Prepositions<br><span>— Simple or Perfect Gerund?</span></h1>
+        <div class="hero-sub">Uma dúvida que surgiu em aula: "not accepting" e "not having accepted" — as duas estão certas? Sim, mas por motivos diferentes. Esse addendum explica de onde vem o "tempo" de um gerúndio.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-idea">
+    <span class="big-idea-label">A ideia central, resumida</span>
+    <p>Esse addendum inteiro existe pra responder uma pergunta só: <b>como eu sei — e como eu sinalizo — que uma ação já aconteceu antes?</b> Grupo 1 e Grupo 2 respondem isso de formas diferentes (um o verbo já garante, o outro precisa do "having"). O Grupo 3 é a exceção que confirma a regra: ali não existe passado nenhum pra sinalizar.</p>
+  </div>
+
+  <!-- ═══ 01 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">De Onde Vem o "Tempo" do Gerúndio?</span>
+    </div>
+    <div class="scene-note">Sena ainda está remoendo a história do quarto errado.</div>
+
+    <div class="dialogue">
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">You still thinking about that room?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">A little. I keep thinking about <b>not having accepted</b> it, if I'm honest.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">You could just say <b>not accepting</b> it, you know. Same idea, really.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">Is that actually the same?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">Almost. "That room" is already something specific we both know about — a decision already made. The context itself makes the "before" obvious, even without "having." With verbs that point backward on their own, though — like "apologize for," "confess to," "blame for" — you get that same effect built right into the verb, no matter the context.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">So when do people actually bother with "having"?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">When you want the order of events to be completely clear — or when the context alone doesn't make it obvious. Especially in writing.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">What about a gerund that isn't about the past at all?</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">Like "I'm keen on <b>traveling</b> without an itinerary." No hidden past there — that's just general enthusiasm. Compare that to "I'm sure of <b>traveling</b> to Kyoto as a teenager — I have the photos to prove it." Same exact form, "traveling" — but now it clearly points backward, because the timeline pulls it there.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Sena:</span><span class="dialogue-text">So the gerund itself doesn't carry the tense.</span></div>
+      <div class="dialogue-line"><span class="dialogue-speaker">Rio:</span><span class="dialogue-text">Exactly. It just borrows time from whatever verb is around it.</span></div>
+    </div>
+
+    <div class="notice-box">Repare: "traveling" aparece duas vezes na fala do Rio, com o mesmo formato — mas num exemplo é geral/presente, no outro é claramente passado. Nada na palavra "traveling" muda. O que muda é o verbo ao redor. Antes de ler a regra, tenta explicar por quê.</div>
+
+    <div class="rule-box">
+      <p class="rule-text">O gerúndio simples (<b>-ing</b>) não tem tempo verbal próprio — ele é uma forma "atemporal". O tempo que a gente entende vem do <b>verbo principal</b> ou do contexto ao redor, não do próprio gerúndio.</p>
+
+      <div class="timeline-box">
+        <div class="timeline-card">
+          <span class="timeline-label">Sem passado escondido</span>
+          <div class="timeline-ex">"I'm keen on <b>traveling</b> without an itinerary." — entusiasmo geral, sem momento específico.</div>
+        </div>
+        <div class="timeline-card">
+          <span class="timeline-label">Passado implícito pelo contexto</span>
+          <div class="timeline-ex">"I'm sure of <b>traveling</b> to Kyoto as a teenager." — "as a teenager" já aponta pro passado.</div>
+        </div>
+      </div>
+
+      <p class="rule-text">Alguns verbos e adjetivos com preposição <b>já olham pra trás</b> por natureza — quando vêm antes do gerúndio, o "having" fica opcional, porque o sentido de "antes" já está garantido pelo próprio verbo:</p>
+
+      <div class="verb-list"><b>apologize for</b> · <b>forgive (sb) for</b> · <b>confess to</b> · <b>blame (sb) for</b> · <b>accuse (sb) of</b> · <b>thank (sb) for</b> · <b>congratulate (sb) on</b></div>
+
+      <p class="rule-text">Use o gerúndio <b>perfeito</b> — <b>having + particípio</b> — quando você quer deixar a ordem dos eventos <b>explícita</b>, sem depender do contexto pra isso. É mais comum na escrita formal, ou quando existe risco de ambiguidade.</p>
+
+      <div class="combo-box">E a negação funciona do mesmo jeito de sempre: o <b>not</b> vai bem na frente de tudo, incluindo o "having".<br><br>She's tired of <b>not having been</b> told about the change.</div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Os Três Grupos</span>
+      <span class="s-pts">referência</span>
+    </div>
+    <p class="instruction">Separando por categoria: uns já apontam pro passado sozinhos, outros precisam do "having" pra ficar claro, e outros nem têm passado escondido nenhum.</p>
+
+    <div class="group-grid">
+      <div class="group-card type1">
+        <div class="group-title">1. Já olha pra trás — "having" é opcional</div>
+        <div class="group-desc">O próprio verbo já garante que a ação veio antes. Pode usar gerúndio simples ou perfeito, tanto faz.</div>
+        <div class="group-words">
+          <span class="group-word">apologize for</span>
+          <span class="group-word">forgive (sb) for</span>
+          <span class="group-word">confess to</span>
+          <span class="group-word">blame (sb) for</span>
+          <span class="group-word">accuse (sb) of</span>
+          <span class="group-word">thank (sb) for</span>
+          <span class="group-word">congratulate (sb) on</span>
+        </div>
+      </div>
+
+      <div class="group-card type2">
+        <div class="group-title">2. Não olha pra trás sozinho — "having" ajuda a esclarecer</div>
+        <div class="group-desc">O verbo/adjetivo não aponta pro passado por natureza. Sem outra pista no contexto, o "having" é quem deixa claro que a ação já aconteceu.</div>
+        <div class="group-words">
+          <span class="group-word">proud of</span>
+          <span class="group-word">interested in</span>
+          <span class="group-word">aware of</span>
+          <span class="group-word">ashamed of</span>
+          <span class="group-word">sure of</span>
+          <span class="group-word">confident about</span>
+          <span class="group-word">keep thinking about</span>
+        </div>
+      </div>
+
+      <div class="group-card type3">
+        <div class="group-title">3. Sem passado escondido — só gerúndio simples</div>
+        <div class="group-desc">Aqui não existe "antes" nenhum pra marcar — é atividade geral, gosto, opinião. Usar "having" soaria estranho.</div>
+        <div class="group-words">
+          <span class="group-word">keen on</span>
+          <span class="group-word">believe in</span>
+          <span class="group-word">look forward to</span>
+          <span class="group-word">good at</span>
+          <span class="group-word">capable of</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · A</span>
+      <span class="s-title">Faz Diferença Usar "Having"?</span>
+      <span class="s-pts">16 items</span>
+    </div>
+    <p class="instruction">Pra cada frase, decida: o verbo principal já deixa o "antes" óbvio (então "having" é opcional), ou o "having" muda/esclarece alguma coisa? Escreva as duas versões possíveis quando fizer sentido. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Rio apologized for <span class="blank"><span class="ans-inline">not calling / not having called</span></span> the hotel back. <span class="g-tag opt">opcional</span> <span class="cue">(not / call)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">Sena confessed to <span class="blank"><span class="ans-inline">opening / having opened</span></span> the wrong door by mistake. <span class="g-tag opt">opcional</span> <span class="cue">(open)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">I'm keen on <span class="blank"><span class="ans-inline">traveling</span></span> without a fixed schedule. <span class="g-tag none">sem having · sem passado</span> <span class="cue">(travel)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">The staff was blamed for <span class="blank"><span class="ans-inline">losing / having lost</span></span> the reservation. <span class="g-tag opt">opcional</span> <span class="cue">(lose)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">Rio is proud of <span class="blank"><span class="ans-inline">having stayed</span></span> calm the whole trip, unlike his usual self. <span class="g-tag req">obrigatório</span> <span class="cue">(stay)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">She apologized for <span class="blank"><span class="ans-inline">not warning / not having warned</span></span> us sooner. <span class="g-tag opt">opcional</span> <span class="cue">(not / warn)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">He confessed to <span class="blank"><span class="ans-inline">checking</span></span> the door twice, just to be safe. <span class="g-tag opt">opcional</span> <span class="cue">(check)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">Rio is interested in <span class="blank"><span class="ans-inline">having worked</span></span> in three different countries during his career. <span class="g-tag req">obrigatório</span> <span class="cue">(work)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">He was accused of <span class="blank"><span class="ans-inline">knowing / having known</span></span> about the mistake. <span class="g-tag opt">opcional</span> <span class="cue">(know)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">We're looking forward to <span class="blank"><span class="ans-inline">visiting</span></span> the new hotel next month. <span class="g-tag none">sem having · sem passado</span> <span class="cue">(visit)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">She's ashamed of <span class="blank"><span class="ans-inline">having been</span></span> so rude to the receptionist. <span class="g-tag req">obrigatório</span> <span class="cue">(be)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">I keep thinking about <span class="blank"><span class="ans-inline">not having made</span></span> that decision sooner. <span class="g-tag req">obrigatório</span> <span class="cue">(not / make)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">13.</span><div class="q-body">He's aware of <span class="blank"><span class="ans-inline">having made</span></span> the same mistake twice. <span class="g-tag req">obrigatório</span> <span class="cue">(make)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">14.</span><div class="q-body">They were thanked for <span class="blank"><span class="ans-inline">finding / having found</span></span> the missing bag so quickly. <span class="g-tag opt">opcional</span> <span class="cue">(find)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">15.</span><div class="q-body">She's sure of <span class="blank"><span class="ans-inline">having left</span></span> the keys somewhere in the lobby. <span class="g-tag req">obrigatório</span> <span class="cue">(leave)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">16.</span><div class="q-body">She forgave the hotel for <span class="blank"><span class="ans-inline">losing / having lost</span></span> the reservation. <span class="g-tag opt">opcional</span> <span class="cue">(lose)</span></div></div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · B</span>
+      <span class="s-title">Traduza — Escolha a Forma Certa</span>
+      <span class="s-pts">16 items</span>
+    </div>
+    <p class="instruction">Traduza usando gerúndio simples ou perfeito, o que soar mais natural pro verbo em questão. Clique no número pra conferir.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> <span class="pt-line">Ela vive pensando em <b>não ter aceitado</b> aquele quarto.</span><span class="jp-line">彼女はあの部屋を受け入れなかったことについて、ずっと考え続けている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She keeps thinking about not accepting that room. <i>(ou: not having accepted)</i></span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> <span class="pt-line">Ele se orgulha de <b>ter ficado</b> calmo durante toda a viagem.</span><span class="jp-line">彼は旅行中ずっと冷静でいられたことを誇りに思っている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He's proud of having stayed calm during the whole trip.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> <span class="pt-line">Ela foi acusada de <b>ter perdido</b> as chaves do quarto.</span><span class="jp-line">彼女は部屋の鍵をなくしたと非難された。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She was accused of losing the room keys. <i>(ou: having lost)</i></span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> <span class="pt-line">Eu sou apaixonado por <b>viajar</b> sem roteiro fixo.</span><span class="jp-line">私は決まった予定なしで旅行することに夢中だ。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I'm keen on traveling without a fixed itinerary.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> <span class="pt-line">Rio se interessa por <b>ter trabalhado</b> em três países diferentes durante a carreira dele.</span><span class="jp-line">リオは三つの異なる国で働いたことに興味がある。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Rio is interested in having worked in three different countries during his career.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> <span class="pt-line">Ele confessou <b>não ter avisado</b> a esposa sobre a mudança de voo.</span><span class="jp-line">彼はフライトの変更について妻に知らせなかったことを白状した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He confessed to not warning his wife about the flight change. <i>(ou: not having warned)</i></span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> <span class="pt-line">Tenho certeza de <b>ter trancado</b> a porta duas vezes antes de sairmos.</span><span class="jp-line">出発前にドアを二回鍵をかけたことは確かだと思う。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I'm sure of having locked the door twice before we left.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> <span class="pt-line">Ela está cansada de <b>não ter sido</b> avisada sobre a mudança.</span><span class="jp-line">彼女は変更について知らされなかったことにうんざりしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's tired of not having been told about the change.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">9.</strong> <span class="pt-line">Eles foram parabenizados por <b>terem organizado</b> a viagem toda sem problema nenhum.</span><span class="jp-line">彼らは旅行全体を問題なく計画できたことを称賛された。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">They were congratulated on organizing the whole trip without a single problem. <i>(ou: having organized)</i></span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">10.</strong> <span class="pt-line">Ela foi agradecida por <b>ter encontrado</b> a mala perdida tão rápido.</span><span class="jp-line">彼女はなくした荷物をとても早く見つけたことに感謝された。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She was thanked for finding the lost bag so quickly. <i>(ou: having found)</i></span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">11.</strong> <span class="pt-line">Ele foi culpado por <b>ter perdido</b> a reserva.</span><span class="jp-line">彼は予約をなくしたことで責められた。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He was blamed for losing the reservation. <i>(ou: having lost)</i></span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">12.</strong> <span class="pt-line">Eu acredito em <b>economizar</b> dinheiro antes de qualquer viagem grande.</span><span class="jp-line">私はどんな大きな旅行の前でもお金を節約することを信条としている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I believe in saving money before any big trip.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">13.</strong> <span class="pt-line">Ela é capaz de <b>não desistir</b> mesmo nas piores situações.</span><span class="jp-line">彼女は最悪の状況でも諦めない能力がある。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's capable of not giving up even in the worst situations.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">14.</strong> <span class="pt-line">Ele é bom em <b>não deixar</b> transparecer o nervosismo.</span><span class="jp-line">彼は緊張を表に出さないことが得意だ。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He's good at not showing his nervousness.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">15.</strong> <span class="pt-line">Ela está confiante de <b>ter tomado</b> a decisão certa.</span><span class="jp-line">彼女は正しい決断をしたと自信を持っている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's confident about having made the right decision.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">16.</strong> <span class="pt-line">Ela perdoou o hotel por <b>ter perdido</b> a reserva.</span><span class="jp-line">彼女はホテルが予約をなくしたことを許した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She forgave the hotel for losing the reservation. <i>(ou: having lost)</i></span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>
