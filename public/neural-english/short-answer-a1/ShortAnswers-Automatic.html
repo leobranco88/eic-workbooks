@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Short Answers &middot; Neural English &middot; EIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+
+:root {
+  --blue:   #0D1FFF;
+  --orange: #FF3C38;
+  --ink:    #0A0A0A;
+  --mid:    #545454;
+  --light:  #E8E8E4;
+  --snow:   #F6F6F4;
+  --white:  #FFFFFF;
+
+  --a:  #0D1FFF;
+  --b:  #107A5A;
+  --c:  #F5006A;
+  --y:  #FFA10A;
+
+  --a-tint: #EEF1FF;
+  --b-tint: #E8F5F0;
+  --c-tint: #FFE6EF;
+  --y-tint: #FFF3E0;
+
+  --neon: #F2FF3D;
+  --neon-ink: #0A0A0A;
+
+  --ok:   #107A5A;
+  --ok-tint: #E8F5F0;
+  --bad:  #F5006A;
+  --bad-tint: #FFE6EF;
+
+  --content-w: clamp(900px, 62vw, 1240px);
+  --text-w: clamp(640px, 48vw, 920px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+::selection { background: var(--neon); color: var(--neon-ink); }
+::-moz-selection { background: var(--neon); color: var(--neon-ink); }
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 60px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+}
+.nav-left { display: flex; align-items: center; }
+.nav-logo { height: 30px; display: block; }
+.nav-module {
+  display: flex; align-items: center; gap: 8px;
+  margin-left: 16px; padding-left: 16px;
+  border-left: 1px solid var(--light);
+}
+.nav-module-label {
+  font-size: clamp(9px, calc(7.422px + 0.4207vw), 15.5px); font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid);
+}
+.nav-module-name {
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 900;
+  letter-spacing: -0.01em; color: var(--white);
+  background: var(--orange); padding: 4px 11px; border-radius: 7px;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-level {
+  font-size: clamp(9.7px, calc(8.017px + 0.4544vw), 16.74px); font-weight: 700; color: var(--mid);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.nav-link {
+  display: flex; align-items: center; gap: 5px;
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 700; color: var(--ink);
+  text-decoration: none; transition: color 0.15s;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--orange); }
+.nav-link svg { flex-shrink: 0; }
+.nav-pdf-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ink); color: var(--white);
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 17px); font-weight: 800;
+  padding: 8px 14px; border-radius: 100px; text-decoration: none;
+  transition: background 0.15s, transform 0.15s; white-space: nowrap;
+}
+.nav-pdf-btn:hover { background: var(--orange); transform: translateY(-1px); }
+.nav-pdf-btn svg { flex-shrink: 0; }
+@media (max-width: 720px) {
+  .nav-level { display: none; }
+  .nav-right { gap: 10px; }
+  .nav-pdf-btn span, .nav-link span.nav-link-text { display: none; }
+  .nav-pdf-btn { padding: 8px 10px; }
+}
+
+/* ── PROGRESS RAIL ───────────────────────────────────── */
+.rail {
+  display: flex; gap: 8px; padding: 18px 60px 0;
+  max-width: var(--content-w); margin: 0 auto;
+}
+.rail-step {
+  flex: 1; height: 5px; border-radius: 3px;
+  background: var(--light); overflow: hidden; position: relative;
+}
+.rail-step.filled { background: var(--ink); }
+.rail-labels {
+  display: flex; justify-content: space-between;
+  max-width: var(--content-w); margin: 8px auto 0; padding: 0 60px;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  padding: 48px 60px 40px;
+  max-width: var(--content-w); margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block; width: 24px; height: 3px;
+  background: var(--orange); border-radius: 2px;
+}
+h1 {
+  font-size: clamp(38px, 4.2vw + 20px, 96px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+h1 .n1 { color: var(--a); }
+h1 .n2 { color: var(--c); }
+.hero-sub {
+  font-size: clamp(15.3px, calc(12.618px + 0.7152vw), 26.35px); font-weight: 400;
+  color: var(--mid); line-height: 1.7;
+  max-width: var(--text-w);
+}
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+
+/* ── SECTION SHELL ────────────────────────────────────── */
+section.part {
+  max-width: var(--content-w); margin: 0 auto;
+  padding: 56px 60px;
+  border-top: 1px solid var(--light);
+}
+.part-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 10px;
+}
+.part-eyebrow .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 900;
+}
+.part h2 {
+  font-size: clamp(24px, 2vw + 15px, 52px);
+  font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.part-intro { font-size: clamp(13.95px, calc(11.503px + 0.6524vw), 24.03px); color: var(--mid); line-height: 1.7; max-width: var(--text-w); margin-bottom: 28px; }
+.part-intro strong { color: var(--ink); }
+
+/* ── NEON CALLOUT ─────────────────────────────────────── */
+.neon-box {
+  background: var(--neon); color: var(--neon-ink);
+  border-radius: 14px; padding: 22px 26px;
+  font-size: clamp(13.95px, calc(11.503px + 0.6524vw), 24.03px); line-height: 1.65; font-weight: 500;
+  margin: 20px 0 28px;
+}
+.neon-box b { font-weight: 800; }
+mark.hl {
+  background: var(--neon); color: var(--neon-ink);
+  padding: 1px 5px; border-radius: 4px; font-weight: 700;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+/* ── VOCAB TOOLTIP (orange dotted underline, tap/click to show) ─ */
+.voc {
+  border-bottom: 1.5px dotted var(--orange);
+  color: inherit; font-weight: 700; cursor: pointer;
+  position: relative;
+}
+.voc-bubble {
+  position: fixed; z-index: 999;
+  background: var(--ink); color: var(--white);
+  font-size: clamp(12px, 0.6vw + 10px, 16px); font-weight: 600; line-height: 1.4;
+  padding: 8px 12px; border-radius: 8px;
+  max-width: min(82vw, 340px); text-align: center;
+  opacity: 0; transform: translateY(4px);
+  pointer-events: none; transition: opacity .15s, transform .15s;
+}
+.voc-bubble.show { opacity: 1; transform: translateY(0); }
+
+/* ── GRAMMAR CARD ─────────────────────────────────────── */
+.grammar-card {
+  background: var(--snow); border-radius: 16px; padding: 28px 30px;
+  margin-bottom: 28px;
+}
+.grammar-row { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+.grammar-row:last-child { margin-bottom: 0; }
+.grammar-tag {
+  flex-shrink: 0; width: 96px; text-align: center;
+  font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 900; letter-spacing: -0.01em;
+  padding: 5px 4px; border-radius: 7px; color: var(--white);
+}
+.tag-i { background: var(--a); }
+.tag-you { background: var(--b); }
+.tag-he { background: var(--c); }
+.tag-she { background: var(--y); }
+.tag-it { background: var(--ink); }
+.tag-we { background: var(--a); }
+.tag-they { background: var(--c); }
+.tag-have { background: var(--a); }
+.tag-has { background: var(--c); }
+.tag-nothave { background: var(--bad); }
+.tag-nothas { background: var(--bad); }
+.tag-sing { background: var(--a); }
+.tag-plur { background: var(--c); }
+.grammar-text { font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); color: var(--ink); }
+.grammar-text .ex { color: var(--mid); font-style: italic; }
+.grammar-text .ex mark.hl { font-style: normal; }
+
+/* ── HAVE/HAS COMPARISON TABLE ────────────────────────── */
+.have-table {
+  display: grid;
+  grid-template-columns: 128px 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.have-head {
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--mid); padding: 0 4px 2px;
+}
+.have-row-label {
+  display: flex; align-items: center;
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 800; color: var(--white);
+  border-radius: 12px; padding: 14px 12px;
+  text-align: center; justify-content: center; line-height: 1.35;
+}
+.have-row-label.grp-do { background: var(--a); }
+.have-row-label.grp-does { background: var(--c); }
+.have-cell {
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.have-cell.grp-do { background: var(--a-tint); }
+.have-cell.grp-does { background: var(--c-tint); }
+.have-verb-pill {
+  display: inline-flex; align-self: flex-start;
+  font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 900; letter-spacing: -0.01em;
+  padding: 4px 12px; border-radius: 100px; color: var(--white);
+}
+.grp-do .have-verb-pill { background: var(--a); }
+.grp-does .have-verb-pill { background: var(--c); }
+.have-ex { font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); color: var(--ink); line-height: 1.6; }
+.have-ex mark.hl { font-weight: 800; }
+
+@media (max-width: 720px) {
+  .have-table { grid-template-columns: 1fr; }
+  .have-row-label { border-radius: 12px 12px 0 0; }
+}
+
+/* ── AVATARS ──────────────────────────────────────────── */
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 900; color: var(--white);
+  flex-shrink: 0;
+}
+.av-tom    { background: var(--a); }
+.av-mia    { background: var(--c); }
+.av-jake   { background: var(--b); }
+.av-sophie { background: var(--y); }
+.av-daniel { background: #6C4EFF; }
+.av-lena   { background: #00A6A6; }
+
+/* ── MATCH GAME ───────────────────────────────────────── */
+.match-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+.match-col-label { font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mid); margin-bottom: 10px; }
+.match-btn {
+  display: block; width: 100%; text-align: left;
+  background: var(--white); border: 2px solid var(--light);
+  border-radius: 10px; padding: 13px 16px; margin-bottom: 10px;
+  font-family: inherit; font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); font-weight: 700; color: var(--ink);
+  cursor: pointer; transition: all 0.12s;
+}
+.match-btn:hover:not(.matched):not(:disabled) { border-color: var(--ink); }
+.match-btn.selected { border-color: var(--ink); background: var(--snow); }
+.match-btn.matched { border-color: var(--ok); background: var(--ok-tint); color: var(--ok); cursor: default; }
+.match-btn.wrong { border-color: var(--bad); background: var(--bad-tint); animation: shake 0.3s; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+
+.match-pt {
+  display: block; font-size: clamp(10.35px, calc(8.537px + 0.4835vw), 17.82px); font-weight: 600; font-style: italic;
+  color: var(--mid); margin-top: 0; max-height: 0; opacity: 0;
+  overflow: hidden; transition: opacity 0.35s ease, max-height 0.35s ease, margin-top 0.35s ease;
+}
+.match-btn.matched .match-pt { color: var(--ok); }
+.match-btn.selected .match-pt, .match-btn.matched .match-pt { opacity: 1; max-height: 18px; margin-top: 3px; }
+
+.match-progress {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 700; color: var(--mid);
+}
+.match-progress-bar { flex: 1; height: 6px; background: var(--light); border-radius: 4px; overflow: hidden; }
+.match-progress-fill { height: 100%; background: var(--ok); width: 0%; transition: width 0.3s; }
+
+.sentences-panel { display: none; }
+.sentences-panel.show { display: block; }
+.sent-card {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--snow); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+}
+.sent-card .txt { font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px); line-height: 1.6; }
+.sent-card .txt b { font-weight: 800; }
+.sent-pair-label {
+  font-size: clamp(9.45px, calc(7.792px + 0.4421vw), 16.28px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--mid); margin: 18px 0 8px;
+}
+.sent-pair-label:first-child { margin-top: 0; }
+
+.reveal-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: 2px solid var(--ink); border-radius: 8px;
+  padding: 10px 18px; font-family: inherit; font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 800;
+  color: var(--ink); cursor: pointer; transition: all 0.12s;
+}
+.reveal-toggle:hover { background: var(--ink); color: var(--white); }
+.reveal-toggle:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.completion-msg {
+  display: none; align-items: center; gap: 10px;
+  background: var(--ok-tint); color: var(--ok); font-weight: 800; font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px);
+  border-radius: 10px; padding: 12px 16px; margin-bottom: 20px;
+}
+.completion-msg.show { display: flex; }
+
+/* ── QUIZ ITEMS ───────────────────────────────────────── */
+.quiz-item {
+  border: 1px solid var(--light); border-radius: 14px;
+  padding: 20px 22px; margin-bottom: 14px;
+}
+.quiz-top { display: flex; gap: 12px; align-items: flex-start; }
+.quiz-sentence { font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px); line-height: 1.6; font-weight: 500; padding-top: 4px; }
+.blank-pill {
+  display: inline-block; min-width: 64px; text-align: center;
+  border-bottom: 2px dashed var(--mid); color: transparent; user-select: none;
+}
+.quiz-options { display: flex; gap: 10px; margin: 14px 0 0 46px; flex-wrap: wrap; }
+.opt-btn {
+  background: var(--white); border: 2px solid var(--light); border-radius: 8px;
+  padding: 9px 18px; font-family: inherit; font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); font-weight: 700; color: var(--ink);
+  cursor: pointer; transition: all 0.12s;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ink); }
+.opt-btn.correct { border-color: var(--ok); background: var(--ok-tint); color: var(--ok); }
+.opt-btn.incorrect { border-color: var(--bad); background: var(--bad-tint); color: var(--bad); }
+.opt-btn:disabled { cursor: default; }
+
+.hint-btn {
+  margin: 12px 0 0 46px;
+  background: none; border: none; font-family: inherit;
+  font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 700; color: var(--a); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.hint-btn:hover { text-decoration: underline; }
+.hint-text {
+  display: none; margin: 8px 0 0 46px;
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); color: var(--mid); font-style: italic;
+}
+.hint-text.show { display: block; }
+
+.explain {
+  display: none; margin: 12px 0 0 46px;
+  background: var(--snow); border-radius: 10px; padding: 12px 16px;
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); line-height: 1.6; color: var(--ink);
+}
+.explain.show { display: block; }
+.explain b { color: var(--a); }
+
+/* ── ERROR CARDS ──────────────────────────────────────── */
+.error-card {
+  border: 1px solid var(--light); border-radius: 14px;
+  padding: 18px 22px; margin-bottom: 14px;
+}
+.error-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.error-row:last-child { margin-bottom: 0; }
+.error-tag {
+  flex-shrink: 0; width: 74px; text-align: center;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 900; letter-spacing: 0.03em;
+  padding: 4px 0; border-radius: 6px; color: var(--white);
+}
+.error-tag.wrong { background: var(--bad); }
+.error-tag.right { background: var(--ok); }
+.error-sentence { font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); }
+.error-sentence.wrong-text { color: var(--mid); text-decoration: line-through; text-decoration-color: var(--bad); }
+
+/* ── MACHINE (Do/Does + Have) ─────────────────────────── */
+.machine-shell {
+  background: var(--ink); color: var(--white);
+  border-radius: 22px; padding: 30px 30px 26px;
+}
+.machine-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.machine-badge { font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; padding: 5px 11px; border-radius: 100px; background: rgba(255,255,255,0.12); color: var(--white); }
+.machine-badge.resolved-do { background: var(--a-tint); color: var(--a); }
+.machine-badge.resolved-does { background: var(--c-tint); color: var(--c); }
+.machine-char-line { display: flex; align-items: center; gap: 8px; }
+.machine-char-line .avatar { width: 26px; height: 26px; font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); }
+.machine-char-line span { font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); color: rgba(255,255,255,0.65); font-weight: 600; }
+
+.machine-context {
+  background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px); font-weight: 700; line-height: 1.5;
+}
+.machine-context .obj-hl { background: var(--neon); color: var(--neon-ink); border-radius: 4px; padding: 1px 5px; }
+
+.machine-stage {
+  background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 14px; padding: 22px 16px; display: flex; justify-content: center; align-items: center;
+  min-height: 74px; margin-bottom: 18px;
+}
+.machine-tile-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.machine-tile {
+  font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); font-weight: 800; padding: 9px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2); color: var(--white);
+  position: relative; transition: all .4s cubic-bezier(.4,0,.2,1);
+}
+.machine-tile.ghost { opacity: 0; transform: translateY(-12px) scale(.85); border-style: dashed; }
+.machine-tile.ghost.show { opacity: 1; transform: none; }
+.machine-tile.pop { animation: mpop .4s ease; }
+@keyframes mpop { 0%{transform:scale(.7);opacity:0;} 60%{transform:scale(1.08);} 100%{transform:scale(1);opacity:1;} }
+.machine-tile .m-tag { position: absolute; top: -19px; left: 50%; transform: translateX(-50%); font-size: clamp(8.1px, calc(6.68px + 0.3786vw), 13.95px); text-transform: uppercase; letter-spacing: .05em; font-weight: 800; color: rgba(255,255,255,0.55); white-space: nowrap; }
+
+.machine-step-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.machine-step { display: flex; gap: 12px; align-items: flex-start; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 14px; background: rgba(255,255,255,0.03); opacity: .45; transition: all .25s; }
+.machine-step.active { opacity: 1; background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.4); }
+.machine-step.done { opacity: .7; }
+.machine-step-num { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--white); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; }
+.machine-step-title { font-weight: 800; font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); margin-bottom: 2px; color: var(--white); }
+.machine-step-text { font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); color: rgba(255,255,255,0.65); line-height: 1.5; }
+.machine-step-text strong { color: var(--white); }
+.machine-step-btn { margin-top: 8px; background: var(--neon); color: var(--neon-ink); border: none; border-radius: 8px; padding: 7px 14px; font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 800; cursor: pointer; font-family: inherit; }
+.machine-step-btn:hover { filter: brightness(0.95); }
+
+.machine-choice-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.machine-choice-btn {
+  border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); border-radius: 9px;
+  padding: 7px 13px; font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 700; cursor: pointer;
+  font-family: inherit; color: var(--white); transition: border-color .15s, background .15s, color .15s;
+}
+.machine-choice-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.6); }
+.machine-choice-btn.correct { background: var(--ok); border-color: var(--ok); color: var(--white); }
+.machine-choice-btn.wrong { background: var(--bad); border-color: var(--bad); color: var(--white); }
+.machine-choice-btn:disabled { cursor: default; }
+.machine-choice-btn.shake { animation: mshake .35s; }
+@keyframes mshake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+.machine-confirm { font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); color: var(--neon); font-weight: 700; margin-top: 8px; }
+
+.machine-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; flex-wrap: wrap; gap: 10px; }
+.machine-reset { background: none; border: none; color: rgba(255,255,255,0.6); font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); cursor: pointer; text-decoration: underline; font-family: inherit; padding: 0; }
+.machine-dots { display: flex; gap: 6px; }
+.machine-dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+.machine-dots span.on { background: var(--neon); }
+
+.machine-final-question { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: var(--neon); color: var(--neon-ink); font-weight: 800; font-size: clamp(15.3px, calc(12.618px + 0.7152vw), 26.35px); opacity: 0; max-height: 0; overflow: hidden; transition: all .3s; }
+.machine-final-question.show { opacity: 1; max-height: 100px; }
+
+.machine-warning {
+  margin-top: 22px; padding: 16px 18px; border-radius: 14px;
+  background: var(--ink); border: 1px dashed var(--c);
+  font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); line-height: 1.6; color: var(--white);
+}
+.machine-warning b { color: var(--neon); }
+
+/* ── GLOSSARY ─────────────────────────────────────────── */
+.gloss-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.gloss-item {
+  background: var(--snow); border-radius: 12px; padding: 14px 16px;
+}
+.gloss-term { font-weight: 800; font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px); color: var(--ink); }
+.gloss-term .voc { border: none; cursor: default; }
+.gloss-pt { font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); color: var(--mid); margin-top: 2px; }
+.gloss-ex { font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); color: var(--mid); font-style: italic; margin-top: 6px; }
+
+/* ── OUTCOMES (interactive) ───────────────────────────── */
+.outcomes {
+  background: var(--white); border: 1px solid var(--light);
+  border-radius: 16px; padding: 24px 26px;
+}
+.outcomes-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+.outcomes-header h3 { font-size: clamp(16.2px, calc(13.36px + 0.7573vw), 27.9px); font-weight: 900; }
+.outcomes-counter { font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 800; color: var(--mid); }
+.outcomes-sub { font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); color: var(--mid); margin-bottom: 14px; }
+.outcome-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  background: var(--white); border: 1px solid var(--light); border-left: 4px solid var(--y);
+  border-radius: 10px; padding: 11px 14px; margin-bottom: 6px; cursor: pointer;
+  font-family: inherit; transition: all 0.15s;
+}
+.outcome-item:last-child { margin-bottom: 0; }
+.outcome-item:hover { border-color: var(--mid); }
+.outcome-item:hover.confirmed { border-color: var(--a); }
+.outcome-check {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--y); display: flex; align-items: center; justify-content: center;
+  color: transparent; background: transparent; font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 900;
+  transition: all 0.15s;
+}
+.outcome-text { font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px); color: var(--ink); line-height: 1.5; }
+.outcome-item.confirmed { border-color: var(--a); border-left-color: var(--a); }
+.outcome-item.confirmed .outcome-check { background: var(--a); border-color: var(--a); color: var(--white); }
+.outcome-item.confirmed .outcome-text { font-weight: 800; }
+
+.outcomes-continue-wrap { display: flex; justify-content: flex-end; margin-top: 22px; }
+.outcomes-continue-btn {
+  background: var(--ink); color: var(--white); font-weight: 800; font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px);
+  padding: 14px 22px; border-radius: 12px; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s;
+}
+.outcomes-continue-btn:hover { background: #222; }
+
+footer { padding: 32px 60px 60px; text-align: center; font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); color: var(--mid); }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 720px) {
+  .nav, .hero, section.part, footer, .rail, .rail-labels { padding-left: 22px; padding-right: 22px; }
+  .match-wrap { grid-template-columns: 1fr; gap: 10px; }
+  .quiz-options, .hint-btn, .hint-text, .explain { margin-left: 0; }
+  .quiz-top { flex-direction: column; }
+  .error-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .gloss-list { grid-template-columns: 1fr; }
+}
+
+
+/* ── SHORT ANSWERS TABLE — typographic, no filled cards ──── */
+.sa-grid { margin-bottom: 32px; }
+.sa-row {
+  display: grid; grid-template-columns: 236px 1fr 1fr; gap: 0 40px;
+  padding: 24px 0; border-top: 1px solid var(--light);
+  align-items: start;
+}
+.sa-row:last-child { border-bottom: 1px solid var(--light); }
+.sa-row.head { border: none; padding: 0 0 10px; }
+.sa-row.head span {
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid);
+}
+.sa-open {
+  font-size: clamp(15px, calc(12.3px + 0.72vw), 27px); font-weight: 900;
+  letter-spacing: -0.02em; line-height: 1.25; color: var(--ink);
+}
+.sa-class {
+  margin-top: 7px;
+  font-size: clamp(10.35px, calc(8.537px + 0.4835vw), 17.82px); font-weight: 800;
+  letter-spacing: 0.05em; line-height: 1.4;
+}
+.sa-class.c-do { color: var(--a); }
+.sa-class.c-does { color: var(--c); }
+.sa-class.c-be { color: var(--b); }
+.sa-class.c-there { color: var(--y); }
+.sa-cell-label {
+  display: none;
+  font-size: clamp(9.45px, calc(7.792px + 0.4421vw), 16.28px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid); margin-bottom: 5px;
+}
+.sa-q {
+  font-size: clamp(13.05px, calc(10.761px + 0.6104vw), 22.48px);
+  color: var(--mid); line-height: 1.5;
+}
+.sa-a {
+  font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px);
+  color: var(--ink); font-weight: 600; line-height: 1.6; margin-top: 3px;
+}
+@media (max-width: 720px) {
+  .sa-row { grid-template-columns: 1fr; gap: 16px 0; padding: 20px 0; }
+  .sa-row.head { display: none; }
+  .sa-cell-label { display: block; }
+}
+
+/* the auxiliary IS the answer -> orange, never neon */
+.aux-hl {
+  background: var(--orange); color: var(--white);
+  padding: 1px 7px; border-radius: 5px; font-weight: 800;
+}
+
+/* ── CONVERTER (nome -> pronome) ──────────────────────── */
+.conv-shell { border: 1px solid var(--light); border-radius: 18px; padding: 26px 28px 24px; }
+.conv-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.conv-kicker {
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); margin-bottom: 6px;
+}
+.conv-subject { font-size: clamp(26px, 2.2vw + 14px, 54px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+.conv-stat { font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 800; color: var(--mid); white-space: nowrap; }
+.conv-prompt { font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); color: var(--mid); font-weight: 600; margin-bottom: 12px; }
+.conv-opts { display: flex; gap: 9px; flex-wrap: wrap; }
+.conv-fb { min-height: 26px; margin-top: 14px; font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 700; }
+.conv-fb.ok { color: var(--ok); }
+.conv-fb.bad { color: var(--bad); }
+
+/* ── REFLEX DRILL ─────────────────────────────────────── */
+.reflex-shell { background: var(--ink); color: var(--white); border-radius: 22px; padding: 28px 30px 24px; }
+.reflex-metrics { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; }
+.reflex-metric-label {
+  font-size: clamp(9px, calc(7.422px + 0.4207vw), 15.5px); font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 2px;
+}
+.reflex-metric-value { font-size: clamp(19px, 1.4vw + 12px, 34px); font-weight: 900; letter-spacing: -0.02em; }
+.reflex-metric-value.hot { color: var(--neon); }
+.reflex-timer { height: 6px; border-radius: 4px; background: rgba(255,255,255,0.14); overflow: hidden; margin-bottom: 22px; }
+.reflex-timer-fill { height: 100%; width: 100%; background: var(--neon); }
+.reflex-timer-fill.late { background: var(--orange); }
+.reflex-qline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.reflex-polarity {
+  font-size: clamp(11.25px, calc(9.277px + 0.5262vw), 19.38px); font-weight: 900;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 5px 13px; border-radius: 100px; background: var(--neon); color: var(--neon-ink);
+}
+.reflex-polarity.no { background: var(--white); color: var(--ink); }
+.reflex-index { font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 700; color: rgba(255,255,255,0.45); }
+.reflex-q { font-size: clamp(20px, 1.6vw + 13px, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 22px; }
+.reflex-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 720px) { .reflex-opts { grid-template-columns: 1fr; } }
+.reflex-opt {
+  border: 1.5px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.05);
+  border-radius: 12px; padding: 15px 18px; text-align: left; cursor: pointer;
+  font-family: inherit; font-size: clamp(14px, calc(11.5px + 0.66vw), 24px); font-weight: 700; color: var(--white);
+  transition: border-color .12s, background .12s;
+}
+.reflex-opt:hover:not(:disabled) { border-color: rgba(255,255,255,0.6); }
+.reflex-opt.correct { background: var(--ok); border-color: var(--ok); }
+.reflex-opt.wrong { background: var(--bad); border-color: var(--bad); }
+.reflex-opt.reveal { border-color: var(--ok); color: var(--ok); }
+.reflex-opt:disabled { cursor: default; }
+.reflex-opt.shake { animation: mshake .35s; }
+.reflex-why { margin-top: 16px; font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); line-height: 1.6; color: rgba(255,255,255,0.75); min-height: 22px; }
+.reflex-why b { color: var(--neon); }
+.reflex-start { text-align: left; }
+.reflex-start h3 { font-size: clamp(19px, 1.4vw + 12px, 34px); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 10px; }
+.reflex-start p { font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); line-height: 1.65; color: rgba(255,255,255,0.7); margin-bottom: 18px; max-width: 62ch; }
+.reflex-btn {
+  background: var(--neon); color: var(--neon-ink); border: none; border-radius: 10px;
+  padding: 13px 24px; font-family: inherit; font-size: clamp(13px, calc(10.7px + 0.6vw), 22px); font-weight: 900; cursor: pointer;
+}
+.reflex-btn:hover { filter: brightness(0.95); }
+.reflex-btn.ghost { background: none; color: var(--white); border: 1.5px solid rgba(255,255,255,0.35); font-weight: 700; }
+.reflex-result h3 { font-size: clamp(22px, 1.7vw + 13px, 40px); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 14px; }
+.reflex-result-line { font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 6px; }
+.reflex-result-line b { color: var(--white); font-weight: 800; }
+.reflex-verdict { margin: 18px 0 20px; padding: 15px 18px; border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px dashed rgba(255,255,255,0.28); font-size: clamp(12.6px, calc(10.391px + 0.589vw), 21.7px); line-height: 1.6; }
+.reflex-verdict b { color: var(--neon); }
+.reflex-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ── TYPE-IN ──────────────────────────────────────────── */
+.type-item { border: 1px solid var(--light); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; }
+.type-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.type-num {
+  flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(10.8px, calc(8.907px + 0.5049vw), 18.6px); font-weight: 900;
+}
+.type-q { font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px); font-weight: 600; line-height: 1.5; }
+.type-pol {
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 4px 11px; border-radius: 100px; background: var(--ink); color: var(--white);
+}
+.type-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 0 38px; }
+.type-input {
+  flex: 1; min-width: 200px; font-family: inherit; font-weight: 700;
+  font-size: clamp(13.5px, calc(11.133px + 0.6311vw), 23.25px); color: var(--ink);
+  border: 2px solid var(--light); border-radius: 10px; padding: 11px 15px; background: var(--white);
+}
+.type-input:focus { outline: none; border-color: var(--ink); }
+.type-input.ok { border-color: var(--ok); background: var(--ok-tint); color: var(--ok); }
+.type-input.bad { border-color: var(--bad); background: var(--bad-tint); }
+.type-check {
+  background: var(--ink); color: var(--white); border: none; border-radius: 10px;
+  padding: 11px 20px; font-family: inherit; font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 800; cursor: pointer;
+}
+.type-check:hover { background: var(--orange); }
+.type-fb { margin: 10px 0 0 38px; font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); line-height: 1.6; display: none; }
+.type-fb.show { display: block; }
+.type-fb.ok { color: var(--ok); font-weight: 700; }
+.type-fb.bad { color: var(--bad); font-weight: 700; }
+.type-fb .fix { color: var(--ink); font-weight: 500; display: block; margin-top: 3px; }
+.type-score { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: clamp(11.7px, calc(9.649px + 0.5469vw), 20.15px); font-weight: 700; color: var(--mid); }
+@media (max-width: 720px) { .type-row, .type-fb { margin-left: 0; } }
+
+/* machine: polarity pill inside context */
+.machine-polarity {
+  display: inline-block; margin-left: 8px; vertical-align: middle;
+  font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 900;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 4px 11px; border-radius: 100px; background: var(--neon); color: var(--neon-ink);
+}
+.machine-polarity.no { background: var(--white); color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <img src="data:image/png;base64,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" alt="EIC" class="nav-logo">
+    <div class="nav-module">
+      <span class="nav-module-label">Neural English</span>
+      <span class="nav-module-name">Short Answers</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <span class="nav-level">B&aacute;sico</span>
+    <a href="Possessives-HaveHas.html" class="nav-link">
+      <span class="nav-link-text">Possessives &amp; Have/Has</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a href="Grammar-Worksheet-ShortAnswers-Homework.pdf" class="nav-pdf-btn" download>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+      <span>PDF</span>
+    </a>
+  </div>
+</nav>
+
+<div class="rail">
+  <div class="rail-step" data-rail="0"></div>
+  <div class="rail-step" data-rail="1"></div>
+  <div class="rail-step" data-rail="2"></div>
+  <div class="rail-step" data-rail="3"></div>
+  <div class="rail-step" data-rail="4"></div>
+</div>
+<div class="rail-labels">
+  <span>O espelho</span>
+  <span>Nome &rarr; pronome</span>
+  <span>M&aacute;quina</span>
+  <span>Reflex</span>
+  <span>Escrita</span>
+</div>
+
+<header class="hero">
+  <div class="hero-eyebrow">Grammar &middot; N&iacute;vel B&aacute;sico</div>
+  <h1>Yes, <span class="n1">he does.</span><br>Sem <span class="n2">pensar.</span></h1>
+  <p class="hero-sub">
+    A resposta curta &eacute; o <strong>espelho da pergunta</strong>: o auxiliar que abre volta no fim,
+    e o verbo principal nunca reaparece. Aqui voc&ecirc; treina os quatro caminhos
+    (<mark class="hl">do / does</mark> com have, <mark class="hl">to be</mark> no presente e
+    <mark class="hl">there is / there are</mark>) e o passo que trava todo mundo:
+    a pergunta traz o <strong>nome</strong>, a resposta exige o <strong>pronome</strong>.
+    O objetivo n&atilde;o &eacute; acertar &mdash; &eacute; acertar r&aacute;pido.
+  </p>
+</header>
+
+<!-- ═══════════════════ PART 1 — THE MIRROR ═══════════════════ -->
+<section class="part" id="part1">
+  <div class="part-eyebrow"><span class="num">1</span> A resposta &eacute; o espelho</div>
+  <h2>O auxiliar volta. O verbo, nunca.</h2>
+  <p class="part-intro">
+    Olhe s&oacute; a primeira palavra da pergunta. Ela decide tudo. Se a pergunta abre com
+    <strong>does</strong>, a resposta fecha com <strong>does</strong> &mdash; e o
+    <span class="voc" data-tip="verbo principal: have, live, work, study..." tabindex="0">verbo principal</span>
+    fica de fora.
+  </p>
+
+  <div class="sa-grid">
+    <div class="sa-row head">
+      <span>Pergunta abre com</span>
+      <span>Resposta Yes</span>
+      <span>Resposta No</span>
+    </div>
+
+    <div class="sa-row">
+      <div>
+        <div class="sa-open">Do &hellip; have&hellip;?</div>
+        <div class="sa-class c-do">volta como do &middot; don&rsquo;t</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">Yes</div>
+        <div class="sa-q">Do you have a minute?</div>
+        <div class="sa-a">Yes, I <span class="aux-hl">do</span>.</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">No</div>
+        <div class="sa-q">Do they have the keys?</div>
+        <div class="sa-a">No, they <span class="aux-hl">don&rsquo;t</span>.</div>
+      </div>
+    </div>
+
+    <div class="sa-row">
+      <div>
+        <div class="sa-open">Does &hellip; have&hellip;?</div>
+        <div class="sa-class c-does">volta como does &middot; doesn&rsquo;t</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">Yes</div>
+        <div class="sa-q">Does Tom have a car?</div>
+        <div class="sa-a">Yes, he <span class="aux-hl">does</span>.</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">No</div>
+        <div class="sa-q">Does the hotel have a gym?</div>
+        <div class="sa-a">No, it <span class="aux-hl">doesn&rsquo;t</span>.</div>
+      </div>
+    </div>
+
+    <div class="sa-row">
+      <div>
+        <div class="sa-open">Is / Are &hellip;?</div>
+        <div class="sa-class c-be">volta como is &middot; are &middot; isn&rsquo;t &middot; aren&rsquo;t</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">Yes</div>
+        <div class="sa-q">Is Sophie a designer?</div>
+        <div class="sa-a">Yes, she <span class="aux-hl">is</span>.</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">No</div>
+        <div class="sa-q">Are Jake and Mia late?</div>
+        <div class="sa-a">No, they <span class="aux-hl">aren&rsquo;t</span>.</div>
+      </div>
+    </div>
+
+    <div class="sa-row">
+      <div>
+        <div class="sa-open">Is there / Are there&hellip;?</div>
+        <div class="sa-class c-there">volta como there is &middot; there are</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">Yes</div>
+        <div class="sa-q">Is there a pool?</div>
+        <div class="sa-a">Yes, <span class="aux-hl">there is</span>.</div>
+      </div>
+      <div>
+        <div class="sa-cell-label">No</div>
+        <div class="sa-q">Are there two elevators?</div>
+        <div class="sa-a">No, <span class="aux-hl">there aren&rsquo;t</span>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="neon-box">
+    <b>Duas regras fixas.</b> Primeira: no afirmativo a resposta curta <b>nunca</b> contrai &mdash;
+    <i>Yes, he is.</i> e nunca <i>Yes, he&rsquo;s.</i> Segunda: no negativo a contra&ccedil;&atilde;o &eacute; normal &mdash;
+    <i>No, he isn&rsquo;t. / No, she doesn&rsquo;t. / No, I&rsquo;m not.</i>
+  </div>
+
+  <p class="part-intro" style="margin: 28px 0 16px;">
+    Os cinco erros que aparecem toda semana em sala:
+  </p>
+
+  <div class="error-card">
+    <div style="font-size:clamp(12.15px,calc(10.019px + 0.5683vw),20.93px);font-weight:800;color:var(--mid);margin-bottom:10px;">Does Tom have a car?</div>
+    <div class="error-row"><span class="error-tag wrong">n&atilde;o</span><span class="error-sentence wrong-text">Yes, he has.</span></div>
+    <div class="error-row"><span class="error-tag right">sim</span><span class="error-sentence">Yes, he <b>does</b>. <span style="color:var(--mid);font-style:italic;">O have ficou na pergunta.</span></span></div>
+  </div>
+  <div class="error-card">
+    <div style="font-size:clamp(12.15px,calc(10.019px + 0.5683vw),20.93px);font-weight:800;color:var(--mid);margin-bottom:10px;">Is Sophie a designer?</div>
+    <div class="error-row"><span class="error-tag wrong">n&atilde;o</span><span class="error-sentence wrong-text">Yes, she&rsquo;s.</span></div>
+    <div class="error-row"><span class="error-tag right">sim</span><span class="error-sentence">Yes, she <b>is</b>. <span style="color:var(--mid);font-style:italic;">Afirmativo n&atilde;o contrai.</span></span></div>
+  </div>
+  <div class="error-card">
+    <div style="font-size:clamp(12.15px,calc(10.019px + 0.5683vw),20.93px);font-weight:800;color:var(--mid);margin-bottom:10px;">Is there a pool at the hotel?</div>
+    <div class="error-row"><span class="error-tag wrong">n&atilde;o</span><span class="error-sentence wrong-text">Yes, it is.</span></div>
+    <div class="error-row"><span class="error-tag right">sim</span><span class="error-sentence">Yes, <b>there is</b>. <span style="color:var(--mid);font-style:italic;">O &ldquo;there&rdquo; fica.</span></span></div>
+  </div>
+  <div class="error-card">
+    <div style="font-size:clamp(12.15px,calc(10.019px + 0.5683vw),20.93px);font-weight:800;color:var(--mid);margin-bottom:10px;">Are Jake and Mia late?</div>
+    <div class="error-row"><span class="error-tag wrong">n&atilde;o</span><span class="error-sentence wrong-text">Yes, Jake and Mia are.</span></div>
+    <div class="error-row"><span class="error-tag right">sim</span><span class="error-sentence">Yes, <b>they</b> are. <span style="color:var(--mid);font-style:italic;">O nome vira pronome.</span></span></div>
+  </div>
+  <div class="error-card">
+    <div style="font-size:clamp(12.15px,calc(10.019px + 0.5683vw),20.93px);font-weight:800;color:var(--mid);margin-bottom:10px;">Do you have a minute?</div>
+    <div class="error-row"><span class="error-tag wrong">n&atilde;o</span><span class="error-sentence wrong-text">Yes, I have.</span></div>
+    <div class="error-row"><span class="error-tag right">sim</span><span class="error-sentence">Yes, I <b>do</b>. <span style="color:var(--mid);font-style:italic;">Do abriu, do fecha.</span></span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PART 2 — CONVERTER ═══════════════════ -->
+<section class="part" id="part2">
+  <div class="part-eyebrow"><span class="num">2</span> Nome &rarr; pronome</div>
+  <h2>O conversor de sujeito</h2>
+  <p class="part-intro">
+    A pergunta traz o nome: <strong>Does Sophie&hellip;?</strong> A resposta n&atilde;o repete o nome &mdash;
+    ela troca por um pronome: <strong>Yes, she does.</strong> Esse passo tem que ser instant&acirc;neo,
+    porque ele acontece antes de voc&ecirc; escolher o auxiliar. Toque no pronome certo.
+  </p>
+
+  <div class="conv-shell">
+    <div class="conv-head">
+      <div>
+        <div class="conv-kicker">Sujeito na pergunta</div>
+        <div class="conv-subject" id="convSubject">&mdash;</div>
+      </div>
+      <span class="conv-stat" id="convStat">1 / 16</span>
+    </div>
+    <div class="match-progress">
+      <span id="convCount">0 acertos</span>
+      <div class="match-progress-bar"><div class="match-progress-fill" id="convFill"></div></div>
+    </div>
+    <div class="conv-prompt">Qual pronome responde?</div>
+    <div class="conv-opts" id="convOpts"></div>
+    <div class="conv-fb" id="convFb"></div>
+  </div>
+
+  <div class="completion-msg" id="convDone">Conversor dominado &mdash; 16 sujeitos convertidos.</div>
+
+  <div class="machine-warning" style="margin-top:22px;">
+    <b>Exce&ccedil;&atilde;o &uacute;nica:</b> em <i>Is there&hellip;? / Are there&hellip;?</i> n&atilde;o existe nome para converter.
+    O <b>there</b> continua l&aacute; na resposta: <i>Yes, there is.</i> &mdash; nunca <i>Yes, it is.</i>
+  </div>
+</section>
+
+<!-- ═══════════════════ PART 3 — MACHINE ═══════════════════ -->
+<section class="part" id="part3">
+  <div class="part-eyebrow"><span class="num">3</span> Train the path, not the answer</div>
+  <h2>M&aacute;quina de 3 passos: montar a resposta curta</h2>
+  <p class="part-intro">
+    Todo caminho &eacute; o mesmo, sempre nesta ordem: <strong>quem responde</strong> (pronome ou there),
+    <strong>qual auxiliar volta</strong> e <strong>como fecha</strong>. A m&aacute;quina obriga voc&ecirc; a passar
+    pelos tr&ecirc;s at&eacute; o caminho virar autom&aacute;tico.
+  </p>
+
+  <div class="machine-shell">
+    <div class="machine-top">
+      <span class="machine-badge" id="saBadge">Qual auxiliar?</span>
+      <div class="machine-char-line" id="saCharLine"></div>
+    </div>
+    <div class="machine-context" id="saContext"></div>
+    <div class="machine-stage"><div class="machine-tile-row" id="saTileRow"></div></div>
+    <div class="machine-step-list" id="saStepList"></div>
+    <div class="machine-final-question" id="saFinal"></div>
+    <div class="machine-nav">
+      <button class="machine-reset" id="saReset">reiniciar este exemplo</button>
+      <div class="machine-dots" id="saDots"></div>
+      <button class="machine-step-btn" id="saNext" style="opacity:0;pointer-events:none;">Pr&oacute;ximo exemplo &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PART 4 — REFLEX ═══════════════════ -->
+<section class="part" id="part4">
+  <div class="part-eyebrow"><span class="num">4</span> Velocidade</div>
+  <h2>Reflex Drill: 8 segundos por resposta</h2>
+  <p class="part-intro">
+    Saber a regra e responder na hora s&atilde;o duas coisas diferentes. Aqui os quatro caminhos vêm
+    misturados e sem aviso, com <strong>oito segundos</strong> cada. A pergunta aparece com a
+    polaridade j&aacute; definida (<strong>YES</strong> ou <strong>NO</strong>) &mdash; voc&ecirc; s&oacute; monta a resposta.
+    Dez acertos seguidos e a resposta est&aacute; autom&aacute;tica.
+  </p>
+
+  <div class="reflex-shell" id="reflexShell"></div>
+</section>
+
+<!-- ═══════════════════ PART 5 — TYPE IN ═══════════════════ -->
+<section class="part" id="part5">
+  <div class="part-eyebrow"><span class="num">5</span> Escrita</div>
+  <h2>Escreva a resposta curta</h2>
+  <p class="part-intro">
+    Sem op&ccedil;&otilde;es agora. Escreva a resposta completa, com pontua&ccedil;&atilde;o &mdash; a corre&ccedil;&atilde;o &eacute; na hora.
+    Duas perguntas aqui escondem uma armadilha de sujeito. Repare bem em quem est&aacute; sendo perguntado.
+  </p>
+
+  <div class="type-score">
+    <span id="typeCount">0 / 10 corretas</span>
+    <div class="match-progress-bar"><div class="match-progress-fill" id="typeFill"></div></div>
+  </div>
+
+  <div id="typeList"></div>
+</section>
+
+<!-- ═══════════════════ GLOSSARY ═══════════════════ -->
+<section class="part" id="glossary">
+  <div class="part-eyebrow"><span class="num">&#10003;</span> Vocabul&aacute;rio desta aula</div>
+  <h2>Gloss&aacute;rio</h2>
+  <p class="part-intro">
+    Collocations que apareceram nas perguntas &mdash; toque nas palavras com sublinhado laranja
+    ao longo da aula para ver a dica na hora.
+  </p>
+  <div class="gloss-list">
+    <div class="gloss-item"><div class="gloss-term">to have a minute</div><div class="gloss-pt">ter um minutinho</div><div class="gloss-ex">Do you have a minute?</div></div>
+    <div class="gloss-item"><div class="gloss-term">to be at the office</div><div class="gloss-pt">estar no escrit&oacute;rio</div><div class="gloss-ex">Is Tom at the office?</div></div>
+    <div class="gloss-item"><div class="gloss-term">to be running late</div><div class="gloss-pt">estar atrasado</div><div class="gloss-ex">Are Jake and Mia running late?</div></div>
+    <div class="gloss-item"><div class="gloss-term">on the third floor</div><div class="gloss-pt">no terceiro andar</div><div class="gloss-ex">Is Sophie&rsquo;s office on the third floor?</div></div>
+    <div class="gloss-item"><div class="gloss-term">around the corner</div><div class="gloss-pt">na esquina, logo ali</div><div class="gloss-ex">Is there a caf&eacute; around the corner?</div></div>
+    <div class="gloss-item"><div class="gloss-term">any messages for me</div><div class="gloss-pt">alguma mensagem para mim</div><div class="gloss-ex">Are there any messages for me?</div></div>
+    <div class="gloss-item"><div class="gloss-term">a spare charger</div><div class="gloss-pt">um carregador reserva</div><div class="gloss-ex">Does Mia have a spare charger?</div></div>
+    <div class="gloss-item"><div class="gloss-term">a parking space</div><div class="gloss-pt">uma vaga de estacionamento</div><div class="gloss-ex">Are there parking spaces in the building?</div></div>
+  </div>
+</section>
+
+<section class="part" id="outcomes">
+  <div class="outcomes">
+    <div class="outcomes-header">
+      <h3>My Outcomes</h3>
+      <span class="outcomes-counter" id="outcomesCounter">0 / 5 confirmados</span>
+    </div>
+    <p class="outcomes-sub">Clique em cada frase que voc&ecirc; sente que j&aacute; domina.</p>
+    <div id="outcomesList">
+      <button class="outcome-item" data-key="s1"><span class="outcome-check">&#10003;</span><span class="outcome-text">Respondo com o auxiliar da pergunta, nunca com o verbo principal &mdash; digo &ldquo;Yes, he does.&rdquo;, nunca &ldquo;Yes, he has.&rdquo;</span></button>
+      <button class="outcome-item" data-key="s2"><span class="outcome-check">&#10003;</span><span class="outcome-text">Converto o nome da pergunta no pronome certo antes de responder.</span></button>
+      <button class="outcome-item" data-key="s3"><span class="outcome-check">&#10003;</span><span class="outcome-text">N&atilde;o contraio a resposta afirmativa: &ldquo;Yes, she is.&rdquo;, nunca &ldquo;Yes, she&rsquo;s.&rdquo;</span></button>
+      <button class="outcome-item" data-key="s4"><span class="outcome-check">&#10003;</span><span class="outcome-text">Mantenho o &ldquo;there&rdquo; nas respostas de Is there / Are there.</span></button>
+      <button class="outcome-item" data-key="s5"><span class="outcome-check">&#10003;</span><span class="outcome-text">Respondo dentro de oito segundos, sem parar para montar a regra.</span></button>
+    </div>
+  </div>
+  <div class="outcomes-continue-wrap">
+    <a class="outcomes-continue-btn" href="/hub.html">Voltar para a Hub &rarr;</a>
+  </div>
+</section>
+
+<footer>Neural English &middot; EIC &mdash; Escola de Idiomas e Cultura</footer>
+
+<script>
+/* ═════════════ SHARED HELPERS ═════════════ */
+var SA_UTIL = (function(){
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function pool(base, mustInclude){
+    var p = base.slice();
+    if (p.indexOf(mustInclude) === -1) p.push(mustInclude);
+    return shuffle(p);
+  }
+  return { shuffle: shuffle, pool: pool };
+})();
+
+/* ═════════════ PART 2 — SUBJECT CONVERTER ═════════════ */
+(function(){
+  var PRONOUNS = ['I','you','he','she','it','we','they'];
+  var ITEMS = [
+    { s:'Tom',              p:'he',   note:'Um homem, um nome.' },
+    { s:'Sophie',           p:'she',  note:'Uma mulher, um nome.' },
+    { s:'Jake and Mia',     p:'they', note:'Duas pessoas juntas.' },
+    { s:'The hotel',        p:'it',   note:'Coisa ou lugar no singular.' },
+    { s:'The dog',          p:'it',   note:'Animal no singular.' },
+    { s:'Tom and I',        p:'we',   note:'Inclui voc&ecirc; que fala.' },
+    { s:'You and Sophie',   p:'you',  note:'Voc&ecirc; + outra pessoa, sem mim.' },
+    { s:'The students',     p:'they', note:'Plural de pessoas.' },
+    { s:'Mia&rsquo;s car',       p:'it',   note:'O sujeito &eacute; o carro, n&atilde;o a Mia.' },
+    { s:'The two hotels',   p:'they', note:'Plural de coisas tamb&eacute;m &eacute; they.' },
+    { s:'Daniel',           p:'he',   note:'Um homem, um nome.' },
+    { s:'Lena and I',       p:'we',   note:'Inclui voc&ecirc; que fala.' },
+    { s:'My brother',       p:'he',   note:'Um homem, uma pessoa.' },
+    { s:'Your parents',     p:'they', note:'Plural de pessoas.' },
+    { s:'The school',       p:'it',   note:'Institui&ccedil;&atilde;o no singular.' },
+    { s:'Sophie&rsquo;s office',  p:'it',   note:'O sujeito &eacute; o escrit&oacute;rio, n&atilde;o a Sophie.' }
+  ];
+
+  var order = SA_UTIL.shuffle(ITEMS);
+  var idx = 0, hits = 0, locked = false;
+  var elSubject = document.getElementById('convSubject');
+  var elStat = document.getElementById('convStat');
+  var elCount = document.getElementById('convCount');
+  var elFill = document.getElementById('convFill');
+  var elOpts = document.getElementById('convOpts');
+  var elFb = document.getElementById('convFb');
+  var elDone = document.getElementById('convDone');
+
+  function render(){
+    var it = order[idx];
+    locked = false;
+    elSubject.innerHTML = it.s;
+    elStat.textContent = (idx + 1) + ' / ' + order.length;
+    elFb.textContent = '';
+    elFb.className = 'conv-fb';
+    elOpts.innerHTML = PRONOUNS.map(function(p){
+      return '<button class="opt-btn" data-p="' + p + '">' + p + '</button>';
+    }).join('');
+  }
+
+  function progress(){
+    elCount.textContent = hits + ' acerto' + (hits === 1 ? '' : 's');
+    elFill.style.width = (hits / order.length * 100) + '%';
+  }
+
+  elOpts.addEventListener('click', function(e){
+    var btn = e.target.closest('.opt-btn');
+    if (!btn || locked) return;
+    var it = order[idx];
+    if (btn.dataset.p === it.p){
+      locked = true;
+      btn.classList.add('correct');
+      hits++;
+      progress();
+      elFb.className = 'conv-fb ok';
+      elFb.innerHTML = it.s + ' = ' + it.p + '. ' + it.note;
+      setTimeout(function(){
+        idx++;
+        if (idx >= order.length){
+          elSubject.textContent = 'Pronto.';
+          elStat.textContent = order.length + ' / ' + order.length;
+          elOpts.innerHTML = '';
+          elFb.className = 'conv-fb ok';
+          elFb.innerHTML = 'Convers&atilde;o autom&aacute;tica. Agora o auxiliar.';
+          elDone.classList.add('show');
+          return;
+        }
+        render();
+      }, 950);
+    } else {
+      btn.classList.add('incorrect');
+      setTimeout(function(){ btn.classList.remove('incorrect'); }, 450);
+      elFb.className = 'conv-fb bad';
+      elFb.innerHTML = 'N&atilde;o &eacute; esse. Pergunte: uma pessoa ou v&aacute;rias? Pessoa ou coisa?';
+    }
+  });
+
+  render();
+  progress();
+})();
+
+/* ═════════════ PART 3 — SHORT ANSWER MACHINE ═════════════ */
+(function(){
+  var SUBJ_POOL = ['I','you','he','she','it','we','they','there'];
+  var AUX_POOL  = ['do','does','is','are','have','has'];
+  var NAMES = { tom:'Tom', mia:'Mia', jake:'Jake', sophie:'Sophie', daniel:'Daniel', lena:'Lena' };
+
+  var SA = [
+    { char:'tom', chars:['tom'], subject:'Tom', answerSubject:'he', aux:'does', pol:'Yes',
+      question:'Does Tom have a car?', answer:'Yes, he does.',
+      wrong:['Yes, he has.','Yes, he is.','Yes, Tom does.'],
+      subjectNote:'&ldquo;Tom&rdquo; = he. O nome n&atilde;o volta na resposta.',
+      auxNote:'A pergunta abriu com does &mdash; ent&atilde;o a resposta fecha com does.',
+      answerNote:'Yes, he does. O verbo have ficou na pergunta e n&atilde;o reaparece.' },
+
+    { char:'both', chars:['jake','mia'], subject:'Jake and Mia', answerSubject:'they', aux:'do', pol:'No',
+      question:'Do Jake and Mia have a spare charger?', answer:'No, they don&rsquo;t.',
+      wrong:['No, they haven&rsquo;t.','No, they aren&rsquo;t.','No, they doesn&rsquo;t.'],
+      subjectNote:'&ldquo;Jake and Mia&rdquo; = they. Duas pessoas juntas.',
+      auxNote:'Do abriu a pergunta &mdash; do fecha a resposta, sem s.',
+      answerNote:'No, they don&rsquo;t. No negativo a contra&ccedil;&atilde;o &eacute; normal.' },
+
+    { char:'sophie', chars:['sophie'], subject:'Sophie', answerSubject:'she', aux:'is', pol:'Yes',
+      question:'Is Sophie a designer?', answer:'Yes, she is.',
+      wrong:['Yes, she&rsquo;s.','Yes, she does.','Yes, she are.'],
+      subjectNote:'&ldquo;Sophie&rdquo; = she.',
+      auxNote:'A pergunta abriu com is &mdash; o pr&oacute;prio to be volta na resposta.',
+      answerNote:'Yes, she is. No afirmativo a resposta curta nunca contrai.' },
+
+    { char:'lena', chars:['lena'], subject:'The students', answerSubject:'they', aux:'are', pol:'No',
+      question:'Are the students in the classroom?', answer:'No, they aren&rsquo;t.',
+      wrong:['No, they don&rsquo;t.','No, they isn&rsquo;t.','No, there aren&rsquo;t.'],
+      subjectNote:'&ldquo;The students&rdquo; = they. Plural de pessoas.',
+      auxNote:'Are abriu &mdash; are fecha, na forma negativa aren&rsquo;t.',
+      answerNote:'No, they aren&rsquo;t. Sujeito plural, verbo plural.' },
+
+    { char:'daniel', chars:['daniel'], subject:'there', answerSubject:'there', aux:'is', pol:'Yes',
+      question:'Is there a caf&eacute; around the corner?', answer:'Yes, there is.',
+      wrong:['Yes, it is.','Yes, there are.','Yes, there has.'],
+      subjectNote:'Aqui n&atilde;o existe nome para converter &mdash; o there fica.',
+      auxNote:'Is there&hellip;? volta como there is. A ordem se inverte de novo.',
+      answerNote:'Yes, there is. Nunca &ldquo;Yes, it is.&rdquo; nesse caso.' },
+
+    { char:'mia', chars:['mia'], subject:'there', answerSubject:'there', aux:'are', pol:'No',
+      question:'Are there parking spaces in the building?', answer:'No, there aren&rsquo;t.',
+      wrong:['No, they aren&rsquo;t.','No, there isn&rsquo;t.','No, there don&rsquo;t.'],
+      subjectNote:'De novo sem nome: o there permanece.',
+      auxNote:'Are there&hellip;? volta como there are &mdash; no negativo, there aren&rsquo;t.',
+      answerNote:'No, there aren&rsquo;t. Plural na pergunta, plural na resposta.' },
+
+    { char:'jake', chars:['jake'], subject:'Sophie&rsquo;s office', answerSubject:'it', aux:'is', pol:'Yes',
+      question:'Is Sophie&rsquo;s office on the third floor?', answer:'Yes, it is.',
+      wrong:['Yes, she is.','Yes, it does.','Yes, there is.'],
+      subjectNote:'Cuidado: o sujeito &eacute; o escrit&oacute;rio, n&atilde;o a Sophie. Office = it.',
+      auxNote:'Is abriu a pergunta &mdash; is fecha a resposta.',
+      answerNote:'Yes, it is. O nome no meio da frase n&atilde;o &eacute; sempre o sujeito.' }
+  ];
+
+  var curEx = 0, curStep = 0;
+  var badge = document.getElementById('saBadge');
+  var charLine = document.getElementById('saCharLine');
+  var contextEl = document.getElementById('saContext');
+  var tileRow = document.getElementById('saTileRow');
+  var stepList = document.getElementById('saStepList');
+  var finalEl = document.getElementById('saFinal');
+  var dots = document.getElementById('saDots');
+  var nextBtn = document.getElementById('saNext');
+  var resetBtn = document.getElementById('saReset');
+
+  function avatarHTML(keys){
+    return keys.map(function(k){
+      return '<span class="avatar av-' + k + '">' + NAMES[k].charAt(0) + '</span>';
+    }).join('');
+  }
+
+  function buildSteps(ex){
+    return [
+      { key:'subject', title:'Quem responde?',
+        prompt:'O sujeito da resposta curta &eacute;&hellip;',
+        pool: SA_UTIL.pool(SUBJ_POOL, ex.answerSubject),
+        correct: ex.answerSubject, confirm: ex.subjectNote },
+      { key:'aux', title:'Qual auxiliar volta?',
+        prompt:'Olhe a primeira palavra da pergunta. Na resposta volta&hellip;',
+        pool: SA_UTIL.pool(AUX_POOL, ex.aux),
+        correct: ex.aux, confirm: ex.auxNote },
+      { key:'answer', title:'Como fecha?',
+        prompt:'A resposta curta completa &eacute;&hellip;',
+        pool: SA_UTIL.shuffle(ex.wrong.concat([ex.answer])),
+        correct: ex.answer, confirm: ex.answerNote },
+      { key:'assemble', title:'Resposta pronta',
+        text:'Polaridade + sujeito + auxiliar: <strong>' + ex.answer + '</strong>' }
+    ];
+  }
+
+  function choiceRow(step, onCorrect){
+    var wrap = document.createElement('div');
+    wrap.className = 'machine-choice-row';
+    step.pool.forEach(function(opt){
+      var b = document.createElement('button');
+      b.className = 'machine-choice-btn';
+      b.type = 'button';
+      b.innerHTML = opt;
+      b.addEventListener('click', function(){
+        if (opt === step.correct){
+          wrap.querySelectorAll('.machine-choice-btn').forEach(function(x){ x.disabled = true; });
+          b.classList.add('correct');
+          setTimeout(onCorrect, 350);
+        } else {
+          b.classList.add('wrong','shake');
+          setTimeout(function(){ b.classList.remove('wrong','shake'); }, 500);
+        }
+      });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
+  function render(){
+    var ex = SA[curEx];
+    var steps = buildSteps(ex);
+
+    if (curStep > 1){
+      badge.textContent = ex.aux + ' \u2014 j\u00e1 decidido';
+      badge.className = 'machine-badge ' + (ex.aux === 'does' || ex.aux === 'is' ? 'resolved-does' : 'resolved-do');
+    } else {
+      badge.textContent = 'Qual auxiliar?';
+      badge.className = 'machine-badge';
+    }
+
+    charLine.innerHTML = avatarHTML(ex.chars) + '<span>Pergunta ' + (curEx + 1) + ' de ' + SA.length + '</span>';
+    contextEl.innerHTML = ex.question +
+      '<span class="machine-polarity ' + (ex.pol === 'No' ? 'no' : '') + '">answer ' + ex.pol + '</span>';
+
+    var polShow = true, polPop = curStep === 0;
+    var sShow = curStep > 0, sPop = curStep === 1;
+    var aShow = curStep > 1, aPop = curStep === 2;
+
+    tileRow.innerHTML =
+      '<div class="machine-tile ' + (polPop?'pop':'') + '">' +
+        (polShow ? '<span class="m-tag">polaridade</span>' : '') + ex.pol + ',' +
+      '</div>' +
+      '<div class="machine-tile ghost ' + (sShow?'show':'') + ' ' + (sPop?'pop':'') + '">' +
+        (sShow ? '<span class="m-tag">sujeito</span>' : '') + ex.answerSubject +
+      '</div>' +
+      '<div class="machine-tile ghost ' + (aShow?'show':'') + ' ' + (aPop?'pop':'') + '">' +
+        (aShow ? '<span class="m-tag">auxiliar</span>' : '') + ex.aux +
+      '</div>';
+
+    stepList.innerHTML = '';
+    steps.forEach(function(s, i){
+      var n = i + 1;
+      var cls = curStep >= n ? 'done' : (curStep === n - 1 ? 'active' : '');
+      var wrap = document.createElement('div');
+      wrap.className = 'machine-step ' + cls;
+      var head = '<div class="machine-step-num">' + n + '</div>';
+      var col = document.createElement('div');
+
+      if (s.key === 'assemble'){
+        col.innerHTML = '<div class="machine-step-title">Passo ' + n + ' \u2014 ' + s.title + '</div>' +
+          '<div class="machine-step-text">' +
+          (curStep >= i ? s.text : 'Falta completar os passos acima.') + '</div>';
+        if (curStep === i){
+          var fin = document.createElement('button');
+          fin.className = 'machine-step-btn';
+          fin.type = 'button';
+          fin.textContent = 'Ver a resposta completa';
+          fin.addEventListener('click', function(){ curStep = steps.length; render(); });
+          col.appendChild(fin);
+        }
+      } else if (curStep > i){
+        col.innerHTML = '<div class="machine-step-title">Passo ' + n + ' \u2014 ' + s.title + '</div>' +
+          '<div class="machine-confirm">' + s.confirm + '</div>';
+      } else {
+        col.innerHTML = '<div class="machine-step-title">Passo ' + n + ' \u2014 ' + s.title + '</div>' +
+          '<div class="machine-step-text">' + s.prompt + '</div>';
+        if (curStep === i){
+          col.appendChild(choiceRow(s, function(){ curStep++; render(); }));
+        }
+      }
+      wrap.innerHTML = head;
+      wrap.appendChild(col);
+      stepList.appendChild(wrap);
+    });
+
+    if (curStep >= steps.length){
+      finalEl.innerHTML = ex.answer;
+      finalEl.classList.add('show');
+      nextBtn.style.opacity = 1;
+      nextBtn.style.pointerEvents = 'auto';
+    } else {
+      finalEl.classList.remove('show');
+      nextBtn.style.opacity = 0;
+      nextBtn.style.pointerEvents = 'none';
+    }
+
+    dots.innerHTML = SA.map(function(_, i){
+      return '<span class="' + (i === curEx ? 'on' : '') + '"></span>';
+    }).join('');
+  }
+
+  resetBtn.addEventListener('click', function(){ curStep = 0; render(); });
+  nextBtn.addEventListener('click', function(){
+    curEx = (curEx + 1) % SA.length;
+    curStep = 0;
+    render();
+  });
+
+  render();
+})();
+
+/* ═════════════ PART 4 — REFLEX DRILL ═════════════ */
+(function(){
+  var LIMIT = 8000;
+  var TARGET_STREAK = 10;
+
+  var BANK = [
+    { q:'Does Tom have a car?', pol:'Yes', a:'Yes, he does.',
+      w:['Yes, he has.','Yes, he is.','Yes, Tom does.'],
+      why:'Does abriu a pergunta, ent&atilde;o <b>does</b> fecha a resposta. O have n&atilde;o volta.' },
+    { q:'Does Mia have a spare charger?', pol:'No', a:'No, she doesn&rsquo;t.',
+      w:['No, she hasn&rsquo;t.','No, she isn&rsquo;t.','No, she don&rsquo;t.'],
+      why:'Mia = she, e she pede <b>doesn&rsquo;t</b>.' },
+    { q:'Do you have a minute?', pol:'Yes', a:'Yes, I do.',
+      w:['Yes, I have.','Yes, I am.','Yes, you do.'],
+      why:'A pergunta &eacute; para voc&ecirc;, ent&atilde;o a resposta come&ccedil;a com <b>I</b>.' },
+    { q:'Do Jake and Mia have a deadline today?', pol:'No', a:'No, they don&rsquo;t.',
+      w:['No, they haven&rsquo;t.','No, they aren&rsquo;t.','No, they doesn&rsquo;t.'],
+      why:'Jake and Mia = they, e they pede <b>don&rsquo;t</b>.' },
+    { q:'Does the hotel have a gym?', pol:'Yes', a:'Yes, it does.',
+      w:['Yes, it has.','Yes, it is.','Yes, there is.'],
+      why:'The hotel = it. Coisa no singular segue o mesmo caminho de he e she: <b>does</b>.' },
+    { q:'Does the building have an elevator?', pol:'No', a:'No, it doesn&rsquo;t.',
+      w:['No, it hasn&rsquo;t.','No, there isn&rsquo;t.','No, it isn&rsquo;t.'],
+      why:'A pergunta &eacute; com does + have, ent&atilde;o a resposta &eacute; <b>doesn&rsquo;t</b>.' },
+    { q:'Do we have class on Friday?', pol:'Yes', a:'Yes, we do.',
+      w:['Yes, we have.','Yes, we are.','Yes, we does.'],
+      why:'We nunca leva s: <b>do</b>.' },
+    { q:'Does Daniel have your number?', pol:'No', a:'No, he doesn&rsquo;t.',
+      w:['No, he hasn&rsquo;t.','No, he isn&rsquo;t.','No, Daniel doesn&rsquo;t.'],
+      why:'Daniel = he, e o nome n&atilde;o se repete na resposta.' },
+    { q:'Is Sophie a designer?', pol:'Yes', a:'Yes, she is.',
+      w:['Yes, she&rsquo;s.','Yes, she does.','Yes, she are.'],
+      why:'A resposta curta afirmativa nunca contrai: <b>Yes, she is.</b>' },
+    { q:'Is Tom at the office?', pol:'No', a:'No, he isn&rsquo;t.',
+      w:['No, he doesn&rsquo;t.','No, he not is.','No, he aren&rsquo;t.'],
+      why:'Pergunta com is, resposta com <b>isn&rsquo;t</b>.' },
+    { q:'Are Jake and Mia running late?', pol:'Yes', a:'Yes, they are.',
+      w:['Yes, they&rsquo;re.','Yes, they do.','Yes, they is.'],
+      why:'No afirmativo a forma completa &eacute; obrigat&oacute;ria: <b>Yes, they are.</b>' },
+    { q:'Are you ready?', pol:'No', a:'No, I&rsquo;m not.',
+      w:['No, I aren&rsquo;t.','No, I don&rsquo;t.','No, I amn&rsquo;t.'],
+      why:'&Uacute;nica forma poss&iacute;vel com I: <b>No, I&rsquo;m not.</b>' },
+    { q:'Is the hotel expensive?', pol:'Yes', a:'Yes, it is.',
+      w:['Yes, it&rsquo;s.','Yes, it does.','Yes, there is.'],
+      why:'The hotel = it, e o afirmativo n&atilde;o contrai: <b>Yes, it is.</b>' },
+    { q:'Are the students in the classroom?', pol:'No', a:'No, they aren&rsquo;t.',
+      w:['No, they don&rsquo;t.','No, they isn&rsquo;t.','No, there aren&rsquo;t.'],
+      why:'The students = they, ent&atilde;o <b>aren&rsquo;t</b>.' },
+    { q:'Is Lena your teacher?', pol:'Yes', a:'Yes, she is.',
+      w:['Yes, she&rsquo;s.','Yes, she does.','Yes, Lena is.'],
+      why:'Lena = she, forma completa: <b>Yes, she is.</b>' },
+    { q:'Is there a swimming pool at the hotel?', pol:'Yes', a:'Yes, there is.',
+      w:['Yes, it is.','Yes, there are.','Yes, there has.'],
+      why:'Em Is there&hellip;? o <b>there</b> fica na resposta.' },
+    { q:'Are there two elevators in the building?', pol:'No', a:'No, there aren&rsquo;t.',
+      w:['No, they aren&rsquo;t.','No, there isn&rsquo;t.','No, there don&rsquo;t.'],
+      why:'Are there&hellip;? volta como <b>there aren&rsquo;t</b> no negativo.' },
+    { q:'Is there a problem with the file?', pol:'No', a:'No, there isn&rsquo;t.',
+      w:['No, it isn&rsquo;t.','No, there aren&rsquo;t.','No, there doesn&rsquo;t.'],
+      why:'Singular na pergunta, singular na resposta: <b>there isn&rsquo;t</b>.' },
+    { q:'Are there any questions?', pol:'Yes', a:'Yes, there are.',
+      w:['Yes, they are.','Yes, there is.','Yes, there do.'],
+      why:'Plural na pergunta, plural na resposta: <b>there are</b>.' },
+    { q:'Is Sophie&rsquo;s office on the third floor?', pol:'Yes', a:'Yes, it is.',
+      w:['Yes, she is.','Yes, it does.','Yes, there is.'],
+      why:'O sujeito &eacute; o escrit&oacute;rio, n&atilde;o a Sophie: office = <b>it</b>.' }
+  ];
+
+  var shell = document.getElementById('reflexShell');
+  var order, idx, hits, streak, bestStreak, times, locked, rafId, startTs;
+
+  function startScreen(){
+    shell.innerHTML =
+      '<div class="reflex-start">' +
+        '<h3>Reflex Drill</h3>' +
+        '<p>Vinte perguntas misturadas: do, does, to be e there is / there are. ' +
+        'Oito segundos para cada uma. Se o tempo acabar, conta como erro e a sequ&ecirc;ncia zera. ' +
+        'A meta &eacute; uma sequ&ecirc;ncia de ' + TARGET_STREAK + ' acertos.</p>' +
+        '<button class="reflex-btn" id="reflexGo">Come&ccedil;ar</button>' +
+      '</div>';
+    document.getElementById('reflexGo').addEventListener('click', begin);
+  }
+
+  function begin(){
+    order = SA_UTIL.shuffle(BANK);
+    idx = 0; hits = 0; streak = 0; bestStreak = 0; times = [];
+    renderItem();
+  }
+
+  function renderItem(){
+    var it = order[idx];
+    locked = false;
+    var opts = SA_UTIL.shuffle(it.w.concat([it.a]));
+
+    shell.innerHTML =
+      '<div class="reflex-metrics">' +
+        '<div><div class="reflex-metric-label">Acertos</div><div class="reflex-metric-value" id="rxHits">' + hits + '</div></div>' +
+        '<div><div class="reflex-metric-label">Sequ&ecirc;ncia</div><div class="reflex-metric-value' + (streak >= TARGET_STREAK ? ' hot' : '') + '" id="rxStreak">' + streak + '</div></div>' +
+        '<div><div class="reflex-metric-label">Melhor</div><div class="reflex-metric-value">' + bestStreak + '</div></div>' +
+      '</div>' +
+      '<div class="reflex-timer"><div class="reflex-timer-fill" id="rxTimer"></div></div>' +
+      '<div class="reflex-qline">' +
+        '<span class="reflex-polarity ' + (it.pol === 'No' ? 'no' : '') + '">answer ' + it.pol + '</span>' +
+        '<span class="reflex-index">' + (idx + 1) + ' / ' + order.length + '</span>' +
+      '</div>' +
+      '<div class="reflex-q">' + it.q + '</div>' +
+      '<div class="reflex-opts" id="rxOpts"></div>' +
+      '<div class="reflex-why" id="rxWhy"></div>';
+
+    var optsEl = document.getElementById('rxOpts');
+    opts.forEach(function(o){
+      var b = document.createElement('button');
+      b.className = 'reflex-opt';
+      b.type = 'button';
+      b.innerHTML = o;
+      b.dataset.correct = (o === it.a) ? '1' : '0';
+      b.addEventListener('click', function(){ answer(b, o === it.a); });
+      optsEl.appendChild(b);
+    });
+
+    runTimer();
+  }
+
+  function runTimer(){
+    var fill = document.getElementById('rxTimer');
+    startTs = performance.now();
+    function frame(now){
+      var elapsed = now - startTs;
+      var left = Math.max(0, 1 - elapsed / LIMIT);
+      fill.style.width = (left * 100) + '%';
+      if (left < 0.3) fill.classList.add('late');
+      if (elapsed >= LIMIT){ timeout(); return; }
+      rafId = requestAnimationFrame(frame);
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function stopTimer(){ if (rafId) cancelAnimationFrame(rafId); rafId = null; }
+
+  function lockAll(){
+    Array.prototype.forEach.call(document.querySelectorAll('.reflex-opt'), function(b){ b.disabled = true; });
+  }
+
+  function revealCorrect(){
+    Array.prototype.forEach.call(document.querySelectorAll('.reflex-opt'), function(b){
+      if (b.dataset.correct === '1') b.classList.add('reveal');
+    });
+  }
+
+  function answer(btn, isRight){
+    if (locked) return;
+    var it = order[idx];
+    if (!isRight){
+      btn.classList.add('wrong','shake');
+      setTimeout(function(){ btn.classList.remove('shake'); }, 400);
+      streak = 0;
+      document.getElementById('rxStreak').textContent = '0';
+      document.getElementById('rxStreak').classList.remove('hot');
+      btn.disabled = true;
+      document.getElementById('rxWhy').innerHTML = it.why;
+      return;
+    }
+    locked = true;
+    stopTimer();
+    times.push(performance.now() - startTs);
+    btn.classList.add('correct');
+    lockAll();
+    hits++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    document.getElementById('rxHits').textContent = hits;
+    var st = document.getElementById('rxStreak');
+    st.textContent = streak;
+    if (streak >= TARGET_STREAK) st.classList.add('hot');
+    document.getElementById('rxWhy').innerHTML = it.why;
+    setTimeout(advance, 1100);
+  }
+
+  function timeout(){
+    if (locked) return;
+    locked = true;
+    stopTimer();
+    lockAll();
+    revealCorrect();
+    streak = 0;
+    document.getElementById('rxWhy').innerHTML =
+      'Tempo. ' + order[idx].why + ' Sequ&ecirc;ncia zerada.';
+    setTimeout(advance, 2200);
+  }
+
+  function advance(){
+    idx++;
+    if (idx >= order.length){ results(); return; }
+    renderItem();
+  }
+
+  function results(){
+    var avg = times.length ? (times.reduce(function(a,b){ return a+b; }, 0) / times.length / 1000) : 0;
+    var verdict;
+    if (bestStreak >= TARGET_STREAK && hits >= 18){
+      verdict = '<b>Autom&aacute;tico.</b> A resposta curta j&aacute; sai sem c&aacute;lculo. Pr&oacute;ximo passo: usar isso em conversa, sem a op&ccedil;&atilde;o na tela.';
+    } else if (hits >= 15){
+      verdict = '<b>Quase.</b> A regra est&aacute; clara, o tempo ainda pesa. Repita at&eacute; chegar a uma sequ&ecirc;ncia de ' + TARGET_STREAK + '.';
+    } else {
+      verdict = '<b>Volte um passo.</b> Rode a M&aacute;quina de 3 Passos mais duas vezes e depois repita o drill &mdash; o caminho precisa estar firme antes da velocidade.';
+    }
+    shell.innerHTML =
+      '<div class="reflex-result">' +
+        '<h3>' + hits + ' de ' + order.length + '</h3>' +
+        '<div class="reflex-result-line">Melhor sequ&ecirc;ncia: <b>' + bestStreak + '</b> acertos seguidos</div>' +
+        '<div class="reflex-result-line">Tempo m&eacute;dio de resposta: <b>' + avg.toFixed(1) + 's</b></div>' +
+        '<div class="reflex-verdict">' + verdict + '</div>' +
+        '<div class="reflex-actions">' +
+          '<button class="reflex-btn" id="rxAgain">Repetir embaralhado</button>' +
+          '<button class="reflex-btn ghost" id="rxBack">Voltar &agrave;s instru&ccedil;&otilde;es</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('rxAgain').addEventListener('click', begin);
+    document.getElementById('rxBack').addEventListener('click', startScreen);
+  }
+
+  startScreen();
+})();
+
+/* ═════════════ PART 5 — TYPE IN ═════════════ */
+(function(){
+  var ITEMS = [
+    { q:'Does Mia have a car?', pol:'No', a:'No, she doesn\u2019t.',
+      fix:'Mia = she. A pergunta &eacute; com does + have, ent&atilde;o volta doesn&rsquo;t.' },
+    { q:'Do the students have a test today?', pol:'Yes', a:'Yes, they do.',
+      fix:'The students = they, e they pede do.' },
+    { q:'Is Daniel at home?', pol:'Yes', a:'Yes, he is.',
+      fix:'Daniel = he, e o afirmativo n&atilde;o contrai: Yes, he is.' },
+    { q:'Are you tired?', pol:'No', a:'No, I\u2019m not.',
+      fix:'Com I a &uacute;nica forma poss&iacute;vel &eacute; No, I&rsquo;m not.' },
+    { q:'Is there a caf&eacute; near the school?', pol:'Yes', a:'Yes, there is.',
+      fix:'Em Is there&hellip;? o there fica na resposta.' },
+    { q:'Are there any messages for me?', pol:'No', a:'No, there aren\u2019t.',
+      fix:'Are there&hellip;? volta como there aren&rsquo;t.' },
+    { q:'Does the school have a library?', pol:'Yes', a:'Yes, it does.',
+      fix:'The school = it, e a pergunta com does volta com does.' },
+    { q:'Are Tom and Lena in the meeting?', pol:'No', a:'No, they aren\u2019t.',
+      fix:'Tom and Lena = they, pergunta com are, resposta com aren&rsquo;t.' },
+    { q:'Do I have time before the class?', pol:'Yes', a:'Yes, you do.',
+      fix:'Se a pergunta &eacute; com I, quem responde fala com you.' },
+    { q:'Is Sophie\u2019s office on the third floor?', pol:'Yes', a:'Yes, it is.',
+      fix:'O sujeito &eacute; o escrit&oacute;rio, n&atilde;o a Sophie: office = it.' }
+  ];
+
+  var list = document.getElementById('typeList');
+  var countEl = document.getElementById('typeCount');
+  var fillEl = document.getElementById('typeFill');
+  var order = SA_UTIL.shuffle(ITEMS);
+  var solved = {};
+
+  function norm(s){
+    return s.toLowerCase()
+      .replace(/[\u2018\u2019\u00b4`]/g, "'")
+      .replace(/[.,!?;:]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function variants(answer){
+    var base = norm(answer);
+    var out = [base];
+    out.push(base.replace(/'/g, ''));
+    var expanded = base
+      .replace(/doesn't/g, 'does not')
+      .replace(/don't/g, 'do not')
+      .replace(/isn't/g, 'is not')
+      .replace(/aren't/g, 'are not')
+      .replace(/i'm not/g, 'i am not');
+    out.push(expanded);
+    return out;
+  }
+
+  function progress(){
+    var n = Object.keys(solved).length;
+    countEl.textContent = n + ' / ' + order.length + ' corretas';
+    fillEl.style.width = (n / order.length * 100) + '%';
+  }
+
+  list.innerHTML = order.map(function(it, i){
+    return '' +
+      '<div class="type-item" data-i="' + i + '">' +
+        '<div class="type-top">' +
+          '<span class="type-num">' + (i + 1) + '</span>' +
+          '<span class="type-q">' + it.q + '</span>' +
+          '<span class="type-pol">answer ' + it.pol + '</span>' +
+        '</div>' +
+        '<div class="type-row">' +
+          '<input class="type-input" type="text" autocomplete="off" spellcheck="false" placeholder="Escreva a resposta curta">' +
+          '<button class="type-check" type="button">Conferir</button>' +
+        '</div>' +
+        '<div class="type-fb"></div>' +
+      '</div>';
+  }).join('');
+
+  function check(item){
+    var i = parseInt(item.dataset.i, 10);
+    var it = order[i];
+    var input = item.querySelector('.type-input');
+    var fb = item.querySelector('.type-fb');
+    var given = norm(input.value);
+    if (!given) return;
+
+    var accepted = variants(it.a.replace(/&rsquo;/g, '\u2019'));
+    var ok = accepted.indexOf(given) !== -1;
+
+    input.classList.remove('ok','bad');
+    fb.classList.remove('ok','bad');
+    if (ok){
+      input.classList.add('ok');
+      input.value = it.a;
+      input.disabled = true;
+      item.querySelector('.type-check').disabled = true;
+      fb.className = 'type-fb show ok';
+      fb.innerHTML = 'Correto. <span class="fix">' + it.fix + '</span>';
+      solved[i] = true;
+      progress();
+    } else {
+      input.classList.add('bad');
+      fb.className = 'type-fb show bad';
+      fb.innerHTML = 'Ainda n&atilde;o. <span class="fix">Reveja: quem responde, e qual auxiliar abriu a pergunta.</span>';
+    }
+  }
+
+  list.addEventListener('click', function(e){
+    var btn = e.target.closest('.type-check');
+    if (!btn) return;
+    check(btn.closest('.type-item'));
+  });
+  list.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    var input = e.target.closest('.type-input');
+    if (!input) return;
+    e.preventDefault();
+    check(input.closest('.type-item'));
+  });
+
+  progress();
+})();
+
+/* ═════════════ RAIL (real scroll state) ═════════════ */
+(function(){
+  var sections = ['part1','part2','part3','part4','part5'].map(function(id){ return document.getElementById(id); });
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.rail-step'));
+  function update(){
+    var y = window.scrollY + window.innerHeight * 0.35;
+    sections.forEach(function(sec, i){
+      if (sec && y >= sec.offsetTop) steps[i].classList.add('filled');
+      else steps[i].classList.remove('filled');
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+/* ═════════════ MY OUTCOMES ═════════════ */
+(function(){
+  var STORAGE_KEY = 'eic-outcomes-short-answers';
+  var list = document.getElementById('outcomesList');
+  var counter = document.getElementById('outcomesCounter');
+  var items = Array.prototype.slice.call(list.querySelectorAll('.outcome-item'));
+  var total = items.length;
+
+  function loadState(){
+    try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch (e) { return {}; }
+  }
+  function saveState(state){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  var state = loadState();
+  function updateCounter(){
+    var c = items.filter(function(it){ return it.classList.contains('confirmed'); }).length;
+    counter.textContent = c + ' / ' + total + ' confirmados';
+  }
+  items.forEach(function(it){
+    var key = it.dataset.key;
+    if (state[key]) it.classList.add('confirmed');
+    it.addEventListener('click', function(){
+      it.classList.toggle('confirmed');
+      state[key] = it.classList.contains('confirmed');
+      saveState(state);
+      updateCounter();
+    });
+  });
+  updateCounter();
+})();
+
+/* ═════════════ VOCAB TOOLTIPS (click only) ═════════════ */
+(function(){
+  var bubble = document.createElement('div');
+  bubble.className = 'voc-bubble';
+  document.body.appendChild(bubble);
+  var active = null;
+
+  function showTip(el){
+    bubble.textContent = el.getAttribute('data-tip') || '';
+    bubble.classList.add('show');
+    var rect = el.getBoundingClientRect();
+    var bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+    var left = rect.left + rect.width / 2 - bw / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
+    var top = rect.top - bh - 10;
+    if (top < 8) top = rect.bottom + 10;
+    bubble.style.left = left + 'px';
+    bubble.style.top = top + 'px';
+  }
+  function hideTip(){ bubble.classList.remove('show'); active = null; }
+
+  document.querySelectorAll('.voc[data-tip]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (active === el) { hideTip(); return; }
+      active = el; showTip(el);
+    });
+  });
+  document.addEventListener('click', hideTip);
+  window.addEventListener('scroll', hideTip, true);
+  window.addEventListener('resize', hideTip);
+})();
+</script>
+
+</body>
+</html>
