@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prisma ERP · Inventory</title>
+<style>
+:root{
+  --teal:#1E5FAE; --teal-lt:#3B7FD9; --green:#2E9E5B; --gold:#C99A2E; --red:#D14343;
+  --bg:#0A1120; --bg-side:#070C17; --bg-panel:#0E1A2E; --line:rgba(255,255,255,.09);
+  --ink:#E7ECF3; --ink-mid:#8B9BB4; --ink-dim:#5B6B85;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased;font-size:13px}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+.app-shell{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:212px;flex-shrink:0;background:var(--bg-side);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px}
+.sb-brand{display:flex;align-items:center;gap:9px;padding:6px 8px 20px}
+.sb-logo{width:24px;height:24px;border-radius:6px;background:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff}
+.sb-brand-text{font-size:12.5px;font-weight:800;letter-spacing:-.01em}
+.sb-brand-sub{font-size:9px;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase}
+.sb-nav{display:flex;flex-direction:column;gap:2px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;font-size:12.5px;color:var(--ink-mid);text-decoration:none;font-weight:600}
+.sb-item svg{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2}
+.sb-item.active{background:rgba(59,127,217,.14);color:#fff}
+.sb-item:not(.active):hover{background:rgba(255,255,255,.04);color:var(--ink)}
+.sb-foot{margin-top:auto;padding:10px 8px;font-size:10px;color:var(--ink-dim);border-top:1px solid var(--line)}
+.sb-foot-row{display:flex;justify-content:space-between;margin-top:8px}
+
+/* MAIN */
+.main{flex:1;min-width:0;display:flex;flex-direction:column;position:relative}
+.overlay-view{position:absolute;inset:0;background:var(--bg);z-index:80;transform:translateX(100%);transition:.25s ease;overflow-y:auto;display:flex;flex-direction:column}
+.overlay-view.open{transform:translateX(0)}
+.ov-close{background:none;border:1px solid var(--line);color:var(--ink-mid);width:30px;height:30px;border-radius:7px;font-size:17px;cursor:pointer;line-height:1}
+.ov-close:hover{border-color:var(--teal-lt);color:#fff}
+.ov-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+@media (max-width:720px){.ov-kpi-row{grid-template-columns:repeat(2,1fr)}}
+.feed{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px}
+.feed-item{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.feed-item:last-child{border-bottom:none}
+.feed-dot{width:7px;height:7px;border-radius:50%;background:var(--teal-lt);flex-shrink:0;margin-top:6px}
+.feed-text{font-size:12.5px;line-height:1.5;color:var(--ink)}
+.feed-time{font-size:11px;color:var(--ink-dim);margin-top:2px}
+.section-title{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);margin:26px 0 12px}
+.section-title:first-child{margin-top:0}
+.po-status{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:16px;font-size:11px;font-weight:700}
+.po-pending{background:rgba(201,154,46,.15);color:var(--gold)}
+.po-shipped{background:rgba(59,127,217,.16);color:var(--teal-lt)}
+.po-delivered{background:rgba(46,158,91,.15);color:var(--green)}
+.vendor-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.vendor-name{font-size:13.5px;font-weight:800}
+.vendor-status{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.vs-active{background:rgba(46,158,91,.15);color:var(--green)}
+.vs-evaluation{background:rgba(201,154,46,.15);color:var(--gold)}
+.vendor-materials{font-size:11.5px;color:var(--ink-mid);margin-top:3px}
+.vendor-lead{text-align:right}
+.vendor-lead-val{font-size:15px;font-weight:800;color:var(--teal-lt)}
+.vendor-lead-label{font-size:9.5px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em}
+.report-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.report-title{font-size:13.5px;font-weight:800;margin-bottom:4px}
+.report-desc{font-size:12px;color:var(--ink-mid);line-height:1.5}
+.report-btn{background:none;border:1px solid var(--teal-lt);color:var(--teal-lt);font-size:11.5px;font-weight:700;padding:8px 16px;border-radius:6px;cursor:pointer;white-space:nowrap}
+.report-btn:hover{background:var(--teal-lt);color:#fff}
+
+/* PRACTICE: report-it quiz */
+.practice-block{margin-top:4px}
+.practice-block + .practice-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.choice-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.choice-btn{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:12.5px;line-height:1.5;color:var(--ink);cursor:pointer}
+.choice-btn:hover{border-color:var(--teal-lt)}
+.choice-btn.correct{background:rgba(46,158,91,.13);border-color:var(--green);color:#dff3e6}
+.choice-btn.wrong{background:rgba(209,67,67,.13);border-color:var(--red);color:#f7dcdc}
+.choice-feedback{font-size:12px;color:var(--ink-mid);margin-top:9px;line-height:1.5;border-left:2px solid var(--teal-lt);padding-left:10px}
+
+/* PRACTICE: take action PO form */
+.po-form{margin-top:8px;display:flex;flex-direction:column;gap:10px;max-width:420px}
+.po-form-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.po-form-label{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-dim);white-space:nowrap}
+.po-form-value{font-size:12.5px;color:var(--ink);text-align:right}
+.po-input{background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-size:12.5px;padding:7px 10px;width:130px;text-align:right;font-family:inherit}
+.po-input:focus{outline:none;border-color:var(--teal-lt)}
+.po-submit-btn{align-self:flex-start;background:var(--teal);color:#fff;border:none;font-size:12px;font-weight:700;padding:9px 16px;border-radius:6px;cursor:pointer}
+.po-submit-btn:hover{background:var(--teal-lt)}
+.po-confirm{font-size:12.5px;color:var(--green);margin-top:6px;font-weight:600}
+
+/* CHECK YOUR UNDERSTANDING */
+.tf-item{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.tf-text{font-size:12.5px;line-height:1.5;margin-bottom:10px;color:var(--ink)}
+.tf-btns{display:flex;gap:8px}
+.tf-btn{border-radius:16px;border:1px solid var(--line);background:none;color:var(--ink);font-size:11.5px;font-weight:700;padding:6px 15px;cursor:pointer}
+.tf-btn.correct{background:rgba(46,158,91,.18);border-color:var(--green);color:#dff3e6}
+.tf-btn.wrong{background:rgba(209,67,67,.18);border-color:var(--red);color:#f7dcdc}
+.tf-explain{font-size:11.5px;color:var(--ink-mid);margin-top:9px;display:none;line-height:1.5}
+.tf-explain.show{display:block}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;border-bottom:1px solid var(--line);gap:20px}
+.crumb{font-size:12px;color:var(--ink-mid)}
+.crumb b{color:#fff;font-weight:700}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.search-box{display:flex;align-items:center;gap:7px;background:var(--bg-panel);border:1px solid var(--line);border-radius:7px;padding:7px 11px;color:var(--ink-dim);font-size:12px;width:200px}
+.search-box svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.user-chip{display:flex;align-items:center;gap:8px}
+.user-avatar{width:26px;height:26px;border-radius:50%;background:#6B4A2E;color:#fff;font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.user-name{font-size:12px;font-weight:700}
+.user-role{font-size:9.5px;color:var(--ink-dim)}
+
+.content{padding:22px 26px 50px}
+
+/* ALERT */
+.alert{display:flex;align-items:center;gap:12px;background:rgba(209,67,67,.1);border:1px solid rgba(209,67,67,.35);border-left:3px solid var(--red);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:12.5px}
+.alert svg{width:17px;height:17px;stroke:#ff8484;fill:none;stroke-width:2;flex-shrink:0}
+.alert-text{flex:1;color:#f0d5d5}
+.alert-text b{color:#fff}
+.alert-link{color:#fff;font-weight:800;text-decoration:none;background:var(--red);padding:7px 14px;border-radius:6px;font-size:11.5px;white-space:nowrap}
+.alert-link:hover{background:#e05a5a}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+@media (max-width:720px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--bg-panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.kpi-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+.kpi-value{font-size:24px;font-weight:800}
+.kpi.k-ok .kpi-value{color:var(--green)}
+.kpi.k-low .kpi-value{color:var(--gold)}
+.kpi.k-critical .kpi-value{color:#ff8484}
+
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:12px}
+.filter-tabs{display:flex;gap:6px}
+.filter-tab{background:none;border:1px solid var(--line);color:var(--ink-mid);font-size:11.5px;font-weight:700;padding:7px 13px;border-radius:6px;cursor:pointer}
+.filter-tab.active{background:rgba(59,127,217,.16);border-color:var(--teal-lt);color:#fff}
+.filter-tab:hover:not(.active){border-color:rgba(255,255,255,.25);color:var(--ink)}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--ink-mid)}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:7px;height:7px;border-radius:50%}
+
+.term{color:var(--teal-lt);text-decoration:underline dotted;text-underline-offset:3px;cursor:help}
+.tip{position:fixed;z-index:600;max-width:260px;background:#fff;color:#0A1628;border-radius:8px;padding:10px 13px;font-size:12px;line-height:1.5;box-shadow:0 14px 30px rgba(0,0,0,.4);display:none}
+.tip.show{display:block}
+.tip-term{font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--teal);margin-bottom:3px}
+
+/* TABLE */
+.table-wrap{background:var(--bg-panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);padding:11px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--ink)}
+.sort-arrow{font-size:9px;margin-left:3px;opacity:.6}
+tbody tr.data-row{border-bottom:1px solid var(--line);cursor:pointer}
+tbody tr.data-row:hover{background:rgba(255,255,255,.025)}
+tbody tr.data-row:last-child{border-bottom:none}
+td{padding:12px 16px;vertical-align:middle}
+.td-name{font-weight:700;font-size:12.5px}
+.td-sku{font-size:11px;color:var(--ink-dim)}
+.td-num{font-size:12.5px}
+.td-unit{color:var(--ink-dim);font-size:11px;margin-left:3px}
+.status-cell{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700}
+.status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-ok{background:var(--green)} .dot-low{background:var(--gold)} .dot-critical{background:#ff8484}
+.txt-ok{color:var(--green)} .txt-low{color:var(--gold)} .txt-critical{color:#ff8484}
+.td-updated{font-size:11.5px;color:var(--ink-mid)}
+.chevron{width:14px;height:14px;stroke:var(--ink-dim);fill:none;stroke-width:2;transition:transform .15s}
+.chevron.open{transform:rotate(90deg)}
+tr.note-row td{padding:0;border-bottom:1px solid var(--line)}
+.note-inner{display:none;padding:14px 16px 16px 16px;background:#0a1526}
+.note-inner.show{display:block}
+.note-label{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-lt);margin-bottom:6px}
+.note-text{font-size:12.5px;line-height:1.6;color:var(--ink);border-left:2px solid var(--teal-lt);padding-left:12px}
+.note-ok{font-size:12px;color:var(--ink-mid);font-style:italic}
+
+.table-foot{display:flex;justify-content:space-between;padding:11px 16px;font-size:11px;color:var(--ink-dim);border-top:1px solid var(--line)}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">P</div>
+      <div>
+        <div class="sb-brand-text">Prisma ERP</div>
+        <div class="sb-brand-sub">Operations</div>
+      </div>
+    </div>
+    <div class="sb-nav">
+      <a class="sb-item" id="nav-dashboard" href="#" onclick="openOverlay('dashboard');return false;"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
+      <a class="sb-item active" id="nav-inventory" href="#" onclick="closeOverlay();return false;"><svg viewBox="0 0 24 24"><path d="M21 8V7l-3-4H6L3 7v1"/><path d="M3 8h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 12h6"/></svg>Inventory</a>
+      <a class="sb-item" id="nav-purchase-orders" href="#" onclick="openOverlay('purchase-orders');return false;"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Purchase Orders</a>
+      <a class="sb-item" id="nav-vendors" href="#" onclick="openOverlay('vendors');return false;"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-1a7 7 0 0 1 14 0v1"/><circle cx="18" cy="7" r="3"/><path d="M23 21v-1a6 6 0 0 0-5-6"/></svg>Vendors</a>
+      <a class="sb-item" id="nav-reports" href="#" onclick="openOverlay('reports');return false;"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.1-2.8-2.8L7 14"/></svg>Reports</a>
+    </div>
+    <div class="sb-foot">
+      <div>PRISMA-ERP · Plant 01 (Jundiaí)</div>
+      <div class="sb-foot-row"><span>v2.4.1</span><span>Warehouse</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">Inventory / <b>Raw Materials</b></div>
+      <div class="topbar-right">
+        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Search materials...</div>
+        <div class="user-chip">
+          <div class="user-avatar">CF</div>
+          <div><div class="user-name">Carlos F.</div><div class="user-role">Warehouse Coordinator</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="alert" id="alert" style="display:none">
+        <svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <div class="alert-text" id="alert-text"></div>
+        <a class="alert-link" href="midland-scene-procurement-flag.html">Report to Procurement →</a>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-label">Total SKUs</div><div class="kpi-value mono" id="kpi-total">0</div></div>
+        <div class="kpi k-ok"><div class="kpi-label">OK</div><div class="kpi-value mono" id="kpi-ok">0</div></div>
+        <div class="kpi k-low"><div class="kpi-label"><span class="term" data-key="running-low">Low</span></div><div class="kpi-value mono" id="kpi-low">0</div></div>
+        <div class="kpi k-critical"><div class="kpi-label"><span class="term" data-key="critical">Critical</span></div><div class="kpi-value mono" id="kpi-critical">0</div></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="filter-tabs" id="filter-tabs"></div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>OK</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--gold)"></span>Low</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#ff8484"></span>Critical</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>SKU</th>
+              <th class="sortable" data-sort="current">Current Stock<span class="sort-arrow" id="arrow-current"></span></th>
+              <th class="sortable" data-sort="min">Minimum Level<span class="sort-arrow" id="arrow-min"></span></th>
+              <th>Status</th>
+              <th>Last Updated</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="table-foot">
+          <span id="foot-count"></span>
+          <span><span class="sync-dot"></span>Last synced 2 minutes ago</span>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:34px">Check Your Understanding</div>
+      <div id="tf-list"></div>
+    </div>
+
+    <div class="overlay-view" id="overlay-view">
+      <div class="topbar">
+        <div class="crumb" id="ov-crumb"></div>
+        <button class="ov-close" onclick="closeOverlay()">&times;</button>
+      </div>
+      <div class="content" id="ov-content"></div>
+    </div>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+  var TIPS = {
+    "min-level": {en: "Minimum Acceptable Level", pt: "A menor quantidade que deveria existir em estoque antes de precisar repor."},
+    "running-low": {en: "Running Low", pt: "Abaixo do mínimo, mas ainda sem risco imediato."},
+    "critical": {en: "Critical", pt: "Perigosamente baixo, precisa de ação imediata."},
+    "lead-time": {en: "Lead Time", pt: "O tempo entre fazer um pedido e receber a entrega do fornecedor."},
+    "vendor": {en: "Vendor", pt: "Fornecedor, empresa que vende um material ou serviço para a Prisma."},
+    "purchase-order": {en: "Purchase Order", pt: "Documento formal que autoriza a compra de algo de um fornecedor."}
+  };
+
+  var VENDORS = [
+    {name: "PolyBase Industrial", materials: "Base Resin, Curing Agent", lead: 4, status: "active"},
+    {name: "ColorTech Pigments", materials: "Pigment (Charcoal Gray), Pigment (Titanium White)", lead: 5, status: "active"},
+    {name: "VaporChem Ltda", materials: "Thinner A (Solvent)", lead: 3, status: "active"},
+    {name: "SurfacePrep Materials", materials: "Primer Base", lead: 6, status: "active"},
+    {name: "Coatex Distribuidora", materials: "Protective Coating Systems (facade panels)", lead: null, status: "evaluation"}
+  ];
+
+  var PURCHASE_ORDERS = [
+    {po: "PO-1042", material: "Thinner A (Solvent)", vendor: "VaporChem Ltda", qty: "100 L", status: "pending", date: "Today"},
+    {po: "PO-1038", material: "Pigment (Titanium White)", vendor: "ColorTech Pigments", qty: "200 kg", status: "shipped", date: "3 days ago"},
+    {po: "PO-1035", material: "Base Resin", vendor: "PolyBase Industrial", qty: "300 kg", status: "delivered", date: "1 week ago"},
+    {po: "PO-1031", material: "Primer Base", vendor: "SurfacePrep Materials", qty: "150 kg", status: "delivered", date: "2 weeks ago"}
+  ];
+
+  var ACTIVITY = [
+    {text: "Amauri flagged Thinner A (Solvent) as critical.", time: "10 minutes ago"},
+    {text: "Carlos logged the morning inventory check.", time: "This morning"},
+    {text: "PO-1038 shipped by ColorTech Pigments.", time: "3 days ago"},
+    {text: "Patrícia approved PO-1035 for Base Resin.", time: "1 week ago"}
+  ];
+
+  var MATERIALS = [
+    {name: "Base Resin", sku: "RES-001", unit: "kg", current: 180, min: 200, updated: "This morning"},
+    {name: "Pigment (Charcoal Gray)", sku: "PIG-014", unit: "kg", current: 340, min: 150, updated: "Yesterday"},
+    {name: "Pigment (Titanium White)", sku: "PIG-015", unit: "kg", current: 95, min: 150, updated: "This morning"},
+    {name: "Thinner A (Solvent)", sku: "SLV-002", unit: "L", current: 40, min: 100, updated: "10 minutes ago"},
+    {name: "Curing Agent", sku: "CUR-007", unit: "kg", current: 210, min: 120, updated: "2 days ago"},
+    {name: "Primer Base", sku: "PRM-003", unit: "kg", current: 130, min: 150, updated: "This morning"}
+  ];
+
+  function optionSetFor(m, status) {
+    var vague = "\"The " + m.name.toLowerCase() + " is kind of low, I think.\"";
+    var vagueFeedback = "Too vague, this doesn't give anyone a number to act on.";
+    var correct, extreme, extremeFeedback;
+    if (status === "low") {
+      correct = "\"We're a bit below the minimum on " + m.name.toLowerCase() + ", " + m.current + " " + m.unit + " left. Not urgent, but worth reordering soon.\"";
+      extreme = "\"We're basically out of " + m.name.toLowerCase() + ", this is an emergency!\"";
+      extremeFeedback = "This isn't critical yet. Calling it an emergency when it isn't will make your reports less trusted next time.";
+    } else {
+      correct = "\"We're critical on " + m.name.toLowerCase() + ", only " + m.current + " " + m.unit + " left. I'd like to flag this today so we don't stop the line.\"";
+      extreme = "\"We'll probably be fine on " + m.name.toLowerCase() + " for a while.\"";
+      extremeFeedback = "This is actually critical. Downplaying it risks stopping the production line.";
+    }
+    return [
+      {text: correct, correct: true, feedback: "Clear and specific, this is exactly what a supervisor needs to act quickly."},
+      {text: vague, correct: false, feedback: vagueFeedback},
+      {text: extreme, correct: false, feedback: extremeFeedback}
+    ];
+  }
+
+  function findVendorForMaterial(materialName) {
+    return VENDORS.find(function(v) { return v.materials.indexOf(materialName) !== -1; });
+  }
+
+  var nextPoNumber = 1043;
+
+  var state = {filter: "all", sortKey: null, sortDir: 1, openRow: null, answers: {}, poSubmitted: {}};
+
+  function getStatus(m) {
+    if (m.current >= m.min) return "ok";
+    if (m.current >= m.min * 0.5) return "low";
+    return "critical";
+  }
+
+  function computeCounts() {
+    var c = {all: MATERIALS.length, ok: 0, low: 0, critical: 0};
+    MATERIALS.forEach(function(m) { c[getStatus(m)]++; });
+    return c;
+  }
+
+  function renderKPIs(c) {
+    document.getElementById("kpi-total").textContent = c.all;
+    document.getElementById("kpi-ok").textContent = c.ok;
+    document.getElementById("kpi-low").textContent = c.low;
+    document.getElementById("kpi-critical").textContent = c.critical;
+  }
+
+  function renderAlert(c) {
+    var alertBox = document.getElementById("alert");
+    if (c.critical === 0) { alertBox.style.display = "none"; return; }
+    alertBox.style.display = "flex";
+    var criticalNames = MATERIALS.filter(function(m) { return getStatus(m) === "critical"; }).map(function(m) { return m.name; }).join(", ");
+    document.getElementById("alert-text").innerHTML = "<b>" + c.critical + " item" + (c.critical > 1 ? "s" : "") + " critical</b>: " + criticalNames + ". This needs to reach Procurement today.";
+  }
+
+  function renderTabs(c) {
+    var tabs = [
+      {key: "all", label: "All", count: c.all},
+      {key: "ok", label: "OK", count: c.ok},
+      {key: "low", label: "Low", count: c.low},
+      {key: "critical", label: "Critical", count: c.critical}
+    ];
+    var wrap = document.getElementById("filter-tabs");
+    wrap.innerHTML = "";
+    tabs.forEach(function(t) {
+      var btn = document.createElement("button");
+      btn.className = "filter-tab" + (state.filter === t.key ? " active" : "");
+      btn.textContent = t.label + " (" + t.count + ")";
+      btn.addEventListener("click", function() { state.filter = t.key; render(); });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function getRows() {
+    var rows = MATERIALS.map(function(m, i) { return {m: m, i: i, status: getStatus(m)}; });
+    if (state.filter !== "all") rows = rows.filter(function(r) { return r.status === state.filter; });
+    if (state.sortKey) {
+      rows.sort(function(a, b) { return (a.m[state.sortKey] - b.m[state.sortKey]) * state.sortDir; });
+    }
+    return rows;
+  }
+
+  function renderTable() {
+    var rows = getRows();
+    var tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+    rows.forEach(function(r) {
+      var m = r.m, status = r.status;
+      var statusClass = "dot-" + status, textClass = "txt-" + status;
+      var statusLabel = status === "ok" ? "OK" : (status === "low" ? "Low" : "Critical");
+      var tr = document.createElement("tr");
+      tr.className = "data-row";
+      tr.innerHTML =
+        '<td class="td-name">' + m.name + '</td>' +
+        '<td class="td-sku mono">' + m.sku + '</td>' +
+        '<td class="td-num mono">' + m.current + '<span class="td-unit">' + m.unit + '</span></td>' +
+        '<td class="td-num mono">' + m.min + '<span class="td-unit">' + m.unit + '</span></td>' +
+        '<td><div class="status-cell"><span class="status-dot ' + statusClass + '"></span><span class="' + textClass + '">' + statusLabel + '</span></div></td>' +
+        '<td class="td-updated">' + m.updated + '</td>' +
+        '<td><svg class="chevron' + (state.openRow === r.i ? ' open' : '') + '" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></td>';
+      tr.addEventListener("click", function() {
+        state.openRow = state.openRow === r.i ? null : r.i;
+        renderTable();
+      });
+      tbody.appendChild(tr);
+
+      var noteTr = document.createElement("tr");
+      noteTr.className = "note-row";
+      var noteHtml = status === "ok"
+        ? '<p class="note-ok">No action needed, ' + m.name.toLowerCase() + ' is at or above the minimum level.</p>'
+        : renderPracticeArea(m, r.i, status);
+      noteTr.innerHTML = '<td colspan="7"><div class="note-inner' + (state.openRow === r.i ? ' show' : '') + '">' + noteHtml + '</div></td>';
+      tbody.appendChild(noteTr);
+    });
+    document.getElementById("foot-count").textContent = "Showing " + rows.length + " of " + MATERIALS.length + " materials";
+
+    tbody.querySelectorAll(".choice-btn").forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        state.answers[btn.dataset.i] = parseInt(btn.dataset.oi, 10);
+        renderTable();
+      });
+    });
+    tbody.querySelectorAll(".po-submit-btn").forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var i = btn.dataset.i;
+        var m = MATERIALS[i];
+        var vendor = findVendorForMaterial(m.name);
+        var qtyInput = document.getElementById("po-qty-" + i);
+        var qty = qtyInput ? qtyInput.value : "";
+        var poNum = "PO-" + (nextPoNumber++);
+        var newPO = {po: poNum, material: m.name, vendor: vendor ? vendor.name : "Unknown", qty: qty, status: "pending", date: "Just now"};
+        PURCHASE_ORDERS.unshift(newPO);
+        state.poSubmitted[i] = newPO;
+        renderTable();
+      });
+    });
+  }
+
+  function renderPracticeArea(m, i, status) {
+    var opts = optionSetFor(m, status);
+    var rot = i % 3;
+    opts = opts.slice(rot).concat(opts.slice(0, rot));
+    var answer = state.answers[i];
+
+    var quizHtml = '<div class="practice-block"><div class="note-label">How would you report this?</div><div class="choice-list">';
+    opts.forEach(function(o, oi) {
+      var cls = "choice-btn";
+      if (answer !== undefined) {
+        if (oi === answer) cls += o.correct ? " correct" : " wrong";
+        else if (o.correct) cls += " correct";
+      }
+      quizHtml += '<button class="' + cls + '" data-i="' + i + '" data-oi="' + oi + '">' + o.text + '</button>';
+    });
+    quizHtml += '</div>';
+    if (answer !== undefined) {
+      quizHtml += '<div class="choice-feedback">' + opts[answer].feedback + '</div>';
+    }
+    quizHtml += '</div>';
+
+    var vendor = findVendorForMaterial(m.name);
+    var submitted = state.poSubmitted[i];
+    var actionHtml = '<div class="practice-block"><div class="note-label">Take Action</div>';
+    if (submitted) {
+      actionHtml += '<div class="po-confirm">✓ ' + submitted.po + ' submitted to ' + submitted.vendor + '.</div>';
+    } else {
+      var suggestedQty = Math.max(m.min - m.current, Math.round(m.min * 0.5));
+      actionHtml +=
+        '<div class="po-form">' +
+          '<div class="po-form-row"><span class="po-form-label">Vendor</span><span class="po-form-value">' + (vendor ? vendor.name + (vendor.lead ? ' &middot; ' + vendor.lead + ' day lead time' : '') : 'Unknown') + '</span></div>' +
+          '<div class="po-form-row"><span class="po-form-label">Quantity</span><input type="text" class="po-input" id="po-qty-' + i + '" value="' + suggestedQty + ' ' + m.unit + '"></div>' +
+          '<button class="po-submit-btn" data-i="' + i + '">Submit Purchase Order</button>' +
+        '</div>';
+    }
+    actionHtml += '</div>';
+
+    return quizHtml + actionHtml;
+  }
+
+  function renderSortArrows() {
+    ["current", "min"].forEach(function(k) {
+      var el = document.getElementById("arrow-" + k);
+      el.textContent = state.sortKey === k ? (state.sortDir === 1 ? "▲" : "▼") : "";
+    });
+  }
+
+  var TF_ITEMS = [
+    {text: "Thinner A is the only material currently marked critical.", answer: true,
+      explain: "The Critical KPI shows 1, and Thinner A (Solvent) is the only one with that status."},
+    {text: "PolyBase Industrial supplies more than one material.", answer: true,
+      explain: "PolyBase Industrial supplies both Base Resin and Curing Agent."},
+    {text: "A material below its minimum level means the warehouse has zero left.", answer: false,
+      explain: "Below the minimum just means the stock is lower than it should be, not that it's at zero. That is the difference between Low and Critical."}
+  ];
+
+  function renderTF() {
+    var wrap = document.getElementById("tf-list");
+    wrap.innerHTML = "";
+    TF_ITEMS.forEach(function(item, i) {
+      var div = document.createElement("div");
+      div.className = "tf-item";
+      div.innerHTML =
+        '<div class="tf-text">' + (i + 1) + '. ' + item.text + '</div>' +
+        '<div class="tf-btns">' +
+          '<button class="tf-btn" data-i="' + i + '" data-v="true">True</button>' +
+          '<button class="tf-btn" data-i="' + i + '" data-v="false">False</button>' +
+        '</div>' +
+        '<div class="tf-explain" id="tf-explain-' + i + '">' + item.explain + '</div>';
+      wrap.appendChild(div);
+    });
+    wrap.querySelectorAll(".tf-btn").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var i = parseInt(btn.dataset.i, 10);
+        var chosen = btn.dataset.v === "true";
+        var correct = TF_ITEMS[i].answer;
+        var siblings = btn.parentElement.querySelectorAll(".tf-btn");
+        siblings.forEach(function(b) { b.classList.remove("correct", "wrong"); });
+        if (chosen === correct) {
+          btn.classList.add("correct");
+        } else {
+          btn.classList.add("wrong");
+          siblings.forEach(function(b) { if ((b.dataset.v === "true") === correct) b.classList.add("correct"); });
+        }
+        document.getElementById("tf-explain-" + i).classList.add("show");
+      });
+    });
+  }
+
+  function render() {
+    var c = computeCounts();
+    renderKPIs(c);
+    renderAlert(c);
+    renderTabs(c);
+    renderTable();
+    renderSortArrows();
+  }
+
+  var VIEW_TITLES = {
+    dashboard: "Dashboard / Plant Overview",
+    "purchase-orders": "Purchase Orders / All Orders",
+    vendors: "Vendors / Suppliers",
+    reports: "Reports / All Reports"
+  };
+
+  function activeVendors() {
+    return VENDORS.filter(function(v) { return v.status === "active"; });
+  }
+
+  function avgLeadTime() {
+    var active = activeVendors();
+    var total = active.reduce(function(sum, v) { return sum + v.lead; }, 0);
+    return (total / active.length).toFixed(1);
+  }
+
+  function renderDashboardView() {
+    var openPOs = PURCHASE_ORDERS.filter(function(p) { return p.status === "pending"; }).length;
+    var c = computeCounts();
+    var html =
+      '<div class="ov-kpi-row">' +
+        '<div class="kpi"><div class="kpi-label">Open Purchase Orders</div><div class="kpi-value mono">' + openPOs + '</div></div>' +
+        '<div class="kpi k-critical"><div class="kpi-label">Critical Materials</div><div class="kpi-value mono">' + c.critical + '</div></div>' +
+        '<div class="kpi"><div class="kpi-label">Active <span class="term" data-key="vendor">Vendors</span></div><div class="kpi-value mono">' + activeVendors().length + '</div></div>' +
+        '<div class="kpi"><div class="kpi-label">Avg <span class="term" data-key="lead-time">Lead Time</span></div><div class="kpi-value mono">' + avgLeadTime() + ' <span class="td-unit">days</span></div></div>' +
+      '</div>' +
+      '<div class="section-title">Recent Activity</div>' +
+      '<div class="feed">' + ACTIVITY.map(function(a) {
+        return '<div class="feed-item"><span class="feed-dot"></span><div><div class="feed-text">' + a.text + '</div><div class="feed-time">' + a.time + '</div></div></div>';
+      }).join("") + '</div>';
+    return html;
+  }
+
+  function renderPurchaseOrdersView() {
+    var statusLabel = {pending: "Pending Approval", shipped: "Shipped", delivered: "Delivered"};
+    var rows = PURCHASE_ORDERS.map(function(p) {
+      return '<tr class="data-row" style="cursor:default">' +
+        '<td class="td-name mono">' + p.po + '</td>' +
+        '<td class="td-name">' + p.material + '</td>' +
+        '<td class="td-sku">' + p.vendor + '</td>' +
+        '<td class="td-num mono">' + p.qty + '</td>' +
+        '<td><span class="po-status po-' + p.status + '">' + statusLabel[p.status] + '</span></td>' +
+        '<td class="td-updated">' + p.date + '</td>' +
+      '</tr>';
+    }).join("");
+    return '<div class="table-wrap"><table><thead><tr><th>PO Number</th><th>Material</th><th>Vendor</th><th>Quantity</th><th>Status</th><th>Date</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  function renderVendorsView() {
+    return VENDORS.map(function(v) {
+      var leadHtml = v.lead
+        ? '<div class="vendor-lead-val">' + v.lead + ' days</div><div class="vendor-lead-label"><span class="term" data-key="lead-time">Lead Time</span></div>'
+        : '<div class="vendor-lead-val" style="color:var(--gold)">Pending</div><div class="vendor-lead-label"><span class="term" data-key="lead-time">Lead Time</span></div>';
+      var statusBadge = v.status === "active"
+        ? '<span class="vendor-status vs-active">Active</span>'
+        : '<span class="vendor-status vs-evaluation">Under Evaluation</span>';
+      return '<div class="vendor-card">' +
+        '<div><div class="vendor-name">' + v.name + ' ' + statusBadge + '</div><div class="vendor-materials">Supplies: ' + v.materials + '</div></div>' +
+        '<div class="vendor-lead">' + leadHtml + '</div>' +
+      '</div>';
+    }).join("");
+  }
+
+  function renderReportsView() {
+    var reports = [
+      {title: "Inventory Status Report", desc: "Current stock vs. minimum levels across all raw materials.", action: "closeOverlay()", btn: "View in Inventory"},
+      {title: "Purchase Order History", desc: "Every " + '<span class="term" data-key="purchase-order">purchase order</span>' + ", past and pending.", action: "openOverlay('purchase-orders')", btn: "View"},
+      {title: "Vendor Lead Times", desc: "Compare suppliers and how long each one takes to deliver.", action: "openOverlay('vendors')", btn: "View"}
+    ];
+    return reports.map(function(r) {
+      return '<div class="report-card"><div><div class="report-title">' + r.title + '</div><div class="report-desc">' + r.desc + '</div></div><button class="report-btn" onclick="' + r.action + '">' + r.btn + '</button></div>';
+    }).join("");
+  }
+
+  var VIEW_RENDERERS = {
+    dashboard: renderDashboardView,
+    "purchase-orders": renderPurchaseOrdersView,
+    vendors: renderVendorsView,
+    reports: renderReportsView
+  };
+
+  window.openOverlay = function(view) {
+    var parts = VIEW_TITLES[view].split(" / ");
+    document.getElementById("ov-crumb").innerHTML = parts[0] + " / <b>" + parts[1] + "</b>";
+    document.getElementById("ov-content").innerHTML = VIEW_RENDERERS[view]();
+    document.getElementById("overlay-view").classList.add("open");
+    document.querySelectorAll(".sb-item").forEach(function(el) { el.classList.remove("active"); });
+    document.getElementById("nav-" + view).classList.add("active");
+  };
+
+  window.closeOverlay = function() {
+    document.getElementById("overlay-view").classList.remove("open");
+    document.querySelectorAll(".sb-item").forEach(function(el) { el.classList.remove("active"); });
+    document.getElementById("nav-inventory").classList.add("active");
+  };
+
+  document.querySelectorAll("th.sortable").forEach(function(th) {
+    th.addEventListener("click", function() {
+      var key = th.dataset.sort;
+      if (state.sortKey === key) { state.sortDir *= -1; } else { state.sortKey = key; state.sortDir = 1; }
+      render();
+    });
+  });
+
+  var activeTip = null;
+  function showTip(el) {
+    var t = TIPS[el.dataset.key];
+    if (!t) return;
+    var tip = document.getElementById("tip");
+    tip.innerHTML = '<div class="tip-term">' + t.en + '</div>' + t.pt;
+    var rect = el.getBoundingClientRect();
+    tip.style.left = Math.min(rect.left, window.innerWidth - 280) + "px";
+    tip.style.top = (rect.bottom + 8) + "px";
+    tip.classList.add("show");
+    activeTip = el;
+  }
+  function hideTip() { document.getElementById("tip").classList.remove("show"); activeTip = null; }
+  document.addEventListener("mouseover", function(e) { var t = e.target.closest(".term"); if (t && t !== activeTip) showTip(t); });
+  document.addEventListener("mouseout", function(e) { var t = e.target.closest(".term"); if (t && !t.contains(e.relatedTarget)) hideTip(); });
+  document.addEventListener("click", function(e) { var t = e.target.closest(".term"); if (t) { e.stopPropagation(); showTip(t); } });
+
+  render();
+  renderTF();
+</script>
+</body>
+</html>

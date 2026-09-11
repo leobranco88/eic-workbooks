@@ -23,6 +23,8 @@
 }
 
 /* Classificação de categoria: amarelo = posição 1, verde = posição 2 */
+.pc { background: var(--snow); border: 1px solid var(--light); padding: 0 6px; border-radius: 5px;
+  font-weight: 800; color: var(--ink); white-space: nowrap; }
 .hl-be { background: var(--y-tint); color: var(--y); padding: 1px 7px; border-radius: 5px; font-weight: 800; }
 .hl-noun { background: var(--b-tint); color: var(--b); padding: 1px 7px; border-radius: 5px; font-weight: 800; }
 /* Resposta de verdade: laranja com texto branco */
@@ -367,7 +369,24 @@ h2 .orange { color: var(--orange); }
 .scn-label { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
   color: var(--mid); min-width: 74px; flex: none; }
 .scn-value { font-size: 15.5px; font-weight: 800; color: var(--ink); }
-.scn-start { font-size: 11.5px; color: var(--mid); font-style: italic; }
+.scn-brief { margin-top: 4px; padding-top: 12px; border-top: 1px dashed var(--light); }
+.scn-brief-label { display: block; font-size: 10px; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--mid); margin-bottom: 5px; }
+.scn-brief-pt { font-size: 18px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); }
+.pf-rule { border: 1px solid var(--light); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; }
+.pf-rule-label { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 10px; }
+.pf-rule-row { display: grid; grid-template-columns: 1fr 18px 1.35fr; gap: 8px; align-items: center;
+  font-size: 12.5px; line-height: 1.5; padding: 7px 0; }
+.pf-rule-row + .pf-rule-row { border-top: 1px dashed var(--light); }
+.pf-rule-pt { color: var(--ink); font-weight: 700; }
+.pf-rule-arrow { color: var(--mid); text-align: center; }
+.pf-rule-en { color: var(--mid); }
+.pf-rule-en b, .pf-rule-pt b { color: var(--orange); }
+@media (max-width: 560px) {
+  .pf-rule-row { grid-template-columns: 1fr; gap: 2px; }
+  .pf-rule-arrow { display: none; }
+}
 
 .wh-stage { background: var(--snow); border: 1px dashed var(--light); border-radius: 14px; padding: 30px 16px 22px;
   display: flex; justify-content: center; align-items: center; min-height: 86px; margin-bottom: 18px; }
@@ -434,6 +453,42 @@ h2 .orange { color: var(--orange); }
   padding: 8px 15px; border-radius: 9px; text-decoration: none;
 }
 
+
+/* ── AQUECIMENTO: quem + be ──────────────────────────── */
+.warm-shell { border: 1px solid var(--light); border-radius: 18px; padding: 26px 28px 24px; margin-top: 40px; }
+.warm-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.warm-kicker { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--mid); margin-bottom: 6px; }
+.warm-subject { font-size: clamp(28px, 4vw, 48px); font-weight: 900; letter-spacing: -0.035em; line-height: 1.05; }
+.warm-metrics { display: flex; gap: 22px; }
+.warm-metric-label { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--mid); }
+.warm-metric-value { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; }
+.warm-metric-value.hot { color: var(--orange); }
+.warm-bar { height: 5px; border-radius: 4px; background: var(--light); overflow: hidden; margin-bottom: 18px; }
+.warm-bar-fill { height: 100%; width: 0%; background: var(--orange); transition: width .25s ease; }
+.warm-stage { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--mid); margin-bottom: 10px; }
+.warm-stage-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--ink); color: var(--white);
+  font-size: 10px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex: none; }
+.warm-locked { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800;
+  background: var(--orange); color: var(--white); padding: 3px 10px; border-radius: 6px; margin-left: 4px; }
+.warm-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+.warm-opt { border: 1.5px solid var(--light); background: var(--white); color: var(--ink); font-family: inherit;
+  font-size: 15px; font-weight: 800; padding: 10px 18px; border-radius: 10px; cursor: pointer; transition: all .12s; }
+.warm-opt:hover:not(:disabled) { border-color: var(--orange); background: #FFF1F0; }
+.warm-opt.correct { background: var(--orange); border-color: var(--orange); color: var(--white); }
+.warm-opt.wrong { background: #FFE8E6; border-color: #E0201C; color: #E0201C; animation: whshake .35s; }
+.warm-opt:disabled { cursor: default; }
+.warm-fb { min-height: 40px; margin-top: 14px; font-size: 13.5px; font-weight: 600; line-height: 1.55; color: var(--mid); }
+.warm-fb b { color: var(--ink); }
+.warm-fb.ok { color: var(--ink); }
+.warm-fb.bad { color: #E0201C; }
+.warm-done { display: none; margin-top: 16px; padding: 16px 18px; border-radius: 12px; background: var(--b-tint);
+  color: var(--b); font-size: 14px; font-weight: 700; line-height: 1.6; }
+.warm-done.show { display: block; }
+.warm-done b { color: var(--b); }
+.warm-restart { margin-top: 12px; background: none; border: none; color: var(--mid); font-size: 12px;
+  cursor: pointer; text-decoration: underline; font-family: inherit; padding: 0; }
+@media (max-width: 600px) { .warm-shell { padding: 20px 18px; } .warm-metrics { gap: 16px; } }
+
 @media (max-width: 960px) {
   .nav { padding: 0 20px; }
   .nav-module-label, .nav-sibling-link { display: none; }
@@ -473,11 +528,11 @@ h2 .orange { color: var(--orange); }
 <div class="hero">
   <div class="hero-content">
     <div class="hero-eyebrow">Peça por Peça · Life 1 · Unit 4c</div>
-    <h1>O adjetivo tem<br><span class="orange">dois lugares.</span></h1>
-    <p class="hero-sub">Em português você diz "um museu <strong>antigo</strong>": o adjetivo vem depois. Em inglês ele passa na frente, "an <strong>old</strong> museum". São dois lugares possíveis, e o inglês decide qual antes de você abrir a boca.</p>
+    <h1>A <span class="orange">qualidade</span><br>tem dois lugares.</h1>
+    <p class="hero-sub">Chamamos de <strong>qualidade</strong> a palavra que descreve, e de <strong>nome</strong> a que nomeia. Qualidade aqui não é só coisa boa: <em>velho</em>, <em>caro</em> e <em>chato</em> também são. Em português você diz "um museu <strong>antigo</strong>": a qualidade vem depois do nome. Em inglês ela passa na frente, "an <strong>old</strong> museum".</p>
   </div>
   <div class="hero-machine">
-    <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Máquina de encaixe: o bloco do adjetivo se encaixa antes do bloco do substantivo">
+    <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Máquina de encaixe: a peça que diz como a coisa é encaixa antes da peça que nomeia">
       <g stroke="#3A3A38" stroke-width="1.2" fill="none">
         <path d="M40 250 H480"/>
         <path d="M40 250 V262 M480 250 V262"/>
@@ -500,10 +555,10 @@ h2 .orange { color: var(--orange); }
       </g>
       <rect x="96" y="196" width="118" height="44" rx="5" fill="none" stroke="#FF3C38" stroke-width="1.6"/>
       <text x="155" y="223" fill="#FF3C38" font-family="Inter, sans-serif" font-size="19" font-weight="800" text-anchor="middle">great</text>
-      <text x="155" y="186" fill="#6B6B6B" font-family="Inter, sans-serif" font-size="9.5" font-weight="800" letter-spacing="1.2" text-anchor="middle">ADJECTIVE</text>
+      <text x="155" y="186" fill="#6B6B6B" font-family="Inter, sans-serif" font-size="9.5" font-weight="800" letter-spacing="1.2" text-anchor="middle">QUALIDADE</text>
       <rect x="232" y="196" width="150" height="44" rx="5" fill="none" stroke="#E8E8E4" stroke-width="1.6"/>
       <text x="307" y="223" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="19" font-weight="800" text-anchor="middle">museum</text>
-      <text x="307" y="186" fill="#6B6B6B" font-family="Inter, sans-serif" font-size="9.5" font-weight="800" letter-spacing="1.2" text-anchor="middle">NOUN</text>
+      <text x="307" y="186" fill="#6B6B6B" font-family="Inter, sans-serif" font-size="9.5" font-weight="800" letter-spacing="1.2" text-anchor="middle">NOME</text>
       <g stroke="#FF3C38" stroke-width="1.6" fill="none">
         <path d="M214 218 H228"/>
         <path d="M222 212 L228 218 L222 224"/>
@@ -528,21 +583,21 @@ h2 .orange { color: var(--orange); }
       </div>
       <div class="path-intro-right">
         <div class="original-sentence"><span class="orig-label">PT</span> "O museu é antigo." / "Um museu antigo."</div>
-        <p>Repara que em português o adjetivo fica <strong>depois</strong> nas duas frases. A posição não muda nada.</p>
+        <p>Repara que em português a <span class="pc">qualidade</span> fica <strong>depois</strong> nas duas frases. A posição não muda nada.</p>
         <div class="original-sentence"><span class="orig-label">EN</span> The museum <strong>is old</strong>. / It's an <strong>old</strong> museum.</div>
-        <p class="pt-note">Em inglês o adjetivo muda de lugar: <strong>depois do <code>be</code></strong> quando está sozinho, e <strong>antes do substantivo</strong> quando o substantivo aparece. Seu cérebro precisa escolher isso antes de falar.</p>
+        <p class="pt-note">Em inglês a <span class="pc">qualidade</span> muda de lugar: <strong>depois do <code>be</code></strong> quando está sozinho, e <strong>antes do <span class="pc">nome</span></strong> quando o nome aparece. Seu cérebro precisa escolher isso antes de falar.</p>
       </div>
     </div>
 
     <div class="tree-root">
-      <div class="tree-question">Tem um substantivo na frase junto com o adjetivo?</div>
+      <div class="tree-question">Tem um <span style="color:var(--orange);">nome</span> na frase junto com a <span style="color:var(--orange);">qualidade</span>?</div>
       <div class="tree-connector"></div>
       <div class="branch-row">
         <div class="branch-connector"><div class="branch-line"></div>
-          <div class="branch-label">Não <span class="branch-arrow">&rarr;</span> <span class="branch-fam-chip y">be + adjective</span></div>
+          <div class="branch-label">Não <span class="branch-arrow">&rarr;</span> <span class="branch-fam-chip y">be + qualidade</span></div>
         </div>
         <div class="branch-connector"><div class="branch-line"></div>
-          <div class="branch-label">Sim <span class="branch-arrow">&rarr;</span> <span class="branch-fam-chip b">adjective + noun</span></div>
+          <div class="branch-label">Sim <span class="branch-arrow">&rarr;</span> <span class="branch-fam-chip b">qualidade + nome</span></div>
         </div>
       </div>
     </div>
@@ -552,16 +607,16 @@ h2 .orange { color: var(--orange); }
         <div class="fstep-num">1</div>
         <div>
           <div class="fstep-title">Escolhe o lugar</div>
-          <div class="fstep-text">O mesmo adjetivo, as mesmas palavras, dois lugares diferentes. Quem decide é o substantivo: se ele está na frase, o adjetivo passa na frente dele.</div>
+          <div class="fstep-text">A mesma <span class="pc">qualidade</span>, as mesmas palavras, dois lugares diferentes. Quem decide é o <span class="pc">nome</span>: se ele está na frase, a qualidade passa na frente dele.</div>
           <div class="situation-cols">
             <div class="situation-col be">
-              <div class="situation-col-title">Sem substantivo</div>
+              <div class="situation-col-title">Sem nome junto</div>
               <div class="situation-item">The museum <span class="hl-be">is old</span>.</div>
               <div class="situation-item">The tickets <span class="hl-be">aren't expensive</span>.</div>
               <div class="situation-item"><span class="hl-be">Are</span> these places <span class="hl-be">interesting</span>?</div>
             </div>
             <div class="situation-col noun">
-              <div class="situation-col-title">Com substantivo</div>
+              <div class="situation-col-title">Com nome junto</div>
               <div class="situation-item">It's an <span class="hl-noun">old museum</span>.</div>
               <div class="situation-item">They're <span class="hl-noun">beautiful colors</span>.</div>
               <div class="situation-item">It's a <span class="hl-noun">big park</span>.</div>
@@ -573,18 +628,18 @@ h2 .orange { color: var(--orange); }
       <div class="fstep">
         <div class="fstep-num">2</div>
         <div>
-          <div class="fstep-title">O adjetivo nunca ganha -s</div>
-          <div class="fstep-text">Plural é coisa de substantivo. O adjetivo fica igual, sempre: <code>one beautiful color</code>, <code>ten beautiful colors</code>.</div>
+          <div class="fstep-title">A <span class="pc">qualidade</span> nunca ganha -s</div>
+          <div class="fstep-text">Mais de um é coisa de <span class="pc">nome</span>. A <span class="pc">qualidade</span> fica igual, sempre: <code>one beautiful color</code>, <code>ten beautiful colors</code>.</div>
           <div class="fstep-text" style="margin-top:10px;">They're <span class="aux-hl">beautiful colors</span>, nunca "beautifuls colors".</div>
           <button class="gram-toggle" onclick="toggleGram(this)">
             <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span> Por que isso acontece?
           </button>
           <div class="gram-panel">
             <div class="gram-panel-inner">
-              <div class="gram-row"><span class="gram-label">Português</span><span class="gram-value">O adjetivo concorda com o substantivo: <code>cor bonita</code> &rarr; <code>cores bonitas</code>. O "-s" pula de uma palavra para a outra.</span></div>
-              <div class="gram-row"><span class="gram-label">Inglês</span><span class="gram-value">O adjetivo é invariável. Não tem plural, não tem masculino nem feminino: <code>beautiful</code> serve para tudo.</span></div>
-              <div class="gram-row"><span class="gram-label">Também vale</span><span class="gram-value">Depois do <code>be</code> é a mesma coisa: <code>The color is beautiful</code> / <code>The colors are beautiful</code>. Muda o <code>be</code>, não o adjetivo.</span></div>
-              <div class="gram-note">Ou seja: no inglês só o substantivo e o verbo mudam de forma. O adjetivo é a peça que nunca se deforma.</div>
+              <div class="gram-row"><span class="gram-label">Português</span><span class="gram-value">As duas palavras mudam juntas: <code>cor bonita</code> &rarr; <code>cores bonitas</code>. O "-s" pula de uma para a outra.</span></div>
+              <div class="gram-row"><span class="gram-label">Inglês</span><span class="gram-value">A <span class="pc">qualidade</span> nunca muda de forma. Sem "-s", sem masculino nem feminino: <code>beautiful</code> serve para tudo.</span></div>
+              <div class="gram-row"><span class="gram-label">Também vale</span><span class="gram-value">Depois do <code>be</code> é a mesma coisa: <code>The color is beautiful</code> / <code>The colors are beautiful</code>. Muda o <code>be</code>, não a qualidade.</span></div>
+              <div class="gram-note">Ou seja: no inglês só o <span class="pc">nome</span> e o verbo mudam de forma. A <span class="pc">qualidade</span> é a peça que nunca se deforma.</div>
             </div>
           </div>
         </div>
@@ -593,8 +648,8 @@ h2 .orange { color: var(--orange); }
       <div class="fstep">
         <div class="fstep-num">3</div>
         <div>
-          <div class="fstep-title">O artigo escuta o adjetivo, não o substantivo</div>
-          <div class="fstep-text">Quando o adjetivo passa na frente, ele fica colado no artigo. Então <code>a</code> ou <code>an</code> depende do som do <strong>adjetivo</strong>.</div>
+          <div class="fstep-title">O artigo escuta a <span class="pc">qualidade</span>, não o <span class="pc">nome</span></div>
+          <div class="fstep-text">Quando a <span class="pc">qualidade</span> passa na frente, ela fica colada no artigo. Então <code>a</code> ou <code>an</code> depende do som dele, não do nome.</div>
           <ul class="ref-list">
             <li><code>a museum</code> <span>&rarr;</span> <span class="aux-hl">a great museum</span></li>
             <li><code>an artist</code> <span>&rarr;</span> <span class="aux-hl">an Argentinian artist</span></li>
@@ -607,9 +662,9 @@ h2 .orange { color: var(--orange); }
       <div class="fstep">
         <div class="fstep-num">4</div>
         <div>
-          <div class="fstep-title">No plural, sem artigo</div>
-          <div class="fstep-text"><code>a</code> e <code>an</code> só existem no singular. No plural o bloco entra pelado: <span class="aux-hl">They're beautiful colors</span>, <span class="aux-hl">They're interesting streets</span>.</div>
-          <div class="fstep-text" style="margin-top:10px;">E o sujeito acompanha: uma coisa &rarr; <code>It's</code>; várias coisas &rarr; <code>They're</code>; uma pessoa &rarr; <code>He's</code> / <code>She's</code>.</div>
+          <div class="fstep-title">Com mais de um, sem artigo</div>
+          <div class="fstep-text"><code>a</code> e <code>an</code> só existem quando é um só. Com mais de um, o bloco entra pelado: <span class="aux-hl">They're beautiful colors</span>, <span class="aux-hl">They're interesting streets</span>.</div>
+          <div class="fstep-text" style="margin-top:10px;">E o <span class="pc">quem</span> acompanha: uma coisa &rarr; <code>It's</code>; várias coisas &rarr; <code>They're</code>; uma pessoa &rarr; <code>He's</code> / <code>She's</code>.</div>
         </div>
       </div>
     </div>
@@ -618,46 +673,47 @@ h2 .orange { color: var(--orange); }
 
 <div class="section">
   <div class="sec-eyebrow">Os dois lugares</div>
-  <h2>Duas posições. <span class="orange">Um adjetivo.</span></h2>
-  <p class="sec-sub">Toda frase com adjetivo usa uma das duas. Quando você reconhece qual é, o resto da frase se monta sozinho.</p>
+  <h2>Duas posições. <span class="orange">Uma palavra.</span></h2>
+  <p class="sec-sub">Toda frase com uma <span class="pc">qualidade</span> usa uma das duas. Quando você reconhece qual, o resto se monta sozinho.</p>
+  <p class="sec-sub" style="margin-top:10px;">No Life, esses dois lugares aparecem com os nomes técnicos: <em>be + adjective</em> e <em>adjective + noun</em>. O <em>adjective</em> do livro é a nossa <span class="pc">qualidade</span>; o <em>noun</em> é o nosso <span class="pc">nome</span>.</p>
 
   <div class="families-grid">
     <div class="fam">
       <div class="fam-wm">1</div>
       <div class="fam-tag y">Posição 1</div>
       <div class="fam-name">Depois do <em>be</em></div>
-      <div class="fam-rule">is / are + <span class="hl-be">adjective</span></div>
-      <div class="fam-desc">O adjetivo fica sozinho no fim. Serve para dizer como uma coisa é, negar, ou perguntar.</div>
+      <div class="fam-rule">is / are + <span class="hl-be">qualidade</span></div>
+      <div class="fam-desc">A <span class="pc">qualidade</span> fica sozinha no fim. Serve para descrever, negar ou perguntar.</div>
       <div class="fam-ex y">Van Gogh's art <strong>is fantastic</strong>.<br>The tickets <strong>aren't expensive</strong>.<br><strong>Are</strong> these places <strong>interesting</strong>?</div>
       <button class="gram-toggle" onclick="toggleGram(this)">
         <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span> Como formar (afirmativa, negativa, pergunta)
       </button>
       <div class="gram-panel">
         <div class="gram-panel-inner">
-          <div class="gram-row"><span class="gram-label">Afirmativa</span><span class="gram-value">subject + <code>is/are</code> + adjective</span></div>
-          <div class="gram-row"><span class="gram-label">Negativa</span><span class="gram-value">subject + <code>isn't/aren't</code> + adjective</span></div>
-          <div class="gram-row"><span class="gram-label">Pergunta</span><span class="gram-value"><code>Is/Are</code> + subject + adjective?</span></div>
-          <div class="gram-note">Na pergunta o <code>be</code> pula para a frente e o adjetivo fica no fim: "Are the buildings beautiful?", nunca "Are beautiful the buildings?".</div>
-          <div class="gram-note">Cuidado com <code>people</code>: é plural em inglês. "The people <b>aren't</b> happy".</div>
+          <div class="gram-row"><span class="gram-label">Afirmativa</span><span class="gram-value">quem + <code>is/are</code> + qualidade</span></div>
+          <div class="gram-row"><span class="gram-label">Negativa</span><span class="gram-value">quem + <code>isn't/aren't</code> + qualidade</span></div>
+          <div class="gram-row"><span class="gram-label">Pergunta</span><span class="gram-value"><code>Is/Are</code> + quem + qualidade?</span></div>
+          <div class="gram-note">Na pergunta o <code>be</code> pula para a frente e a <span class="pc">qualidade</span> fica no fim: "Are museums boring?", nunca "Are boring museums?".</div>
+          <div class="gram-note">Cuidado com <code>people</code>: é mais de um em inglês. "The people <b>aren't</b> happy".</div>
         </div>
       </div>
     </div>
     <div class="fam">
       <div class="fam-wm">2</div>
       <div class="fam-tag b">Posição 2</div>
-      <div class="fam-name">Antes do substantivo</div>
-      <div class="fam-rule"><span class="hl-noun">adjective</span> + noun</div>
-      <div class="fam-desc">O adjetivo cola no substantivo e os dois viram um bloco só. O bloco nunca se abre.</div>
+      <div class="fam-name">Antes do nome</div>
+      <div class="fam-rule"><span class="hl-noun">qualidade</span> + nome</div>
+      <div class="fam-desc">A <span class="pc">qualidade</span> cola no <span class="pc">nome</span> e os dois viram um bloco só. O bloco nunca se abre.</div>
       <div class="fam-ex b">It's a <strong>great museum</strong>.<br>They're <strong>beautiful colors</strong>.<br>He's an <strong>Argentinian artist</strong>.</div>
       <button class="gram-toggle" onclick="toggleGram(this)">
-        <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span> Como formar (singular e plural)
+        <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span> Como formar (um só e mais de um)
       </button>
       <div class="gram-panel">
         <div class="gram-panel-inner">
-          <div class="gram-row"><span class="gram-label">Singular</span><span class="gram-value"><code>It's</code> + <code>a/an</code> + adjective + noun</span></div>
-          <div class="gram-row"><span class="gram-label">Plural</span><span class="gram-value"><code>They're</code> + adjective + noun<b>s</b> <span style="font-style:italic;">(sem artigo)</span></span></div>
-          <div class="gram-row"><span class="gram-label">Pessoa</span><span class="gram-value"><code>He's / She's</code> + <code>a/an</code> + adjective + noun</span></div>
-          <div class="gram-note">O "-s" do plural fica no substantivo. O adjetivo não muda: <code>interesting streets</code>.</div>
+          <div class="gram-row"><span class="gram-label">Um só</span><span class="gram-value"><code>It's</code> + <code>a/an</code> + qualidade + nome</span></div>
+          <div class="gram-row"><span class="gram-label">Mais de um</span><span class="gram-value"><code>They're</code> + qualidade + nome<b>s</b> <span style="font-style:italic;">(sem artigo)</span></span></div>
+          <div class="gram-row"><span class="gram-label">Pessoa</span><span class="gram-value"><code>He's / She's</code> + <code>a/an</code> + qualidade + nome</span></div>
+          <div class="gram-note">O "-s" fica no <span class="pc">nome</span>. A <span class="pc">qualidade</span> não muda: <code>interesting streets</code>.</div>
         </div>
       </div>
     </div>
@@ -679,15 +735,50 @@ h2 .orange { color: var(--orange); }
 </div>
 
 <div class="section" style="padding-top:0;">
+  <div class="sec-eyebrow">Aquecimento</div>
+  <h2>Quem é, <span class="orange">e qual be?</span></h2>
+  <p class="sec-sub">Antes de montar frase, este passo precisa ser automático. Você vê a palavra, decide o pronome, decide o be. Sem pensar muito: rápido é o objetivo.</p>
+
+  <div class="warm-shell">
+    <div class="warm-head">
+      <div>
+        <div class="warm-kicker">De quem ou do quê você fala</div>
+        <div class="warm-subject" id="warmSubject">&mdash;</div>
+      </div>
+      <div class="warm-metrics">
+        <div>
+          <div class="warm-metric-label">Sequência</div>
+          <div class="warm-metric-value" id="warmStreak">0</div>
+        </div>
+        <div>
+          <div class="warm-metric-label">Melhor</div>
+          <div class="warm-metric-value" id="warmBest">0</div>
+        </div>
+        <div>
+          <div class="warm-metric-label">Feitos</div>
+          <div class="warm-metric-value" id="warmStat">0 / 16</div>
+        </div>
+      </div>
+    </div>
+    <div class="warm-bar"><div class="warm-bar-fill" id="warmFill"></div></div>
+    <div class="warm-stage" id="warmStage"></div>
+    <div class="warm-opts" id="warmOpts"></div>
+    <div class="warm-fb" id="warmFb"></div>
+    <div class="warm-done" id="warmDone"></div>
+    <button class="warm-restart" id="warmRestart" style="display:none;">recomeçar</button>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
   <div class="sec-eyebrow">Como a máquina roda</div>
   <h2>Quatro passos,<br><span class="orange">peça por peça.</span></h2>
   <p class="sec-sub">É esta a sequência que você roda na cabeça, na ordem, todas as vezes. Depois de umas vinte frases ela fica automática.</p>
 
   <div class="steps-grid">
-    <div class="step"><span class="step-num">01</span><div class="step-title">Qual posição?</div><p class="step-desc">Dando nome à coisa? Antes do substantivo. Dizendo como ela é? Depois do <em>be</em>.</p></div>
-    <div class="step"><span class="step-num">02</span><div class="step-title">Bloco</div><p class="step-desc">Adjetivo na frente, substantivo atrás. Sem -s no adjetivo.</p></div>
-    <div class="step"><span class="step-num">03</span><div class="step-title">Artigo</div><p class="step-desc">Singular: <em>a</em> ou <em>an</em> pelo som do adjetivo. Plural: nada.</p></div>
-    <div class="step"><span class="step-num">04</span><div class="step-title">Sujeito</div><p class="step-desc">It's, They're, He's ou She's. <strong>Pronto.</strong></p></div>
+    <div class="step"><span class="step-num">01</span><div class="step-title">Qual posição?</div><p class="step-desc">Olha o português: colado num nome? Antes dele. Sozinho depois de "é / são"? Depois do <em>be</em>.</p></div>
+    <div class="step"><span class="step-num">02</span><div class="step-title">Bloco</div><p class="step-desc">Qualidade na frente, nome atrás. Sem "-s" nela.</p></div>
+    <div class="step"><span class="step-num">03</span><div class="step-title">Artigo</div><p class="step-desc">Um só: <em>a</em> ou <em>an</em> pelo som da qualidade. Mais de um: nada.</p></div>
+    <div class="step"><span class="step-num">04</span><div class="step-title">Quem</div><p class="step-desc">It's, They're, He's ou She's. <strong>Pronto.</strong></p></div>
   </div>
 </div>
 
@@ -734,7 +825,12 @@ h2 .orange { color: var(--orange); }
       </div>
     </div>
     <div class="machine-modal-body">
-      <div class="pf-intro">Cada exemplo começa com uma frase que já existe e termina em outra que diz a mesma coisa. Você decide cada passo. <b>Errou, a peça não encaixa</b> e você tenta de novo.</div>
+      <div class="pf-intro">Você recebe uma peça e a frase que quer dizer em português. Cada passo é uma decisão sua: <b>errou, a peça não encaixa</b> e você tenta de novo.</div>
+      <div class="pf-rule">
+        <div class="pf-rule-label">A regra da bandeja</div>
+        <div class="pf-rule-row"><span class="pf-rule-pt">"um museu <b>ótimo</b>", "cores <b>bonitas</b>"</span><span class="pf-rule-arrow">&rarr;</span><span class="pf-rule-en">o português cola a qualidade num nome, então o inglês cola também: <b>antes</b> do nome</span></div>
+        <div class="pf-rule-row"><span class="pf-rule-pt">"museus <b>são</b> chatos", "não <b>são</b> caros"</span><span class="pf-rule-arrow">&rarr;</span><span class="pf-rule-en">o português deixa a qualidade sozinha depois de "é / são", então o inglês deixa sozinho depois do <b>be</b></span></div>
+      </div>
 
       <div class="scn-card" id="pfScene"></div>
       <div class="wh-stage"><div class="wh-tile-row" id="pfTileRow"></div></div>
@@ -783,13 +879,13 @@ document.addEventListener('click', function(){
       pt: 'Você quer dizer: "É um museu antigo."',
       wrong: "It's a museum old.",
       right: "It's an old museum.",
-      why: 'A ordem do português vazou. Em inglês o adjetivo vem <b>antes</b> do substantivo. E repara: com <b>old</b> na frente, o artigo virou <b>an</b>.'
+      why: 'A ordem do português vazou. Em inglês a <b>qualidade</b> vem antes do <b>nome</b>. E repara: com <b>old</b> na frente, o artigo virou <b>an</b>.'
     },
     {
       pt: 'Você quer dizer: "São cores bonitas."',
       wrong: "They're beautifuls colors.",
       right: "They're beautiful colors.",
-      why: 'O "-s" do plural fica só no substantivo. O adjetivo em inglês <b>nunca</b> muda de forma.'
+      why: 'O "-s" fica só no <b>nome</b>. A <b>qualidade</b> em inglês nunca muda de forma.'
     },
     {
       pt: 'Você quer dizer: "É um lugar interessante."',
@@ -801,13 +897,13 @@ document.addEventListener('click', function(){
       pt: 'Você quer dizer: "As pessoas não estão felizes."',
       wrong: "The people isn't happy.",
       right: "The people aren't happy.",
-      why: '<b>People</b> é plural em inglês, mesmo sem "-s". Sujeito plural pede <b>are / aren\'t</b>.'
+      why: '<b>People</b> é mais de um em inglês, mesmo sem "-s". Mais de um pede <b>are / aren\'t</b>.'
     },
     {
       pt: 'Você quer perguntar: "Os prédios são bonitos?"',
       wrong: "Are beautiful the buildings?",
       right: "Are the buildings beautiful?",
-      why: 'Na pergunta só o <b>are</b> pula para a frente. O adjetivo continua no fim, sozinho.'
+      why: 'Na pergunta só o <b>are</b> pula para a frente. A <b>qualidade</b> continua no fim, sozinha.'
     }
   ];
 
@@ -858,101 +954,101 @@ document.addEventListener('click', function(){
         { label: 'Onde', value: 'Palacio Municipal de Monterrey, Mexico' },
         { label: 'Nota', value: '5 estrelas' }
       ],
-      start: 'museum',
-      goal: 'Você quer dizer que aquilo é um museu ótimo.',
+      start: 'Museum',
+      pt: 'Aquilo é um museu ótimo.',
       steps: [
         {
-          title: 'Onde entra o adjetivo?',
-          prompt: 'A peça é o adjetivo <strong>great</strong>. Repara no que você quer dizer.',
-          options: ['antes do substantivo', 'sozinho, depois do be', 'depois do substantivo'],
-          correct: 'antes do substantivo',
-          confirm: 'Você está <b>dando nome</b> à coisa ("um museu ótimo"), então o adjetivo passa na frente do substantivo.',
-          tiles: [{ t: 'great', tag: 'adjective' }, { t: 'museum', tag: 'noun' }]
+          title: 'Onde entra a qualidade?',
+          prompt: 'A peça é a qualidade <strong>great</strong>. Agora olha o português: ela está colada num nome, ou sozinha depois de "é / são"?',
+          options: ['antes do nome', 'sozinho, depois do be', 'depois do nome'],
+          correct: 'antes do nome',
+          confirm: 'O português cola: "um <b>museu</b> ótimo". Então o inglês cola também, só inverte a ordem.',
+          tiles: [{ t: 'great', tag: 'qualidade' }, { t: 'museum', tag: 'nome' }]
         },
         {
           title: 'Monta o bloco',
           prompt: 'Junta as duas peças numa só.',
           options: ['great museum', 'museum great', 'greats museum'],
           correct: 'great museum',
-          confirm: 'Adjetivo na frente, e sem "-s" nele.',
+          confirm: 'Como é na frente, e sem "-s" nele.',
           tiles: [{ t: 'great museum', tag: 'bloco' }]
         },
         {
           title: 'a ou an?',
-          prompt: 'É singular, então precisa de artigo.',
-          options: ['a great museum', 'an great museum', 'the great museum'],
+          prompt: 'É um só, então precisa de artigo.',
+          options: ['a great museum', 'an great museum', 'a great museums'],
           correct: 'a great museum',
           confirm: '<b>great</b> começa com som de consoante, então <b>a</b>.',
           tiles: [{ t: 'a', tag: 'artigo' }, { t: 'great museum', tag: 'bloco' }]
         },
         {
-          title: 'Quem é o sujeito?',
-          prompt: 'Um museu: uma coisa, singular.',
+          title: 'Quem é?',
+          prompt: 'Um museu: uma coisa só.',
           options: ["It's", "They're", "He's"],
           correct: "It's",
-          confirm: 'Coisa no singular pede <b>It\'s</b>.',
-          tiles: [{ t: "It's", tag: 'sujeito' }, { t: 'a great museum', tag: 'bloco' }]
+          confirm: 'Uma coisa só pede <b>It\'s</b>.',
+          tiles: [{ t: "It's", tag: 'quem' }, { t: 'a great museum', tag: 'bloco' }]
         }
       ],
       final: "It's a great museum."
     },
     {
       scene: [
-        { label: 'Onde', value: 'Palacio Municipal de Monterrey, Mexico' },
-        { label: 'Entrada', value: 'os ingressos custam pouco' }
+        { label: 'Onde', value: 'a conversa da sua turma' },
+        { label: 'Situação', value: 'você quer a opinião de alguém' }
       ],
-      start: 'tickets',
-      goal: 'Você quer dizer que os ingressos não são caros.',
+      start: 'Museums',
+      pt: 'Museus são chatos?',
       steps: [
         {
-          title: 'Onde entra o adjetivo?',
-          prompt: 'A peça é o adjetivo <strong>expensive</strong>. Repara no que você quer dizer.',
-          options: ['antes do substantivo', 'sozinho, depois do be', 'depois do substantivo'],
+          title: 'Onde entra a qualidade?',
+          prompt: 'A peça é a qualidade <strong>boring</strong>. Olha o português: colado num nome, ou sozinho depois de "é / são"?',
+          options: ['antes do nome', 'sozinho, depois do be', 'depois do nome'],
           correct: 'sozinho, depois do be',
-          confirm: 'Aqui você não dá nome a nada: você diz <b>como</b> os ingressos são. O adjetivo fica sozinho depois do be.',
-          tiles: [{ t: 'the tickets', tag: 'sujeito' }, { t: 'expensive', tag: 'adjective' }]
+          confirm: 'O português deixa sozinho: "museus <b>são</b> chatos". Então o inglês deixa sozinho depois do be.',
+          tiles: [{ t: 'museums', tag: 'quem' }, { t: 'boring', tag: 'qualidade' }]
         },
         {
           title: 'Qual forma do be?',
-          prompt: '<strong>The tickets</strong>: um ou vários?',
+          prompt: '<strong>Museums</strong>: um ou vários?',
           options: ['are', 'is', 'am'],
           correct: 'are',
-          confirm: '<b>Tickets</b> é plural, então <b>are</b>.',
-          tiles: [{ t: 'the tickets', tag: 'sujeito' }, { t: 'are', tag: 'be' }, { t: 'expensive', tag: 'adjective' }]
+          confirm: 'Mais de um pede <b>are</b>.',
+          tiles: [{ t: 'museums', tag: 'quem' }, { t: 'are', tag: 'be' }, { t: 'boring', tag: 'qualidade' }]
         },
         {
-          title: 'Agora no negativo',
-          prompt: 'Os ingressos <strong>não</strong> são caros.',
-          options: ["aren't", "isn't", "don't"],
-          correct: "aren't",
-          confirm: 'Adjetivo nunca usa <b>don\'t</b>. O negativo de <b>are</b> é <b>aren\'t</b>.',
-          tiles: [{ t: 'the tickets', tag: 'sujeito' }, { t: "aren't", tag: 'be' }, { t: 'expensive', tag: 'adjective' }]
+          title: 'Monta a pergunta',
+          prompt: 'Na pergunta, uma peça muda de lugar.',
+          options: ['Are museums boring?', 'Museums are boring?', 'Are boring museums?'],
+          correct: 'Are museums boring?',
+          confirm: 'Só o <b>are</b> pula para a frente. A qualidade continua no fim.',
+          tiles: [{ t: 'Are', tag: 'be' }, { t: 'museums', tag: 'quem' }, { t: 'boring', tag: 'qualidade' }]
         }
       ],
-      final: "The tickets aren't expensive."
+      final: 'Are museums boring?'
     },
     {
       scene: [
         { label: 'Onde', value: '21st Century Museum, Kanazawa, Japan' },
         { label: 'Nota', value: '4 estrelas' }
       ],
-      start: 'colors',
-      goal: 'Você quer dizer que aquilo são cores bonitas.',
+      start: 'Colors',
+      pt: 'Aquilo são cores bonitas.',
       steps: [
         {
-          title: 'Onde entra o adjetivo?',
-          prompt: 'A peça é o adjetivo <strong>beautiful</strong>. Repara no que você quer dizer.',
-          options: ['antes do substantivo', 'sozinho, depois do be', 'depois do substantivo'],
-          correct: 'antes do substantivo',
-          confirm: 'De novo você dá nome à coisa ("cores bonitas"), então o adjetivo vem antes.',
-          tiles: [{ t: 'beautiful', tag: 'adjective' }, { t: 'colors', tag: 'noun' }]
+          title: 'Onde entra a qualidade?',
+          prompt: 'A peça é a qualidade <strong>beautiful</strong>. Olha o português: colado num nome, ou sozinho depois de "é / são"?',
+          options: ['antes do nome', 'sozinho, depois do be', 'depois do nome'],
+          correct: 'antes do nome',
+          confirm: 'O português cola: "<b>cores</b> bonitas". O inglês cola também, com a ordem invertida.',
+          tiles: [{ t: 'beautiful', tag: 'qualidade' }, { t: 'colors', tag: 'nome' }]
         },
         {
           title: 'Monta o bloco',
-          prompt: 'O substantivo está no plural.',
+          prompt: 'O nome está com "-s": é mais de um.',
           options: ['beautiful colors', 'beautifuls colors', 'colors beautiful'],
           correct: 'beautiful colors',
-          confirm: 'O "-s" fica no substantivo. O adjetivo continua <b>beautiful</b>.',
+          confirm: 'O "-s" fica no nome. A qualidade continua <b>beautiful</b>.',
           tiles: [{ t: 'beautiful colors', tag: 'bloco' }]
         },
         {
@@ -960,16 +1056,16 @@ document.addEventListener('click', function(){
           prompt: 'Pensa bem antes de colocar <strong>a</strong> ou <strong>an</strong>.',
           options: ['beautiful colors', 'a beautiful colors', 'an beautiful colors'],
           correct: 'beautiful colors',
-          confirm: 'No plural não entra <b>a</b> nem <b>an</b>. O bloco fica sem artigo.',
+          confirm: 'Com mais de um não entra <b>a</b> nem <b>an</b>. O bloco fica sem artigo.',
           tiles: [{ t: 'beautiful colors', tag: 'sem artigo' }]
         },
         {
-          title: 'Quem é o sujeito?',
+          title: 'Quem é?',
           prompt: 'Várias cores, não uma.',
           options: ["They're", "It's", "She's"],
           correct: "They're",
-          confirm: 'Plural pede <b>They\'re</b>.',
-          tiles: [{ t: "They're", tag: 'sujeito' }, { t: 'beautiful colors', tag: 'bloco' }]
+          confirm: 'Mais de um pede <b>They\'re</b>.',
+          tiles: [{ t: "They're", tag: 'quem' }, { t: 'beautiful colors', tag: 'bloco' }]
         }
       ],
       final: "They're beautiful colors."
@@ -979,78 +1075,78 @@ document.addEventListener('click', function(){
         { label: 'Quem', value: 'Leandro Erlich, o artista da piscina' },
         { label: 'País', value: 'Argentina' }
       ],
-      start: 'artist',
-      goal: 'Você quer dizer que ele é um artista argentino.',
+      start: 'Artist',
+      pt: 'Ele é um artista argentino.',
       steps: [
         {
-          title: 'Onde entra o adjetivo?',
-          prompt: 'A peça é o adjetivo <strong>Argentinian</strong>. Repara no que você quer dizer.',
-          options: ['antes do substantivo', 'sozinho, depois do be', 'depois do substantivo'],
-          correct: 'antes do substantivo',
-          confirm: 'Nacionalidade também é adjetivo. Você dá nome ("um artista argentino"), então vem antes.',
-          tiles: [{ t: 'Argentinian', tag: 'adjective' }, { t: 'artist', tag: 'noun' }]
+          title: 'Onde entra a qualidade?',
+          prompt: 'A peça é a qualidade <strong>Argentinian</strong>. Olha o português: colado num nome, ou sozinho depois de "é / são"?',
+          options: ['antes do nome', 'sozinho, depois do be', 'depois do nome'],
+          correct: 'antes do nome',
+          confirm: 'O português cola: "um <b>artista</b> argentino". Nacionalidade também diz como a pessoa é, então segue a mesma regra.',
+          tiles: [{ t: 'Argentinian', tag: 'qualidade' }, { t: 'artist', tag: 'nome' }]
         },
         {
           title: 'Monta o bloco',
           prompt: 'Junta as duas peças.',
           options: ['Argentinian artist', 'artist Argentinian', 'Argentinians artist'],
           correct: 'Argentinian artist',
-          confirm: 'Adjetivo na frente, e sem "-s".',
+          confirm: 'Como é na frente, e sem "-s".',
           tiles: [{ t: 'Argentinian artist', tag: 'bloco' }]
         },
         {
           title: 'a ou an?',
-          prompt: 'Singular. Escuta a primeira palavra do bloco.',
-          options: ['an Argentinian artist', 'a Argentinian artist', 'the Argentinian artist'],
+          prompt: 'Um só. Escuta a primeira palavra do bloco.',
+          options: ['an Argentinian artist', 'a Argentinian artist', 'an Argentinian artists'],
           correct: 'an Argentinian artist',
           confirm: '<b>Argentinian</b> começa com som de vogal, então <b>an</b>. O artigo não olha para "artist".',
           tiles: [{ t: 'an', tag: 'artigo' }, { t: 'Argentinian artist', tag: 'bloco' }]
         },
         {
-          title: 'Quem é o sujeito?',
+          title: 'Quem é?',
           prompt: 'Leandro Erlich é uma pessoa, um homem.',
           options: ["He's", "It's", "They're"],
           correct: "He's",
-          confirm: 'Pessoa, homem, singular: <b>He\'s</b>.',
-          tiles: [{ t: "He's", tag: 'sujeito' }, { t: 'an Argentinian artist', tag: 'bloco' }]
+          confirm: 'Uma pessoa, homem: <b>He\'s</b>.',
+          tiles: [{ t: "He's", tag: 'quem' }, { t: 'an Argentinian artist', tag: 'bloco' }]
         }
       ],
       final: "He's an Argentinian artist."
     },
     {
       scene: [
-        { label: 'Onde', value: 'Paris, France' },
-        { label: 'Situação', value: 'você quer a opinião de alguém' }
+        { label: 'Onde', value: 'Palacio Municipal de Monterrey, Mexico' },
+        { label: 'Entrada', value: 'custa pouco' }
       ],
-      start: 'buildings',
-      goal: 'Você quer perguntar se os prédios são bonitos.',
+      start: 'Tickets',
+      pt: 'Ingressos não são caros.',
       steps: [
         {
-          title: 'Onde entra o adjetivo?',
-          prompt: 'A peça é <strong>beautiful</strong>. Você quer <strong>perguntar</strong> como os prédios são, não dar nome a eles.',
-          options: ['antes do substantivo', 'sozinho, depois do be', 'depois do substantivo'],
+          title: 'Onde entra a qualidade?',
+          prompt: 'A peça é a qualidade <strong>expensive</strong>. Olha o português: colado num nome, ou sozinho depois de "é / são"?',
+          options: ['antes do nome', 'sozinho, depois do be', 'depois do nome'],
           correct: 'sozinho, depois do be',
-          confirm: 'Para perguntar como uma coisa é, o adjetivo fica sozinho depois do <b>be</b>. É a Posição 1.',
-          tiles: [{ t: 'the buildings', tag: 'sujeito' }, { t: 'beautiful', tag: 'adjective' }]
+          confirm: 'O português deixa sozinho: "ingressos não <b>são</b> caros". O inglês faz igual, depois do be.',
+          tiles: [{ t: 'tickets', tag: 'quem' }, { t: 'expensive', tag: 'qualidade' }]
         },
         {
           title: 'Qual forma do be?',
-          prompt: '<strong>The buildings</strong>: um ou vários?',
+          prompt: '<strong>Tickets</strong>: um ou vários?',
           options: ['are', 'is', 'am'],
           correct: 'are',
-          confirm: '<b>The buildings</b> é plural, então <b>are</b>.',
-          tiles: [{ t: 'the buildings', tag: 'sujeito' }, { t: 'are', tag: 'be' }, { t: 'beautiful', tag: 'adjective' }]
+          confirm: 'Mais de um pede <b>are</b>.',
+          tiles: [{ t: 'tickets', tag: 'quem' }, { t: 'are', tag: 'be' }, { t: 'expensive', tag: 'qualidade' }]
         },
         {
-          title: 'Monta a pergunta',
-          prompt: 'Na pergunta, uma peça muda de lugar.',
-          options: ['Are the buildings beautiful?', 'The buildings are beautiful?', 'Are beautiful the buildings?'],
-          correct: 'Are the buildings beautiful?',
-          confirm: 'Só o <b>are</b> pula para a frente. O adjetivo continua no fim.',
-          tiles: [{ t: 'Are', tag: 'be' }, { t: 'the buildings', tag: 'sujeito' }, { t: 'beautiful', tag: 'adjective' }]
+          title: 'Agora no negativo',
+          prompt: 'Ingressos <strong>não</strong> são caros.',
+          options: ["aren't", "isn't", "don't"],
+          correct: "aren't",
+          confirm: 'Como é nunca usa <b>don\'t</b>. O negativo de <b>are</b> é <b>aren\'t</b>.',
+          tiles: [{ t: 'Tickets', tag: 'quem' }, { t: "aren't", tag: 'be' }, { t: 'expensive', tag: 'qualidade' }]
         }
       ],
-      final: 'Are the buildings beautiful?'
+      final: "Tickets aren't expensive."
     }
   ];
 
@@ -1072,15 +1168,15 @@ document.addEventListener('click', function(){
     var rows = ex.scene.map(function(r){
       return '<div class="scn-row"><span class="scn-label">' + esc(r.label) + '</span><span class="scn-value">' + esc(r.value) + '</span></div>';
     }).join('');
-    rows += '<div class="scn-row"><span class="scn-label">Substantivo</span><span class="scn-value">' + esc(ex.start) + '</span></div>';
-    rows += '<div class="scn-start">' + esc(ex.goal) + '</div>';
+    rows += '<div class="scn-row"><span class="scn-label">Peça</span><span class="scn-value">' + esc(ex.start) + '</span></div>';
+    rows += '<div class="scn-brief"><span class="scn-brief-label">Você quer dizer</span><span class="scn-brief-pt">' + esc(ex.pt) + '</span></div>';
     el('pfScene').innerHTML = rows;
   }
 
   function renderTiles(ex){
     var tiles;
     if (curStep === 0){
-      tiles = [{ t: ex.start, tag: 'substantivo' }];
+      tiles = [{ t: ex.start, tag: 'peça' }];
     } else {
       tiles = ex.steps[curStep - 1].tiles;
     }
@@ -1246,6 +1342,154 @@ document.addEventListener('click', function(){
       try { localStorage.setItem(NUDGE_KEY, '1'); } catch(err) {}
     }
   });
+})();
+</script>
+
+<script>
+/* ===== AQUECIMENTO: quem -> pronome -> be ===== */
+(function(){
+  var PRONOUNS = ['I', 'you', 'he', 'she', 'it', 'we', 'they'];
+  var BES = ['am', 'is', 'are'];
+
+  var ITEMS = [
+    { s: 'The museum',          p: 'it',   note: 'Uma coisa ou um lugar, só um.' },
+    { s: 'The tickets',         p: 'they', note: 'Mais de uma coisa também é they.' },
+    { s: 'Van Gogh',            p: 'he',   note: 'Um homem, um nome.' },
+    { s: 'The colors',          p: 'they', note: 'Mais de uma coisa.' },
+    { s: 'Paris',               p: 'it',   note: 'Cidade é coisa, não pessoa.' },
+    { s: 'Leandro Erlich',      p: 'he',   note: 'O artista da piscina. Um homem.' },
+    { s: 'My sister and I',     p: 'we',   note: 'Inclui você que fala, então we.' },
+    { s: 'The two museums',     p: 'they', note: 'Mais de um, então they.' },
+    { s: 'You and your friends', p: 'you',  note: 'Você + outras pessoas, sem mim: continua you.' },
+    { s: 'The street',          p: 'it',   note: 'Um lugar, só um.' },
+    { s: 'I',                   p: 'I',    note: 'Só o I usa am. Nenhum outro pronome.' },
+    { s: 'My friend Sofia',     p: 'she',  note: 'Uma mulher, uma pessoa.' },
+    { s: 'The people',          p: 'they', note: 'Cuidado: people é mais de um em inglês, mesmo sem "-s".' },
+    { s: "Van Gogh's art",      p: 'it',   note: 'Você fala da arte, não do Van Gogh.' },
+    { s: 'The exhibition',      p: 'it',   note: 'Uma coisa, só uma.' },
+    { s: 'My parents and I',    p: 'we',   note: 'Inclui você que fala, então we.' }
+  ];
+
+  function beFor(pron){
+    if (pron === 'I') return 'am';
+    if (pron === 'you' || pron === 'we' || pron === 'they') return 'are';
+    return 'is';
+  }
+
+  function shuffle(arr){
+    var pool = arr.slice();
+    for (var i = pool.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+    }
+    return pool;
+  }
+
+  function el(id){ return document.getElementById(id); }
+
+  var order, idx, stage, hits, streak, best, locked, startedAt, times, chosenPron;
+
+  function reset(){
+    order = shuffle(ITEMS);
+    idx = 0; stage = 1; hits = 0; streak = 0; best = 0;
+    locked = false; times = []; chosenPron = null;
+    el('warmDone').classList.remove('show');
+    el('warmRestart').style.display = 'none';
+    render();
+    metrics();
+  }
+
+  function metrics(){
+    el('warmStreak').textContent = streak;
+    el('warmStreak').classList.toggle('hot', streak >= 3);
+    el('warmBest').textContent = best;
+    el('warmStat').textContent = hits + ' / ' + order.length;
+    el('warmFill').style.width = (hits / order.length * 100) + '%';
+  }
+
+  function render(){
+    var it = order[idx];
+    locked = false;
+    el('warmSubject').textContent = it.s;
+    if (stage === 1){
+      el('warmStage').innerHTML = '<span class="warm-stage-dot">1</span> Qual pronome substitui essas palavras?';
+      el('warmOpts').innerHTML = PRONOUNS.map(function(p){
+        return '<button class="warm-opt" data-v="' + p + '">' + p + '</button>';
+      }).join('');
+    } else {
+      el('warmStage').innerHTML = '<span class="warm-stage-dot">2</span> Qual be acompanha' +
+        '<span class="warm-locked">' + chosenPron + '</span>?';
+      el('warmOpts').innerHTML = BES.map(function(b){
+        return '<button class="warm-opt" data-v="' + b + '">' + b + '</button>';
+      }).join('');
+    }
+    if (stage === 1){ startedAt = Date.now(); }
+  }
+
+  function finish(){
+    var avg = times.length ? (times.reduce(function(a, b){ return a + b; }, 0) / times.length / 1000) : 0;
+    el('warmSubject').textContent = 'Pronto.';
+    el('warmStage').innerHTML = '';
+    el('warmOpts').innerHTML = '';
+    el('warmFb').className = 'warm-fb';
+    el('warmFb').innerHTML = '';
+    var msg = '<b>16 fechados.</b> Média de ' + avg.toFixed(1) + ' segundos cada, melhor sequência de ' + best + '. ';
+    msg += avg <= 4 ? 'Isso já é automático. Pode abrir a máquina.' : 'Repete mais uma vez tentando baixar desse tempo, depois abre a máquina.';
+    var done = el('warmDone');
+    done.innerHTML = msg;
+    done.classList.add('show');
+    el('warmRestart').style.display = 'inline';
+  }
+
+  el('warmOpts').addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.warm-opt') : null;
+    if (!btn || locked) return;
+    var it = order[idx];
+    var expected = stage === 1 ? it.p : beFor(it.p);
+    var fb = el('warmFb');
+
+    if (btn.dataset.v !== expected){
+      btn.classList.add('wrong');
+      setTimeout(function(){ btn.classList.remove('wrong'); }, 450);
+      streak = 0;
+      metrics();
+      fb.className = 'warm-fb bad';
+      fb.innerHTML = stage === 1
+        ? 'Ainda não. Pergunta: é uma pessoa ou várias? Pessoa ou coisa? Inclui você?'
+        : 'Ainda não. <b>I</b> usa am. <b>He, she, it</b> usam is. <b>You, we, they</b> usam are.';
+      return;
+    }
+
+    locked = true;
+    btn.classList.add('correct');
+    el('warmOpts').querySelectorAll('.warm-opt').forEach(function(b){ b.disabled = true; });
+
+    if (stage === 1){
+      chosenPron = it.p;
+      fb.className = 'warm-fb ok';
+      fb.innerHTML = '<b>' + it.s + ' = ' + it.p + '.</b> ' + it.note;
+      setTimeout(function(){ stage = 2; render(); }, 620);
+      return;
+    }
+
+    times.push(Date.now() - startedAt);
+    hits++;
+    streak++;
+    if (streak > best) best = streak;
+    metrics();
+    fb.className = 'warm-fb ok';
+    fb.innerHTML = '<b>' + it.s + ' ' + beFor(it.p) + '</b> &mdash; ' + it.p + ' pede <b>' + beFor(it.p) + '</b>.';
+    setTimeout(function(){
+      idx++;
+      stage = 1;
+      if (idx >= order.length){ finish(); return; }
+      render();
+    }, 780);
+  });
+
+  el('warmRestart').addEventListener('click', reset);
+
+  reset();
 })();
 </script>
 
