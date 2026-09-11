@@ -36,6 +36,18 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
 .hero-title{font-size:clamp(26px,3.6vw,38px);font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:10px}
 .hero-sub{font-size:13.5px;color:rgba(255,255,255,.55);max-width:72ch;line-height:1.65}
 
+.framework-note{margin-top:18px;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;max-width:72ch;display:flex;flex-direction:column;gap:5px}
+.framework-note-label{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-lt)}
+.framework-note-text{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.6}
+.framework-note-text b{color:rgba(255,255,255,.9);font-weight:800}
+
+.dp-profile-row{display:flex;flex-direction:column;gap:10px}
+.dp-profile-item{display:flex;align-items:baseline;gap:10px}
+.dp-profile-tag{flex-shrink:0;width:52px;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)}
+.dp-profile-pill{display:inline-block;font-size:12.5px;font-weight:700;color:var(--ink);background:var(--surface);
+  padding:5px 13px;border-radius:20px}
+
 /* LEGEND STRIP */
 .legend-strip{max-width:1300px;margin:24px auto 0;padding:0 40px;display:flex;flex-wrap:wrap;gap:8px 18px}
 @media(max-width:720px){.legend-strip{padding:0 20px}}
@@ -147,6 +159,10 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
     <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Sales Strategy</span></div>
     <div class="hero-title">Who Really Holds the Power Here?</div>
     <p class="hero-sub">Meeting the building was step one. Now meet the people the way Diego has to: by the role each one plays in the sale, not just their job title. Click any card for the full profile.</p>
+    <div class="framework-note">
+      <span class="framework-note-label">How to read each profile</span>
+      <span class="framework-note-text"><b>Style</b> is how they communicate. <b>Driver</b> is what they are protecting or chasing. <b>Skill</b> is the specific thing you need to practice to work with someone like this, on any team, not just this one.</span>
+    </div>
   </div>
 
   <div class="legend-strip">
@@ -242,6 +258,14 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:var(--ink)}
       <div class="dp-tag-row"><span class="dp-tag" id="dp-role"></span></div>
     </div>
     <div class="dp-section">
+      <div class="dp-section-label">Profile</div>
+      <div class="dp-profile-row">
+        <div class="dp-profile-item"><span class="dp-profile-tag">Style</span><span class="dp-profile-pill" id="dp-style"></span></div>
+        <div class="dp-profile-item"><span class="dp-profile-tag">Driver</span><span class="dp-profile-pill" id="dp-driver"></span></div>
+        <div class="dp-profile-item"><span class="dp-profile-tag">Skill</span><span class="dp-profile-pill" id="dp-skill"></span></div>
+      </div>
+    </div>
+    <div class="dp-section">
       <div class="dp-section-label">What they want</div>
       <div class="dp-section-text" id="dp-want"></div>
     </div>
@@ -297,6 +321,7 @@ var PHOTOS = {
     {
       key: "diego", tier: "hero", roleTag: "Hero", roleColor: "var(--teal-lt)",
       name: "Diego Ramos", cargo: "Sales Rep, Coatex Distribuidora",
+      style: "Adaptive", driver: "Wants to prove himself", skill: "Reading the room before pitching",
       want: "He wants to close the Prisma Coatings account and prove he can sell to a technical, multi-layered buying committee, not just a single decision maker.",
       fear: "He fears losing the deal to a competitor because he talked to the wrong person, at the wrong time, with the wrong argument.",
       approach: "This is you. Every scene in this module puts you " + term("in someone's shoes", "in Diego's shoes") + " as he works through this stakeholder map."
@@ -304,6 +329,7 @@ var PHOTOS = {
     {
       key: "ricardo", tier: "decision", roleTag: "Final Decision", roleColor: "var(--orange)",
       name: "Ricardo Salles", cargo: "VP of Manufacturing",
+      style: "Reserved", driver: "Avoids operational risk", skill: "Staying brief and confident",
       want: "He wants reliable coatings that keep production lines moving, and a supplier who does not need to be managed closely.",
       fear: "He fears approving a new supplier and " + term("have object cause", "having the switch cause") + " a costly production delay.",
       approach: "Ricardo is the final decision maker. He rarely meets vendors early; Diego usually reaches him only after Beatriz or Marcos " + term("push forward", "pushes the conversation forward") + "."
@@ -311,6 +337,7 @@ var PHOTOS = {
     {
       key: "marcos", tier: "econ", roleTag: "Economic Buyer", roleColor: "var(--teal)",
       name: "Marcos Vieira", cargo: "Plant Director",
+      style: "Numbers-focused", driver: "Avoids budget overruns", skill: "Speaking in cost, not features",
       want: "He wants a clear return on investment and a budget that does not " + term("go over", "go over plan") + " this quarter.",
       fear: "He fears " + term("get blamed for", "being blamed for") + " a bad purchasing decision that hurts plant performance.",
       approach: "Marcos is the economic buyer. Numbers move him more than product specs. Bring cost-per-unit comparisons, not technical data sheets."
@@ -318,6 +345,7 @@ var PHOTOS = {
     {
       key: "beatriz", tier: "econ", roleTag: "Champion", roleColor: "var(--teal-lt)",
       name: "Beatriz Lima", cargo: "Formulation Chemist, R&D",
+      style: "Collaborative", driver: "Wants to be heard by her own team", skill: "Making an ally feel safe to advocate",
       want: "She wants a coating that actually solves the adhesion problem she has been fighting for months.",
       fear: "She fears recommending a new supplier and having it fail in front of her own team.",
       approach: "Beatriz is Diego's champion inside Prisma Coatings. She cannot sign anything, but her word " + term("carries weight", "carries weight") + " with Ricardo and Marcos."
@@ -325,6 +353,7 @@ var PHOTOS = {
     {
       key: "renata", tier: "tech", roleTag: "Technical Buyer", roleColor: "var(--gold)",
       name: "Renata Souza", cargo: "Quality Manager",
+      style: "Skeptical", driver: "Wants proof before trust", skill: "Presenting evidence, not promises",
       want: "She wants proof, in data, that the coating meets every spec before it ever " + term("reach the line", "reaches the line") + ".",
       fear: "She fears approving a product that fails testing later and puts her name on the report.",
       approach: "Renata is the technical buyer. She is naturally skeptical. Diego needs lab results and certifications, not sales talk."
@@ -332,6 +361,7 @@ var PHOTOS = {
     {
       key: "patricia", tier: "tech", roleTag: "Procurement", roleColor: "var(--gold)",
       name: "Patrícia Nunes", cargo: "Procurement Manager",
+      style: "Negotiator", driver: "Firm on commercial terms", skill: "Holding your position calmly",
       want: "She wants the best commercial terms: price, payment conditions, and delivery guarantees.",
       fear: "She fears signing a contract that looks bad in an internal cost review.",
       approach: "Procurement " + term("run through", "runs through") + " Patrícia. She gets involved only after the technical side already agrees, and she negotiates hard."
@@ -339,6 +369,7 @@ var PHOTOS = {
     {
       key: "tiago", tier: "tech", roleTag: "Compliance", roleColor: "var(--green)",
       name: "Tiago Costa", cargo: "EHS & Regulatory Manager",
+      style: "Cautious", driver: "Holds veto power on safety", skill: "Being prepared before being asked",
       want: "He wants full certainty that any new chemical product meets safety and environmental regulations.",
       fear: "He fears a compliance issue traced back to a product he approved.",
       approach: "Tiago has veto power " + term("on grounds", "on safety grounds") + " alone. Diego needs the safety data sheet ready before this conversation even starts."
@@ -346,13 +377,15 @@ var PHOTOS = {
     {
       key: "sandra", tier: "access", roleTag: "Gatekeeper", roleColor: "var(--purple)",
       name: "Sandra Melo", cargo: "Executive Assistant",
-      want: "She wants to protect her director's time and keep unscheduled visitors from disrupting his day.",
+      style: "Protective", driver: "Protects her director's time", skill: "Earning trust fast",
+      want: "She wants to protect her director's time and keep unscheduled visitors from disrupting his day. She trusts Renata's judgment more than almost anyone else's, so a stranger who can credibly reference Renata gets treated differently than one who can't.",
       fear: "She fears letting the wrong person through and being blamed for it.",
-      approach: "Sandra is the classic gatekeeper. She is not the enemy: " + term("earn trust", "earning her trust") + " is often the fastest way to a real meeting."
+      approach: "Sandra is the classic gatekeeper. She is not the enemy: " + term("earn trust", "earning her trust") + " is often the fastest way to a real meeting. A credible connection to someone she already trusts works faster than any pitch."
     },
     {
       key: "amauri", tier: "access", roleTag: "Blocker", roleColor: "var(--coral)",
       name: "Amauri Ferreira", cargo: "Production Supervisor",
+      style: "Resistant to change", driver: "Protects his working routine", skill: "Lowering risk, not price",
       want: "He wants zero disruption to a production line that already runs the way he likes it.",
       fear: "He fears any change, including a new coating supplier, that could create problems he has to " + term("answer for", "answer for") + ".",
       approach: "Amauri is a natural blocker. He is not trying to sabotage the deal, he is protecting what already works. Diego needs to lower the risk, not the price."
@@ -360,6 +393,7 @@ var PHOTOS = {
     {
       key: "jonas", tier: "ground", roleTag: "End User", roleColor: "var(--mid)",
       name: "Jonas Ribeiro", cargo: "Production Operator",
+      style: "Practical", driver: "Wants zero friction on shift", skill: "Listening more than pitching",
       want: "He wants a product that is easy and safe to apply on his shift, without extra steps or delays.",
       fear: "He fears being handed a new product with no training and getting blamed when something goes wrong.",
       approach: "Jonas is the end user. He has no buying power, but his feedback after a trial run can " + term("make or break", "make or break") + " the deal."
@@ -400,6 +434,9 @@ var PHOTOS = {
     document.getElementById("dp-cargo").textContent = p.cargo;
     document.getElementById("dp-role").textContent = p.roleTag;
     document.getElementById("dp-role").style.background = "var(--surface)";
+    document.getElementById("dp-style").textContent = p.style;
+    document.getElementById("dp-driver").textContent = p.driver;
+    document.getElementById("dp-skill").textContent = p.skill;
     document.getElementById("dp-want").innerHTML = p.want;
     document.getElementById("dp-fear").innerHTML = p.fear;
     document.getElementById("dp-approach").innerHTML = p.approach;

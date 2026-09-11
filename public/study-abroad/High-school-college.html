@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudar nos Estados Unidos — os três caminhos | EIC</title>
+<meta name="description" content="Os três caminhos comparados em linguagem direta: high school nos EUA, faculdade com ensino médio no Brasil, faculdade com high school lá. E o que muda quando a família tem parentes morando lá.">
+<meta name="theme-color" content="#001233">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-ink:#001233; --navy:#012169; --navy-soft:#A8B6D4;
+  --red:#C8102E; --red-claro:#F2778C;
+  --ivory:#FAF8F3; --ivory-dim:#EFEDE6; --white:#FFF;
+  --line:#D5D2C9; --line-soft:#E6E3DA; --slate:#4E566B;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ivory);color:var(--navy-ink);
+  font-family:var(--sans);font-optical-sizing:auto;
+  font-size:clamp(1.0625rem,.62vw + .92rem,1.2rem);
+  line-height:1.62;letter-spacing:-.008em;
+  -webkit-font-smoothing:antialiased;
+}
+svg{display:block;max-width:100%;height:auto}
+a{color:inherit}
+::selection{background:#F2FF3D;color:var(--navy-ink)}
+
+.shell{width:min(76rem,100% - 3rem);margin-inline:auto}
+@media (max-width:34rem){.shell{width:min(76rem,100% - 2.4rem)}}
+
+/* bloco editorial: rótulo na coluna estreita, texto na larga.
+   minmax(0,1fr) impede que tabela larga estoure o layout. */
+.bloco{display:grid;gap:0;grid-template-columns:minmax(0,1fr)}
+@media (min-width:66rem){
+  .bloco{grid-template-columns:12rem minmax(0,1fr);gap:0 3.5rem}
+  .lado{grid-column:1;padding-top:.35rem}
+  .corpo{grid-column:2}
+}
+.txt{max-width:min(64ch,100%)}
+
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font-size:clamp(2.5rem,6.2vw,4.2rem);font-weight:500;line-height:1;letter-spacing:-.048em;margin:0 0 1.5rem}
+h1 .light{font-weight:200;color:var(--navy-soft)}
+h2{font-size:clamp(1.75rem,3.4vw,2.5rem);font-weight:500;line-height:1.06;letter-spacing:-.04em;max-width:24ch;margin:0 0 1.4rem}
+h3{
+  font-size:clamp(1.2rem,1.2vw + .9rem,1.45rem);font-weight:600;line-height:1.24;letter-spacing:-.028em;
+  margin:3.2rem 0 .85rem;padding-top:1rem;position:relative;max-width:30ch;
+}
+h3::before{content:"";position:absolute;top:0;left:0;width:2.2rem;height:2px;background:var(--red)}
+h3 + p,h3 + table,h3 + ul,h3 + .nota,h3 + .tabela,h3 + .barras{margin-top:0}
+p{margin:0 0 1.15rem}
+strong{font-weight:600}
+em{font-style:italic}
+.lede{font-size:clamp(1.22rem,1.6vw + .7rem,1.6rem);font-weight:300;line-height:1.3;letter-spacing:-.03em}
+
+/* herói */
+.hero{background:var(--navy-ink);color:var(--ivory)}
+.masthead{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem 1.5rem;flex-wrap:wrap;
+  font-size:.75rem;color:var(--navy-soft);
+  padding:1.4rem 0 1.5rem;border-bottom:1px solid rgba(168,182,212,.22);
+}
+.logo{display:block;height:4.2rem;width:auto;color:inherit}
+.logo use{fill:currentColor}
+.hero-body{padding:4rem 0 4.4rem}
+.hero .lede{color:var(--navy-soft);max-width:34ch;margin:0}
+.hero-meta{
+  font-size:.8rem;line-height:1.6;color:var(--navy-soft);
+  margin:2rem 0 0;padding-top:1rem;border-top:1px solid rgba(168,182,212,.22);max-width:48ch;
+}
+
+/* navegação fixa: existe para pular durante uma conversa, não como enfeite */
+.atalhos{
+  position:sticky;top:0;z-index:50;
+  background:var(--ivory);border-bottom:1px solid var(--line);
+}
+/* No celular a barra rouba altura e exige rolagem lateral. Ela existe para
+   navegar durante uma conversa, na tela grande. */
+@media (max-width:52rem){
+  .atalhos{display:none}
+  section[id]{scroll-margin-top:0}
+}
+.atalhos ol{
+  display:flex;gap:0;list-style:none;margin:0 auto;padding:0;
+  width:min(76rem,100% - 3rem);
+  overflow-x:auto;scrollbar-width:none;
+}
+.atalhos ol::-webkit-scrollbar{display:none}
+.atalhos a{
+  display:block;white-space:nowrap;text-decoration:none;
+  padding:.85rem 1.1rem .8rem 0;margin-right:1.1rem;
+  font-size:.8rem;font-weight:500;color:var(--slate);
+  border-bottom:2px solid transparent;
+}
+.atalhos li:last-child a{margin-right:0}
+.atalhos a:hover,.atalhos a:focus-visible{color:var(--navy-ink);border-bottom-color:var(--red)}
+.atalhos b{font-weight:600;color:var(--navy-ink)}
+
+section{padding:4rem 0}
+section[id]{scroll-margin-top:4.2rem}
+.band{background:var(--ivory-dim);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.escura{background:var(--navy-ink);color:#DCE2EF}
+.escura h2,.escura h3,.escura strong,.escura b{color:var(--white)}
+.escura h3::before{background:var(--red-claro)}
+.escura .rotulo{color:var(--red-claro);border-top-color:var(--red-claro)}
+.rotulo{
+  font-size:.8rem;font-weight:600;color:var(--red);
+  margin:0 0 1.2rem;padding-top:.8rem;border-top:2px solid var(--red);
+  display:inline-block;letter-spacing:-.006em;
+}
+@media (min-width:66rem){
+  .lado .rotulo{margin-bottom:.5rem}
+  .lado .aviso{font-size:.78rem;line-height:1.5;color:var(--slate);margin:0}
+  .escura .lado .aviso{color:var(--navy-soft)}
+}
+@media (max-width:65.99rem){.lado .aviso{display:none}}
+
+/* respostas curtas: numeradas, tipografia carrega a hierarquia */
+.curtas{list-style:none;margin:2rem 0 0;padding:0;counter-reset:c}
+.curtas li{
+  counter-increment:c;position:relative;
+  padding:1.4rem 0 1.4rem 3.2rem;border-top:1px solid rgba(168,182,212,.28);
+}
+.curtas li:last-child{border-bottom:1px solid rgba(168,182,212,.28)}
+.curtas li::before{
+  content:counter(c);position:absolute;left:0;top:1.35rem;
+  font-size:.9rem;font-weight:600;color:var(--red-claro);
+  font-variant-numeric:tabular-nums;
+}
+.curtas b{
+  display:block;font-size:clamp(1.15rem,1.4vw + .7rem,1.5rem);font-weight:500;
+  line-height:1.2;letter-spacing:-.03em;margin-bottom:.4rem;color:var(--white);
+  max-width:34ch;
+}
+.curtas span{display:block;font-size:1rem;line-height:1.55;color:var(--navy-soft);max-width:60ch}
+
+/* tabelas: célula curta. No celular cada linha vira bloco. */
+.tabela{margin:1.8rem 0 .6rem;max-width:100%}
+table{width:100%;border-collapse:collapse;font-size:.98rem}
+th,td{text-align:left;vertical-align:top;padding:.8rem 1.1rem .8rem 0;border-bottom:1px solid var(--line-soft)}
+thead th{
+  font-size:.8rem;font-weight:600;color:var(--navy);line-height:1.3;
+  padding-bottom:.55rem;border-bottom:1.5px solid var(--navy);
+}
+tbody th{font-weight:600;color:var(--slate);font-size:.88rem;padding-right:1.3rem;width:11.5rem}
+tbody td{font-variant-numeric:tabular-nums}
+.grifa td{background:rgba(200,16,46,.055)}
+.grifa th{color:var(--red)}
+.sim{font-weight:600}
+.nao{color:var(--red);font-weight:600}
+.escura .nao{color:var(--red-claro)}
+.escura th,.escura td{border-bottom-color:rgba(168,182,212,.22)}
+.escura thead th{color:#C3CFE6;border-bottom-color:rgba(168,182,212,.5)}
+.escura tbody th{color:var(--navy-soft)}
+@media (max-width:58rem){
+  table,tbody,tr,td,th{display:block;width:auto}
+  thead{display:none}
+  tr{border-top:2px solid var(--navy);padding:1rem 0 .3rem;margin-bottom:.5rem}
+  tbody th{border:0;padding:0 0 .5rem;font-size:1.05rem;color:var(--navy-ink);width:auto}
+  .escura tbody th{color:var(--white)}
+  td{border-bottom:1px solid var(--line-soft);padding:.55rem 0}
+  td::before{
+    content:attr(data-col);display:block;
+    font-size:.72rem;font-weight:600;color:var(--red);margin-bottom:.15rem;
+  }
+  .escura td::before{color:var(--red-claro)}
+  tr:last-child td:last-child{border-bottom:0}
+  .escura tr{border-top-color:rgba(168,182,212,.6)}
+}
+caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.fonte{font-size:.82rem;line-height:1.55;color:var(--slate);margin:.9rem 0 0;max-width:min(72ch,100%)}
+.escura .fonte{color:var(--navy-soft)}
+
+/* listas simples */
+ul.itens{list-style:none;margin:1.4rem 0 1.8rem;padding:0;max-width:min(62ch,100%)}
+ul.itens li{
+  padding:.8rem 0 .8rem 1.1rem;border-left:2px solid var(--line);
+  border-bottom:1px solid var(--line-soft);font-size:1rem;line-height:1.5;
+}
+ul.itens li:first-child{border-top:1px solid var(--line-soft)}
+ul.itens b{font-weight:600}
+.escura ul.itens li{border-left-color:rgba(168,182,212,.35);border-bottom-color:rgba(168,182,212,.22)}
+.escura ul.itens li:first-child{border-top-color:rgba(168,182,212,.22)}
+
+/* nota lateral */
+.nota{border-left:2px solid var(--red);padding:.1rem 0 .1rem 1.15rem;margin:2rem 0;font-size:1rem;line-height:1.55;max-width:min(58ch,100%)}
+.nota p{margin:0 0 .6rem}
+.nota p:last-child{margin:0}
+.nota .tag{display:block;font-size:.75rem;font-weight:600;color:var(--red);margin-bottom:.35rem}
+.escura .nota{border-left-color:var(--red-claro)}
+.escura .nota .tag{color:var(--red-claro)}
+
+/* cifra: um número que se lê de longe */
+.cifra{margin:2.2rem 0 1.6rem;display:flex;align-items:baseline;gap:1.1rem;flex-wrap:wrap}
+.cifra b{
+  font-size:clamp(3.2rem,7vw,5.5rem);font-weight:500;line-height:.85;
+  letter-spacing:-.055em;font-variant-numeric:tabular-nums;
+}
+.cifra span{font-size:1rem;line-height:1.4;color:var(--slate);max-width:26ch}
+.escura .cifra span{color:var(--navy-soft)}
+
+/* barras de custo */
+.barras{margin:1.8rem 0 .4rem;max-width:min(44rem,100%)}
+.barra + .barra{margin-top:1.3rem}
+.barra-topo{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.4rem}
+.barra-nome{font-size:.98rem;letter-spacing:-.015em}
+.barra-val{font-size:1.2rem;font-weight:600;letter-spacing:-.035em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.barra-trilho{height:.55rem;background:var(--line-soft)}
+.barra-fill{height:100%;background:var(--navy)}
+.barra.grifada .barra-fill{background:var(--red)}
+.barra.grifada .barra-val{color:var(--red)}
+
+/* siglas: definição abre no clique e no foco. Hover só onde há mouse. */
+.sigla{
+  border-bottom:1px dotted currentColor;cursor:pointer;position:relative;
+  font-variant:none;font-weight:inherit;text-decoration:none;
+}
+.sigla::after{
+  content:attr(data-def);
+  position:absolute;top:calc(100% + .5rem);left:var(--desloc,0px);
+  width:19rem;max-width:min(19rem,74vw);
+  padding:.7rem .85rem;
+  background:var(--navy-ink);color:var(--ivory);border-left:2px solid var(--red);
+  font-size:.8rem;font-weight:400;line-height:1.45;letter-spacing:-.004em;
+  text-align:left;text-wrap:pretty;
+  opacity:0;visibility:hidden;transform:translateY(-.2rem);
+  transition:opacity .15s ease,transform .15s ease,visibility .15s;
+  pointer-events:none;z-index:60;
+}
+.sigla:focus-visible::after,.sigla.aberta::after{opacity:1;visibility:visible;transform:none}
+@media (hover:hover) and (pointer:fine){
+  .sigla:hover::after{opacity:1;visibility:visible;transform:none}
+}
+.escura .sigla::after{background:var(--ivory);color:var(--navy-ink)}
+
+/* rodapé */
+.tail{background:var(--navy-ink);color:var(--navy-soft);padding:4rem 0 3rem}
+.fontes{font-size:.8rem;line-height:1.65;margin:0;max-width:min(80ch,100%)}
+.fontes a{color:var(--white)}
+.colophon{margin-top:2.2rem;font-size:.78rem;line-height:1.7;max-width:min(70ch,100%)}
+.colophon b{color:var(--white);font-weight:600}
+
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.hero :focus-visible,.tail :focus-visible,.escura :focus-visible{outline-color:var(--red-claro)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+@media print{
+  .atalhos{display:none}
+  body{background:#fff;font-size:10.5pt}
+  .hero,.escura,.tail{background:#fff!important;color:#000!important}
+  .escura h2,.escura h3,.escura b,.tail h2,.colophon b{color:#000!important}
+  .escura p,.escura .fonte,.curtas span,.hero .lede,.hero-meta,.tail{color:#333!important}
+  .curtas b{color:#000!important}
+  .band{background:#fff}
+  section{padding:1.4rem 0;break-inside:avoid}
+  table,.nota,.cifra,.barras,ul.itens{break-inside:avoid}
+  .sigla::after{display:none}
+}
+</style>
+</head>
+<body>
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="eic-logo" viewBox="0 0 2512 1312"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/><path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/><path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/><path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/><path d="M1031.42 681.375C1031.42 663.635 1040.68 658.043 1054.76 658.043H1148.4C1160.1 658.043 1168.59 661.45 1168.59 674.112C1168.59 686.774 1160.1 690.18 1148.4 690.18H1071.27V728.167H1138.89C1149.37 728.167 1157.66 731.059 1157.66 743.464C1157.66 755.869 1149.37 758.762 1138.89 758.762H1071.27V801.119H1150.33C1162.03 801.119 1170.51 804.525 1170.51 817.187C1170.51 829.85 1161.97 833.256 1150.33 833.256H1054.69C1040.55 833.256 1031.36 827.664 1031.36 809.924V681.439L1031.42 681.375Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1288.92 731.694C1325.42 739.985 1334.68 761.646 1334.68 782.085C1334.68 813.709 1310.83 837.298 1262.63 837.298C1212.04 837.298 1189.42 811.973 1189.42 793.012C1189.42 783.307 1196.49 776.494 1206.19 776.494C1227.85 776.494 1222.26 808.117 1262.63 808.117C1283.32 808.117 1294.76 796.676 1294.76 784.978C1294.76 777.908 1291.36 770.13 1277.73 766.724L1232.74 755.283C1196.49 746.027 1189.93 726.102 1189.93 707.334C1189.93 668.383 1225.93 653.793 1259.8 653.793C1290.97 653.793 1327.67 671.34 1327.67 694.672C1327.67 704.634 1319.19 710.483 1309.42 710.483C1290.91 710.483 1294.31 684.452 1257.1 684.452C1238.59 684.452 1228.37 692.936 1228.37 705.149C1228.37 717.361 1242.96 721.217 1255.62 724.11L1288.98 731.63L1288.92 731.694Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1443.88 653.863C1489.64 653.863 1514.71 682.594 1514.71 699.627C1514.71 710.811 1508.6 717.624 1496.71 717.624C1473.57 717.624 1480.38 686.001 1443.94 686.001C1418.87 686.001 1398.18 707.661 1398.18 745.648C1398.18 777.528 1410.84 805.23 1445.35 805.23C1476.72 805.23 1476.01 771.615 1495.23 771.615C1504.94 771.615 1514.71 777.207 1514.71 786.976C1514.71 812.301 1484.05 837.368 1445.35 837.368C1390.59 837.368 1358.26 806.002 1358.26 745.648C1358.26 696.285 1387.44 653.928 1443.94 653.928L1443.88 653.863Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1620.31 653.863C1677.7 653.863 1708.88 692.043 1708.88 743.398C1708.88 794.754 1680.14 837.304 1620.31 837.304C1560.47 837.304 1531.73 796.425 1531.73 743.398C1531.73 690.371 1562.91 653.863 1620.31 653.863ZM1620.31 805.23C1656.56 805.23 1668.96 777.014 1668.96 743.398C1668.96 709.782 1652.89 686.001 1620.31 686.001C1587.72 686.001 1571.65 709.847 1571.65 743.398C1571.65 776.95 1582.83 805.23 1620.31 805.23Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1738.12 674.746C1738.12 662.79 1745.9 654.82 1758.05 654.82C1770.2 654.82 1777.97 662.855 1777.97 674.746V799.567H1844.63C1856.07 799.567 1865.32 805.416 1865.32 816.343C1865.32 827.27 1856.07 833.119 1844.63 833.119H1761.39C1747.25 833.119 1738.06 827.527 1738.06 809.787V674.746H1738.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1925.99 666.968C1929.4 657.97 1935.7 654.82 1945.47 654.82H1954.98C1963.98 654.82 1972.02 657.006 1976.39 669.411L2024.59 803.488C2026.07 807.409 2028.51 814.415 2028.51 818.785C2028.51 828.491 2019.96 836.332 2009.74 836.332C2001 836.332 1994.64 833.183 1991.75 825.406L1981.53 796.225H1917.32L1906.84 825.406C1904.14 833.183 1898.55 836.332 1889.1 836.332C1878.17 836.332 1870.59 829.519 1870.59 818.785C1870.59 814.415 1873.03 807.344 1874.51 803.488L1926.12 666.968H1925.99ZM1950.1 698.142H1949.58L1925.99 768.458H1972.72L1950.1 698.142Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1030.46 917.531C1030.46 899.791 1039.72 894.199 1053.8 894.199H1102.45C1146.03 894.199 1185.95 913.16 1185.95 981.806C1185.95 1037.27 1155.03 1069.41 1101.75 1069.41H1053.8C1039.66 1069.41 1030.46 1063.82 1030.46 1046.08V917.595V917.531ZM1070.38 1037.27H1103.93C1135.81 1037.27 1146.03 1008.8 1146.03 981.806C1146.03 947.226 1132.92 926.337 1103.67 926.337H1070.32V1037.27H1070.38Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1216.14 917.531C1216.14 899.791 1225.4 894.199 1239.47 894.199H1333.12C1344.82 894.199 1353.3 897.606 1353.3 910.268C1353.3 922.93 1344.82 926.337 1333.12 926.337H1255.99V964.323H1323.61C1334.09 964.323 1342.38 967.215 1342.38 979.62C1342.38 992.026 1334.09 994.918 1323.61 994.918H1255.99V1037.27H1335.05C1346.75 1037.27 1355.23 1040.68 1355.23 1053.34C1355.23 1066.01 1346.68 1069.41 1335.05 1069.41H1239.41C1225.27 1069.41 1216.08 1063.82 1216.08 1046.08V917.595L1216.14 917.531Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1456.34 910.96C1456.34 899.005 1464.12 891.035 1476.26 891.035C1488.41 891.035 1496.19 899.069 1496.19 910.96V1052.56C1496.19 1064.51 1488.41 1072.48 1476.26 1072.48C1464.12 1072.48 1456.34 1064.45 1456.34 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1533.21 917.531C1533.21 899.791 1542.46 894.199 1556.54 894.199H1605.19C1648.77 894.199 1688.69 913.16 1688.69 981.806C1688.69 1037.27 1657.77 1069.41 1604.49 1069.41H1556.54C1542.4 1069.41 1533.21 1063.82 1533.21 1046.08V917.595V917.531ZM1573.12 1037.27H1606.67C1638.55 1037.27 1648.77 1008.8 1648.77 981.806C1648.77 947.226 1635.66 926.337 1606.42 926.337H1573.06V1037.27H1573.12Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1717.94 910.96C1717.94 899.005 1725.71 891.035 1737.86 891.035C1750.01 891.035 1757.79 899.069 1757.79 910.96V1052.56C1757.79 1064.51 1750.01 1072.48 1737.86 1072.48C1725.71 1072.48 1717.94 1064.45 1717.94 1052.56V910.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1875.6 890.078C1933 890.078 1964.17 928.257 1964.17 979.613C1964.17 1030.97 1935.44 1073.52 1875.6 1073.52C1815.76 1073.52 1787.03 1032.64 1787.03 979.613C1787.03 926.586 1818.2 890.078 1875.6 890.078ZM1875.6 1041.45C1911.85 1041.45 1924.25 1013.23 1924.25 979.613C1924.25 945.997 1908.19 922.216 1875.6 922.216C1843.01 922.216 1826.94 946.062 1826.94 979.613C1826.94 1013.16 1838.13 1041.45 1875.6 1041.45Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1992.65 910.721C1992.65 894.652 2003.58 890.988 2014.31 890.988H2026.01C2038.41 890.988 2044.26 895.873 2048.37 909.242L2083.15 1021.66H2083.66L2117.98 909.242C2122.1 895.873 2127.95 890.988 2140.35 890.988H2151.54C2162.27 890.988 2173.2 894.652 2173.2 910.721V1053.09C2173.2 1063.05 2168.31 1072.56 2155.46 1072.56C2142.6 1072.56 2137.72 1063.05 2137.72 1053.09V944.594H2137.2L2099.99 1060.93C2097.29 1069.22 2091.25 1072.63 2082.95 1072.63C2074.66 1072.63 2068.62 1069.22 2065.92 1060.93L2028.71 944.594H2028.19V1053.09C2028.19 1063.05 2023.31 1072.56 2010.45 1072.56C1997.6 1072.56 1992.71 1063.05 1992.71 1053.09V910.721H1992.65Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M2248.66 903.183C2252.07 894.185 2258.36 891.035 2268.13 891.035H2277.65C2286.65 891.035 2294.68 893.22 2299.05 905.625L2347.26 1039.7C2348.73 1043.62 2351.18 1050.63 2351.18 1055C2351.18 1064.71 2342.63 1072.55 2332.41 1072.55C2323.67 1072.55 2317.3 1069.4 2314.41 1061.62L2304.19 1032.44H2239.98L2229.5 1061.62C2226.81 1069.4 2221.21 1072.55 2211.76 1072.55C2200.84 1072.55 2193.25 1065.73 2193.25 1055C2193.25 1050.63 2195.7 1043.56 2197.17 1039.7L2248.79 903.183H2248.66ZM2272.76 934.356H2272.25L2248.66 1004.67H2295.39L2272.76 934.356Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M2463.53 967.905C2500.04 976.196 2509.29 997.857 2509.29 1018.3C2509.29 1049.92 2485.45 1073.51 2437.24 1073.51C2386.66 1073.51 2364.03 1048.18 2364.03 1029.22C2364.03 1019.52 2371.1 1012.7 2380.81 1012.7C2402.47 1012.7 2396.88 1044.33 2437.24 1044.33C2457.94 1044.33 2469.38 1032.89 2469.38 1021.19C2469.38 1014.12 2465.97 1006.34 2452.34 1002.93L2407.35 991.494C2371.1 982.238 2364.55 962.313 2364.55 943.545C2364.55 904.594 2400.54 890.004 2434.41 890.004C2465.59 890.004 2502.29 907.551 2502.29 930.883C2502.29 940.845 2493.8 946.694 2484.03 946.694C2465.52 946.694 2468.93 920.663 2431.71 920.663C2413.2 920.663 2402.98 929.147 2402.98 941.36C2402.98 953.572 2417.57 957.428 2430.23 960.321L2463.59 967.841L2463.53 967.905Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1031.42 1153.74C1031.42 1136 1040.68 1130.41 1054.76 1130.41H1148.4C1160.1 1130.41 1168.59 1133.81 1168.59 1146.47C1168.59 1159.14 1160.1 1162.54 1148.4 1162.54H1071.27V1200.53H1138.89C1149.37 1200.53 1157.66 1203.42 1157.66 1215.83C1157.66 1228.23 1149.37 1231.12 1138.89 1231.12H1071.27V1273.48H1150.33C1162.03 1273.48 1170.51 1276.89 1170.51 1289.55C1170.51 1302.21 1161.97 1305.62 1150.33 1305.62H1054.69C1040.55 1305.62 1031.36 1300.03 1031.36 1282.29V1153.8L1031.42 1153.74Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1351.7 1126.21C1397.47 1126.21 1422.53 1154.94 1422.53 1171.97C1422.53 1183.15 1416.43 1189.97 1404.54 1189.97C1381.4 1189.97 1388.21 1158.34 1351.77 1158.34C1326.7 1158.34 1306 1180.01 1306 1217.99C1306 1249.87 1318.67 1277.57 1353.18 1277.57C1384.55 1277.57 1383.84 1243.96 1403.06 1243.96C1412.76 1243.96 1422.53 1249.55 1422.53 1259.32C1422.53 1284.64 1391.88 1309.71 1353.18 1309.71C1298.42 1309.71 1266.09 1278.35 1266.09 1217.99C1266.09 1168.63 1295.27 1126.27 1351.77 1126.27L1351.7 1126.21Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1447.35 1147.17C1447.35 1135.21 1455.12 1127.24 1467.27 1127.24C1479.42 1127.24 1487.2 1135.28 1487.2 1147.17V1243.07C1487.2 1266.91 1500.57 1277.65 1523.45 1277.65C1546.33 1277.65 1559.7 1266.91 1559.7 1243.07V1147.17C1559.7 1135.21 1567.48 1127.24 1579.62 1127.24C1591.77 1127.24 1599.55 1135.28 1599.55 1147.17V1239.85C1599.55 1288.06 1569.85 1309.65 1523.38 1309.65C1476.91 1309.65 1447.22 1287.99 1447.22 1239.85V1147.17H1447.35Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1636.62 1147.17C1636.62 1135.21 1644.4 1127.24 1656.54 1127.24C1668.69 1127.24 1676.47 1135.28 1676.47 1147.17V1271.99H1743.12C1754.56 1271.99 1763.82 1277.84 1763.82 1288.76C1763.82 1299.69 1754.56 1305.54 1743.12 1305.54H1659.89C1645.75 1305.54 1636.55 1299.95 1636.55 1282.21V1147.17H1636.62Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1796.74 1163.96H1759.01C1747.57 1163.96 1738.31 1158.11 1738.31 1147.18C1738.31 1136.26 1747.57 1130.41 1759.01 1130.41H1874.32C1885.76 1130.41 1895.01 1136.26 1895.01 1147.18C1895.01 1158.11 1885.76 1163.96 1874.32 1163.96H1836.59V1288.78C1836.59 1300.73 1828.81 1308.7 1816.66 1308.7C1804.52 1308.7 1796.74 1300.67 1796.74 1288.78V1163.96Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M1916.48 1147.17C1916.48 1135.21 1924.25 1127.24 1936.4 1127.24C1948.55 1127.24 1956.33 1135.28 1956.33 1147.17V1243.07C1956.33 1266.91 1969.7 1277.65 1992.58 1277.65C2015.46 1277.65 2028.83 1266.91 2028.83 1243.07V1147.17C2028.83 1135.21 2036.61 1127.24 2048.75 1127.24C2060.9 1127.24 2068.68 1135.28 2068.68 1147.17V1239.85C2068.68 1288.06 2038.98 1309.65 1992.51 1309.65C1946.04 1309.65 1916.35 1287.99 1916.35 1239.85V1147.17H1916.48Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M2105.84 1153.74C2105.84 1136 2115.1 1130.41 2129.18 1130.41H2195.64C2243.07 1130.41 2255.73 1156.44 2255.73 1179.06C2255.73 1198.02 2244.55 1216.79 2225.59 1221.16V1221.68C2246.03 1224.57 2249.69 1239.42 2249.69 1257.22C2249.69 1277.4 2255.03 1284.99 2255.03 1293.21C2255.03 1302.47 2245.51 1308.77 2236.26 1308.77C2214.34 1308.77 2212.67 1287.62 2212.67 1280.55C2212.67 1249.89 2207.08 1237.49 2185.16 1237.49H2145.76V1288.84C2145.76 1300.8 2137.98 1308.77 2125.83 1308.77C2113.69 1308.77 2105.91 1300.73 2105.91 1288.84V1153.8L2105.84 1153.74ZM2145.76 1208.24H2185.67C2200.78 1208.24 2215.82 1204.32 2215.82 1184.65C2215.82 1164.99 2204.38 1161.07 2186.83 1161.07H2145.69V1208.24H2145.76Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/><path d="M2325.33 1139.39C2328.74 1130.39 2335.04 1127.24 2344.81 1127.24H2354.32C2363.32 1127.24 2371.36 1129.43 2375.73 1141.83L2423.93 1275.91C2425.41 1279.83 2427.85 1286.84 2427.85 1291.21C2427.85 1300.91 2419.3 1308.75 2409.08 1308.75C2400.34 1308.75 2393.98 1305.6 2391.09 1297.83L2380.87 1268.65H2316.66L2306.18 1297.83C2303.48 1305.6 2297.89 1308.75 2288.44 1308.75C2277.51 1308.75 2269.93 1301.94 2269.93 1291.21C2269.93 1286.84 2272.37 1279.77 2273.85 1275.91L2325.46 1139.39H2325.33ZM2349.44 1170.56H2348.92L2325.33 1240.88H2372.06L2349.44 1170.56Z" fill="#EFEFEF" stroke="#EFEFEF" stroke-width="3.59939" stroke-miterlimit="10"/></symbol><symbol id="eic-mono" viewBox="0 0 1090 1312"><path d="M636.835 1161.9C372.344 1161.9 157.216 934.427 157.216 654.896C157.216 375.365 372.344 147.832 636.835 147.832C686.519 147.832 734.404 155.866 779.46 170.778C827.859 186.783 877.865 151.431 877.865 100.462C877.865 68.2598 857.169 39.529 826.51 29.695C766.605 10.4125 702.909 0 636.899 0C285.701 0 0 293.8 0 654.832C0 1015.86 285.701 1309.66 636.835 1309.66C702.845 1309.66 766.541 1299.25 826.445 1279.97C857.104 1270.07 877.801 1241.4 877.801 1209.2C877.801 1158.23 827.795 1122.82 779.396 1138.89C734.34 1153.8 686.455 1161.83 636.77 1161.83L636.835 1161.9Z" fill="#EFEFEF"/><path d="M305.248 779.656C305.055 938.993 455.265 1069.02 639.991 1069.47L790.587 1069.99C838.6 1070.18 877.615 1031.29 877.615 983.278C877.615 935.522 838.986 896.7 791.165 896.572L640.634 896.058C566.525 895.865 506.299 843.738 506.364 779.849L506.492 663.576L790.587 664.475C838.6 664.604 877.615 625.782 877.615 577.769C877.615 529.948 838.922 491.191 791.165 491.062L309.811 489.52L305.184 779.72L305.248 779.656Z" fill="#EFEFEF"/><path d="M894.324 336.937V345.165C894.324 398.448 937.453 441.705 990.736 441.898C1044.21 442.091 1087.66 398.834 1087.79 345.422V337.194C1087.92 283.782 1044.79 240.397 991.379 240.204C937.838 240.011 894.324 283.396 894.324 336.937Z" fill="#F54418"/><path d="M844.002 345.157V340.4C844.002 322.532 847.473 304.599 855.636 288.723C860.65 278.889 866.82 270.341 873.89 263.014C882.053 254.594 875.883 240.453 864.12 240.453L511.895 239.746H511.573C474.358 239.746 437.4 249.323 405.905 269.184C344.973 307.685 310.265 371.06 309.879 439.898C309.879 440.476 310.329 440.926 310.907 440.926H511.316L864.378 441.633C876.397 441.633 882.053 427.364 873.762 418.687C855.379 399.598 844.002 373.63 844.002 345.157Z" fill="#EFEFEF"/></symbol></svg>
+
+<header class="hero">
+  <div class="shell">
+    <div class="masthead">
+      <svg class="logo" viewBox="0 0 2512 1312" role="img" aria-label="EIC — Escola de Idiomas e Cultura"><use href="#eic-logo"/></svg>
+      <span>Vargem Grande Paulista, SP &nbsp;·&nbsp; Setembro de 2026</span>
+    </div>
+    <div class="hero-body">
+      <h1>Estudar nos<br>Estados Unidos:<br><span class="light">os três caminhos</span></h1>
+      <p class="lede">São três decisões diferentes, com processos, prazos e custos diferentes. Esta página compara as três em linguagem direta.</p>
+      <p class="hero-meta">Inclui o que muda quando a família tem parentes morando lá, e o que a lei americana permite nesse caso. Leitura de dez minutos. Os números vêm de fontes oficiais, listadas no fim. A EIC não vende pacote e não intermedia matrícula.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="atalhos" aria-label="Seções desta página">
+  <ol>
+    <li><a href="#curto"><b>Resposta curta</b></a></li>
+    <li><a href="#lado-a-lado">Os três, lado a lado</a></li>
+    <li><a href="#um">1 · High school lá</a></li>
+    <li><a href="#dois">2 · Faculdade, ensino médio aqui</a></li>
+    <li><a href="#tres">3 · Faculdade, high school lá</a></li>
+    <li><a href="#familia">Com parentes lá</a></li>
+    <li><a href="#residencia"><b>Residência</b></a></li>
+    <li><a href="#mudou">O que mudou em 2026</a></li>
+  </ol>
+</nav>
+
+<section class="escura" id="curto">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">A resposta curta</p>
+      <p class="aviso">Cinco frases. Se a conversa parar aqui, é isto que precisa ficar.</p>
+    </div>
+    <div class="corpo">
+      <h2>Cinco frases, antes de qualquer detalhe</h2>
+      <ol class="curtas">
+        <li>
+          <b>O caminho mais barato é terminar o ensino médio no Brasil.</b>
+          <span>É também o mais usado por brasileiros. O estudante se candidata às universidades americanas no último ano do ensino médio daqui.</span>
+        </li>
+        <li>
+          <b>Fazer o high school lá melhora a candidatura. Não melhora a conta.</b>
+          <span>O estudante continua estrangeiro. Continua sem acesso à ajuda do governo americano e continua pagando a mensalidade mais alta nas universidades públicas.</span>
+        </li>
+        <li>
+          <b>Ter parentes lá resolve moradia e escolha da escola. Não resolve visto.</b>
+          <span>Com parentes ou sem, o estudante entra com visto de intercâmbio ou de estudante, e carrega tudo o que isso significa.</span>
+        </li>
+        <li>
+          <b>Tio, tia, avô, avó e primo não podem pedir residência para o estudante.</b>
+          <span>Não é falta de documento nem de advogado melhor. A lei americana não prevê essa relação.</span>
+        </li>
+        <li>
+          <b>A bolsa generosa para estrangeiro está na pós-graduação.</b>
+          <span>Na graduação a família paga quase tudo. No doutorado, a universidade americana normalmente paga.</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="lado-a-lado">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">Comece aqui</p>
+      <p class="aviso">Cada coluna é uma decisão distinta. Não são etapas de um mesmo plano.</p>
+    </div>
+    <div class="corpo">
+      <h2>Os três caminhos, lado a lado</h2>
+      <p class="txt">A tabela abaixo é o mapa da página inteira. Cada caminho tem a sua seção depois, com o detalhe.</p>
+
+      <div class="tabela">
+        <table>
+          <caption>Comparação dos três caminhos</caption>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">1 · High school lá</th>
+              <th scope="col">2 · Faculdade, ensino médio aqui</th>
+              <th scope="col">3 · Faculdade, high school lá</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Idade em que se decide</th>
+              <td data-col="1 · High school lá">14 a 17 anos</td>
+              <td data-col="2 · Faculdade, EM aqui">16 a 17 anos</td>
+              <td data-col="3 · Faculdade, HS lá">Já decidida no caminho 1</td></tr>
+            <tr><th scope="row">Visto</th>
+              <td data-col="1 · High school lá"><abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr> ou <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr></td>
+              <td data-col="2 · Faculdade, EM aqui"><abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr></td>
+              <td data-col="3 · Faculdade, HS lá"><abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr></td></tr>
+            <tr><th scope="row">Tempo fora do Brasil</th>
+              <td data-col="1 · High school lá">1 ano, ou até 4 na escola privada</td>
+              <td data-col="2 · Faculdade, EM aqui">4 anos</td>
+              <td data-col="3 · Faculdade, HS lá">Até 8 anos</td></tr>
+            <tr><th scope="row">Exame de inglês</th>
+              <td data-col="1 · High school lá"><abbr class="sigla" data-s="ELTiS" tabindex="0">ELTiS</abbr></td>
+              <td data-col="2 · Faculdade, EM aqui"><abbr class="sigla" data-s="TOEFL" tabindex="0">TOEFL</abbr>, <abbr class="sigla" data-s="IELTS" tabindex="0">IELTS</abbr> ou Duolingo</td>
+              <td data-col="3 · Faculdade, HS lá">Em geral dispensado</td></tr>
+            <tr><th scope="row">Prova acadêmica</th>
+              <td data-col="1 · High school lá">Nenhuma</td>
+              <td data-col="2 · Faculdade, EM aqui"><abbr class="sigla" data-s="SAT" tabindex="0">SAT</abbr> ou <abbr class="sigla" data-s="ACT" tabindex="0">ACT</abbr></td>
+              <td data-col="3 · Faculdade, HS lá"><abbr class="sigla" data-s="SAT" tabindex="0">SAT</abbr> ou <abbr class="sigla" data-s="ACT" tabindex="0">ACT</abbr></td></tr>
+            <tr><th scope="row">Quem escolhe a escola</th>
+              <td data-col="1 · High school lá">A organização americana, no <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr>. A família, no <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr></td>
+              <td data-col="2 · Faculdade, EM aqui">A família, entre as aprovações</td>
+              <td data-col="3 · Faculdade, HS lá">A família, entre as aprovações</td></tr>
+            <tr><th scope="row">Custo por ano</th>
+              <td data-col="1 · High school lá">US$ 3.000 a 10.000 na escola pública</td>
+              <td data-col="2 · Faculdade, EM aqui">US$ 21.320 a 65.470</td>
+              <td data-col="3 · Faculdade, HS lá">O mesmo, mais o ensino médio</td></tr>
+            <tr><th scope="row">Diploma</th>
+              <td data-col="1 · High school lá">Só na escola privada</td>
+              <td data-col="2 · Faculdade, EM aqui">Bacharelado americano</td>
+              <td data-col="3 · Faculdade, HS lá">Bacharelado americano</td></tr>
+            <tr><th scope="row">Validar no Brasil</th>
+              <td data-col="1 · High school lá">Equivalência de estudos</td>
+              <td data-col="2 · Faculdade, EM aqui">Revalidação do diploma</td>
+              <td data-col="3 · Faculdade, HS lá">As duas coisas</td></tr>
+            <tr class="grifa"><th scope="row">Chance de bolsa</th>
+              <td data-col="1 · High school lá">Rara</td>
+              <td data-col="2 · Faculdade, EM aqui">Escassa: cerca de dez universidades</td>
+              <td data-col="3 · Faculdade, HS lá">A mesma. Estudar lá não muda isso</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="nota">
+        <span class="tag">A linha mais importante é a última</span>
+        <p>As três colunas dizem a mesma coisa sobre bolsa. Isso é de propósito.</p>
+        <p>Fazer o high school nos Estados Unidos <strong>não muda</strong> a situação financeira do candidato na faculdade. É a confusão mais cara desse processo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+<section id="um">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">Caminho 1</p>
+      <p class="aviso">Para famílias com estudante entre 14 e 17 anos.</p>
+    </div>
+    <div class="corpo">
+      <h2>Fazer o high school nos Estados Unidos</h2>
+      <p class="txt">A janela abre aos 15 anos. O processo é de candidatura: o estudante é avaliado antes de ser aceito, e parte das decisões é tomada pela escola ou pela organização americana, não pela família nem pelo estudante.</p>
+
+      <h3>As três rotas possíveis</h3>
+      <div class="tabela">
+        <table>
+          <caption>Rotas para o ensino médio nos Estados Unidos</caption>
+          <thead><tr><th scope="col">Rota</th><th scope="col">Duração</th><th scope="col">Dá diploma?</th><th scope="col">Custo</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Intercâmbio <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr></th>
+              <td data-col="Duração">1 semestre ou 1 ano</td>
+              <td data-col="Dá diploma?"><span class="nao">Não</span></td>
+              <td data-col="Custo">Taxa da agência mais <abbr class="sigla" data-s="SEVIS" tabindex="0">SEVIS</abbr> de US$ 220</td></tr>
+            <tr><th scope="row">Escola pública <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr></th>
+              <td data-col="Duração">Até 12 meses no total</td>
+              <td data-col="Dá diploma?"><span class="nao">Não</span></td>
+              <td data-col="Custo">US$ 3.000 a 10.000 por ano, mais <abbr class="sigla" data-s="SEVIS" tabindex="0">SEVIS</abbr> de US$ 350</td></tr>
+            <tr><th scope="row">Escola privada <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr></th>
+              <td data-col="Duração">Sem limite de anos</td>
+              <td data-col="Dá diploma?"><span class="sim">Sim</span></td>
+              <td data-col="Custo">O mais alto de todos: mensalidade e moradia</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">Para cursar os três anos de ensino médio lá e sair com diploma americano, a única via é a escola privada. O intercâmbio dura no máximo um ano, e o limite de 12 meses da escola pública é cumulativo: vale para todas as escolas públicas somadas, uma única vez na vida. Na escola pública, a família também paga ao distrito o custo integral por aluno, e precisa comprovar esse pagamento antes de pedir o visto.</p>
+
+      <h3>O que se exige do estudante</h3>
+      <ul class="itens">
+        <li><b>Idade de 15 a 18 anos e meio</b> no dia em que o programa começa.</li>
+        <li><b>Estar matriculado no ensino médio no Brasil</b> no embarque. Quem já se formou aqui não entra por essa via.</li>
+        <li><b>Notas dos três últimos anos</b>, traduzidas, com média em torno de C+.</li>
+        <li><b>Exame <abbr class="sigla" data-s="ELTiS" tabindex="0">ELTiS</abbr> e entrevista em inglês.</b> Apesar do nome parecido, o ELTiS não é o <abbr class="sigla" data-s="IELTS" tabindex="0">IELTS</abbr>. É o exame do intercâmbio de ensino médio: mede só leitura e compreensão oral, e não vale para candidatura à universidade.</li>
+        <li><b>Nunca ter feito um programa <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr> ou <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr>.</b> É uma vez na vida.</li>
+      </ul>
+
+      <h3>O que a família não escolhe</h3>
+      <p class="txt">No intercâmbio, quem decide onde o estudante vai morar e estudar é a organização americana credenciada pelo governo. Não é a família, e não é a agência brasileira. A escola sai do endereço da família anfitriã.</p>
+      <p class="txt">Direcionar a colocação por estado ou por região é possível, mas é cobrado à parte e precisa ser pedido antes. Pedir escola entre as 10% melhores do país exige a nota mais alta no <abbr class="sigla" data-s="ELTiS" tabindex="0">ELTiS</abbr>.</p>
+
+      <h3>O calendário</h3>
+      <div class="tabela">
+        <table>
+          <caption>Calendário do ensino médio nos Estados Unidos</caption>
+          <thead><tr><th scope="col">Quando</th><th scope="col">O que acontece</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Até março</th><td data-col="O que acontece">A agência precisa estar aprovada pelo distrito escolar americano.</td></tr>
+            <tr><th scope="row">Abril a junho</th><td data-col="O que acontece">Janela de inscrição. Distritos têm cota, e há cota que esgota no primeiro dia.</td></tr>
+            <tr><th scope="row">Agosto ou setembro</th><td data-col="O que acontece">Começa o ano letivo lá.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">Nada disso coincide com o calendário de candidatura à faculdade. São dois relógios diferentes, e confundir os dois faz perder um ano.</p>
+
+      <div class="nota">
+        <span class="tag">Confira antes de assinar contrato</span>
+        <p>A agência precisa estar na <strong>lista do CSIET</strong>, o conselho americano de padrões de intercâmbio. Distrito que exige isso recusa agência de fora da lista, sem exceção.</p>
+        <p>É a checagem mais barata do processo. Peça a comprovação por escrito.</p>
+      </div>
+
+      <h3>Na volta, precisa validar</h3>
+      <p class="txt">O ensino médio feito lá não vale automaticamente aqui. É preciso pedir <strong>equivalência de estudos</strong> na Secretaria ou no Conselho Estadual de Educação do seu estado, com histórico traduzido por tradutor juramentado.</p>
+      <p class="txt">Há um risco concreto: o currículo americano deixa o aluno escolher matérias. Se faltar alguma que o Brasil exige, a Secretaria pode mandar cursar de novo. Vale escolher as eletivas de olho nisso.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<section id="dois">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">Caminho 2</p>
+      <p class="aviso">A rota mais comum entre brasileiros.</p>
+    </div>
+    <div class="corpo">
+      <h2>Faculdade nos EUA, com o ensino médio no Brasil</h2>
+      <p class="txt">É a mais barata e a de menor risco. O estudante termina o ensino médio aqui e se candidata às universidades americanas no último ano.</p>
+
+      <h3>Não existe vestibular</h3>
+      <p class="txt">A universidade não aplica prova de admissão. Ela lê o que o estudante construiu ao longo dos três anos: o histórico completo, as atividades que o estudante manteve, cartas de professores, um texto pessoal escrito por ele e, em parte das universidades, uma nota de prova padronizada.</p>
+      <p class="txt">A consequência é direta: <strong>a nota do 1º ano do ensino médio já conta.</strong> Não existe ano de recuperação antes da candidatura.</p>
+
+      <h3>O inglês libera todo o resto</h3>
+      <p class="txt">Sem nota de proficiência, a universidade não emite o formulário <abbr class="sigla" data-s="I-20" tabindex="0">I-20</abbr>. E sem esse formulário a família não marca a entrevista no consulado.</p>
+      <p class="txt">E quem entra abaixo da nota mínima cursa aulas de inglês que a família paga, que ocupam a carga horária e que não valem crédito nenhum para o diploma.</p>
+
+      <div class="tabela">
+        <table>
+          <caption>Nota de proficiência por tipo de instituição</caption>
+          <thead><tr><th scope="col">Tipo de instituição</th><th scope="col"><abbr class="sigla" data-s="TOEFL" tabindex="0">TOEFL</abbr></th><th scope="col"><abbr class="sigla" data-s="IELTS" tabindex="0">IELTS</abbr></th><th scope="col">Duolingo</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Community college</th><td data-col="TOEFL">3,5</td><td data-col="IELTS">5,5</td><td data-col="Duolingo">90 a 100</td></tr>
+            <tr><th scope="row">Pública estadual, meio de tabela</th><td data-col="TOEFL">4,0 a 4,5</td><td data-col="IELTS">6,0 a 6,5</td><td data-col="Duolingo">105 a 115</td></tr>
+            <tr><th scope="row">Entre as cem melhores</th><td data-col="TOEFL">5,0</td><td data-col="IELTS">6,5 a 7,0</td><td data-col="Duolingo">120</td></tr>
+            <tr><th scope="row">As mais seletivas</th><td data-col="TOEFL">5,0 ou mais</td><td data-col="IELTS">7,0 a 7,5</td><td data-col="Duolingo">125 a 130</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">O <abbr class="sigla" data-s="TOEFL" tabindex="0">TOEFL</abbr> trocou a escala de 0 a 120 pela de 1 a 6 em janeiro de 2026. Se aparecer uma página pedindo "TOEFL 90", ela está na escala antiga. Muitas universidades também exigem nota mínima por habilidade, não só no total.</p>
+
+      <h3>Quanto custa um ano de faculdade</h3>
+      <div class="barras" id="barras"></div>
+      <p class="fonte">Custo total anual de 2025-26, incluindo moradia, alimentação, livros e transporte. College Board, <em>Trends in College Pricing 2025</em>. A barra destacada é a que se aplica a estrangeiro em universidade pública: ele paga a mensalidade de quem é de fora do estado, não a de morador.</p>
+
+      <h3>O calendário, de trás para frente</h3>
+      <div class="tabela">
+        <table>
+          <caption>Calendário da candidatura à faculdade</caption>
+          <thead><tr><th scope="col">Onde o estudante está</th><th scope="col">O que fazer</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Fundamental II</th><td data-col="O que fazer">Começar o inglês com prazo definido. E escolher uma atividade para manter por anos.</td></tr>
+            <tr><th scope="row">1º ano do ensino médio</th><td data-col="O que fazer">As notas já contam. Inglês voltado para exame e escrita.</td></tr>
+            <tr><th scope="row">2º ano do ensino médio</th><td data-col="O que fazer">O ano decisivo. <abbr class="sigla" data-s="SAT" tabindex="0">SAT</abbr> ou <abbr class="sigla" data-s="ACT" tabindex="0">ACT</abbr> no primeiro semestre, proficiência no meio do ano, montar a lista de universidades e começar o texto pessoal.</td></tr>
+            <tr><th scope="row">3º ano do ensino médio</th><td data-col="O que fazer">Inscrições em setembro, prazos entre novembro e janeiro, resultados em março, visto entre maio e julho.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">A candidatura acontece no 3º ano. Tudo o que a universidade vai ler foi construído antes disso.</p>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+<section id="tres">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">Caminho 3</p>
+      <p class="aviso">Para quem já fez, ou já decidiu fazer, o caminho 1.</p>
+    </div>
+    <div class="corpo">
+      <h2>Faculdade nos EUA, com o high school lá</h2>
+      <p class="txt">Quem termina o ensino médio nos Estados Unidos chega à candidatura com um conjunto de documentos diferente. Vale saber exatamente o que melhora e o que não muda.</p>
+
+      <h3>O que melhora</h3>
+      <ul class="itens">
+        <li><b>O histórico já está no formato deles.</b> Sem tradução juramentada e sem recálculo de notas.</li>
+        <li><b>Aparece o nível de cada matéria.</b> A escolha de pegar a versão mais difícil fica registrada, e é isso que as universidades concorridas procuram.</li>
+        <li><b>Cartas de professores americanos</b>, mais o relatório do orientador da escola. Esse cargo não existe no Brasil.</li>
+        <li><b>A proficiência em inglês costuma ser dispensada</b> depois de alguns anos estudando na língua.</li>
+      </ul>
+
+      <h3>O que não muda</h3>
+      <div class="tabela">
+        <table>
+          <caption>O que não muda entre fazer o ensino médio no Brasil ou nos Estados Unidos</caption>
+          <thead><tr><th scope="col"></th><th scope="col">Ensino médio no Brasil</th><th scope="col">Ensino médio nos EUA</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Ajuda do governo americano</th><td data-col="EM no Brasil">Nenhuma</td><td data-col="EM nos EUA">Nenhuma</td></tr>
+            <tr><th scope="row">Avaliação de bolsa</th><td data-col="EM no Brasil">Como estrangeiro</td><td data-col="EM nos EUA">Como estrangeiro</td></tr>
+            <tr><th scope="row">Mensalidade na universidade pública</th><td data-col="EM no Brasil">A de quem é de fora do estado</td><td data-col="EM nos EUA">A de quem é de fora do estado</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="txt">As três linhas são idênticas de propósito. Diploma americano não é residência. E é a residência, não o diploma, que decide essas três coisas.</p>
+
+      <div class="nota">
+        <span class="tag">A pergunta que separa as duas coisas</span>
+        <p>Se o objetivo do high school lá é <strong>aumentar a chance de entrar numa boa universidade</strong>, é caro para o que entrega.</p>
+        <p>Se o objetivo é a experiência em si, viver fora, amadurecer e dominar o idioma, é outra conversa, e legítima. Só que aí o intercâmbio de um ano entrega boa parte disso por uma fração do custo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<section id="familia">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">Com parentes nos Estados Unidos</p>
+      <p class="aviso">Vale para os três caminhos.</p>
+    </div>
+    <div class="corpo">
+      <h2>Ter família lá muda a logística. Não muda o visto.</h2>
+      <p class="txt">Esta é a parte em que mais famílias se enganam. Vamos separar as duas coisas.</p>
+
+      <h3>O que os parentes resolvem</h3>
+      <ul class="itens">
+        <li><b>Moradia.</b> O estudante mora com eles, em vez de pagar internato ou depender de família anfitriã voluntária.</li>
+        <li><b>Escolha da escola.</b> Com visto <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr> a família escolhe a escola e inscreve o estudante direto nela.</li>
+        <li><b>Colocação dirigida no intercâmbio.</b> No <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr> existe a indicação de anfitriã pela família, inclusive parentes. Mas com triagem completa da organização, acompanhamento obrigatório e limite de distância do coordenador local.</li>
+        <li><b>Rede de apoio.</b> Alguém responsável por perto, o que também ajuda na entrevista consular.</li>
+      </ul>
+
+      <h3>O que os parentes não resolvem</h3>
+      <ul class="itens">
+        <li><b>O visto.</b> O estudante entra com <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr> ou <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr>, com parentes ou sem.</li>
+        <li><b>A residência.</b> Tio, tia, avô, avó e primo não podem pedir residência para o estudante. A seção seguinte trata só disso.</li>
+        <li><b>A mensalidade na universidade pública.</b> Continua a de quem é de fora do estado. Quem mora no estado é o parente, não o estudante.</li>
+        <li><b>A bolsa.</b> A avaliação continua sendo de candidato internacional.</li>
+      </ul>
+
+      <div class="nota">
+        <span class="tag">Três cuidados práticos</span>
+        <p><strong>Guarda.</strong> Menor de idade morando com parente costuma precisar de documento de guarda ou autorização com firma reconhecida. A escola vai pedir. Resolva antes de embarcar.</p>
+        <p><strong>Escola pública.</strong> Usar o endereço do parente para matricular o estudante como morador, enquanto os pais vivem no Brasil, não é permitido. Com <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr> em escola pública a família paga o custo integral ao distrito, e o limite é de 12 meses.</p>
+        <p><strong>Anfitrião de intercâmbio.</strong> No <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr>, a família anfitriã não pode receber pagamento. Isso é lei federal, e vale também quando ela é parente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="escura">
+<section id="residencia">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">Residência</p>
+      <p class="aviso">Para o caso em que os pais moram no Brasil e os parentes estão lá.</p>
+    </div>
+    <div class="corpo">
+      <h2>Quem pode pedir residência para o estudante</h2>
+      <p class="txt">A pergunta aparece em quase toda conversa: o tio que é cidadão americano pode pedir o green card do sobrinho? A resposta é curta, e está na lei.</p>
+
+      <p class="txt">O pedido de residência por parentesco é feito num único formulário, o <abbr class="sigla" data-s="I-130" tabindex="0">I-130</abbr>. Ele aceita uma lista fechada de parentescos. Quem não está na lista não tem como pedir.</p>
+
+      <div class="tabela">
+        <table>
+          <caption>Quem pode peticionar residência, por parentesco</caption>
+          <thead>
+            <tr><th scope="col">Parentesco com o estudante</th><th scope="col">Se for cidadão americano</th><th scope="col">Se tiver green card</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Pai ou mãe</th><td data-col="Cidadão americano"><span class="sim">Pode</span></td><td data-col="Green card"><span class="sim">Pode</span>, se o estudante for solteiro</td></tr>
+            <tr><th scope="row">Padrasto ou madrasta</th><td data-col="Cidadão americano"><span class="sim">Pode</span>, se o casamento foi antes dos 18 anos do estudante</td><td data-col="Green card"><span class="sim">Pode</span>, na mesma condição</td></tr>
+            <tr><th scope="row">Irmão ou irmã</th><td data-col="Cidadão americano"><span class="sim">Pode</span>, se tiver 21 anos ou mais</td><td data-col="Green card"><span class="nao">Não pode</span></td></tr>
+            <tr class="grifa"><th scope="row">Avô ou avó</th><td data-col="Cidadão americano"><span class="nao">Não pode</span></td><td data-col="Green card"><span class="nao">Não pode</span></td></tr>
+            <tr class="grifa"><th scope="row">Tio ou tia</th><td data-col="Cidadão americano"><span class="nao">Não pode</span></td><td data-col="Green card"><span class="nao">Não pode</span></td></tr>
+            <tr class="grifa"><th scope="row">Primo ou prima</th><td data-col="Cidadão americano"><span class="nao">Não pode</span></td><td data-col="Green card"><span class="nao">Não pode</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fonte">O <abbr class="sigla" data-s="I-130" tabindex="0">I-130</abbr> exclui por escrito avô, avó, neto, neta, tio, tia, sobrinho, sobrinha, primo, prima e sogro. A categoria simplesmente não existe na lei.</p>
+
+      <h3>O caminho indireto, e por que ele não serve</h3>
+      <p class="txt">Existe uma via em teoria. O tio americano não pode pedir para o sobrinho, mas pode pedir para o <strong>irmão</strong> dele, que é o pai ou a mãe do estudante. Se os pais recebessem a residência, o filho poderia vir com eles.</p>
+      <p class="txt">O problema é o tempo. Essa categoria, o pedido de irmão para irmão, é a fila mais longa do sistema americano.</p>
+
+      <div class="cifra">
+        <b>2008</b>
+        <span>É o ano dos pedidos que a fila está processando agora. Quem entrar hoje espera perto de vinte anos.</span>
+      </div>
+
+      <p class="txt">E há um segundo problema, que quase ninguém menciona. O filho só entra no processo dos pais se ainda for <strong>solteiro e menor de 21 anos</strong> quando o visto finalmente sair. Um estudante de 15 anos hoje teria mais de 30 quando a fila chegasse. Ele não vem mais junto: a lei não o considera mais filho para esse fim.</p>
+      <p class="txt">Ou seja: pode ser um plano para os pais, em muitos anos. Não é um plano para a decisão que a família está tomando agora.</p>
+
+      <h3>Adoção não é atalho</h3>
+      <p class="txt">A lei prevê a adoção, mas com condições rígidas: a adoção precisa acontecer <strong>antes dos 16 anos</strong> do estudante, e em geral exigem dois anos de guarda legal e de convivência antes do pedido.</p>
+      <p class="txt">Além disso, adoção feita com finalidade migratória é fraude, com consequência para o adulto e para o menor.</p>
+
+      <h3>Então o plano tem que ser o visto de estudante</h3>
+      <p class="txt">Com parentes lá ou sem, o estudante entra com <abbr class="sigla" data-s="J-1" tabindex="0">J-1</abbr> ou <abbr class="sigla" data-s="F-1" tabindex="0">F-1</abbr>. Sem ajuda do governo americano, avaliado como internacional nas bolsas e pagando a mensalidade de quem é de fora do estado nas universidades públicas.</p>
+      <p class="txt">Planejar com essa realidade na mesa custa menos do que descobrir tudo isso depois.</p>
+
+      <div class="nota">
+        <span class="tag">Um limite desta página</span>
+        <p>Isto é informação geral, não orientação jurídica. Para um caso concreto, com nomes e datas, procure um advogado de imigração americano.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<section id="mudou">
+  <div class="shell bloco">
+    <div class="lado">
+      <p class="rotulo">O que mudou em 2026</p>
+      <p class="aviso">Vale para os três caminhos, e para quem já está lá.</p>
+    </div>
+    <div class="corpo">
+      <h2>Duas mudanças recentes e uma alternativa</h2>
+
+      <h3>O visto passou a ter data fixa</h3>
+      <p class="txt">Desde 15 de setembro de 2026, o visto de estudante deixou de valer "enquanto estiver matriculado". Agora a permissão tem data no documento de entrada: o tempo do curso, com <strong>teto de quatro anos</strong>. Quem precisar de mais tempo pede prorrogação ao órgão de imigração, e paga por ela.</p>
+      <ul class="itens">
+        <li><b>Teto de quatro anos</b> na admissão inicial, mesmo em curso mais longo.</li>
+        <li><b>Trinta dias</b> para deixar o país no fim do programa. Antes eram sessenta.</li>
+        <li><b>Doze meses</b> é o teto no ensino médio público, e <b>vinte e quatro meses</b> em curso de inglês.</li>
+      </ul>
+
+      <h3>O desconto das universidades privadas não é para estrangeiro</h3>
+      <p class="txt">A mensalidade de tabela numa universidade privada é de cerca de US$ 45.000 por ano. É o valor da mensalidade, sem moradia nem alimentação. Na média, essas universidades recebem por volta de US$ 16.900 por aluno, e a diferença entre os dois números é desconto. Boa parte desse desconto vem de dinheiro do governo americano, e estrangeiro não tem acesso a esse dinheiro.</p>
+      <p class="txt">Para estrangeiro sobra a bolsa da própria universidade, muito mais escassa: cerca de <strong>dez universidades</strong> no país inteiro avaliam o candidato internacional sem olhar a situação financeira da família.</p>
+
+      <h3>A alternativa que quase ninguém apresenta</h3>
+      <p class="txt">A ajuda financeira para estrangeiro está concentrada na <strong>pós-graduação</strong>. No doutorado, a universidade americana normalmente paga: isenção da mensalidade mais uma bolsa, garantidas por quatro a seis anos. Na graduação, a família paga quase tudo.</p>
+      <p class="txt">Para muitas famílias, a resposta honesta não é "não". É <strong>"não agora"</strong>: formar o estudante no Brasil, manter o inglês em nível alto, e ir para os Estados Unidos na pós, com a universidade pagando e numa idade em que ele já é adulto.</p>
+      <p class="txt">Duas ressalvas, para não virar promessa: a bolsa de doutorado é competitiva e depende do departamento, e houve cortes em várias universidades americanas nos últimos dois anos.</p>
+    </div>
+  </div>
+</section>
+
+<div class="tail">
+  <div class="shell">
+    <div class="fontes">
+      <p><b>Fontes</b></p>
+      <p>Custos de 2025-26: College Board, <em>Trends in College Pricing and Student Aid 2025</em>. Prazo fixo de permanência, teto de quatro anos e limites por tipo de curso: regra final do Departamento de Segurança Interna dos EUA, em vigor desde 15 de setembro de 2026. Regras de escola pública com visto F-1 e teto de 12 meses: Departamento de Segurança Interna dos EUA. Regras de intercâmbio J-1, colocação e pagamento à família anfitriã: 22 CFR 62.25, Departamento de Estado. Peso dos fatores de admissão: NACAC, outono de 2023. Quem pode peticionar residência e as exclusões do formulário I-130: USCIS. Tempo de fila do pedido de irmão para irmão: Visa Bulletin do Departamento de Estado. Concentração da ajuda financeira na pós-graduação: NAFSA. Revalidação de diploma: Plataforma Carolina Bori, MEC. Equivalência de ensino médio: Conselhos Estaduais de Educação. Orientação oficial gratuita: <a href="https://educationusa.org.br/">educationusa.org.br</a>.</p>
+    </div>
+
+    <div class="colophon">
+      <p><b>EIC — Escola de Idiomas e Cultura</b><br>Vargem Grande Paulista, SP<br>eicschool.com.br</p>
+      <p>Material informativo preparado em setembro de 2026. Regras de imigração, prazos de fila e valores de mensalidade mudam com frequência; confirme nas fontes oficiais antes de decidir. Esta página não é orientação jurídica. A EIC não intermedia matrículas e não representa instituições americanas.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Dicionário único de siglas. Editar aqui atualiza a página inteira. */
+  var SIGLAS = {
+    "J-1":   "Visto de intercâmbio cultural, para programas de troca aprovados pelo Departamento de Estado americano.",
+    "F-1":   "Visto de estudante acadêmico, para curso regular em escola ou universidade certificada pelo governo americano.",
+    "I-20":  "Formulário emitido pela instituição americana comprovando admissão e capacidade financeira. Sem ele não existe pedido de visto.",
+    "I-130": "Formulário de pedido de residência por parentesco, entregue ao USCIS. Aceita uma lista fechada de parentescos.",
+    "SEVIS": "Cadastro federal de estudantes estrangeiros. A taxa é paga antes da entrevista consular.",
+    "ELTiS": "Exame de inglês do intercâmbio de ensino médio, criado pelo CSIET com a Ballard & Tighe. Mede só compreensão oral e leitura, com nota em níveis de 1 a 5. Não é o IELTS.",
+    "TOEFL": "Exame de proficiência em inglês da ETS. Desde janeiro de 2026 a nota vai de 1 a 6.",
+    "IELTS": "Exame de proficiência em inglês para universidade e imigração, com nota de 0 a 9 em meias bandas. Avalia as quatro habilidades. Não confundir com o ELTiS.",
+    "SAT":   "Prova padronizada de leitura, escrita e matemática, aplicada pelo College Board. Exigida por parte das universidades.",
+    "ACT":   "Alternativa ao SAT, com uma seção de ciências que o SAT não tem."
+  };
+
+  var siglas = [].slice.call(document.querySelectorAll(".sigla"));
+  siglas.forEach(function(el){
+    var chave = el.getAttribute("data-s");
+    if(SIGLAS[chave]){
+      el.setAttribute("data-def", SIGLAS[chave]);
+      el.setAttribute("title", "");
+      el.setAttribute("aria-label", chave + ". " + SIGLAS[chave]);
+    }
+  });
+
+  function posicionar(el){
+    el.style.removeProperty("--desloc");
+    var caixa = el.getBoundingClientRect();
+    var bolha = Math.min(19 * 16, window.innerWidth * 0.74);
+    var sobra = window.innerWidth - 16 - (caixa.left + bolha);
+    if(sobra < 0) el.style.setProperty("--desloc", Math.round(sobra) + "px");
+  }
+  siglas.forEach(function(el){
+    el.addEventListener("mouseenter", function(){ posicionar(el); });
+    el.addEventListener("focus", function(){ posicionar(el); });
+    el.addEventListener("click", function(e){
+      e.preventDefault();
+      var abrindo = !el.classList.contains("aberta");
+      siglas.forEach(function(o){ o.classList.remove("aberta"); });
+      if(abrindo){ posicionar(el); el.classList.add("aberta"); }
+    });
+    el.addEventListener("keydown", function(e){
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        posicionar(el);
+        el.classList.toggle("aberta");
+      }
+    });
+  });
+  document.addEventListener("click", function(e){
+    if(!e.target.closest || !e.target.closest(".sigla"))
+      siglas.forEach(function(o){ o.classList.remove("aberta"); });
+  });
+  window.addEventListener("keydown", function(e){
+    if(e.key === "Escape") siglas.forEach(function(o){ o.classList.remove("aberta"); });
+  });
+
+  /* Barras de custo: um só lugar com os valores. */
+  var CUSTOS = [
+    { nome:"Community college",                   v:21320, grifa:false },
+    { nome:"Pública estadual, morador do estado", v:30990, grifa:false },
+    { nome:"Pública estadual, de fora do estado", v:50920, grifa:true  },
+    { nome:"Privada sem fins lucrativos",         v:65470, grifa:false }
+  ];
+  var alvo = document.getElementById("barras");
+  if(alvo){
+    var max = CUSTOS.reduce(function(m, c){ return Math.max(m, c.v); }, 0);
+    CUSTOS.forEach(function(c){
+      var d = document.createElement("div");
+      d.className = "barra" + (c.grifa ? " grifada" : "");
+      d.innerHTML = '<div class="barra-topo"><span class="barra-nome">' + c.nome + '</span>' +
+                    '<span class="barra-val">US$ ' + c.v.toLocaleString("pt-BR") + '</span></div>' +
+                    '<div class="barra-trilho"><div class="barra-fill" style="width:' +
+                    ((c.v / max) * 100).toFixed(1) + '%"></div></div>';
+      alvo.appendChild(d);
+    });
+  }
+
+  /* Atalho ativo conforme a seção visível. Sem enfeite: só marca onde se está. */
+  var links = [].slice.call(document.querySelectorAll(".atalhos a"));
+  var secoes = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  function marcar(){
+    var y = window.scrollY + window.innerHeight * 0.3, ativo = -1;
+    secoes.forEach(function(s, i){ if(s && s.offsetTop <= y) ativo = i; });
+    links.forEach(function(a, i){
+      if(i === ativo){ a.style.color = "var(--navy-ink)"; a.style.borderBottomColor = "var(--red)"; }
+      else { a.style.removeProperty("color"); a.style.removeProperty("border-bottom-color"); }
+    });
+  }
+  var agendado = false;
+  window.addEventListener("scroll", function(){
+    if(agendado) return;
+    agendado = true;
+    requestAnimationFrame(function(){ agendado = false; marcar(); });
+  }, { passive:true });
+  marcar();
+})();
+</script>
+</body>
+</html>

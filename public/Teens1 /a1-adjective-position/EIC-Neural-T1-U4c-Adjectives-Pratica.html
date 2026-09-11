@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Neural English · Prática · Adjectives · EIC</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A0A;
+  --mid: #6B6B6B;
+  --light: #E8E8E4;
+  --snow: #F6F6F4;
+  --white: #FFFFFF;
+  --orange: #FF3C38;
+  --y: #C77A00;
+  --b: #06A15C;
+  --y-tint: #FFF3E0;
+  --b-tint: #DFFBEC;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif; background: var(--white); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--orange); color: #fff; }
+
+/* NAV */
+.nav {
+  position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px; height: 60px; background: rgba(255,255,255,.94); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light);
+}
+.nav-left { display: flex; align-items: center; gap: 12px; }
+.nav-module { display: flex; align-items: center; gap: 8px; padding-left: 12px; border-left: 1px solid var(--light); }
+.nav-label { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+.nav-tag { font-size: 13px; font-weight: 900; color: var(--white); background: var(--orange); padding: 4px 11px; border-radius: 7px; }
+.nav-tag.practice { background: var(--ink); }
+.nav-sibling-link {
+  font-size: 12px; font-weight: 700; color: var(--mid); text-decoration: none; margin-left: 8px;
+  padding: 4px 10px; border-radius: 100px; border: 1px solid var(--light); transition: all .15s;
+}
+.nav-sibling-link:hover { border-color: var(--ink); color: var(--ink); }
+.brand-logo-icon { display: flex; align-items: center; }
+.brand-logo-icon svg { display: block; }
+
+/* PROGRESS */
+.progress-bar { position: sticky; top: 60px; z-index: 90; background: var(--white); border-bottom: 1px solid var(--light);
+  padding: 10px 60px; display: flex; align-items: center; gap: 14px; }
+.progress-track { flex: 1; height: 6px; background: var(--light); border-radius: 100px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--orange); border-radius: 100px; width: 0%; transition: width .3s ease; }
+.progress-label { font-size: 12px; font-weight: 800; color: var(--mid); white-space: nowrap; }
+
+/* HERO */
+.hero { max-width: 900px; margin: 0 auto; padding: 60px 60px 40px; }
+.eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--mid);
+  margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ''; width: 24px; height: 3px; background: var(--orange); border-radius: 2px; }
+.eyebrow-pt { text-transform: none; font-style: italic; font-weight: 600; color: var(--mid); letter-spacing: 0; margin-left: 4px; }
+h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.02; margin-bottom: 18px; }
+h1 .accent { color: var(--orange); }
+.hero p { font-size: 16.5px; color: var(--mid); line-height: 1.65; max-width: 620px; }
+.tw-target { white-space: pre-wrap; }
+.tw-cursor { display: inline-block; margin-left: 2px; color: var(--orange); animation: twBlink .6s step-end infinite; }
+.tw-cursor.fade-out { animation: none; opacity: 0; transition: opacity .6s ease; }
+@keyframes twBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tw-cursor { animation: none; opacity: 0; } }
+
+/* SECTION */
+.section { max-width: 900px; margin: 0 auto; padding: 44px 60px; border-top: 1px solid var(--light); }
+.section-label { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--mid);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; }
+.section-sub { font-size: 14.5px; color: var(--mid); line-height: 1.6; margin-bottom: 24px; max-width: 600px; }
+.bi-en { display: block; }
+.bi-pt { display: block; font-size: 0.7em; font-weight: 600; color: var(--mid); margin-top: 2px; font-style: italic; }
+
+/* TOOLTIP */
+.tt { border-bottom: 1.5px dotted var(--mid); cursor: help; position: relative; font-weight: 700; }
+.tt .tt-bubble {
+  position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%) translateY(4px);
+  background: var(--ink); color: var(--white); font-size: 12px; font-weight: 600; line-height: 1.4;
+  padding: 8px 12px; border-radius: 9px; white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: all .15s ease; z-index: 20;
+}
+.tt .tt-bubble::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: var(--ink);
+}
+.tt.open .tt-bubble, .tt:hover .tt-bubble { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* WORKED EXAMPLE */
+.worked { background: var(--snow); border: 1.5px dashed var(--light); border-radius: 16px; padding: 24px 26px; }
+.worked-badge {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--white); background: var(--ink); padding: 4px 11px; border-radius: 100px;
+  margin-bottom: 16px;
+}
+.worked-q { font-size: 17px; font-weight: 800; line-height: 1.5; margin-bottom: 14px; }
+.worked-q .blank { background: var(--white); border: 1.5px dashed var(--mid); border-radius: 6px; padding: 1px 10px; }
+.worked-answer {
+  display: flex; align-items: center; gap: 10px; background: var(--orange); color: var(--white);
+  padding: 12px 16px; border-radius: 12px; font-size: 15px; font-weight: 800; margin-bottom: 14px;
+}
+.worked-answer .check { flex: none; width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.25); position: relative; }
+.worked-answer .check::after {
+  content: ''; position: absolute; left: 50%; top: 45%; width: 5px; height: 9px; border: solid var(--white);
+  border-width: 0 2px 2px 0; transform: translate(-50%,-55%) rotate(45deg);
+}
+.worked-steps { background: var(--white); border-radius: 10px; padding: 14px 16px; }
+.worked-step { display: flex; gap: 10px; font-size: 13.5px; color: var(--mid); line-height: 1.6; padding: 5px 0; }
+.worked-step b { color: var(--ink); }
+.worked-step-n { flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--snow); color: var(--ink);
+  font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+
+/* SESSION */
+.session { margin-bottom: 30px; }
+.session:last-child { margin-bottom: 0; }
+.session-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.session-num { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+.session-title { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; }
+.session-fam { font-size: 11.5px; font-weight: 800; padding: 3px 10px; border-radius: 100px; margin-left: auto; white-space: nowrap; }
+.session-fam.p1 { background: var(--y-tint); color: var(--y); }
+.session-fam.p2 { background: var(--b-tint); color: var(--b); }
+
+/* TRUE FOCUS */
+.tf-container { position: relative; display: inline-flex; flex-wrap: wrap; gap: 0.35em; }
+.tf-word { display: inline-block; filter: blur(3.5px); transition: filter .4s ease; }
+.tf-word.active { filter: blur(0); }
+@media (prefers-reduced-motion: reduce) { .tf-word { filter: none; } }
+
+/* SCENE */
+.scn { background: var(--snow); border: 1px dashed var(--light); border-radius: 12px; padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.scn-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; }
+.scn-icon { width: 22px; height: 22px; border-radius: 6px; background: var(--ink); flex: none; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center; }
+.scn-icon svg { width: 12px; height: 12px; }
+.scn-label { font-size: 9.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--mid); min-width: 62px; margin-top: 3px; }
+.scn-value { font-weight: 700; color: var(--ink); }
+.scn-stars { letter-spacing: 2px; color: var(--orange); }
+
+/* QUESTION */
+.q-card { border: 1px solid var(--light); border-radius: 14px; padding: 18px 20px; margin-bottom: 12px; background: var(--white); }
+.q-card:last-child { margin-bottom: 0; }
+.q-kind { font-size: 9.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 5px; margin-bottom: 10px; display: inline-block; background: var(--snow); color: var(--mid); }
+.q-prompt { font-size: 16px; font-weight: 700; line-height: 1.55; margin-bottom: 14px; }
+.q-prompt .blank { background: var(--snow); border: 1.5px dashed var(--light); border-radius: 6px; padding: 1px 14px; font-weight: 800; }
+.q-hint { color: var(--mid); font-weight: 700; font-style: italic; font-size: 14px; }
+.q-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.q-opt {
+  border: 1.5px solid var(--light); background: var(--white); color: var(--ink);
+  font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 9px; cursor: pointer; transition: all .12s;
+  outline: none; font-family: 'Inter', sans-serif;
+}
+.q-opt:hover:not(:disabled) { border-color: var(--orange); background: #FFF1F0; }
+.q-opt.correct { background: var(--orange); border-color: var(--orange); color: var(--white); }
+.q-opt.wrong { background: #FFE8E6; border-color: #E0201C; color: #E0201C; animation: shake .35s; }
+.q-opt:disabled { cursor: default; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+.q-write-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.q-input {
+  flex: 1; min-width: 220px; border: 1.5px solid var(--light); border-radius: 9px; padding: 10px 14px;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); outline: none;
+  transition: border-color .12s;
+}
+.q-input:focus { border-color: var(--orange); }
+.q-input.correct { border-color: var(--orange); background: #FFF1F0; }
+.q-input.wrong { border-color: #E0201C; background: #FFF3F2; animation: shake .35s; }
+.q-check-btn {
+  flex: none; background: var(--ink); color: var(--white); border: none; border-radius: 9px; padding: 11px 18px;
+  font-family: inherit; font-size: 13px; font-weight: 800; cursor: pointer;
+}
+.q-check-btn:disabled { opacity: .4; cursor: default; }
+.q-note {
+  margin-top: 12px; font-size: 13.5px; color: var(--ink); font-weight: 600; line-height: 1.55;
+  background: #FFF1F0; border-radius: 9px; padding: 10px 13px; display: none;
+}
+.q-note.show { display: block; }
+.q-note b { color: var(--orange); }
+.q-tries { margin-top: 10px; font-size: 12.5px; color: var(--mid); font-weight: 600; display: none; }
+.q-tries.show { display: block; }
+.q-tries b { color: var(--ink); }
+
+/* OUTCOMES */
+.outcomes { background: var(--snow); border-radius: 18px; padding: 28px 30px; }
+.outcomes-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+.outcomes-count { font-size: 13px; font-weight: 800; color: var(--mid); }
+.outcomes-count span { color: var(--ink); }
+.outcomes-sub { font-size: 13.5px; color: var(--mid); margin-bottom: 20px; }
+.outcome-item {
+  display: flex; align-items: center; gap: 14px; background: var(--white); border: 1px solid var(--light);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; cursor: pointer; transition: all .15s ease;
+}
+.outcome-item:last-child { margin-bottom: 0; }
+.outcome-item:hover { border-color: var(--mid); }
+.outcome-item.done { border-color: var(--b); background: var(--b-tint); }
+.outcome-dot { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--light); position: relative; }
+.outcome-item.done .outcome-dot { border-color: var(--b); background: var(--b); }
+.outcome-item.done .outcome-dot::after {
+  content: ''; position: absolute; left: 50%; top: 45%; width: 5px; height: 9px; border: solid var(--white);
+  border-width: 0 2px 2px 0; transform: translate(-50%,-55%) rotate(45deg);
+}
+.outcome-text { font-size: 14.5px; font-weight: 600; }
+.outcomes-msg {
+  margin-top: 18px; padding: 14px 16px; border-radius: 10px; font-size: 13.5px; font-weight: 700; line-height: 1.55;
+  background: var(--white); border: 1px solid var(--light); color: var(--mid);
+}
+.outcomes-msg.great { background: var(--b-tint); border-color: var(--b); color: var(--b); }
+
+.footer { max-width: 900px; margin: 0 auto; padding: 30px 60px 60px; text-align: center; color: var(--mid); font-size: 12px; line-height: 1.7; }
+
+@media (max-width: 720px) {
+  .nav, .hero, .section, .footer, .progress-bar { padding-left: 22px; padding-right: 22px; }
+  .nav-label { display: none; }
+  .session-fam { margin-left: 0; }
+  .session-head { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <span class="brand-logo-icon"><svg width="20" height="24" viewBox="0 0 547 658" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M319.917 583.759C187.049 583.759 78.9783 469.474 78.9783 329.032C78.9783 188.59 187.049 74.2737 319.917 74.2737C344.876 74.2737 368.931 78.3103 391.566 85.8022C415.879 93.8432 441 76.0821 441 50.4738C441 34.2951 430.603 19.8601 415.201 14.9193C385.108 5.23145 353.11 0 319.949 0C143.524 0 0 147.611 0 329C0 510.389 143.524 658 319.917 658C353.078 658 385.076 652.769 415.169 643.081C430.571 638.108 440.968 623.705 440.968 607.526C440.968 581.918 415.847 564.125 391.534 572.198C368.899 579.69 344.844 583.726 319.885 583.726L319.917 583.759Z" fill="#0C0C0C"/>
+<path d="M153.743 391.593C153.646 471.622 229.092 536.931 321.873 537.157L397.512 537.415C421.628 537.512 441.224 517.981 441.224 493.865C441.224 469.879 421.822 450.38 397.803 450.316L322.196 450.057C284.974 449.961 254.725 423.779 254.757 391.69L254.821 333.29L397.512 333.742C421.628 333.806 441.224 314.307 441.224 290.192C441.224 266.173 421.789 246.707 397.803 246.642L156.035 245.867L153.711 391.625L153.743 391.593Z" fill="#0C0C0C"/>
+<path d="M449.617 169.227V173.359C449.617 200.122 471.279 221.848 498.042 221.945C524.901 222.042 546.725 200.315 546.789 173.488V169.356C546.854 142.529 525.192 120.738 498.365 120.641C471.473 120.544 449.617 142.335 449.617 169.227Z" fill="#F54418"/>
+<path d="M424.338 173.358V170.969C424.338 161.995 426.082 152.988 430.182 145.014C432.7 140.074 435.799 135.781 439.35 132.101C443.45 127.871 440.351 120.769 434.443 120.769L257.532 120.414H257.371C238.679 120.414 220.116 125.224 204.297 135.2C173.693 154.537 156.26 186.368 156.066 220.943C156.066 221.234 156.292 221.46 156.583 221.46H257.241L434.572 221.815C440.609 221.815 443.45 214.648 439.285 210.29C430.053 200.702 424.338 187.66 424.338 173.358Z" fill="#0C0C0C"/>
+</svg></span>
+    <div class="nav-module">
+      <span class="nav-label">Neural English</span>
+      <span class="nav-tag">Adjectives</span>
+      <span class="nav-tag practice">Prática</span>
+      <a class="nav-sibling-link" href="EIC-Neural-T1-U4c-Adjectives.html">&larr; Explicação</a>
+    </div>
+  </div>
+</nav>
+
+<div class="progress-bar">
+  <span class="progress-label">Progresso</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <span class="progress-label" id="progressLabel">0 / 12</span>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">PRACTICE <span class="eyebrow-pt">prática · Life 1 · Unit 4c</span></div>
+  <h1><span class="bi-en"><span class="tw-target" id="heroTypeTarget"></span><span class="tw-cursor" id="heroCursor">|</span></span><span class="bi-pt">Você já viu. Agora <span class="accent">monta</span>.</span></h1>
+  <p>Aqui não tem explicação nova. A explicação e a Máquina de 4 Passos ficam na outra página. Aqui é treino: 12 frases sobre as atrações turísticas da Unit 4c.</p>
+</div>
+
+<div class="section">
+  <div class="section-label">WORKED EXAMPLE <span class="eyebrow-pt">exemplo resolvido</span></div>
+  <h2><span class="bi-en">One sentence, four decisions</span><span class="bi-pt">Uma frase, quatro decisões</span></h2>
+  <p class="section-sub">Antes de escrever as suas, veja o raciocínio inteiro numa frase pronta.</p>
+
+  <div class="worked">
+    <div class="worked-badge">Modelo</div>
+    <div class="worked-q">The museum is old. &rarr; It's <span class="blank">an old museum</span>.</div>
+    <div class="worked-answer"><span class="check"></span> an old museum</div>
+    <div class="worked-steps">
+      <div class="worked-step"><span class="worked-step-n">1</span><span>Tem substantivo na frase (<b>museum</b>), então o adjetivo passa na frente dele.</span></div>
+      <div class="worked-step"><span class="worked-step-n">2</span><span>Bloco: <b>old museum</b>. O adjetivo não ganha "-s" nem muda de forma.</span></div>
+      <div class="worked-step"><span class="worked-step-n">3</span><span>Singular pede artigo, e <b>old</b> tem som de vogal, então <b>an</b>.</span></div>
+      <div class="worked-step"><span class="worked-step-n">4</span><span>Um museu é uma coisa no singular, então o sujeito é <b>It's</b>.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="sessionsSection">
+  <div class="section-label">PRACTICE <span class="eyebrow-pt">prática</span></div>
+  <h2><span class="bi-en">What's on?</span><span class="bi-pt">O que está acontecendo?</span></h2>
+  <p class="section-sub">Leia o cenário de cada sessão antes de responder. As alternativas mudam de ordem toda vez que a página recarrega. Nas frases para escrever, use apóstrofo quando precisar: <b>aren't</b>, <b>isn't</b>.</p>
+  <div id="sessionsRoot"></div>
+</div>
+
+<div class="section">
+  <div class="section-label">BEFORE YOU CLOSE <span class="eyebrow-pt">antes de fechar</span></div>
+  <h2>My Outcomes <span class="eyebrow-pt" style="font-size:.5em;">meus resultados</span></h2>
+  <div class="outcomes">
+    <div class="outcomes-head">
+      <span class="outcomes-count"><span id="outcomesCount">0</span> / 5 confirmados</span>
+    </div>
+    <p class="outcomes-sub">Clique em cada frase que você já sente que domina de verdade, não só "acertei por sorte".</p>
+    <div id="outcomesRoot"></div>
+    <div class="outcomes-msg" id="outcomesMsg">Marque as frases conforme for se sentindo seguro com cada uma.</div>
+  </div>
+</div>
+
+<footer class="footer">
+  Neural English · EIC – Escola de Idiomas e Cultura · Vargem Grande Paulista, SP<br>
+  Material exclusivo, criado pelo Departamento de Criação da EIC.
+</footer>
+
+<script>
+(function(){
+  function tt(word, def){
+    return '<span class="tt" tabindex="0">' + word + '<span class="tt-bubble">' + def + '</span></span>';
+  }
+
+  var ICONS = {
+    place: '<svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14.5s5-4.2 5-8a5 5 0 0 0-10 0c0 3.8 5 8 5 8z"/><circle cx="8" cy="6.3" r="1.8"/></svg>',
+    star:  '<svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.2L8 11.6l-3.8 1.9.7-4.2-3.1-3 4.3-.6z"/></svg>',
+    talk:  '<svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9.5c0 1.1-.9 2-2 2H6l-3.5 2.5V4.5c0-1.1.9-2 2-2h7.5c1.1 0 2 .9 2 2z"/></svg>'
+  };
+
+  /* ===== 12 questões: 4 sessões × (1 afirmativa + 1 negativa para escrever, 1 pergunta em MC) ===== */
+  var SESSIONS = [
+    {
+      titleEn: 'Van Gogh in Monterrey', titlePt: 'Van Gogh em Monterrey',
+      pos: 'p1', posLabel: 'Posição 1 · be + adjective',
+      scene: [
+        { icon: 'place', label: 'Where', valueEn: 'Palacio Municipal, Monterrey, ' + tt('Mexico', 'México'), valuePt: 'Palacio Municipal, Monterrey, México' },
+        { icon: 'star', label: 'Rating', valueEn: '<span class="scn-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> five stars', valuePt: 'cinco estrelas' },
+        { icon: 'talk', label: 'Focus', valueEn: 'the adjective is alone, after <b>be</b>', valuePt: 'o adjetivo está sozinho, depois do be' }
+      ],
+      questions: [
+        {
+          type: 'write', kind: 'Afirmativa', hint: 'be + fantastic',
+          prompt: "Van Gogh's art ___ .",
+          correct: 'is fantastic', accept: ['is fantastic'],
+          note: 'Sujeito singular (<b>art</b>) pede <b>is</b>, e o adjetivo fica sozinho depois dele: <b>is fantastic</b>.'
+        },
+        {
+          type: 'write', kind: 'Negativa', hint: 'be + expensive, no negativo',
+          prompt: 'The tickets ___ .',
+          correct: "aren't expensive", accept: ["aren't expensive", 'are not expensive'],
+          note: '<b>Tickets</b> é plural, então <b>aren\'t</b>. O adjetivo não muda com o plural: <b>aren\'t expensive</b>.'
+        },
+        {
+          type: 'mc', kind: 'Pergunta',
+          prompt: '___ interesting?',
+          options: ['Is the exhibition', 'Does the exhibition', 'The exhibition is', 'Are the exhibition'],
+          correct: 'Is the exhibition',
+          note: 'Na pergunta o <b>be</b> vem primeiro, depois o sujeito, e o adjetivo no fim. Adjetivo não usa <b>do/does</b>.'
+        }
+      ]
+    },
+    {
+      titleEn: 'The swimming pool', titlePt: 'a piscina',
+      pos: 'p2', posLabel: 'Posição 2 · adjective + noun',
+      scene: [
+        { icon: 'place', label: 'Where', valueEn: '21st Century Museum, Kanazawa, Japan', valuePt: 'Museu do Século 21, Kanazawa, Japão' },
+        { icon: 'star', label: 'Rating', valueEn: '<span class="scn-stars">&#9733;&#9733;&#9733;&#9733;</span> four stars', valuePt: 'quatro estrelas' },
+        { icon: 'talk', label: 'Focus', valueEn: 'one thing, so you need <b>a</b> or <b>an</b>', valuePt: 'uma coisa só, então precisa de a ou an' }
+      ],
+      questions: [
+        {
+          type: 'write', kind: 'Afirmativa', hint: 'a/an + great + museum',
+          prompt: "It's ___ .",
+          correct: 'a great museum', accept: ['a great museum'],
+          note: 'Adjetivo antes do substantivo, e <b>great</b> começa com som de consoante: <b>a great museum</b>.'
+        },
+        {
+          type: 'write', kind: 'Negativa', hint: 'be no negativo + a/an + boring + museum',
+          prompt: 'It ___ .',
+          correct: "isn't a boring museum", accept: ["isn't a boring museum", 'is not a boring museum'],
+          note: 'Coisa no singular pede <b>isn\'t</b>, e o bloco continua inteiro depois dele: <b>isn\'t a boring museum</b>.'
+        },
+        {
+          type: 'mc', kind: 'Pergunta',
+          prompt: '___?',
+          options: ['Is it a good museum', 'Is it a museum good', 'It is a good museum', 'Is it good museum'],
+          correct: 'Is it a good museum',
+          note: 'Pergunta: <b>Is</b> na frente, e o bloco <b>a good museum</b> inteiro, na ordem adjetivo + substantivo.'
+        }
+      ]
+    },
+    {
+      titleEn: 'The Grass Globe', titlePt: 'o Globo de Grama',
+      pos: 'p2', posLabel: 'Posição 2 · plural, sem artigo',
+      scene: [
+        { icon: 'place', label: 'Where', valueEn: 'Paris ' + tt('City Hall', 'Prefeitura') + ', France', valuePt: 'Prefeitura de Paris, França' },
+        { icon: 'star', label: 'Rating', valueEn: '<span class="scn-stars">&#9734;&#9734;&#9734;&#9734;&#9734;</span> nobody liked it', valuePt: 'ninguém gostou' },
+        { icon: 'talk', label: 'Focus', valueEn: 'more than one thing, so no <b>a</b> or <b>an</b>', valuePt: 'mais de uma coisa, então sem a nem an' }
+      ],
+      questions: [
+        {
+          type: 'write', kind: 'Afirmativa', hint: 'interesting + street, no plural',
+          prompt: "They're ___ .",
+          correct: 'interesting streets', accept: ['interesting streets'],
+          note: 'O "-s" do plural fica no substantivo, nunca no adjetivo, e no plural não entra artigo: <b>interesting streets</b>.'
+        },
+        {
+          type: 'write', kind: 'Negativa', hint: 'be no negativo + happy',
+          prompt: 'We ___ .',
+          correct: "aren't happy", accept: ["aren't happy", 'are not happy'],
+          note: '<b>We</b> pede <b>are</b>, então no negativo fica <b>aren\'t happy</b>. Aqui o adjetivo está sozinho, na Posição 1.'
+        },
+        {
+          type: 'mc', kind: 'Pergunta',
+          prompt: '___ beautiful?',
+          options: ['Are the buildings', 'Is the buildings', 'The buildings are', 'Are the building'],
+          correct: 'Are the buildings',
+          note: 'Sujeito plural pede <b>are</b>, e na pergunta ele vai para a frente: <b>Are the buildings beautiful?</b>'
+        }
+      ]
+    },
+    {
+      titleEn: 'Places in your town', titlePt: 'lugares na sua cidade',
+      pos: 'p2', posLabel: 'As duas posições juntas',
+      scene: [
+        { icon: 'place', label: 'Where', valueEn: 'your own town', valuePt: 'a sua cidade' },
+        { icon: 'talk', label: 'Context', valueEn: 'you are talking about people and places', valuePt: 'você está falando de pessoas e lugares' },
+        { icon: 'star', label: 'Focus', valueEn: 'the article listens to the adjective', valuePt: 'o artigo escuta o adjetivo' }
+      ],
+      questions: [
+        {
+          type: 'write', kind: 'Afirmativa', hint: 'a/an + Argentinian + artist',
+          prompt: "He's ___ .",
+          correct: 'an Argentinian artist', accept: ['an argentinian artist'],
+          note: '<b>Argentinian</b> começa com som de vogal, então <b>an</b>. O artigo escuta o adjetivo, não o substantivo <b>artist</b>.'
+        },
+        {
+          type: 'write', kind: 'Negativa', hint: 'be no negativo + interested',
+          prompt: 'I ___ in old museums.',
+          correct: "'m not interested", accept: ["'m not interested", 'am not interested'],
+          note: 'Com <b>I</b> o verbo é <b>am</b>, nunca <b>is</b>: <b>I\'m not interested</b>. O adjetivo fica sozinho depois dele.'
+        },
+        {
+          type: 'mc', kind: 'Pergunta',
+          prompt: 'Which sentence is correct?',
+          options: ['Are they interesting places?', 'Are they places interesting?', 'They are interesting places?', 'Are they interestings places?'],
+          correct: 'Are they interesting places?',
+          note: 'Três coisas ao mesmo tempo: <b>are</b> na frente, adjetivo antes do substantivo, e adjetivo sem "-s".'
+        }
+      ]
+    }
+  ];
+
+  /* ===== typewriter do hero ===== */
+  function typeWriter(el, text, cursorEl){
+    if (!el) return;
+    var i = 0;
+    function step(){
+      if (i > text.length){
+        if (cursorEl) cursorEl.classList.add('fade-out');
+        return;
+      }
+      el.textContent = text.slice(0, i);
+      i++;
+      setTimeout(step, 55);
+    }
+    step();
+  }
+
+  /* ===== true focus nos títulos de sessão ===== */
+  function trueFocusMarkup(sentence, uid){
+    var words = sentence.split(' ').map(function(w, i){
+      return '<span class="tf-word" data-i="' + i + '">' + w + '</span>';
+    }).join('');
+    return '<span class="tf-container" id="' + uid + '">' + words + '</span>';
+  }
+  function initTrueFocus(uid, opts){
+    var container = document.getElementById(uid);
+    if (!container) return;
+    var words = container.querySelectorAll('.tf-word');
+    if (!words.length) return;
+    var idx = 0;
+    function focusWord(i){
+      words.forEach(function(w, k){ w.classList.toggle('active', k === i); });
+    }
+    focusWord(0);
+    setInterval(function(){
+      idx = (idx + 1) % words.length;
+      focusWord(idx);
+    }, (opts && opts.duration) || 2000);
+  }
+
+  function shuffle(arr){
+    var pool = arr.slice();
+    for (var i = pool.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+    }
+    return pool;
+  }
+
+  var totalAnswered = 0;
+  var totalQuestions = SESSIONS.reduce(function(sum, s){ return sum + s.questions.length; }, 0);
+
+  function updateProgress(){
+    var fill = document.getElementById('progressFill');
+    var label = document.getElementById('progressLabel');
+    if (fill) fill.style.width = (totalAnswered / totalQuestions * 100) + '%';
+    if (label) label.textContent = totalAnswered + ' / ' + totalQuestions;
+  }
+
+  /* normaliza apóstrofo curvo do iPad, espaços e maiúsculas */
+  function normalize(s){
+    return String(s)
+      .replace(/[\u2018\u2019\u02BC\u2032]/g, "'")
+      .trim().toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/\s*'\s*/g, "'")
+      .replace(/[.?!]+$/, '');
+  }
+
+  function esc(s){
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function renderScene(scene){
+    return '<div class="scn">' + scene.map(function(row){
+      return '<div class="scn-row"><span class="scn-icon">' + ICONS[row.icon] + '</span>' +
+        '<span class="scn-label">' + row.label + '</span>' +
+        '<span class="scn-value"><span class="bi-en">' + row.valueEn + '</span><span class="bi-pt">' + row.valuePt + '</span></span></div>';
+    }).join('') + '</div>';
+  }
+
+  var Q_REGISTRY = {};
+
+  function renderQuestion(q, sIdx, qIdx){
+    var id = 'q_' + sIdx + '_' + qIdx;
+    Q_REGISTRY[id] = q;
+    var promptHtml = q.prompt.replace('___', '<span class="blank">&nbsp;</span>');
+
+    if (q.type === 'mc'){
+      return '<div class="q-card" id="' + id + '" data-id="' + id + '">' +
+        '<span class="q-kind">' + q.kind + '</span>' +
+        '<div class="q-prompt">' + promptHtml + '</div>' +
+        '<div class="q-options">' + shuffle(q.options).map(function(opt){
+          return '<button class="q-opt" data-value="' + esc(opt) + '">' + esc(opt) + '</button>';
+        }).join('') + '</div>' +
+        '<div class="q-note">' + q.note + '</div>' +
+      '</div>';
+    }
+
+    return '<div class="q-card" id="' + id + '" data-id="' + id + '">' +
+      '<span class="q-kind">' + q.kind + '</span>' +
+      '<div class="q-prompt">' + promptHtml + ' <span class="q-hint">(' + q.hint + ')</span></div>' +
+      '<div class="q-write-row">' +
+        '<input type="text" class="q-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="escreva o trecho que falta">' +
+        '<button class="q-check-btn">Verificar</button>' +
+      '</div>' +
+      '<div class="q-tries"></div>' +
+      '<div class="q-note">' + q.note + '</div>' +
+    '</div>';
+  }
+
+  var sessionsRoot = document.getElementById('sessionsRoot');
+  sessionsRoot.innerHTML = SESSIONS.map(function(s, i){
+    return '<div class="session">' +
+      '<div class="session-head">' +
+        '<span class="session-num">' + (i + 1) + '</span>' +
+        '<span class="session-title"><span class="bi-en">' + trueFocusMarkup(s.titleEn, 'tf_session_' + i) + '</span><span class="bi-pt">' + s.titlePt + '</span></span>' +
+        '<span class="session-fam ' + s.pos + '">' + s.posLabel + '</span>' +
+      '</div>' +
+      renderScene(s.scene) +
+      s.questions.map(function(q, k){ return renderQuestion(q, i, k); }).join('') +
+    '</div>';
+  }).join('');
+
+  SESSIONS.forEach(function(_, i){ initTrueFocus('tf_session_' + i, { duration: 2000 + i * 150 }); });
+  updateProgress();
+
+  function markAnswered(card){
+    card.dataset.answered = '1';
+    totalAnswered++;
+    updateProgress();
+    var note = card.querySelector('.q-note');
+    if (note) note.classList.add('show');
+  }
+
+  /* delegação: um só listener para todos os cartões */
+  sessionsRoot.addEventListener('click', function(e){
+    var target = e.target;
+    if (!target || !target.closest) return;
+
+    var opt = target.closest('.q-opt');
+    if (opt){
+      var card = opt.closest('.q-card');
+      if (!card || card.dataset.answered === '1') return;
+      var q = Q_REGISTRY[card.dataset.id];
+      if (opt.dataset.value === q.correct){
+        card.querySelectorAll('.q-opt').forEach(function(b){ b.disabled = true; });
+        opt.classList.add('correct');
+        markAnswered(card);
+      } else {
+        opt.classList.add('wrong');
+        setTimeout(function(){ opt.classList.remove('wrong'); }, 500);
+      }
+      return;
+    }
+
+    var btn = target.closest('.q-check-btn');
+    if (btn) checkWrite(btn.closest('.q-card'));
+  });
+
+  sessionsRoot.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    var input = e.target.closest ? e.target.closest('.q-input') : null;
+    if (input) checkWrite(input.closest('.q-card'));
+  });
+
+  function checkWrite(card){
+    if (!card || card.dataset.answered === '1') return;
+    var q = Q_REGISTRY[card.dataset.id];
+    var input = card.querySelector('.q-input');
+    var val = normalize(input.value);
+    var hit = (q.accept || [q.correct]).some(function(a){ return normalize(a) === val; });
+    if (hit){
+      input.value = q.correct;
+      input.classList.remove('wrong');
+      input.classList.add('correct');
+      input.disabled = true;
+      card.querySelector('.q-check-btn').disabled = true;
+      var tries = card.querySelector('.q-tries');
+      if (tries) tries.classList.remove('show');
+      markAnswered(card);
+    } else {
+      input.classList.add('wrong');
+      setTimeout(function(){ input.classList.remove('wrong'); }, 500);
+      var t = parseInt(card.dataset.tries || '0', 10) + 1;
+      card.dataset.tries = String(t);
+      var tr = card.querySelector('.q-tries');
+      if (tr && t >= 2){
+        tr.innerHTML = 'Dica: <b>' + q.hint + '</b>. Confere a ordem das palavras e o apóstrofo.';
+        tr.classList.add('show');
+      }
+    }
+  }
+
+  /* ===== OUTCOMES ===== */
+  var OUTCOMES = [
+    { en: 'I put the adjective after <b>be</b> when it stands alone, in statements, negatives and questions.',
+      pt: 'Ponho o adjetivo depois do be quando ele está sozinho, em afirmativa, negativa e pergunta.' },
+    { en: 'I put the adjective <b>before</b> the noun, never after it.',
+      pt: 'Ponho o adjetivo antes do substantivo, nunca depois.' },
+    { en: 'I never add "-s" to an adjective, even with a plural noun.',
+      pt: 'Nunca coloco "-s" no adjetivo, nem com substantivo no plural.' },
+    { en: 'I choose <b>a</b> or <b>an</b> by the sound of the adjective, not the noun.',
+      pt: 'Escolho a ou an pelo som do adjetivo, não do substantivo.' },
+    { en: 'I use no article with a plural noun, and I match <b>am / is / are</b> to the subject.',
+      pt: 'Não uso artigo com substantivo no plural, e acerto am / is / are conforme o sujeito.' }
+  ];
+  var outcomesRoot = document.getElementById('outcomesRoot');
+  var outcomesCount = document.getElementById('outcomesCount');
+  var outcomesMsg = document.getElementById('outcomesMsg');
+  var doneCount = 0;
+
+  outcomesRoot.innerHTML = OUTCOMES.map(function(o, i){
+    return '<div class="outcome-item" data-i="' + i + '"><span class="outcome-dot"></span>' +
+      '<span class="outcome-text"><span class="bi-en">' + o.en + '</span><span class="bi-pt">' + o.pt + '</span></span></div>';
+  }).join('');
+
+  outcomesRoot.addEventListener('click', function(e){
+    var item = e.target.closest ? e.target.closest('.outcome-item') : null;
+    if (!item) return;
+    var isDone = item.classList.toggle('done');
+    doneCount += isDone ? 1 : -1;
+    outcomesCount.textContent = doneCount;
+    if (doneCount === 0){
+      outcomesMsg.className = 'outcomes-msg';
+      outcomesMsg.textContent = 'Marque as frases conforme for se sentindo seguro com cada uma.';
+    } else if (doneCount < 3){
+      outcomesMsg.className = 'outcomes-msg';
+      outcomesMsg.textContent = 'Bom começo. Volta nas sessões acima e repete as que ainda não marcou.';
+    } else if (doneCount < 5){
+      outcomesMsg.className = 'outcomes-msg';
+      outcomesMsg.textContent = 'Quase lá. Foca no que ainda não marcou antes de seguir para a próxima unidade.';
+    } else {
+      outcomesMsg.className = 'outcomes-msg great';
+      outcomesMsg.textContent = 'As duas posições do adjetivo estão dominadas. Pode seguir em frente.';
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    var el = e.target.closest ? e.target.closest('.tt') : null;
+    document.querySelectorAll('.tt.open').forEach(function(o){ if (o !== el) o.classList.remove('open'); });
+    if (el) el.classList.toggle('open');
+  });
+
+  typeWriter(document.getElementById('heroTypeTarget'), "You've seen it. Now build it.", document.getElementById('heroCursor'));
+})();
+</script>
+
+</body>
+</html>
