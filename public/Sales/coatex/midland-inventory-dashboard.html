@@ -28,6 +28,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-sys
 .sb-item.active{background:rgba(59,127,217,.14);color:#fff}
 .sb-item:not(.active):hover{background:rgba(255,255,255,.04);color:var(--ink)}
 .sb-foot{margin-top:auto;padding:10px 8px;font-size:10px;color:var(--ink-dim);border-top:1px solid var(--line)}
+.sb-exit{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;font-size:12.5px;color:var(--ink-mid);text-decoration:none;font-weight:600;border-top:1px solid var(--line);margin-top:8px;padding-top:14px}
+.sb-exit svg{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2}
+.sb-exit:hover{color:#fff}
 .sb-foot-row{display:flex;justify-content:space-between;margin-top:8px}
 
 /* MAIN */
@@ -191,6 +194,7 @@ tr.note-row td{padding:0;border-bottom:1px solid var(--line)}
       <a class="sb-item" id="nav-purchase-orders" href="#" onclick="openOverlay('purchase-orders');return false;"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Purchase Orders</a>
       <a class="sb-item" id="nav-vendors" href="#" onclick="openOverlay('vendors');return false;"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-1a7 7 0 0 1 14 0v1"/><circle cx="18" cy="7" r="3"/><path d="M23 21v-1a6 6 0 0 0-5-6"/></svg>Vendors</a>
       <a class="sb-item" id="nav-reports" href="#" onclick="openOverlay('reports');return false;"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.1-2.8-2.8L7 14"/></svg>Reports</a>
+      <a class="sb-exit" href="midland-facility.html"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Exit to Facility</a>
     </div>
     <div class="sb-foot">
       <div>PRISMA-ERP · Plant 01 (Jundiaí)</div>
@@ -312,16 +316,16 @@ tr.note-row td{padding:0;border-bottom:1px solid var(--line)}
   ];
 
   function optionSetFor(m, status) {
-    var vague = "\"The " + m.name.toLowerCase() + " is kind of low, I think.\"";
+    var vague = "\"The " + m.name.toLowerCase() + " is kind of low, I think, not totally sure.\"";
     var vagueFeedback = "Too vague, this doesn't give anyone a number to act on.";
     var correct, extreme, extremeFeedback;
     if (status === "low") {
-      correct = "\"We're a bit below the minimum on " + m.name.toLowerCase() + ", " + m.current + " " + m.unit + " left. Not urgent, but worth reordering soon.\"";
-      extreme = "\"We're basically out of " + m.name.toLowerCase() + ", this is an emergency!\"";
+      correct = "\"We're a bit below the minimum on " + m.name.toLowerCase() + ", " + m.current + " " + m.unit + " left, worth reordering soon.\"";
+      extreme = "\"We're almost completely out of " + m.name.toLowerCase() + ", this is a total emergency.\"";
       extremeFeedback = "This isn't critical yet. Calling it an emergency when it isn't will make your reports less trusted next time.";
     } else {
-      correct = "\"We're critical on " + m.name.toLowerCase() + ", only " + m.current + " " + m.unit + " left. I'd like to flag this today so we don't stop the line.\"";
-      extreme = "\"We'll probably be fine on " + m.name.toLowerCase() + " for a while.\"";
+      correct = "\"We're critical on " + m.name.toLowerCase() + ", only " + m.current + " " + m.unit + " left, I'd flag this today.\"";
+      extreme = "\"We'll probably be totally fine on " + m.name.toLowerCase() + " for a while, don't worry.\"";
       extremeFeedback = "This is actually critical. Downplaying it risks stopping the production line.";
     }
     return [

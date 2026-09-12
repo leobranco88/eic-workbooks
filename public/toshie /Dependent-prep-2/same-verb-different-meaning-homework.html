@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Same Verb, Different Meaning · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 860px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 13px; color: #374151; margin-top: 8px; line-height: 1.55; max-width: 620px; }
+
+  .big-idea { background: var(--ink); color: var(--paper); padding: 18px 36px; }
+  .big-idea-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+  .big-idea p { font-size: 14px; line-height: 1.6; max-width: 680px; }
+  .big-idea b { color: #fff; text-decoration: underline; }
+
+  .section { padding: 22px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 13px; color: #374151; font-style: italic; margin-bottom: 14px; line-height: 1.55; }
+  .scene-note { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+
+  /* DIALOGUE */
+  .dialogue { margin-bottom: 16px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 9px; font-size: 13.5px; line-height: 1.55; }
+  .dialogue-speaker { font-weight: 800; color: var(--accent); min-width: 42px; flex-shrink: 0; }
+  .dialogue-text b { color: var(--blue); }
+
+  .notice-box {
+    background: var(--bg-light); border-left: 3px solid var(--ink); padding: 12px 16px;
+    margin-bottom: 16px; font-size: 12.5px; color: #374151; line-height: 1.55;
+  }
+
+  .rule-box { border: 1.5px dashed var(--ink); padding: 16px 18px; margin-bottom: 8px; }
+
+  .tt { border-bottom: 1.5px dotted var(--accent); cursor: help; position: relative; font-weight: 600; }
+  .tt .tt-bubble {
+    display: none; position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: var(--paper); font-family: 'Inter', sans-serif; font-weight: 400;
+    font-size: 11.5px; line-height: 1.4; padding: 7px 10px; border-radius: 6px; white-space: nowrap;
+    z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,.25);
+  }
+  .tt .tt-bubble::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 5px solid transparent; border-top-color: var(--ink);
+  }
+  .tt:hover .tt-bubble, .tt:focus .tt-bubble { display: block; }
+  .rule-text { font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
+  .rule-text:last-child { margin-bottom: 0; }
+  .rule-text b { color: var(--accent); }
+
+  /* VERB CARDS */
+  .verb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+
+  .match-block { margin-bottom: 20px; }
+  .match-block-title { font-size: 13px; font-weight: 800; margin-bottom: 10px; color: var(--ink); }
+  .match-wrap { display: flex; gap: 20px; flex-wrap: wrap; }
+  .match-items { flex: 1; min-width: 260px; }
+  .match-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .match-item b { font-family: 'IBM Plex Mono', monospace; min-width: 110px; color: var(--ink); }
+  .match-box {
+    border: 1.5px solid var(--ink); width: 28px; height: 24px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 12px; color: transparent; cursor: pointer; user-select: none;
+  }
+  .match-box.revealed { color: var(--teal); border-color: var(--teal); background: #ECFDF5; }
+  .match-options { flex: 1; min-width: 260px; }
+  .match-opt { display: flex; gap: 6px; padding: 4px 8px; margin-bottom: 4px; background: var(--bg-light); font-size: 12px; line-height: 1.4; }
+  .match-opt .match-jp { display: block; color: var(--teal); font-size: 10.5px; margin-top: 2px; }
+  .match-opt b { font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; }
+  .verb-card { border: 1.5px solid var(--ink); padding: 16px 20px; }
+  .verb-name { font-size: 20px; font-weight: 900; letter-spacing: -0.01em; color: var(--accent); margin-bottom: 10px; }
+  .variant { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: baseline; flex-wrap: wrap; }
+  .variant:last-child { border-bottom: none; }
+  .variant-prep { font-family: 'IBM Plex Mono', monospace; font-weight: 800; font-size: 11px; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: 3px 10px; min-width: 78px; text-align: center; flex-shrink: 0; }
+  .variant-body { flex: 1; min-width: 200px; }
+  .variant-meaning { font-size: 13px; }
+  .variant-meaning b { color: var(--teal); }
+  .variant-ex { font-size: 11.5px; font-style: italic; color: var(--muted); display: block; margin-top: 2px; }
+  .variant-jp { font-size: 11.5px; color: var(--blue); display: block; margin-top: 3px; }
+  .bonus-note { background: var(--bg-light); border-left: 3px solid var(--accent); padding: 10px 14px; margin-top: 10px; font-size: 12px; line-height: 1.55; }
+  .bonus-label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 4px; }
+  .bonus-src { display: block; font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* EXERCISES */
+  .q-item { display: flex; gap: 8px; margin-bottom: 14px; align-items: flex-start; font-size: 13.5px; line-height: 1.65; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .cue { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 90px; margin: 0 2px; vertical-align: baseline; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 13.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .open-item { margin-bottom: 14px; }
+
+  .sit-item { border: 1px solid var(--border); padding: 14px 16px; margin-bottom: 14px; }
+  .sit-num { font-weight: 900; color: var(--accent); font-size: 13px; flex-shrink: 0; cursor: pointer; user-select: none; }
+  .sit-num:hover { text-decoration: underline; }
+  .sit-text { font-size: 13px; color: #374151; font-style: italic; line-height: 1.5; }
+  .sit-text .sit-jp { display: block; color: var(--teal); font-size: 12px; margin-top: 3px; }
+  .sit-top { display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-start; }
+  .sit-options { display: flex; flex-direction: column; gap: 6px; margin-bottom: 4px; }
+  .sit-opt { font-size: 13.5px; padding: 7px 10px; background: var(--bg-light); border-left: 3px solid var(--border); }
+  .sit-opt .sit-letter { font-family: 'IBM Plex Mono', monospace; font-weight: 700; margin-right: 6px; }
+  .sit-item.revealed .sit-opt.correct { border-left-color: var(--teal); background: #ECFDF5; }
+  .sit-item.revealed .sit-opt.correct .sit-letter { color: var(--teal); }
+  .sit-why { display: none; margin-top: 8px; padding: 8px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); font-size: 12px; line-height: 1.5; }
+  .sit-item.revealed .sit-why { display: block; }
+  .sit-why b { color: var(--teal); }
+  .open-stem { font-size: 13.5px; margin-bottom: 4px; line-height: 1.55; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-stem .pt-line { display: block; }
+  .open-stem .jp-line { display: block; color: var(--teal); font-size: 12px; margin-top: 3px; font-style: italic; }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 12.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .big-idea { padding: 14px 18px; }
+    .variant { flex-direction: column; gap: 4px; }
+    .variant-prep { min-width: fit-content; }
+    .verb-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    SAME VERB, DIFFERENT MEANING · HOMEWORK · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="dependent-prepositions-classroom.html">Prepositions (Classroom)</a>
+    <a href="dependent-prepositions-homework.html">Prepositions (Homework)</a>
+    <a href="the-wrong-room-classroom.html">Reading (Classroom)</a>
+    <a href="the-wrong-room-homework.html">Reading (Homework)</a>
+    <a href="the-wrong-room-wh-questions.html">Wh-Questions</a>
+    <a href="the-wrong-room-wh-tenses-homework.html">Mixed Tenses</a>
+    <a href="dependent-prepositions-gerund-addendum.html">Addendum (Classroom)</a>
+    <a href="dependent-prepositions-gerund-addendum-homework.html">Addendum (Homework)</a>
+    <a href="dependent-prepositions-gerund-register-practice.html">Register Practice</a>
+    <a href="dependent-prepositions-full-self-test.html">Full Self-Test</a>
+    <a href="dependent-prepositions-perfect-gerund-addendum.html">Simple vs Perfect (Classroom)</a>
+    <a href="dependent-prepositions-perfect-gerund-addendum-homework.html">Simple vs Perfect (Homework)</a>
+    <a href="same-verb-different-meaning.html">New Meaning · 1 (Classroom)</a>
+    <a href="same-verb-different-meaning-homework.html" class="active">New Meaning · 1 (Homework)</a>
+    <a href="same-verb-different-meaning-listening.html">New Meaning · Listening</a>
+  </div>
+  <div class="topbar-meta">HOMEWORK · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="same-verb-different-meaning-homework.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Homework</div>
+        <h1>Same Verb<br><span>— Different Meaning</span></h1>
+        <div class="hero-sub">Prática direta: os sete verbos como referência rápida, o match pra fixar os significados, e as quatro práticas completas com frases novas. Sem diálogo — já sabe a regra? Então mostra.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Sete Verbos, Sete Personalidades</span>
+      <span class="s-pts">referência</span>
+    </div>
+
+    <div class="verb-grid">
+      <div class="verb-card">
+        <div class="verb-name">look</div>
+        <div class="variant"><span class="variant-prep">at</span><div class="variant-body"><span class="variant-meaning"><b>olhar para</b> algo específico</span><span class="variant-ex">Look at this slide.</span><span class="variant-jp">〜を見る</span></div></div>
+        <div class="variant"><span class="variant-prep">for</span><div class="variant-body"><span class="variant-meaning"><b>procurar</b> algo que sumiu ou que você precisa</span><span class="variant-ex">I was looking for my charger.</span><span class="variant-jp">〜を探す</span></div></div>
+        <div class="variant"><span class="variant-prep">after</span><div class="variant-body"><span class="variant-meaning"><b>cuidar de</b> alguém ou algo</span><span class="variant-ex">Are you looking after the cat?</span><span class="variant-jp">〜の世話をする</span></div></div>
+        <div class="variant"><span class="variant-prep">into</span><div class="variant-body"><span class="variant-meaning"><b>investigar</b>, apurar um assunto</span><span class="variant-ex">We should look into that client.</span><span class="variant-jp">〜を調査する</span></div></div>
+        <div class="variant"><span class="variant-prep">forward to</span><div class="variant-body"><span class="variant-meaning"><b>ansiar por</b>, esperar animado</span><span class="variant-ex">I'm looking forward to Friday.</span><span class="variant-jp">〜を楽しみにする</span></div></div>
+        <div class="variant"><span class="variant-prep">down on</span><div class="variant-body"><span class="variant-meaning"><b>desprezar</b>, olhar de cima pra baixo</span><span class="variant-ex">He looks down on people who ask for help.</span><span class="variant-jp">〜を見下す</span></div></div>
+      </div>
+
+      <div class="verb-card">
+        <div class="verb-name">think</div>
+        <div class="variant"><span class="variant-prep">of</span><div class="variant-body"><span class="variant-meaning"><b>achar</b>, dar uma opinião rápida</span><span class="variant-ex">What do you think of the plan?</span><span class="variant-jp">〜について思う</span></div></div>
+        <div class="variant"><span class="variant-prep">about</span><div class="variant-body"><span class="variant-meaning"><b>pensar em</b>, considerar algo por um tempo</span><span class="variant-ex">I'm thinking about changing jobs.</span><span class="variant-jp">〜について考える</span></div></div>
+        <div class="variant"><span class="variant-prep">over</span><div class="variant-body"><span class="variant-meaning"><b>refletir com calma</b> antes de decidir</span><span class="variant-ex">Let me think it over tonight.</span><span class="variant-jp">〜をじっくり考える</span></div></div>
+      </div>
+
+      <div class="verb-card">
+        <div class="verb-name">dream</div>
+        <div class="variant"><span class="variant-prep">of</span><div class="variant-body"><span class="variant-meaning"><b>aspirar a</b>, sonho de vida/ambição</span><span class="variant-ex">She dreams of running her own studio.</span><span class="variant-jp">〜を夢見る</span></div></div>
+        <div class="variant"><span class="variant-prep">about</span><div class="variant-body"><span class="variant-meaning"><b>sonhar</b> dormindo, ou pensar repetidamente em algo</span><span class="variant-ex">I dreamed about the presentation last night.</span><span class="variant-jp">〜について夢を見る</span></div></div>
+      </div>
+
+      <div class="verb-card">
+        <div class="verb-name">care</div>
+        <div class="variant"><span class="variant-prep">for</span><div class="variant-body"><span class="variant-meaning"><b>gostar de</b> (formal) ou <b>cuidar de</b> alguém</span><span class="variant-ex">Would you care for some tea? / She cares for her <span class="tt" tabindex="0">elderly<span class="tt-bubble">idosa · 高齢の</span></span> mother.</span><span class="variant-jp">〜が好き（丁寧）／〜の世話をする</span></div></div>
+        <div class="variant"><span class="variant-prep">about</span><div class="variant-body"><span class="variant-meaning"><b>se importar com</b>, dar valor a</span><span class="variant-ex">He really cares about his team.</span><span class="variant-jp">〜を気にかける</span></div></div>
+      </div>
+
+      <div class="verb-card">
+        <div class="verb-name">agree</div>
+        <div class="variant"><span class="variant-prep">with</span><div class="variant-body"><span class="variant-meaning"><b>concordar com</b> uma pessoa (ou ideia)</span><span class="variant-ex">I agree with you.</span><span class="variant-jp">（人）に同意する</span></div></div>
+        <div class="variant"><span class="variant-prep">on</span><div class="variant-body"><span class="variant-meaning"><b>chegar a um acordo sobre</b> um assunto específico</span><span class="variant-ex">We agreed on a new deadline.</span><span class="variant-jp">〜について合意する</span></div></div>
+        <div class="variant"><span class="variant-prep">to</span><div class="variant-body"><span class="variant-meaning"><b>aceitar</b> uma proposta ou condição</span><span class="variant-ex">She agreed to the new terms.</span><span class="variant-jp">〜を受け入れる</span></div></div>
+      </div>
+
+      <div class="verb-card">
+        <div class="verb-name">talk</div>
+        <div class="variant"><span class="variant-prep">to</span><div class="variant-body"><span class="variant-meaning"><b>conversar com</b> alguém</span><span class="variant-ex">I need to talk to Jonah.</span><span class="variant-jp">（人）と話す</span></div></div>
+        <div class="variant"><span class="variant-prep">about</span><div class="variant-body"><span class="variant-meaning"><b>falar sobre</b> um assunto</span><span class="variant-ex">We talked about the budget.</span><span class="variant-jp">〜について話す</span></div></div>
+        <div class="variant"><span class="variant-prep">into</span><div class="variant-body"><span class="variant-meaning"><b>convencer</b> alguém a fazer algo</span><span class="variant-ex">She talked him into staying.</span><span class="variant-jp">（人）を説得して〜させる</span></div></div>
+        <div class="variant"><span class="variant-prep">out of</span><div class="variant-body"><span class="variant-meaning"><b>demover</b> alguém de fazer algo</span><span class="variant-ex">I talked her out of quitting.</span><span class="variant-jp">（人）を説得してやめさせる</span></div></div>
+      </div>
+
+      <div class="verb-card">
+        <div class="verb-name">wait</div>
+        <div class="variant"><span class="variant-prep">for</span><div class="variant-body"><span class="variant-meaning"><b>esperar por</b> algo ou alguém</span><span class="variant-ex">I'm waiting for the results.</span><span class="variant-jp">〜を待つ</span></div></div>
+        <div class="variant"><span class="variant-prep">on</span><div class="variant-body"><span class="variant-meaning"><b>atender</b>, servir como garçom</span><span class="variant-ex">He waits on tables on weekends.</span><span class="variant-jp">給仕する</span></div></div>
+        <div class="bonus-note">
+          <span class="bonus-label">Também vale saber</span>
+          No inglês americano informal (bem forte no Sul e Centro-Oeste dos EUA, mas usado em qualquer lugar), <b>"wait on"</b> também funciona como sinônimo de <b>"wait for"</b> — sem ligação nenhuma com "atender". É esse "wait on" que aparece em música e fala casual: "waiting on the day" significa exatamente "esperando o dia (chegar)".
+          <span class="bonus-src">Fonte: Merriam-Webster's Dictionary of English Usage</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 03 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Match — Verbo + Preposição = Significado</span>
+      <span class="s-pts">22 items</span>
+    </div>
+    <p class="instruction">Pra cada combinação, escreva de cabeça (num papel, ou só mentalmente) qual letra é o significado certo. Clique na caixinha pra conferir.</p>
+
+    <div class="match-block">
+      <div class="match-block-title">Parte 1 — look · think · dream</div>
+      <div class="match-wrap">
+        <div class="match-items">
+          <div class="match-item"><b>1. look at</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'J' : ''">​</span></div>
+          <div class="match-item"><b>2. look for</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'C' : ''">​</span></div>
+          <div class="match-item"><b>3. look after</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'G' : ''">​</span></div>
+          <div class="match-item"><b>4. look into</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'E' : ''">​</span></div>
+          <div class="match-item"><b>5. look forward to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'H' : ''">​</span></div>
+          <div class="match-item"><b>6. look down on</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'B' : ''">​</span></div>
+          <div class="match-item"><b>7. think of</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'F' : ''">​</span></div>
+          <div class="match-item"><b>8. think about</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'K' : ''">​</span></div>
+          <div class="match-item"><b>9. think over</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'A' : ''">​</span></div>
+          <div class="match-item"><b>10. dream of</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'I' : ''">​</span></div>
+          <div class="match-item"><b>11. dream about</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'D' : ''">​</span></div>
+        </div>
+        <div class="match-options">
+          <div class="match-opt"><b>A.</b> refletir com calma antes de decidir<span class="match-jp">〜をじっくり考える</span></div>
+          <div class="match-opt"><b>B.</b> desprezar, olhar de cima pra baixo<span class="match-jp">〜を見下す</span></div>
+          <div class="match-opt"><b>C.</b> procurar algo que sumiu<span class="match-jp">〜を探す</span></div>
+          <div class="match-opt"><b>D.</b> sonhar dormindo, ou pensar repetidamente<span class="match-jp">〜について夢を見る</span></div>
+          <div class="match-opt"><b>E.</b> investigar, apurar um assunto<span class="match-jp">〜を調査する</span></div>
+          <div class="match-opt"><b>F.</b> dar uma opinião rápida<span class="match-jp">〜について思う</span></div>
+          <div class="match-opt"><b>G.</b> cuidar de alguém ou algo<span class="match-jp">〜の世話をする</span></div>
+          <div class="match-opt"><b>H.</b> ansiar por, esperar animado<span class="match-jp">〜を楽しみにする</span></div>
+          <div class="match-opt"><b>I.</b> aspirar a, sonho de vida/ambição<span class="match-jp">〜を夢見る</span></div>
+          <div class="match-opt"><b>J.</b> olhar para algo específico<span class="match-jp">〜を見る</span></div>
+          <div class="match-opt"><b>K.</b> considerar algo por um tempo<span class="match-jp">〜について考える</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="match-block">
+      <div class="match-block-title">Parte 2 — care · agree · talk · wait</div>
+      <div class="match-wrap">
+        <div class="match-items">
+          <div class="match-item"><b>1. care for</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'E' : ''">​</span></div>
+          <div class="match-item"><b>2. care about</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'H' : ''">​</span></div>
+          <div class="match-item"><b>3. agree with</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'C' : ''">​</span></div>
+          <div class="match-item"><b>4. agree on</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'I' : ''">​</span></div>
+          <div class="match-item"><b>5. agree to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'D' : ''">​</span></div>
+          <div class="match-item"><b>6. talk to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'A' : ''">​</span></div>
+          <div class="match-item"><b>7. talk about</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'K' : ''">​</span></div>
+          <div class="match-item"><b>8. talk (sb) into</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'F' : ''">​</span></div>
+          <div class="match-item"><b>9. talk (sb) out of</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'J' : ''">​</span></div>
+          <div class="match-item"><b>10. wait for</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'B' : ''">​</span></div>
+          <div class="match-item"><b>11. wait on</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'G' : ''">​</span></div>
+        </div>
+        <div class="match-options">
+          <div class="match-opt"><b>A.</b> conversar com alguém<span class="match-jp">（人）と話す</span></div>
+          <div class="match-opt"><b>B.</b> esperar por algo ou alguém<span class="match-jp">〜を待つ</span></div>
+          <div class="match-opt"><b>C.</b> concordar com uma pessoa<span class="match-jp">（人）に同意する</span></div>
+          <div class="match-opt"><b>D.</b> aceitar uma proposta ou condição<span class="match-jp">〜を受け入れる</span></div>
+          <div class="match-opt"><b>E.</b> gostar de (formal) ou cuidar de alguém<span class="match-jp">〜が好き（丁寧）／〜の世話をする</span></div>
+          <div class="match-opt"><b>F.</b> convencer alguém a fazer algo<span class="match-jp">（人）を説得して〜させる</span></div>
+          <div class="match-opt"><b>G.</b> atender, servir como garçom<span class="match-jp">給仕する</span></div>
+          <div class="match-opt"><b>H.</b> se importar com, dar valor a<span class="match-jp">〜を気にかける</span></div>
+          <div class="match-opt"><b>I.</b> chegar a um acordo sobre um assunto<span class="match-jp">〜について合意する</span></div>
+          <div class="match-opt"><b>J.</b> demover alguém de fazer algo<span class="match-jp">（人）を説得してやめさせる</span></div>
+          <div class="match-opt"><b>K.</b> falar sobre um assunto<span class="match-jp">〜について話す</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 04 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · A</span>
+      <span class="s-title">Qual Preposição Encaixa?</span>
+      <span class="s-pts">32 items</span>
+    </div>
+    <p class="instruction">Leia o contexto e escolha a preposição que dá o sentido certo. Clique no número pra conferir.</p>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Nobody here really cares <span class="blank"><span class="ans-inline">about</span></span> the schedule change. <span class="cue">(care)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">He dreams <span class="blank"><span class="ans-inline">of</span></span> becoming a famous chef. <span class="cue">(dream)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">I talked him <span class="blank"><span class="ans-inline">out of</span></span> buying that car. <span class="cue">(talk)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">I dreamed <span class="blank"><span class="ans-inline">about</span></span> my childhood home last night. <span class="cue">(dream)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">He didn't agree <span class="blank"><span class="ans-inline">with</span></span> the plan at first. <span class="cue">(agree)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">Some people look <span class="blank"><span class="ans-inline">down on</span></span> part-time workers, which isn't fair. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">She's thinking <span class="blank"><span class="ans-inline">about</span></span> changing her major. <span class="cue">(think)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">He's always looking <span class="blank"><span class="ans-inline">for</span></span> an excuse to leave early. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">Toshie is looking <span class="blank"><span class="ans-inline">for</span></span> a parking spot near the office. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">They agreed <span class="blank"><span class="ans-inline">on</span></span> a fair split of the profits. <span class="cue">(agree)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">Take some time to think it <span class="blank"><span class="ans-inline">over</span></span> before signing. <span class="cue">(think)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">She agreed <span class="blank"><span class="ans-inline">to</span></span> the new working hours. <span class="cue">(agree)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">13.</span><div class="q-body">The nurse looks <span class="blank"><span class="ans-inline">after</span></span> patients on the night shift. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">14.</span><div class="q-body">Investigators are looking <span class="blank"><span class="ans-inline">into</span></span> the missing funds. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">15.</span><div class="q-body">She waits <span class="blank"><span class="ans-inline">on</span></span> customers at the café downtown. <span class="cue">(wait)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">16.</span><div class="q-body">I completely agree <span class="blank"><span class="ans-inline">with</span></span> your point of view. <span class="cue">(agree)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">17.</span><div class="q-body">I'm looking <span class="blank"><span class="ans-inline">forward to</span></span> the long weekend. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">18.</span><div class="q-body">She cares <span class="blank"><span class="ans-inline">for</span></span> her elderly neighbor every afternoon. <span class="cue">(care)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">19.</span><div class="q-body">I don't know what to think <span class="blank"><span class="ans-inline">of</span></span> this new policy. <span class="cue">(think)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">20.</span><div class="q-body">I'll talk <span class="blank"><span class="ans-inline">to</span></span> the landlord about the leak. <span class="cue">(talk)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">21.</span><div class="q-body">Can you look <span class="blank"><span class="ans-inline">at</span></span> my code before I submit it? <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">22.</span><div class="q-body">He talked his sister <span class="blank"><span class="ans-inline">into</span></span> joining the trip. <span class="cue">(talk)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">23.</span><div class="q-body">My grandmother cares <span class="blank"><span class="ans-inline">for</span></span> stray cats in the neighborhood. <span class="cue">(care)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">24.</span><div class="q-body">We're looking <span class="blank"><span class="ans-inline">forward to</span></span> celebrating your birthday. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">25.</span><div class="q-body">We talked <span class="blank"><span class="ans-inline">about</span></span> our plans for next year. <span class="cue">(talk)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">26.</span><div class="q-body">The committee will look <span class="blank"><span class="ans-inline">into</span></span> the budget issue next week. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">27.</span><div class="q-body">Could you look <span class="blank"><span class="ans-inline">after</span></span> the plants while I'm away? <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">28.</span><div class="q-body">We've been waiting <span class="blank"><span class="ans-inline">for</span></span> the bus for twenty minutes. <span class="cue">(wait)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">29.</span><div class="q-body">He doesn't care <span class="blank"><span class="ans-inline">about</span></span> what others say. <span class="cue">(care)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">30.</span><div class="q-body">Please look <span class="blank"><span class="ans-inline">at</span></span> this email before you reply. <span class="cue">(look)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">31.</span><div class="q-body">The team agreed <span class="blank"><span class="ans-inline">on</span></span> a new logo design. <span class="cue">(agree)</span></div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">32.</span><div class="q-body">We're waiting <span class="blank"><span class="ans-inline">for</span></span> the elevator. <span class="cue">(wait)</span></div></div>
+  </div>
+
+<!-- ═══ 04 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · B</span>
+      <span class="s-title">Qual É o Sentido?</span>
+      <span class="s-pts">12 items</span>
+    </div>
+    <p class="instruction">Leia a frase em inglês e escreva o que ela quer dizer em português. Clique no número pra conferir.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> She looks down on anyone who didn't finish college.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Ela despreza quem não terminou a faculdade.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> We're looking into a possible delay in the shipment.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Estamos investigando um possível atraso no envio.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> He talked his coworker out of quitting on the spot.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Ele demoveu o colega de pedir demissão na hora.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> She waits on guests at a five-star hotel.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Ela atende os hóspedes num hotel cinco estrelas.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> Let's think this over before we sign anything.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Vamos refletir com calma antes de assinar qualquer coisa.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> Would you care for a slice of cake?</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Você gostaria de uma fatia de bolo?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> He dreams of running his own bakery.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Ele sonha em ter sua própria padaria.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> I can't agree to these new terms.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Eu não posso aceitar esses novos termos.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">9.</strong> They talked about the budget cuts all afternoon.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Eles falaram sobre os cortes de orçamento a tarde toda.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">10.</strong> She's looking for a quieter apartment.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Ela está procurando um apartamento mais silencioso.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">11.</strong> He looks after his younger cousins on weekends.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Ele cuida dos primos mais novos nos fins de semana.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">12.</strong> I really care about how this turns out.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Eu realmente me importo com o resultado disso.</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ 05 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · C</span>
+      <span class="s-title">Traduza</span>
+      <span class="s-pts">16 items</span>
+    </div>
+    <p class="instruction">Traduza pro inglês, escolhendo o verbo e a preposição certos. Clique no número pra conferir.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> <span class="pt-line">Ela está procurando um novo apartamento perto do trabalho.</span><span class="jp-line">彼女は仕事の近くで新しいアパートを探している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's looking for a new apartment near work.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> <span class="pt-line">Ele cuida do irmão mais novo depois da escola.</span><span class="jp-line">彼は放課後、弟の面倒を見ている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He looks after his younger brother after school.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> <span class="pt-line">Estou muito animado pra formatura no mês que vem.</span><span class="jp-line">私は来月の卒業式をとても楽しみにしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I'm looking forward to the graduation next month.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> <span class="pt-line">Ela concordou com os novos horários de trabalho.</span><span class="jp-line">彼女は新しい勤務時間に同意した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She agreed to the new work hours.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> <span class="pt-line">Chegamos a um acordo sobre o preço final.</span><span class="jp-line">私たちは最終価格について合意に達した。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">We agreed on the final price.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> <span class="pt-line">Ele convenceu o amigo a viajar de última hora.</span><span class="jp-line">彼は友達を説得して、急な旅行に行かせた。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He talked his friend into traveling last minute.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> <span class="pt-line">Ela sonha em abrir sua própria clínica algum dia.</span><span class="jp-line">彼女はいつか自分のクリニックを開くことを夢見ている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She dreams of opening her own clinic someday.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> <span class="pt-line">Ele realmente se importa com o bem-estar da equipe.</span><span class="jp-line">彼は本当にチームの幸福を気にかけている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He really cares about the team's well-being.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">9.</strong> <span class="pt-line">Ela sempre despreza quem chega atrasado.</span><span class="jp-line">彼女はいつも遅れて来る人を見下している。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She always looks down on people who arrive late.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">10.</strong> <span class="pt-line">Vamos investigar esse problema com calma amanhã.</span><span class="jp-line">明日、落ち着いてこの問題を調査しましょう。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">We'll look into this problem calmly tomorrow.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">11.</strong> <span class="pt-line">O que você acha dessa ideia nova?</span><span class="jp-line">この新しいアイデアについてどう思いますか?</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">What do you think of this new idea?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">12.</strong> <span class="pt-line">Deixa eu pensar com calma antes de decidir.</span><span class="jp-line">決める前にじっくり考えさせてください。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Let me think it over before deciding.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">13.</strong> <span class="pt-line">Eu sonhei que estava no Japão de novo ontem à noite.</span><span class="jp-line">昨夜また日本にいる夢を見た。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I dreamed about being in Japan again last night.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">14.</strong> <span class="pt-line">Você gostaria de um pouco de água?</span><span class="jp-line">お水はいかがですか?</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Would you care for some water?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">15.</strong> <span class="pt-line">Ele concorda com a esposa na maior parte do tempo.</span><span class="jp-line">彼はほとんどの場合、妻に同意する。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He agrees with his wife most of the time.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">16.</strong> <span class="pt-line">Ela está esperando pela ligação do médico.</span><span class="jp-line">彼女は医者からの電話を待っている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's waiting for the doctor's call.</span></div>
+    </div>
+  </div>
+  <!-- ═══ 06 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">PRÁTICA · D</span>
+      <span class="s-title">Qual Frase Faz Mais Sentido?</span>
+      <span class="s-pts">12 items</span>
+    </div>
+    <p class="instruction">Leia a situação e decida qual das duas frases (mesmo verbo, preposição diferente) se encaixa. Clique no número pra conferir.</p>
+
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">1.</span><span class="sit-text">Sua colega perdeu o crachá e está revirando a mesa inteira.<span class="sit-jp">同僚がバッジをなくして、机の中を全部ひっくり返している。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>She's looking for her badge.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>She's looking after her badge.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">2.</span><span class="sit-text">O pai leva o filho pequeno ao parque toda tarde e cuida dele o tempo todo.<span class="sit-jp">父親は毎日午後、小さな息子を公園に連れて行き、ずっと面倒を見ている。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>He looks after his son every afternoon.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>He looks for his son every afternoon.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">3.</span><span class="sit-text">A auditoria vai examinar detalhadamente as contas da empresa.<span class="sit-jp">監査は会社の会計を詳しく調査する。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt"><span class="sit-letter">A.</span>The audit will look at the accounts.</div>
+        <div class="sit-opt correct"><span class="sit-letter">B.</span>The audit will look into the accounts.</div>
+      </div>
+      <div class="sit-why"><b>B</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">4.</span><span class="sit-text">Ele está contando os dias pra sua viagem de férias.<span class="sit-jp">彼は休暇旅行を指折り数えて待っている。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>He's looking forward to his vacation.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>He's looking into his vacation plans.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">5.</span><span class="sit-text">Ele acha que é superior aos outros e ignora quem precisa de ajuda.<span class="sit-jp">彼は自分が他人より優れていると思い、助けが必要な人を無視している。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>He looks down on those who need help.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>He looks after all those who need help.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">6.</span><span class="sit-text">Ela prefere esperar até amanhã pra responder sobre a proposta.<span class="sit-jp">彼女は提案への返事を明日まで待ちたいと思っている。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>She wants to think it over.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>She wants to think of it.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">7.</span><span class="sit-text">Você pede a opinião rápida do seu chefe sobre o relatório.<span class="sit-jp">あなたは上司にレポートについて素早い意見を求めている。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>What does he think of the report?</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>What does he think about the report?</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">8.</span><span class="sit-text">Ontem ela teve um sonho estranho onde estava nadando no oceano.<span class="sit-jp">昨日、彼女は海で泳いでいる変な夢を見た。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt"><span class="sit-letter">A.</span>She dreams of swimming in the ocean.</div>
+        <div class="sit-opt correct"><span class="sit-letter">B.</span>She dreamed about swimming in the ocean.</div>
+      </div>
+      <div class="sit-why"><b>B</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">9.</span><span class="sit-text">Você concorda com o que seu amigo disse na reunião.<span class="sit-jp">あなたは友達が会議で言ったことに賛成している。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>I agree with what he said.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>I agree on what he said.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">10.</span><span class="sit-text">Depois de uma longa reunião, todos concordaram com o novo horário.<span class="sit-jp">長い会議の後、みんなが新しいスケジュールに合意した。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>Everyone agreed on the new schedule.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>Everyone agreed to the new schedule.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">11.</span><span class="sit-text">Ela precisa conversar com o professor sobre a nota da prova.<span class="sit-jp">彼女はテストの点数について先生と話す必要がある。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt correct"><span class="sit-letter">A.</span>She needs to talk to the teacher.</div>
+        <div class="sit-opt"><span class="sit-letter">B.</span>She needs to talk the teacher into it.</div>
+      </div>
+      <div class="sit-why"><b>A</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+    <div class="sit-item">
+      <div class="sit-top"><span class="sit-num" onclick="this.closest('.sit-item').classList.toggle('revealed')">12.</span><span class="sit-text">Ele conseguiu convencer a mãe a deixá-lo viajar sozinho.<span class="sit-jp">彼は母親を説得して、一人で旅行させてもらった。</span></span></div>
+      <div class="sit-options">
+        <div class="sit-opt"><span class="sit-letter">A.</span>He talked to his mother about the trip.</div>
+        <div class="sit-opt correct"><span class="sit-letter">B.</span>He talked his mother into letting him travel alone.</div>
+      </div>
+      <div class="sit-why"><b>B</b> — resposta certa. Releia o quadro de referência se tiver dúvida sobre o motivo.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+</script>
+
+</body>
+</html>
