@@ -126,6 +126,48 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .check-verdict{display:none;margin-top:14px;padding:13px 15px;background:var(--paper);border-left:3px solid var(--ink);border-radius:0 8px 8px 0;font-size:12.5px;line-height:1.65;color:var(--ink)}
 .section:nth-child(even) .check-verdict{background:#fff;border:1px solid var(--border);border-left:3px solid var(--ink)}
 .check-verdict.show{display:block}
+
+.cluster-nav{margin-top:56px;background:#050c18;border-bottom:1px solid rgba(255,255,255,.08);padding:12px 40px;display:flex;gap:8px;flex-wrap:wrap}
+.cluster-nav a{font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;text-decoration:none;color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:all .15s ease}
+.cluster-nav a:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.cluster-nav a.active{background:var(--teal,#1E5FAE);color:#fff;border-color:var(--teal,#1E5FAE);cursor:default;pointer-events:none}
+@media(max-width:760px){.cluster-nav{padding:10px 20px}.cluster-nav a{font-size:10px;padding:5px 11px}}
+/* CONFIDENCE METER - dark (for hero) */
+.confidence-block{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:20px 24px;margin:22px 0 0}
+.confidence-q{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px}
+.confidence-scale{display:flex;gap:8px;margin-bottom:8px}
+.confidence-btn{flex:1;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);font-weight:800;font-size:13px;cursor:pointer;transition:all .15s ease}
+.confidence-btn:hover{border-color:var(--teal-lt,#3B7FD9);color:#fff}
+.confidence-btn.selected{background:var(--teal,#1E5FAE);border-color:var(--teal,#1E5FAE);color:#fff}
+.confidence-label-row{display:flex;justify-content:space-between;font-size:10.5px;color:rgba(255,255,255,.45)}
+
+/* CONFIDENCE METER + CARDS - light (for body) */
+.confidence-block-light{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin:26px 0;box-shadow:0 4px 14px rgba(10,22,40,.05)}
+.confidence-q-light{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:14px}
+.confidence-scale-light{display:flex;gap:8px;margin-bottom:8px}
+.confidence-btn-light{flex:1;height:40px;border-radius:8px;border:1px solid var(--border);background:var(--paper);color:var(--mid);font-weight:800;font-size:13px;cursor:pointer;transition:all .15s ease}
+.confidence-btn-light:hover{border-color:var(--teal,#1E5FAE);color:var(--ink)}
+.confidence-btn-light.selected{background:var(--teal,#1E5FAE);border-color:var(--teal,#1E5FAE);color:#fff}
+.confidence-label-row-light{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mid)}
+.confidence-result-light{margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);font-size:12.5px;color:var(--ink);display:none}
+.confidence-result-light.show{display:block}
+.confidence-result-light b{color:var(--teal,#1E5FAE)}
+
+.real-section-light{padding:10px 0 8px}
+.real-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:760px){.real-grid{grid-template-columns:1fr}}
+.real-card-light{border-radius:14px;padding:20px 22px;border:1px solid;background:#fff}
+.real-card-tag{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.real-card-text-light{font-size:13px;line-height:1.6;color:var(--ink)}
+.real-card-light.company{border-color:rgba(181,101,46,.4);background:rgba(181,101,46,.05)}
+.real-card-light.company .real-card-tag{color:#B5652E}
+.real-card-light.roleplay{border-color:rgba(109,95,224,.4);background:rgba(109,95,224,.05);grid-column:span 2}
+@media(max-width:760px){.real-card-light.roleplay{grid-column:span 1}}
+.real-card-light.roleplay .real-card-tag{color:#6D5FE0}
+.real-card-light.teacher{border-color:rgba(201,154,46,.45);background:rgba(201,154,46,.07)}
+.real-card-light.teacher .real-card-tag{color:#B8860B}
+.roleplay-script-light{margin-top:12px;background:var(--paper);border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.9;color:var(--mid);font-style:italic;border:1px solid var(--border)}
+.roleplay-script-light b{color:var(--ink);font-style:normal}
 </style>
 </head>
 <body>
@@ -138,6 +180,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <span class="hdr-badge">B1+</span>
   </div>
 </header>
+
+<nav class="cluster-nav">
+  <a href="midland-scene-dealconfirmed.html">1. How Diego Finds Out</a>
+  <a href="midland-distribution-agreement.html">2. Distribution Agreement</a>
+  <a href="coatex-supply-terms.html">3. Contract Files</a>
+  <a href="midland-purchase-order.html" class="active">4. Purchase Order</a>
+</nav>
+
+
 
 <section class="hero">
   <div class="pw">
@@ -156,6 +207,12 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <div class="byline-name">Patrícia Nunes</div>
         <div class="byline-role">Procurement Manager, Prisma Coatings</div>
       </div>
+    </div>
+
+    <div class="confidence-block">
+      <div class="confidence-q">Before you read it: how confident do you feel reading a Purchase Order and knowing you are checking the right things?</div>
+      <div class="confidence-scale" id="conf-before-scale"></div>
+      <div class="confidence-label-row"><span>Not at all</span><span>Very confident</span></div>
     </div>
   </div>
 </section>
@@ -245,10 +302,48 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   </div>
 </section>
 
+<section class="section">
+  <div class="pw">
+    <div class="real-section-light">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Make It Real</span></div>
+
+      <div class="confidence-block-light" style="margin-top:20px">
+        <div class="confidence-q-light">Now that you have read it: how confident do you feel?</div>
+        <div class="confidence-scale-light" id="conf-after-scale"></div>
+        <div class="confidence-label-row-light"><span>Not at all</span><span>Very confident</span></div>
+        <div class="confidence-result-light" id="conf-result"></div>
+      </div>
+
+      <div class="real-grid">
+        <div class="real-card-light company">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M5 21V7l8-4v18M13 9h6v12"/></svg>And At Your Company?</div>
+          <div class="real-card-text-light">When your company issues or receives a PO, what is the first thing people actually check, price, quantity, or payment terms?</div>
+        </div>
+
+        <div class="real-card-light teacher">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5"/><path d="M12 17h.01"/></svg>Ask Your Teacher</div>
+          <div class="real-card-text-light">What is the most common mistake people make when reading a PO too fast? Ask your teacher for a real example they have seen.</div>
+        </div>
+
+        <div class="real-card-light roleplay">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Your Turn: Roleplay It</div>
+          <div class="real-card-text-light">Practice walking your teacher through this PO line by line, as if you were confirming it with a colleague before it gets approved.</div>
+          <div class="roleplay-script-light">
+            "Just to confirm before this goes through: the quantity is <b>___</b>, right?"<br>
+            "And the discount applies because <b>___</b>?"<br>
+            "One thing I want to double check is <b>___</b>."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="footer-word">EIC escola de idiomas e cultura</div>
   <div class="footer-nav">
     <a href="sales-in-action-hub.html">Hub</a>
+    <a href="midland-distribution-agreement.html">Full Agreement</a>
     <a href="coatex-supply-terms.html">Contract Files</a>
     <a href="midland-facility.html">Prisma Coatings HQ</a>
     <a href="coatex-facility.html">Coatex HQ</a>
@@ -330,9 +425,47 @@ function renderChecks(){
   });
 }
 
+function renderConfidence(){
+  var beforeVal = null, afterVal = null;
+  function buildScale(elId, btnClass, onPick) {
+    var wrap = document.getElementById(elId);
+    if (!wrap) return;
+    for (var i = 1; i <= 5; i++) {
+      (function(n) {
+        var btn = document.createElement("button");
+        btn.className = btnClass;
+        btn.type = "button";
+        btn.textContent = n;
+        btn.addEventListener("click", function() {
+          wrap.querySelectorAll("." + btnClass.split(" ")[0]).forEach(function(b) { b.classList.remove("selected"); });
+          btn.classList.add("selected");
+          onPick(n);
+        });
+        wrap.appendChild(btn);
+      })(i);
+    }
+  }
+  buildScale("conf-before-scale", "confidence-btn", function(n) { beforeVal = n; });
+  buildScale("conf-after-scale", "confidence-btn-light", function(n) {
+    afterVal = n;
+    var result = document.getElementById("conf-result");
+    if (beforeVal === null) {
+      result.innerHTML = "You went straight to <b>" + afterVal + "</b> out of 5. Scroll up and mark where you started too, it is worth comparing.";
+    } else if (afterVal > beforeVal) {
+      result.innerHTML = "You went from <b>" + beforeVal + "</b> to <b>" + afterVal + "</b> out of 5. That gap is the document doing its job.";
+    } else if (afterVal === beforeVal) {
+      result.innerHTML = "Still at <b>" + afterVal + "</b> out of 5. That is fine, tell your teacher what part did not click yet.";
+    } else {
+      result.innerHTML = "You went from <b>" + beforeVal + "</b> down to <b>" + afterVal + "</b> out of 5. That is worth mentioning to your teacher too.";
+    }
+    result.classList.add("show");
+  });
+}
+
 document.addEventListener("DOMContentLoaded",function(){
   initTooltips();
   renderChecks();
+  renderConfidence();
 });
 </script>
 </body>

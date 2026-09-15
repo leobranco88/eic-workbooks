@@ -144,6 +144,40 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:#fff}
 .vocab-drawer-ex{font-size:11px;color:var(--mid);margin-top:5px;font-style:italic;line-height:1.5}
 .vocab-drawer-formal{font-size:11.5px;color:var(--ink);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);line-height:1.6}
 .vocab-drawer-formal b{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--teal);display:block;margin-bottom:2px}
+
+.cluster-nav{margin-top:56px;background:#050c18;border-bottom:1px solid rgba(255,255,255,.08);padding:12px 40px;display:flex;gap:8px;flex-wrap:wrap}
+.cluster-nav a{font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;text-decoration:none;color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:all .15s ease}
+.cluster-nav a:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.cluster-nav a.active{background:var(--teal,#1E5FAE);color:#fff;border-color:var(--teal,#1E5FAE);cursor:default;pointer-events:none}
+@media(max-width:760px){.cluster-nav{padding:10px 20px}.cluster-nav a{font-size:10px;padding:5px 11px}}
+/* CONFIDENCE METER */
+.confidence-block{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:20px 24px;margin:22px 0 0}
+.confidence-q{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px}
+.confidence-scale{display:flex;gap:8px;margin-bottom:8px}
+.confidence-btn{flex:1;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);font-weight:800;font-size:13px;cursor:pointer;transition:all .15s ease}
+.confidence-btn:hover{border-color:var(--teal-lt,#3B7FD9);color:#fff}
+.confidence-btn.selected{background:var(--teal,#1E5FAE);border-color:var(--teal,#1E5FAE);color:#fff}
+.confidence-label-row{display:flex;justify-content:space-between;font-size:10.5px;color:rgba(255,255,255,.4)}
+.confidence-result{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.15);font-size:12.5px;color:rgba(255,255,255,.75);display:none}
+.confidence-result.show{display:block}
+.confidence-result b{color:var(--teal-lt,#3B7FD9)}
+
+/* MAKE IT REAL SECTION */
+.real-section{padding:10px 0 10px}
+.real-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:760px){.real-grid{grid-template-columns:1fr}}
+.real-card{border-radius:14px;padding:20px 22px;border:1px solid}
+.real-card-tag{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.real-card-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.85)}
+.real-card.company{background:rgba(181,101,46,.08);border-color:rgba(181,101,46,.35)}
+.real-card.company .real-card-tag{color:#D98A4F}
+.real-card.roleplay{background:rgba(109,95,224,.08);border-color:rgba(109,95,224,.35);grid-column:span 2}
+@media(max-width:760px){.real-card.roleplay{grid-column:span 1}}
+.real-card.roleplay .real-card-tag{color:#9384EA}
+.real-card.teacher{background:rgba(201,154,46,.1);border-color:rgba(201,154,46,.4)}
+.real-card.teacher .real-card-tag{color:#C99A2E}
+.roleplay-script{margin-top:12px;background:rgba(0,0,0,.2);border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.7);font-style:italic}
+.roleplay-script b{color:#fff;font-style:normal}
 </style>
 </head>
 <body>
@@ -156,11 +190,26 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:#fff}
   </div>
 </header>
 
+<nav class="cluster-nav">
+  <a href="midland-scene-dealconfirmed.html" class="active">1. How Diego Finds Out</a>
+  <a href="midland-distribution-agreement.html">2. Distribution Agreement</a>
+  <a href="coatex-supply-terms.html">3. Contract Files</a>
+  <a href="midland-purchase-order.html">4. Purchase Order</a>
+</nav>
+
+
+
 <section class="hero">
   <div class="pw">
     <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Money &amp; Terms &middot; Closing the Loop</span></div>
     <h1 class="hero-title">How Diego <em>finds out</em> it's real</h1>
     <p class="hero-sub">Prisma is a new account. Before a single order can move, the two companies need an actual signed agreement between them, not just a verbal yes from Marcos and Patricia. That signature happens first. Only then does the PO that Patricia issues actually mean anything.</p>
+
+    <div class="confidence-block">
+      <div class="confidence-q">Before you start: how confident do you feel switching your register, from casual chat to formal email, depending on who you are talking to?</div>
+      <div class="confidence-scale" id="conf-before-scale"></div>
+      <div class="confidence-label-row"><span>Not at all</span><span>Very confident</span></div>
+    </div>
   </div>
 </section>
 
@@ -349,6 +398,43 @@ body{font-family:Inter,sans-serif;background:var(--dark);color:#fff}
   </div>
 </section>
 
+<section class="section">
+  <div class="pw">
+    <div class="real-section">
+      <div class="sec-label"><span class="sec-num">7</span><span class="sec-tag">Make It Real</span></div>
+
+      <div class="confidence-block">
+        <div class="confidence-q">Now that you have finished: how confident do you feel?</div>
+        <div class="confidence-scale" id="conf-after-scale"></div>
+        <div class="confidence-label-row"><span>Not at all</span><span>Very confident</span></div>
+        <div class="confidence-result" id="conf-result"></div>
+      </div>
+
+      <div class="real-grid">
+        <div class="real-card company">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M5 21V7l8-4v18M13 9h6v12"/></svg>And At Your Company?</div>
+          <div class="real-card-text">Do you ever need to say the same thing twice, once casually to a colleague, once formally in an email? What usually changes between the two?</div>
+        </div>
+
+        <div class="real-card teacher">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5"/><path d="M12 17h.01"/></svg>Ask Your Teacher</div>
+          <div class="real-card-text">Ask your teacher for a real example from their own work, a time the informal version and the formal version said the same thing very differently.</div>
+        </div>
+
+        <div class="real-card roleplay">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Your Turn: Roleplay It</div>
+          <div class="real-card-text">Pick one piece of news you would actually share at work. Practice saying it once casually to your teacher, then once formally, like an email.</div>
+          <div class="roleplay-script">
+            "Casually: 'Hey, <b>___</b>.'"<br>
+            "Formally: 'I am writing to inform you that <b>___</b>.'"<br>
+            "The real difference between them is <b>___</b>."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="footer-word">EIC escola de idiomas e cultura</div>
   <div class="footer-nav">
@@ -451,9 +537,47 @@ function renderLegalCheck(){
   });
 }
 
+function renderConfidence(){
+  var beforeVal = null, afterVal = null;
+  function buildScale(elId, onPick) {
+    var wrap = document.getElementById(elId);
+    if (!wrap) return;
+    for (var i = 1; i <= 5; i++) {
+      (function(n) {
+        var btn = document.createElement("button");
+        btn.className = "confidence-btn";
+        btn.type = "button";
+        btn.textContent = n;
+        btn.addEventListener("click", function() {
+          wrap.querySelectorAll(".confidence-btn").forEach(function(b) { b.classList.remove("selected"); });
+          btn.classList.add("selected");
+          onPick(n);
+        });
+        wrap.appendChild(btn);
+      })(i);
+    }
+  }
+  buildScale("conf-before-scale", function(n) { beforeVal = n; });
+  buildScale("conf-after-scale", function(n) {
+    afterVal = n;
+    var result = document.getElementById("conf-result");
+    if (beforeVal === null) {
+      result.innerHTML = "You went straight to <b>" + afterVal + "</b> out of 5. Scroll up and mark where you started too, it is worth comparing.";
+    } else if (afterVal > beforeVal) {
+      result.innerHTML = "You went from <b>" + beforeVal + "</b> to <b>" + afterVal + "</b> out of 5. That gap is the scene doing its job.";
+    } else if (afterVal === beforeVal) {
+      result.innerHTML = "Still at <b>" + afterVal + "</b> out of 5. That is fine, tell your teacher what part did not click yet.";
+    } else {
+      result.innerHTML = "You went from <b>" + beforeVal + "</b> down to <b>" + afterVal + "</b> out of 5. That is worth mentioning to your teacher too.";
+    }
+    result.classList.add("show");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function(){
   renderChecks();
   renderLegalCheck();
+  renderConfidence();
 });
 </script>
 <button class="vocab-fab" onclick="openVocab()" title="Vocabulary: informal vs formal">

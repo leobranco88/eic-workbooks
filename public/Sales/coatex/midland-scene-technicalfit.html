@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales in Action &middot; Confirming the Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#1E5FAE;--teal-lt:#3B7FD9;--purple:#6D5FE0;--purple-lt:#9384EA;
+  --hi:#FFE89C;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;--dark:#071020;--green:#2E9E5B;--red:#C0392B;
+}
+body{font-family:Inter,sans-serif;background:var(--dark);color:#fff}
+
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--dark);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hdr-word{font-size:15px;font-weight:900;color:#fff}
+.hdr-right{display:flex;align-items:center;gap:20px}
+.hdr-meta{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);text-decoration:none}
+.hdr-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--hi);padding:3px 12px;border-radius:20px}
+@media(max-width:620px){.hdr{padding:0 20px}}
+
+.pw{max-width:760px;margin:0 auto;padding:0 40px}
+@media(max-width:640px){.pw{padding:0 20px}}
+
+.hero{padding:120px 0 40px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow-line{width:28px;height:2px;background:var(--purple-lt)}
+.eyebrow-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--purple-lt)}
+.hero-title{font-size:clamp(26px,4vw,38px);font-weight:900;color:#fff;line-height:1.12;letter-spacing:-.03em;margin-bottom:18px}
+.hero-sub{font-size:14.5px;color:rgba(255,255,255,.6);line-height:1.75;max-width:600px}
+
+.section{padding:44px 0}
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-num{width:26px;height:26px;border-radius:8px;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex:none}
+.sec-tag{font-size:16px;font-weight:900;color:#fff}
+.sec-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 22px 38px;max-width:560px}
+
+/* EMAIL */
+.email-frame{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);color:#1a1a1a}
+.email-head{padding:22px 26px 16px;border-bottom:1px solid #eee}
+.email-subject{font-size:15px;font-weight:900;color:#111;margin-bottom:12px}
+.email-meta-row{font-size:12px;color:#555;margin-bottom:3px;display:flex;gap:8px}
+.email-meta-label{font-weight:800;color:#999;width:36px;flex:none}
+.email-body{padding:22px 26px}
+.email-body p{font-size:13.5px;line-height:1.72;color:#222;margin-bottom:13px}
+.email-attach{margin:0 26px 22px;display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #e2e2e2;
+  border-radius:10px;text-decoration:none;transition:all .15s ease}
+.email-attach:hover{border-color:var(--purple);background:#f5f3ff}
+.email-attach-icon{width:38px;height:38px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.email-attach-icon svg{width:18px;height:18px;fill:#fff}
+.email-attach-name{font-size:13px;font-weight:800;color:#1a1a1a}
+.email-attach-meta{font-size:11px;color:#888;margin-top:2px}
+.email-attach-open{margin-left:auto;font-size:10.5px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.email-divider{display:flex;align-items:center;gap:10px;margin:18px 26px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#aaa}
+.email-divider::before,.email-divider::after{content:"";flex:1;height:1px;background:#e5e5e5}
+.avatar-initials{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex:none}
+
+/* EXHIBIT */
+.exhibit{background:#FBFAF7;border:1px solid var(--border);box-shadow:0 14px 34px rgba(10,22,40,.25);padding:32px 36px 28px;color:#1a1a1a;position:relative;border-radius:3px}
+@media(max-width:600px){.exhibit{padding:22px 18px}}
+.exhibit-head{border-bottom:1px solid #b9b5ae;padding-bottom:14px;margin-bottom:18px}
+.exhibit-kicker{font-size:17px;font-weight:900;letter-spacing:.16em;color:var(--ink)}
+.exhibit-ref{font-size:11px;color:var(--mid);margin-top:6px}
+.stamp{position:absolute;top:24px;right:28px;border:2px solid rgba(109,95,224,.42);border-radius:4px;padding:5px 10px;transform:rotate(-6deg);color:rgba(109,95,224,.6);text-align:center;line-height:1.25;pointer-events:none}
+.stamp b{display:block;font-size:9px;font-weight:900;letter-spacing:.09em}
+.stamp span{display:block;font-size:7px;font-weight:700;letter-spacing:.04em;margin-top:2px}
+@media(max-width:600px){.stamp{display:none}}
+.spec-row{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:13px 0;border-bottom:1px dotted #cfcac2;font-size:12.5px;line-height:1.6}
+.spec-row:last-of-type{border-bottom:none}
+.spec-label{font-weight:800;color:var(--ink)}
+.spec-val{color:#333}
+@media(max-width:560px){.spec-row{grid-template-columns:1fr;gap:2px}}
+.report-block-title{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);margin:22px 0 4px}
+.report-block-title:first-of-type{margin-top:4px}
+.tt{border-bottom:1.5px dotted rgba(109,95,224,.55);cursor:help;font-weight:700;color:var(--purple)}
+#gl-tip{position:fixed;display:none;background:var(--ink);color:#fff;font-size:11px;font-weight:600;padding:6px 10px;border-radius:7px;max-width:250px;z-index:999;line-height:1.4;pointer-events:none}
+.conclusion-box{margin-top:20px;padding:14px 16px;background:rgba(46,158,91,.08);border:1px solid rgba(46,158,91,.3);border-radius:10px}
+.conclusion-tag{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:5px}
+.conclusion-text{font-size:12.5px;line-height:1.65;color:#222}
+.sign-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:22px;padding-top:16px;border-top:1px solid #b9b5ae}
+.sign-name{font-size:12.5px;font-weight:800;color:var(--ink)}
+.sign-role{font-size:11px;color:var(--mid)}
+.sign-date{font-size:11px;color:var(--mid)}
+
+.footer{background:var(--dark);padding:30px 40px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.06)}
+.footer-word{font-size:12px;font-weight:800;color:rgba(255,255,255,.32)}
+.footer-nav{display:flex;gap:16px;flex-wrap:wrap}
+.footer-nav a{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none}
+.footer-nav a:hover{color:var(--hi)}
+/* CONFIDENCE METER */
+.confidence-block{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:20px 24px;margin:22px 0 0}
+.confidence-q{font-size:13px;font-weight:700;color:#fff;margin-bottom:14px}
+.confidence-scale{display:flex;gap:8px;margin-bottom:8px}
+.confidence-btn{flex:1;height:40px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);font-weight:800;font-size:13px;cursor:pointer;transition:all .15s ease}
+.confidence-btn:hover{border-color:var(--purple-lt,#9384EA);color:#fff}
+.confidence-btn.selected{background:var(--purple,#6D5FE0);border-color:var(--purple,#6D5FE0);color:#fff}
+.confidence-label-row{display:flex;justify-content:space-between;font-size:10.5px;color:rgba(255,255,255,.4)}
+.confidence-result{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.15);font-size:12.5px;color:rgba(255,255,255,.75);display:none}
+.confidence-result.show{display:block}
+.confidence-result b{color:var(--purple-lt,#9384EA)}
+
+/* MAKE IT REAL SECTION */
+.real-section{padding:10px 0 10px}
+.real-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media(max-width:760px){.real-grid{grid-template-columns:1fr}}
+.real-card{border-radius:14px;padding:20px 22px;border:1px solid}
+.real-card-tag{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.real-card-text{font-size:13px;line-height:1.6;color:rgba(255,255,255,.85)}
+.real-card.company{background:rgba(181,101,46,.08);border-color:rgba(181,101,46,.35)}
+.real-card.company .real-card-tag{color:#D98A4F}
+.real-card.roleplay{background:rgba(109,95,224,.08);border-color:rgba(109,95,224,.35);grid-column:span 2}
+@media(max-width:760px){.real-card.roleplay{grid-column:span 1}}
+.real-card.roleplay .real-card-tag{color:#9384EA}
+.real-card.teacher{background:rgba(201,154,46,.1);border-color:rgba(201,154,46,.4)}
+.real-card.teacher .real-card-tag{color:#C99A2E}
+.roleplay-script{margin-top:12px;background:rgba(0,0,0,.2);border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.7);font-style:italic}
+.roleplay-script b{color:#fff;font-style:normal}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-word">EIC escola</span>
+  <div class="hdr-right">
+    <a class="hdr-meta" href="sales-in-action-hub.html">&larr; Sales in Action &middot; Building an Ally</a>
+    <span class="hdr-badge">B1+</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="pw">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Building an Ally &middot; Confirming the Fit</span></div>
+    <h1 class="hero-title">Does It Actually Work Here?</h1>
+    <p class="hero-sub">AdhereShield 450 is not a <span class="tt" data-key="commodity">commodity</span> resin. Before Beatriz puts her name behind it internally, she wants Coatex's own technical team to confirm it fits Prisma's exact production line, not just the <span class="tt" data-key="data-sheet">data sheet</span>.</p>
+
+    <div class="confidence-block">
+      <div class="confidence-q">Before you start: how confident do you feel writing a technical question to a specialist you have never worked with before?</div>
+      <div class="confidence-scale" id="conf-before-scale"></div>
+      <div class="confidence-label-row"><span>Not at all</span><span>Very confident</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">1</span><span class="sec-tag">The Email</span></div>
+    <p class="sec-sub">Beatriz skips Diego entirely on this one. Formulation questions go to formulation people.</p>
+
+    <div class="email-frame">
+      <div class="email-head">
+        <div class="email-subject">Formulation fit check, AdhereShield 450</div>
+        <div class="email-meta-row"><span class="email-meta-label">From</span><span>Beatriz Lima &lt;beatriz.lima@prismacoatings.com.br&gt;</span></div>
+        <div class="email-meta-row"><span class="email-meta-label">To</span><span>Juliana Prado &lt;juliana.prado@coatexdistribuidora.com.br&gt;</span></div>
+      </div>
+      <div class="email-body">
+        <p>Hi Juliana,</p>
+        <p>Diego mentioned you handle technical service on your side, so I wanted to <span class="tt" data-key="straight-to-source">go straight to the source</span> before this goes <span class="tt" data-key="any-further">any further</span>.</p>
+        <p>Our <span class="tt" data-key="line-speed">line runs at a fixed speed</span>, which means anything we apply needs to <span class="tt" data-key="cure-time">cure</span> within 90 seconds at 60&deg;C. We are coating a <span class="tt" data-key="cast-surface">porous cast surface</span>, not the <span class="tt" data-key="smooth-panels">smooth panels</span> most <span class="tt" data-key="data-sheet">data sheets</span> assume. I need to know if AdhereShield 450 actually <span class="tt" data-key="holds-up">holds up</span> here, not just <span class="tt" data-key="on-paper">on paper</span>.</p>
+        <p>Could you confirm <span class="tt" data-key="compatibility">compatibility</span>, or tell me what would need to change?</p>
+        <p>Best,<br>Beatriz Lima<br>Formulation Chemist, R&amp;D, Prisma Coatings</p>
+      </div>
+    </div>
+
+    <div class="email-divider">Reply</div>
+
+    <div class="email-frame">
+      <div class="email-head">
+        <div class="email-subject">RE: Formulation fit check, AdhereShield 450</div>
+        <div class="email-meta-row"><span class="email-meta-label">From</span><span>Juliana Prado &lt;juliana.prado@coatexdistribuidora.com.br&gt;</span></div>
+        <div class="email-meta-row"><span class="email-meta-label">To</span><span>Beatriz Lima &lt;beatriz.lima@prismacoatings.com.br&gt;</span></div>
+      </div>
+      <div class="email-body">
+        <p>Hi Beatriz,</p>
+        <p>Good question, and the honest answer is <span class="tt" data-key="out-of-the-box">not out of the box</span>. Standard AdhereShield 450 cures in around 140 seconds at 60&deg;C, that would not fit your <span class="tt" data-key="line-speed">line speed</span>.</p>
+        <p><span class="tt" data-key="porosity">Porosity</span> is not the issue, the resin holds adhesion well on <span class="tt" data-key="cast-surface">cast surfaces</span>. The <span class="tt" data-key="cure-window">cure window</span> is. We can adjust the <span class="tt" data-key="catalyst-ratio">catalyst ratio</span> to bring that down to 85 seconds without affecting adhesion strength, that is a standard formulation adjustment <span class="tt" data-key="on-our-end">on our end</span>, not a new product.</p>
+        <p>I have attached the full compatibility report with the adjusted parameters. Let me know if your team wants to run a <span class="tt" data-key="trial-batch">trial batch</span> before Diego finalizes anything.</p>
+        <p>Best,<br>Juliana Prado<br>Technical Service Engineer, Coatex Distribuidora</p>
+      </div>
+      <a class="email-attach" href="midland-technical-compatibility-report.html">
+        <div class="email-attach-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>
+        <div>
+          <div class="email-attach-name">AdhereShield-450-Compatibility.pdf</div>
+          <div class="email-attach-meta">Technical Compatibility Report &middot; 186 KB</div>
+        </div>
+        <span class="email-attach-open">Open &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="report">
+  <div class="pw">
+    <div class="sec-label"><span class="sec-num">2</span><span class="sec-tag">The Report</span></div>
+    <p class="sec-sub">This is what Beatriz actually needed, not a <span class="tt" data-key="sales-assurance">sales assurance</span>, a technical <span class="tt" data-key="sign-off">sign off</span> with her name and requirements on it.</p>
+
+    <a href="midland-technical-compatibility-report.html" style="display:block;background:#FBFAF7;border:1px solid var(--border);border-radius:12px;padding:22px 24px;text-decoration:none;color:#1a1a1a;transition:border-color .15s ease" onmouseover="this.style.borderColor='rgba(109,95,224,.6)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px">
+        <div>
+          <div style="font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);margin-bottom:6px">Technical Compatibility Report &middot; Ref. TCR-0430</div>
+          <div style="font-size:14px;font-weight:800;color:var(--ink);margin-bottom:4px">AdhereShield 450, confirmed compatible with an adjusted catalyst ratio</div>
+          <div style="font-size:12px;color:var(--mid)">Client requirement, standard performance, adjustment, and Juliana's sign off, in full</div>
+        </div>
+        <span style="font-size:20px;color:var(--purple);flex:none">&rarr;</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="pw">
+    <div class="real-section">
+      <div class="sec-label"><span class="sec-num">3</span><span class="sec-tag">Make It Real</span></div>
+
+      <div class="confidence-block">
+        <div class="confidence-q">Now that you have finished: how confident do you feel?</div>
+        <div class="confidence-scale" id="conf-after-scale"></div>
+        <div class="confidence-label-row"><span>Not at all</span><span>Very confident</span></div>
+        <div class="confidence-result" id="conf-result"></div>
+      </div>
+
+      <div class="real-grid">
+        <div class="real-card company">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M5 21V7l8-4v18M13 9h6v12"/></svg>And At Your Company?</div>
+          <div class="real-card-text">Do you ever need to ask a technical specialist a question you are not 100% sure how to phrase? What usually goes wrong when people try?</div>
+        </div>
+
+        <div class="real-card teacher">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5"/><path d="M12 17h.01"/></svg>Ask Your Teacher</div>
+          <div class="real-card-text">Is email the right channel for a technical question like this in your field, or would people call instead? Ask your teacher what they would actually do.</div>
+        </div>
+
+        <div class="real-card roleplay">
+          <div class="real-card-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Your Turn: Roleplay It</div>
+          <div class="real-card-text">Think of something at your own job you have never actually confirmed works, you just assumed it does. Practice asking a specialist with your teacher, out loud.</div>
+          <div class="roleplay-script">
+            "Before we go further, can you confirm <b>___</b> actually works for <b>___</b>?"<br>
+            "If it does not fit out of the box, what would need to change?"<br>
+            "Could you send me something in writing I can share with my team?"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="gl-tip"></div>
+
+<footer class="footer">
+  <div class="footer-word">EIC escola de idiomas e cultura</div>
+  <div class="footer-nav">
+    <a href="sales-in-action-hub.html">Hub</a>
+    <a href="midland-scene-buildingally.html">Building an Ally</a>
+    <a href="midland-facility.html">Prisma Coatings HQ</a>
+  </div>
+</footer>
+
+<script>
+var TIPS={
+  "cure-time":{pt:"tempo de cura, quanto tempo leva pra endurecer e ficar pronto"},
+  "compatibility":{pt:"compatibilidade, se algo funciona bem junto com outra coisa"},
+  "catalyst-ratio":{pt:"proporcao de catalisador, a quantidade usada pra acelerar a reacao quimica"},
+  "any-further":{pt:"mais adiante, antes que isso continue"},
+  "straight-to-source":{pt:"ir direto na origem, falar com quem realmente sabe do assunto, sem intermediarios"},
+  "line-speed":{pt:"velocidade da linha de producao, o ritmo em que a fabrica produz"},
+  "cast-surface":{pt:"superficie fundida, feita despejando material liquido dentro de um molde"},
+  "smooth-panels":{pt:"paineis lisos, sem textura ou poros na superficie"},
+  "data-sheet":{pt:"ficha tecnica, documento com as especificacoes oficiais de um produto"},
+  "holds-up":{pt:"aguenta, funciona bem na pratica, nao falha"},
+  "on-paper":{pt:"no papel, so na teoria, nem sempre e assim na pratica"},
+  "out-of-the-box":{pt:"pronto de fabrica, sem precisar de nenhum ajuste antes de usar"},
+  "porosity":{pt:"porosidade, a quantidade de furinhos pequenos numa superficie"},
+  "cure-window":{pt:"janela de cura, o tempo disponivel pra secar e endurecer"},
+  "on-our-end":{pt:"do nosso lado, da nossa parte"},
+  "trial-batch":{pt:"lote de teste, uma quantidade pequena produzida so pra testar antes"},
+  "commodity":{pt:"produto generico e padronizado, praticamente igual em qualquer fornecedor"},
+  "sales-assurance":{pt:"garantia verbal de um vendedor, sem comprovacao tecnica por tras"},
+  "sign-off":{pt:"aprovacao formal de alguem com autoridade tecnica pra isso"}
+};
+function renderConfidence(){
+  var beforeVal = null, afterVal = null;
+  function buildScale(elId, onPick) {
+    var wrap = document.getElementById(elId);
+    if (!wrap) return;
+    for (var i = 1; i <= 5; i++) {
+      (function(n) {
+        var btn = document.createElement("button");
+        btn.className = "confidence-btn";
+        btn.type = "button";
+        btn.textContent = n;
+        btn.addEventListener("click", function() {
+          wrap.querySelectorAll(".confidence-btn").forEach(function(b) { b.classList.remove("selected"); });
+          btn.classList.add("selected");
+          onPick(n);
+        });
+        wrap.appendChild(btn);
+      })(i);
+    }
+  }
+  buildScale("conf-before-scale", function(n) { beforeVal = n; });
+  buildScale("conf-after-scale", function(n) {
+    afterVal = n;
+    var result = document.getElementById("conf-result");
+    if (beforeVal === null) {
+      result.innerHTML = "You went straight to <b>" + afterVal + "</b> out of 5. Scroll up and mark where you started too, it is worth comparing.";
+    } else if (afterVal > beforeVal) {
+      result.innerHTML = "You went from <b>" + beforeVal + "</b> to <b>" + afterVal + "</b> out of 5. That gap is the scene doing its job.";
+    } else if (afterVal === beforeVal) {
+      result.innerHTML = "Still at <b>" + afterVal + "</b> out of 5. That is fine, tell your teacher what part did not click yet.";
+    } else {
+      result.innerHTML = "You went from <b>" + beforeVal + "</b> down to <b>" + afterVal + "</b> out of 5. That is worth mentioning to your teacher too.";
+    }
+    result.classList.add("show");
+  });
+}
+
+function initTooltips(){
+  var tip=document.getElementById("gl-tip");
+  document.querySelectorAll(".tt").forEach(function(el){
+    var data=TIPS[el.dataset.key]; if(!data) return;
+    function move(e){
+      var x=Math.max(8,Math.min(e.clientX-125,window.innerWidth-270));
+      tip.style.left=x+"px"; tip.style.top=(e.clientY-tip.offsetHeight-18)+"px";
+    }
+    function show(e){ tip.textContent=data.pt; tip.style.display="block"; move(e); }
+    el.addEventListener("mouseenter",show);
+    el.addEventListener("mousemove",move);
+    el.addEventListener("mouseleave",function(){tip.style.display="none";});
+    el.addEventListener("click",function(e){
+      e.preventDefault();
+      if(tip.style.display==="block"){tip.style.display="none";return;}
+      show(e);
+    });
+  });
+}
+document.addEventListener("DOMContentLoaded", function(){ initTooltips(); renderConfidence(); });
+</script>
+</body>
+</html>
