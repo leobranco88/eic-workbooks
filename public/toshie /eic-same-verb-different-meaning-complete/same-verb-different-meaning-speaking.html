@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Speaking Practice · Same Verb, Different Meaning · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+
+  .container { max-width: 860px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 13px; color: #374151; margin-top: 8px; line-height: 1.55; max-width: 620px; }
+
+  .big-idea { background: var(--ink); color: var(--paper); padding: 18px 36px; }
+  .big-idea-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+  .big-idea p { font-size: 14px; line-height: 1.6; max-width: 680px; }
+  .big-idea b { color: #fff; text-decoration: underline; }
+
+  .section { padding: 22px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 13px; color: #374151; font-style: italic; margin-bottom: 16px; line-height: 1.55; }
+
+  /* INTERVIEW CARDS */
+  .interview-card {
+    border: 1.5px solid var(--ink); padding: 14px 18px; margin-bottom: 12px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .interview-num { font-weight: 900; color: var(--accent); font-size: 15px; flex-shrink: 0; min-width: 22px; }
+  .interview-body { flex: 1; }
+  .interview-prompt { font-size: 13.5px; line-height: 1.5; margin-bottom: 6px; }
+  .interview-tag {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
+    background: var(--ink); color: var(--paper); padding: 2px 9px; border-radius: 100px; margin-bottom: 6px;
+  }
+  .interview-jp { font-size: 11.5px; color: var(--teal); font-style: italic; margin-bottom: 8px; }
+  .interview-space { border-bottom: 1px dashed var(--border); height: 22px; }
+  .starter-box { margin-bottom: 8px; }
+  .starter-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; display: block; }
+  .starter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .starter-chip { font-family: 'IBM Plex Mono', monospace; font-size: 11px; background: var(--bg-light); border: 1px solid var(--border); padding: 4px 10px; border-radius: 100px; color: #374151; }
+
+  /* SCENARIO CARDS */
+  .scn-card { border: 1.5px solid var(--ink); padding: 16px 18px; margin-bottom: 14px; }
+  .scn-top { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .scn-num { font-weight: 900; color: var(--accent); font-size: 15px; flex-shrink: 0; }
+  .scn-text { font-size: 13.5px; line-height: 1.55; color: #374151; }
+  .scn-jp { display: block; color: var(--teal); font-size: 12px; margin-top: 3px; font-style: italic; }
+  .scn-tag {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
+    background: var(--ink); color: var(--paper); padding: 2px 9px; border-radius: 100px; margin: 8px 0;
+  }
+  .scn-space { border-bottom: 1px dashed var(--border); height: 24px; margin-bottom: 8px; }
+  .scn-reveal-btn {
+    border: none; background: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--teal); cursor: pointer; padding: 2px 0;
+  }
+  .scn-reveal-btn:hover { text-decoration: underline; }
+  .scn-sample { display: none; margin-top: 8px; padding: 8px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); font-size: 12.5px; line-height: 1.5; }
+  .scn-sample.show { display: block; }
+  .scn-sample .sample-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .big-idea { padding: 14px 18px; }
+    .interview-card { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    SPEAKING PRACTICE · SAME VERB, DIFFERENT MEANING · TOSHIE
+  </div>
+  <div class="topbar-nav">
+    <a href="same-verb-different-meaning.html">New Meaning · 1</a>
+    <a href="same-verb-different-meaning-homework.html">New Meaning · 1 (HW)</a>
+    <a href="same-verb-different-meaning-listening.html">New Meaning · Listening</a>
+    <a href="same-verb-different-meaning-part2.html">New Meaning · 2</a>
+    <a href="same-verb-different-meaning-speaking.html" class="active">New Meaning · Speaking</a>
+    <a href="same-verb-different-meaning-reading.html">New Meaning · Reading (Work)</a>
+    <a href="same-verb-different-meaning-reading-toshie.html">New Meaning · Reading (Toshie)</a>
+  </div>
+  <div class="topbar-meta">SPEAKING · PARTS 1 + 2 · B2</div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Speaking Practice</div>
+        <h1>Same Verb<br><span>— Now You Ask</span></h1>
+        <div class="hero-sub">No more choosing the right answer — now you create the question. Combines all 12 verbs from both modules (look, think, dream, care, agree, talk, wait, get, turn, put, take, run) in a fully spoken practice.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-idea">
+    <span class="big-idea-label">How today works</span>
+    <p>Both activities require you to <b>produce</b> the sentence, not choose between options. In the first, you ask and the teacher answers for real — genuine conversation, not mechanical drilling. In the second, you read a situation and create the question on the spot; the "example" that shows up after is just one possible idea, not the only right answer.</p>
+  </div>
+
+  <!-- ═══ 01 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">Ask Your Teacher</span>
+      <span class="s-pts">16 questions</span>
+    </div>
+    <p class="instruction">Ask the question out loud, using the verb + preposition shown. The teacher answers for real. There's no wrong answer here — just a well-formed or poorly-formed question.</p>
+
+    <div class="interview-card">
+      <span class="interview-num">1</span>
+      <div class="interview-body">
+        <span class="interview-tag">get over</span>
+        <div class="interview-prompt">Ask about something (an illness, a disappointment) your teacher has gotten over.</div>
+        <div class="interview-jp">先生が乗り越えたことについて質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">What's something you've gotten over?</span><span class="starter-chip">Was it hard to get over...?</span><span class="starter-chip">How long did it take you to get over it?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">2</span>
+      <div class="interview-body">
+        <span class="interview-tag">get on</span>
+        <div class="interview-prompt">Ask if your teacher gets on well with all of their coworkers.</div>
+        <div class="interview-jp">先生が同僚全員とうまくやっているか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Do you get on well with...?</span><span class="starter-chip">Have you always gotten on with...?</span><span class="starter-chip">What makes you get on so well with...?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">3</span>
+      <div class="interview-body">
+        <span class="interview-tag">take up</span>
+        <div class="interview-prompt">Ask about a hobby your teacher has taken up recently.</div>
+        <div class="interview-jp">先生が最近始めた趣味について質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">What have you taken up recently?</span><span class="starter-chip">Why did you decide to take up...?</span><span class="starter-chip">When did you take up...?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">4</span>
+      <div class="interview-body">
+        <span class="interview-tag">agree to</span>
+        <div class="interview-prompt">Ask about something your teacher would never agree to do at work.</div>
+        <div class="interview-jp">先生が仕事で絶対に受け入れないことについて質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Is there something you'd never agree to?</span><span class="starter-chip">Would you ever agree to...?</span><span class="starter-chip">What's the last thing you refused to agree to?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">5</span>
+      <div class="interview-body">
+        <span class="interview-tag">put up with</span>
+        <div class="interview-prompt">Ask about something your teacher can't put up with (noise, behavior).</div>
+        <div class="interview-jp">先生が我慢できないことについて質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">What can't you put up with?</span><span class="starter-chip">Is there something you just can't put up with at work?</span><span class="starter-chip">How do you put up with...?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">6</span>
+      <div class="interview-body">
+        <span class="interview-tag">dream of</span>
+        <div class="interview-prompt">Ask if your teacher dreams of living in another country someday.</div>
+        <div class="interview-jp">先生がいつか別の国に住むことを夢見ているか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Do you dream of living abroad?</span><span class="starter-chip">Have you ever dreamed of...?</span><span class="starter-chip">What country do you dream of living in?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">7</span>
+      <div class="interview-body">
+        <span class="interview-tag">run into</span>
+        <div class="interview-prompt">Ask about the last time your teacher ran into someone by chance on the street.</div>
+        <div class="interview-jp">先生が最後に道で誰かに偶然会ったのはいつか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">When was the last time you ran into someone?</span><span class="starter-chip">Have you ever run into an old friend by chance?</span><span class="starter-chip">Who did you run into recently?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">8</span>
+      <div class="interview-body">
+        <span class="interview-tag">look after</span>
+        <div class="interview-prompt">Ask who looks after your teacher's home or pets when they travel.</div>
+        <div class="interview-jp">先生が旅行するとき、誰が家やペットの面倒を見るか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Who looks after your place when you travel?</span><span class="starter-chip">Does someone look after your pets while you're away?</span><span class="starter-chip">Who do you ask to look after things when you're gone?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">9</span>
+      <div class="interview-body">
+        <span class="interview-tag">turn down</span>
+        <div class="interview-prompt">Ask about something your teacher turned down recently (an invitation, an offer).</div>
+        <div class="interview-jp">先生が最近断ったこと（誘いや申し出）について質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Have you turned anything down recently?</span><span class="starter-chip">What's the last offer you turned down?</span><span class="starter-chip">Why did you decide to turn it down?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">10</span>
+      <div class="interview-body">
+        <span class="interview-tag">take after</span>
+        <div class="interview-prompt">Ask if your teacher takes after their mother or their father more.</div>
+        <div class="interview-jp">先生が母親と父親のどちらに似ているか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Who do you take after more, your mom or your dad?</span><span class="starter-chip">Do people say you take after your father?</span><span class="starter-chip">In what ways do you take after your mother?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">11</span>
+      <div class="interview-body">
+        <span class="interview-tag">think about</span>
+        <div class="interview-prompt">Ask about something your teacher is thinking about changing in their life.</div>
+        <div class="interview-jp">先生が人生で変えようと考えていることについて質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Is there anything you're thinking about changing?</span><span class="starter-chip">What have you been thinking about lately?</span><span class="starter-chip">Are you thinking about doing anything differently?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">12</span>
+      <div class="interview-body">
+        <span class="interview-tag">run out of</span>
+        <div class="interview-prompt">Ask if your teacher has ever run out of something important on a trip (money, battery).</div>
+        <div class="interview-jp">先生が旅行中に大事な物（お金やバッテリー）を切らしたことがあるか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Have you ever run out of money on a trip?</span><span class="starter-chip">What's something you ran out of while traveling?</span><span class="starter-chip">Did you ever run out of battery at the worst time?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">13</span>
+      <div class="interview-body">
+        <span class="interview-tag">turn to</span>
+        <div class="interview-prompt">Ask who your teacher turns to when they have a problem.</div>
+        <div class="interview-jp">先生が問題を抱えたとき、誰に頼るか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Who do you turn to when you have a problem?</span><span class="starter-chip">What do you turn to when you're stressed?</span><span class="starter-chip">Is there someone you always turn to for advice?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">14</span>
+      <div class="interview-body">
+        <span class="interview-tag">look forward to</span>
+        <div class="interview-prompt">Ask about something your teacher is really looking forward to this year.</div>
+        <div class="interview-jp">先生が今年とても楽しみにしていることについて質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">What are you looking forward to this year?</span><span class="starter-chip">Is there something you're really looking forward to?</span><span class="starter-chip">What's the thing you look forward to the most?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">15</span>
+      <div class="interview-body">
+        <span class="interview-tag">talk (sb) into</span>
+        <div class="interview-prompt">Ask if anyone has ever talked your teacher into doing something they didn't want to do.</div>
+        <div class="interview-jp">誰かが先生を説得して、やりたくなかったことをさせたことがあるか質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Has anyone ever talked you into doing something you didn't want to?</span><span class="starter-chip">What's something someone talked you into?</span><span class="starter-chip">Who's good at talking you into things?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <span class="interview-num">16</span>
+      <div class="interview-body">
+        <span class="interview-tag">care about</span>
+        <div class="interview-prompt">Ask about something your teacher really cares about at work.</div>
+        <div class="interview-jp">先生が仕事で本当に大切にしていることについて質問してください。</div>
+        <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">What do you care about most at work?</span><span class="starter-chip">Is there something you really care about in your job?</span><span class="starter-chip">What do you care about more than anything else at work?</span></div></div>
+        <div class="interview-space"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Scenario → Your Question</span>
+      <span class="s-pts">12 scenarios</span>
+    </div>
+    <p class="instruction">Read the situation, imagine you're talking to this person, and create the question on the spot — out loud or in writing. The example that shows up after is just one idea, not the only correct form.</p>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">1.</span><span class="scn-text">A friend of yours ended a long relationship a few months ago.<span class="scn-jp">友達が長い関係を数ヶ月前に終えた。</span></span></div>
+      <span class="scn-tag">get over</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Have you gotten over it yet?</span><span class="starter-chip">Is it hard to get over something like this?</span><span class="starter-chip">How are you getting over it?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Have you gotten over the breakup yet?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">2.</span><span class="scn-text">Your coworker showed up to the meeting without warning, an hour late.<span class="scn-jp">同僚が連絡もなく、会議に一時間遅れて来た。</span></span></div>
+      <span class="scn-tag">turn up</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Why did you turn up so late?</span><span class="starter-chip">What happened, you turned up an hour late!</span><span class="starter-chip">Is everything okay? You turned up without any warning.</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Why did you turn up so late?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">3.</span><span class="scn-text">Someone at work is always criticizing coworkers in front of everyone.<span class="scn-jp">職場のある人が、いつもみんなの前で同僚を批判している。</span></span></div>
+      <span class="scn-tag">put down</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Why do you always put people down like that?</span><span class="starter-chip">Don't you think it's unfair to put them down in front of everyone?</span><span class="starter-chip">How would you feel if someone put you down like that?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Why do you always put people down like that?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">4.</span><span class="scn-text">A friend of yours recently inherited and took over the family business.<span class="scn-jp">友達が最近、家族の会社を引き継いだ。</span></span></div>
+      <span class="scn-tag">take over</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">How does it feel to take over the family business?</span><span class="starter-chip">What was it like to take over from your parents?</span><span class="starter-chip">Were you ready to take it over?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"How does it feel to take over the family business?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">5.</span><span class="scn-text">You heard that an acquaintance is going to run for city council.<span class="scn-jp">知り合いが市議会議員に立候補すると聞いた。</span></span></div>
+      <span class="scn-tag">run for</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Why did you decide to run for city council?</span><span class="starter-chip">What made you want to run for office?</span><span class="starter-chip">Are you nervous about running for mayor?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Why did you decide to run for city council?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">6.</span><span class="scn-text">A coworker is always trying a new hobby, different from the last one.<span class="scn-jp">同僚がいつも前と違う新しい趣味に挑戦している。</span></span></div>
+      <span class="scn-tag">get into</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">What made you get into pottery?</span><span class="starter-chip">How did you get into painting?</span><span class="starter-chip">What do you like about getting into new hobbies?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"What made you get into pottery?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">7.</span><span class="scn-text">Your neighbor keeps complaining about the street noise, but never moves.<span class="scn-jp">隣人はいつも道路の騒音について文句を言っているが、引っ越さない。</span></span></div>
+      <span class="scn-tag">put up with</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">How do you put up with all this noise?</span><span class="starter-chip">Why don't you just move if you can't put up with it?</span><span class="starter-chip">Doesn't it bother you to put up with this every day?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"How do you put up with all this noise?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">8.</span><span class="scn-text">A friend turned down a job offer that seemed amazing.<span class="scn-jp">友達が素晴らしく見える仕事のオファーを断った。</span></span></div>
+      <span class="scn-tag">turn down</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Why did you turn down such a great offer?</span><span class="starter-chip">Weren't you tempted to accept instead of turning it down?</span><span class="starter-chip">Do you regret turning it down?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Why did you turn down such a great offer?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">9.</span><span class="scn-text">An acquaintance of yours treats people who earn less than him very badly.<span class="scn-jp">知り合いが自分より稼ぎの少ない人をひどく扱う。</span></span></div>
+      <span class="scn-tag">look down on</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Why do you look down on people like that?</span><span class="starter-chip">Don't you think it's wrong to look down on someone for that?</span><span class="starter-chip">How can you look down on people who work just as hard as you?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Why do you look down on people like that?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">10.</span><span class="scn-text">Your friend is learning to play a new instrument.<span class="scn-jp">友達が新しい楽器を習っている。</span></span></div>
+      <span class="scn-tag">take up</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">When did you take up the violin?</span><span class="starter-chip">What made you want to take up a new instrument?</span><span class="starter-chip">Is it hard to take up something new at this stage?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"When did you take up the violin?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">11.</span><span class="scn-text">A coworker always arrives late and is never reprimanded for it.<span class="scn-jp">ある同僚はいつも遅刻するのに、決して叱られない。</span></span></div>
+      <span class="scn-tag">get away with</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">How do you always get away with being late?</span><span class="starter-chip">Doesn't anyone notice that you get away with it every time?</span><span class="starter-chip">What's your secret for getting away with that?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"How do you always get away with being late?"</div>
+    </div>
+
+    <div class="scn-card">
+      <div class="scn-top"><span class="scn-num">12.</span><span class="scn-text">A friend of yours always turns to reading when she's stressed.<span class="scn-jp">友達はストレスを感じるといつも読書に頼る。</span></span></div>
+      <span class="scn-tag">turn to</span>
+      <div class="starter-box"><span class="starter-label">Start with one of these</span><div class="starter-chips"><span class="starter-chip">Why do you always turn to books when you're stressed?</span><span class="starter-chip">What is it about books that makes you turn to them?</span><span class="starter-chip">Do you ever turn to anything else when you're overwhelmed?</span></div></div>
+      <div class="scn-space"></div>
+      <button class="scn-reveal-btn" onclick="toggleScn(this)">Show example</button>
+      <div class="scn-sample"><span class="sample-label">Possible example</span>"Why do you always turn to books when you're stressed?"</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleScn(btn) {
+    const sample = btn.nextElementSibling;
+    sample.classList.toggle('show');
+    btn.textContent = sample.classList.contains('show') ? 'Hide' : 'Show example';
+  }
+</script>
+
+</body>
+</html>

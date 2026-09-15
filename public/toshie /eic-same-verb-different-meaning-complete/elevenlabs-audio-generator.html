@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Gerador de Áudio ElevenLabs</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+    --green: #16A34A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--ink); color: var(--ink); min-height: 100vh; padding: 0 0 60px; }
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .topbar { background: var(--ink); color: var(--paper); padding: 14px 24px; border-bottom: 2px solid var(--accent); }
+  .topbar strong { font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.05em; }
+
+  .hero { padding: 24px 36px; border-bottom: 2px solid var(--ink); }
+  .hero h1 { font-size: 22px; font-weight: 900; }
+  .hero p { font-size: 12.5px; color: #374151; margin-top: 8px; line-height: 1.55; max-width: 640px; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 12px; font-family: 'IBM Plex Mono', monospace; }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; color: var(--ink); }
+  .field input[type="text"], .field input[type="password"], .field select, .field textarea {
+    width: 100%; border: 1.5px solid var(--border); padding: 9px 12px; font-family: 'Inter', sans-serif;
+    font-size: 13.5px; border-radius: 6px; background: #fff;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--teal); }
+  .field textarea { font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.6; resize: vertical; }
+  .field-note { font-size: 10.5px; color: var(--muted); margin-top: 4px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row .field { flex: 1; min-width: 180px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--paper); border: none; padding: 10px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; border-radius: 100px; cursor: pointer; }
+  .btn:hover { background: var(--teal); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .btn.secondary:hover { background: var(--bg-light); }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+  .status { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 10px; white-space: pre-wrap; line-height: 1.6; }
+  .status .ok { color: var(--green); }
+  .status .err { color: var(--accent); }
+
+  .clip-list { margin-top: 16px; }
+  .clip-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); margin-bottom: 6px; flex-wrap: wrap; }
+  .clip-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; min-width: 140px; }
+  .clip-item audio { height: 30px; flex: 1; min-width: 200px; }
+  .clip-dl { font-size: 11px; font-weight: 700; color: var(--teal); text-decoration: none; }
+  .clip-dl:hover { text-decoration: underline; }
+
+  .progress-bar { height: 6px; background: var(--bg-light); margin-top: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--teal); width: 0%; transition: width 0.2s; }
+
+  .voice-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .voice-chip { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; background: var(--bg-light); padding: 4px 10px; border-radius: 100px; cursor: pointer; border: 1px solid var(--border); }
+  .voice-chip:hover { border-color: var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="topbar"><strong>EIC. · Gerador de Áudio ElevenLabs</strong></div>
+
+<div class="container">
+  <div class="hero">
+    <h1>Gerador de Áudio — Same Verb, Different Meaning</h1>
+    <p>Essa página roda 100% no seu navegador — a chamada pra API do ElevenLabs sai direto daqui, do seu computador, então sua chave nunca passa pelo Claude. Cole sua chave, escolha a voz, gere os áudios, baixe o ZIP e me manda de volta no chat.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">01 · Sua Chave</div>
+    <div class="field">
+      <label>ElevenLabs API Key</label>
+      <input type="password" id="apiKey" placeholder="sk_...">
+      <div class="field-note">Fica só na memória dessa aba — não é salva, não é enviada a mim.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn secondary" onclick="loadVoices()">Carregar minhas vozes</button>
+    </div>
+    <div id="voiceListArea" class="voice-list"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">02 · Voz e Configuração</div>
+    <div class="row">
+      <div class="field">
+        <label>Voice ID</label>
+        <input type="text" id="voiceId" placeholder="ex: EXAVITQu4vr4xnSDxMaL (Bella)" value="EXAVITQu4vr4xnSDxMaL">
+        <div class="field-note">Clique numa voz carregada acima pra preencher automático, ou cole o ID direto.</div>
+      </div>
+      <div class="field">
+        <label>Model</label>
+        <select id="modelId">
+          <option value="eleven_multilingual_v2" selected>eleven_multilingual_v2</option>
+          <option value="eleven_monolingual_v1">eleven_monolingual_v1</option>
+          <option value="eleven_turbo_v2_5">eleven_turbo_v2_5</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Stability (0–1)</label>
+        <input type="text" id="stability" value="0.45">
+      </div>
+      <div class="field">
+        <label>Similarity Boost (0–1)</label>
+        <input type="text" id="similarity" value="0.8">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">03 · Frases (uma por linha, formato: nome-do-arquivo | texto)</div>
+    <div class="field">
+      <textarea id="textBatch" rows="18">gapfill-01 | I was looking for my glasses all morning.
+gapfill-02 | Can you look at this report before lunch?
+gapfill-03 | She looks after her grandfather on Sundays.
+gapfill-04 | The police are looking into the accident.
+gapfill-05 | I'm looking forward to the concert next week.
+gapfill-06 | He looks down on people who don't tip.
+gapfill-07 | Let me think it over for a minute.
+gapfill-08 | What do you think of my idea?
+gapfill-09 | She's thinking about switching careers.
+gapfill-10 | He dreams of owning a boat someday.
+gapfill-11 | Do you agree with me on this?
+gapfill-12 | We finally agreed on the price.
+gapfill-13 | I need to talk to you about something.
+gapfill-14 | He talked me into joining the gym.
+pair-01-a | She's looking for her keys.
+pair-01-b | She's looking after her keys.
+pair-02-a | Can you look at the report?
+pair-02-b | Can you look into the report?
+pair-03-a | She cares for her patients.
+pair-03-b | She cares about her patients.
+pair-04-a | They agreed to the plan.
+pair-04-b | They agreed on the plan.
+pair-05-a | She dreams of success.
+pair-05-b | She dreams about success.
+pair-06-a | She waits for customers.
+pair-06-b | She waits on customers.
+pair-07-a | What do you think of him?
+pair-07-b | What do you think about him?
+pair-08-a | He talked to her for hours.
+pair-08-b | He talked her into it.</textarea>
+      <div class="field-note">Pode editar, apagar linhas, ou colar frases novas nesse mesmo formato.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="generateBtn" onclick="generateAll()">Gerar todos os áudios</button>
+      <button class="btn secondary" onclick="downloadZip()" id="zipBtn" disabled>Baixar tudo em ZIP</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">04 · Resultado</div>
+    <div class="clip-list" id="clipList"></div>
+  </div>
+
+</div>
+
+<script>
+let generatedClips = {}; // name -> blob
+
+function parseLines() {
+  const raw = document.getElementById('textBatch').value;
+  return raw.split('\n').map(l => l.trim()).filter(l => l.length > 0).map(line => {
+    const idx = line.indexOf('|');
+    if (idx === -1) return null;
+    const name = line.slice(0, idx).trim();
+    const text = line.slice(idx + 1).trim();
+    if (!name || !text) return null;
+    return { name, text };
+  }).filter(Boolean);
+}
+
+async function loadVoices() {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  const area = document.getElementById('voiceListArea');
+  if (!apiKey) { alert('Cole sua API key primeiro.'); return; }
+  area.innerHTML = 'Carregando...';
+  try {
+    const res = await fetch('https://api.elevenlabs.io/v1/voices', {
+      headers: { 'xi-api-key': apiKey }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    area.innerHTML = '';
+    data.voices.forEach(v => {
+      const chip = document.createElement('span');
+      chip.className = 'voice-chip';
+      chip.textContent = v.name + ' (' + v.voice_id.slice(0,6) + '...)';
+      chip.onclick = () => { document.getElementById('voiceId').value = v.voice_id; };
+      area.appendChild(chip);
+    });
+    if (data.voices.length === 0) area.innerHTML = 'Nenhuma voz encontrada na conta.';
+  } catch (err) {
+    area.innerHTML = '';
+    setStatus('Erro ao carregar vozes: ' + err.message, true);
+  }
+}
+
+function setStatus(text, isErr) {
+  const el = document.getElementById('status');
+  const span = document.createElement('div');
+  span.className = isErr ? 'err' : 'ok';
+  span.textContent = text;
+  el.appendChild(span);
+  el.scrollTop = el.scrollHeight;
+}
+
+async function generateOne(apiKey, voiceId, modelId, stability, similarity, text) {
+  const res = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voiceId, {
+    method: 'POST',
+    headers: {
+      'xi-api-key': apiKey,
+      'Content-Type': 'application/json',
+      'Accept': 'audio/mpeg'
+    },
+    body: JSON.stringify({
+      text: text,
+      model_id: modelId,
+      voice_settings: { stability: parseFloat(stability), similarity_boost: parseFloat(similarity) }
+    })
+  });
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    throw new Error('HTTP ' + res.status + ' ' + errText.slice(0, 150));
+  }
+  return await res.blob();
+}
+
+async function generateAll() {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  const voiceId = document.getElementById('voiceId').value.trim();
+  const modelId = document.getElementById('modelId').value;
+  const stability = document.getElementById('stability').value;
+  const similarity = document.getElementById('similarity').value;
+
+  if (!apiKey) { alert('Cole sua API key primeiro.'); return; }
+  if (!voiceId) { alert('Preencha o Voice ID.'); return; }
+
+  const items = parseLines();
+  if (items.length === 0) { alert('Nenhuma linha válida encontrada. Use o formato: nome | texto'); return; }
+
+  document.getElementById('status').innerHTML = '';
+  document.getElementById('clipList').innerHTML = '';
+  document.getElementById('generateBtn').disabled = true;
+  document.getElementById('zipBtn').disabled = true;
+  generatedClips = {};
+
+  const fill = document.getElementById('progressFill');
+  let done = 0;
+
+  for (const item of items) {
+    try {
+      const blob = await generateOne(apiKey, voiceId, modelId, stability, similarity, item.text);
+      generatedClips[item.name] = blob;
+      addClipToList(item.name, item.text, blob);
+      setStatus('✓ ' + item.name);
+    } catch (err) {
+      setStatus('✗ ' + item.name + ' — ' + err.message, true);
+    }
+    done++;
+    fill.style.width = Math.round((done / items.length) * 100) + '%';
+  }
+
+  document.getElementById('generateBtn').disabled = false;
+  if (Object.keys(generatedClips).length > 0) document.getElementById('zipBtn').disabled = false;
+  setStatus('Concluído: ' + Object.keys(generatedClips).length + ' de ' + items.length + ' áudios gerados.');
+}
+
+function addClipToList(name, text, blob) {
+  const url = URL.createObjectURL(blob);
+  const row = document.createElement('div');
+  row.className = 'clip-item';
+  row.innerHTML = `
+    <span class="clip-name">${name}.mp3</span>
+    <audio controls src="${url}"></audio>
+    <a class="clip-dl" href="${url}" download="${name}.mp3">Baixar</a>
+  `;
+  document.getElementById('clipList').appendChild(row);
+}
+
+async function downloadZip() {
+  if (Object.keys(generatedClips).length === 0) return;
+  const zip = new JSZip();
+  for (const [name, blob] of Object.entries(generatedClips)) {
+    zip.file(name + '.mp3', blob);
+  }
+  const content = await zip.generateAsync({ type: 'blob' });
+  const url = URL.createObjectURL(content);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'same-verb-audio.zip';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
+
+</body>
+</html>
