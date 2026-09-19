@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Same Verb, Different Meaning · Part 1 · Frankl</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--white:#fff;--surface:#F8F7F4;--surface2:#F2F1ED;
+  --border:rgba(10,10,15,.09);--border2:rgba(10,10,15,.05);
+  --ink:#0A0A0F;--ink2:#3a3a42;--ink3:#999;
+  --red:#E63946;--amber:#C8860A;--teal:#0F766E;
+  --sans:'Inter',sans-serif;--max:820px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.prep-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem}
+.prep-nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;height:48px}
+.prep-nav-brand{font-size:9px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink3);margin-right:auto;white-space:nowrap}
+.prep-nav-links{display:flex;gap:2px}
+.prep-nav-link{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  text-decoration:none;color:#888;padding:6px 12px;border-radius:4px;transition:all .12s;
+  border:1px solid transparent;white-space:nowrap}
+.prep-nav-link:hover{color:var(--ink2);background:rgba(10,10,15,.04)}
+.prep-nav-link.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.prep-nav-link .pn-sub{font-size:8px;font-weight:600;opacity:.5;margin-left:4px}
+
+/* PAGE HEADER */
+.page-header{background:var(--surface);border-bottom:1px solid var(--border);padding:3rem 2rem 2rem}
+.page-header-inner{max-width:var(--max);margin:0 auto}
+.ph-eyebrow{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:1rem}
+.ph-title{font-size:clamp(28px,4.5vw,44px);font-weight:900;letter-spacing:-.04em;line-height:.95;color:var(--ink);margin-bottom:.5rem}
+.ph-title em{font-weight:300;font-style:italic}
+.ph-sub{font-size:13px;color:var(--ink3);line-height:1.6;max-width:520px;margin-bottom:1.5rem}
+.ph-tabs{display:flex;gap:5px;flex-wrap:wrap}
+.ph-tab{display:inline-flex;font-size:11px;font-weight:700;color:var(--ink3);
+  text-decoration:none;padding:5px 12px;border:1px solid var(--border);border-radius:4px;transition:all .12s}
+.ph-tab:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ph-tab-num{font-weight:800;color:var(--red)}
+.ph-tab:hover .ph-tab-num{color:#FFE89C}
+
+/* CONTENT */
+.content{max-width:var(--max);margin:0 auto;padding:0 2rem 6rem}
+
+/* SECTION HEADS */
+.section-head-bar{display:flex;align-items:baseline;gap:1rem;padding:3rem 0 1.25rem;
+  border-bottom:1.5px solid var(--ink);margin-bottom:1.5rem}
+.section-num{font-size:48px;font-weight:900;letter-spacing:-.04em;color:var(--surface2);line-height:1;flex:none}
+.section-title-group{flex:1}
+.section-title{font-size:22px;font-weight:900;letter-spacing:-.02em;color:var(--ink)}
+.section-subtitle{font-size:11px;color:var(--ink3);font-weight:500;margin-top:2px}
+
+/* LEAD-IN QUESTIONS */
+.lead-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-left:4px solid var(--amber);border-radius:0 6px 6px 0;
+  padding:1.25rem 1.5rem;margin-bottom:1.5rem;
+}
+.lead-label{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:.75rem}
+.lead-q{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:.5rem}
+.lead-q:last-child{margin-bottom:0}
+.lead-q b{font-weight:700;color:var(--ink)}
+.lead-q i{font-weight:600;color:var(--teal);font-style:normal}
+
+/* VERB CARD */
+.verb-card{border:1.5px solid var(--ink);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:2.5rem}
+.verb-name{font-size:20px;font-weight:900;letter-spacing:-.01em;color:var(--red);margin-bottom:.75rem}
+.variant{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:baseline;flex-wrap:wrap}
+.variant:last-child{border-bottom:none}
+.variant-prep{font-weight:800;font-size:11px;text-transform:uppercase;
+  color:#fff;background:var(--ink);padding:3px 10px;min-width:80px;text-align:center;flex:none;border-radius:3px}
+.variant-body{flex:1;min-width:200px}
+.variant-meaning{display:block;font-size:13px;font-weight:600;color:var(--ink);line-height:1.5}
+.variant-ex{display:block;font-size:12.5px;color:var(--ink2);font-style:italic;margin-top:2px;line-height:1.5}
+.variant-pt{display:block;font-size:11px;color:var(--teal);font-weight:600;margin-top:3px}
+.sep-tag{display:inline-block;font-size:8px;font-weight:700;padding:1px 6px;border-radius:100px;margin-left:6px;vertical-align:middle}
+.sep-tag.mandatory{background:#FEF2F2;color:var(--red);border:1px solid var(--red)}
+.sep-tag.separable{background:#EFF6FF;color:#2563EB;border:1px solid #93C5FD}
+
+/* EXERCISES */
+.ex-section{padding:2.5rem 0;border-top:1.5px solid var(--ink)}
+.ex-section-title{font-size:18px;font-weight:800;margin-bottom:.5rem}
+.ex-instruction{font-size:12.5px;color:var(--ink3);font-style:italic;margin-bottom:1.25rem;line-height:1.5}
+.ex-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--border2);align-items:flex-start}
+.ex-item:last-child{border-bottom:none}
+.ex-num{font-size:11px;font-weight:800;color:var(--red);min-width:24px;flex:none;
+  font-variant-numeric:tabular-nums;padding-top:2px}
+.ex-main{flex:1}
+.ex-body{font-size:14px;color:var(--ink2);line-height:1.65;margin-bottom:4px}
+.ex-hint{font-size:11px;color:var(--ink3);line-height:1.5}
+.ex-hint-verb{font-weight:700;color:var(--teal)}
+.ex-blank{
+  display:inline-block;border-bottom:1.5px solid var(--ink);
+  min-width:55px;color:transparent;cursor:pointer;
+  padding:0 2px;transition:all .15s;font-weight:700;
+}
+.ex-blank.show{color:var(--teal);border-color:var(--teal)}
+
+.verb-section{margin-bottom:1rem}
+
+@media(max-width:640px){
+  .content{padding:0 1.25rem 5rem}
+  .page-header{padding:2rem 1.25rem 1.5rem}
+  .section-num{font-size:32px}
+  .variant{flex-direction:column;gap:4px}
+  .variant-prep{min-width:0;align-self:flex-start}
+  .prep-nav{padding:0 .75rem}
+}
+
+/* NOTE BILINGUAL */
+.ph-note{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:6px;padding:1.25rem 1.5rem;margin-top:1.5rem;
+}
+.ph-note-label{
+  font-size:9px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--red);margin-bottom:.75rem;
+}
+.ph-note-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.ph-note-en,.ph-note-pt{font-size:12.5px;line-height:1.65;color:var(--ink2)}
+.ph-note-en{border-right:1px solid var(--border);padding-right:1.5rem}
+.ph-note-pt{color:var(--ink3)}
+.ph-note-en em,.ph-note-pt em{font-style:normal;color:var(--teal);font-weight:600}
+.ph-note-en b,.ph-note-pt b{font-weight:700;color:var(--ink)}
+@media(max-width:640px){
+  .ph-note-bilingual{grid-template-columns:1fr;gap:1rem}
+  .ph-note-en{border-right:none;padding-right:0;border-bottom:1px solid var(--border);padding-bottom:1rem}
+}
+
+</style>
+</head>
+<body>
+
+<div class="prep-nav">
+  <div class="prep-nav-inner">
+    <div class="prep-nav-brand">Frankl · Same Verb, Different Meaning</div>
+    <div class="prep-nav-links">
+      <a class="prep-nav-link active" href="#">Part 1<span class="pn-sub">Classroom</span></a>
+      <a class="prep-nav-link" href="frankl-svdm-part1-homework.html">Part 1<span class="pn-sub">Homework</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="ph-eyebrow">EIC · Late Capitalism Series · Frankl · B2</div>
+    <h1 class="ph-title">Same Verb,<br><em>Different Meaning</em></h1>
+    <p class="ph-sub">Until now, the preposition only organized the sentence. Here, it changes the verb's entire meaning. "Look at" and "look for" are practically two different verbs. You learn these the way you learn vocabulary: one by one.</p>
+<div class="ph-note">
+  <div class="ph-note-label">What changed</div>
+  <div class="ph-note-bilingual">
+    <div class="ph-note-en">In Dependent Prepositions, the preposition organized the sentence but the verb kept its meaning: <em>afraid <b>of</b>, committed <b>to</b>, tired <b>of</b></em>. Here, the preposition changes the verb's entire meaning. <em>Look <b>at</b></em> and <em>look <b>for</b></em> are practically two different verbs. Grammars call these <b>phrasal verbs</b> and <b>prepositional verbs</b>. The difference between the two matters for one thing only: whether you can separate the verb from the preposition. The tags in this material tell you that.</div>
+    <div class="ph-note-pt">Nas Dependent Prepositions, a preposição organizava a frase mas o verbo continuava com o mesmo significado: <em>afraid <b>of</b>, committed <b>to</b>, tired <b>of</b></em>. Aqui, a preposição muda o sentido inteiro. <em>Look <b>at</b></em> e <em>look <b>for</b></em> são praticamente dois verbos diferentes. As gramáticas chamam isso de <b>phrasal verbs</b> e <b>prepositional verbs</b>. A diferença entre os dois importa para uma coisa: se separa ou não. As tags no material indicam isso.</div>
+  </div>
+</div>
+    <div class="ph-tabs">
+      <a href="#verb-look" class="ph-tab"><span class="ph-tab-num">look</span></a>
+<a href="#verb-think" class="ph-tab"><span class="ph-tab-num">think</span></a>
+<a href="#verb-dream" class="ph-tab"><span class="ph-tab-num">dream</span></a>
+<a href="#verb-care" class="ph-tab"><span class="ph-tab-num">care</span></a>
+<a href="#verb-agree" class="ph-tab"><span class="ph-tab-num">agree</span></a>
+<a href="#verb-talk" class="ph-tab"><span class="ph-tab-num">talk</span></a>
+<a href="#verb-wait" class="ph-tab"><span class="ph-tab-num">wait</span></a>
+
+    </div>
+  </div>
+</div>
+
+<div class="content">
+<div class="verb-section" id="verb-look">
+<div class="section-head-bar">
+  <div class="section-num">01</div>
+  <div class="section-title-group">
+    <div class="section-title">look</div>
+    <div class="section-subtitle">6 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">Elena notices a student is upset. She could <b>observe</b> the student's work, <b>investigate</b> what went wrong, or <b>take care of</b> the student after class. English uses "look" for all three. What changes?</p>
+<p class="lead-q">Frankl says we should never <b>feel superior to</b> someone who has not found meaning. He also says we should <b>look forward to</b> the challenge of responding to life. Same verb. Completely different actions.</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">look</div>
+  <div class="variant">
+  <span class="variant-prep">at</span>
+  <div class="variant-body">
+    <span class="variant-meaning">observe something specific</span>
+    <span class="variant-ex">Elena looked at the drawing Tomás left behind.</span>
+    <span class="variant-pt">olhar para</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">for</span>
+  <div class="variant-body">
+    <span class="variant-meaning">search for something</span>
+    <span class="variant-ex">Yara was looking for a reason to stay at the ward.</span>
+    <span class="variant-pt">procurar</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">after</span>
+  <div class="variant-body">
+    <span class="variant-meaning">take care of someone</span>
+    <span class="variant-ex">She has been looking after the same patients for years.</span>
+    <span class="variant-pt">cuidar de</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">into</span>
+  <div class="variant-body">
+    <span class="variant-meaning">investigate, examine</span>
+    <span class="variant-ex">Elena decided to look into what the student really meant.</span>
+    <span class="variant-pt">investigar</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">forward to</span>
+  <div class="variant-body">
+    <span class="variant-meaning">anticipate with pleasure</span>
+    <span class="variant-ex">Yara looks forward to walking into the ward every morning.</span>
+    <span class="variant-pt">ansiar por</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">down on</span>
+  <div class="variant-body">
+    <span class="variant-meaning">feel superior to, despise<span class="sep-tag mandatory">obrigatório</span></span>
+    <span class="variant-ex">Frankl never looked down on those who struggled to find meaning.</span>
+    <span class="variant-pt">desprezar</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="verb-section" id="verb-think">
+<div class="section-head-bar">
+  <div class="section-num">02</div>
+  <div class="section-title-group">
+    <div class="section-title">think</div>
+    <div class="section-subtitle">3 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">There is a difference between <b>having an opinion</b> about something, <b>spending time reflecting</b> on it, and <b>weighing it carefully before a decision</b>. English uses "think" for all three. How does the preposition tell you which one?</p>
+<p class="lead-q">Tomás <i>thinks about</i> his son every day. But when someone asks "what do you <i>think of</i> Frankl?", they want a quick opinion, not a deep reflection. Why?</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">think</div>
+  <div class="variant">
+  <span class="variant-prep">of</span>
+  <div class="variant-body">
+    <span class="variant-meaning">have an opinion; associate with</span>
+    <span class="variant-ex">What do you think of Frankl's argument?</span>
+    <span class="variant-pt">achar, associar</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">about</span>
+  <div class="variant-body">
+    <span class="variant-meaning">reflect on, spend time considering</span>
+    <span class="variant-ex">Tomás has been thinking about his son all week.</span>
+    <span class="variant-pt">pensar em</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">over</span>
+  <div class="variant-body">
+    <span class="variant-meaning">consider carefully before deciding<span class="sep-tag separable">separável</span></span>
+    <span class="variant-ex">Elena needs to think it over before changing her approach.</span>
+    <span class="variant-pt">refletir com calma</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="verb-section" id="verb-dream">
+<div class="section-head-bar">
+  <div class="section-num">03</div>
+  <div class="section-title-group">
+    <div class="section-title">dream</div>
+    <div class="section-subtitle">2 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">Yara says two things: "I <i>dream of</i> opening a clinic one day" and "I <i>dreamed about</i> a patient last night." One points to the future, the other to the past. Which preposition points where?</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">dream</div>
+  <div class="variant">
+  <span class="variant-prep">of</span>
+  <div class="variant-body">
+    <span class="variant-meaning">aspire to, have an ambition</span>
+    <span class="variant-ex">Yara dreams of building something that outlasts her.</span>
+    <span class="variant-pt">aspirar a</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">about</span>
+  <div class="variant-body">
+    <span class="variant-meaning">see while sleeping; keep thinking about</span>
+    <span class="variant-ex">Elena dreamed about the student's question for three nights.</span>
+    <span class="variant-pt">sonhar (dormindo); pensar repetidamente</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="verb-section" id="verb-care">
+<div class="section-head-bar">
+  <div class="section-num">04</div>
+  <div class="section-title-group">
+    <div class="section-title">care</div>
+    <div class="section-subtitle">2 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">A hospital administrator asks Yara: "Do you <i>care about</i> these patients?" and "Who <i>cares for</i> them at night?" One is about feeling, the other about action. Yara does both. Most people only do one.</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">care</div>
+  <div class="variant">
+  <span class="variant-prep">about</span>
+  <div class="variant-body">
+    <span class="variant-meaning">value emotionally, be invested in</span>
+    <span class="variant-ex">Elena still cares about her students, even when the work feels empty.</span>
+    <span class="variant-pt">se importar com</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">for</span>
+  <div class="variant-body">
+    <span class="variant-meaning">look after; also: would you like (formal)</span>
+    <span class="variant-ex">Yara cares for patients who cannot care for themselves.</span>
+    <span class="variant-pt">cuidar de; gostar (formal)</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="verb-section" id="verb-agree">
+<div class="section-head-bar">
+  <div class="section-num">05</div>
+  <div class="section-title-group">
+    <div class="section-title">agree</div>
+    <div class="section-subtitle">3 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">Three sentences, three prepositions, three kinds of agreement: "I <i>agree with</i> you" (shared belief), "We <i>agreed on</i> a deadline" (shared decision), "She <i>agreed to</i> the new terms" (acceptance). Which kind of agreement happens in each?</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">agree</div>
+  <div class="variant">
+  <span class="variant-prep">with</span>
+  <div class="variant-body">
+    <span class="variant-meaning">share the same view as someone</span>
+    <span class="variant-ex">Tomás does not always agree with Frankl, but he respects the argument.</span>
+    <span class="variant-pt">concordar com</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">on</span>
+  <div class="variant-body">
+    <span class="variant-meaning">reach consensus on a specific point</span>
+    <span class="variant-ex">They agreed on reading one chapter per week.</span>
+    <span class="variant-pt">concordar sobre</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">to</span>
+  <div class="variant-body">
+    <span class="variant-meaning">accept a proposal or condition</span>
+    <span class="variant-ex">Elena agreed to try a different approach next term.</span>
+    <span class="variant-pt">aceitar</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="verb-section" id="verb-talk">
+<div class="section-head-bar">
+  <div class="section-num">06</div>
+  <div class="section-title-group">
+    <div class="section-title">talk</div>
+    <div class="section-subtitle">4 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">Yara has a patient who refuses medication. She could <b>talk to</b> him (open a channel), <b>talk about</b> the medication (discuss the subject), <b>talk him into</b> taking it (persuade), or <b>talk him out of</b> refusing (dissuade). Four prepositions, four completely different outcomes.</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">talk</div>
+  <div class="variant">
+  <span class="variant-prep">to</span>
+  <div class="variant-body">
+    <span class="variant-meaning">have a conversation with</span>
+    <span class="variant-ex">Elena needs to talk to the student who asked the question.</span>
+    <span class="variant-pt">conversar com</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">about</span>
+  <div class="variant-body">
+    <span class="variant-meaning">discuss a subject</span>
+    <span class="variant-ex">They talked about Frankl for over an hour.</span>
+    <span class="variant-pt">falar sobre</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">into</span>
+  <div class="variant-body">
+    <span class="variant-meaning">persuade someone to do something<span class="sep-tag mandatory">obrigatório</span></span>
+    <span class="variant-ex">Yara talked him into staying one more week.</span>
+    <span class="variant-pt">convencer a fazer</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">out of</span>
+  <div class="variant-body">
+    <span class="variant-meaning">dissuade someone from doing something<span class="sep-tag mandatory">obrigatório</span></span>
+    <span class="variant-ex">Elena talked her colleague out of quitting mid-term.</span>
+    <span class="variant-pt">convencer a não fazer</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="verb-section" id="verb-wait">
+<div class="section-head-bar">
+  <div class="section-num">07</div>
+  <div class="section-title-group">
+    <div class="section-title">wait</div>
+    <div class="section-subtitle">3 meanings</div>
+  </div>
+</div>
+
+<div class="lead-box">
+  <div class="lead-label">Before you read the rule</div>
+  <p class="lead-q">"Wait <i>for</i>" is patience. "Wait <i>on</i>" is dependency. Frankl would say: do not <i>wait for</i> meaning to arrive. Do not <i>wait on</i> someone else to give you a reason. Go and respond to what life is already asking.</p>
+
+</div>
+
+<div class="verb-card">
+  <div class="verb-name">wait</div>
+  <div class="variant">
+  <span class="variant-prep">for</span>
+  <div class="variant-body">
+    <span class="variant-meaning">expect someone or something to arrive</span>
+    <span class="variant-ex">Tomás waited for the feeling of purpose to return. It never came by waiting.</span>
+    <span class="variant-pt">esperar por</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">on</span>
+  <div class="variant-body">
+    <span class="variant-meaning">depend on something external; also: serve</span>
+    <span class="variant-ex">We cannot wait on meaning to appear. Frankl says we must respond first.</span>
+    <span class="variant-pt">depender de; servir (garçom)</span>
+  </div>
+</div>
+<div class="variant">
+  <span class="variant-prep">up</span>
+  <div class="variant-body">
+    <span class="variant-meaning">stay awake waiting for someone</span>
+    <span class="variant-ex">Elena waited up for her daughter after the late study group.</span>
+    <span class="variant-pt">ficar acordado esperando</span>
+  </div>
+</div>
+
+</div>
+</div>
+
+
+
+<div class="ex-section">
+  <div class="ex-section-title">Practice</div>
+  <p class="ex-instruction">Fill in the correct preposition. The hint tells you which meaning fits the sentence. Click the blank to check.</p>
+  <div class="ex-item">
+  <span class="ex-num">01</span>
+  <div class="ex-main">
+    <div class="ex-body">Elena has been <span class="ex-blank" data-answer="thinking" onclick="this.classList.toggle('show')">thinking</span> <span class="ex-blank" data-answer="about" onclick="this.classList.toggle('show')">about</span> the same question since last Tuesday.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(think)</span> reflect on something over time</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">02</span>
+  <div class="ex-main">
+    <div class="ex-body">Yara <span class="ex-blank" data-answer="cares" onclick="this.classList.toggle('show')">cares</span> <span class="ex-blank" data-answer="for" onclick="this.classList.toggle('show')">for</span> every one of her patients, not just the easy ones.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(care)</span> physically look after someone</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">03</span>
+  <div class="ex-main">
+    <div class="ex-body">Tomás <span class="ex-blank" data-answer="dreams" onclick="this.classList.toggle('show')">dreams</span> <span class="ex-blank" data-answer="of" onclick="this.classList.toggle('show')">of</span> building something his son would have been proud of.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(dream)</span> aspire to, long-term ambition</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">04</span>
+  <div class="ex-main">
+    <div class="ex-body">The three of them <span class="ex-blank" data-answer="agreed" onclick="this.classList.toggle('show')">agreed</span> <span class="ex-blank" data-answer="on" onclick="this.classList.toggle('show')">on</span> reading one more chapter before the discussion.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(agree)</span> reach consensus on a specific point</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">05</span>
+  <div class="ex-main">
+    <div class="ex-body">Elena needs to <span class="ex-blank" data-answer="talk" onclick="this.classList.toggle('show')">talk</span> <span class="ex-blank" data-answer="to" onclick="this.classList.toggle('show')">to</span> the student who seemed upset after class.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(talk)</span> have a conversation with someone</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">06</span>
+  <div class="ex-main">
+    <div class="ex-body">Yara <span class="ex-blank" data-answer="looks" onclick="this.classList.toggle('show')">looks</span> <span class="ex-blank" data-answer="forward" onclick="this.classList.toggle('show')">forward</span> <span class="ex-blank" data-answer="to" onclick="this.classList.toggle('show')">to</span> walking into the ward every single morning.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(look)</span> anticipate with pleasure</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">07</span>
+  <div class="ex-main">
+    <div class="ex-body">Frankl never <span class="ex-blank" data-answer="looked" onclick="this.classList.toggle('show')">looked</span> <span class="ex-blank" data-answer="down" onclick="this.classList.toggle('show')">down</span> <span class="ex-blank" data-answer="on" onclick="this.classList.toggle('show')">on</span> people who struggled with despair.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(look)</span> feel superior to someone</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">08</span>
+  <div class="ex-main">
+    <div class="ex-body">Elena should <span class="ex-blank" data-answer="think" onclick="this.classList.toggle('show')">think</span> the offer <span class="ex-blank" data-answer="over" onclick="this.classList.toggle('show')">over</span> before giving an answer.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(think)</span> weigh carefully before deciding</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">09</span>
+  <div class="ex-main">
+    <div class="ex-body">Tomás <span class="ex-blank" data-answer="dreams" onclick="this.classList.toggle('show')">dreams</span> <span class="ex-blank" data-answer="about" onclick="this.classList.toggle('show')">about</span> his son almost every night.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(dream)</span> see while sleeping</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">10</span>
+  <div class="ex-main">
+    <div class="ex-body">They decided to <span class="ex-blank" data-answer="look" onclick="this.classList.toggle('show')">look</span> <span class="ex-blank" data-answer="into" onclick="this.classList.toggle('show')">into</span> why the student had asked that question.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(look)</span> investigate, examine</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">11</span>
+  <div class="ex-main">
+    <div class="ex-body">Yara has been <span class="ex-blank" data-answer="looking" onclick="this.classList.toggle('show')">looking</span> <span class="ex-blank" data-answer="after" onclick="this.classList.toggle('show')">after</span> the older patients on the third floor for months.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(look)</span> take care of</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">12</span>
+  <div class="ex-main">
+    <div class="ex-body">Tomás does not always <span class="ex-blank" data-answer="agree" onclick="this.classList.toggle('show')">agree</span> <span class="ex-blank" data-answer="with" onclick="this.classList.toggle('show')">with</span> Frankl, but he sees the logic.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(agree)</span> share the same view as someone</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">13</span>
+  <div class="ex-main">
+    <div class="ex-body">She <span class="ex-blank" data-answer="talked" onclick="this.classList.toggle('show')">talked</span> him <span class="ex-blank" data-answer="into" onclick="this.classList.toggle('show')">into</span> staying at the hospital one more week.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(talk)</span> persuade someone to do something</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">14</span>
+  <div class="ex-main">
+    <div class="ex-body">Tomás was <span class="ex-blank" data-answer="waiting" onclick="this.classList.toggle('show')">waiting</span> <span class="ex-blank" data-answer="on" onclick="this.classList.toggle('show')">on</span> the evaluation results when the phone rang.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(wait)</span> depend on something external</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">15</span>
+  <div class="ex-main">
+    <div class="ex-body">Elena has stopped <span class="ex-blank" data-answer="caring" onclick="this.classList.toggle('show')">caring</span> <span class="ex-blank" data-answer="about" onclick="this.classList.toggle('show')">about</span> the bureaucracy. It does not change.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(care)</span> be emotionally invested in</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">16</span>
+  <div class="ex-main">
+    <div class="ex-body">She <span class="ex-blank" data-answer="agreed" onclick="this.classList.toggle('show')">agreed</span> <span class="ex-blank" data-answer="to" onclick="this.classList.toggle('show')">to</span> try a completely different method next term.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(agree)</span> accept a proposal or condition</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">17</span>
+  <div class="ex-main">
+    <div class="ex-body">He spent the morning <span class="ex-blank" data-answer="looking" onclick="this.classList.toggle('show')">looking</span> <span class="ex-blank" data-answer="at" onclick="this.classList.toggle('show')">at</span> his notes from the seminar.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(look)</span> observe something specific</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">18</span>
+  <div class="ex-main">
+    <div class="ex-body">The dean <span class="ex-blank" data-answer="talked" onclick="this.classList.toggle('show')">talked</span> Elena <span class="ex-blank" data-answer="out of" onclick="this.classList.toggle('show')">out of</span> ___ resigning over the schedule change.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(talk)</span> dissuade someone from doing something</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">19</span>
+  <div class="ex-main">
+    <div class="ex-body">Yara was <span class="ex-blank" data-answer="looking" onclick="this.classList.toggle('show')">looking</span> <span class="ex-blank" data-answer="for" onclick="this.classList.toggle('show')">for</span> a spare key when the alarm went off.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(look)</span> search for something</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">20</span>
+  <div class="ex-main">
+    <div class="ex-body">Elena <span class="ex-blank" data-answer="thought" onclick="this.classList.toggle('show')">thought</span> <span class="ex-blank" data-answer="about" onclick="this.classList.toggle('show')">about</span> what her colleagues would say about the new format.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(think)</span> reflect on something</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">21</span>
+  <div class="ex-main">
+    <div class="ex-body">Tomás has been <span class="ex-blank" data-answer="waiting" onclick="this.classList.toggle('show')">waiting</span> <span class="ex-blank" data-answer="for" onclick="this.classList.toggle('show')">for</span> the test results since Friday.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(wait)</span> expect something to arrive</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">22</span>
+  <div class="ex-main">
+    <div class="ex-body">Nobody here really <span class="ex-blank" data-answer="cares" onclick="this.classList.toggle('show')">cares</span> <span class="ex-blank" data-answer="about" onclick="this.classList.toggle('show')">about</span> whether the meeting starts on time.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(care)</span> value emotionally</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">23</span>
+  <div class="ex-main">
+    <div class="ex-body">What do you <span class="ex-blank" data-answer="think" onclick="this.classList.toggle('show')">think</span> <span class="ex-blank" data-answer="of" onclick="this.classList.toggle('show')">of</span> Frankl's idea about unavoidable suffering?</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(think)</span> have a quick opinion about</div>
+  </div>
+</div>
+<div class="ex-item">
+  <span class="ex-num">24</span>
+  <div class="ex-main">
+    <div class="ex-body">Elena <span class="ex-blank" data-answer="waited" onclick="this.classList.toggle('show')">waited</span> <span class="ex-blank" data-answer="up" onclick="this.classList.toggle('show')">up</span> for her daughter, who was studying until midnight.</div>
+    <div class="ex-hint"><span class="ex-hint-verb">(wait)</span> stay awake until someone arrives</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
