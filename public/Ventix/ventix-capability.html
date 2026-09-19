@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>It's possible to... or is it? · Ventix Compressors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;--purple:#6D5BD0;--pink:#C2306B;
+  --neon:#EAFF00;--neon-pink:#FF2EC4;--neon-green:#00FF85;
+  --f1:#E8158F;--f1-bg:rgba(232,21,143,.1);
+  --f2:#06A15C;--f2-bg:rgba(6,161,92,.1);
+  --f3:#0D1FFF;--f3-bg:rgba(13,31,255,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--neon-green);color:var(--ink)}
+
+
+/* tooltips */
+.tip{position:relative;border-bottom:1.5px dotted var(--teal);cursor:help;font-weight:inherit}
+.tip .tt{
+  visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:50%;
+  transform:translateX(-50%);background:var(--dark);color:#fff;font-size:12px;font-weight:600;
+  line-height:1.45;padding:8px 12px;border-radius:8px;white-space:nowrap;z-index:10;
+  pointer-events:none;transition:opacity .18s ease;
+  box-shadow:0 4px 12px rgba(0,0,0,.18)
+}
+.tip .tt::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--dark)}
+.tip:hover .tt,.tip:focus .tt{visibility:visible;opacity:1}
+@media(max-width:820px){.tip .tt{white-space:normal;min-width:180px;max-width:260px}}
+
+
+/* top nav */
+.topnav{display:flex;align-items:center;gap:0;padding:0;margin-top:-1px;border-top:1.5px solid var(--ink)}
+.topnav a{font-size:12px;font-weight:600;color:var(--mid);text-decoration:none;padding:10px 16px;transition:all .12s ease;white-space:nowrap;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--ink)}
+.topnav a.here{color:var(--ink);font-weight:800;border-bottom:2px solid var(--teal)}
+
+/* masthead */
+.mast{max-width:960px;margin:0 auto;padding:22px 56px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1.5px solid var(--ink)}
+.mast-left{display:flex;align-items:center;gap:14px}
+.mast-logo{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--ink)}
+.mast-logo .dot{color:var(--orange)}
+.mast-sep{width:1.5px;height:18px;background:var(--border)}
+.mast-mod{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--mid)}
+.badge{font-size:10px;font-weight:800;letter-spacing:.08em;border:1.5px solid var(--ink);padding:4px 10px}
+
+/* hero */
+.hero{max-width:960px;margin:0 auto;padding:64px 56px 52px}
+.hero h1{font-size:clamp(36px,6.5vw,56px);font-weight:900;letter-spacing:-.035em;line-height:.95;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.hero .deck{margin-top:18px;max-width:52ch;font-size:16px;color:var(--mid);font-weight:500;line-height:1.6}
+
+/* real talk */
+.rt{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.rt-box{border-left:3px solid var(--teal);background:rgba(13,122,138,.06);padding:14px 18px;max-width:640px;border-radius:0 10px 10px 0}
+.rt-k{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.rt-box p{font-size:13.5px;line-height:1.65}
+
+/* toolkit */
+.toolkit{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.tk-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.tk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tk{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 15px}
+.tk-form{font-size:14px;font-weight:800;letter-spacing:-.01em;margin-bottom:5px}
+.tk-use{font-size:11.5px;color:var(--mid);line-height:1.5}
+.tk-ex{font-size:12px;font-weight:600;margin-top:8px;color:var(--ink);line-height:1.45}
+.tk-pt{font-size:11px;color:var(--mid);margin-top:4px;line-height:1.45}
+.tk-fabs{display:flex;gap:6px;margin-top:10px}
+.tk-fab{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1.5px solid var(--border);background:#fff;color:var(--mid);border-radius:16px;cursor:pointer;transition:all .15s ease}
+.tk-fab:hover,.tk-fab.active{border-color:var(--teal);color:var(--teal);background:rgba(13,122,138,.06)}
+.tk-panel{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.tk-panel.show{display:block}
+.tk-panel-row{margin-bottom:8px}
+.tk-panel-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:2px}
+.tk-panel-en{font-size:12.5px;font-weight:600;line-height:1.4}
+.tk-panel-pt{font-size:11px;color:var(--mid);line-height:1.4}
+
+
+/* restructure block */
+.restr{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.restr-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+.restr-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:24px;max-width:640px}
+.restr-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px}
+.restr-type{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.restr-row{display:grid;grid-template-columns:1fr 36px 1fr;gap:0;align-items:center;margin-bottom:16px}
+.restr-row:last-child{margin-bottom:0}
+.restr-side{padding:14px 16px;border-radius:10px;font-size:15px;font-weight:600;line-height:1.5}
+.restr-from{background:var(--surface);color:var(--mid)}
+.restr-to{background:rgba(13,122,138,.08)}
+.restr-arrow{text-align:center;color:var(--teal);font-size:18px;font-weight:900}
+.restr-from .subj{background:rgba(230,57,70,.15);padding:2px 6px;border-radius:4px;color:var(--ink);font-weight:800}
+.restr-from .dead{color:var(--mid);opacity:.45;text-decoration:line-through}
+.restr-from .inf{border-bottom:1.5px dotted var(--mid)}
+.restr-to .subj{background:rgba(13,122,138,.18);padding:2px 6px;border-radius:4px;font-weight:800}
+.restr-to .modal{color:var(--teal);font-weight:800}
+.restr-steps{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.restr-step{display:grid;grid-template-columns:22px 1fr;gap:8px;margin-bottom:6px;font-size:12.5px;line-height:1.5}
+.restr-sn{font-weight:800;color:var(--teal)}
+.restr-pt{font-size:12px;color:var(--mid);margin-top:2px}
+@media(max-width:820px){
+  .restr{padding-left:24px;padding-right:24px}
+  .restr-row{grid-template-columns:1fr;gap:8px}
+  .restr-arrow{transform:rotate(90deg)}
+}
+
+
+/* family badges + neon */
+.fam-badge{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:100px;white-space:nowrap}
+.fam-badge.f1{background:var(--f1-bg);color:var(--f1)}
+.fam-badge.f2{background:var(--f2-bg);color:var(--f2)}
+.fam-badge.f3{background:var(--f3-bg);color:var(--f3)}
+.fam-dot{width:7px;height:7px;border-radius:50%;flex:none}
+.items-legend{max-width:960px;margin:0 auto;padding:0 56px 16px;display:flex;gap:14px;flex-wrap:wrap}
+
+.sm-hint-ctx{font-size:13px;color:var(--ink);line-height:1.55;padding:12px 14px 12px 42px;background:var(--neon);border-radius:10px;margin:10px 0 16px;position:relative;font-weight:600}
+.sm-hint-ctx::before{content:"";position:absolute;left:14px;top:13px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%230A1628' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/%3E%3Cpath d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/%3E%3C/svg%3E") no-repeat center/contain}
+.sm-picker{margin-bottom:14px}
+.sm-pick-label{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.sm-pick-opts{display:flex;gap:6px;flex-wrap:wrap}
+.sm-pick-opt{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:6px 12px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:20px;cursor:pointer;transition:all .15s ease}
+.sm-pick-opt:hover{border-color:var(--teal);color:var(--teal)}
+.sm-pick-opt.right{background:var(--neon);border-color:var(--neon);color:var(--ink);font-weight:800}
+.sm-pick-opt.dim{opacity:.25}
+.sm-pick-opt[disabled]{cursor:default}
+.sm-pick-result{display:none;font-size:12px;margin-top:6px;font-weight:600}
+.sm-pick-result.show{display:block}
+.sm-steps.locked{opacity:.3;pointer-events:none}
+/* step machine */
+.sm-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:14px}
+.sm-type{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--neon);display:inline-block;padding:4px 12px;border-radius:100px;margin-bottom:6px}
+.sm-type-pt{font-size:11px;color:var(--mid);margin-bottom:16px}
+.sm-sentence{font-size:17px;font-weight:700;line-height:1.55;padding:14px 16px;border-radius:10px;background:var(--surface);margin-bottom:14px;min-height:52px;transition:background .3s ease}
+.sm-sentence.done{background:rgba(13,122,138,.08)}
+.sm-sentence .dead{color:var(--mid);opacity:.4;text-decoration:line-through}
+.sm-sentence .hl{background:rgba(13,122,138,.2);padding:2px 5px;border-radius:4px;font-weight:800}
+.sm-sentence .hl-subj{background:rgba(230,57,70,.15);padding:2px 5px;border-radius:4px;font-weight:800}
+.sm-steps{display:flex;flex-direction:column;gap:0}
+.sm-step{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-top:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s ease}
+.sm-step:hover{background:rgba(13,122,138,.03);border-radius:8px}
+.sm-step.locked{opacity:.35;cursor:default}
+.sm-step.locked:hover{background:none}
+.sm-sn{width:26px;height:26px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--mid);transition:all .2s ease;flex:none}
+.sm-step.active .sm-sn{background:var(--teal);color:#fff}
+.sm-step.done .sm-sn{background:var(--teal);color:#fff}
+.sm-sbody{}
+.sm-action{font-size:13px;font-weight:700;line-height:1.5}
+.sm-action-pt{font-size:12px;color:var(--mid);margin-top:2px}
+.sm-hint{font-size:11px;font-weight:700;color:var(--teal);margin-top:3px;display:none}
+.sm-step.active .sm-hint{display:block}
+.sm-reset{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--mid);background:none;border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;cursor:pointer;margin-top:10px;transition:all .15s ease}
+.sm-reset:hover{border-color:var(--teal);color:var(--teal)}
+/* items */
+.items{max-width:960px;margin:0 auto;padding:0 56px 64px}
+.item{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:14px}
+.item-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.item-num{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.item-clause{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:rgba(13,122,138,.1);padding:3px 9px;border-radius:20px}
+.item-ctx{font-size:12.5px;color:var(--mid);line-height:1.6;margin-bottom:14px;padding-left:12px;border-left:2px solid var(--border)}
+.item-given{font-size:16px;font-weight:600;line-height:1.5;padding:14px 16px;background:rgba(13,122,138,.06);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;margin-bottom:16px}
+.item-given b{color:var(--teal);font-weight:800}
+.item-entry{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.item-input{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;padding:10px 14px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;flex:1;min-width:240px;transition:border-color .15s ease}
+.item-input:focus{outline:none;border-color:var(--teal)}
+.item-input.good{border-color:var(--teal);background:rgba(13,122,138,.06)}
+.item-check{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.04em;padding:10px 16px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;cursor:pointer;transition:all .15s ease}
+.item-check:hover{background:var(--ink);color:var(--paper)}
+.item-fb{margin-top:9px;font-size:13px;line-height:1.55;display:none;padding-left:12px;border-left:2px solid var(--border);color:var(--mid)}
+.item-fb.on{display:block}
+.item-fb.ok{color:var(--teal);border-left-color:var(--teal);font-weight:600}
+.item-show{margin-top:9px;background:none;border:0;padding:0;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--mid);cursor:pointer;border-bottom:1px dotted var(--mid)}
+.item-show:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.item-model{display:none;margin-top:14px;background:var(--surface);border-radius:10px;padding:14px 16px}
+.item-model.show{display:block}
+.model-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:5px}
+.model-text{font-size:15px;font-weight:700;line-height:1.45;margin-bottom:8px}
+.model-note{font-size:12.5px;color:var(--ink);line-height:1.6}
+.model-note .pt{font-style:normal;display:block;margin-top:5px;font-size:12px;color:var(--mid)}
+
+/* summary */
+.summary{max-width:960px;margin:0 auto;padding:0 56px 56px}
+.sum-card{background:var(--dark);color:#fff;border-radius:14px;padding:28px 28px 24px}
+.sum-label{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--hi);margin-bottom:14px}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.sum-row{padding:12px 0;border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sum-sit{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+.sum-form{font-size:14px;font-weight:700;line-height:1.45}
+
+footer{max-width:960px;margin:0 auto;padding:0 56px 48px;font-size:12px;color:var(--mid);font-weight:500;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media(max-width:820px){
+  .mast,.hero,.rt,.toolkit,.items,.summary,footer{padding-left:24px;padding-right:24px}
+  .tk-grid{grid-template-columns:1fr}
+  .sum-row{grid-template-columns:1fr;gap:4px}
+}
+
+
+
+
+/* auxiliary machine */
+.aux{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.aux-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.aux-title{font-size:clamp(24px,4vw,36px);font-weight:900;letter-spacing:-.03em;margin-bottom:8px}
+.aux-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:24px;max-width:580px}
+.aux-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:28px 28px 24px;margin-bottom:14px}
+.aux-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.aux-sup{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.aux-counter{font-size:13px;font-weight:800;color:var(--mid)}
+.aux-score{font-size:12px;font-weight:700;color:var(--teal);margin-bottom:16px}
+.aux-score-bar{height:4px;background:var(--surface);border-radius:2px;margin-top:4px}
+.aux-score-fill{height:4px;background:var(--neon-green);border-radius:2px;transition:width .3s ease}
+.aux-subject{font-size:clamp(28px,5vw,42px);font-weight:900;letter-spacing:-.03em;margin-bottom:4px}
+.aux-expr{font-size:16px;font-weight:700;color:var(--teal);margin-bottom:18px}
+.aux-q{font-size:14px;font-weight:600;color:var(--mid);margin-bottom:10px}
+.aux-opts{display:flex;gap:8px;flex-wrap:wrap}
+.aux-opt{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:10px 18px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;cursor:pointer;transition:all .12s ease;min-width:60px;text-align:center}
+.aux-opt:hover{border-color:var(--ink)}
+.aux-opt.right{background:var(--neon-green);border-color:var(--neon-green);color:var(--ink)}
+.aux-opt.wrong{background:rgba(232,21,143,.12);border-color:var(--f1);color:var(--f1)}
+.aux-opt[disabled]{cursor:default;opacity:.85}
+.aux-opt.dim{opacity:.2}
+.aux-fb{display:none;margin-top:14px;font-size:14px;font-weight:600;line-height:1.5;padding:12px 14px;border-radius:10px}
+.aux-fb.show{display:block}
+.aux-fb.ok{background:rgba(0,255,133,.1);color:var(--ink)}
+.aux-fb.err{background:rgba(232,21,143,.08);color:var(--ink)}
+.aux-fb-example{font-size:13px;color:var(--mid);margin-top:6px}
+.aux-next{font-family:'Inter',sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;padding:9px 18px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;cursor:pointer;margin-top:12px;display:none;transition:all .12s ease}
+.aux-next:hover{background:var(--ink);color:var(--paper)}
+.aux-done{display:none;margin-top:16px;padding:18px;background:var(--neon);border-radius:12px;text-align:center}
+.aux-done-title{font-size:20px;font-weight:900;letter-spacing:-.02em}
+.aux-done-score{font-size:14px;font-weight:600;color:var(--mid);margin-top:4px}
+.aux-reset{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--mid);background:none;border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;cursor:pointer;margin-top:10px}
+
+
+.aux-indicator{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;margin-right:12px;vertical-align:middle;flex:none}
+.aux-indicator.neg{background:rgba(232,21,143,.1)}
+.aux-indicator.neg svg{stroke:var(--f1)}
+.aux-indicator.qst{background:rgba(13,122,138,.1)}
+.aux-indicator.qst svg{stroke:var(--teal)}
+
+/* visual cue icons */
+.item-cue{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);padding:5px 11px 5px 8px;background:var(--surface);border-radius:100px;margin-left:8px}
+.item-cue svg{flex:none;stroke:var(--mid);width:14px;height:14px}
+.g-subj{background:rgba(232,21,143,.15);padding:1px 5px;border-radius:4px;font-weight:800}
+.g-obj{background:rgba(13,31,255,.12);padding:1px 5px;border-radius:4px;font-weight:800}
+.aux-hl{background:var(--neon);padding:1px 5px;border-radius:4px;font-weight:800;color:var(--ink)}
+.aux-thumb{vertical-align:middle;margin-right:6px;flex:none}
+.aux-fb.ok 
+.aux-indicator{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;margin-right:12px;vertical-align:middle;flex:none}
+.aux-indicator.neg{background:rgba(232,21,143,.1)}
+.aux-indicator.neg svg{stroke:var(--f1)}
+.aux-indicator.qst{background:rgba(13,122,138,.1)}
+.aux-indicator.qst svg{stroke:var(--teal)}
+
+/* visual cue icons */
+.item-cue{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);padding:5px 11px 5px 8px;background:var(--surface);border-radius:100px;margin-left:8px}
+.item-cue svg{flex:none;stroke:var(--mid);width:14px;height:14px}
+.g-subj{background:rgba(232,21,143,.15);padding:1px 5px;border-radius:4px;font-weight:800}
+.g-obj{background:rgba(13,31,255,.12);padding:1px 5px;border-radius:4px;font-weight:800}
+.aux-hl{background:var(--neon);padding:1px 5px;border-radius:4px;font-weight:800;color:var(--ink)}
+.aux-thumb{stroke:var(--f2)}
+.aux-fb.err 
+.aux-indicator{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;margin-right:12px;vertical-align:middle;flex:none}
+.aux-indicator.neg{background:rgba(232,21,143,.1)}
+.aux-indicator.neg svg{stroke:var(--f1)}
+.aux-indicator.qst{background:rgba(13,122,138,.1)}
+.aux-indicator.qst svg{stroke:var(--teal)}
+
+/* visual cue icons */
+.item-cue{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);padding:5px 11px 5px 8px;background:var(--surface);border-radius:100px;margin-left:8px}
+.item-cue svg{flex:none;stroke:var(--mid);width:14px;height:14px}
+.g-subj{background:rgba(232,21,143,.15);padding:1px 5px;border-radius:4px;font-weight:800}
+.g-obj{background:rgba(13,31,255,.12);padding:1px 5px;border-radius:4px;font-weight:800}
+.aux-hl{background:var(--neon);padding:1px 5px;border-radius:4px;font-weight:800;color:var(--ink)}
+.aux-thumb{stroke:var(--f1)}
+/* tool picker */
+.item-picker{margin-bottom:14px}
+.pick-label{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.pick-opts{display:flex;gap:6px;flex-wrap:wrap}
+.pick-opt{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:6px 12px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:20px;cursor:pointer;transition:all .15s ease}
+.pick-opt:hover{border-color:var(--teal);color:var(--teal)}
+.pick-opt.right{background:var(--neon);border-color:var(--neon);color:var(--ink);font-weight:800}
+.pick-opt.dim{opacity:.25}
+.pick-opt[disabled]{cursor:default}
+.item-entry.locked{opacity:.3;pointer-events:none}
+.pick-result{display:none;font-size:12px;margin-top:6px;font-weight:600}
+.pick-result.show{display:block}
+.pick-result.ok{color:var(--teal)}
+.pick-result.wrong{color:var(--f1)}
+
+/* production prompts */
+.prod{max-width:960px;margin:0 auto;padding:0 56px 56px}
+.prod-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--neon-green);margin-bottom:6px}
+.prod-title{font-size:clamp(24px,4vw,36px);font-weight:900;letter-spacing:-.03em;color:#fff;margin-bottom:8px}
+.prod-intro{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:28px;max-width:580px}
+.prod-wrap{background:var(--dark);border-radius:16px;padding:32px 30px 28px}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prod-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 18px 16px;transition:border-color .15s ease}
+.prod-card:hover{border-color:rgba(255,255,255,.25)}
+.prod-num{font-size:10px;font-weight:800;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:10px}
+.prod-scene{font-size:14px;font-weight:600;color:#fff;line-height:1.55;margin-bottom:12px;min-height:60px}
+.prod-target{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--neon);color:var(--ink);padding:4px 10px;border-radius:100px;margin-bottom:12px}
+.prod-task{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px;line-height:1.5}
+.prod-input{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;width:100%;padding:10px 12px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#fff;border-radius:8px;resize:none;min-height:56px;transition:border-color .15s ease}
+.prod-input:focus{outline:none;border-color:var(--neon-green)}
+.prod-input::placeholder{color:rgba(255,255,255,.25)}
+.prod-reveal{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);background:none;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 12px;cursor:pointer;margin-top:10px;transition:all .15s ease}
+.prod-reveal:hover{color:var(--neon);border-color:var(--neon)}
+.prod-example{display:none;margin-top:10px;font-size:13px;font-weight:600;color:var(--neon-green);line-height:1.5}
+.prod-example.show{display:block}
+.prod-example-pt{color:rgba(255,255,255,.4);font-size:12px;font-weight:500;margin-top:3px}
+.prod-footer{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.4);line-height:1.6}
+@media(max-width:700px){.prod-grid{grid-template-columns:1fr}}
+
+
+/* classify exercise */
+.classify{max-width:960px;margin:0 auto;padding:0 56px 56px}
+.cls-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.cls-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:20px;max-width:640px}
+.cls-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:12px}
+.cls-sent{font-size:15px;font-weight:600;line-height:1.5;margin-bottom:12px}
+.cls-opts{display:flex;gap:8px;flex-wrap:wrap}
+.cls-opt{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:700;padding:7px 14px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:20px;cursor:pointer;transition:all .15s ease}
+.cls-opt:hover{border-color:var(--teal);color:var(--teal)}
+.cls-opt.right{background:var(--teal);border-color:var(--teal);color:#fff}
+.cls-opt.dim{opacity:.3}
+.cls-opt[disabled]{cursor:default}
+.cls-fb{display:none;margin-top:10px;font-size:12.5px;line-height:1.6;padding-left:12px;border-left:2px solid var(--teal)}
+.cls-fb.show{display:block}
+.cls-fb-pt{color:var(--mid);font-size:12px;margin-top:4px}
+
+/* fix email */
+.fix{max-width:960px;margin:0 auto;padding:0 56px 56px}
+.fix-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.fix-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:20px;max-width:640px}
+.fix-email{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:14px}
+.fix-from{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:10px}
+.fix-line{padding:10px 0;border-bottom:1px solid var(--border)}
+.fix-line:last-child{border-bottom:none}
+.fix-orig{font-size:14px;line-height:1.55;margin-bottom:8px}
+.fix-orig b{color:var(--teal);font-weight:800}
+.fix-entry{display:flex;gap:8px;flex-wrap:wrap}
+.fix-input{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:8px 12px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:8px;flex:1;min-width:200px;transition:border-color .15s ease}
+.fix-input:focus{outline:none;border-color:var(--teal)}
+.fix-input.good{border-color:var(--teal);background:rgba(13,122,138,.06)}
+.fix-btn{font-family:'Inter',sans-serif;font-size:10px;font-weight:800;letter-spacing:.04em;padding:8px 12px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:8px;cursor:pointer;transition:all .15s ease}
+.fix-btn:hover{background:var(--ink);color:var(--paper)}
+.fix-answer{display:none;margin-top:8px;font-size:13px;font-weight:600;color:var(--teal)}
+.fix-answer.show{display:block}
+.fix-answer-pt{color:var(--mid);font-size:12px;font-weight:500;margin-top:3px}
+</style>
+</head>
+<body>
+
+
+
+<header class="mast">
+  <div class="mast-left">
+    <span class="mast-logo">E<span class="dot">·</span>I<span class="dot">·</span>C</span>
+    <span class="mast-sep"></span>
+    <span class="mast-mod">Ventix Compressors</span>
+  </div>
+  <span class="badge">B1+ · CAPABILITY</span>
+
+<nav class="topnav">
+  <a href="ventix-fine-print.html">The Fine Print</a>
+  <a href="ventix-capability.html" class="here">Capability</a>
+  <a href="ventix-monday-morning.html">Monday Morning</a>
+  <a href="the-evidence-room.html">Evidence Room</a>
+</nav>
+</header>
+
+
+<div class="hero">
+  <h1>It's <em>possible</em> to... or is it?</h1>
+  <p class="deck">You keep reaching for "it's possible" when you mean someone <span class="tip" tabindex="0">can do<span class="tt">consegue fazer</span></span> something, is <span class="tip" tabindex="0">allowed to<span class="tt">tem permissão para</span></span>, or <span class="tip" tabindex="0">qualifies for<span class="tt">tem direito a</span></span> it. Eight clauses from the Ventix warranty. Rewrite each one without the word possible.</p>
+</div>
+
+<div class="rt">
+  <div class="rt-box">
+    <div class="rt-k">Real Talk</div>
+    <p>Em português, "é possível" serve para incerteza e para capacidade. Em inglês, cada uma tem a sua casa. Na Evidence Room você praticou a incerteza com os modais. Agora é a mesma palavra, mas no sentido de conseguir, ter permissão, ter direito.</p>
+  </div>
+</div>
+
+<div class="toolkit">
+  <div class="tk-label">Your toolkit</div>
+  <div class="tk-grid">
+
+    <div class="tk" id="tk-0">
+      <div class="tk-form">can / can't</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>General</div>
+      <div class="tk-use">General <span class="tip" tabindex="0">ability<span class="tt">habilidade, capacidade</span></span> or <span class="tip" tabindex="0">permission<span class="tt">permissão</span></span>. The default.</div>
+      <div class="tk-pt">Capacidade ou permissão geral. O padrão.</div>
+      <div class="tk-ex">"You can submit a sample after hours."</div>
+      <div class="tk-pt">"Você pode enviar uma amostra fora do horário."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(0,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(0,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-0-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"You can't submit a sample after the part has been discarded."</div>
+        <div class="tk-panel-pt">"Você não pode enviar uma amostra depois que a peça foi descartada."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-0-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Can you submit a sample after hours?"</div>
+        <div class="tk-panel-pt">"Você consegue enviar uma amostra fora do horário?"</div></div>
+      </div>
+    </div>
+
+    <div class="tk" id="tk-1">
+      <div class="tk-form">be able to</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>Capacity</div>
+      <div class="tk-use">Ability that flexes: future, <span class="tip" tabindex="0">present perfect<span class="tt">presente perfeito</span></span>, infinitive.</div>
+      <div class="tk-pt">Capacidade que flexiona: futuro, presente perfeito, infinitivo.</div>
+      <div class="tk-ex">"We'll be able to process it by Friday."</div>
+      <div class="tk-pt">"Vamos conseguir processar até sexta."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(1,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(1,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-1-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"We won't be able to process it without the sample."</div>
+        <div class="tk-panel-pt">"Não vamos conseguir processar sem a amostra."</div></div>
+        <div class="tk-panel-row"><div class="tk-panel-label">Present perfect</div>
+        <div class="tk-panel-en">"He hasn't been able to reach the client yet."</div>
+        <div class="tk-panel-pt">"Ele ainda não conseguiu falar com o cliente."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-1-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Will you be able to process it by Friday?"</div>
+        <div class="tk-panel-pt">"Você vai conseguir processar até sexta?"</div></div>
+        <div class="tk-panel-row"><div class="tk-panel-label">Present perfect</div>
+        <div class="tk-panel-en">"Has anyone been able to reach the client?"</div>
+        <div class="tk-panel-pt">"Alguém conseguiu falar com o cliente?"</div></div>
+      </div>
+    </div>
+
+    <div class="tk" id="tk-2">
+      <div class="tk-form">be eligible for</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Criteria</div>
+      <div class="tk-use"><span class="tip" tabindex="0">Meets the criteria<span class="tt">Atende aos critérios</span></span>. Rules decide, not people.</div>
+      <div class="tk-pt">Atende aos critérios. As regras decidem, não as pessoas.</div>
+      <div class="tk-ex">"The unit is eligible for extended coverage."</div>
+      <div class="tk-pt">"A unidade tem direito à cobertura estendida."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(2,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(2,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-2-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"The unit is not eligible for coverage after the warranty expires."</div>
+        <div class="tk-panel-pt">"A unidade não tem direito à cobertura depois que a garantia vence."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-2-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Is this unit eligible for extended coverage?"</div>
+        <div class="tk-panel-pt">"Esta unidade tem direito à cobertura estendida?"</div></div>
+      </div>
+    </div>
+
+    <div class="tk" id="tk-3">
+      <div class="tk-form">be qualified to</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>Certification</div>
+      <div class="tk-use">Has the right <span class="tip" tabindex="0">training<span class="tt">treinamento</span></span> or <span class="tip" tabindex="0">certification<span class="tt">certificação</span></span>.</div>
+      <div class="tk-pt">Tem o treinamento ou a certificação certa.</div>
+      <div class="tk-ex">"Only a certified technician is qualified to do the repair."</div>
+      <div class="tk-pt">"Só um técnico certificado está qualificado para fazer o reparo."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(3,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(3,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-3-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"The outside mechanic is not qualified to perform warranty repairs."</div>
+        <div class="tk-panel-pt">"O mecânico externo não está qualificado para fazer reparos de garantia."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-3-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Is this technician qualified to work on Ventix units?"</div>
+        <div class="tk-panel-pt">"Este técnico está qualificado para trabalhar em unidades Ventix?"</div></div>
+      </div>
+    </div>
+
+    <div class="tk" id="tk-4">
+      <div class="tk-form">allow / permit</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Policy speaks</div>
+      <div class="tk-use">The rule or <span class="tip" tabindex="0">policy<span class="tt">política, regra</span></span> is the subject.</div>
+      <div class="tk-pt">A regra ou política é o sujeito da frase.</div>
+      <div class="tk-ex">"The policy doesn't allow returns after 30 days."</div>
+      <div class="tk-pt">"A política não permite devoluções depois de 30 dias."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(4,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(4,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-4-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"The warranty doesn't allow third-party parts."</div>
+        <div class="tk-panel-pt">"A garantia não permite peças de terceiros."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-4-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Does the policy allow modifications without approval?"</div>
+        <div class="tk-panel-pt">"A política permite modificações sem aprovação?"</div></div>
+      </div>
+    </div>
+
+    <div class="tk" id="tk-5">
+      <div class="tk-form">manage to</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18"/><path d="M18 15h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M6 15H4.5a2.5 2.5 0 0 1 0-5H6"/><line x1="6" y1="9" x2="6" y2="15"/><line x1="18" y1="9" x2="18" y2="15"/><path d="M6 15a6 6 0 0 0 12 0"/></svg>Effort</div>
+      <div class="tk-use"><span class="tip" tabindex="0">Succeeded<span class="tt">Conseguiu</span></span>, but it was difficult.</div>
+      <div class="tk-pt">Conseguiu, mas foi difícil.</div>
+      <div class="tk-ex">"She managed to get the approval before the deadline."</div>
+      <div class="tk-pt">"Ela conseguiu a aprovação antes do prazo."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(5,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(5,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-5-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"He didn't manage to collect the sample in time."</div>
+        <div class="tk-panel-pt">"Ele não conseguiu coletar a amostra a tempo."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-5-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Did you manage to reach the supplier before the close?"</div>
+        <div class="tk-panel-pt">"Você conseguiu falar com o fornecedor antes do fechamento?"</div></div>
+      </div>
+    </div>
+
+    <div class="tk" id="tk-6">
+      <div class="tk-form">be allowed to</div>
+      <div class="item-cue" style="margin:6px 0 8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Authority</div>
+      <div class="tk-use">Has <span class="tip" tabindex="0">permission<span class="tt">permissão</span></span> from a rule or authority. The person is the subject.</div>
+      <div class="tk-pt">Tem permissão de uma regra ou autoridade. A pessoa é o sujeito.</div>
+      <div class="tk-ex">"The client is not allowed to modify the unit without approval."</div>
+      <div class="tk-pt">"O cliente não tem permissão para modificar a unidade sem aprovação."</div>
+      <div class="tk-fabs">
+        <button class="tk-fab" onclick="tkToggle(6,'neg')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>Negative</button>
+        <button class="tk-fab" onclick="tkToggle(6,'int')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Question</button>
+      </div>
+      <div class="tk-panel" id="tk-6-neg">
+        <div class="tk-panel-row"><div class="tk-panel-label">Negative</div>
+        <div class="tk-panel-en">"Technicians are not allowed to use third-party parts."</div>
+        <div class="tk-panel-pt">"Técnicos não têm permissão para usar peças de terceiros."</div></div>
+      </div>
+      <div class="tk-panel" id="tk-6-int">
+        <div class="tk-panel-row"><div class="tk-panel-label">Question</div>
+        <div class="tk-panel-en">"Are we allowed to submit the sample after hours?"</div>
+        <div class="tk-panel-pt">"Temos permissão para enviar a amostra fora do horário?"</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="aux">
+  <div class="aux-label">O auxiliar certo</div>
+  <div class="aux-title">doesn't, isn't, didn't, aren't...?</div>
+  <p class="aux-intro">Cada expressão de capacidade nega de um jeito. Escolha o auxiliar correto para cada combinação de sujeito + expressão. 16 rodadas.</p>
+  <div class="aux-card" id="auxCard">
+    <div class="aux-top">
+      <span class="aux-sup" id="auxSup">Expressão</span>
+      <span class="aux-counter" id="auxCount">1 / 16</span>
+    </div>
+    <div class="aux-score"><span id="auxRight">0</span> acertos<div class="aux-score-bar"><div class="aux-score-fill" id="auxBar" style="width:0%"></div></div></div>
+    <div class="aux-subject" id="auxSubject"></div>
+    <div class="aux-expr" id="auxExpr"></div>
+    <div class="aux-q">Qual auxiliar na negativa?</div>
+    <div class="aux-opts" id="auxOpts"></div>
+    <div class="aux-fb" id="auxFb"></div>
+    <button class="aux-next" id="auxNext" onclick="auxAdvance()">Pr&oacute;xima</button>
+    <div class="aux-done" id="auxDone">
+      <div class="aux-done-title" id="auxDoneTitle"></div>
+      <div class="aux-done-score" id="auxDoneScore"></div>
+      <button class="aux-reset" onclick="auxStart()">Recomeçar</button>
+    </div>
+  </div>
+</div>
+
+<div class="aux" style="padding-top:0">
+  <div class="aux-label">E na pergunta?</div>
+  <div class="aux-title">does, is, did, are...?</div>
+  <p class="aux-intro">Mesmo jogo, mas agora monte a pergunta. Qual auxiliar vai na frente? 12 rodadas.</p>
+  <div class="aux-card" id="auxQCard">
+    <div class="aux-top">
+      <span class="aux-sup" id="auxQSup">Pergunta</span>
+      <span class="aux-counter" id="auxQCount">1 / 12</span>
+    </div>
+    <div class="aux-score"><span id="auxQRight">0</span> acertos<div class="aux-score-bar"><div class="aux-score-fill" id="auxQBar" style="width:0%"></div></div></div>
+    <div class="aux-subject" id="auxQSubject"></div>
+    <div class="aux-expr" id="auxQExpr"></div>
+    <div class="aux-q">Qual auxiliar na pergunta?</div>
+    <div class="aux-opts" id="auxQOpts"></div>
+    <div class="aux-fb" id="auxQFb"></div>
+    <button class="aux-next" id="auxQNext" onclick="auxQAdvance()">Pr&oacute;xima</button>
+    <div class="aux-done" id="auxQDone">
+      <div class="aux-done-title" id="auxQDoneTitle"></div>
+      <div class="aux-done-score" id="auxQDoneScore"></div>
+      <button class="aux-reset" onclick="auxQStart()">Recomeçar</button>
+    </div>
+  </div>
+</div>
+<div class="restr">
+  <div class="restr-label">How the sentence changes</div>
+  <p class="restr-intro">Every "it's possible" sentence hides the real subject. Tap each step to see the sentence transform. Three patterns cover everything.</p>
+  <div id="stepMachine"></div>
+</div>
+
+<div class="items-legend">
+  <span class="fam-badge f1"><span class="fam-dot" style="background:var(--f1)"></span>Family 1 · com "for"</span>
+  <span class="fam-badge f2"><span class="fam-dot" style="background:var(--f2)"></span>Family 2 · sem "for"</span>
+  <span class="fam-badge f3"><span class="fam-dot" style="background:var(--f3)"></span>Family 3 · passiva</span>
+</div>
+<div class="items" id="items"></div>
+
+
+<div class="classify">
+  <div class="cls-label">Which expression fits?</div>
+  <p class="cls-intro">Read the sentence and pick the expression that replaces "it's possible" most naturally. Only one is the best fit.</p>
+  <div id="clsCards"></div>
+</div>
+
+<div class="fix">
+  <div class="fix-label">Fix Elena's draft</div>
+  <p class="fix-intro">Elena wrote fast and used "possible" everywhere. Rewrite each line with the right expression before she sends it.</p>
+  <div id="fixCards"></div>
+</div>
+
+<div class="prod">
+  <div class="prod-wrap">
+    <div class="prod-label">Your turn</div>
+    <div class="prod-title">Diga como Elena diria.</div>
+    <p class="prod-intro">Oito situações reais da Ventix. Escreva a frase usando a expressão indicada, depois compare com o exemplo. Fale em voz alta antes de escrever.</p>
+
+    <div class="prod-grid" id="prodGrid"></div>
+
+    <div class="prod-footer">Não existe uma resposta única. O que importa é que a expressão esteja na frase, o auxiliar esteja certo, e a frase faça sentido no contexto.</div>
+  </div>
+</div>
+<div class="summary">
+  <div class="sum-card">
+    <div class="sum-label">Quick reference</div>
+    <div class="sum-row"><div class="sum-sit">The rule blocks it</div><div class="sum-form">can't / is not allowed to</div></div>
+    <div class="sum-row"><div class="sum-sit">The rule opens it</div><div class="sum-form">can / is allowed to</div></div>
+    <div class="sum-row"><div class="sum-sit">Meets the criteria</div><div class="sum-form">is eligible for</div></div>
+    <div class="sum-row"><div class="sum-sit">Has the training</div><div class="sum-form">is qualified to</div></div>
+    <div class="sum-row"><div class="sum-sit">Will be able in the future</div><div class="sum-form">will be able to</div></div>
+    <div class="sum-row"><div class="sum-sit">It was hard, but it worked</div><div class="sum-form">managed to</div></div>
+  </div>
+</div>
+
+
+<footer>
+  <span>EIC · Escola de Idiomas e Cultura</span>
+  <span>Ventix Compressors · Capability</span>
+</footer>
+
+<script>
+
+function tkToggle(idx,type){
+  var panel=document.getElementById('tk-'+idx+'-'+type);
+  var btn=event.target;
+  var isOpen=panel.classList.contains('show');
+  // close all panels in this card
+  var card=document.getElementById('tk-'+idx);
+  card.querySelectorAll('.tk-panel').forEach(function(p){p.classList.remove('show')});
+  card.querySelectorAll('.tk-fab').forEach(function(b){b.classList.remove('active')});
+  if(!isOpen){panel.classList.add('show');btn.classList.add('active')}
+}
+var ITEMS=[
+ {clause:"4.1",rightTool:"be eligible for",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 11l3 3L22 4\"/><path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\"/></svg>",cueLabel:"Criteria",toolWhy:"O plano define critérios, não uma pessoa dando permissão.",toolWhyPt:"The plan sets criteria, not a person granting permission.",fam:"f1",famLabel:"Family 1",
+  ctx:"The warranty period and what happens when a unit is enrolled in the extended plan.",
+  given:'It\'s <b>possible</b> for <span class="g-subj">a unit</span> to have extended coverage if it\'s enrolled in the plan.',
+  accept:["eligible","can have","can get","able to"],
+  model:"The unit is eligible for extended coverage under the Extended Warranty+ Plan.",
+  note:"Eligible = meets the criteria. The plan sets the rules, not the person.<br><i class=\"pt\">Eligible = atende aos critérios. O plano decide, não a pessoa.</i>",
+  alt:"Also works: The unit can have extended coverage if it's enrolled."},
+
+ {clause:"4.2",rightTool:"can't",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m15 9-6 6\"/><path d=\"m9 9 6 6\"/></svg>",cueLabel:"Rule blocks",toolWhy:"A regra bloqueia totalmente.",toolWhyPt:"A rule blocks it completely.",fam:"f3",famLabel:"Family 3",
+  ctx:"What happens when the maintenance record is incomplete.",
+  given:'It\'s not <b>possible</b> to get <span class="g-obj">a claim</span> approved without a complete maintenance record.',
+  accept:["can't","cannot","won't be able","unable"],
+  model:"You can't get a claim approved without a complete maintenance record.",
+  note:"Can't = the rule blocks it. Direct and clear.<br><i class=\"pt\">Can't = a regra bloqueia. Direto e claro.</i>",
+  alt:"Also works: You won't be able to get a claim approved without..."},
+
+ {clause:"4.3",rightTool:"be qualified to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"8\" r=\"6\"/><path d=\"M15.477 12.89 17 22l-5-3-5 3 1.523-9.11\"/></svg>",cueLabel:"Certification",toolWhy:"É sobre ter a certificação certa.",toolWhyPt:"It's about having the right certification.",fam:"f1",famLabel:"Family 1",
+  ctx:"Who is allowed to perform repairs on the unit.",
+  given:'It\'s only <b>possible</b> for <span class="g-subj">a certified technician</span> to do the repair without voiding the warranty.',
+  accept:["only a certified","qualified","allowed","authorized"],
+  model:"Only a certified technician is qualified to perform the repair.",
+  note:"Qualified = has the right training. Authorized also works here.<br><i class=\"pt\">Qualified = tem o treinamento certo. Authorized também funciona.</i>",
+  alt:"Also works: Only an authorized technician is allowed to perform the repair."},
+
+ {clause:"4.4",rightTool:"can't",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m15 9-6 6\"/><path d=\"m9 9 6 6\"/></svg>",cueLabel:"Rule blocks",toolWhy:"A regra bloqueia. Sem for, o sujeito implícito é you.",toolWhyPt:"The rule blocks it. No for, so the implied subject is you.",fam:"f2",famLabel:"Family 2",
+  ctx:"What happens when damage comes from operating outside the rated limits.",
+  given:'It\'s not <b>possible</b> to file a claim for damage caused by operating above rated limits.',
+  accept:["can't","cannot","can not","unable to file","not able to"],
+  model:"You can't file a claim for damage caused by operating above rated limits.",
+  note:"Can't = the rule blocks it. Family 2: no \"for\", so \"you\" comes to the front.<br><i class=\"pt\">Can't = a regra bloqueia. Family 2: sem \"for\", então \"you\" vai para a frente.</i>",
+  alt:"Also works: Claims for damage from operating outside rated limits are not covered."},
+
+ {clause:"4.5",rightTool:"be allowed to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>",cueLabel:"Authority",toolWhy:"Permissão com condição de uma autoridade.",toolWhyPt:"Permission with a condition from an authority.",fam:"f2",famLabel:"Family 2",
+  ctx:"What happens when the client modifies the unit without asking first.",
+  given:'It\'s <b>possible</b> to modify the unit, but only if Ventix gives written approval first.',
+  accept:["is allowed","are allowed","allowed to","can modify","permitted"],
+  model:"You are allowed to modify the unit, but only with prior written approval from Ventix.",
+  note:"Is allowed to = permission from an authority, with a condition.<br><i class=\"pt\">Is allowed to = permissão de uma autoridade, com condição.</i>",
+  alt:"Also works: You can modify the unit, but only with prior written approval."},
+
+ {clause:"4.6",rightTool:"can",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m9 12 2 2 4-4\"/></svg>",cueLabel:"General",toolWhy:"A porta está aberta, com condição. Can still = pode, desde que.",toolWhyPt:"The door is open, with a condition.",fam:"f3",famLabel:"Family 3",
+  ctx:"The oil sample requirement at the time of failure.",
+  given:'It\'s <b>possible</b> to get <span class="g-obj">a claim</span> approved without a sample, but only in special cases.',
+  accept:["can still","may still","able to"],
+  model:"A claim can still be approved without a sample, but only if collecting one was truly impossible.",
+  note:"Can still = the door is open, with a condition. Compare with can't in item 02.<br><i class=\"pt\">Can still = a porta está aberta, mas com condição. Compare com can't no item 02.</i>",
+  alt:"Also works: The client may still be able to get the claim approved if..."},
+
+ {clause:"4.7",rightTool:"can't",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m15 9-6 6\"/><path d=\"m9 9 6 6\"/></svg>",cueLabel:"Rule blocks",toolWhy:"A política fecha a porta.",toolWhyPt:"The policy closes the door.",fam:"f2",famLabel:"Family 2",
+  ctx:"Returns due to the client ordering the wrong model.",
+  given:'It\'s not <b>possible</b> to return a unit because the client chose the wrong size.',
+  accept:["can't return","cannot return","doesn't allow","won't allow","unable"],
+  model:"The client can't return a unit because they chose the wrong capacity.",
+  note:"Can't = not available as an option. The policy closes the door completely.<br><i class=\"pt\">Can't = não está disponível. A política fecha a porta.</i>",
+  alt:"Also works: The policy doesn't allow returns due to client ordering errors."},
+
+ {clause:"4.8",rightTool:"be able to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z\"/><path d=\"M12 6v6l4 2\"/></svg>",cueLabel:"Capacity",toolWhy:"A capacidade existe, mas com consequência.",toolWhyPt:"Capacity exists but with a consequence.",fam:"f1",famLabel:"Family 1",
+  ctx:"What happens when a unit changes hands without updating the registration.",
+  given:'It\'s <b>possible</b> for <span class="g-subj">the new owner</span> to file a claim, but it might take longer.',
+  accept:["able to","can file","eligible","is able","can still"],
+  model:"The new owner is able to file a claim, but it may be delayed until Ventix re-verifies ownership.",
+  note:"Is able to = the capacity exists, but with a consequence. Be able to works where can would lose the nuance.<br><i class=\"pt\">Is able to = a capacidade existe, mas com uma consequência. Be able to funciona onde can perderia a nuance.</i>",
+  alt:"Also works: The new owner can still file a claim, but processing may be delayed."}
+,
+
+ {clause:"4.1",fam:"f2",famLabel:"Family 2",rightTool:"can't",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m15 9-6 6\"/><path d=\"m9 9 6 6\"/></svg>",cueLabel:"Rule blocks",
+  toolWhy:"A garantia padrão já expirou. A regra bloqueia.",toolWhyPt:"The standard warranty has expired. The rule blocks it.",
+  ctx:"A unit that is 18 months old and not enrolled in the <span class=\"tip\" tabindex=\"0\">extended plan<span class=\"tt\">plano estendido</span></span>.",
+  given:'It\'s not <b>possible</b> to file a warranty claim after the standard period expires.',
+  accept:["can't","cannot","can not","unable"],
+  model:"You can't file a warranty claim after the standard period expires.",
+  note:"Can't = the time window closed. Family 2: no for, so you comes to the front.<br><i class=\"pt\">Can't = a janela fechou. Family 2: sem for, então you vai para a frente.</i>",
+  alt:"Also works: You're no longer able to file a warranty claim after the standard period."},
+
+ {clause:"4.2",fam:"f1",famLabel:"Family 1",rightTool:"be able to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z\"/><path d=\"M12 6v6l4 2\"/></svg>",cueLabel:"Capacity",
+  toolWhy:"A capacidade existe, mas depende de uma condição futura.",toolWhyPt:"The capacity exists, but depends on a future condition.",
+  ctx:"A client whose <span class=\"tip\" tabindex=\"0\">maintenance record<span class=\"tt\">registro de manutenção</span></span> is almost complete.",
+  given:'It\'s <b>possible</b> for <span class=\"g-subj\">the client</span> to submit the claim once the last service is logged.',
+  accept:["able to","will be able","be able"],
+  model:"The client will be able to submit the claim once the last service is logged.",
+  note:"Will be able to = the capacity will exist in the future, once the condition is met.<br><i class=\"pt\">Will be able to = a capacidade vai existir no futuro, quando a condição for atendida.</i>",
+  alt:"Also works: The client can submit the claim once the last service is logged."},
+
+ {clause:"4.3",fam:"f2",famLabel:"Family 2",rightTool:"be allowed to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>",cueLabel:"Authority",
+  toolWhy:"Permissão de uma autoridade. A Ventix autoriza ou não.",toolWhyPt:"Permission from an authority. Ventix authorizes or not.",
+  ctx:"A third-party mechanic asks if they can <span class=\"tip\" tabindex=\"0\">inspect<span class=\"tt\">inspecionar</span></span> the unit.",
+  given:'It\'s not <b>possible</b> to inspect the unit without Ventix certification.',
+  accept:["allowed to","authorized to","permitted to"],
+  model:"You're not allowed to inspect the unit without Ventix certification.",
+  note:"Not allowed to = the authority says no. Family 2: sem for, you é o sujeito implícito.<br><i class=\"pt\">Not allowed to = a autoridade diz não. Family 2: sem for, you é implícito.</i>",
+  alt:"Also works: You're not authorized to inspect the unit without Ventix certification."},
+
+ {clause:"4.4",fam:"f1",famLabel:"Family 1",rightTool:"be eligible for",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 11l3 3L22 4\"/><path d=\"M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11\"/></svg>",cueLabel:"Criteria",
+  toolWhy:"Critérios. A unidade atende ou não às condições.",toolWhyPt:"Criteria. The unit meets the conditions or not.",
+  ctx:"A unit that has been <span class=\"tip\" tabindex=\"0\">operating within<span class=\"tt\">operando dentro de</span></span> all rated limits.",
+  given:'It\'s <b>possible</b> for <span class=\"g-subj\">the unit</span> to receive full warranty coverage.',
+  accept:["be eligible for","eligible to"],
+  model:"The unit is eligible for full warranty coverage.",
+  note:"Eligible for = meets all the criteria. The rules say yes.<br><i class=\"pt\">Eligible for = atende a todos os critérios. As regras dizem sim.</i>",
+  alt:"Also works: The unit qualifies for full warranty coverage."},
+
+ {clause:"4.5",fam:"f3",famLabel:"Family 3",rightTool:"allow / permit",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/><path d=\"M16 13H8\"/><path d=\"M16 17H8\"/></svg>",cueLabel:"Policy speaks",
+  toolWhy:"A política é o sujeito. Ela permite ou proíbe.",toolWhyPt:"The policy is the subject. It allows or prohibits.",
+  ctx:"A client asks about <span class=\"tip\" tabindex=\"0\">welding<span class=\"tt\">solda</span></span> a bracket onto the casing.",
+  given:'It\'s not <b>possible</b> to make <span class=\"g-obj\">structural modifications</span> without written approval.',
+  accept:["doesn't allow","doesn't permit","does not allow","does not permit"],
+  model:"The warranty doesn't permit structural modifications without written approval.",
+  note:"Doesn't permit = the policy is the subject speaking. Family 3: the object becomes the subject.<br><i class=\"pt\">Doesn't permit = a política é o sujeito. Family 3: o objeto vira sujeito.</i>",
+  alt:"Also works: The warranty doesn't allow structural modifications without written approval."},
+
+ {clause:"4.6",fam:"f1",famLabel:"Family 1",rightTool:"be able to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z\"/><path d=\"M12 6v6l4 2\"/></svg>",cueLabel:"Capacity",
+  toolWhy:"A capacidade existia, mas com dificuldade. Passado.",toolWhyPt:"The capacity existed, but with difficulty. Past.",
+  ctx:"The technician tried to <span class=\"tip\" tabindex=\"0\">collect<span class=\"tt\">coletar</span></span> the oil sample before the part was removed.",
+  given:'It\'s <b>possible</b> for <span class=\"g-subj\">the technician</span> to still collect a sample if the part hasn\'t been discarded yet.',
+  accept:["able to","is able","still able","can still"],
+  model:"The technician is still able to collect a sample if the part hasn't been discarded yet.",
+  note:"Is still able to = the window is open but closing. Urgency without panic.<br><i class=\"pt\">Is still able to = a janela está aberta, mas fechando. Urgência sem pânico.</i>",
+  alt:"Also works: The technician can still collect a sample if the part hasn't been discarded."},
+
+ {clause:"4.7",fam:"f3",famLabel:"Family 3",rightTool:"allow / permit",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6\"/><path d=\"M16 13H8\"/><path d=\"M16 17H8\"/></svg>",cueLabel:"Policy speaks",
+  toolWhy:"A política é o sujeito. Ela define o que é coberto.",toolWhyPt:"The policy is the subject. It defines what is covered.",
+  ctx:"A client ordered a C-40 but now wants to <span class=\"tip\" tabindex=\"0\">exchange<span class=\"tt\">trocar</span></span> it for a C-60.",
+  given:'It\'s not <b>possible</b> to process <span class=\"g-obj\">an exchange</span> for units delivered as ordered.',
+  accept:["doesn't allow","doesn't permit","does not allow","does not permit"],
+  model:"The policy doesn't allow exchanges for units delivered as ordered.",
+  note:"Doesn't allow = the policy closes the door. Family 3: the object becomes the subject.<br><i class=\"pt\">Doesn't allow = a política fecha a porta. Family 3: o objeto vira sujeito.</i>",
+  alt:"Also works: The policy doesn't permit exchanges when the unit was delivered as ordered."},
+
+ {clause:"4.8",fam:"f2",famLabel:"Family 2",rightTool:"manage to",cueIcon:"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18\"/><path d=\"M18 15h1.5a2.5 2.5 0 0 0 0-5H18\"/><path d=\"M6 15H4.5a2.5 2.5 0 0 1 0-5H6\"/><line x1=\"6\" y1=\"9\" x2=\"6\" y2=\"15\"/><line x1=\"18\" y1=\"9\" x2=\"18\" y2=\"15\"/><path d=\"M6 15a6 6 0 0 0 12 0\"/></svg>",cueLabel:"Effort",
+  toolWhy:"Conseguiu com esforço. A transferência foi difícil.",toolWhyPt:"Succeeded with effort. The transfer was difficult.",
+  ctx:"After two weeks of <span class=\"tip\" tabindex=\"0\">back and forth<span class=\"tt\">vai e volta</span></span>, the registration was finally updated.",
+  given:'It was <b>possible</b> to update the registration, but it took two weeks of calls.',
+  accept:["managed to","did manage"],
+  model:"We managed to update the registration, but it took two weeks of calls.",
+  note:"Managed to = succeeded, and it was hard. The effort is built into the verb.<br><i class=\"pt\">Managed to = conseguiu, e foi difícil. O esforço está embutido no verbo.</i>",
+  alt:"Also works: We were able to update the registration, but it took two weeks."}
+];
+
+var norm=function(s){return ' '+s.toLowerCase().replace(/['']/g,"'").replace(/[.,!?;:"]/g,'').replace(/\s+/g,' ').trim()+' '};
+var box=document.getElementById('items');
+ITEMS.forEach(function(c,i){
+  var d=document.createElement('div');d.className='item';
+  var toolsArr=["can", "can't", "be able to", "be eligible for", "be qualified to", "allow / permit", "be allowed to", "manage to"];
+  var pickerHtml='<div class="item-picker"><div class="pick-label">Qual expressão encaixa melhor?</div><div class="pick-opts">'+
+    toolsArr.map(function(t){return '<button class="pick-opt" data-tool="'+t+'" onclick="pickTool(this,'+i+')">'+t+'</button>'}).join('')+
+    '</div><div class="pick-result" id="pick-r-'+i+'"></div></div>';
+  d.innerHTML=
+   '<div class="item-head"><span class="item-num">'+String(i+1).padStart(2,'0')+'</span>'+
+   '<span class="item-clause">Clause '+c.clause+'</span>'+(c.fam?'<span class="fam-badge '+c.fam+'">'+c.famLabel+'</span>':'')+(c.cueIcon?'<span class="item-cue">'+c.cueIcon+c.cueLabel+'</span>':'')+'</div>'+
+   '<div class="item-ctx">'+c.ctx+'</div>'+
+   '<div class="item-given">'+c.given+'</div>'+
+   pickerHtml+
+   '<div class="item-entry locked" id="entry-'+i+'"><input class="item-input" type="text" placeholder="Rewrite without possible" autocomplete="off" spellcheck="false">'+
+   '<button class="item-check">Check</button></div>'+
+   '<p class="item-fb"></p>'+
+   '<button class="item-show">Show model answer</button>'+
+   '<div class="item-model"><div class="model-label">Model</div>'+
+   '<div class="model-text">\u201c'+c.model+'\u201d</div>'+
+   '<div class="model-note">'+c.note+'<br>'+c.alt+'</div></div>';
+  var input=d.querySelector('.item-input'),btn=d.querySelector('.item-check'),
+      fb=d.querySelector('.item-fb'),model=d.querySelector('.item-model'),show=d.querySelector('.item-show');
+  var run=function(){
+    var v=norm(input.value);
+    if(!v.trim()){fb.textContent='Escreva a frase antes de checar.';fb.className='item-fb on';return}
+    if(/\bpossible\b/.test(v)){fb.textContent='A palavra possible ainda est\u00e1 a\u00ed. Esse \u00e9 o alvo.';fb.className='item-fb on';return}
+    var hit=c.accept.some(function(a){return v.indexOf(a.toLowerCase())>=0});
+    if(hit){input.classList.add('good');model.classList.add('show');show.textContent='Hide model answer';fb.textContent='Correto. A capacidade agora est\u00e1 no verbo, n\u00e3o em possible.';fb.className='item-fb on ok';model.classList.add('show');show.style.display='none';return}
+    fb.textContent='A frase faz sentido, mas tente usar uma das express\u00f5es do toolkit: can, be able to, eligible, allow, allowed to, qualified...';fb.className='item-fb on';
+  };
+  btn.addEventListener('click',run);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter')run()});
+  input.addEventListener('input',function(){
+    if(input.classList.contains('good')){
+      var v=norm(input.value);
+      var hit=c.accept.some(function(a){return v.indexOf(a.toLowerCase())>=0});
+      if(!hit){input.classList.remove('good');fb.className='item-fb';fb.textContent=''}
+    }
+  });
+  show.addEventListener('click',function(){
+    var open=model.classList.toggle('show');
+    show.textContent=open?'Hide model answer':'Show model answer';
+  });
+  box.appendChild(d);
+});
+
+
+function pickTool(btn,idx){
+  var card=btn.closest('.item');
+  var opts=card.querySelectorAll('.pick-opt');
+  var items=document.querySelectorAll('.item');
+  var c=ITEMS[idx];
+  var picked=btn.dataset.tool;
+  var isRight=c.rightTool===picked;
+  opts.forEach(function(b){
+    b.setAttribute('disabled','');
+    if(b.dataset.tool===c.rightTool)b.classList.add('right');
+    else b.classList.add('dim');
+  });
+  var res=document.getElementById('pick-r-'+idx);
+  res.innerHTML=c.toolWhy+'<br><span style="color:var(--mid);font-size:11px">'+c.toolWhyPt+'</span>';
+  res.className='pick-result show '+(isRight?'ok':'wrong');
+  // unlock the entry
+  var entry=document.getElementById('entry-'+idx);
+  if(entry)entry.classList.remove('locked');
+}
+
+var TIPS={
+  "warranty period":"período de garantia","enrolled":"inscrita",
+  "maintenance record":"registro de manutenção","incomplete":"incompleto",
+  "allowed":"autorizado","perform repairs":"fazer reparos",
+  "cover":"cobrir","modifies":"modifica","asking first":"pedir antes",
+  "oil sample":"amostra de óleo","requirement":"exigência","failure":"falha",
+  "Returns":"Devoluções","ordering":"pedindo",
+  "changes hands":"muda de dono","registration":"registro"
+};
+document.querySelectorAll('.item-ctx').forEach(function(el){
+  var h=el.innerHTML;
+  Object.keys(TIPS).sort(function(a,b){return b.length-a.length}).forEach(function(k){
+    var re=new RegExp('\\b'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b');
+    if(re.test(h)){
+      h=h.replace(re,'<span class="tip" tabindex="0">'+k+'<span class="tt">'+TIPS[k]+'</span></span>');
+    }
+  });
+  el.innerHTML=h;
+});
+
+</script>
+
+
+
+<script>
+var CLS=[
+ {s:"The client _____ return the unit if they ordered the wrong model.",
+  opts:["can't","isn't eligible to","isn't able to","doesn't manage to"],
+  correct:0,
+  fb:"Can't = the policy blocks it completely. The door is closed.",
+  pt:"Can't = a política bloqueia totalmente. A porta está fechada."},
+ {s:"After updating the registration, the new owner _____ file a claim.",
+  opts:["is eligible to","manages to","is qualified to","will be able to"],
+  correct:3,
+  fb:"Will be able to = the capacity will exist in the future, once the condition is met.",
+  pt:"Will be able to = a capacidade vai existir no futuro, quando a condição for atendida."},
+ {s:"Only a Ventix-certified technician _____ open the compressor without voiding the warranty.",
+  opts:["can","manages to","is qualified to","is eligible to"],
+  correct:2,
+  fb:"Is qualified to = has the right certification. The training is what matters here.",
+  pt:"É qualificado para = tem a certificação certa. O treinamento é o que importa."},
+ {s:"The Extended Warranty+ Plan _____ modifications done without Ventix approval.",
+  opts:["can't cover","isn't able to cover","doesn't allow","doesn't manage to cover"],
+  correct:2,
+  fb:"Doesn't allow = the policy is the subject and it sets the rule. Let the document speak.",
+  pt:"Doesn't allow = a política é o sujeito e ela define a regra. Deixe o documento falar."},
+ {s:"She _____ get the oil sample before the part was removed. It was a close call.",
+  opts:["could","was eligible to","was qualified to","managed to"],
+  correct:3,
+  fb:"Managed to = she succeeded, but it was difficult. That's the 'close call' part.",
+  pt:"Managed to = ela conseguiu, mas foi difícil. É o 'close call' da frase."},
+ {s:"This unit _____ coverage under the standard warranty. It's only 10 months old.",
+  opts:["can have","is eligible for","is able to have","manages to have"],
+  correct:1,
+  fb:"Is eligible for = meets the criteria. The unit qualifies because of its age, not because someone did something.",
+  pt:"É elegível para = atende aos critérios. A unidade se qualifica pela idade, não por ação de alguém."},
+ {s:"We _____ process the claim until the maintenance record is complete.",
+  opts:["can't","aren't eligible to","don't manage to","aren't qualified to"],
+  correct:0,
+  fb:"Can't = the rule blocks it. Simple, direct, no hedging needed.",
+  pt:"Can't = a regra bloqueia. Simples, direto, sem hesitação."},
+ {s:"Nobody at the site _____ collect the oil sample. The part had already been discarded.",
+  opts:["could","was able to","was eligible to","managed to"],
+  correct:1,
+  fb:"Was able to = they had no capacity to do it at that point. Could also works here, but was able to emphasizes the specific moment.",
+  pt:"Was able to = não tinham capacidade naquele momento. Could também funciona, mas was able to enfatiza o momento específico."}
+];
+var clsBox=document.getElementById('clsCards');
+CLS.forEach(function(c,i){
+  var d=document.createElement('div');d.className='cls-card';
+  d.innerHTML='<div class="cls-sent">'+String(i+1).padStart(2,'0')+'. '+c.s+'</div>'+
+    '<div class="cls-opts">'+c.opts.map(function(o,j){return '<button class="cls-opt" data-j="'+j+'" onclick="clsPick(this,'+i+','+j+')">'+o+'</button>'}).join('')+'</div>'+
+    '<div class="cls-fb" id="cls-fb-'+i+'">'+c.fb+'<div class="cls-fb-pt">'+c.pt+'</div></div>';
+  clsBox.appendChild(d);
+});
+function clsPick(btn,i,j){
+  var card=btn.closest('.cls-card');
+  card.querySelectorAll('.cls-opt').forEach(function(b,k){
+    b.setAttribute('disabled','');
+    if(k===CLS[i].correct)b.classList.add('right');
+    else b.classList.add('dim');
+  });
+  document.getElementById('cls-fb-'+i).classList.add('show');
+}
+
+var FIX=[
+ {orig:"It's <b>possible</b> for us to extend the coverage if the client enrolls in the plan.",
+  accept:["can extend","are able to extend","able to extend"],
+  model:"We can extend the coverage if the client enrolls in the plan.",
+  pt:"Podemos estender a cobertura se o cliente se inscrever no plano."},
+ {orig:"It's not <b>possible</b> to approve the claim because the record is not complete.",
+  accept:["can't approve","cannot approve","unable to approve","won't be able"],
+  model:"We can't approve the claim because the record is not complete.",
+  pt:"Não podemos aprovar a reclamação porque o registro não está completo."},
+ {orig:"It's <b>possible</b> for a non-certified mechanic to do the repair, but it will void the warranty.",
+  accept:["can do","is able to","able to do"],
+  model:"A non-certified mechanic can do the repair, but it will void the warranty.",
+  pt:"Um mecânico não certificado pode fazer o reparo, mas vai anular a garantia."},
+ {orig:"It wasn't <b>possible</b> to collect the sample because the part had already been discarded.",
+  accept:["wasn't able","weren't able","couldn't collect","was unable","were unable"],
+  model:"We weren't able to collect the sample because the part had already been discarded.",
+  pt:"Não foi possível coletar a amostra porque a peça já tinha sido descartada."},
+ {orig:"It's <b>possible</b> for this unit to qualify for the extended plan.",
+  accept:["eligible","is eligible","can qualify","qualifies"],
+  model:"This unit is eligible for the extended plan.",
+  pt:"Esta unidade tem direito ao plano estendido."},
+ {orig:"It's only <b>possible</b> to transfer the warranty if the new owner updates the registration.",
+  accept:["can only","only be transferred","is only transferable","can only be"],
+  model:"The warranty can only be transferred if the new owner updates the registration.",
+  pt:"A garantia só pode ser transferida se o novo proprietário atualizar o registro."}
+];
+var fixBox=document.getElementById('fixCards');
+FIX.forEach(function(f,i){
+  var d=document.createElement('div');d.className='fix-email';
+  d.innerHTML='<div class="fix-from">Elena\'s draft · line '+String(i+1).padStart(2,'0')+'</div>'+
+    '<div class="fix-line"><div class="fix-orig">'+f.orig+'</div>'+
+    '<div class="fix-entry"><input class="fix-input" type="text" placeholder="Rewrite this line" autocomplete="off" spellcheck="false">'+
+    '<button class="fix-btn" onclick="fixCheck(this,'+i+')">Check</button></div>'+
+    '<div class="fix-answer" id="fix-a-'+i+'">'+f.model+'<div class="fix-answer-pt">'+f.pt+'</div></div></div>';
+  fixBox.appendChild(d);
+});
+function fixCheck(btn,i){
+  var card=btn.closest('.fix-email');
+  var input=card.querySelector('.fix-input');
+  var v=' '+input.value.toLowerCase().replace(/[\u2019']/g,"'").replace(/[.,!?;:"]/g,'').replace(/\s+/g,' ').trim()+' ';
+  if(!v.trim()){return}
+  if(/\bpossible\b/.test(v)){return}
+  var hit=FIX[i].accept.some(function(a){return v.indexOf(a.toLowerCase())>=0});
+  if(hit){input.classList.add('good')}
+  document.getElementById('fix-a-'+i).classList.add('show');
+}
+</script>
+
+<script>
+var SM=[
+ {type:"Pattern 1",smTool:"be qualified to",smToolWhy:"A cláusula 4.3 exige certificação. Não basta conseguir, tem que ser qualificado.",smHint:"Clause 4.3 says only certified technicians can do this without voiding the warranty. The issue is certification.",smFam:"f1",smFamLabel:"Family 1",typePt:"O sujeito está escondido depois de \"for\"",
+  original:'It\'s possible for <span class="hl-subj">the technician</span> <span class="hl">to do</span> the repair.',
+  steps:[
+   {action:"Ache o sujeito real depois de \"for\".",pt:"Find the real subject after \"for\".",
+    result:'<span class="dead">It\'s possible for</span> <span class="hl-subj">the technician</span> <span class="hl">to do</span> the repair.'},
+   {action:"Puxe o sujeito para o começo da frase.",pt:"Pull the subject to the front.",
+    result:'<span class="hl-subj">The technician</span> <span class="dead">possible</span> to do the repair.'},
+   {action:"Troque \"possible\" pela expressão certa. Aqui é \"is qualified to\".",pt:"Replace \"possible\" with the right expression. Here it\'s \"is qualified to\".",
+    result:'<span class="hl-subj">The technician</span> <span class="hl">is qualified to do</span> the repair.'}
+  ]},
+
+ {type:"Pattern 2",smTool:"can't",smToolWhy:"A regra bloqueia. Not possible vira can't.",smHint:"The policy says no. This is a rule that blocks the action completely.",smFam:"f2",smFamLabel:"Family 2",typePt:"Sem \"for\", mas você sabe quem",
+  original:'It\'s not possible <span class="hl">to return</span> the unit.',
+  steps:[
+   {action:"Sem \"for\", o sujeito está implícito. Aqui é \"you\".",pt:"No \"for\" means the subject is implied. Here it\'s \"you\".",
+    result:'<span class="dead">It\'s not possible</span> <span class="hl-subj">You</span> <span class="hl">to return</span> the unit.'},
+   {action:"Coloque o sujeito no começo.",pt:"Make the subject explicit at the front.",
+    result:'<span class="hl-subj">You</span> <span class="dead">not possible</span> return the unit.'},
+   {action:"\"Not possible\" vira \"can\'t\". Tire o \"to\".",pt:"\"Not possible\" becomes \"can\'t\". Drop the \"to\".",
+    result:'<span class="hl-subj">You</span> <span class="hl">can\'t return</span> the unit.'}
+  ]},
+
+ {type:"Pattern 3",smTool:"can",smToolWhy:"Capacidade existe, mas vira passiva: can be approved.",smHint:"No specific person does this. The claim either gets approved or it doesn\'t. General possibility.",smFam:"f3",smFamLabel:"Family 3",typePt:"Sem \"for\", sem pessoa específica",
+  original:'It\'s possible to <span class="hl">get the claim approved</span>.',
+  steps:[
+   {action:"Sem \"for\" e sem pessoa óbvia. Ache o objeto.",pt:"No \"for\" and no obvious person. Find the object.",
+    result:'<span class="dead">It\'s possible to get</span> <span class="hl-subj">the claim</span> approved.'},
+   {action:"O objeto vira sujeito. A frase vai para a voz passiva.",pt:"The object becomes the subject. The sentence flips to passive.",
+    result:'<span class="hl-subj">The claim</span> <span class="dead">possible</span> be approved.'},
+   {action:"Adicione o modal. Passiva: modal + be + particípio.",pt:"Add the modal. Passive: modal + be + past participle.",
+    result:'<span class="hl-subj">The claim</span> <span class="hl">can be approved</span>.'}
+  ]}
+];
+
+var smBox=document.getElementById('stepMachine');
+SM.forEach(function(m,mi){
+  var card=document.createElement('div');card.className='sm-card';card.id='sm-'+mi;
+  var stepsHtml=m.steps.map(function(st,si){
+    return '<div class="sm-step locked" data-mi="'+mi+'" data-si="'+si+'" onclick="smTap('+mi+','+si+')">'+
+      '<div class="sm-sn">'+(si+1)+'</div>'+
+      '<div class="sm-sbody">'+
+        '<div class="sm-action">'+st.action+'</div>'+
+        '<div class="sm-action-pt">'+st.pt+'</div>'+
+        '<div class="sm-hint">Toque para aplicar</div>'+
+      '</div></div>';
+  }).join('');
+  var smToolsArr=['can', "can't", 'be able to', 'eligible for', 'qualified to', 'is allowed to'];
+  var smPickerHtml='<div class="sm-picker"><div class="sm-pick-label">Primeiro: qual expressão?</div><div class="sm-pick-opts">'+
+    smToolsArr.map(function(t){return '<button class="sm-pick-opt" data-tool="'+t+'" onclick="smPickTool(this,'+mi+')">'+t+'</button>'}).join('')+
+    '</div><div class="sm-pick-result" id="sm-pick-r-'+mi+'"></div></div>';
+  card.innerHTML='<div class="sm-type">'+m.type+'</div> <span class="fam-badge '+m.smFam+'" style="margin-left:8px">'+m.smFamLabel+'</span>'+
+    '<div class="sm-type-pt">'+m.typePt+'</div>'+
+    '<div class="sm-sentence" id="sm-sent-'+mi+'">'+m.original+'</div>'+
+    '<div class="sm-hint-ctx">'+m.smHint+'</div>'+
+    smPickerHtml+
+    '<div class="sm-steps locked" id="sm-steps-'+mi+'">'+stepsHtml+'</div>'+
+    '<button class="sm-reset" onclick="smReset('+mi+')">Recomeçar</button>';
+  smBox.appendChild(card);
+  // unlock first step
+  card.querySelector('.sm-step').classList.remove('locked');
+  card.querySelector('.sm-step').classList.add('active');
+});
+
+
+function smPickTool(btn,mi){
+  var card=document.getElementById('sm-'+mi);
+  var opts=card.querySelectorAll('.sm-pick-opt');
+  var m=SM[mi];
+  var picked=btn.dataset.tool;
+  var isRight=m.smTool===picked;
+  opts.forEach(function(b){
+    b.setAttribute('disabled','');
+    if(b.dataset.tool===m.smTool)b.classList.add('right');
+    else b.classList.add('dim');
+  });
+  var res=document.getElementById('sm-pick-r-'+mi);
+  res.textContent=m.smToolWhy;
+  res.className='sm-pick-result show';
+  res.style.color=isRight?'var(--teal)':'var(--f1)';
+  // unlock steps
+  document.getElementById('sm-steps-'+mi).classList.remove('locked');
+}
+
+function smTap(mi,si){
+  var card=document.getElementById('sm-'+mi);
+  var steps=card.querySelectorAll('.sm-step');
+  var step=steps[si];
+  if(step.classList.contains('locked'))return;
+  if(step.classList.contains('done'))return;
+  // apply
+  step.classList.remove('active');
+  step.classList.add('done');
+  var sent=document.getElementById('sm-sent-'+mi);
+  sent.innerHTML=SM[mi].steps[si].result;
+  if(si===SM[mi].steps.length-1){sent.classList.add('done')}
+  // unlock next
+  if(si+1<steps.length){
+    steps[si+1].classList.remove('locked');
+    steps[si+1].classList.add('active');
+  }
+}
+function smReset(mi){
+  var card=document.getElementById('sm-'+mi);
+  var sent=document.getElementById('sm-sent-'+mi);
+  sent.innerHTML=SM[mi].original;
+  sent.classList.remove('done');
+  var steps=card.querySelectorAll('.sm-step');
+  steps.forEach(function(s,i){
+    s.classList.remove('done','active','locked');
+    if(i===0)s.classList.add('active');
+    else s.classList.add('locked');
+  });
+  // reset picker
+  card.querySelectorAll('.sm-pick-opt').forEach(function(b){
+    b.removeAttribute('disabled');b.classList.remove('right','dim');
+  });
+  var res=document.getElementById('sm-pick-r-'+mi);
+  if(res){res.className='sm-pick-result';res.textContent='';}
+  document.getElementById('sm-steps-'+mi).classList.add('locked');
+}
+</script>
+
+<script>
+(function(){
+var AUX_DATA=[
+  {subj:"The technician",expr:"be able to repair it right now",right:"isn't",
+   full:"The technician isn't able to repair it right now.",pt:"O técnico não consegue consertar."},
+  {subj:"We",expr:"be able to process the claim at the moment",right:"aren't",
+   full:"We aren't able to process the claim at the moment.",pt:"Não conseguimos processar a reclamação."},
+  {subj:"The client",expr:"be allowed to modify the unit under the current contract",right:"isn't",
+   full:"The client isn't allowed to modify the unit under the current contract.",pt:"O cliente não tem permissão para modificar."},
+  {subj:"You",expr:"be allowed to open the compressor without approval",right:"aren't",
+   full:"You aren't allowed to open the compressor without approval.",pt:"Vocês não têm permissão para abrir o compressor."},
+  {subj:"The policy",expr:"allow returns after 30 days",right:"doesn't",
+   full:"The policy doesn't allow returns after 30 days.",pt:"A política não permite devoluções após 30 dias."},
+  {subj:"These units",expr:"currently be eligible for extended coverage",right:"aren't",
+   full:"These units aren't currently eligible for extended coverage.",pt:"Essas unidades não têm direito à cobertura estendida atualmente."},
+  {subj:"She",expr:"manage to collect the sample before the deadline",right:"didn't",
+   full:"She didn't manage to collect the sample before the deadline.",pt:"Ela não conseguiu coletar a amostra antes do prazo. (Tentou, mas não deu.)"},
+  {subj:"The team",expr:"manage to reach the supplier last Friday",right:"didn't",
+   full:"The team didn't manage to reach the supplier last Friday.",pt:"A equipe não conseguiu falar com o fornecedor na sexta passada. (Tentaram.)"},
+  {subj:"This unit",expr:"be eligible for the extended plan as of today",right:"isn't",
+   full:"This unit isn't eligible for the extended plan as of today.",pt:"Esta unidade não tem direito ao plano estendido."},
+  {subj:"Carlos",expr:"currently be qualified to perform the repair",right:"isn't",
+   full:"Carlos isn't currently qualified to perform the repair.",pt:"Carlos não está qualificado para fazer o reparo."},
+  {subj:"The warranty",expr:"permit structural modifications under section 4.5",right:"doesn't",
+   full:"The warranty doesn't permit structural modifications under section 4.5.",pt:"A garantia não permite modificações estruturais."},
+  {subj:"They",expr:"be able to verify ownership in time",right:"weren't",
+   full:"They weren't able to verify ownership in time.",pt:"Eles não conseguiram verificar a propriedade a tempo."},
+  {subj:"Elena",expr:"manage to get the approval before the close yesterday",right:"didn't",
+   full:"Elena didn't manage to get the approval before the close yesterday.",pt:"Elena não conseguiu a aprovação antes do fechamento de ontem. (Tentou, mas não deu.)"},
+  {subj:"Outside mechanics",expr:"be authorized to touch the unit under Ventix policy",right:"aren't",
+   full:"Outside mechanics aren't authorized to touch the unit under Ventix policy.",pt:"Mecânicos externos não são autorizados a tocar na unidade."},
+  {subj:"The contract",expr:"currently allow claims without documentation",right:"doesn't",
+   full:"The contract doesn't currently allow claims without documentation.",pt:"O contrato não permite reclamações sem documentação."},
+  {subj:"He",expr:"be able to submit the sample after hours",right:"wasn't",
+   full:"He wasn't able to submit the sample after hours.",pt:"Ele não conseguiu enviar a amostra fora do horário."}
+];
+
+var OPTS=["doesn't","don't","isn't","aren't","didn't","wasn't","weren't"];
+var order,idx,score;
+
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+window.auxStart=function(){
+  order=shuffle(AUX_DATA.map(function(_,i){return i}));
+  idx=0;score=0;
+  document.getElementById('auxDone').style.display='none';
+  render();
+};
+
+function auxHL(t){
+  var kw=['be able to','be eligible for','be qualified to','be allowed to','be authorized to',
+          'allow','permit','manage to','eligible for','qualified to','allowed to','authorized to'];
+  kw.sort(function(a,b){return b.length-a.length});
+  for(var i=0;i<kw.length;i++){
+    var re=new RegExp('\\b'+kw[i].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i');
+    if(re.test(t)){t=t.replace(re,'<span class="aux-hl">$&</span>');break}
+  }
+  return t;
+}
+
+function render(){
+  var d=AUX_DATA[order[idx]];
+  document.getElementById('auxCount')
+  document.getElementById('auxSubject').innerHTML='<span class="aux-indicator neg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg></span> '+d.subj;
+  document.getElementById('auxExpr').innerHTML=auxHL(d.expr);
+  document.getElementById('auxCount').textContent=(idx+1)+' / '+order.length;
+  document.getElementById('auxRight').textContent=score;
+  document.getElementById('auxBar').style.width=Math.round(score/(idx||1)*100)+'%';
+  document.getElementById('auxFb').className='aux-fb';
+  document.getElementById('auxFb').textContent='';
+  document.getElementById('auxNext').style.display='none';
+  var box=document.getElementById('auxOpts');
+  box.innerHTML='';
+  OPTS.forEach(function(o){
+    var b=document.createElement('button');
+    b.className='aux-opt';b.textContent=o;
+    b.addEventListener('click',function(){pick(b,o,d)});
+    box.appendChild(b);
+  });
+}
+
+function pick(btn,chosen,d){
+  var btns=document.querySelectorAll('.aux-opt');
+  btns.forEach(function(b){
+    b.setAttribute('disabled','');
+    if(b.textContent===d.right)b.classList.add('right');
+    else if(b.textContent===chosen&&chosen!==d.right)b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  var fb=document.getElementById('auxFb');
+  if(chosen===d.right){
+    score++;
+    fb.innerHTML='<svg class="aux-thumb" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg> '+d.full+'<div class="aux-fb-example">'+d.pt+'</div>';
+    fb.className='aux-fb show ok';
+  } else {
+    fb.innerHTML='<svg class="aux-thumb" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg> '+d.full+'<div class="aux-fb-example">'+d.pt+'</div>';
+    fb.className='aux-fb show err';
+  }
+  document.getElementById('auxRight').textContent=score;
+  document.getElementById('auxBar').style.width=Math.round(score/(idx+1)*100)+'%';
+  if(idx<order.length-1){
+    document.getElementById('auxNext').style.display='inline-block';
+  } else {
+    setTimeout(function(){
+      document.getElementById('auxDone').style.display='block';
+      document.getElementById('auxDoneTitle').textContent=score+' / '+order.length;
+      document.getElementById('auxDoneScore').textContent=score>=14?'Pronto para os exercícios.':score>=10?'Quase. Tente de novo antes de seguir.':'Volte ao toolkit e revise as expressões.';
+    },600);
+  }
+}
+
+window.auxAdvance=function(){
+  idx++;
+  render();
+};
+
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',auxStart)}else{auxStart()}
+})();
+</script>
+
+<script>
+(function(){
+var AUXQ_DATA=[
+  {subj:"the technician",expr:"able to repair it right now",right:"Is",
+   full:"Is the technician able to repair it right now?",pt:"O técnico consegue consertar?"},
+  {subj:"we",expr:"allowed to open the unit without approval",right:"Are",
+   full:"Are we allowed to open the unit without approval?",pt:"Temos permissão para abrir a unidade?"},
+  {subj:"this unit",expr:"eligible for the extended plan as of today",right:"Is",
+   full:"Is this unit eligible for the extended plan as of today?",pt:"Esta unidade tem direito ao plano estendido?"},
+  {subj:"the policy",expr:"allow returns after 30 days",right:"Does",
+   full:"Does the policy allow returns after 30 days?",pt:"A política permite devoluções após 30 dias?"},
+  {subj:"she",expr:"manage to collect the sample before the part was removed",right:"Did",
+   full:"Did she manage to collect the sample before the part was removed?",pt:"Ela conseguiu coletar a amostra?"},
+  {subj:"Carlos",expr:"qualified to perform the repair under the current rules",right:"Is",
+   full:"Is Carlos qualified to perform the repair under the current rules?",pt:"Carlos está qualificado para fazer o reparo?"},
+  {subj:"they",expr:"able to verify ownership yesterday",right:"Were",
+   full:"Were they able to verify ownership yesterday?",pt:"Eles conseguiram verificar a propriedade ontem?"},
+  {subj:"the warranty",expr:"permit structural modifications under section 4.5",right:"Does",
+   full:"Does the warranty permit structural modifications under section 4.5?",pt:"A garantia permite modificações estruturais?"},
+  {subj:"the client",expr:"allowed to modify the unit under the current contract",right:"Is",
+   full:"Is the client allowed to modify the unit under the current contract?",pt:"O cliente tem permissão para modificar a unidade?"},
+  {subj:"these units",expr:"currently eligible for coverage",right:"Are",
+   full:"Are these units currently eligible for coverage?",pt:"Essas unidades têm direito à cobertura atualmente?"},
+  {subj:"Elena",expr:"manage to get the approval before the close yesterday",right:"Did",
+   full:"Did Elena manage to get the approval before the close yesterday?",pt:"Elena conseguiu a aprovação?"},
+  {subj:"the new owner",expr:"able to file a claim at this point",right:"Is",
+   full:"Is the new owner able to file a claim at this point?",pt:"O novo proprietário consegue abrir uma reclamação?"}
+];
+
+var QOPTS=["Does","Do","Is","Are","Did","Was","Were"];
+var qorder,qidx,qscore;
+
+function qshuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+window.auxQStart=function(){
+  qorder=qshuffle(AUXQ_DATA.map(function(_,i){return i}));
+  qidx=0;qscore=0;
+  document.getElementById('auxQDone').style.display='none';
+  qrender();
+};
+
+function auxQHL(t){
+  var kw=['able to','eligible for','qualified to','allowed to','authorized to',
+          'allow','permit','manage to'];
+  kw.sort(function(a,b){return b.length-a.length});
+  for(var i=0;i<kw.length;i++){
+    var re=new RegExp('\\b'+kw[i].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i');
+    if(re.test(t)){t=t.replace(re,'<span class="aux-hl">$&</span>');break}
+  }
+  return t;
+}
+
+function qrender(){
+  var d=AUXQ_DATA[qorder[qidx]];
+  document.getElementById('auxQSubject').innerHTML='<span class="aux-indicator qst"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span> '+d.subj;
+  document.getElementById('auxQExpr').innerHTML=auxQHL(d.expr);
+  document.getElementById('auxQCount').textContent=(qidx+1)+' / '+qorder.length;
+  document.getElementById('auxQRight').textContent=qscore;
+  document.getElementById('auxQBar').style.width=Math.round(qscore/(qidx||1)*100)+'%';
+  document.getElementById('auxQFb').className='aux-fb';
+  document.getElementById('auxQNext').style.display='none';
+  var box=document.getElementById('auxQOpts');
+  box.innerHTML='';
+  QOPTS.forEach(function(o){
+    var b=document.createElement('button');
+    b.className='aux-opt';b.textContent=o;
+    b.addEventListener('click',function(){qpick(b,o,d)});
+    box.appendChild(b);
+  });
+}
+
+function qpick(btn,chosen,d){
+  var btns=document.getElementById('auxQOpts').querySelectorAll('.aux-opt');
+  btns.forEach(function(b){
+    b.setAttribute('disabled','');
+    if(b.textContent===d.right)b.classList.add('right');
+    else if(b.textContent===chosen&&chosen!==d.right)b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  var fb=document.getElementById('auxQFb');
+  var THUMB_UP='<svg class="aux-thumb" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>';
+  var THUMB_DN='<svg class="aux-thumb" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>';
+  if(chosen===d.right){
+    qscore++;
+    fb.innerHTML=THUMB_UP+' '+d.full+'<div class="aux-fb-example">'+d.pt+'</div>';
+    fb.className='aux-fb show ok';
+  } else {
+    fb.innerHTML=THUMB_DN+' '+d.full+'<div class="aux-fb-example">'+d.pt+'</div>';
+    fb.className='aux-fb show err';
+  }
+  document.getElementById('auxQRight').textContent=qscore;
+  document.getElementById('auxQBar').style.width=Math.round(qscore/(qidx+1)*100)+'%';
+  if(qidx<qorder.length-1){
+    document.getElementById('auxQNext').style.display='inline-block';
+  } else {
+    setTimeout(function(){
+      document.getElementById('auxQDone').style.display='block';
+      document.getElementById('auxQDoneTitle').textContent=qscore+' / '+qorder.length;
+      document.getElementById('auxQDoneScore').textContent=qscore>=10?'Pronto.':qscore>=7?'Quase. Tente de novo.':'Volte ao toolkit e revise.';
+    },600);
+  }
+}
+
+window.auxQAdvance=function(){
+  qidx++;
+  qrender();
+};
+
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',auxQStart)}else{auxQStart()}
+})();
+</script>
+
+<script>
+(function(){
+var PROD=[
+  {scene:"A client calls asking if they can send the oil sample tomorrow instead of today.",
+   target:"be able to",
+   task:"Diga que sim, eles vão conseguir enviar amanhã.",
+   example:"You'll be able to submit the sample tomorrow.",
+   pt:"Você vai conseguir enviar a amostra amanhã."},
+  {scene:"Carlos wants to open the compressor himself. He is not Ventix-certified.",
+   target:"not qualified to",
+   task:"Diga que ele não está qualificado.",
+   example:"Carlos isn't qualified to open the compressor.",
+   pt:"Carlos não está qualificado para abrir o compressor."},
+  {scene:"A new owner asks if the warranty still works after the transfer.",
+   target:"be eligible for",
+   task:"Diga que a unidade tem direito à cobertura, se o registro for atualizado.",
+   example:"The unit is eligible for coverage once the registration is updated.",
+   pt:"A unidade tem direito à cobertura quando o registro for atualizado."},
+  {scene:"Elena tried to reach the supplier before Friday. She called four times. No answer.",
+   target:"didn't manage to",
+   task:"Diga que ela não conseguiu, apesar de ter tentado.",
+   example:"Elena didn't manage to reach the supplier before Friday.",
+   pt:"Elena não conseguiu falar com o fornecedor antes de sexta. (Tentou.)"},
+  {scene:"A client wants to weld a bracket onto the casing without asking Ventix first.",
+   target:"not allowed to",
+   task:"Diga que o cliente não tem permissão para fazer isso sem aprovação.",
+   example:"The client isn't allowed to modify the unit without prior written approval.",
+   pt:"O cliente não tem permissão para modificar a unidade sem aprovação prévia por escrito."},
+  {scene:"The maintenance record is missing two entries. The client wants to file a claim.",
+   target:"can't",
+   task:"Diga que não é possível aprovar a reclamação assim.",
+   example:"We can't approve the claim without a complete maintenance record.",
+   pt:"Não podemos aprovar a reclamação sem o registro de manutenção completo."},
+  {scene:"A colleague asks if third-party lubricants are okay under the warranty.",
+   target:"doesn't permit",
+   task:"Diga que a garantia não permite.",
+   example:"The warranty doesn't permit the use of third-party lubricants.",
+   pt:"A garantia não permite o uso de lubrificantes de terceiros."},
+  {scene:"They finally got the ownership transfer confirmed after two weeks of back and forth.",
+   target:"managed to",
+   task:"Diga que eles conseguiram, e que foi difícil.",
+   example:"They finally managed to get the ownership transfer confirmed.",
+   pt:"Eles finalmente conseguiram confirmar a transferência de propriedade."}
+];
+
+var grid=document.getElementById('prodGrid');
+PROD.forEach(function(p,i){
+  var card=document.createElement('div');card.className='prod-card';
+  card.innerHTML=
+    '<div class="prod-num">'+String(i+1).padStart(2,'0')+'</div>'+
+    '<div class="prod-scene">'+p.scene+'</div>'+
+    '<span class="prod-target">'+p.target+'</span>'+
+    '<div class="prod-task">'+p.task+'</div>'+
+    '<textarea class="prod-input" placeholder="Write your sentence..." rows="2"></textarea>'+
+    '<button class="prod-reveal">See one example</button>'+
+    '<div class="prod-example">'+p.example+'<div class="prod-example-pt">'+p.pt+'</div></div>';
+  grid.appendChild(card);
+});
+grid.addEventListener('click',function(e){
+  var btn=e.target.closest('.prod-reveal');
+  if(!btn)return;
+  var ex=btn.nextElementSibling;
+  ex.classList.toggle('show');
+  btn.textContent=ex.classList.contains('show')?'Hide example':'See one example';
+});
+})();
+</script>
+</body>
+</html>

@@ -168,7 +168,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .footer-nav{display:flex;gap:18px;flex-wrap:wrap}
 .footer-nav a{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none}
 .footer-nav a:hover{color:var(--hi)}
-.footer{background:var(--dark);padding:32px 56px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.
+
+/* top nav */
+.topnav{display:flex;align-items:center;gap:0;padding:0;margin-top:-1px;border-top:1.5px solid var(--ink)}
+.topnav a{font-size:12px;font-weight:600;color:var(--mid);text-decoration:none;padding:10px 16px;transition:all .12s ease;white-space:nowrap;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--ink)}
+.topnav a.here{color:var(--ink);font-weight:800;border-bottom:2px solid var(--teal)}
+
+footer{background:var(--dark);padding:32px 56px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 
 .tt{border-bottom:2px dotted var(--teal);cursor:help}
 #gl-tip{display:none;position:fixed;z-index:9999;background:#fff;color:var(--ink);border-radius:10px;padding:10px 14px;
@@ -177,7 +185,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 #gl-tip-pt{font-size:13.5px;font-weight:500;color:var(--ink)}
 .footer-word{font-size:13px;font-weight:800;color:rgba(255,255,255,.32)}
 .footer-copy{font-size:11px;color:rgba(255,255,255,.2);line-height:1.6;text-align:right}
-@media(max-width:760px){.footer{padding:24px;flex-direction:column;text-align:center;gap:8px}.footer-copy{text-align:center}}
+@media(max-width:760px){.
+
+/* top nav */
+.topnav{display:flex;align-items:center;gap:0;padding:0;margin-top:-1px;border-top:1.5px solid var(--ink)}
+.topnav a{font-size:12px;font-weight:600;color:var(--mid);text-decoration:none;padding:10px 16px;transition:all .12s ease;white-space:nowrap;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--ink)}
+.topnav a.here{color:var(--ink);font-weight:800;border-bottom:2px solid var(--teal)}
+
+footer{padding:24px;flex-direction:column;text-align:center;gap:8px}.footer-copy{text-align:center}}
 
 /* navbar do modulo */
 .mn-open{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);
@@ -246,9 +262,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .crn-fix{background:var(--surface);border-radius:10px;padding:11px 14px}
 .crn-fix-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:4px}
 .crn-fix-text{font-size:14px;font-weight:700;line-height:1.45}
+
+
+
+@media(max-width:820px){}
 </style>
 </head>
 <body>
+
+
 
 <header class="hdr">
   <span class="hdr-word">EIC escola</span>
@@ -262,6 +284,13 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 </button>
     <span class="hdr-badge">B1+</span>
   </div>
+
+<nav class="topnav">
+  <a href="ventix-fine-print.html" class="here">The Fine Print</a>
+  <a href="ventix-capability.html">Capability</a>
+  <a href="ventix-monday-morning.html">Monday Morning</a>
+  <a href="the-evidence-room.html">Evidence Room</a>
+</nav>
 </header>
 
 <section class="hero">
@@ -285,7 +314,8 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">The Policy</span></div>
     <p class="sec-sub">Leia uma vez com calma. As expressões destacadas em neon são as que decidem cada caso lá embaixo.</p>
 
-    <div class="listen-all">
+    
+<div class="listen-all">
       <button onclick="playAll()" id="playAllBtn"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Listen to the whole policy</button>
       <button class="ghost" onclick="stopAudio()" id="stopBtn">Stop</button>
       <span class="listen-note" id="audioNote">Narração cláusula por cláusula. Ouça uma vez sem ler, depois leia acompanhando.</span>
@@ -678,7 +708,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <div class="crn-head" onclick="this.parentElement.classList.toggle('open')"><span class="crn-tag">Claim Review Note</span><span class="crn-prompt">Would you file this note?</span><span class="crn-chevron">&#9662;</span></div>
         <div class="crn-body">
           <div class="crn-note">“They must have signed off on the capacity before shipment.”</div>
-          <div class="crn-btns"><button class="crn-btn" data-h="true" onclick="crnJudge(this,8)">It holds up</button><button class="crn-btn" data-h="false" onclick="crnJudge(this,8)">It doesn't hold up</button></div>
+          <div class="crn-btns"><button class="crn-btn" data-h="true" onclick="crnJudge(this,8)">It holds up</button><button class="crn-btn" data-h="false" onclick="crnJudge(this,
+
+8)">It doesn't hold up</button></div>
           <div class="crn-result" id="crn-r-8"><span class="crn-errtag ok">Holds up</span><p class="crn-why">The signed purchase order confirms the model and capacity. One explanation, on paper, with a date. Must have is the right choice here.</p></div>
         </div>
       </div>
@@ -723,7 +755,6 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 
   </div>
 </section>
-
 <button class="vocab-fab" onclick="openVocab()" title="Vocabulary: warranty and claims">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
 </button>
@@ -1047,6 +1078,8 @@ var NAV = [
   ["Contract files", [
     ["ventix-policy-hub.html", "The Contract Files", true],
     ["ventix-fine-print.html", "Section 4 · The Fine Print", true],
+    ["ventix-capability.html", "Capability Practice", true],
+    ["the-evidence-room.html", "The Evidence Room", true],
     ["ventix-service-plan.html", "Exhibit B · The Service Plan", true]
   ]]
 ];
@@ -1164,5 +1197,9 @@ function crnJudge(btn,idx){
   document.getElementById('crn-r-'+idx).classList.add('show');
 }
 </script>
+
+
+
+
 </body>
 </html>

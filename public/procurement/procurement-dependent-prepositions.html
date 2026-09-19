@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Dependent Prepositions · Procurement</title>
+<style>
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E8621A;
+    --teal: #0D7A8A;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: Inter, sans-serif; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: Inter, sans-serif; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: Inter, sans-serif; font-size: 10px; color: #9CA3AF; text-align: right; }
+
+  .container { max-width: 820px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: Inter, sans-serif; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-family: Inter, sans-serif; font-size: 9px; color: var(--muted); letter-spacing: 0.08em; margin-top: 6px; text-transform: uppercase; }
+
+  .section { padding: 20px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: Inter, sans-serif; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 13px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: Inter, sans-serif; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 11.5px; color: #374151; font-style: italic; margin-bottom: 12px; line-height: 1.5; }
+  .hint-bar { background: var(--bg-light); border-left: 2px solid var(--ink); padding: 5px 10px; margin-bottom: 12px; font-size: 11px; color: #374151; }
+
+  .word-bank { background: var(--ink); color: var(--paper); padding: 8px 12px; margin-bottom: 14px; }
+  .wb-label { font-family: Inter, sans-serif; font-size: 9px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .wb-words { font-size: 11.5px; line-height: 1.7; }
+  .wb-note { font-family: Inter, sans-serif; font-size: 8.5px; color: #9CA3AF; margin-top: 4px; display: block; }
+
+  .q-item { display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.5; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 18px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+
+  .blank {
+    display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 80px;
+    margin: 0 2px; vertical-align: baseline; transition: all 0.2s;
+  }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 12.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .open-item { margin-bottom: 10px; }
+  .open-stem { font-size: 12.5px; margin-bottom: 4px; line-height: 1.4; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-line { border-bottom: 1px solid var(--border); height: 20px; margin-bottom: 3px; }
+  .ans-open { display: none; padding: 7px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 4px; font-size: 11.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: Inter, sans-serif; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(-3px); } to { opacity:1; transform: translateY(0); } }
+
+  /* LEXIS — identical structure to Toshie */
+  .lex-group { margin-bottom: 16px; }
+  .lex-prep-label {
+    display: inline-block; font-family: Inter, sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper); background: var(--ink);
+    padding: 3px 10px; margin-bottom: 8px;
+  }
+  .lex-row { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); align-items: baseline; flex-wrap: wrap; }
+  .lex-row:last-child { border-bottom: none; }
+  .lex-phrase { font-weight: 800; min-width: 175px; font-size: 12px; color: var(--ink); }
+  .lex-ex { font-size: 11.5px; color: #374151; flex: 1; min-width: 200px; }
+  .lex-gloss { font-size: 10.5px; text-align: right; min-width: 160px; }
+  .lex-gloss .pt { color: var(--teal); font-style: italic; display: block; }
+  .lex-gloss .note { color: var(--muted); font-size: 9px; display: block; font-family: Inter, sans-serif; margin-top: 2px; }
+
+  .warn-bar { background: #FEF9EC; border-left: 2px solid var(--accent); padding: 5px 10px; margin-bottom: 12px; font-size: 11px; color: #374151; }
+  .warn-bar b { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .topbar { padding: 10px 16px; }
+    .lex-phrase, .lex-gloss { min-width: 100%; text-align: left; }
+  }
+
+.dl-btn{display:inline-flex;align-items:center;gap:6px;font-family:Inter,sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:.05em;background:var(--accent);color:#fff;
+  border:none;border-radius:20px;padding:7px 14px;cursor:pointer;text-decoration:none;
+  transition:background .15s;flex:none}
+.dl-btn:hover{background:var(--teal)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    DEPENDENT PREPOSITIONS · PROCUREMENT
+  </div>
+  <div class="topbar-nav">
+    <a href="procurement-dependent-prepositions.html" class="active">Prepositions</a>
+    <a href="./procurement-grammar-three.html">Grammar</a>
+    <a href="./procurement-story-search.html">Story Search</a>
+    <a href="./coatex-supply-terms.html">Supply Terms</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <a class="dl-btn" id="dlPdf" href="#">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      PDF
+    </a>
+    <div class="topbar-meta">CLASSROOM · B1+</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Procurement &amp; Purchasing · B1+</div>
+    <h1>Dependent Prepositions<br><span>— Procurement</span></h1>
+    <div class="hero-sub">All sentences from the world of Carolina, Kevin, and the supply agreement</div>
+  </div>
+
+  <!-- ═══ 01 · LEXICON ═══ -->
+  <div class="section" id="sec01">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">The Prepositions — Learn These First</span>
+      <span class="s-pts">reference · 25 items</span>
+    </div>
+    <p class="instruction">Read through all of these before the exercises. The preposition is part of the word — learn the whole chunk, not just the verb.</p>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">ABOUT</span>
+      <div class="lex-row"><span class="lex-phrase">complain about</span><span class="lex-ex">Carolina complained about the lack of written notice before the price change.</span><span class="lex-gloss"><span class="pt">reclamar de / sobre</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">worried about</span><span class="lex-ex">The finance director was worried about the open dispute affecting the close.</span><span class="lex-gloss"><span class="pt">preocupado(a) com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">serious about</span><span class="lex-ex">Althea is serious about enforcing the contract terms.</span><span class="lex-gloss"><span class="pt">sério(a) sobre / em relação a</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">FOR</span>
+      <div class="lex-row"><span class="lex-phrase">responsible for</span><span class="lex-ex">The buyer is responsible for verifying receipt at the time of delivery.</span><span class="lex-gloss"><span class="pt">responsável por</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">liable for</span><span class="lex-ex">Improper storage releases Hua Li from being liable for the degradation.</span><span class="lex-gloss"><span class="pt">legalmente responsável por</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">apologise for</span><span class="lex-ex">Kevin apologised for the delay in responding to Carolina's claim.</span><span class="lex-gloss"><span class="pt">pedir desculpas por</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">FROM</span>
+      <div class="lex-row"><span class="lex-phrase">deviate from</span><span class="lex-ex">The batch deviated from the agreed specification by 3.5%.</span><span class="lex-gloss"><span class="pt">desviar de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">result from</span><span class="lex-ex">The degradation resulted from improper storage on Althea's site.</span><span class="lex-gloss"><span class="pt">resultar de (causa)</span><span class="note">contrast → result IN = consequência</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">prevent (sb) from</span><span class="lex-ex">The contract prevents Hua Li from changing prices without written notice.</span><span class="lex-gloss"><span class="pt">impedir de</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">IN</span>
+      <div class="lex-row"><span class="lex-phrase">succeed in</span><span class="lex-ex">Carolina succeeded in submitting the claim within the 7-day window.</span><span class="lex-gloss"><span class="pt">ter sucesso em / conseguir</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">result in</span><span class="lex-ex">The unauthorised surcharge resulted in a formal dispute.</span><span class="lex-gloss"><span class="pt">resultar em (consequência)</span><span class="note">contrast → result FROM = causa</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">involved in</span><span class="lex-ex">The legal team got involved in the dispute after the third email.</span><span class="lex-gloss"><span class="pt">envolvido(a) em</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">OF</span>
+      <div class="lex-row"><span class="lex-phrase">accuse (sb) of</span><span class="lex-ex">Hua Li was accused of applying surcharges without prior notice.</span><span class="lex-gloss"><span class="pt">acusar de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">capable of</span><span class="lex-ex">Hua Li is capable of delivering within 5 business days.</span><span class="lex-gloss"><span class="pt">capaz de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">aware of</span><span class="lex-ex">The finance director is aware of the payment hold on Hua Li's invoice.</span><span class="lex-gloss"><span class="pt">ciente de / consciente de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">consist of</span><span class="lex-ex">The disputed amount consists of the surcharge plus two missing drums.</span><span class="lex-gloss"><span class="pt">ser composto de</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">ON</span>
+      <div class="lex-row"><span class="lex-phrase">insist on</span><span class="lex-ex">Kevin insisted on processing the undisputed portion immediately.</span><span class="lex-gloss"><span class="pt">insistir em</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">depend on</span><span class="lex-ex">Althea depends on Hua Li for its entire supply of zinc chloride.</span><span class="lex-gloss"><span class="pt">depender de</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">concentrate on</span><span class="lex-ex">The quality team concentrated on testing the last three batches first.</span><span class="lex-gloss"><span class="pt">se concentrar em</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">agree on</span><span class="lex-ex">Both teams agreed on a 30-day window to resolve the dispute.</span><span class="lex-gloss"><span class="pt">concordar sobre</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">TO</span>
+      <div class="lex-row"><span class="lex-phrase">conform to</span><span class="lex-ex">The product must conform to the concentration stated in the Purchase Order.</span><span class="lex-gloss"><span class="pt">estar em conformidade com</span><span class="note">características físicas: spec, concentração</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">object to</span><span class="lex-ex">Kevin objected to the payment hold on the full invoice.</span><span class="lex-gloss"><span class="pt">se opor a / contestar</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">committed to</span><span class="lex-ex">Carolina is committed to resolving the dispute without going to arbitration.</span><span class="lex-gloss"><span class="pt">comprometido(a) com</span></span></div>
+    </div>
+
+    <div class="lex-group">
+      <span class="lex-prep-label">WITH</span>
+      <div class="lex-row"><span class="lex-phrase">comply with</span><span class="lex-ex">Althea's contract complies with all local regulations for chemical storage.</span><span class="lex-gloss"><span class="pt">cumprir / estar em conformidade com</span><span class="note">regras, leis, normas — nunca specs físicas</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">satisfied with</span><span class="lex-ex">Carolina was not satisfied with Kevin's explanation about the surcharge.</span><span class="lex-gloss"><span class="pt">satisfeito(a) com</span></span></div>
+      <div class="lex-row"><span class="lex-phrase">familiar with</span><span class="lex-ex">The legal team is familiar with this type of supply dispute.</span><span class="lex-gloss"><span class="pt">familiarizado(a) com</span></span></div>
+    </div>
+
+  </div>
+
+  <!-- ═══ 02 · FILL IN ═══ -->
+  <div class="section" id="sec02">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Fill in the Preposition</span>
+      <span class="s-pts">20 items</span>
+    </div>
+    <p class="instruction">The preposition bank uses only the 8 prepositions from the lesson above. Click the number to reveal.</p>
+
+    <div class="word-bank">
+      <span class="wb-label">preposition bank</span>
+      <div class="wb-words">about · for · from · in · of · on · to · with</div>
+      <span class="wb-note">Each preposition may be used more than once.</span>
+    </div>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">The product must conform <span class="blank"><span class="ans-inline">to</span></span> the concentration stated in the Purchase Order.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">Althea's contract complies <span class="blank"><span class="ans-inline">with</span></span> all local regulations for chemical storage.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">The buyer is responsible <span class="blank"><span class="ans-inline">for</span></span> verifying every delivery before signing off.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">The batch deviated <span class="blank"><span class="ans-inline">from</span></span> the agreed specification by 3.5%.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">Kevin insisted <span class="blank"><span class="ans-inline">on</span></span> sending a replacement batch the following week.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">Hua Li was accused <span class="blank"><span class="ans-inline">of</span></span> applying surcharges without prior notice.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">The warehouse team succeeded <span class="blank"><span class="ans-inline">in</span></span> counting all drums before the driver left.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">The unauthorised surcharge resulted <span class="blank"><span class="ans-inline">in</span></span> a formal dispute between both parties.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">Carolina was not satisfied <span class="blank"><span class="ans-inline">with</span></span> Kevin's explanation about the price change.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">The degradation resulted <span class="blank"><span class="ans-inline">from</span></span> improper storage on Althea's site.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">Both teams agreed <span class="blank"><span class="ans-inline">on</span></span> a 30-day window to resolve the dispute.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">Carolina complained <span class="blank"><span class="ans-inline">about</span></span> the lack of written notice before the price change.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">13.</span><div class="q-body">The finance director is aware <span class="blank"><span class="ans-inline">of</span></span> the payment hold on Hua Li's invoice.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">14.</span><div class="q-body">The legal team got involved <span class="blank"><span class="ans-inline">in</span></span> the dispute after Kevin's third email went unanswered.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">15.</span><div class="q-body">Hua Li is capable <span class="blank"><span class="ans-inline">of</span></span> delivering within 5 business days under normal conditions.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">16.</span><div class="q-body">Althea depends <span class="blank"><span class="ans-inline">on</span></span> Hua Li for its entire supply of zinc chloride.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">17.</span><div class="q-body">The quality team concentrated <span class="blank"><span class="ans-inline">on</span></span> testing the last three batches first.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">18.</span><div class="q-body">Kevin objected <span class="blank"><span class="ans-inline">to</span></span> the payment hold, arguing it was commercially unreasonable.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">19.</span><div class="q-body">Carolina is committed <span class="blank"><span class="ans-inline">to</span></span> resolving the dispute without going to arbitration.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">20.</span><div class="q-body">The warehouse manager apologised <span class="blank"><span class="ans-inline">for</span></span> not flagging the short delivery on the same day.</div></div>
+  </div>
+
+  <!-- ═══ 03 · GERUND ═══ -->
+  <div class="section" id="sec03">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Gerund Check</span>
+      <span class="s-pts">12 items</span>
+    </div>
+    <p class="instruction">After a preposition, the verb always takes the -ING form. No exceptions.</p>
+
+    <div class="warn-bar"><b>Watch out:</b> "committed to <u>doing</u>", "object to <u>doing</u>", "used to <u>doing</u>" — the "to" here is a preposition, not an infinitive marker. Never write "committed to do".</div>
+
+    <div class="word-bank">
+      <span class="wb-label">verb bank</span>
+      <div class="wb-words">accept · carry out · check · escalate · flag · meet · pay · process · reject · sign · store · submit</div>
+      <span class="wb-note">Verbs are in base form and NOT in order.</span>
+    </div>
+
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">1.</span><div class="q-body">Carolina insisted on <span class="blank"><span class="ans-inline">submitting</span></span> an accredited lab report before resubmitting the claim.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">2.</span><div class="q-body">The payment terms prevented Althea from <span class="blank"><span class="ans-inline">signing</span></span> any backdated agreement with Hua Li.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">3.</span><div class="q-body">Kevin objected to <span class="blank"><span class="ans-inline">accepting</span></span> full liability for the concentration issue.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">4.</span><div class="q-body">Althea is committed to <span class="blank"><span class="ans-inline">carrying out</span></span> a monthly invoice verification process from now on.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">5.</span><div class="q-body">The warehouse team is responsible for <span class="blank"><span class="ans-inline">checking</span></span> every delivery on arrival.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">6.</span><div class="q-body">Carolina succeeded in <span class="blank"><span class="ans-inline">flagging</span></span> the short delivery within the 3-day window.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">7.</span><div class="q-body">Hua Li insisted on <span class="blank"><span class="ans-inline">processing</span></span> the undisputed portion of the invoice immediately.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">8.</span><div class="q-body">The finance director is not used to <span class="blank"><span class="ans-inline">signing</span></span> off on invoices with open disputes.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">9.</span><div class="q-body">Both legal teams succeeded in <span class="blank"><span class="ans-inline">meeting</span></span> within the agreed 30-day window.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">10.</span><div class="q-body">Carolina is thinking about <span class="blank"><span class="ans-inline">escalating</span></span> the matter to arbitration if no response arrives this week.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">11.</span><div class="q-body">Hua Li's legal team objected to <span class="blank"><span class="ans-inline">rejecting</span></span> the credit note proposal outright.</div></div>
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">12.</span><div class="q-body">The supplier apologised for <span class="blank"><span class="ans-inline">storing</span></span> the drums incorrectly at the distribution centre.</div></div>
+  </div>
+
+  <!-- ═══ 04 · QUESTIONS ═══ -->
+  <div class="section" id="sec04">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">Ask the Question</span>
+      <span class="s-pts">8 items</span>
+    </div>
+    <p class="instruction">Turn each statement into a question. Keep the preposition at the end — that is the natural position in English.</p>
+    <div class="hint-bar">Example: "Carolina is responsible for checking deliveries." → "What is Carolina responsible for?"</div>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> The batch deviated from the agreed specification.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did the batch deviate from?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> Hua Li was accused of applying surcharges without notice.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What was Hua Li accused of?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> Kevin objected to the payment hold.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did Kevin object to?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> Carolina complained about the lack of written notice.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did Carolina complain about?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> Althea depends on Hua Li for its supply of zinc chloride.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">Who does Althea depend on for its supply of zinc chloride?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> The degradation resulted from improper storage.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did the degradation result from?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> Carolina is committed to resolving the dispute without going to arbitration.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What is Carolina committed to?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> The legal team got involved in the dispute after the third email.</div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Model question</span><span class="ao-text">What did the legal team get involved in?</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleItem(el) {
+    if (el) el.classList.toggle('revealed');
+  }
+
+(function(){
+  var btn = document.getElementById('dlPdf');
+  if(btn){
+    btn.href = "data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIgL0Y0IDUgMCBSCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMSAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZCAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjIgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago0IDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YzIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNSAwIG9iago8PAovQmFzZUZvbnQgL1N5bWJvbCAvTmFtZSAvRjQgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxNCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxMyAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNyAwIG9iago8PAovQ29udGVudHMgMTUgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTMgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjggMCBvYmoKPDwKL0NvbnRlbnRzIDE2IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDEzIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9Db250ZW50cyAxNyAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxMyAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKMTAgMCBvYmoKPDwKL0NvbnRlbnRzIDE4IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDEzIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMSAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDEzIDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKMTIgMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDkxNzIxMDg1OSswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDkxNzIxMDg1OSswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoRGVwZW5kZW50IFByZXBvc2l0aW9ucyBcMjA0IFByb2N1cmVtZW50KSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjEzIDAgb2JqCjw8Ci9Db3VudCA1IC9LaWRzIFsgNiAwIFIgNyAwIFIgOCAwIFIgOSAwIFIgMTAgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxNCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxOTU3Cj4+CnN0cmVhbQpHYiEjXT4/QlE9JjpXZURiZmZGT2g6Pl02amliUCpvRSY3Li9TJlNsUTVATUAnIipiZThpQTcjSVJoKnVKVjRyMVJOPjVeP3FIc0UyYCc+PiJEbXVaZWFJL1RuOVAvVlZaWzlaYVctK1BcTTNnWi1eMTxEOCdRcDAwc19RUGNSa0s6U2ZOQENdIlpFVVlhQ0NcI2NORzs1YW8wL2U4ZFpEXz09VVdmYV0nMF88QnRIJTEhdGMjbVpocWNOYjtmLzFRb2VNNnFmakA5ZmdHYWdGZVltSjolTE1fbT5tQGpVXD5iPGZnP0RIQzIvNUcsZFEkVlstMmBBWE1KNDEnZyViJil0V283WzFNRVQxPV5aO1dgXSgldGQ8MSRYLEwpZEtmPy8wdUA9czA8Yz9tT19xbiM2Yyo+O0tRPS43VjgwJW0nWDo/bTFlY0k5bkMhakNZKGpURDhySzlxPVw/SEVyUGRuSGlpP09QT1pWaVpjVW4+cTU7cVRqMyo/PlQuYHUoUmFwXT5bS0g5ZjgmR2Y3LXNZZW1wTm1wJXE9ZGBpXWpNI0huS15KLGZvWCJJNGBDJ11ydDRbQjQqTHFMRkY2a3FxRys4QmYwSVpbUmpzKTcodF5IQzo+ZS9NOW9KP0peaHNtYVBrcGxCcms8QDY0PTlvQW0iOjs9XklmLWMtclpxKGNuSlBTJEF0WzFsViZUWkE5MyI1PEwxXmpeT1VnUFB0WU5iOlpIMkYwKFYzOSFQVkMpVnBcPVJma1tFZU1pIitTNSZfPkpkPDM4LTEiIkpaKDQkcSdcI1wnNSInKSYjLyI6NlNWVWZXbiVoIylfTCtxRVBVLnQ/TW4kblpYUipSZlI0amlQOjpuXGhbLUt0OS1VL2teY0tBXDNfPmdpYUxWOiw2bmlTKUxyUi1Ta0pvWV80Yy9VMDF1PGFtXEc1dShdJi11N3EpQTBHIWNQMz4mWF4+KWNwOC1PcilvIktONm8iMVFLVm46VU0+XENsIm9JKy1TSjVSaDs2XnFRJ009OCJTPyg6NjhBdUEnbkQ9altfLTNJNEovc2E6LUk1IjxPYjRSUEZjXWtCNjZpODwyLGRsIWIjbixoW09GYm9DRiZiJzs5VyNkTydVKCMoZVsmaFFMc0RAN1o6ciRJSjJBZTc5PCFoYWEtQkstSGIpVjcnNkdiZHAqMjVtNmVvNkwtMnJPX2JiK1cqVV07ITJNODtAJTFNcEkzXkEnaCRBJlh1ZVwoOTQiTyhKKj1xWlBVITI5SnNGX0lYKCVRQmg9XE4iQyhrcUBGXFIyUmdyN2BmPnBRTlM8WSpYYFAwLG5nYjdzNFNpZiNGS0spKSJsKDRnN1VlUzUqMXA+bks/QTlHNi08XFhoX3VobEY1SjpCZ2A9cEliOE0/K1tvZTdxOzhRQz41cUxxMkY+ZCcsSicuNDVvKzAiPSJxLlUuYUQtY3FwQWVVOlVmRl5bYFY2WFEqZWpoYyVYKkI9J1R1Um1kdS1vOTI6bygvNz42TytcSUBvUkghLjY3I0c5PzROOF9maDk5YHR1JW4+LTFxRCIoPmtzSnBEby9ONSJxIjB0P25tRVMrUDVLRCo2T1AzSDtAY3FhPzZwRnRESGI4TUY6XW1FVlBvLDRRNTU/SiNUOT06SEZTOXBWW2FyTTxYal5qbDomU2o+ZllhSCY2YyJEbiFFSSxWXGJdNXFrT2xoLTEkb0QzPiw3TjlALDJXKUA2LDgyVTlHYVRhXlg1V0YzZjFTRFAxVUErOjZnMDdYa2taUCYqJjJhYiRzOSEsKVFPdDJZW149LCksViVAK2k0VXIoUjRwMyxEYWE5ZiE1PWhoOz5OSDM9VGBVNGVkVGtdWUphPTw+MzRwYiVJJCIjbzN0aGYzR0k4QlgrclE7bWlcPEJWclNTNlxwLStFXEBfaV42OjlXRkgnPmZKYDpKJWo6U2dFJWtMVCNbQzM9TyQwREU0QCcqRU5FP2BeQFVdITgkTFxgKVNWPFxnWHNbcj09a3JNcCdZNCRxaF1uNy9fNCwtOTlNaytWPCkvPFE+VTxENiNLIUlkT1JpSDFBLmA/X3R0cWImaUZPUkNqKTJrbytVJ1IuMkEoNjZlWCI/UC08dElrZy5sNnVqb1RXYCRfI1ZUVDdjQF9XQT4iYy5aWGQsYCM+amNQNV9FSGxGNDdDOjQ1a1FxSm5wTCM2MFxoUU9SNl0yOnNdQmEnQ0xQQysxXzxSdDFkOmBCISVTKyosX3RvQyYzZjgwXUVWQVZSY2hoJTBkVHEoX29waGlkVzhudGtcbSk0NmIuTT1wcWNNbFkzJzJvMWVzQ25YIVE7R1stUmJFUU9xMzplayEqRyViRV1SbT9kMjg3SEEzWylkJiFvYlBUKWNvbCFxKl1sLChldD5mZk5ZXCkhZnA9WS5oRWg+OTgkOmFIXEVZRnUiYm9tYWlLSGkkJElrVihjbGNkJGxdczAvZV40azB0O2I6Iy41PGkvNy86dTBySyxKIk1KczMrTkxmWE9YRFhwWUkoWk1Oalw5KjUtKU4tK2whVkskY0JpOz9RQW1TZFJRbDNtZjVmV0xqKTtaN3FWJHFMPSJMKTYkSn4+ZW5kc3RyZWFtCmVuZG9iagoxNSAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxODkyCj4+CnN0cmVhbQpHYiEjXjlsbyZJJkFAc0JtJjxrMUtJNks9Y0xmSlpFS2A1XWgsSDJEa1E2czBLRkNGIyEsLkdibGFtLzNqQCIjKk8kbVBBWjZXbyNJOThWdWdLZlZjTWdyXEVjVXJfU0YjXm9XNVdrRGVKSFNeSm9DcWEjSWVOJC0qSnA/NiUmTj82LVFtLWEtSyMibW0iUXJLVG8wXW1hSGE7ZVpxbGBGYSxgPW5yNV9HcmY+akBSUihbdEckQ0p0KDVsaGEtJ0VfVDNPayNWW1hPP1NPPmgoVDY7b1BlOzJ1WW5uWVVWVCw9LUBFUmlnUGN0RmVeVjNjVkohSyZhJUNKWVYjMTdSbFZmW0U7LlJgZDFsYiVsXS1JNlAkXDlOPy9HdCUzJ3VOXFcsIm5tV0VDbWJlazk/PCxMVW9wRklRSlMyITl1LExBKkFuXVxqMXRcLkJLTms4LDBOQFw0TyxCP2hjJEZlT0BmcEwla0AscF5IIkwsX2NRKVk/UTstInRALUtAS1Mwbk9YXShuTk1VKCxqW2tEayViMEQ3O0tSUE90MmlOWkFUalE8PUtfVmAlLkxiJ1hGTTxqQlFQOmMoKUtCcjBUSVhPKkxULEVzT0NSaUNmW0Q1IWNtYyI5RXJUY1o5UUEkcGwmYUwzISQ5Njcma0FaVDs9NzEqY3F1PCVuMHJYIm1FZDpWVm1mIiNQbk9McmVtRVE+RTZcXTM4Ky9fOmd1YyNrIVspXUorKCptYmNUQScudUlScldVKDFvPmtVSWtSUVxCbkZjPXE4UXFucmM4I2p1XiNAQ3A1TC5WQ1txQ3VGPXAhIWU1dFpDc1YxPSdfNlshSDJNU2REUlJqPGRJMlFxIWRFRlxmJEsmLDxTREZEIXFoJCUiK0RgKzo5WEcjODE0VVRPcWdfKE9oO0RXJGprVlxdUF5JIyN0XUdOcy9fKzE5YSpxIU4iWmhTYnQoLEk2Lyg/XmF1TmhnLmlsLk4+KjRiOjVhU2QyMyVtITwxcnFaPU4nIzBVWj4uQDVTQlFtJTF0P1RCZSlwbSNfV21kZj9mOltRc0RZJzgkSjVkUk9tJGwxWEFOQFFRRztzZjt1MjIxY0VEUS8zbDZCOSc6RERvSilkRy1xVi8lRl0+I0lUO0dqP2lRRVRiPGYsQG1eM2hwJltbRSkjJikwPEoxZUBwbFhpayNbViVgNmEka1VNQG41WmA0bVQkPSJwIjJEXHI+KzhdKGckIXQ6QTo+aD5ALjByNiJqR0E3Nl1eLytWIlkubTlxSC01N0MrMV89KzYnPUhZOUJFXDZOdDgrSjNMOztHNjVnSllwOG5bPmthYkdrZjpwJjc7KmkqYi1gVzQzN1MoUlJLMHByOikrUXB0UkRDbk5vV1MpSSIuRzV0Nig0QkM1S3FuQ0F0W1UlYSpeRkJFaEs4LU9WZllXZUljQ0EqJl42ZjVpN0hKQVAwK0E8TDpuPyoidExHViZwJSNca0o+ajMsMTA6KGVIYzdLRl9abTVvZmdUUkZMLGgxVDpAKW0kIV9MYnNuKSVUX09gLFRISC4pUj5tK0QuNUtLJD5NRT5taF45P2Q5dE9qP1F0PUJbOixPUWktSlNcNDxcQztLLGVCaktSW2ZOVFxTVzZaODtjOjM+XjZbOT5yQEc3bCdWT2wjYDE8ajE1Y2FtVXRSLyVJY2FXZ29EbUhyTz9CLWpaIzY1Py44dCJIRV9pZCkpKUlnJjlIXjNCTD0rN0EyKGM+UENIPCMyMFBwQy4lLzQ/UTNYWD45ZFZIc1pQaWVHIkNzQWlCYlE2YiIwdUgoaThcUk8jOklwRzI2RV9zYzBeQ1dvL0sjdTNtTC0sI1lqU04zRT04L0A4Pl0oaWI0Jm9eRiU8XUklbi1pQyNVKzc3S0cpbVdaOTY4V2FiK2wnUWM7NzMqXTpcUFNPW3ReQGlHcGBXQj4wTzluKzYmcFsmRkorMFBDV2dhVEVfJTp1WVg0amRgQ2Q7WG8rUXBcOitnM3NGOi1VZUZyLSojVV5MQ2tCLEQtWkdjbnNnMS5NTE89cTBUVTVfNXBhYzRQNydTYDsqbSU8P3RoaXBPMig9O2U6cVBcI0BCK10rTkJiX0NSTDRyZiJLK0k9cUIlWCdBIjxEZFZCOGwmKDQ2aFdlODtATEBnZVI/Wm8+a1s6TlZYRTMnUGw2ZktgJi5SQmM1JTI8WyQ0O0FUJSdWJSZeLzUqLjhBWFEwUD9WcjZaPztdSGNoNlBxXEhDK0RMN280J1NeIy1KJT9McCZUOitHcmBgb1dCSnJYPE9jPCcsdXVQSD88Qy1dLmNuTFIubDxoVGsjOzVESEliI3U7ckZWKCJuRGxSI1IvVkdyIz1USyxLZlstYzBTXUtMPDtNSUViJCkoZmc0PGNwXXRoZzZvYCVcXSsmUC0tLzEhQ0JpSU5vMVAmQXVHVzRKajNjSEhoUFE5ZS90NStXSG8kWGo3cEFFNUwhJC9eYSpxW1gvaTpbSnMkKiNgOEVXMChzYCpjZVcqQ2B+PmVuZHN0cmVhbQplbmRvYmoKMTYgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMjQ1Ngo+PgpzdHJlYW0KR2F1YFZnTik9NCZxMExVb1pNLUJDa2I8LSEmJ0QkZnBUT00uXlFhaWc2XGQyNXBSXmE2NHNWaj4tISUhKUMuYzs3YlVnKFBbMV5LXzg8JEVVWChyTiNsKzBoUmJxZltuRXA+NklPJTAsND1sJTtPMjhfcG5EVz9vZj1TMTNvIWlJLV0lOSk3UDBmOStAa0AxciFacSsrIlRpO3RoRVxbLzZnPWd1ViVBO2RibCVQIT5lcDtuSiVRIyM7azQ7SGNTVVJcNHJLcEI3TWA7Mmk2VW5sMlgrQ0k8TmMmX0ohQ3NVQiExZmpPVy8uO1YwJEdHWG1hPjxeNGg9cW5GMyE8ZllRZSw6SFpMNUVfIiNzJmg9OilfKXFYVU1gZFBMYCsiZVYuKWFiR1g1QzptOTVDOV8yYzY7dE4oPiRiaFMtbkZkM289W2wmaiJAQUxISSxKW201Q3JDREwkVkckP2ddWE9WNUcsXSFWPj8uZWRWS3Q0KTY1JlhPai9malkuSCtdb0syS28sVDdSbEAtdExgUFRgJG5pWFJHJFNVTjlFQmZFciJfWTJGTz9uMVhVOWImOGlQcykycFQkM3UsQDM0MGtRPzRjJSJxS08sIi9tRyc7IlUpL2MmWS5WL2JkXjskMm4mZE0yVydOPSwjdEkoaGkjaDw2RTVxT0EsZDNsXj4rIVJRXlZwMEJ1OUFFTlciQStHKShLYG4mZjdQIVxlVVdOI29xYzNXLUFOakMwVWNpLmU1OCdTWFxwMEpkPVgpckw4YytRVzwuJGhrMEkkK1g7dColRUJFOl9vKGciUCJEdFdjZjxmSDNxJTpEIjhUV2ImNks6cD9DUEpUIl1OMm0sdDNvJ0E4PVkmcEomQSZGQGtWO0w9YUJAP1VQbjFlVE5JNHRcKCFkREpJcFc/RCkqK15MTl8jR0xiUm40bVNlOk8nZ1VWSzorXjFIY1Q9VVdSWFMtImAtIVhRPikwMVM5IXBCMGVjWU1lSyJxLHJvLVRvZylUYFllcW5FWVZvL11FX1Q7XjhNSFNIQDxCUkcwQVghYHFLR05ZMCgvW0FDRmJtaVZWMmxUPGZtIV1cVG5PaSNRSFJzImNVQUBMQlgiOD9cVjQhVDpoLGI6M0pUKz5gXkBgTVU8QWpATypNPkhbL1pQOTY9P0A4LElDZCVxOVJgQ2ZvVT5jZGsnVG8wXS5gSScmPklYOy5AJD5cYVZQPjpYXEQrK2Z0JV9edVk4WShlWkA9UF9zPkJKQC1fVilINFJLM1Q1dDsxKVppayRnNDlIQit1RjM2SmRJSDwub2VLSk1RN0xrZigpWC1eXzhkNzlLcihyKjYyaVY8Wz9wKEEiQlg4OHNqRSQ2TmkoQnJJVTI+clBNTzBCRUBVI1RudVFtKGlUXy4mLm01OFA+OSI8TWFpKmpkK2UwOHQ5OlZkRjVITkEwQWY3Ijs+ZFpKZ04xV1ctLjNhbC4qZkRoZjRdZVNnUWZmJSJdLmYsQDt0PjhZVkhJUkNnIkxtUEw2JjNvXjtUPjhHNE9HaGQsPlQ/SE8/XWlzLE9tIz8wSWg6bEA6bEBSXkctSScpPjtWYiUyR1V1QiZwMFBhRiQyOShaP1g7V0tmLyZjM2FwOjEuP01hUE49NjFGMV4jUC5TM2VvKD1bMUkjRytjJldhU0UzJmQ5MklHWUdjO2wuXjI7ajBBdSQyWT4tMEtKQlEobCpaZixELkxjPmBQZGNFJCZxMlUoMV9XXkRyXHQ4V2FvZG8xNiVSPThfQEpYMjsxKWtaTiVyLElLOyRyWTklanB1IlQiY3JWZUUsaj5oLUF1OlVDWmU4Q3QuRFkvKy9tTHQuYFw1ZjdSTU5gPkUkKF4rcEpLTE5TPGBaOChzQmY/bDNbRS5HOSFmdGQuamonRFA5KU5hY0RDSlozKnQsVyRWOSNaOmwhIWIjMzw5MlJOXkNPQSRNVzxlWVpXK1wnaXQzKjUsdEtvUzxrRCgxKGtQbTddJ3BXKTtqL1QqTUAnRWUmcnVdJVFzQyZNIkMraiZhKzQoXUspUCUsJldaL08xKDxiayMsQD9HMWJrIkQsOGtpSi9mMXBTYGI9YnJhUko/S3FqMTdmXmorSkFcZnN0MmsyRGxKJDAlUlcxJWRLT2YiLCozQFhbaTw3SFdSMlhHMFo4LWRGPVRuUSJePGBudWU/KV05SUxCWl5bYlBZU21EKT5tcmZhOHJZUDQlXFsqRGtLTzlzTGRpQD9CY2NYSTtrNmJhWSQzWWtwY1VHIUtZRW0+InEhV3NLcERqKlpjaV0tLklNOUhfIjw0W042YDRDJmNRVjVRLFpOSC4rUzpPLElMRmFkWWVLTXQjO2xDSUBvIStEazIkbT9BTENAKyxjTCRFQzEuVWBVTis8SUg+K005ITAtWmEtY09YbitUJG5nPyY2JCdvcUNeciFuLkNvX2pBbEkzWFpmSWt1IkxmWGdpbTFjJjE6XS5hQ1pASVslOS5vSEQxYV5FUFBzXXNUbSUvYFFgITU4KG9RSkdnc2NxXkFyNUVVIW9jYmVtXjsxa2pVKGlEUkZpWiFRXlFcc1YmX05WSipdL1JqOy5AX1w8Q28xVlhaNjBSRVQ4cHFtK1txP19QVyNuZk4jPDBDSSwxQ0srO0JcU2llQCtYcGMiR0EnK2FhdSRhVy8hRitRbi5KU0g7allZcDY7VFYkPT8rLT0hS1c1bTI3P25wbz83ckE8bjFbTDs8PVJFLFlpJjVjRyNQIVAndEhSMCk0QSInLls/R1osSEtaQmc6dEdPJyNIKCFkZEQ+ZiNoTUckX2QrdCEhTT8zOURwQEFUYDF1N24uZjFfLSJHTDdkbG5LY0VJSjJDKlZxVkQoQ182Y0JGXXNTQGBibmtPO11bLWZoPUdWanM5NUBmKFouNTZlcmE4XWM3YExOLlhIa1MqSF4jZ2k9b1tcZHAwWSpmRzJkXFQ6U0lUY1FZR2spU0hUTnRpZ0ByMi5VTiknTUxrT1xNY0ZqSSYoMkVuYFstPW9Jb3BbRSlAVUNNVkFJPFBXbFNQLidvKC9RWi5oIl0uUm9WYWYpWVsyOyFBLyFGVzYjS1g8QW9UYCVzPSljPWItKWomLGR1LG0jYTs5XWtPR0xYVlsqSCgzNXVpbyY2VjE5S1A6RF5YXT1vOThWMy9YW2RNOTd1Tz89YWg+SURVbFs0MTZeYWY1ZlJQRz4lY1soXXFfKlZOSUc1SnBeaVZGO18zJGU9KDZdYztmLllPVy8uXEdJOzMuPT8xfj5lbmRzdHJlYW0KZW5kb2JqCjE3IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDIzNDIKPj4Kc3RyZWFtCkdhdWBWaGZJTzEmcTlSXlovXlY/MEEhRTIjazFAQVJUdSJLWUVNV0o0UkdkUzNZMlRoTGUwbzxQJzI4J3JATDlzVStERmgxb2IpSS9YJTxeZl9wIS5oJCRLZmEpQnNkVlpqbCpIaGQibCFDR2FvJVlUKjltWEtoNHBHYCxjPWNZcmxbbVM6Nl47aWJXcUQhNVI3NlhNX2okKTxCP2wmRz5aQ1g0VD80XiFBNjBRO0MmK0paXm1iV0E+JGFOQkkvY14/cUAwSClRa2QzKE1PQ1xsTkpeOTxJUV9JQz5VKVgtRT5mZWItVVMhTk5rdDlKdVFXNiFATEFeR0JFO3ArMD9lTCxCVWlTY2ojZkZWdU0+bytCJyVsLSVUMkVecyRdWTtWRT5qT0UpXVxQLEJXSVQuUDQsSj9IUS8rKFJhYzdfbkllJ0NJME8haFpbZ3NdZmsyQktRc0owYm1qU2gtazJeXjI0NmgvcyRRTGRdLFtTXEM4Iyo0NVRqajc+WWtkQCI5XEdGTzhtNSlmJyw8USpwSWJmZ19UOFFrLkxDZVdkNiVXTzknOk1vLltlLUFfXzNFXCVKKmdVKClFSltobFczdWU8JWRXNFxHO1NdIVFbbmBTWFtpT0g+PV4/JDFVRlRpTiJTUTRKO2IrI1ZtdTd0VDNPajJWMDpHLyxDK2gjKE9vW1hgV2VpPVlQPyohZmNxM3NaaTRxQi9MMkIoMHNtZHReZV9iaWA8Sj1qVydoLXRbaFZhSGdRaD9JYz9bcC41Jm1KJWdqa29ePDtMIk0qUldWSztrSDVpRWRJMzFnXkFyK0Zkc3IrT0xqX0xyRExwKmVtLk4pRCo7TSwrXkkmcXFtamQ+YldIImVAJEpiNUYjdFhqYjEmNlNJPVhtbWBxQEpdT0olRXM4c3JPSG1IVHFXIklhMFw8MmtpMCtCQDdrLlQjT2lFJF5vP05HNy9OUTBbK3A5MHJDRi9haT0pWl0sRDhrX1k8M1BpLzg9Ny5RZ25TajNSXk5ZTDteKip0a2E5RXEqcjlLImU1JjRJQytoLyRwZEUhNEJfKT9xRVsnNzY6ckoiclNqNmlHaT1mRSRPT3VsYj5fNnNFbTFeRFgmKzRsXUZoLl8zZURFQGJEUkAtMWdKZXVDV2JeW3A+KFtkLmI7PTY8cXJkQFVFMyFWWUE2UCQoMnE/UW1Rc09JZW5AbCR0L00mMUxUVy9mN2RQSUY/N1QiYWVrR2xJbzgnQGFrNW9PaFdNLV48XCMvZldDSDhCdV1jWGtcdDFkWFRkKUJENTBvOTYuNSRCXVYyI1cnQ00zSDMpWz4tXGJpKzhAKmYqOiZlJmtdJkV1Rm4/SVxfVVYqOjlVKjA9W3B0KiFQKzs/Jy5pQlo5LTFUdGMsc3FzaEtNL0RoXTg+Mi8nQ2gwOjcjRWhMXTJMbDxsNVg7ZlU2K2pJK2ZSMFhcSktpQDIoQnJtKVVNTSZTNG5kdXFrWnVgLHNoXGUlJDowWGRKdGRmT25UY00+KXBjbG4/TT1pLWBMS2hTQypiKDpIXm9OOjdBXFNFbm9sQyZXXUNENERFckNHVE5KOnAtIi1vSVtcTV89SiQrPVxwWkhPXSNfX0kyIklvaTMrYCVYPiwhKDFTJlxpJUslJllaZT1tcVQzSmZtPDsoIyhDQ0dZQzEvO1VxXUxlZUgxV2dPVWUhKEk1SzdCX1AiLGFeSk1AIW9CI0wrKmw5QnQqRXRxRHAkQnFgNUBrOFAjamJSJzJaS0dhcGwvTjxxRj5qUV81aGY1Yiw8N25AOCtORUpabzxJMEpmVCFIV2dnc09iP1UscyxQUnFWL2lYaiZkRTNcSiZpXSFNNCFPXE1mJWpFOkJFMk0hQmBSKnIxNWBOcEg2Oy5bL29hcEkjaT1lPSRQP2AoYE1rS3BSIi5rOWpbI1BgOi9aS0lFZiRGK1NbPVxjNSY4Jkp1R1puKjxMKmVDKkotaF1sXmZAWG5BQSRaaGBtJm9lPVlpIm5EaCFhZzknQDhDN0I0SmhocWpuR2RtN09zZShZYkdnNTVqZyhoVUVtaSg/YVcjKkRaT1M/M0ZkLlsqOVA1TmE0U2FyXzlqcmQ0aj9zSFJrJyMwbDUzZ1EpXFhWVzY2IlNDdE0/aDZYWEglbHU0UmhAJTBuaV9iOzZZJyFHUF86dE9NZT5hYyUjKjAoL1tfZUNDS00rRi5OIjgmPmJUMysrY14jclJmVTlhMWIsQDcoc0omcCRDIXAycmc0N0dAQjVibnBZWWc4L1tPbVZUMFBIJ3M0LWlLZVBuPDVtNydEPC83LihgcjEiSUciK0onKDopLzhqND5oJ15tYXJPZzZuYUhgLWw+aC4vZFAxZm9fQVZxJDlASj09dTxFMTkpMEtsOF1WWUMkPlJcIWctb1A5NGAnbDw4OV4kcEZ1RkJMOWdCO0RfJFhcdVckbDctTFxxNmdAKWc4SEluJzY7amQzN29daCRBVGAyWUQ8OnEnRnJsUTE6N2dNYDw4Mk5WKGxLKEVnTVNoXmBxVjFiTz9XRChvJi1ASVlAQmhsKWhnUWRqblRkXVFlYipSUF45Yl9dVmMvb0NKUUswP2E9OipJZ0JFM1lWM1ZSSF5Vb2JnMzJmVU9aW1czZjVQJHJcZVVnZTQvJCs5cHF0cWVfImtHKDBUWUVGI1ZPME90JGc/U2hOQ2w4IjthSUY/MFIxclxbVm5IcUY9KkBnJDEvS2hOQFhgKDJpLjVrXjs3NCMjQC03KmskM1czdS5HKENaczxaQGspMUhPZShjNjFDZTlaMGc4SyM9PEdbJkRoKFdANGk/P0c4WydCVTglYmBcNy45XixHKWg+MW4lMVRQWz8zSVA8XCUrLC8yWCZmY3NqKDUxaSVsYl1IZVArZXFCUnBBPmJbNkM9Mis5QCxdPTk6KiJzUnVOSTgiM1JPSjBiKDpSTlFLL05qWWUzLjtbbTJFVS0hPXJKRXJbVj49aSVaWSZvQmQrYHAxKlFMdGdpIk9tMTZxSClMVHBfLnU3blNEI1pYJlo9MnMiZT50Iy47SXM5UzZUSGIjQj1MMzNaKmdGWlktPGdvK0I5SyM+ITI3bDRvLyslYVwnYTVRMVw9WFc+Nn4+ZW5kc3RyZWFtCmVuZG9iagoxOCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxMjU3Cj4+CnN0cmVhbQpHYXVgUzk1aVFTJkFJSTMlIidKWSdPQzBrTydbXGhbSk5LKToqUT90PlpUP0g+KztdSD0qRSYiaGNZaTIuOVMuJStIZGo8S0subzhqLXN1JCtUbVREZilCN2JebWQmYGgoVzRWYFxWImM4L1Qqc2xnYTJeVzNhRTEiXU8uMi1eKDs8OW41YlA7akBEXSdRNVtFb0MpYkc6Ni5ASCZhKDhcT3NoZ0xpO3RYOHMqUDNPYWY4U0pJLSs5N0U5ak4/a3RHTVglbVJrc2RVYGdCZlErXjdzKDYiRTo0cjVqUkNbLjdbb00rX1hgKWlmNUptMSpgaWheOiI3TSxFS0xsU2lfdTZeLyljMi83NSUnUS4hUVJlRGBUJTU+SzMkXTA9L2lULVUyPzA/P1IrLSc7bHVXNi44OkkqSlZaXSRMMChnYTQ7PU0kZGFcZDtGaT4ibzM6VzBTTlRjLGUjdFpPRFowTTlxPGgpVkpGQihvTGpZSywxbUFDJjJqbGdpLiV0N3NGX3BVQjhVakxvaVdlYUpMb1BTI2hJXC5cOTgxdCMwOiFyPEhwKHIySHA/KSM7cENZOmlIbFNGPXEkIUYwVShoMy0rYnJrXC4ydUE5Kkw4SktaLnMlMEkiNCo1OUxUODZqW3VENyxEJUosQUdkdTlbN1gvcFJwaFQ6R2ouZ1MzYTRsMFs5bidgL1VbZEBeMnVkam5CUkU0WGFDI3JjKEtLMyRpP0lcS2ppZi47NDduPDopLVBOIjImKyQhajxGb05DKFJXO0VUN1RlQmRwMSk0OCpgR3RZSm9pXiZpbDcubWRmTCdERmthbFcxW1x1OV1BJFhDP3BZMChVXF8pPC0rO143ZSEsZmRcTSNNSHQpcE9XNkBQTTY/JlhELGBaWm8sRCpPXXQ+KWpzb1hpZ1lVbEptZmFJQTRuUlU+PmxCIT0vTnEvWypTPUVlcyo/PWpsMGRENCw4bnNLUmtzdUgzP3JuTVpVKSgrck40KDtQIjthI24qI0lYN11ySEJFJj5TW1NuTzFsUiRuODxgMGVFYzxDUFs0SEw7NEBEZWJLaFJFXWlzT184XCQvVDtDOXFGJCNrKldoJ0FrbHQqMiFdZmMoajRAJztRIyc2VypWYkckRTtaXippTVhRVU8vN1UqKCo3VCMzbTNmdWlfZHJjZjYuJ00wWDU9LGchKjRuTzRHdGFWMilBSTJEWVRyLF9ncElyR2IvVDNaakYkV0dtMD1sbVxXc2dtS140I14pdS8mY0sqUFJSTk0xJjxGTVw6aixPcFcqI1JQM1YkLipvXCxJLlcsOjdTI2BHOFdMJzIlLVNfWE10NFpfb0IuMV4jImxLcDwvVVo9R2M4IkMhXmYvWzw2OzBwKWA2aidyOEZuNzVlKXFIci1obmwvczVsR0tBJG9hOVxFY3VhNzo/JjMlViEnZz0tcCRJVTBLIXBMVnNQKi5mIVQpR21nP00lPnVfaSFScyFpXipVV29Ma1lcYFhgb2tqQ3B1SVZLMmVqPVU3QDdiaiI8Z0g9clhlZFYwXzIqTFdMKUs2TW8qLEEvYmZQMi1KI2QyZi9qaWw8TVpFUVZhciwzLFpcZ0YzWDlTRkpXUFBPZEtdbWEhUTlDcSNiLkUyVWZiLmUoWTI8cydcX1tTaSRIKzRAKTsla1Q+PDlPfj5lbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCAxOQowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwNjEgMDAwMDAgbiAKMDAwMDAwMDEyMiAwMDAwMCBuIAowMDAwMDAwMjI5IDAwMDAwIG4gCjAwMDAwMDAzNDEgMDAwMDAgbiAKMDAwMDAwMDQ1NiAwMDAwMCBuIAowMDAwMDAwNTMzIDAwMDAwIG4gCjAwMDAwMDA3MzggMDAwMDAgbiAKMDAwMDAwMDk0MyAwMDAwMCBuIAowMDAwMDAxMTQ4IDAwMDAwIG4gCjAwMDAwMDEzNTMgMDAwMDAgbiAKMDAwMDAwMTU1OSAwMDAwMCBuIAowMDAwMDAxNjI5IDAwMDAwIG4gCjAwMDAwMDE5MzYgMDAwMDAgbiAKMDAwMDAwMjAyMSAwMDAwMCBuIAowMDAwMDA0MDcwIDAwMDAwIG4gCjAwMDAwMDYwNTQgMDAwMDAgbiAKMDAwMDAwODYwMiAwMDAwMCBuIAowMDAwMDExMDM2IDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDA3NWI3NjZjOWMwZjNhNGYxZGMzM2M5ZDZhZjY5MTc3PjwwNzViNzY2YzljMGYzYTRmMWRjMzNjOWQ2YWY2OTE3Nz5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gMTIgMCBSCi9Sb290IDExIDAgUgovU2l6ZSAxOQo+PgpzdGFydHhyZWYKMTIzODUKJSVFT0YK";
+    btn.download = "procurement-dependent-prepositions.pdf";
+  }
+})();
+
+</script>
+
+</body>
+</html>

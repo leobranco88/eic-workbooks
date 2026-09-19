@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imprimir a turma &middot; Planos de reforço</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Inter',-apple-system,sans-serif; background:#F4F4F5; color:#0A0A0F; }
+  .barra { position:sticky; top:0; background:#0A0A0F; color:#fff; padding:16px 26px; display:flex; gap:16px; align-items:center; z-index:10; }
+  .barra b { font-size:15px; }
+  .barra span { font-size:13.5px; color:#A1A1AA; }
+  .barra button { margin-left:auto; font-family:inherit; font-size:14px; font-weight:600; padding:11px 20px; border:0; background:#fff; color:#0A0A0F; cursor:pointer; }
+  .barra button:hover:not(:disabled) { background:#F03C02; color:#fff; }
+  .barra button:disabled { opacity:.4; cursor:default; }
+
+  #folhas { max-width:820px; margin:0 auto; padding:18px 0 40px; }
+  .folha { background:#fff; padding:40px 48px; margin-bottom:18px; }
+  #oculto { position:absolute; width:0; height:0; overflow:hidden; visibility:hidden; }
+
+  @media print {
+    .barra { display:none; }
+    body { background:#fff; }
+    #folhas { max-width:none; margin:0; padding:0; }
+    /* Cada aluno começa numa página nova. As regras de quebra de dentro da
+       folha voltam a valer porque o conteúdo agora está neste documento. */
+    .folha { padding:0; margin:0; break-after:page; page-break-after:always; }
+    .folha:last-child { break-after:auto; page-break-after:auto; }
+    @page { size:A4; margin:14mm 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="barra">
+  <b id="titulo">Montando as folhas...</b>
+  <span id="dica">Espere todas aparecerem antes de imprimir.</span>
+  <button type="button" id="btn" disabled>Imprimir tudo</button>
+</div>
+
+<div id="folhas"></div>
+<div id="oculto"></div>
+
+<script>
+/* Cada folha carrega num quadro escondido, renderiza normalmente, e aí o
+   conteúdo já montado é COPIADO para dentro desta página. É isso que garante
+   a quebra de página certa: em quadros, o navegador ignora as regras de
+   quebra de dentro e corta os blocos no meio. */
+(function () {
+  var q = new URLSearchParams(location.search);
+  var folhas = document.getElementById('folhas');
+  var oculto = document.getElementById('oculto');
+  var titulo = document.getElementById('titulo');
+  var dica = document.getElementById('dica');
+  var btn = document.getElementById('btn');
+  var estiloCopiado = false;
+
+  function copiarEstilo(doc) {
+    if (estiloCopiado) return;
+    doc.querySelectorAll('style, link[rel="stylesheet"]').forEach(function (n) {
+      document.head.appendChild(n.cloneNode(true));
+    });
+    estiloCopiado = true;
+  }
+
+  function carregar(url) {
+    return new Promise(function (resolve) {
+      var f = document.createElement('iframe');
+      f.src = url;
+      f.addEventListener('load', function () {
+        /* a folha busca o plano no banco depois do load: damos um respiro */
+        setTimeout(function () {
+          try {
+            var doc = f.contentDocument;
+            copiarEstilo(doc);
+            var pagina = doc.querySelector('.page');
+            if (pagina) {
+              var d = document.createElement('div');
+              d.className = 'folha';
+              d.innerHTML = pagina.innerHTML;
+              folhas.appendChild(d);
+            }
+          } catch (e) { /* uma folha que falhe não derruba as outras */ }
+          f.remove();
+          resolve();
+        }, 1400);
+      });
+      oculto.appendChild(f);
+    });
+  }
+
+  async function montar(urls) {
+    if (!urls.length) {
+      titulo.textContent = 'Nenhum plano para imprimir.';
+      dica.textContent = 'Volte para a página da turma e tente de novo.';
+      return;
+    }
+    for (var i = 0; i < urls.length; i++) {
+      titulo.textContent = 'Montando ' + (i + 1) + ' de ' + urls.length + '...';
+      await carregar(urls[i]);
+    }
+    var prontas = folhas.children.length;
+    titulo.textContent = prontas + (prontas === 1 ? ' folha pronta' : ' folhas prontas');
+    dica.textContent = prontas < urls.length
+      ? 'Faltou ' + (urls.length - prontas) + '. Recarregue para tentar de novo.'
+      : 'Cada aluno começa numa página.';
+    btn.disabled = prontas === 0;
+  }
+
+  window.__montar = montar;   /* usado nos testes, sem depender do banco */
+
+  var cp = q.get('cp') || '1';
+  var ids = (q.get('ids') || '').split(',').filter(Boolean);
+  montar(ids.map(function (id) { return 'reforco_k2_cp' + cp + '.html?id=' + id; }));
+
+  btn.addEventListener('click', function () { window.print(); });
+})();
+</script>
+</body>
+</html>

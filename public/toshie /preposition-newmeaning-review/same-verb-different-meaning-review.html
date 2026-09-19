@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIC · Full Review · Same Verb, Different Meaning · Toshie</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #0A0A0F;
+    --paper: #FAFAF7;
+    --muted: #6B7280;
+    --accent: #E63946;
+    --blue: #2563EB;
+    --teal: #0F766E;
+    --bg-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .topbar {
+    background: var(--ink); color: var(--paper); padding: 10px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--accent);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .topbar-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; }
+  .topbar-brand strong { font-size: 15px; font-weight: 900; display: block; line-height: 1.1; }
+  .topbar-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar-nav a { color: #9CA3AF; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; padding: 6px 10px; border-radius: 100px; letter-spacing: 0.05em; }
+  .topbar-nav a:hover { color: var(--paper); background: rgba(255,255,255,.08); }
+  .topbar-nav a.active { color: var(--ink); background: var(--paper); }
+  .topbar-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9CA3AF; text-align: right; }
+  .pdf-bar { background: var(--paper); border-bottom: 1.5px solid var(--ink); padding: 6px 24px; text-align:right; }
+  .pdf-bar a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); text-decoration: none; border: 1.5px solid var(--teal); padding: 4px 12px; }
+  .pdf-bar a:hover { background: var(--teal); color: var(--paper); }
+
+  .container { max-width: 900px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+  .hero { padding: 28px 36px 20px; border-bottom: 2px solid var(--ink); }
+  .hero-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub { font-size: 13px; color: #374151; margin-top: 8px; line-height: 1.55; max-width: 640px; }
+
+  .big-idea { background: var(--ink); color: var(--paper); padding: 18px 36px; }
+  .big-idea-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+  .big-idea p { font-size: 14px; line-height: 1.6; max-width: 700px; }
+  .big-idea b { color: #fff; text-decoration: underline; }
+
+  .section { padding: 22px 36px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  }
+  .s-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; font-weight: 500; flex-shrink: 0; }
+  .s-title { font-size: 15px; font-weight: 800; flex: 1; }
+  .s-pts { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+
+  .instruction { font-size: 13px; color: #374151; font-style: italic; margin-bottom: 16px; line-height: 1.55; }
+
+  /* MASTER REFERENCE */
+  .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .ref-card { border: 1.5px solid var(--ink); padding: 16px 20px; break-inside: avoid; }
+  .ref-verb { font-size: 16px; font-weight: 900; color: var(--accent); margin-bottom: 8px; }
+  .ref-row { display: flex; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; align-items: baseline; }
+  .ref-row:last-child { border-bottom: none; }
+  .ref-prep { font-family: 'IBM Plex Mono', monospace; font-weight: 800; color: var(--paper); background: var(--ink); padding: 2px 7px; min-width: 62px; text-align: center; flex-shrink: 0; }
+  .ref-meaning { flex: 1; color: #374151; }
+
+  /* PRACTICE */
+  .q-item { display: flex; gap: 8px; margin-bottom: 22px; align-items: flex-start; font-size: 13.5px; line-height: 1.65; }
+  .q-num { font-weight: 900; color: var(--accent); flex-shrink: 0; min-width: 20px; padding-top: 1px; font-size: 12px; cursor: pointer; user-select: none; }
+  .q-num:hover { text-decoration: underline; }
+  .q-body { flex: 1; }
+  .cue { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+  .blank { display: inline-block; border-bottom: 1.5px solid var(--ink); min-width: 90px; margin: 0 2px; vertical-align: baseline; }
+  .blank .ans-inline { display: none; color: var(--teal); font-weight: 700; font-size: 13.5px; white-space: nowrap; padding: 0 3px; }
+  .q-item.revealed .blank { border-bottom-color: var(--teal); min-width: auto; background: #ECFDF5; }
+  .q-item.revealed .blank .ans-inline { display: inline; }
+
+  .match-wrap { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+  .match-items { flex: 1; min-width: 260px; }
+  .match-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .match-item b { font-family: 'IBM Plex Mono', monospace; min-width: 130px; color: var(--ink); }
+  .match-box {
+    border: 1.5px solid var(--ink); width: 28px; height: 24px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 12px; color: transparent; cursor: pointer; user-select: none;
+  }
+  .match-box.revealed { color: var(--teal); border-color: var(--teal); background: #ECFDF5; }
+  .match-options { flex: 1; min-width: 260px; }
+  .match-opt { display: flex; gap: 6px; padding: 6px 10px; margin-bottom: 6px; background: var(--bg-light); font-size: 12px; line-height: 1.5; }
+  .match-opt b { font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; }
+
+  .open-item { margin-bottom: 20px; }
+  .open-stem { font-size: 13.5px; margin-bottom: 5px; line-height: 1.55; }
+  .open-stem strong { cursor: pointer; user-select: none; color: var(--accent); }
+  .open-stem strong:hover { text-decoration: underline; }
+  .open-stem .pt-line { display: block; }
+  .open-stem .jp-line { display: block; color: var(--teal); font-size: 12px; margin-top: 3px; font-style: italic; }
+  .open-line { border-bottom: 1px solid var(--border); height: 22px; margin-bottom: 4px; }
+  .ans-open { display: none; padding: 8px 10px; background: #ECFDF5; border-left: 3px solid var(--teal); margin-top: 5px; font-size: 12.5px; line-height: 1.55; }
+  .ans-open .ao-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 3px; }
+  .ans-open .ao-text { color: var(--teal); font-weight: 700; display: block; }
+  .open-item.revealed .ans-open { display: block; }
+
+  @media (max-width: 600px) {
+    .section { padding: 16px 18px; }
+    .hero { padding: 20px 18px; }
+    .big-idea { padding: 14px 18px; }
+    .ref-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <strong>EIC.</strong>
+    FULL REVIEW · SAME VERB, DIFFERENT MEANING · TOSHIE
+  </div>
+  <div class="topbar-meta">FULL REVIEW · PARTS 1 + 2 · B2</div>
+</div>
+
+<div class="pdf-bar"><a href="same-verb-different-meaning-review.pdf">Download PDF ↓</a></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="hero-meta">EIC · Escola de Idiomas e Cultura · Level B2 · Full Review</div>
+        <h1>Same Verb<br><span>— The Complete Picture</span></h1>
+        <div class="hero-sub">Os 12 verbos, as 52 combinações, tudo num lugar só. Primeiro a referência completa pra consulta rápida, depois uma prática misturando Part 1 e Part 2 — sem aviso de qual módulo é qual, do jeito que vai aparecer numa conversa de verdade.</div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;margin-left:24px;padding-top:4px;">
+        <div style="font-size:32px;line-height:1;">頑張れ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-idea">
+    <span class="big-idea-label">O que essa página é</span>
+    <p>Não é uma lição nova — é a <b>fotografia completa</b> de tudo que já vimos. A Seção 01 é referência (pode consultar a qualquer momento). A Seção 02 é teste de verdade: 24 frases, 2 de cada verbo, embaralhadas, sem indicar qual módulo pertence a qual.</p>
+  </div>
+
+  <!-- ═══ 01 — MASTER REFERENCE ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">01</span>
+      <span class="s-title">Master Reference — All 12 Verbs</span>
+      <span class="s-pts">52 combinations</span>
+    </div>
+
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-verb">look</div>
+        <div class="ref-row"><span class="ref-prep">at</span><span class="ref-meaning">olhar para algo específico</span></div>
+        <div class="ref-row"><span class="ref-prep">for</span><span class="ref-meaning">procurar algo que sumiu</span></div>
+        <div class="ref-row"><span class="ref-prep">after</span><span class="ref-meaning">cuidar de alguém ou algo</span></div>
+        <div class="ref-row"><span class="ref-prep">into</span><span class="ref-meaning">investigar, apurar um assunto</span></div>
+        <div class="ref-row"><span class="ref-prep">forward to</span><span class="ref-meaning">ansiar por, esperar animado</span></div>
+        <div class="ref-row"><span class="ref-prep">down on</span><span class="ref-meaning">desprezar</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">think</div>
+        <div class="ref-row"><span class="ref-prep">of</span><span class="ref-meaning">dar uma opinião rápida</span></div>
+        <div class="ref-row"><span class="ref-prep">about</span><span class="ref-meaning">pensar em, considerar por um tempo</span></div>
+        <div class="ref-row"><span class="ref-prep">over</span><span class="ref-meaning">refletir com calma antes de decidir</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">dream</div>
+        <div class="ref-row"><span class="ref-prep">of</span><span class="ref-meaning">aspirar a, sonho de vida/ambição</span></div>
+        <div class="ref-row"><span class="ref-prep">about</span><span class="ref-meaning">sonhar dormindo, ou pensar repetidamente</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">care</div>
+        <div class="ref-row"><span class="ref-prep">for</span><span class="ref-meaning">gostar de (formal) ou cuidar de alguém</span></div>
+        <div class="ref-row"><span class="ref-prep">about</span><span class="ref-meaning">se importar com, dar valor a</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">agree</div>
+        <div class="ref-row"><span class="ref-prep">with</span><span class="ref-meaning">concordar com uma pessoa</span></div>
+        <div class="ref-row"><span class="ref-prep">on</span><span class="ref-meaning">chegar a um acordo sobre um assunto</span></div>
+        <div class="ref-row"><span class="ref-prep">to</span><span class="ref-meaning">aceitar uma proposta ou condição</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">talk</div>
+        <div class="ref-row"><span class="ref-prep">to</span><span class="ref-meaning">conversar com alguém</span></div>
+        <div class="ref-row"><span class="ref-prep">about</span><span class="ref-meaning">falar sobre um assunto</span></div>
+        <div class="ref-row"><span class="ref-prep">(sb) into</span><span class="ref-meaning">convencer alguém a fazer algo</span></div>
+        <div class="ref-row"><span class="ref-prep">(sb) out of</span><span class="ref-meaning">demover alguém de fazer algo</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">wait</div>
+        <div class="ref-row"><span class="ref-prep">for</span><span class="ref-meaning">esperar por algo ou alguém</span></div>
+        <div class="ref-row"><span class="ref-prep">on</span><span class="ref-meaning">atender, servir como garçom</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">get</div>
+        <div class="ref-row"><span class="ref-prep">over</span><span class="ref-meaning">superar uma doença ou decepção</span></div>
+        <div class="ref-row"><span class="ref-prep">on</span><span class="ref-meaning">dar-se bem com alguém, ou embarcar</span></div>
+        <div class="ref-row"><span class="ref-prep">into</span><span class="ref-meaning">se interessar por, ou entrar em algo</span></div>
+        <div class="ref-row"><span class="ref-prep">away with</span><span class="ref-meaning">safar-se de, sair impune</span></div>
+        <div class="ref-row"><span class="ref-prep">through</span><span class="ref-meaning">superar algo difícil, ou conseguir contato</span></div>
+        <div class="ref-row"><span class="ref-prep">by</span><span class="ref-meaning">se virar com pouco</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">turn</div>
+        <div class="ref-row"><span class="ref-prep">into</span><span class="ref-meaning">transformar-se em</span></div>
+        <div class="ref-row"><span class="ref-prep">down</span><span class="ref-meaning">recusar, ou diminuir o volume</span></div>
+        <div class="ref-row"><span class="ref-prep">out</span><span class="ref-meaning">revelar-se, acontecer no final</span></div>
+        <div class="ref-row"><span class="ref-prep">up</span><span class="ref-meaning">aparecer de surpresa, ou aumentar o volume</span></div>
+        <div class="ref-row"><span class="ref-prep">on</span><span class="ref-meaning">ligar um aparelho</span></div>
+        <div class="ref-row"><span class="ref-prep">to</span><span class="ref-meaning">recorrer a alguém</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">put</div>
+        <div class="ref-row"><span class="ref-prep">up with</span><span class="ref-meaning">aturar</span></div>
+        <div class="ref-row"><span class="ref-prep">off</span><span class="ref-meaning">adiar</span></div>
+        <div class="ref-row"><span class="ref-prep">on</span><span class="ref-meaning">vestir, ou fingir</span></div>
+        <div class="ref-row"><span class="ref-prep">down</span><span class="ref-meaning">colocar/pousar algo, ou depreciar alguém</span></div>
+        <div class="ref-row"><span class="ref-prep">across</span><span class="ref-meaning">comunicar uma ideia claramente</span></div>
+        <div class="ref-row"><span class="ref-prep">out</span><span class="ref-meaning">extinguir (fogo)</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">take</div>
+        <div class="ref-row"><span class="ref-prep">after</span><span class="ref-meaning">puxar a, parecer com um parente</span></div>
+        <div class="ref-row"><span class="ref-prep">up</span><span class="ref-meaning">começar um hobby</span></div>
+        <div class="ref-row"><span class="ref-prep">in</span><span class="ref-meaning">absorver informação, ou enganar alguém</span></div>
+        <div class="ref-row"><span class="ref-prep">on</span><span class="ref-meaning">assumir uma responsabilidade, ou contratar</span></div>
+        <div class="ref-row"><span class="ref-prep">off</span><span class="ref-meaning">decolar, ou bombar</span></div>
+        <div class="ref-row"><span class="ref-prep">over</span><span class="ref-meaning">assumir o controle</span></div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-verb">run</div>
+        <div class="ref-row"><span class="ref-prep">into</span><span class="ref-meaning">encontrar por acaso</span></div>
+        <div class="ref-row"><span class="ref-prep">out of</span><span class="ref-meaning">ficar sem</span></div>
+        <div class="ref-row"><span class="ref-prep">for</span><span class="ref-meaning">se candidatar a</span></div>
+        <div class="ref-row"><span class="ref-prep">up to</span><span class="ref-meaning">se aproximar correndo, ou chegar até um valor</span></div>
+        <div class="ref-row"><span class="ref-prep">by</span><span class="ref-meaning">compartilhar uma ideia pra pegar opinião</span></div>
+        <div class="ref-row"><span class="ref-prep">through</span><span class="ref-meaning">ensaiar ou revisar rapidamente</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 02 — MIXED PRACTICE ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">02</span>
+      <span class="s-title">Mixed Review — All 12 Verbs Together</span>
+      <span class="s-pts">24 items</span>
+    </div>
+    <p class="instruction">Duas frases de cada verbo, misturadas sem ordem previsível. Clique no número pra conferir.</p>
+
+    <div id="mixed-practice"></div>
+  </div>
+
+  <!-- ═══ 03 — MATCH ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">03</span>
+      <span class="s-title">Match — Combinação = Significado</span>
+      <span class="s-pts">24 items</span>
+    </div>
+    <p class="instruction">Doze combinações de cada Part, misturadas nos dois blocos. Escreva a letra de cabeça antes de clicar.</p>
+
+    <div class="match-wrap">
+      <div class="match-items">
+        <div class="match-item"><b>1. look at</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'J' : ''">​</span></div>
+        <div class="match-item"><b>2. look forward to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'F' : ''">​</span></div>
+        <div class="match-item"><b>3. think over</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'A' : ''">​</span></div>
+        <div class="match-item"><b>4. think of</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'H' : ''">​</span></div>
+        <div class="match-item"><b>5. dream of</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'I' : ''">​</span></div>
+        <div class="match-item"><b>6. dream about</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'D' : ''">​</span></div>
+        <div class="match-item"><b>7. care for</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'E' : ''">​</span></div>
+        <div class="match-item"><b>8. care about</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'K' : ''">​</span></div>
+        <div class="match-item"><b>9. agree with</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'C' : ''">​</span></div>
+        <div class="match-item"><b>10. agree to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'L' : ''">​</span></div>
+        <div class="match-item"><b>11. talk to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'B' : ''">​</span></div>
+        <div class="match-item"><b>12. talk (sb) into</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'G' : ''">​</span></div>
+      </div>
+      <div class="match-options">
+        <div class="match-opt"><b>A.</b> refletir com calma antes de decidir</div>
+        <div class="match-opt"><b>B.</b> conversar com alguém</div>
+        <div class="match-opt"><b>C.</b> concordar com uma pessoa</div>
+        <div class="match-opt"><b>D.</b> sonhar dormindo, ou pensar repetidamente</div>
+        <div class="match-opt"><b>E.</b> gostar de (formal) ou cuidar de alguém</div>
+        <div class="match-opt"><b>F.</b> ansiar por, esperar animado</div>
+        <div class="match-opt"><b>G.</b> convencer alguém a fazer algo</div>
+        <div class="match-opt"><b>H.</b> dar uma opinião rápida</div>
+        <div class="match-opt"><b>I.</b> aspirar a, sonho de vida/ambição</div>
+        <div class="match-opt"><b>J.</b> olhar para algo específico</div>
+        <div class="match-opt"><b>K.</b> se importar com, dar valor a</div>
+        <div class="match-opt"><b>L.</b> aceitar uma proposta ou condição</div>
+      </div>
+    </div>
+
+    <div class="match-wrap">
+      <div class="match-items">
+        <div class="match-item"><b>1. wait for</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'E' : ''">​</span></div>
+        <div class="match-item"><b>2. wait on</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'L' : ''">​</span></div>
+        <div class="match-item"><b>3. get over</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'A' : ''">​</span></div>
+        <div class="match-item"><b>4. get away with</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'J' : ''">​</span></div>
+        <div class="match-item"><b>5. turn down</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'C' : ''">​</span></div>
+        <div class="match-item"><b>6. turn to</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'F' : ''">​</span></div>
+        <div class="match-item"><b>7. put up with</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'H' : ''">​</span></div>
+        <div class="match-item"><b>8. put on</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'I' : ''">​</span></div>
+        <div class="match-item"><b>9. take after</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'K' : ''">​</span></div>
+        <div class="match-item"><b>10. take over</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'D' : ''">​</span></div>
+        <div class="match-item"><b>11. run into</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'B' : ''">​</span></div>
+        <div class="match-item"><b>12. run by</b><span class="match-box" onclick="this.classList.toggle('revealed'); this.textContent = this.classList.contains('revealed') ? 'G' : ''">​</span></div>
+      </div>
+      <div class="match-options">
+        <div class="match-opt"><b>A.</b> superar uma doença ou decepção</div>
+        <div class="match-opt"><b>B.</b> encontrar por acaso</div>
+        <div class="match-opt"><b>C.</b> recusar, ou diminuir o volume</div>
+        <div class="match-opt"><b>D.</b> assumir o controle</div>
+        <div class="match-opt"><b>E.</b> esperar por algo ou alguém</div>
+        <div class="match-opt"><b>F.</b> recorrer a alguém</div>
+        <div class="match-opt"><b>G.</b> compartilhar uma ideia pra pegar opinião</div>
+        <div class="match-opt"><b>H.</b> aturar</div>
+        <div class="match-opt"><b>I.</b> vestir, ou fingir</div>
+        <div class="match-opt"><b>J.</b> safar-se de, sair impune</div>
+        <div class="match-opt"><b>K.</b> puxar a, parecer com um parente</div>
+        <div class="match-opt"><b>L.</b> atender, servir como garçom</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 04 — TRANSLATE ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="s-num">04</span>
+      <span class="s-title">Traduza</span>
+      <span class="s-pts">16 items</span>
+    </div>
+    <p class="instruction">Traduza pro inglês, misturando os dois módulos. Clique no número pra conferir.</p>
+
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">1.</strong> <span class="pt-line">Ela está ansiosa pra ver todo mundo de novo.</span><span class="jp-line">彼女はみんなにまた会うのを楽しみにしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She's looking forward to seeing everyone again.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">2.</strong> <span class="pt-line">Deixa eu refletir sobre isso antes de responder.</span><span class="jp-line">答える前にこれについてじっくり考えさせて。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Let me think it over before answering.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">3.</strong> <span class="pt-line">Ele finalmente superou a decepção.</span><span class="jp-line">彼はついに失望を乗り越えた。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He finally got over the disappointment.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">4.</strong> <span class="pt-line">Ela recusou a oferta sem pensar duas vezes.</span><span class="jp-line">彼女は迷わず申し出を断った。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She turned down the offer without a second thought.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">5.</strong> <span class="pt-line">Eu realmente me importo com o resultado disso.</span><span class="jp-line">私はこれがどうなるか本当に気にかけている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I really care about how this turns out.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">6.</strong> <span class="pt-line">Ela puxou o talento da mãe pra pintura.</span><span class="jp-line">彼女は絵の才能が母親に似ている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She takes after her mother when it comes to painting.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">7.</strong> <span class="pt-line">Ele convenceu o amigo a ficar mais um pouco.</span><span class="jp-line">彼は友達を説得してもう少し残らせた。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He talked his friend into staying a bit longer.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">8.</strong> <span class="pt-line">Eu não aguento esperar mais uma hora.</span><span class="jp-line">もう一時間待つのは我慢できない。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I can't put up with waiting another hour.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">9.</strong> <span class="pt-line">Ela assumiu o controle do projeto na metade do caminho.</span><span class="jp-line">彼女はプロジェクトを途中で引き継いだ。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She took over the project halfway through.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">10.</strong> <span class="pt-line">Eu encontrei meu antigo chefe no aeroporto.</span><span class="jp-line">空港で昔の上司に偶然会った。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">I ran into my old boss at the airport.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">11.</strong> <span class="pt-line">Você gostaria de um pouco de água?</span><span class="jp-line">お水はいかがですか?</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Would you care for some water?</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">12.</strong> <span class="pt-line">Ela concorda com o marido na maior parte do tempo.</span><span class="jp-line">彼女はほとんどの場合、夫に同意する。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She agrees with her husband most of the time.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">13.</strong> <span class="pt-line">Ele sempre recorre à família quando está com problema.</span><span class="jp-line">彼はいつも問題があると家族に頼る。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He always turns to his family when he has a problem.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">14.</strong> <span class="pt-line">Deixa eu te contar essa ideia rapidinho.</span><span class="jp-line">このアイデアについてちょっと話を聞いてもらえる?</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">Let me run this idea by you quickly.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">15.</strong> <span class="pt-line">Ela sonha em viajar pelo mundo algum dia.</span><span class="jp-line">彼女はいつか世界中を旅することを夢見ている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">She dreams of traveling around the world someday.</span></div>
+    </div>
+    <div class="open-item">
+      <div class="open-stem"><strong onclick="toggleItem(this.closest('.open-item'))">16.</strong> <span class="pt-line">Ele finge não se importar, mas se importa.</span><span class="jp-line">彼は気にしていないふりをしているが、実は気にしている。</span></div>
+      <div class="open-line"></div>
+      <div class="ans-open"><span class="ao-label">Answer</span><span class="ao-text">He puts on a front like he doesn't care, but he does.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ITEMS = [
+  {n:1, lead:"Sena is always looking", blank:"for", tail:"her reading glasses in the morning.", cue:"look", def:"to search"},
+  {n:2, lead:"She looks", blank:"after", tail:"the neighbor's cat while they're away.", cue:"look", def:"to take care of"},
+  {n:3, lead:"What do you think", blank:"of", tail:"the new exhibit?", cue:"think", def:"to have an opinion"},
+  {n:4, lead:"Let me think it", blank:"over", tail:"before deciding.", cue:"think", def:"to consider carefully"},
+  {n:5, lead:"She's always dreamed", blank:"of", tail:"visiting Kyoto again.", cue:"dream", def:"to aspire to"},
+  {n:6, lead:"Last night she dreamed", blank:"about", tail:"her old garden back home.", cue:"dream", def:"to dream while sleeping"},
+  {n:7, lead:"She used to care", blank:"for", tail:"the roses every morning.", cue:"care", def:"to look after"},
+  {n:8, lead:"He really cares", blank:"about", tail:"the museum's history.", cue:"care", def:"to be concerned with"},
+  {n:9, lead:"She agrees", blank:"with", tail:"Rio about which restaurant to try.", cue:"agree", def:"to share the same opinion as"},
+  {n:10, lead:"They finally agreed", blank:"on", tail:"a date for the trip.", cue:"agree", def:"to reach consensus about"},
+  {n:11, lead:"They talked", blank:"about", tail:"their favorite painters over lunch.", cue:"talk", def:"to discuss"},
+  {n:12, lead:"She wants to talk", blank:"to", tail:"the museum guide about the new wing.", cue:"talk", def:"to speak with"},
+  {n:13, lead:"They waited", blank:"for", tail:"a table by the window.", cue:"wait", def:"to expect, to await"},
+  {n:14, lead:"The waiter waited", blank:"on", tail:"their table all evening.", cue:"wait", def:"to serve"},
+  {n:15, lead:"It took her weeks to get", blank:"over", tail:"the long flight.", cue:"get", def:"to recover from"},
+  {n:16, lead:"They got", blank:"through", tail:"the whole gallery before lunch.", cue:"get", def:"to complete, to finish"},
+  {n:17, lead:"He always turns", blank:"down", tail:"dessert, even the good ones.", cue:"turn", def:"to refuse"},
+  {n:18, lead:"Whenever she's unsure, she turns", blank:"to", tail:"her old travel journal.", cue:"turn", def:"to rely on, to seek guidance from"},
+  {n:19, lead:"She's learned to put", blank:"up with", tail:"slow service abroad.", cue:"put", def:"to tolerate"},
+  {n:20, lead:"He put", blank:"on", tail:"his coat before the evening walk.", cue:"put", def:"to wear"},
+  {n:21, lead:"She took", blank:"up", tail:"painting again last spring.", cue:"take", def:"to start a hobby"},
+  {n:22, lead:"Everyone says she takes", blank:"after", tail:"her grandmother.", cue:"take", def:"to resemble"},
+  {n:23, lead:"They ran", blank:"into", tail:"an old friend at the farmers market.", cue:"run", def:"to meet by chance"},
+  {n:24, lead:"They almost ran", blank:"out of", tail:"film during the trip.", cue:"run", def:"to be depleted, to have none left"},
+];
+
+// shuffle (seeded, fixed order for consistency between checks)
+const order = [14,3,20,7,1,17,10,22,5,12,19,2,24,9,16,4,21,6,15,23,8,18,11,13];
+const shuffled = order.map(n => ITEMS.find(i => i.n === n));
+
+function toggleItem(el) {
+  if (el) el.classList.toggle('revealed');
+}
+
+function render() {
+  const html = shuffled.map((item, idx) => `
+    <div class="q-item"><span class="q-num" onclick="toggleItem(this.parentElement)">${idx+1}.</span><div class="q-body">${item.lead} <span class="blank"><span class="ans-inline">${item.blank}</span></span> ${item.tail} <span class="cue">(${item.cue} — ${item.def})</span></div></div>
+  `).join('');
+  document.getElementById('mixed-practice').innerHTML = html;
+}
+render();
+</script>
+
+</body>
+</html>
