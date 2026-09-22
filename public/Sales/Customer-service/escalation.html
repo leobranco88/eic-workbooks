@@ -315,6 +315,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .practice-bank-label{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px}
 .practice-bank-list{display:flex;flex-wrap:wrap;gap:6px}
 .bank-chip{font-size:11px;color:rgba(255,255,255,.7);background:rgba(255,255,255,.06);border-radius:12px;padding:4px 10px;cursor:help;position:relative;transition:all .2s}
+.pos-tag{font-size:8px;color:rgba(255,255,255,.35);font-weight:700;margin-left:4px;text-transform:lowercase;letter-spacing:.02em}
 .bank-chip:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--hi);color:var(--ink);font-size:11px;font-weight:700;white-space:nowrap;padding:5px 10px;border-radius:6px;pointer-events:none;z-index:100}
 .bank-chip:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--hi);pointer-events:none;z-index:100}
 .bank-chip.used{color:var(--teal);background:rgba(13,122,138,.18);font-weight:700}
@@ -1095,28 +1096,28 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   <div class="practice-bank">
     <div class="practice-bank-label">Word bank</div>
     <div class="practice-bank-list" id="practiceBankList">
-      <span class="bank-chip" data-word="said" data-pt="disse">said</span>
-      <span class="bank-chip" data-word="authority" data-pt="autoridade, alçada">authority</span>
-      <span class="bank-chip" data-word="pointed out" data-pt="apontou">pointed out</span>
-      <span class="bank-chip" data-word="sign-off" data-pt="aprovação formal">sign-off</span>
-      <span class="bank-chip" data-word="mentioned" data-pt="mencionou">mentioned</span>
-      <span class="bank-chip" data-word="judgment" data-pt="decisão de julgamento pessoal">judgment</span>
-      <span class="bank-chip" data-word="insisted" data-pt="insistiu">insisted</span>
-      <span class="bank-chip" data-word="discretion" data-pt="critério próprio">discretion</span>
-      <span class="bank-chip" data-word="loop in" data-pt="incluir na conversa">loop in</span>
-      <span class="bank-chip" data-word="prematurely" data-pt="cedo demais, sem necessidade">prematurely</span>
-      <span class="bank-chip" data-word="escalate" data-pt="escalar">escalate</span>
-      <span class="bank-chip" data-word="red flag" data-pt="sinal de alerta">red flag</span>
-      <span class="bank-chip" data-word="claimed" data-pt="alegou">claimed</span>
-      <span class="bank-chip" data-word="told" data-pt="contou, disse pra alguém">told</span>
-      <span class="bank-chip" data-word="me" data-pt="objeto pessoal (mim)">me</span>
-      <span class="bank-chip" data-word="false" data-pt="falso">false</span>
-      <span class="bank-chip" data-word="correct" data-pt="correto">correct</span>
-      <span class="bank-chip" data-word="warrant" data-pt="justifica">warrant</span>
-      <span class="bank-chip" data-word="flag" data-pt="sinalizar">flag</span>
-      <span class="bank-chip" data-word="explained" data-pt="explicou">explained</span>
-      <span class="bank-chip" data-word="err" data-pt="pecar pelo excesso de cautela">err</span>
-      <span class="bank-chip" data-word="defer" data-pt="delegar, seguir o julgamento de">defer</span>
+      <span class="bank-chip" data-word="said" data-pt="disse">said<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="authority" data-pt="autoridade, alçada">authority<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="pointed out" data-pt="apontou">pointed out<span class="pos-tag">phr.v</span></span>
+      <span class="bank-chip" data-word="sign-off" data-pt="aprovação formal">sign-off<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="mentioned" data-pt="mencionou">mentioned<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="judgment" data-pt="decisão de julgamento pessoal">judgment<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="insisted" data-pt="insistiu">insisted<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="discretion" data-pt="critério próprio">discretion<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="loop" data-pt="incluir na conversa (loop someone in)">loop<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="prematurely" data-pt="cedo demais, sem necessidade">prematurely<span class="pos-tag">adv</span></span>
+      <span class="bank-chip" data-word="escalate" data-pt="escalar">escalate<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="red flag" data-pt="sinal de alerta">red flag<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="claimed" data-pt="alegou">claimed<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="told" data-pt="contou, disse pra alguém">told<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="me" data-pt="objeto pessoal (mim)">me<span class="pos-tag">pron</span></span>
+      <span class="bank-chip" data-word="false" data-pt="falso">false<span class="pos-tag">adj</span></span>
+      <span class="bank-chip" data-word="correct" data-pt="correto">correct<span class="pos-tag">adj</span></span>
+      <span class="bank-chip" data-word="warrant" data-pt="justificar">warrant<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="flag" data-pt="sinalizar">flag<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="explained" data-pt="explicou">explained<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="err" data-pt="pecar pelo excesso de cautela">err<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="defer" data-pt="delegar, seguir o julgamento de">defer<span class="pos-tag">v</span></span>
     </div>
   </div>
 
@@ -1126,8 +1127,8 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-num">01 &middot; Escalation Language</div>
       <div class="pex-sentence">"I wanted to ______ you in before responding to the client."</div>
       <input class="pex-input" id="pex1" placeholder="Type your answer">
-      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'loop in')">Check</button></div>
-      <div class="pex-answer" id="pexA1"><strong>loop in</strong> &mdash; include someone in the conversation.</div>
+      <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'loop')">Check</button></div>
+      <div class="pex-answer" id="pexA1"><strong>loop</strong> &mdash; "loop someone in" is separable: the person goes between loop and in.</div>
     </div>
 
     <div class="pex-item">

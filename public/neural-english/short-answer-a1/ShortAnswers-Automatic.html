@@ -1204,6 +1204,16 @@ var SA_UTIL = (function(){
   var nextBtn = document.getElementById('saNext');
   var resetBtn = document.getElementById('saReset');
 
+  /* On step 1 the learner has to find the subject before converting it,
+     so mark it inside the original question. Case-insensitive, first hit only. */
+  function markSubject(question, subject){
+    if (!subject) return question;
+    var esc = subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var re = new RegExp('(' + esc + ')', 'i');
+    if (!re.test(question)) return question;
+    return question.replace(re, '<span class="obj-hl">$1</span>');
+  }
+
   function avatarHTML(keys){
     return keys.map(function(k){
       return '<span class="avatar av-' + k + '">' + NAMES[k].charAt(0) + '</span>';
@@ -1265,7 +1275,8 @@ var SA_UTIL = (function(){
     }
 
     charLine.innerHTML = avatarHTML(ex.chars) + '<span>Pergunta ' + (curEx + 1) + ' de ' + SA.length + '</span>';
-    contextEl.innerHTML = ex.question +
+    contextEl.innerHTML =
+      (curStep === 0 ? markSubject(ex.question, ex.subject) : ex.question) +
       '<span class="machine-polarity ' + (ex.pol === 'No' ? 'no' : '') + '">' + SA_UTIL.thumb(ex.pol, 19) + '</span>';
 
     var polShow = true, polPop = curStep === 0;
