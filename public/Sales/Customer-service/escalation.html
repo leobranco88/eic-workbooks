@@ -342,6 +342,58 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .nav-link{display:block;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;margin-bottom:2px;transition:background .15s ease}
 .nav-link:hover{background:var(--surface)}
 .nav-link.active{background:var(--surface);color:var(--teal);font-weight:800}
+
+/* ═══ Step machine · reported speech (Neural English) ═══ */
+.rsm-head{margin:34px 0 14px}
+.rsm-h{font-size:clamp(18px,1.2vw + 12px,24px);font-weight:900;letter-spacing:-.02em;color:var(--ink)}
+.rsm-pt{font-size:12.5px;color:var(--mid);margin-top:6px;padding-left:10px;border-left:2px solid var(--border);line-height:1.6}
+.rsm{background:var(--dark);color:#fff;border-radius:18px;padding:22px 22px 18px;margin-bottom:10px}
+.rsm-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.rsm-badge{font-size:11px;font-weight:800;letter-spacing:.04em;padding:5px 11px;border-radius:100px;background:rgba(255,255,255,.12)}
+.rsm-count{font-size:11.5px;color:rgba(255,255,255,.55);font-weight:600}
+.rsm-ctx{border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.rsm-who{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:8px}
+.rsm-line{font-size:clamp(18px,1.4vw + 11px,28px);font-weight:800;letter-spacing:-.02em;line-height:1.35}
+.rsm-tag{display:inline-block;margin-left:10px;vertical-align:middle;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:3px 7px}
+.rsm-line .focus{background:var(--hi);color:var(--dark);border-radius:4px;padding:0 5px}
+.rsm-line .new{color:var(--orange);display:inline-block;animation:rsmIn .42s cubic-bezier(.2,.8,.2,1)}
+.rsm-line .fix{text-decoration:underline wavy #FF4D8F;text-decoration-thickness:2px;text-underline-offset:5px}
+.rsm-line .quote{color:rgba(255,255,255,.85);font-style:italic}
+@keyframes rsmIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+.rsm-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 16px}
+.rsm-tile{border:1px dashed rgba(255,255,255,.22);border-radius:10px;padding:8px 10px;min-height:52px}
+.rsm-tile .k{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.rsm-tile .v{font-size:13.5px;font-weight:800;margin-top:3px;color:#fff}
+.rsm-tile.on{border-style:solid;border-color:rgba(255,255,255,.45)}
+.rsm-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.rsm-step{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 14px;opacity:.45;transition:opacity .25s}
+.rsm-step.active{opacity:1;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4)}
+.rsm-step.done{opacity:.75}
+.rsm-num{flex:none;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--dark);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.rsm-st{font-weight:800;font-size:13.5px}
+.rsm-sp{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.5;margin-top:2px}
+.rsm-sp .pt{display:block;font-size:11.5px;color:rgba(255,255,255,.5);margin-top:2px}
+.rsm-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.rsm-btn{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:9px;padding:8px 13px;font:700 13px Inter,sans-serif;cursor:pointer}
+.rsm-btn:hover:not(:disabled){border-color:rgba(255,255,255,.7)}
+.rsm-btn.correct{background:#1F9D6B;border-color:#1F9D6B}
+.rsm-btn.wrong{background:#D64545;border-color:#D64545;animation:rsmShake .35s}
+.rsm-btn:disabled{cursor:default}
+@keyframes rsmShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.rsm-hint{font-size:12px;color:#FF9A9A;margin-top:8px;min-height:1px}
+.rsm-ok{font-size:12.5px;color:var(--hi);font-weight:700;margin-top:6px;line-height:1.5}
+.rsm-final{background:var(--hi);color:var(--dark);border-radius:12px;padding:13px 16px;font-weight:800;font-size:clamp(15px,.7vw + 12px,20px);margin-bottom:12px;display:none}
+.rsm-final.show{display:block;animation:rsmIn .42s}
+.rsm-final small{display:block;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.6;margin-bottom:3px}
+.rsm-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.rsm-reset{background:none;border:none;color:rgba(255,255,255,.6);font:600 12.5px Inter,sans-serif;text-decoration:underline;cursor:pointer;padding:0}
+.rsm-dots{display:flex;gap:6px}
+.rsm-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25)}
+.rsm-dots span.on{background:var(--hi)}
+.rsm-next{background:var(--hi);color:var(--dark);border:none;border-radius:9px;padding:9px 15px;font:800 13px Inter,sans-serif;cursor:pointer;visibility:hidden}
+.rsm-next.show{visibility:visible}
+@media(max-width:640px){.rsm{padding:18px 14px 14px}.rsm-tiles{grid-template-columns:repeat(2,1fr)}.rsm-tag{display:block;margin:8px 0 0;width:max-content}}
+@media(prefers-reduced-motion:reduce){.rsm-line .new,.rsm-final.show{animation:none}.rsm-btn.wrong{animation:none}}
 </style>
 </head>
 <body>
@@ -360,6 +412,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <a href="damaged-product-complaint.html" class="nav-link">The Leaking Drums</a>
       <a href="the-fine-print.html" class="nav-link">The Fine Print</a>
       <a href="escalation.html" class="nav-link active">Escalating It Up</a>
+      <a href="escalation-practice.html" class="nav-link" style="padding-left:26px;font-size:12px">Practice: Report It to Diego</a>
       <a href="payment-terms.html" class="nav-link">The Grace Period</a>
       <a href="sla.html" class="nav-link">The Clock Is Running</a>
       <a href="prepositions.html" class="nav-link">Little Words, Big Difference</a>
@@ -384,8 +437,8 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="hero-grid">
       <div>
         <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Quick Lesson &middot; Customer Service</span></div>
-        <h1 class="hero-title">Escalating It Up &mdash; <em>when Renata can't decide alone</em></h1>
-        <p class="hero-sub">Not every case fits neatly into the policy. When a client is big, angry, or both, Renata has to bring the case to Diego Marques, her manager &mdash; and that means explaining what the client said, professionally, without just repeating it word for word.</p>
+        <h1 class="hero-title">Escalating It Up: <em>when Renata can't decide alone</em></h1>
+        <p class="hero-sub">Not every case fits neatly into the policy. When a client is big, angry, or both, Renata has to bring the case to Diego Marques, her manager. That means explaining what the client said, professionally, without just repeating it word for word.</p>
         <div class="hero-meta">
           <span class="hero-tag">Renata Lima &middot; Customer Success, Altiva Biosolutions</span>
           <span class="hero-tag">Diego Marques &middot; Regional Operations Director</span>
@@ -421,7 +474,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <div class="cast-info">
           <div class="cast-name">Diego Marques</div>
           <div class="cast-role">Regional Operations Director</div>
-          <div class="cast-note">Renata's manager &mdash; the one she escalates to when a case is above her authority.</div>
+          <div class="cast-note">Renata's manager, the one she escalates to when a case is above her authority.</div>
         </div>
       </div>
     </div>
@@ -431,7 +484,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 <section class="section">
   <div class="pw">
     <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">In Their Words</span></div>
-    <p class="sec-sub">Duas vozes, dois momentos da mesma escalada &mdash; toque nos pontos da foto e passe o mouse nas expressões abaixo.</p>
+    <p class="sec-sub">Duas vozes, dois momentos da mesma escalada. Toque nos pontos da foto e passe o mouse nas expressões abaixo.</p>
 
     <div class="editorial-carousel" id="editorialCarousel">
       <button class="editorial-nav prev" onclick="prevSlide()" aria-label="Previous">
@@ -450,7 +503,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="editorial-text">
             <div class="editorial-kicker">Escalation Language</div>
-            <blockquote class="editorial-quote">"This one felt bigger than a normal complaint, so I <span class="neon">flagged it internally</span> right away. Offering a full replacement outside our policy is <span class="neon">above my authority</span> &mdash; I needed to <span class="neon">loop him in</span> and get his <span class="neon">sign-off</span> before promising anything. On accounts this size, I <span class="neon">defer to</span> him for the final call, but I still wanted to <span class="neon">escalate</span> it properly."</blockquote>
+            <blockquote class="editorial-quote">"This one felt bigger than a normal complaint, so I <span class="neon">flagged it internally</span> right away. Offering a full replacement outside our policy is <span class="neon">above my authority</span>. I needed to <span class="neon">loop him in</span> and get his <span class="neon">sign-off</span> before promising anything. On accounts this size, I <span class="neon">defer to</span> him for the final call, but I still wanted to <span class="neon">escalate</span> it properly."</blockquote>
             <div class="editorial-attribution"><span>Renata Lima</span> &middot; Customer Success, Altiva Biosolutions</div>
           </div>
         </div>
@@ -475,23 +528,23 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     </div>
 
     <div class="key-phrase-strip">
-      <span class="key-phrase" data-pt="sinalizar isso internamente">flag this internally</span>
-      <span class="key-phrase" data-pt="além da minha alçada/autoridade">above my authority</span>
-      <span class="key-phrase" data-pt="incluir alguém na conversa">loop (someone) in</span>
-      <span class="key-phrase" data-pt="obter aprovação formal">sign-off</span>
-      <span class="key-phrase" data-pt="delegar, seguir o julgamento de alguém">defer to</span>
-      <span class="key-phrase" data-pt="escalar, levar para alguém acima">escalate</span>
-      <span class="key-phrase" data-pt="disse que">said (that)</span>
-      <span class="key-phrase" data-pt="alegou que">claimed (that)</span>
-      <span class="key-phrase" data-pt="mencionou que">mentioned (that)</span>
-      <span class="key-phrase" data-pt="insistiu que">insisted (that)</span>
-      <span class="key-phrase" data-pt="explicou que">explained (that)</span>
-      <span class="key-phrase" data-pt="apontou que">pointed out (that)</span>
+      <span class="key-phrase" data-pt="Sinalizar isso internamente">flag this internally</span>
+      <span class="key-phrase" data-pt="Além da minha alçada/autoridade">above my authority</span>
+      <span class="key-phrase" data-pt="Incluir alguém na conversa">loop (someone) in</span>
+      <span class="key-phrase" data-pt="Obter aprovação formal">sign-off</span>
+      <span class="key-phrase" data-pt="Delegar, seguir o julgamento de alguém">defer to</span>
+      <span class="key-phrase" data-pt="Escalar, levar para alguém acima">escalate</span>
+      <span class="key-phrase" data-pt="Disse que">said (that)</span>
+      <span class="key-phrase" data-pt="Alegou que">claimed (that)</span>
+      <span class="key-phrase" data-pt="Mencionou que">mentioned (that)</span>
+      <span class="key-phrase" data-pt="Insistiu que">insisted (that)</span>
+      <span class="key-phrase" data-pt="Explicou que">explained (that)</span>
+      <span class="key-phrase" data-pt="Apontou que">pointed out (that)</span>
     </div>
 
     <button class="practice-trigger" onclick="openPractice()" style="margin-top:24px">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-      Practice this vocabulary &mdash; open exercise
+      Practice this vocabulary · Open exercise
     </button>
   </div>
 </section>
@@ -534,13 +587,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     </table>
 
     <div class="vocab-row" style="display:block;padding:14px 18px;background:#fff;border:1.5px solid var(--border);border-radius:12px;margin-bottom:16px">
-      <span style="font-size:12.5px;line-height:1.7;color:var(--ink)"><b>Time and place words shift too</b> — not just the verb:</span>
+      <span style="font-size:12.5px;line-height:1.7;color:var(--ink)"><b>Time and place words shift too</b>, not just the verb:</span>
     </div>
 
     <div class="word-swap-strip">
       <div class="word-swap"><span class="before">today</span><span class="arrow">&rarr;</span>that day</div>
       <div class="word-swap"><span class="before">yesterday</span><span class="arrow">&rarr;</span>the day before</div>
       <div class="word-swap"><span class="before">tomorrow</span><span class="arrow">&rarr;</span>the next day</div>
+      <div class="word-swap"><span class="before">last week</span><span class="arrow">&rarr;</span>the week before</div>
+      <div class="word-swap"><span class="before">last month</span><span class="arrow">&rarr;</span>the month before</div>
       <div class="word-swap"><span class="before">this</span><span class="arrow">&rarr;</span>that</div>
       <div class="word-swap"><span class="before">now</span><span class="arrow">&rarr;</span>then</div>
       <div class="word-swap"><span class="before">here</span><span class="arrow">&rarr;</span>there</div>
@@ -550,26 +605,43 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="rs-recap-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
       </div>
-      <div class="rs-recap-text"><b>The rule in one line:</b> everything moves one step further from "now" &mdash; the verb tense, and any word that points to a specific time or place. You're not quoting &mdash; you're summarizing from a later point in time.</div>
+      <div class="rs-recap-text"><b>The rule in one line:</b> everything moves one step further from "now": the verb tense, and any word that points to a specific time or place. You're not quoting. You're summarizing from a later point in time.</div>
     </div>
 
     <div class="saytell-unit">
-      <div class="saytell-intro">One more thing before you practice: do you need <b>"that"</b>? No &mdash; it's optional after most reporting verbs. "He said <code>that</code> he needed a refund" and "He said he needed a refund" are both correct; dropping it is just more common in speech. What matters more is choosing the right verb:</div>
+      <div class="saytell-intro">One more thing before you practice: do you need <b>"that"</b>? No, it's optional after most reporting verbs. "He said <code>that</code> he needed a refund" and "He said he needed a refund" are both correct; dropping it is just more common in speech. What matters more is choosing the right verb:</div>
       <div class="saytell-grid">
         <div class="saytell-card">
           <div class="saytell-title">SAY</div>
-          <div class="saytell-rule">No personal object needed &mdash; you just say something.</div>
+          <div class="saytell-rule">No personal object needed. You just say something.</div>
           <div class="saytell-ex right">&#10003; He <b>said</b> he needed a refund.</div>
           <div class="saytell-ex wrong">&#10007; He <b>said me</b> he needed a refund.</div>
         </div>
         <div class="saytell-card tell">
           <div class="saytell-title">TELL</div>
-          <div class="saytell-rule">Always needs a personal object &mdash; you tell <i>someone</i>.</div>
+          <div class="saytell-rule">Always needs a personal object. You tell <i>someone</i>.</div>
           <div class="saytell-ex right">&#10003; He <b>told me</b> he needed a refund.</div>
           <div class="saytell-ex wrong">&#10007; He <b>told</b> he needed a refund.</div>
         </div>
       </div>
       <div class="saytell-footer"><b>Quick test:</b> a person right after the verb ("me," "her," "Diego") means you need <code>tell</code>. No person there? Use <code>say</code>. "Say to someone" exists, but native speakers almost always say <code>tell</code> someone instead.</div>
+    </div>
+
+    <div class="rsm-head">
+      <div class="rsm-h">Run it step by step</div>
+      <div class="rsm-pt">Uma mensagem do Marcos por vez. A cada passo certo, a frase de cima muda sozinha até virar o relato completo.</div>
+    </div>
+    <div class="rsm" id="rsm">
+      <div class="rsm-top"><span class="rsm-badge" id="rsmBadge">Step 1 &middot; Say or tell?</span><span class="rsm-count" id="rsmCount"></span></div>
+      <div class="rsm-ctx" id="rsmCtx"></div>
+      <div class="rsm-tiles" id="rsmTiles"></div>
+      <div class="rsm-steps" id="rsmSteps"></div>
+      <div class="rsm-final" id="rsmFinal"></div>
+      <div class="rsm-nav">
+        <button class="rsm-reset" type="button" id="rsmReset">Start again</button>
+        <div class="rsm-dots" id="rsmDots"></div>
+        <button class="rsm-next" type="button" id="rsmNext">Next message &rarr;</button>
+      </div>
     </div>
   </div>
 </section>
@@ -612,9 +684,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos said...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWa(2)">Next &rarr;</button>
-            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>was losing</b> patience with it.</div>
+            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>was losing</b> patience with <b>that</b>.</div>
           </div>
         </div>
 
@@ -629,7 +701,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos said...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWa(3)">Next &rarr;</button>
             <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>had called</b> three times already.</div>
           </div>
@@ -646,7 +718,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos said...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWa(4)">Next &rarr;</button>
             <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>had emailed</b> our team the week before.</div>
           </div>
@@ -663,7 +735,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos said...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWa(5)">Next &rarr;</button>
             <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>would take</b> his business elsewhere.</div>
           </div>
@@ -680,9 +752,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos said...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWa(6)">Next &rarr;</button>
-            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>couldn't accept</b> the delay.</div>
+            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>couldn't accept</b> <b>that</b> delay.</div>
           </div>
         </div>
 
@@ -697,9 +769,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos said...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><span class="wa-done" id="waDoneMsg">All 7 done! Great work.</span>
-            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>had to get</b> it resolved that day.</div>
+            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos said he <b>had to get</b> <b>that</b> resolved <b>that day</b>.</div>
           </div>
         </div>
 
@@ -716,7 +788,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     </div>
 
     <div class="wa-section-label" style="margin-top:32px">Practice B &middot; Using TELL</div>
-    <p class="wa-section-note">Aqui sempre tem uma pessoa logo depois do verbo &mdash; por isso todas as respostas come&ccedil;am com "Marcos told her..."</p>
+    <p class="wa-section-note">Aqui sempre tem uma pessoa logo depois do verbo, por isso todas as respostas come&ccedil;am com "Marcos told her..."</p>
 
     <div class="wa-carousel" id="waCarouselTell">
       <div class="wa-track" id="waTrackTell">
@@ -738,7 +810,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
             <div class="wa-build-label">Report it to Diego</div>
             <input class="wa-input" placeholder="Marcos told her...">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWaTell(1)">Next &rarr;</button>
-            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos <b>told her</b> (that) it <b>was</b> the last straw.</div>
+            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos <b>told her</b> <b>that</b> <b>was</b> the last straw.</div>
           </div>
         </div>
 
@@ -757,7 +829,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos told her...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWaTell(2)">Next &rarr;</button>
             <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos <b>told her</b> (that) it <b>had arrived</b> broken too.</div>
           </div>
@@ -778,9 +850,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos told her...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><button class="wa-next" onclick="goToWaTell(3)">Next &rarr;</button>
-            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos <b>told her</b> he <b>had</b> already <b>warned</b> her about it <b>the month before</b>.</div>
+            <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos <b>told her</b> he <b>had</b> already <b>warned</b> her about <b>that</b> <b>the month before</b>.</div>
           </div>
         </div>
 
@@ -799,7 +871,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           </div>
           <div class="wa-build">
             <div class="wa-build-label">Report it to Diego</div>
-            <input class="wa-input" placeholder="Marcos told her...">
+            <input class="wa-input" placeholder="">
             <button class="wa-check" onclick="checkWa(this)">Check my sentence</button><span class="wa-done" id="waDoneMsgTell">All 4 done! Great work.</span>
             <div class="wa-answer"><span class="wa-tag">Model answer</span>Marcos <b>told her</b> it <b>needed</b> to be <b>that</b> Friday.</div>
           </div>
@@ -819,7 +891,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 <section class="section">
   <div class="pw">
     <div class="sec-label"><span class="sec-num">04</span><span class="sec-tag">Listening: What Did Marcos Say?</span></div>
-    <p class="sec-sub">Dessa vez o Marcos mandou &aacute;udio, n&atilde;o texto. Clique pra ouvir, escreva a vers&atilde;o relatada &mdash; sem ver a frase original antes.</p>
+    <p class="sec-sub">Dessa vez o Marcos mandou &aacute;udio, n&atilde;o texto. Clique pra ouvir, escreva a vers&atilde;o relatada, sem ver a frase original antes.</p>
 
     <div class="voice-header">
       <div class="voice-header-avatar"><img src="data:image/jpeg;base64,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" alt="Marcos"></div>
@@ -842,9 +914,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="voice-transcript" id="voiceTranscript1">Transcript: "I will speak to your supervisor about this."</div>
       <div class="wa-build" style="padding:0">
         <div class="wa-build-label">Report it to Diego</div>
-        <input class="wa-input" placeholder="Marcos said...">
+        <input class="wa-input" placeholder="">
         <button class="wa-check" onclick="checkVoice(1, this)">Check my sentence</button>
-        <div class="wa-answer" id="voiceAnswer1"><span class="wa-tag">Model answer</span>Marcos said he <b>would speak</b> to her supervisor about it.</div>
+        <div class="wa-answer" id="voiceAnswer1"><span class="wa-tag">Model answer</span>Marcos said he <b>would speak</b> to her supervisor about <b>that</b>.</div>
       </div>
     </div>
 
@@ -861,9 +933,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="voice-transcript" id="voiceTranscript2">Transcript: "I have never had this problem with another supplier."</div>
       <div class="wa-build" style="padding:0">
         <div class="wa-build-label">Report it to Diego</div>
-        <input class="wa-input" placeholder="Marcos said...">
+        <input class="wa-input" placeholder="">
         <button class="wa-check" onclick="checkVoice(2, this)">Check my sentence</button>
-        <div class="wa-answer" id="voiceAnswer2"><span class="wa-tag">Model answer</span>Marcos said he <b>had</b> never <b>had</b> that problem with another supplier.</div>
+        <div class="wa-answer" id="voiceAnswer2"><span class="wa-tag">Model answer</span>Marcos said he <b>had</b> never <b>had</b> <b>that</b> problem with another supplier.</div>
       </div>
     </div>
 
@@ -880,9 +952,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="voice-transcript" id="voiceTranscript3">Transcript: "I need this fixed by tomorrow."</div>
       <div class="wa-build" style="padding:0">
         <div class="wa-build-label">Report it to Diego</div>
-        <input class="wa-input" placeholder="Marcos said...">
+        <input class="wa-input" placeholder="">
         <button class="wa-check" onclick="checkVoice(3, this)">Check my sentence</button>
-        <div class="wa-answer" id="voiceAnswer3"><span class="wa-tag">Model answer</span>Marcos said he needed it fixed <b>by the next day</b>.</div>
+        <div class="wa-answer" id="voiceAnswer3"><span class="wa-tag">Model answer</span>Marcos said he <b>needed</b> <b>that</b> fixed <b>by the next day</b>.</div>
       </div>
     </div>
 
@@ -899,49 +971,53 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="voice-transcript" id="voiceTranscript4">Transcript: "I cannot keep waiting like this."</div>
       <div class="wa-build" style="padding:0">
         <div class="wa-build-label">Report it to Diego</div>
-        <input class="wa-input" placeholder="Marcos said...">
+        <input class="wa-input" placeholder="">
         <button class="wa-check" onclick="checkVoice(4, this)">Check my sentence</button>
-        <div class="wa-answer" id="voiceAnswer4"><span class="wa-tag">Model answer</span>Marcos said he <b>couldn't keep</b> waiting like that.</div>
+        <div class="wa-answer" id="voiceAnswer4"><span class="wa-tag">Model answer</span>Marcos said he <b>couldn't keep</b> waiting like <b>that</b>.</div>
       </div>
     </div>
+    <a class="practice-trigger" href="escalation-practice.html" style="margin-top:24px;text-decoration:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      More practice · 19 new messages from Marcos
+    </a>
   </div>
 </section>
 
 <section class="section">
   <div class="pw">
     <div class="sec-label"><span class="sec-num">05</span><span class="sec-tag">When to Actually Escalate</span></div>
-    <p class="sec-sub">Escalar demais é tão problemático quanto escalar de menos — o vocabulário de saber a diferença.</p>
+    <p class="sec-sub">Escalar demais é tão problemático quanto escalar de menos. Este é o vocabulário pra saber a diferença.</p>
 
     <div class="vocab-list">
       <div class="vocab-row">
-        <span class="vocab-term" data-pt="uma decisão de julgamento pessoal, não uma regra fixa">a judgment call</span>
-        <span class="vocab-example">&mdash; "Whether to escalate or not is often a judgment call."</span>
+        <span class="vocab-term" data-pt="Uma decisão de julgamento pessoal, não uma regra fixa">a judgment call</span>
+        <span class="vocab-example">"Whether to escalate or not is often a judgment call."</span>
       </div>
       <div class="vocab-row">
-        <span class="vocab-term" data-pt="pecar pelo excesso de cautela">err on the side of caution</span>
-        <span class="vocab-example">&mdash; "When it's a big account, I'd rather err on the side of caution."</span>
+        <span class="vocab-term" data-pt="Pecar pelo excesso de cautela">err on the side of caution</span>
+        <span class="vocab-example">"When it's a big account, I'd rather err on the side of caution."</span>
       </div>
       <div class="vocab-row">
-        <span class="vocab-term" data-pt="usar seu próprio critério">use your discretion</span>
-        <span class="vocab-example">&mdash; "For small requests like this, use your discretion."</span>
+        <span class="vocab-term" data-pt="Usar seu próprio critério">use your discretion</span>
+        <span class="vocab-example">"For small requests like this, use your discretion."</span>
       </div>
       <div class="vocab-row">
-        <span class="vocab-term" data-pt="justifica ser escalado">warrants escalation</span>
-        <span class="vocab-example">&mdash; "A minor delay like this doesn't warrant escalation."</span>
+        <span class="vocab-term" data-pt="Justifica ser escalado">warrants escalation</span>
+        <span class="vocab-example">"A minor delay like this doesn't warrant escalation."</span>
       </div>
       <div class="vocab-row">
-        <span class="vocab-term" data-pt="escalar cedo demais, sem necessidade">escalate prematurely</span>
-        <span class="vocab-example">&mdash; "Escalating prematurely can make you look like you can't handle routine cases."</span>
+        <span class="vocab-term" data-pt="Escalar cedo demais, sem necessidade">escalate prematurely</span>
+        <span class="vocab-example">"Escalating prematurely can make you look like you can't handle routine cases."</span>
       </div>
       <div class="vocab-row">
-        <span class="vocab-term" data-pt="um sinal de alerta">a red flag</span>
-        <span class="vocab-example">&mdash; "A repeat complaint from the same account is a red flag worth escalating."</span>
+        <span class="vocab-term" data-pt="Um sinal de alerta">a red flag</span>
+        <span class="vocab-example">"A repeat complaint from the same account is a red flag worth escalating."</span>
       </div>
     </div>
 
     <div class="example-block">
       <div class="example-label">In Renata's words</div>
-      <div class="example-text">"Not every complaint <b>warrants escalation</b> — most of the time, it's <b>a judgment call</b> I can make with <b>my discretion</b> alone. But when I see <b>a red flag</b> like a repeat issue on a big account, I'd rather <b>err on the side of caution</b> than <b>escalate</b> too <b>prematurely</b> — or, worse, not escalate at all."</div>
+      <div class="example-text">"Not every complaint <b>warrants escalation</b>. Most of the time, it's <b>a judgment call</b>, and I can <b>use my discretion</b>. I try not to <b>escalate prematurely</b>. But when I see <b>a red flag</b> like a repeat issue on a big account, I'd rather <b>err on the side of caution</b> and bring Diego in."</div>
     </div>
   </div>
 </section>
@@ -958,7 +1034,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <button class="decide-btn" data-correct="false" onclick="chooseDecide(this)">Escalate to Diego</button>
         <button class="decide-btn" data-correct="true" onclick="chooseDecide(this)">Handle it herself</button>
       </div>
-      <div class="decide-verdict"><b>Handle it herself.</b> This is squarely within her normal discretion — escalating something this routine would waste Diego's time and make her look unsure of her own role.</div>
+      <div class="decide-verdict"><b>Handle it herself.</b> This is squarely within her normal discretion. Escalating something this routine would waste Diego's time and make her look unsure of her own role.</div>
     </div>
 
     <div class="decide-card">
@@ -968,27 +1044,27 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <button class="decide-btn" data-correct="true" onclick="chooseDecide(this)">Escalate to Diego</button>
         <button class="decide-btn" data-correct="false" onclick="chooseDecide(this)">Handle it herself</button>
       </div>
-      <div class="decide-verdict"><b>Escalate to Diego.</b> This carries reputational risk beyond a normal complaint — exactly the kind of red flag that warrants bringing in someone with broader authority.</div>
+      <div class="decide-verdict"><b>Escalate to Diego.</b> This carries reputational risk beyond a normal complaint. It's exactly the kind of red flag that warrants bringing in someone with broader authority.</div>
     </div>
 
     <div class="decide-card">
       <div class="decide-num">Situation C</div>
-      <div class="decide-scenario">A client asks a simple question about where their shipment currently is in transit.</div>
-      <div class="decide-choice">
-        <button class="decide-btn" data-correct="true" onclick="chooseDecide(this)">Handle it herself</button>
-        <button class="decide-btn" data-correct="false" onclick="chooseDecide(this)">Escalate to Diego</button>
-      </div>
-      <div class="decide-verdict"><b>Handle it herself.</b> A tracking question isn't a judgment call at all — escalating this would be escalating prematurely, for something with zero risk attached.</div>
-    </div>
-
-    <div class="decide-card">
-      <div class="decide-num">Situation D</div>
       <div class="decide-scenario">A client's request technically falls outside policy, but the account is worth renewing at a significant value next quarter.</div>
       <div class="decide-choice">
         <button class="decide-btn" data-correct="false" onclick="chooseDecide(this)">Handle it herself</button>
         <button class="decide-btn" data-correct="true" onclick="chooseDecide(this)">Escalate to Diego</button>
       </div>
-      <div class="decide-verdict"><b>Escalate to Diego.</b> Approving an exception to policy is above her authority by definition — and with real money on the table, this is exactly where erring on the side of caution makes sense.</div>
+      <div class="decide-verdict"><b>Escalate to Diego.</b> Approving an exception to policy is above her authority by definition. And with real money on the table, this is exactly where erring on the side of caution makes sense.</div>
+    </div>
+
+    <div class="decide-card">
+      <div class="decide-num">Situation D</div>
+      <div class="decide-scenario">A client asks a simple question about where their shipment currently is in transit.</div>
+      <div class="decide-choice">
+        <button class="decide-btn" data-correct="true" onclick="chooseDecide(this)">Handle it herself</button>
+        <button class="decide-btn" data-correct="false" onclick="chooseDecide(this)">Escalate to Diego</button>
+      </div>
+      <div class="decide-verdict"><b>Handle it herself.</b> A tracking question isn't a judgment call at all. Escalating this would be escalating prematurely, for something with zero risk attached.</div>
     </div>
   </div>
 </section>
@@ -1007,9 +1083,9 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
         <div class="memo-stamp">Needs Sign-Off</div>
       </div>
       <div class="memo-note">
-        Subject: Escalating &mdash; Frutamax account, repeat complaint<br><br>
-        Diego, I wanted to <b>loop you in</b> on something tricky before I respond. Marcos from Frutamax <b>claimed</b> the last shipment <b>had never been</b> properly inspected, and <b>mentioned</b> this is the second issue this quarter. He <b>insisted</b> we owed him a full replacement at no cost — but technically, this <b>falls outside</b> our coverage window.<br><br>
-        Frutamax renews in Q1, so I didn't want to just say no. Approving an exception like this is <b>above my authority</b> — can I get your <b>sign-off</b> on a one-time goodwill replacement?
+        Subject: Escalating: Frutamax account, repeat complaint<br><br>
+        Diego, I wanted to <b>loop you in</b> on something tricky before I respond. Marcos from Frutamax <b>claimed</b> the last shipment <b>had never been</b> properly inspected, and <b>mentioned</b> this is the second issue this quarter. He <b>insisted</b> we owed him a full replacement at no cost, but technically, this <b>falls outside</b> our coverage window.<br><br>
+        Frutamax renews in Q1, so I didn't want to just say no. Approving an exception like this is <b>above my authority</b>. Can I get your <b>sign-off</b> on a one-time goodwill replacement?
       </div>
     </div>
   </div>
@@ -1031,7 +1107,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           <button class="bc-option" data-correct="false" onclick="chooseBC(this)">You need to fix this now.</button>
           <button class="bc-option" data-correct="true" onclick="chooseBC(this)">I wanted to loop you in on something tricky.</button>
         </div>
-        <div class="bc-feedback">This opens the conversation clearly and professionally &mdash; not alarming, not dismissive, just direct.</div>
+        <div class="bc-feedback">This opens the conversation clearly and professionally: not alarming, not dismissive, just direct.</div>
       </div>
 
       <div class="bc-turn">
@@ -1043,7 +1119,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           <button class="bc-option" data-correct="false" onclick="chooseBC(this)">He's just annoyed, that's all.</button>
           <button class="bc-option" data-correct="false" onclick="chooseBC(this)">He said stuff about the shipment.</button>
         </div>
-        <div class="bc-feedback">This is reported speech done right &mdash; specific, and correctly shifted into the past ("had never been").</div>
+        <div class="bc-feedback">This is reported speech done right: specific, and correctly shifted into the past ("had never been").</div>
       </div>
 
       <div class="bc-turn">
@@ -1055,7 +1131,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           <button class="bc-option" data-correct="false" onclick="chooseBC(this)">I don't know, you decide everything.</button>
           <button class="bc-option" data-correct="true" onclick="chooseBC(this)">Technically no, but I think it's above my authority to just deny it.</button>
         </div>
-        <div class="bc-feedback">Honest about the policy, but also honest about why she's not deciding alone &mdash; this is exactly what escalating well sounds like.</div>
+        <div class="bc-feedback">Honest about the policy, but also honest about why she's not deciding alone. This is exactly what escalating well sounds like.</div>
       </div>
 
       <div class="bc-turn">
@@ -1067,7 +1143,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
           <button class="bc-option" data-correct="true" onclick="chooseBC(this)">I'd like your sign-off on a one-time exception, given the account's size.</button>
           <button class="bc-option" data-correct="false" onclick="chooseBC(this)">Whatever you think.</button>
         </div>
-        <div class="bc-feedback">A clear recommendation, with a reason attached &mdash; this shows judgment, not just passing the decision up blindly.</div>
+        <div class="bc-feedback">A clear recommendation, with a reason attached. This shows judgment, not just passing the decision up blindly.</div>
       </div>
 
     </div>
@@ -1096,28 +1172,28 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
   <div class="practice-bank">
     <div class="practice-bank-label">Word bank</div>
     <div class="practice-bank-list" id="practiceBankList">
-      <span class="bank-chip" data-word="said" data-pt="disse">said<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="authority" data-pt="autoridade, alçada">authority<span class="pos-tag">n</span></span>
-      <span class="bank-chip" data-word="pointed out" data-pt="apontou">pointed out<span class="pos-tag">phr.v</span></span>
-      <span class="bank-chip" data-word="sign-off" data-pt="aprovação formal">sign-off<span class="pos-tag">n</span></span>
-      <span class="bank-chip" data-word="mentioned" data-pt="mencionou">mentioned<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="judgment" data-pt="decisão de julgamento pessoal">judgment<span class="pos-tag">n</span></span>
-      <span class="bank-chip" data-word="insisted" data-pt="insistiu">insisted<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="discretion" data-pt="critério próprio">discretion<span class="pos-tag">n</span></span>
-      <span class="bank-chip" data-word="loop" data-pt="incluir na conversa (loop someone in)">loop<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="prematurely" data-pt="cedo demais, sem necessidade">prematurely<span class="pos-tag">adv</span></span>
-      <span class="bank-chip" data-word="escalate" data-pt="escalar">escalate<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="red flag" data-pt="sinal de alerta">red flag<span class="pos-tag">n</span></span>
-      <span class="bank-chip" data-word="claimed" data-pt="alegou">claimed<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="told" data-pt="contou, disse pra alguém">told<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="me" data-pt="objeto pessoal (mim)">me<span class="pos-tag">pron</span></span>
-      <span class="bank-chip" data-word="false" data-pt="falso">false<span class="pos-tag">adj</span></span>
-      <span class="bank-chip" data-word="correct" data-pt="correto">correct<span class="pos-tag">adj</span></span>
-      <span class="bank-chip" data-word="warrant" data-pt="justificar">warrant<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="flag" data-pt="sinalizar">flag<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="explained" data-pt="explicou">explained<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="err" data-pt="pecar pelo excesso de cautela">err<span class="pos-tag">v</span></span>
-      <span class="bank-chip" data-word="defer" data-pt="delegar, seguir o julgamento de">defer<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="said" data-pt="Disse">said<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="authority" data-pt="Autoridade, alçada">authority<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="pointed out" data-pt="Apontou">pointed out<span class="pos-tag">phr.v</span></span>
+      <span class="bank-chip" data-word="sign-off" data-pt="Aprovação formal">sign-off<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="mentioned" data-pt="Mencionou">mentioned<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="judgment" data-pt="Decisão de julgamento pessoal">judgment<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="insisted" data-pt="Insistiu">insisted<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="discretion" data-pt="Critério próprio">discretion<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="loop" data-pt="Incluir na conversa (loop someone in)">loop<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="prematurely" data-pt="Cedo demais, sem necessidade">prematurely<span class="pos-tag">adv</span></span>
+      <span class="bank-chip" data-word="escalate" data-pt="Escalar">escalate<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="red flag" data-pt="Sinal de alerta">red flag<span class="pos-tag">n</span></span>
+      <span class="bank-chip" data-word="claimed" data-pt="Alegou">claimed<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="told" data-pt="Contou, disse pra alguém">told<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="me" data-pt="Objeto pessoal (mim)">me<span class="pos-tag">pron</span></span>
+      <span class="bank-chip" data-word="false" data-pt="Falso">false<span class="pos-tag">adj</span></span>
+      <span class="bank-chip" data-word="correct" data-pt="Correto">correct<span class="pos-tag">adj</span></span>
+      <span class="bank-chip" data-word="warrant" data-pt="Justificar">warrant<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="flag" data-pt="Sinalizar">flag<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="explained" data-pt="Explicou">explained<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="err" data-pt="Pecar pelo excesso de cautela">err<span class="pos-tag">v</span></span>
+      <span class="bank-chip" data-word="defer" data-pt="Delegar, seguir o julgamento de">defer<span class="pos-tag">v</span></span>
     </div>
   </div>
 
@@ -1128,23 +1204,23 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">"I wanted to ______ you in before responding to the client."</div>
       <input class="pex-input" id="pex1" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow1"><button class="pex-check" onclick="checkPex(1,'loop')">Check</button></div>
-      <div class="pex-answer" id="pexA1"><strong>loop</strong> &mdash; "loop someone in" is separable: the person goes between loop and in.</div>
+      <div class="pex-answer" id="pexA1"><strong>loop</strong>: "loop someone in" is separable: the person goes between loop and in.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">02 &middot; Escalation Language</div>
       <div class="pex-sentence">"I need your ______ before I can offer an exception."</div>
       <input class="pex-input" id="pex2" placeholder="Type your answer">
-      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'sign-off')">Check</button></div>
-      <div class="pex-answer" id="pexA2"><strong>sign-off</strong> &mdash; formal approval.</div>
+      <div class="pex-btnrow" id="pexBtnRow2"><button class="pex-check" onclick="checkPex(2,'sign-off|sign off')">Check</button></div>
+      <div class="pex-answer" id="pexA2"><strong>sign-off</strong>: formal approval.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">03 &middot; Escalation Language</div>
-      <div class="pex-sentence">"I'm going to ______ this to you, since it's a strategic account."</div>
+      <div class="pex-sentence">"I'm going to ______ this to you, since it's a strategic account." (send it up the hierarchy)</div>
       <input class="pex-input" id="pex3" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow3"><button class="pex-check" onclick="checkPex(3,'escalate')">Check</button></div>
-      <div class="pex-answer" id="pexA3"><strong>escalate</strong> &mdash; raise it up the hierarchy.</div>
+      <div class="pex-answer" id="pexA3"><strong>escalate</strong>: raise it up the hierarchy.</div>
     </div>
 
     <div class="pex-item">
@@ -1152,7 +1228,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">"Approving a full refund is above my ______."</div>
       <input class="pex-input" id="pex4" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow4"><button class="pex-check" onclick="checkPex(4,'authority')">Check</button></div>
-      <div class="pex-answer" id="pexA4"><strong>authority</strong> &mdash; as in "above my authority."</div>
+      <div class="pex-answer" id="pexA4"><strong>authority</strong>: as in "above my authority."</div>
     </div>
 
     <div class="pex-item">
@@ -1160,47 +1236,47 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">"On accounts this size, I ______ to you for the final call."</div>
       <input class="pex-input" id="pex5" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow5"><button class="pex-check" onclick="checkPex(5,'defer')">Check</button></div>
-      <div class="pex-answer" id="pexA5"><strong>defer</strong> &mdash; let someone else make the final decision.</div>
+      <div class="pex-answer" id="pexA5"><strong>defer</strong>: let someone else make the final decision.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">06 &middot; Escalation Language</div>
-      <div class="pex-sentence">"I wanted to ______ this internally before it becomes a bigger issue."</div>
+      <div class="pex-sentence">"I wanted to ______ this internally before it becomes a bigger issue." (raise a concern early)</div>
       <input class="pex-input" id="pex6" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow6"><button class="pex-check" onclick="checkPex(6,'flag')">Check</button></div>
-      <div class="pex-answer" id="pexA6"><strong>flag</strong> &mdash; raise a concern before it grows.</div>
+      <div class="pex-answer" id="pexA6"><strong>flag</strong>: raise a concern before it grows.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">07 &middot; Reported Speech</div>
-      <div class="pex-sentence">Client: "I already contacted you twice." &rarr; He ______ he had already contacted them twice.</div>
+      <div class="pex-sentence">Client: "I already contacted you twice." &rarr; He ______ he had already contacted them twice. (the neutral verb)</div>
       <input class="pex-input" id="pex7" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow7"><button class="pex-check" onclick="checkPex(7,'said')">Check</button></div>
-      <div class="pex-answer" id="pexA7"><strong>said</strong> &mdash; the neutral reporting verb.</div>
+      <div class="pex-answer" id="pexA7"><strong>said</strong>: the neutral reporting verb.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">08 &middot; Reported Speech</div>
-      <div class="pex-sentence">Client: "This shipment never arrived." &rarr; She ______ the shipment had never arrived.</div>
+      <div class="pex-sentence">Client: "This shipment never arrived." &rarr; She ______ the shipment had never arrived. (you're not sure it's true)</div>
       <input class="pex-input" id="pex8" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow8"><button class="pex-check" onclick="checkPex(8,'claimed')">Check</button></div>
-      <div class="pex-answer" id="pexA8"><strong>claimed</strong> &mdash; used when you're not sure it's fully accurate.</div>
+      <div class="pex-answer" id="pexA8"><strong>claimed</strong>: used when you're not sure it's fully accurate.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">09 &middot; Reported Speech</div>
-      <div class="pex-sentence">Diego ______ that the account was too important to lose over this.</div>
+      <div class="pex-sentence">Diego ______ that the account was too important to lose over that. (drew attention to a fact)</div>
       <input class="pex-input" id="pex9" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow9"><button class="pex-check" onclick="checkPex(9,'pointed out')">Check</button></div>
-      <div class="pex-answer" id="pexA9"><strong>pointed out</strong> &mdash; drew attention to a specific fact.</div>
+      <div class="pex-answer" id="pexA9"><strong>pointed out</strong>: drew attention to a specific fact.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">10 &middot; Reported Speech</div>
-      <div class="pex-sentence">The client ______ that he'd been a loyal customer for five years, hoping that would help his case.</div>
+      <div class="pex-sentence">The client ______ that he'd been a loyal customer for five years, hoping that would help his case. (said it in passing)</div>
       <input class="pex-input" id="pex10" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow10"><button class="pex-check" onclick="checkPex(10,'mentioned')">Check</button></div>
-      <div class="pex-answer" id="pexA10"><strong>mentioned</strong> &mdash; said casually, in passing.</div>
+      <div class="pex-answer" id="pexA10"><strong>mentioned</strong>: said casually, in passing.</div>
     </div>
 
     <div class="pex-item">
@@ -1208,7 +1284,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">Marcos ______ on getting a full replacement, not just a partial credit.</div>
       <input class="pex-input" id="pex11" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow11"><button class="pex-check" onclick="checkPex(11,'insisted')">Check</button></div>
-      <div class="pex-answer" id="pexA11"><strong>insisted</strong> &mdash; repeated a demand firmly.</div>
+      <div class="pex-answer" id="pexA11"><strong>insisted</strong>: repeated a demand firmly.</div>
     </div>
 
     <div class="pex-item">
@@ -1216,7 +1292,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">Renata ______ why the claim technically fell outside the coverage window.</div>
       <input class="pex-input" id="pex12" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow12"><button class="pex-check" onclick="checkPex(12,'explained')">Check</button></div>
-      <div class="pex-answer" id="pexA12"><strong>explained</strong> &mdash; gave reasons or context.</div>
+      <div class="pex-answer" id="pexA12"><strong>explained</strong>: gave reasons or context.</div>
     </div>
 
     <div class="pex-item">
@@ -1224,7 +1300,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">Whether to escalate or not is often a ______ call, not a fixed rule.</div>
       <input class="pex-input" id="pex13" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow13"><button class="pex-check" onclick="checkPex(13,'judgment')">Check</button></div>
-      <div class="pex-answer" id="pexA13"><strong>judgment</strong> &mdash; as in "a judgment call."</div>
+      <div class="pex-answer" id="pexA13"><strong>judgment</strong>: as in "a judgment call."</div>
     </div>
 
     <div class="pex-item">
@@ -1232,7 +1308,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">On a big account, Renata would rather ______ on the side of caution.</div>
       <input class="pex-input" id="pex14" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow14"><button class="pex-check" onclick="checkPex(14,'err')">Check</button></div>
-      <div class="pex-answer" id="pexA14"><strong>err</strong> &mdash; as in "err on the side of caution."</div>
+      <div class="pex-answer" id="pexA14"><strong>err</strong>: as in "err on the side of caution."</div>
     </div>
 
     <div class="pex-item">
@@ -1240,7 +1316,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">For small, routine requests, Renata is expected to use her own ______.</div>
       <input class="pex-input" id="pex15" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow15"><button class="pex-check" onclick="checkPex(15,'discretion')">Check</button></div>
-      <div class="pex-answer" id="pexA15"><strong>discretion</strong> &mdash; her own judgment, without needing to ask.</div>
+      <div class="pex-answer" id="pexA15"><strong>discretion</strong>: her own judgment, without needing to ask.</div>
     </div>
 
     <div class="pex-item">
@@ -1248,15 +1324,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">A simple tracking question doesn't ______ escalation at all.</div>
       <input class="pex-input" id="pex16" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow16"><button class="pex-check" onclick="checkPex(16,'warrant')">Check</button></div>
-      <div class="pex-answer" id="pexA16"><strong>warrant</strong> &mdash; as in "warrants escalation."</div>
+      <div class="pex-answer" id="pexA16"><strong>warrant</strong>: as in "warrants escalation."</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">17 &middot; When to Escalate</div>
-      <div class="pex-sentence">Escalating too ______ can make you look like you can't handle routine cases.</div>
+      <div class="pex-sentence">Escalating ______ can make you look like you can't handle routine cases.</div>
       <input class="pex-input" id="pex17" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow17"><button class="pex-check" onclick="checkPex(17,'prematurely')">Check</button></div>
-      <div class="pex-answer" id="pexA17"><strong>prematurely</strong> &mdash; too early, before it's really needed.</div>
+      <div class="pex-answer" id="pexA17"><strong>prematurely</strong>: too early, before it's really needed.</div>
     </div>
 
     <div class="pex-item">
@@ -1264,7 +1340,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">A repeat complaint from the same big account is a ______ worth escalating.</div>
       <input class="pex-input" id="pex18" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow18"><button class="pex-check" onclick="checkPex(18,'red flag')">Check</button></div>
-      <div class="pex-answer" id="pexA18"><strong>red flag</strong> &mdash; a warning sign that something bigger might be going on.</div>
+      <div class="pex-answer" id="pexA18"><strong>red flag</strong>: a warning sign that something bigger might be going on.</div>
     </div>
 
     <div class="pex-item">
@@ -1272,7 +1348,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">He ______ me he needed a refund. (there's a person right after the verb)</div>
       <input class="pex-input" id="pex19" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow19"><button class="pex-check" onclick="checkPex(19,'told')">Check</button></div>
-      <div class="pex-answer" id="pexA19"><strong>told</strong> &mdash; "tell" always needs a personal object.</div>
+      <div class="pex-answer" id="pexA19"><strong>told</strong>: "tell" always needs a personal object.</div>
     </div>
 
     <div class="pex-item">
@@ -1280,15 +1356,15 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">She ______ she needed a refund. (no person right after the verb)</div>
       <input class="pex-input" id="pex20" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow20"><button class="pex-check" onclick="checkPex(20,'said')">Check</button></div>
-      <div class="pex-answer" id="pexA20"><strong>said</strong> &mdash; "say" never takes a direct personal object.</div>
+      <div class="pex-answer" id="pexA20"><strong>said</strong>: "say" never takes a direct personal object.</div>
     </div>
 
     <div class="pex-item">
       <div class="pex-num">21 &middot; Say vs. Tell</div>
-      <div class="pex-sentence">Fix this sentence: "He told he needed help." &mdash; what's missing?</div>
+      <div class="pex-sentence">Fix this sentence: "He told he needed help." What's missing?</div>
       <input class="pex-input" id="pex21" placeholder="Type the missing word">
-      <div class="pex-btnrow" id="pexBtnRow21"><button class="pex-check" onclick="checkPex(21,'me')">Check</button></div>
-      <div class="pex-answer" id="pexA21"><strong>me</strong> (or her/him/us) &mdash; "tell" is never followed directly by the clause without a person first.</div>
+      <div class="pex-btnrow" id="pexBtnRow21"><button class="pex-check" onclick="checkPex(21,'me|her|him|us')">Check</button></div>
+      <div class="pex-answer" id="pexA21"><strong>me</strong> (or her/him/us): "tell" is never followed directly by the clause without a person first.</div>
     </div>
 
     <div class="pex-item">
@@ -1296,7 +1372,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">Marcos ______ Renata the shipment had been damaged.</div>
       <input class="pex-input" id="pex22" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow22"><button class="pex-check" onclick="checkPex(22,'told')">Check</button></div>
-      <div class="pex-answer" id="pexA22"><strong>told</strong> &mdash; "Renata" is the personal object right after the verb.</div>
+      <div class="pex-answer" id="pexA22"><strong>told</strong>: "Renata" is the personal object right after the verb.</div>
     </div>
 
     <div class="pex-item">
@@ -1304,7 +1380,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">True or false: you must always include "that" in reported speech. Type "true" or "false."</div>
       <input class="pex-input" id="pex23" placeholder="true or false">
       <div class="pex-btnrow" id="pexBtnRow23"><button class="pex-check" onclick="checkPex(23,'false')">Check</button></div>
-      <div class="pex-answer" id="pexA23"><strong>false</strong> &mdash; "that" is optional after most reporting verbs. Both versions are correct.</div>
+      <div class="pex-answer" id="pexA23"><strong>false</strong>: "that" is optional after most reporting verbs. Both versions are correct.</div>
     </div>
 
     <div class="pex-item">
@@ -1312,7 +1388,7 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <div class="pex-sentence">"He said that he needed help" and "He said he needed help" are both ______. (one word: correct, wrong, or optional)</div>
       <input class="pex-input" id="pex24" placeholder="Type your answer">
       <div class="pex-btnrow" id="pexBtnRow24"><button class="pex-check" onclick="checkPex(24,'correct')">Check</button></div>
-      <div class="pex-answer" id="pexA24"><strong>correct</strong> &mdash; both are fully correct. "That" is optional, not required.</div>
+      <div class="pex-answer" id="pexA24"><strong>correct</strong>: both are fully correct. "That" is optional, not required.</div>
     </div>
 
   </div>
@@ -1491,8 +1567,8 @@ function checkPex(n, correctAnswer) {
   var answerBox = document.getElementById('pexA' + n);
   var btnRow = document.getElementById('pexBtnRow' + n);
   var userVal = normalizeAns(input.value);
-  var correctNorm = normalizeAns(correctAnswer);
-  var isCorrect = userVal.length > 0 && (userVal === correctNorm || correctNorm.indexOf(userVal) === 0 || userVal.indexOf(correctNorm) !== -1);
+  var alts = correctAnswer.split('|').map(normalizeAns);
+  var isCorrect = userVal.length > 0 && alts.some(function(a){ return userVal === a || (' ' + userVal + ' ').indexOf(' ' + a + ' ') !== -1; });
 
   answerBox.classList.add('show');
   input.classList.toggle('correct', isCorrect);
@@ -1507,7 +1583,7 @@ function checkPex(n, correctAnswer) {
   if (!pexChecked[n]) {
     pexChecked[n] = true;
     updatePracticeProgress();
-    var target = correctAnswer.toLowerCase();
+    var target = correctAnswer.split('|')[0].toLowerCase();
     document.querySelectorAll('.bank-chip').forEach(function(chip) {
       if (chip.dataset.word.toLowerCase() === target) chip.classList.add('used');
     });
@@ -1558,6 +1634,165 @@ document.addEventListener('DOMContentLoaded', function(){
     row.dataset.checkHtml = row.innerHTML;
   });
 });
+
+/* ═══ Step machine · reported speech ═══
+   segment types: plain string | {p:'I',to:'he'} pronoun | {v:'need',mid:'need',to:'needed'} verb | {w:'today',to:'that day'} time/place */
+var RSM = [
+  { s: [{p:'I',to:'he'},' ',{v:'need',to:'needed'},' the new drums ',{w:'here',to:'there'},' ',{w:'today',to:'that day'},'.'],
+    pron: ['he','I','she'], pronOk: 'he', pronWhy: 'Quem fala é o Marcos: <b>I</b> vira <b>he</b>.',
+    verb: ['needed','need','had needed'], verbOk: 'needed', verbWhy: 'Present simple vira past simple: <b>need → needed</b>.',
+    time: ['there · that day','here · today','there · the next day'], timeOk: 'there · that day', timeWhy: '<b>here → there</b> e <b>today → that day</b>.' },
+  { s: [{p:'I',to:'he'},{v:"'m testing",mid:"'s testing",to:' was testing'},' the new batch.'],
+    pron: ['he','I','they'], pronOk: 'he', pronWhy: '<b>I</b> vira <b>he</b>. O verbo acompanha: he<b>\'s</b> testing, ainda no presente.',
+    verb: ['was testing','is testing','had tested'], verbOk: 'was testing', verbWhy: 'Present continuous vira past continuous: <b>is testing → was testing</b>.',
+    time: ['Nothing moves','then','that new batch'], timeOk: 'Nothing moves', timeWhy: 'Não tem today, this, here nem last week. Nada mais muda.' },
+  { s: [{p:'You',to:'she'},' ',{v:'have ignored',mid:'has ignored',to:'had ignored'},' ',{p:'my',to:'his'},' emails.'],
+    pron: ['she · his','I · my','he · her'], pronOk: 'she · his', pronWhy: '<b>You</b> é a Renata: <b>she</b>. <b>My</b> é do Marcos: <b>his</b>.',
+    verb: ['had ignored','has ignored','ignored'], verbOk: 'had ignored', verbWhy: 'Present perfect vira past perfect: <b>has ignored → had ignored</b>.',
+    time: ['Nothing moves','those emails','then'], timeOk: 'Nothing moves', timeWhy: 'Nenhuma palavra de tempo ou lugar. A frase já está pronta.' },
+  { s: [{p:'We',to:'they'},' ',{v:'lost',to:'had lost'},' two drums ',{w:'yesterday',to:'the day before'},'.'],
+    pron: ['they','we','he'], pronOk: 'they', pronWhy: '<b>We</b> é a Frutamax, e o Marcos não está falando agora: <b>they</b>.',
+    verb: ['had lost','lost','have lost'], verbOk: 'had lost', verbWhy: 'Past simple vira past perfect: <b>lost → had lost</b>.',
+    time: ['the day before','yesterday','the next day'], timeOk: 'the day before', timeWhy: '<b>yesterday → the day before</b>.' },
+  { s: [{p:'I',to:'he'},' ',{v:'will call',to:'would call'},' ',{p:'your',to:'her'},' manager ',{w:'tomorrow',to:'the next day'},'.'],
+    pron: ['he · her','I · your','he · his'], pronOk: 'he · her', pronWhy: '<b>I</b> é o Marcos: <b>he</b>. <b>Your</b> é da Renata: <b>her</b>.',
+    verb: ['would call','will call','had called'], verbOk: 'would call', verbWhy: '<b>will → would</b>.',
+    time: ['the next day','tomorrow','the day before'], timeOk: 'the next day', timeWhy: '<b>tomorrow → the next day</b>.' },
+  { s: [{p:'We',to:'they'},' ',{v:"can't use",to:"couldn't use"},' ',{w:'this',to:'that'},' batch.'],
+    pron: ['they','we','it'], pronOk: 'they', pronWhy: '<b>We</b> é a Frutamax: <b>they</b>.',
+    verb: ["couldn't use","can't use","hadn't used"], verbOk: "couldn't use", verbWhy: "<b>can't → couldn't</b>.",
+    time: ['that batch','this batch','the batch then'], timeOk: 'that batch', timeWhy: '<b>this → that</b>. Não vira <b>it</b> nem <b>the</b>.' },
+  { s: [{p:'You',to:'she'},' ',{v:'must replace',to:'had to replace'},' it ',{w:'this week',to:'that week'},'.'],
+    pron: ['she','you','he'], pronOk: 'she', pronWhy: '<b>You</b> é a Renata: <b>she</b>. O <b>it</b> é o tambor, esse fica.',
+    verb: ['had to replace','must replace','must replaced'], verbOk: 'had to replace', verbWhy: '<b>must → had to</b>.',
+    time: ['that week','this week','the week before'], timeOk: 'that week', timeWhy: '<b>this week → that week</b>.' },
+  { s: [{p:'My',to:'his'},' boss ',{v:'called',to:'had called'},' ',{p:'you',to:'her'},' ',{w:'last week',to:'the week before'},'.'],
+    pron: ['his · her','my · you','her · him'], pronOk: 'his · her', pronWhy: '<b>My</b> é do Marcos: <b>his</b>. <b>You</b> é a Renata: <b>her</b>.',
+    verb: ['had called','called','has called'], verbOk: 'had called', verbWhy: 'Past simple vira past perfect: <b>called → had called</b>.',
+    time: ['the week before','last week','the next week'], timeOk: 'the week before', timeWhy: '<b>last week → the week before</b>.' }
+];
+
+(function(){
+  var root = document.getElementById('rsm'); if (!root) return;
+  var cur = 0, step = 0, start = '', frozen = null;
+  function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  var START_OK = ['Marcos said', 'Marcos told her'];
+
+  function stepsFor(ex){
+    if (frozen && frozen.ex === ex) return frozen.list;
+    frozen = { ex: ex, list: [
+      { key: 'start', title: 'Say or tell?', en: 'Start the report.', pt: 'Tem pessoa logo depois do verbo? Então é tell.',
+        opts: shuffle(['Marcos said', 'Marcos told her', 'Marcos said her', 'Marcos told']),
+        ok: function(o){ return START_OK.indexOf(o) !== -1; },
+        why: function(){ return 'Os dois servem. <b>Said</b> vai sozinho, <b>told</b> precisa de alguém: told <b>her</b>.'; },
+        hint: function(o){ return o === 'Marcos said her' ? 'Say não leva pessoa depois do verbo.' : 'Tell precisa de alguém depois: told <b>her</b>.'; } },
+      { key: 'pron', title: 'Pronoun', en: 'Change the people.', pt: 'Quem fala é o Marcos. Quem ouve é a Renata.',
+        opts: shuffle(ex.pron), ok: function(o){ return o === ex.pronOk; }, why: function(){ return ex.pronWhy; },
+        hint: function(){ return 'Olhe as palavras em amarelo: de quem elas falam?'; } },
+      { key: 'verb', title: 'Verb', en: 'One step back in time.', pt: 'O verbo dá um passo pra trás, só um.',
+        opts: shuffle(ex.verb), ok: function(o){ return o === ex.verbOk; }, why: function(){ return ex.verbWhy; },
+        hint: function(){ return 'Um passo só. Confira na tabela lá em cima.'; } },
+      { key: 'time', title: 'Time and place', en: 'Any time or place word?', pt: 'Today, tomorrow, this, here, last week... alguma dessas?',
+        opts: shuffle(ex.time), ok: function(o){ return o === ex.timeOk; }, why: function(){ return ex.timeWhy; },
+        hint: function(){ return 'Olhe a faixa de palavras de tempo e lugar.'; } }
+    ]};
+    return frozen.list;
+  }
+
+  /* the top line at each state */
+  function body(ex, st){
+    var first = true;
+    return ex.s.map(function(seg){
+      var out;
+      if (typeof seg === 'string') out = esc(seg);
+      else if (seg.p){
+        var shown = (first && seg.p !== 'I') ? seg.p.toLowerCase() : seg.p;
+        if (st === 1) out = '<span class="focus">' + shown + '</span>';
+        else if (st >= 2) out = st === 2 ? '<span class="new">' + seg.to + '</span>' : seg.to;
+        else out = shown;
+      } else if (seg.v){
+        var changes = seg.v !== seg.to;
+        if (st === 2) out = changes ? '<span class="fix">' + esc(seg.mid || seg.v) + '</span>' : esc(seg.mid || seg.v);
+        else if (st === 3) out = seg.to.match(/^\s*/)[0] + '<span class="new">' + esc(seg.to.trim()) + '</span>';
+        else if (st >= 4) out = esc(seg.to);
+        else out = esc(seg.v);
+      } else if (seg.w){
+        if (st === 3) out = '<span class="focus">' + seg.w + '</span>';
+        else if (st >= 4) out = '<span class="new">' + seg.to + '</span>';
+        else out = seg.w;
+      }
+      first = false;
+      return out;
+    }).join('');
+  }
+  function plainDirect(ex){ return ex.s.map(function(seg){ return typeof seg === 'string' ? seg : (seg.p || seg.v || seg.w); }).join(''); }
+  function plainFinal(ex){ return ex.s.map(function(seg){ return typeof seg === 'string' ? seg : seg.to; }).join('').replace(/^ /,''); }
+
+  var TAGS = ['Direct speech', 'Reporting verb in', 'People changed · the verb is not ready yet', 'Verb one step back', 'Reported speech'];
+  var BADGES = ['Step 1 · Say or tell?', 'Step 2 · Pronoun', 'Step 3 · Verb', 'Step 4 · Time and place', 'Done'];
+
+  function render(){
+    var ex = RSM[cur], list = stepsFor(ex);
+    document.getElementById('rsmBadge').textContent = BADGES[step];
+    document.getElementById('rsmCount').textContent = 'Message ' + (cur + 1) + ' of ' + RSM.length;
+    var line = step === 0 ? '<span class="quote">"' + esc(plainDirect(ex)) + '"</span>'
+                          : start + ' ' + body(ex, step).replace(/^ /, '');
+    var tag = TAGS[step];
+    document.getElementById('rsmCtx').innerHTML =
+      '<div class="rsm-who">Marcos to Renata &middot; WhatsApp</div>' +
+      '<div class="rsm-line">' + line + '<span class="rsm-tag">' + tag + '</span></div>';
+
+    var vals = [start, step > 1 ? ex.pronOk : '', step > 2 ? ex.verbOk : '', step > 3 ? ex.timeOk : ''];
+    var keys = ['start', 'pronoun', 'verb', 'time and place'];
+    document.getElementById('rsmTiles').innerHTML = keys.map(function(k, i){
+      var on = step > i;
+      return '<div class="rsm-tile' + (on ? ' on' : '') + '"><div class="k">' + k + '</div><div class="v">' + (on ? esc(vals[i]) : '') + '</div></div>';
+    }).join('');
+
+    var box = document.getElementById('rsmSteps'); box.innerHTML = '';
+    list.forEach(function(s, i){
+      var w = document.createElement('div');
+      w.className = 'rsm-step' + (step > i ? ' done' : (step === i ? ' active' : ''));
+      var col = '<div><div class="rsm-st">Step ' + (i + 1) + ' &middot; ' + s.title + '</div>';
+      if (step > i) col += '<div class="rsm-ok">' + s.why() + '</div>';
+      else col += '<div class="rsm-sp">' + (step === i ? s.en + '<span class="pt">' + s.pt + '</span>' : '&hellip;') + '</div>';
+      col += '</div>';
+      w.innerHTML = '<div class="rsm-num">' + (i + 1) + '</div>' + col;
+      if (step === i){
+        var inner = w.lastChild, row = document.createElement('div'), hint = document.createElement('div');
+        row.className = 'rsm-row'; hint.className = 'rsm-hint';
+        s.opts.forEach(function(o){
+          var b = document.createElement('button'); b.type = 'button'; b.className = 'rsm-btn'; b.textContent = o;
+          b.addEventListener('click', function(){
+            if (s.ok(o)){
+              row.querySelectorAll('button').forEach(function(x){ x.disabled = true; });
+              b.classList.add('correct');
+              if (s.key === 'start') start = o;
+              setTimeout(function(){ step++; render(); }, 380);
+            } else {
+              b.classList.add('wrong'); hint.innerHTML = s.hint(o);
+              setTimeout(function(){ b.classList.remove('wrong'); }, 450);
+            }
+          });
+          row.appendChild(b);
+        });
+        inner.appendChild(row); inner.appendChild(hint);
+      }
+      box.appendChild(w);
+    });
+
+    var fin = document.getElementById('rsmFinal'), nx = document.getElementById('rsmNext');
+    if (step >= 4){
+      fin.innerHTML = '<small>Report it to Diego</small>' + esc(start) + ' ' + esc(plainFinal(ex));
+      fin.classList.add('show'); nx.classList.add('show');
+    } else { fin.classList.remove('show'); nx.classList.remove('show'); }
+    document.getElementById('rsmDots').innerHTML = RSM.map(function(_, i){ return '<span class="' + (i === cur ? 'on' : '') + '"></span>'; }).join('');
+  }
+  document.getElementById('rsmReset').addEventListener('click', function(){ step = 0; start = ''; frozen = null; render(); });
+  document.getElementById('rsmNext').addEventListener('click', function(){ cur = (cur + 1) % RSM.length; step = 0; start = ''; frozen = null; render(); });
+  render();
+})();
 </script>
 
 </body>
