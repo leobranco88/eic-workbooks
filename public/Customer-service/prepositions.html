@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Grace Period · Customer Service Module · EIC B1+</title>
+<title>Little Words, Big Difference · Customer Service Module · EIC B1+</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
@@ -118,6 +118,113 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 .reflect-q{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px dashed var(--border);font-size:13.5px;line-height:1.65;color:var(--ink)}
 .reflect-q:last-child{border-bottom:none}
 .reflect-icon{flex:none;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+/* past modals of criticism table */
+.modal-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:18px}
+.modal-table th{background:var(--ink);color:#fff;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;text-align:left;font-family:'Inter',sans-serif;font-weight:800}
+.modal-table td{padding:13px 14px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:top;line-height:1.6}
+.modal-table tr:last-child td{border-bottom:none}
+.modal-table .situation{color:var(--mid)}
+.modal-table .critique{color:var(--ink);font-weight:600}
+.modal-table .critique b{color:var(--orange)}
+.modal-table .critique.none{color:var(--teal);font-style:italic;font-weight:500}
+
+/* guided sentence-builder for should/shouldn't have */
+.build-item{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;margin-bottom:8px}
+.build-num{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--mid);margin-bottom:5px}
+.build-situation{font-size:12.5px;line-height:1.5;color:var(--ink);margin-bottom:8px}
+.build-words{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.build-word{background:var(--paper);border:1.5px dashed var(--orange);border-radius:14px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--ink)}
+.build-row{display:flex;gap:8px}
+.build-input{flex:1;min-width:0;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12.5px;font-family:'Inter',sans-serif;background:var(--paper)}
+.build-input:focus{outline:none;border-color:var(--orange)}
+.build-check{flex:none;background:var(--orange);color:#fff;border:none;border-radius:16px;padding:8px 15px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
+.build-answer{display:none;margin-top:8px;padding:8px 12px;background:var(--paper);border-left:3px solid var(--teal);border-radius:0 7px 7px 0;font-size:11.5px;color:var(--ink);line-height:1.5}
+.build-answer.show{display:block}
+.build-answer b{color:var(--teal)}
+.build-answer .build-tag{display:block;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:3px}
+
+
+/* priority level chips */
+.priority-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:640px){.priority-strip{grid-template-columns:1fr 1fr}}
+.priority-chip{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center}
+.priority-chip.p1{border-color:var(--red)}
+.priority-chip.p2{border-color:var(--orange)}
+.priority-chip.p3{border-color:var(--teal)}
+.priority-chip.p4{border-color:var(--mid)}
+.priority-label{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:2px}
+.priority-chip.p1 .priority-label{color:var(--red)}
+.priority-chip.p2 .priority-label{color:var(--orange)}
+.priority-chip.p3 .priority-label{color:var(--teal)}
+.priority-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);margin-bottom:8px}
+.priority-time{font-size:11px;color:var(--ink);line-height:1.5}
+
+/* "get + particle" family showcase */
+.get-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:800px){.get-grid{grid-template-columns:repeat(2,1fr)}}
+.get-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center}
+.get-verb{font-size:14px;font-weight:900;color:var(--orange);margin-bottom:6px}
+.get-verb b{color:var(--ink)}
+.get-meaning{font-size:10.5px;color:var(--mid);margin-bottom:8px;line-height:1.4}
+.get-ex{font-size:10.5px;font-style:italic;color:var(--ink);line-height:1.4}
+
+/* particle reference table */
+.particle-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:20px}
+.particle-table th{background:var(--ink);color:#fff;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;text-align:left;font-family:'Inter',sans-serif;font-weight:800}
+.particle-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:top;line-height:1.55}
+.particle-table tr:last-child td{border-bottom:none}
+.particle-badge{display:inline-block;background:var(--hi);color:var(--ink);font-weight:900;padding:2px 10px;border-radius:5px;font-size:12px}
+.particle-feeling{color:var(--mid);font-style:italic}
+.particle-verbs b{color:var(--orange)}
+
+/* preposition fill-in practice */
+.prep-item{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;margin-bottom:8px}
+.prep-num{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.prep-sentence{font-size:13px;line-height:1.55;color:var(--ink);margin-bottom:9px}
+.prep-sentence b{color:var(--orange);text-decoration:underline;text-decoration-style:dotted}
+.prep-row{display:flex;gap:8px}
+.prep-input{flex:1;min-width:0;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12.5px;font-family:'Inter',sans-serif;background:var(--paper)}
+.prep-input:focus{outline:none;border-color:var(--orange)}
+.prep-check{flex:none;background:var(--orange);color:#fff;border:none;border-radius:16px;padding:8px 15px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
+.prep-answer{display:none;margin-top:8px;padding:8px 12px;background:var(--paper);border-left:3px solid var(--teal);border-radius:0 7px 7px 0;font-size:11.5px;color:var(--ink);line-height:1.5}
+.prep-answer.show{display:block}
+.prep-answer b{color:var(--teal)}
+
+/* SLA intro: without vs with */
+.intro-block{font-size:13.5px;line-height:1.8;color:var(--ink);margin-bottom:22px}
+.intro-block p{margin-bottom:14px}
+.intro-term{border-bottom:2px dotted var(--teal);cursor:help;position:relative;font-weight:700}
+.intro-term:hover::after{content:attr(data-pt);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:600;white-space:normal;width:max-content;max-width:220px;padding:6px 10px;border-radius:6px;pointer-events:none;z-index:60;line-height:1.4}
+
+.listen-bar{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:20px}
+.listen-play{flex:none;width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s ease}
+.listen-play:hover{background:#095c68}
+.listen-play.playing{background:var(--orange)}
+.listen-info{flex:1}
+.listen-label{font-size:12.5px;font-weight:700;color:var(--ink)}
+.listen-sub{font-size:10.5px;color:var(--mid);margin-top:1px}
+.listen-wave{display:flex;align-items:center;gap:2px;height:20px}
+.listen-wave span{display:block;width:3px;background:var(--mid);border-radius:2px;height:40%}
+.listen-wave span:nth-child(odd){height:70%}
+.listen-wave span:nth-child(3n){height:100%}
+.listen-bar.playing .listen-wave span{background:var(--teal);animation:voicebar .8s ease-in-out infinite}
+.listen-bar.playing .listen-wave span:nth-child(2n){animation-delay:.15s}
+.listen-bar.playing .listen-wave span:nth-child(3n){animation-delay:.3s}
+@keyframes voicebar{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+.compare-card{border-radius:14px;padding:18px 20px}
+.compare-card.without{background:#fff;border:1.5px solid var(--border);border-top:3px solid var(--red)}
+.compare-card.with{background:#fff;border:1.5px solid var(--border);border-top:3px solid var(--teal)}
+.compare-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.compare-card.without .compare-title{color:var(--red)}
+.compare-card.with .compare-title{color:var(--teal)}
+.compare-line{font-size:13px;line-height:1.6;color:var(--ink);margin-bottom:10px;padding-left:18px;position:relative}
+.compare-line:last-child{margin-bottom:0}
+.compare-card.without .compare-line::before{content:'\2717';position:absolute;left:0;color:var(--red);font-weight:700}
+.compare-card.with .compare-line::before{content:'\2713';position:absolute;left:0;color:var(--teal);font-weight:700}
+.compare-line i{font-style:italic;color:var(--mid)}
 .reply-card.show{display:block}
 .reply-label{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:6px}
 .reply-text{font-size:12px;line-height:1.65;color:var(--ink);font-style:italic}
@@ -257,9 +364,12 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
       <a href="damaged-product-complaint.html" class="nav-link">The Leaking Drums</a>
       <a href="the-fine-print.html" class="nav-link">The Fine Print</a>
       <a href="escalation.html" class="nav-link">Escalating It Up</a>
-      <a href="payment-terms.html" class="nav-link active">The Grace Period</a>
+      <a href="escalation-practice.html" class="nav-link" style="padding-left:26px;font-size:12px">Practice: Report It to Diego</a>
+      <a href="verb-patterns.html" class="nav-link">Verb Patterns</a>
+      <a href="check-verify.html" class="nav-link">Check, Verify, Confirm</a>
+      <a href="payment-terms.html" class="nav-link">The Grace Period</a>
       <a href="sla.html" class="nav-link">The Clock Is Running</a>
-      <a href="prepositions.html" class="nav-link">Little Words, Big Difference</a>
+      <a href="prepositions.html" class="nav-link active">Little Words, Big Difference</a>
     </div>
   </div>
 </nav>
@@ -281,8 +391,8 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
     <div class="hero-grid">
       <div>
         <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Quick Lesson &middot; Customer Service</span></div>
-        <h1 class="hero-title">The Grace Period &mdash; <em>interpreting the payment policy</em></h1>
-        <p class="hero-sub">Not every overdue invoice is treated the same way. Some accounts get a little patience, others get a credit hold, and a few end up referred to collections. Renata's job is knowing exactly where the line is &mdash; and being able to explain why.</p>
+        <h1 class="hero-title">Little Words, Big Difference &mdash; <em>the prepositions that run customer service</em></h1>
+        <p class="hero-sub">"Get up," "get out," "get over," "get through," "get back" &mdash; same verb, five completely different meanings. Across every lesson so far, Renata has used tiny words like these to say exactly what she means. This is where we slow down and look at them directly.</p>
         <div class="hero-meta">
           <span class="hero-tag">Renata Lima &middot; Customer Success, Altiva Biosolutions</span>
         </div>
@@ -294,177 +404,215 @@ body{font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overf
 
 <section class="section">
   <div class="pw">
-    <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">The Policy</span></div>
-    <p class="sec-sub">Leia uma vez com calma &mdash; as express&otilde;es destacadas em neon s&atilde;o as que decidem cada caso l&aacute; embaixo.</p>
+    <div class="sec-label"><span class="sec-num">01</span><span class="sec-tag">One Verb, Five Meanings</span></div>
+    <p class="sec-sub">O verbo &eacute; sempre "get". O que muda tudo &eacute; a palavrinha depois dele.</p>
 
-    <div class="policy-doc">
-      <div class="policy-letterhead">
-        <div class="policy-brand">Altiva Biosolutions</div>
-        <div class="policy-brand-sub">Internal Policy &middot; Payment Terms &amp; Collections</div>
+    <div class="get-grid">
+      <div class="get-card">
+        <div class="get-verb">get <b>up</b></div>
+        <div class="get-meaning">to rise, to start moving</div>
+        <div class="get-ex">"She gets up early."</div>
       </div>
-      <div class="policy-title">Section 2: Payment Terms and Collections</div>
+      <div class="get-card">
+        <div class="get-verb">get <b>out</b></div>
+        <div class="get-meaning">to leave, or to be sent/dispatched</div>
+        <div class="get-ex">"Get the shipment out today."</div>
+      </div>
+      <div class="get-card">
+        <div class="get-verb">get <b>over</b></div>
+        <div class="get-meaning">to recover from something</div>
+        <div class="get-ex">"He got over the bad review."</div>
+      </div>
+      <div class="get-card">
+        <div class="get-verb">get <b>through</b></div>
+        <div class="get-meaning">to survive or finish something hard</div>
+        <div class="get-ex">"We got through a tough call."</div>
+      </div>
+      <div class="get-card">
+        <div class="get-verb">get <b>back</b> (to)</div>
+        <div class="get-meaning">to return, to respond</div>
+        <div class="get-ex">"I'll get back to you."</div>
+      </div>
+    </div>
 
-      <div class="policy-section" id="policy-2-1">
-        <h4><span>2.1 &mdash; Standard Terms</span><button class="plain-btn" onclick="openPlain('2.1')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z"/></svg> Plain English</button></h4>
-        <p>Altiva extends <span class="neon" data-pt="prazo de pagamento de 30 dias">net 30</span> payment terms to standard accounts. Strategic accounts with an approved credit history may qualify for <span class="neon" data-pt="prazo de pagamento de 60 dias">net 60</span>. Payment is due from the invoice date, not the delivery date.</p>
-      </div>
-
-      <div class="policy-section" id="policy-2-2">
-        <h4><span>2.2 &mdash; Grace Period &amp; Late Fees</span><button class="plain-btn" onclick="openPlain('2.2')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z"/></svg> Plain English</button></h4>
-        <p>Accounts receive a <span class="neon" data-pt="per&iacute;odo de car&ecirc;ncia de 5 dias">5-day grace period</span> after the due date. Once that window closes, a <span class="neon" data-pt="multa mensal de 1,5%">1.5% monthly late fee</span> applies to the outstanding balance until it is paid in full.</p>
-      </div>
-
-      <div class="policy-section" id="policy-2-3">
-        <h4><span>2.3 &mdash; Credit Hold</span><button class="plain-btn" onclick="openPlain('2.3')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z"/></svg> Plain English</button></h4>
-        <p>Any account with an invoice more than <span class="neon" data-pt="30 dias em atraso">30 days past due</span> is placed on <span class="neon" data-pt="bloqueio de cr&eacute;dito">credit hold</span> &mdash; no new orders are processed until the balance is settled or a payment plan is agreed.</p>
-      </div>
-
-      <div class="policy-section" id="policy-2-4">
-        <h4><span>2.4 &mdash; Referral to Collections</span><button class="plain-btn" onclick="openPlain('2.4')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z"/></svg> Plain English</button></h4>
-        <p>If an account remains unpaid <span class="neon" data-pt="60 dias em atraso">60 days past due</span> despite reminders, the case is <span class="neon" data-pt="encaminhado para cobran&ccedil;a">referred to collections</span> and may result in legal action.</p>
-      </div>
+    <div class="vocab-row" style="display:block;padding:16px 18px;background:#fff;border:1.5px solid var(--border);border-radius:12px">
+      <span style="font-size:13px;line-height:1.75;color:var(--ink)"><b>The pattern:</b> these small words &mdash; called particles &mdash; aren't decoration. Each one carries its own feeling (outward, upward, backward, through) and attaches that feeling to whatever verb it follows. Learn the particle's feeling, and you can guess dozens of phrasal verbs you've never seen before.</span>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="pw">
-    <div class="sec-label"><span class="sec-num">02</span><span class="sec-tag">Case Review: You Be the Judge</span></div>
-    <p class="sec-sub">Cinco situa&ccedil;&otilde;es reais. Leia, decida o que a pol&iacute;tica manda fazer, depois confira o veredito &mdash; sempre citando a cl&aacute;usula certa.</p>
+    <div class="sec-label"><span class="sec-num">02</span><span class="sec-tag">The Core Particles</span></div>
+    <p class="sec-sub">Sete part&iacute;culas cobrem a maior parte do que a Renata (e voc&ecirc;) precisa no dia a dia.</p>
 
-    <div class="case-card">
-      <div class="case-num">Case 1</div>
-      <div class="case-scenario">A client's invoice is 3 days past due. They emailed Renata anxiously asking if a late fee has already been charged.</div>
-      <div class="case-choice">
-        <button class="case-btn" data-correct="true" onclick="chooseCase(this)">No fee yet</button>
-        <button class="case-btn" data-correct="false" onclick="chooseCase(this)">Fee already applies</button>
-      </div>
-      <div class="case-verdict"><b>No fee yet</b> &mdash; under 2.2, accounts get a 5-day grace period after the due date. Three days in, they're still well within that window.</div>
-      <button class="lupa-btn" onclick="jumpToPolicy('policy-2-2')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        View Section 2.2 in the policy
-      </button>
-      <div class="reply-card">
-        <div class="reply-label">How Renata replies</div>
-        <div class="reply-text">"No need to worry &mdash; you're still within our grace period. No fee has been applied, and none will be as long as it's settled in the next couple of days."</div>
-      </div>
-    </div>
+    <table class="particle-table">
+      <tr><th>Particle</th><th>Core Feeling</th><th>Phrasal Verbs You Already Know</th></tr>
+      <tr>
+        <td><span class="particle-badge">OUT</span></td>
+        <td class="particle-feeling">outward, away, finished</td>
+        <td class="particle-verbs"><b>get out</b> a shipment, <b>send out</b> a reminder, <b>sort out</b> a problem</td>
+      </tr>
+      <tr>
+        <td><span class="particle-badge">UP</span></td>
+        <td class="particle-feeling">forward, rising, surfacing</td>
+        <td class="particle-verbs"><b>follow up</b> on a case, <b>back up</b> a claim, <b>catch up</b> on emails</td>
+      </tr>
+      <tr>
+        <td><span class="particle-badge">IN</span></td>
+        <td class="particle-feeling">inward, included</td>
+        <td class="particle-verbs"><b>loop in</b> your manager, <b>check in</b> with a client</td>
+      </tr>
+      <tr>
+        <td><span class="particle-badge">BACK</span></td>
+        <td class="particle-feeling">returning, in response</td>
+        <td class="particle-verbs"><b>get back to</b> someone, <b>call back</b> a client</td>
+      </tr>
+      <tr>
+        <td><span class="particle-badge">OFF</span></td>
+        <td class="particle-feeling">separated, paused, cancelled</td>
+        <td class="particle-verbs"><b>hold off</b> on shipping, <b>write off</b> a debt</td>
+      </tr>
+      <tr>
+        <td><span class="particle-badge">THROUGH</span></td>
+        <td class="particle-feeling">completing, connecting</td>
+        <td class="particle-verbs"><b>follow through</b> on a promise, <b>think through</b> a decision</td>
+      </tr>
+      <tr>
+        <td><span class="particle-badge">OVER</span></td>
+        <td class="particle-feeling">transferring, reviewing</td>
+        <td class="particle-verbs"><b>hand over</b> a case, <b>look over</b> a document</td>
+      </tr>
+    </table>
 
-    <div class="case-card">
-      <div class="case-num">Case 2</div>
-      <div class="case-scenario">An account is 35 days past due on one invoice. The same client just tried to place a new order.</div>
-      <div class="case-choice">
-        <button class="case-btn" data-correct="false" onclick="chooseCase(this)">Process the new order</button>
-        <button class="case-btn" data-correct="true" onclick="chooseCase(this)">Hold the new order</button>
-      </div>
-      <div class="case-verdict"><b>Hold the new order</b> &mdash; under 2.3, any account more than 30 days past due goes on credit hold automatically. New orders wait until the balance is settled.</div>
-      <button class="lupa-btn" onclick="jumpToPolicy('policy-2-3')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        View Section 2.3 in the policy
-      </button>
-      <div class="reply-card">
-        <div class="reply-label">How Renata replies</div>
-        <div class="reply-text">"I'd love to get this new order moving, but your account is currently on hold due to the outstanding balance. Once that's settled, I can process it right away."</div>
-      </div>
-    </div>
-
-    <div class="case-card">
-      <div class="case-num">Case 3</div>
-      <div class="case-scenario">A client disputes a late fee, saying they never received a reminder email before it was charged.</div>
-      <div class="case-choice">
-        <button class="case-btn" data-correct="true" onclick="chooseCase(this)">Fee still applies</button>
-        <button class="case-btn" data-correct="false" onclick="chooseCase(this)">Fee should be waived</button>
-      </div>
-      <div class="case-verdict"><b>Fee still applies</b> &mdash; 2.2 doesn't require a reminder before the fee kicks in, only that the grace period has passed. That said, sending reminders is still good practice &mdash; it's just not what determines whether the fee is valid.</div>
-      <button class="lupa-btn" onclick="jumpToPolicy('policy-2-2')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        View Section 2.2 in the policy
-      </button>
-      <div class="reply-card">
-        <div class="reply-label">How Renata replies</div>
-        <div class="reply-text">"I hear you, and I'm sorry a reminder didn't reach you. The fee is tied to the due date rather than a reminder, so it does stand &mdash; but let's make sure you're on our reminder list going forward."</div>
-      </div>
-    </div>
-
-    <div class="case-card">
-      <div class="case-num">Case 4</div>
-      <div class="case-scenario">An account is 65 days past due. Renata has sent three reminders over the past month with no response at all.</div>
-      <div class="case-choice">
-        <button class="case-btn" data-correct="false" onclick="chooseCase(this)">Send one more reminder</button>
-        <button class="case-btn" data-correct="true" onclick="chooseCase(this)">Refer to collections</button>
-      </div>
-      <div class="case-verdict"><b>Refer to collections</b> &mdash; under 2.4, an account 60+ days past due with no response is exactly the threshold for referral. Waiting longer isn't within Renata's discretion at this point.</div>
-      <button class="lupa-btn" onclick="jumpToPolicy('policy-2-4')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        View Section 2.4 in the policy
-      </button>
-      <div class="reply-card">
-        <div class="reply-label">How Renata replies (internal note to Diego)</div>
-        <div class="reply-text">"This account has passed 60 days with three unanswered reminders. Per policy, I'm referring it to collections today unless you'd like to handle it differently."</div>
-      </div>
-    </div>
-
-    <div class="case-card">
-      <div class="case-num">Case 5</div>
-      <div class="case-scenario">Golden Valley Beverages, a large strategic account with a clean payment history, asks to move from net 30 to net 60.</div>
-      <div class="case-choice">
-        <button class="case-btn" data-correct="true" onclick="chooseCase(this)">Can be approved</button>
-        <button class="case-btn" data-correct="false" onclick="chooseCase(this)">Not allowed under policy</button>
-      </div>
-      <div class="case-verdict"><b>Can be approved</b> &mdash; 2.1 explicitly allows net 60 for strategic accounts with an approved credit history. Golden Valley fits both conditions, so this isn't an exception to the policy &mdash; it's exactly what the policy provides for.</div>
-      <button class="lupa-btn" onclick="jumpToPolicy('policy-2-1')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        View Section 2.1 in the policy
-      </button>
-      <div class="reply-card">
-        <div class="reply-label">How Renata replies</div>
-        <div class="reply-text">"Given your account history, moving to net 60 is something we can absolutely set up. I'll get the updated terms over to you this week."</div>
-      </div>
+    <div class="example-block">
+      <div class="example-label">In Renata's words</div>
+      <div class="example-text">"Once I decided to <b>flag</b> it, I had to <b>loop</b> Diego <b>in</b> before I could <b>get</b> a replacement <b>out</b>. He asked me to <b>follow up</b> once it shipped, and to <b>get back to</b> him if anything changed."</div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="pw">
-    <div class="sec-label"><span class="sec-num">03</span><span class="sec-tag">Compare to Your Own Workplace</span></div>
-    <p class="sec-sub">Toda pol&iacute;tica de pagamento &eacute; um pouco diferente. Pensa na sua empresa antes de responder.</p>
+    <div class="sec-label"><span class="sec-num">03</span><span class="sec-tag">Fill in the Particle</span></div>
+    <p class="sec-sub">Dez frases, uma part&iacute;cula faltando em cada. Pensa no "sentimento" dela antes de responder.</p>
 
-    <div class="reflect-box">
-      <div class="reflect-q"><span class="reflect-icon">1</span>What payment terms does your company use with clients &mdash; net 30, net 45, net 60? Does it vary by client?</div>
-      <div class="reflect-q"><span class="reflect-icon">2</span>Is there a grace period before a late fee applies? How many days?</div>
-      <div class="reflect-q"><span class="reflect-icon">3</span>What actually happens when a client is very overdue &mdash; is there something like a "credit hold," or does it work differently?</div>
-      <div class="reflect-q"><span class="reflect-icon">4</span>Who makes the call to escalate an overdue account &mdash; you, a manager, or a separate collections team?</div>
+    <div class="prep-item">
+      <div class="prep-num">01</div>
+      <div class="prep-sentence">I need to loop <b>______</b> Diego before I respond to this one.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>in</b> &mdash; "loop in" someone means include them in the conversation.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">02</div>
+      <div class="prep-sentence">We'll get a replacement shipment <b>______</b> within 48 hours.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>out</b> &mdash; "get something out" means dispatch it, send it on its way.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">03</div>
+      <div class="prep-sentence">Can you follow <b>______</b> on this again next week?</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>up</b> &mdash; "follow up" means check back on something later.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">04</div>
+      <div class="prep-sentence">I'll get <b>______</b> to you by tomorrow morning with an answer.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>back</b> &mdash; "get back to" someone means respond to them.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">05</div>
+      <div class="prep-sentence">Let's hold <b>______</b> on shipping until the account is settled.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>off</b> &mdash; "hold off" means pause or delay something.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">06</div>
+      <div class="prep-sentence">She always follows <b>______</b> on the promises she makes to clients.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>through</b> &mdash; "follow through" means actually complete what you said you'd do.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">07</div>
+      <div class="prep-sentence">I'm going to hand this case <b>______</b> to the collections team.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>over</b> &mdash; "hand over" means transfer responsibility to someone else.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">08</div>
+      <div class="prep-sentence">We need to sort <b>______</b> this issue before the client escalates it further.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>out</b> &mdash; "sort out" means resolve or organize a messy situation.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">09</div>
+      <div class="prep-sentence">He didn't check <b>______</b> with me before promising the client a discount.</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>in</b> &mdash; "check in" means confirm with someone before acting.</div>
+    </div>
+
+    <div class="prep-item">
+      <div class="prep-num">10</div>
+      <div class="prep-sentence">Can you back <b>______</b> that claim with the actual policy clause?</div>
+      <div class="prep-row">
+        <input class="prep-input" placeholder="Type the particle...">
+        <button class="prep-check" onclick="checkPrep(this)">Check</button>
+      </div>
+      <div class="prep-answer"><b>up</b> &mdash; "back up" a claim means support it with evidence.</div>
     </div>
   </div>
 </section>
 
 <footer class="footer">
   <span class="footer-word">EIC &middot; Escola de Idiomas e Cultura</span>
-  <div class="footer-copy">Customer Service Module &middot; The Grace Period</div>
+  <div class="footer-copy">Customer Service Module &middot; Little Words, Big Difference</div>
 </footer>
 
-<div class="plain-overlay" id="plainOverlay" onclick="if(event.target===this)closePlain()">
-  <div class="plain-modal">
-    <div class="plain-modal-head">
-      <div>
-        <div class="plain-modal-eyebrow">In plain English</div>
-        <div class="plain-modal-title" id="plainTitle"></div>
-      </div>
-      <button class="note-close" onclick="closePlain()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="plain-modal-body">
-      <p class="plain-text" id="plainText"></p>
-      <div class="plain-example">
-        <div class="plain-example-label">For example</div>
-        <p id="plainExample"></p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
+function checkPrep(btn){
+  var sel = window.getSelection();
+  if (sel && sel.toString().length > 0) return;
+  var item = btn.closest('.prep-item');
+  item.querySelector('.prep-answer').classList.add('show');
+}
+
+
 function chooseCase(btn){
   var sel = window.getSelection();
   if (sel && sel.toString().length > 0) return;
@@ -483,6 +631,36 @@ function chooseCase(btn){
   if (reply) reply.classList.add('show');
 }
 
+function checkBuild(btn){
+  var sel = window.getSelection();
+  if (sel && sel.toString().length > 0) return;
+  var item = btn.closest('.build-item');
+  item.querySelector('.build-answer').classList.add('show');
+  var lupa = item.querySelector('.lupa-btn');
+  if (lupa) lupa.classList.add('show');
+}
+
+function playIntroAudio(){
+  var audio = document.getElementById('introAudio');
+  var bar = document.getElementById('introListenBar');
+  var btn = document.getElementById('introPlayBtn');
+  if (!audio.paused) {
+    audio.pause();
+    audio.currentTime = 0;
+    bar.classList.remove('playing');
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    return;
+  }
+  bar.classList.add('playing');
+  btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+  audio.currentTime = 0;
+  audio.play().catch(function(){});
+  audio.onended = function(){
+    bar.classList.remove('playing');
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  };
+}
+
 function jumpToPolicy(id){
   var el = document.getElementById(id);
   if (!el) return;
@@ -492,25 +670,25 @@ function jumpToPolicy(id){
 }
 
 var PLAIN = {
-  "2.1": {
-    title: "2.1 &middot; Standard Terms",
-    plain: "Most clients get <b>30 days</b> to pay an invoice. If a client is a big, reliable, long-term account, they can be upgraded to <b>60 days</b> instead &mdash; but that's an exception, not the default.",
-    ex: "Golden Valley Beverages has paid on time for years and buys in large volume, so they qualify for the 60-day option most clients don't get."
+  "3.1": {
+    title: "3.1 &middot; Priority Levels",
+    plain: "Not every case is equally urgent. Something that stops a client's production gets treated very differently from a simple paperwork request &mdash; so every case gets labeled <b>P1</b> (most urgent) through <b>P4</b> (least urgent) as soon as it comes in.",
+    ex: "A contamination that halts a client's production line is P1. A request for a copy of an old certificate is P4 &mdash; important, but nobody's factory stops because of it."
   },
-  "2.2": {
-    title: "2.2 &middot; Grace Period & Late Fees",
-    plain: "Nobody gets charged the moment a payment is late. There's a small <b>5-day buffer</b> first. After that buffer ends, a fee starts adding up every month until the invoice is paid.",
-    ex: "An invoice due on the 1st doesn't trigger a fee until the 6th. If it's still unpaid on the 6th, the fee starts and keeps growing each month it stays open."
+  "3.2": {
+    title: "3.2 &middot; Response Time",
+    plain: "This is just about saying &quot;we got your message and we're on it&quot; &mdash; not actually solving the problem yet. The clock starts the moment the client reaches out.",
+    ex: "A client messages at 10:00. If Renata writes back at 10:40 just to confirm the case is open, that already counts as the response &mdash; even before it's fixed."
   },
-  "2.3": {
-    title: "2.3 &middot; Credit Hold",
-    plain: "If a client lets a bill go unpaid for too long, Altiva simply <b>stops shipping them anything new</b> until the old bill is handled &mdash; regardless of how urgently they want the new order.",
-    ex: "A client tries to place a big new order while an old invoice sits 35 days unpaid. The new order won't move until the old one is settled."
+  "3.3": {
+    title: "3.3 &middot; Resolution Time",
+    plain: "This is the <b>real finish line</b> &mdash; the case is actually closed, not just acknowledged. Responding fast doesn't automatically mean resolving fast; they're two separate clocks.",
+    ex: "Renata can respond in 10 minutes and still take two full days to actually resolve a complex issue &mdash; both timers matter, but they're tracked independently."
   },
-  "2.4": {
-    title: "2.4 &middot; Referral to Collections",
-    plain: "At some point, reminders stop being enough. If a bill stays unpaid <b>two full months</b> with no progress, Altiva hands the case over to someone whose whole job is recovering unpaid debts &mdash; possibly with legal consequences.",
-    ex: "After 65 days and three ignored reminders, Renata isn't the right person to keep chasing the payment anymore &mdash; it goes to collections instead."
+  "3.4": {
+    title: "3.4 &middot; Exclusions",
+    plain: "The SLA doesn't cover everything. If the delay is the client's own fault, or if the problem isn't actually about Altiva's product, the clock <b>doesn't even start</b>.",
+    ex: "A client's own machine breaks down and they blame the enzyme. Since the equipment isn't Altiva's, this case falls outside the SLA entirely."
   }
 };
 
@@ -523,7 +701,8 @@ function openPlain(id){
   document.getElementById('plainOverlay').classList.add('open');
 }
 function closePlain(){
-  document.getElementById('plainOverlay').classList.remove('open');
+  var o = document.getElementById('plainOverlay');
+  if (o) o.classList.remove('open');
 }
 
 document.addEventListener('keydown', function(e){
@@ -540,5 +719,6 @@ function closeNav(){
 }
 </script>
 
+<script>document.addEventListener('keydown',function(e){if(e.key==='Escape'&&typeof closeNav==='function')closeNav();});</script>
 </body>
 </html>

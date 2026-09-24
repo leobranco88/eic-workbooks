@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I Need You to Call Me Back · Customer Service · EIC B1+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A1628;--paper:#F5F2ED;--teal:#0D7A8A;--orange:#E8621A;
+  --hi:#F5FF00;--mid:#6B7280;--surface:#EAE7E1;--border:#D9D5CF;
+  --dark:#071020;--red:#C0392B;--neon:#EAFF00;--neon-green:#00FF85;
+  --f1:#E8158F;--f2:#06A15C;--f3:#0D1FFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--neon-green);color:var(--ink)}
+.pw{max-width:960px;margin:0 auto;padding:0 56px}
+.tip{position:relative;border-bottom:1.5px dotted var(--teal);cursor:help}
+.tip .tt{visibility:hidden;opacity:0;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;font-size:12px;font-weight:600;line-height:1.45;padding:8px 12px;border-radius:8px;white-space:nowrap;z-index:10;pointer-events:none;transition:opacity .18s ease;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.tip .tt::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--dark)}
+.tip:hover .tt,.tip:focus .tt{visibility:visible;opacity:1}
+
+
+/* verb pills */
+.verb-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.verb-pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:100px;border:1.5px solid var(--border);background:#fff;color:var(--ink);white-space:nowrap}
+.verb-pill.f1{border-color:rgba(232,21,143,.25);color:var(--f1)}
+.verb-pill.f2{border-color:rgba(6,161,92,.25);color:var(--f2)}
+.verb-pill.f3{border-color:rgba(13,31,255,.25);color:var(--f3)}
+/* top nav */
+.topnav{display:flex;align-items:center;gap:0;padding:0;margin-top:-1px;border-top:1.5px solid var(--ink);overflow-x:auto;scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{font-size:12px;font-weight:600;color:var(--mid);text-decoration:none;padding:10px 16px;transition:all .12s ease;white-space:nowrap;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--ink)}
+.topnav a.here{color:var(--ink);font-weight:800;border-bottom:2px solid var(--teal)}
+
+/* masthead */
+.mast{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 18px;border-bottom:1.5px solid var(--ink)}
+.mast{flex-wrap:wrap;row-gap:14px;padding-bottom:0}
+.mast .topnav{flex-basis:100%;margin-top:0}
+.mast .topnav a{padding:10px 13px}
+.mast-mod{white-space:nowrap}
+.mast-left{display:flex;align-items:center;gap:14px}
+.mast-logo{font-size:11px;font-weight:900;letter-spacing:.12em}
+.mast-logo .dot{color:var(--orange)}
+.mast-sep{width:1.5px;height:18px;background:var(--border)}
+.mast-mod{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--mid)}
+.badge{font-size:10px;font-weight:800;letter-spacing:.08em;border:1.5px solid var(--ink);padding:4px 10px}
+
+/* hero */
+.hero{padding:64px 0 24px}
+.hero h1{font-size:clamp(36px,6.5vw,56px);font-weight:900;letter-spacing:-.035em;line-height:.95;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.hero h1 s{text-decoration:line-through;color:var(--mid);opacity:.4;font-weight:700}
+.deck{margin-top:18px;max-width:52ch;font-size:16px;color:var(--mid);font-weight:500;line-height:1.6}
+
+/* real talk */
+.rt{padding:24px 0 48px}
+.rt-card{border-left:3px solid var(--teal);background:var(--surface);padding:18px 22px;border-radius:0 14px 14px 0}
+.rt-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.rt-text{font-size:14px;line-height:1.65}
+
+/* families reference */
+.fams{padding:0 0 48px}
+.fams-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:start}
+@media(max-width:900px){.fams-grid{grid-template-columns:1fr}}
+.fams-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.fam-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 18px}
+.fam-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.fam-badge{font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:100px;white-space:nowrap}
+.fam-badge.f1{background:rgba(232,21,143,.1);color:var(--f1)}
+.fam-badge.f2{background:rgba(6,161,92,.1);color:var(--f2)}
+.fam-badge.f3{background:rgba(13,31,255,.1);color:var(--f3)}
+.fam-pattern{font-size:13px;font-weight:800;letter-spacing:-.01em;margin-top:4px}
+.fam-pattern .hl{background:var(--neon);padding:1px 5px;border-radius:4px}
+.fam-verbs{font-size:12px;color:var(--mid);margin-bottom:12px;line-height:1.6}
+.fam-ex{padding:10px 12px;background:var(--surface);border-radius:8px;margin-bottom:6px}
+.fam-ex-right{font-size:12.5px;font-weight:600;line-height:1.5}
+.fam-ex-right .obj{color:var(--teal);font-weight:800}
+.fam-ex-wrong{font-size:13px;color:var(--mid);margin-top:4px;text-decoration:line-through;opacity:.6}
+.fam-ex-pt{font-size:12px;color:var(--mid);margin-top:4px}
+
+
+
+/* pronoun converter */
+.pron{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.pron-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.pron-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:22px 24px}
+.pron-title{font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.pron-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:16px;max-width:580px}
+.pron-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.pron-pair{text-align:center;padding:10px 6px;border-radius:10px;background:var(--surface)}
+.pron-subj{font-size:13px;font-weight:600;color:var(--mid);margin-bottom:2px}
+.pron-arrow{font-size:10px;color:var(--border);margin-bottom:2px}
+.pron-obj{font-size:15px;font-weight:800;color:var(--teal)}
+.pron-note{font-size:12px;color:var(--mid);margin-top:12px;line-height:1.6}
+@media(max-width:560px){.pron-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* step machine · dark shell */
+.sm{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.sm-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.sm-title{font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-.03em;margin-bottom:8px}
+.sm-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:24px;max-width:580px}
+.sm-card{background:var(--dark);border-radius:14px;padding:26px 26px 22px;margin-bottom:14px;color:#fff}
+.sm-type{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--neon);display:inline-block;padding:4px 12px;border-radius:100px;margin-bottom:6px}
+.sm-pt-origin{font-size:14px;color:rgba(255,255,255,.85);font-style:italic;padding:12px 16px;border-left:3px solid var(--orange);margin:12px 0;background:rgba(255,255,255,.08);border-radius:0 8px 8px 0}
+.sm-pt-origin b{color:var(--orange);font-weight:800;font-style:normal}
+.sm-sentence{font-size:clamp(18px,3vw,22px);font-weight:800;line-height:1.5;padding:16px 18px;border-radius:10px;background:rgba(255,255,255,.06);margin-bottom:10px;min-height:56px;transition:background .3s ease}
+.sm-sentence.done{background:rgba(0,255,133,.08)}
+.sm-sentence .dead{color:#FF4D8F;text-decoration:line-through;text-decoration-thickness:2px}
+.sm-sentence .hl{background:var(--neon);color:var(--ink);padding:2px 6px;border-radius:4px;font-weight:900}
+.sm-sentence .hl-obj{background:rgba(255,77,143,.3);color:#FF4D8F;padding:2px 6px;border-radius:4px;font-weight:900}
+.sm-hint-ctx{font-size:13px;color:var(--ink);line-height:1.55;padding:12px 14px 12px 42px;background:var(--neon);border-radius:10px;margin:10px 0 16px;position:relative;font-weight:600}
+.sm-hint-ctx::before{content:"";position:absolute;left:14px;top:13px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%230A1628' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/%3E%3Cpath d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/%3E%3C/svg%3E") no-repeat center/contain}
+.sm-picker{margin-bottom:14px}
+.sm-pick-label{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.sm-pick-opts{display:flex;gap:6px;flex-wrap:wrap}
+.sm-pick-opt{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:6px 12px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.7);border-radius:20px;cursor:pointer;transition:all .15s ease}
+.sm-pick-opt:hover{border-color:rgba(255,255,255,.4);color:#fff}
+.sm-pick-opt.right{background:var(--neon);border-color:var(--neon);color:var(--ink);font-weight:800}
+.sm-pick-opt.dim{opacity:.2}
+.sm-pick-opt[disabled]{cursor:default}
+.sm-pick-result{display:none;font-size:12px;margin-top:6px;font-weight:600}
+.sm-pick-result.show{display:block}
+.sm-steps{display:flex;flex-direction:column;gap:0;opacity:.3;pointer-events:none;transition:opacity .3s ease}
+.sm-steps.unlocked{opacity:1;pointer-events:auto}
+.sm-step{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-top:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none}
+.sm-step:hover{background:rgba(255,255,255,.03);border-radius:8px}
+.sm-step.locked{opacity:.3;cursor:default}
+.sm-step.locked:hover{background:none}
+.sm-sn{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:rgba(255,255,255,.4);transition:all .2s ease;flex:none}
+.sm-step.active .sm-sn,.sm-step.done .sm-sn{background:var(--neon);color:var(--ink)}
+.sm-action{font-size:14px;font-weight:700;line-height:1.5;color:#fff}
+.sm-action-pt{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
+.sm-reset{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);background:none;border:1.5px solid rgba(255,255,255,.15);border-radius:20px;padding:6px 14px;cursor:pointer;margin-top:10px}
+.sm-reset:hover{border-color:rgba(255,255,255,.4);color:#fff}
+
+
+.prod-wrap .tip{border-bottom-color:rgba(234,255,0,.4)}
+.prod-wrap .tip .tt{background:var(--neon);color:var(--ink);font-weight:700}
+.prod-wrap .tip .tt::after{border-top-color:var(--neon)}
+/* translation exercise */
+.tr{max-width:960px;margin:0 auto;padding:0 56px 48px}
+.tr-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.tr-title{font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-.03em;margin-bottom:8px}
+.tr-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:24px;max-width:580px}
+.tr-example{background:var(--dark);border-radius:14px;padding:22px 24px;margin-bottom:24px;color:#fff}
+.tr-ex-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.tr-ex-pt{font-size:15px;color:rgba(255,255,255,.7);font-style:italic;margin-bottom:10px;border-left:2px solid var(--orange);padding-left:12px}
+.tr-ex-pt b{color:var(--orange);font-style:normal}
+.tr-ex-think{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;padding-left:14px}
+.tr-ex-think::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--neon);margin-right:8px;vertical-align:middle}
+.tr-ex-result{font-size:18px;font-weight:800;color:#fff;padding:12px 16px;background:rgba(0,255,133,.08);border-radius:8px;margin-top:8px}
+.tr-ex-result .obj{color:var(--neon-green)}
+.tr-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:10px}
+.tr-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tr-num{font-size:11px;font-weight:800;color:var(--mid)}
+.tr-fam{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--border);padding:2px 8px;border:1px solid var(--border);border-radius:100px}
+.tr-pt{font-size:15px;font-weight:600;color:var(--ink);line-height:1.5;margin-bottom:12px;border-left:2px solid var(--orange);padding-left:12px}
+.tr-pt b{color:var(--orange);font-weight:800}
+.tr-verb{font-size:11px;font-weight:700;color:var(--mid);margin-bottom:10px}
+.tr-entry{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.tr-input{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 14px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;flex:1;min-width:200px;transition:border-color .15s ease}
+.tr-input:focus{outline:none;border-color:var(--teal)}
+.tr-input.good{border-color:var(--neon-green);background:rgba(0,255,133,.06)}
+.tr-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.04em;padding:10px 16px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;cursor:pointer;transition:all .12s ease}
+.tr-btn:hover{background:var(--ink);color:var(--paper)}
+.tr-model{display:none;margin-top:10px;padding:10px 14px;background:var(--surface);border-radius:8px}
+.tr-model.show{display:block}
+.tr-model-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:3px}
+.tr-model-text{font-size:14px;font-weight:700}
+.tr-model-text .obj{color:var(--teal);font-weight:800}
+.tr-reveal{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--mid);background:none;border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;cursor:pointer;margin-top:8px;transition:all .15s ease}
+.tr-reveal:hover{border-color:var(--teal);color:var(--teal)}
+
+/* exercises */
+.exercises{padding:0 0 48px}
+.ex-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.ex-title{font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-.03em;margin-bottom:8px}
+.ex-intro{font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:20px;max-width:580px}
+.ex-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:12px}
+.ex-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.ex-num{font-size:11px;font-weight:800;color:var(--mid)}
+.ex-wrong-sent{font-size:15px;font-weight:600;line-height:1.5;padding:12px 14px;background:rgba(232,21,143,.06);border-left:3px solid var(--f1);border-radius:0 10px 10px 0;margin-bottom:14px}
+.ex-wrong-sent s{text-decoration:line-through;color:var(--f1);font-weight:800}
+.ex-entry{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.ex-input{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 14px;border:1.5px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;flex:1;min-width:200px;transition:border-color .15s ease}
+.ex-input:focus{outline:none;border-color:var(--teal)}
+.ex-input.good{border-color:var(--neon-green);background:rgba(0,255,133,.06)}
+.ex-input.bad,.tr-input.bad{border-color:#E0457B;background:rgba(224,69,123,.06)}
+.ex-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:800;letter-spacing:.04em;padding:10px 16px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;cursor:pointer;transition:all .12s ease}
+.ex-btn:hover{background:var(--ink);color:var(--paper)}
+.ex-model{display:none;margin-top:10px;padding:12px 14px;background:var(--surface);border-radius:10px}
+.ex-model.show{display:block}
+.ex-model-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:4px}
+.ex-model-text{font-size:14px;font-weight:700}
+.ex-model-pt{font-size:12px;color:var(--mid);margin-top:3px}
+.ex-reveal{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--mid);background:none;border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;cursor:pointer;margin-top:8px;transition:all .15s ease}
+.ex-reveal:hover{border-color:var(--teal);color:var(--teal)}
+
+/* glossary */
+.gloss-wrap{background:var(--dark);border-radius:14px;padding:24px 26px}
+.gloss-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--hi);margin-bottom:16px}
+.gloss-grid{display:flex;flex-wrap:wrap;gap:8px}
+.gloss-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 14px;display:flex;flex-direction:column;gap:2px}
+.gloss-item:hover{border-color:rgba(255,255,255,.25)}
+.gloss-en{font-size:13px;font-weight:700;color:#fff}
+.gloss-pt{font-size:11px;color:rgba(255,255,255,.45);font-weight:500}
+
+/* production */
+.prod-wrap{background:var(--dark);border-radius:16px;padding:32px 30px 28px}
+.prod-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--neon-green);margin-bottom:6px}
+.prod-title{font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-.03em;color:#fff;margin-bottom:8px}
+.prod-intro{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:24px;max-width:580px}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prod-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 18px 16px}
+.prod-card:hover{border-color:rgba(255,255,255,.25)}
+.prod-num{font-size:10px;font-weight:800;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:10px}
+.prod-scene{font-size:14px;font-weight:600;color:#fff;line-height:1.55;margin-bottom:12px}
+.prod-target{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--neon);color:var(--ink);padding:4px 10px;border-radius:100px;margin-bottom:12px}
+.prod-input{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;width:100%;padding:10px 12px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#fff;border-radius:8px;resize:none;min-height:48px}
+.prod-input:focus{outline:none;border-color:var(--neon-green)}
+.prod-input::placeholder{color:rgba(255,255,255,.25)}
+.prod-reveal{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,.4);background:none;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 12px;cursor:pointer;margin-top:10px}
+.prod-reveal:hover{color:var(--neon);border-color:var(--neon)}
+.prod-example{display:none;margin-top:10px;font-size:13px;font-weight:600;color:var(--neon-green);line-height:1.5}
+.prod-example.show{display:block}
+.prod-example-pt{color:rgba(255,255,255,.4);font-size:12px;margin-top:3px}
+.prod-footer{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:rgba(255,255,255,.4);line-height:1.6}
+
+footer{padding:0 0 48px;font-size:12px;color:var(--mid);font-weight:500;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media(max-width:820px){.pw{padding:0 24px}.prod-grid{grid-template-columns:1fr}}
+.nav-toggle{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+.nav-toggle:hover{background:rgba(255,255,255,.16)}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300}
+.nav-overlay.open{display:block}
+.nav-sidebar{position:fixed;top:0;left:-300px;width:280px;max-width:85vw;height:100%;background:#fff;z-index:301;transition:left .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-sidebar.open{left:0}
+.nav-sidebar-head{background:var(--dark);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex:none}
+.nav-sidebar-head span{font-size:14px;font-weight:900}
+.nav-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.nav-sidebar-body{flex:1;overflow-y:auto;padding:18px 12px 30px}
+.nav-group{margin-bottom:20px}
+.nav-group-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding:0 12px;margin-bottom:8px}
+.nav-link{display:block;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;margin-bottom:2px;transition:background .15s ease}
+.nav-link:hover{background:var(--surface)}
+.nav-link.active{background:var(--surface);color:var(--teal);font-weight:800}
+.mast-right{display:flex;align-items:center;gap:12px}
+.mast .nav-toggle{background:transparent;border:1.5px solid var(--ink);color:var(--ink);width:34px;height:34px;border-radius:0}
+.mast .nav-toggle:hover{background:var(--ink);color:#fff}
+.mast{padding-bottom:18px}
+
+/* name → pronoun drill */
+.pn{padding-bottom:44px}
+.pn-label{font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.pn-title{font-size:22px;font-weight:900;letter-spacing:-.02em}
+.pn-intro{font-size:13px;color:var(--mid);line-height:1.6;margin:6px 0 4px;max-width:620px}
+.pn-score{font-size:11.5px;font-weight:800;color:var(--ink);margin:10px 0 6px}
+.pn-row{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:13px 0;border-top:1px solid var(--border)}
+.pn-row:last-child{border-bottom:1px solid var(--border)}
+.pn-n{font-size:11px;font-weight:800;color:var(--mid);padding-top:4px}
+.pn-sent{font-size:16px;font-weight:600;line-height:1.5}
+.pn-noun{background:var(--hi);padding:0 4px;border-radius:3px}
+.pn-pro{color:var(--teal);font-weight:900;display:inline-block;animation:pnIn .35s ease}
+@keyframes pnIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.pn-opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pn-opt{font:700 13px Inter,sans-serif;min-width:58px;padding:6px 12px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer}
+.pn-opt:hover:not(:disabled){border-color:var(--ink)}
+.pn-opt.right{background:var(--f2);border-color:var(--f2);color:#fff}
+.pn-opt.wrong{border-color:#E0457B;color:#E0457B;animation:pnShake .3s}
+.pn-opt:disabled{cursor:default}
+@keyframes pnShake{0%,100%{transform:translateX(0)}30%{transform:translateX(-3px)}70%{transform:translateX(3px)}}
+.pn-why{font-size:12.5px;margin-top:7px;line-height:1.5}
+.pn-why.yes{color:var(--f2);font-weight:700}
+.pn-why.no{color:#E0457B;font-weight:600}
+.ex-fb,.tr-fb{display:none;font-size:12.5px;line-height:1.5;margin:-2px 0 8px}
+.ex-fb.show,.tr-fb.show{display:block}
+.ex-fb.yes,.tr-fb.yes{color:var(--f2);font-weight:800}
+.ex-fb a,.tr-fb a{color:var(--teal);font-weight:700}
+.ex-fb.no,.tr-fb.no{color:#E0457B;font-weight:600}
+@media(max-width:640px){.pn-sent{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+<nav class="nav-sidebar" id="navSidebar">
+  <div class="nav-sidebar-head">
+    <span>EIC escola</span>
+    <button class="nav-close" onclick="closeNav()" aria-label="Close menu">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="nav-sidebar-body">
+    <div class="nav-group">
+      <div class="nav-group-label">Customer Service Module</div>
+      <a href="customer-service-delays.html" class="nav-link">When the Customer Calls</a>
+      <a href="damaged-product-complaint.html" class="nav-link">The Leaking Drums</a>
+      <a href="the-fine-print.html" class="nav-link">The Fine Print</a>
+      <a href="escalation.html" class="nav-link">Escalating It Up</a>
+      <a href="escalation-practice.html" class="nav-link" style="padding-left:26px;font-size:12px">Practice: Report It to Diego</a>
+      <a href="verb-patterns.html" class="nav-link active">Verb Patterns</a>
+      <a href="check-verify.html" class="nav-link">Check, Verify, Confirm</a>
+      <a href="payment-terms.html" class="nav-link">The Grace Period</a>
+      <a href="sla.html" class="nav-link">The Clock Is Running</a>
+      <a href="prepositions.html" class="nav-link">Little Words, Big Difference</a>
+    </div>
+  </div>
+</nav>
+
+<div class="pw">
+<header class="mast">
+  <div class="mast-left">
+    <span class="mast-logo">E<span class="dot">.</span>I<span class="dot">.</span>C</span>
+    <span class="mast-sep"></span>
+    <span class="mast-mod">Altiva Biosolutions &middot; Customer Service</span>
+  </div>
+  <div class="mast-right"><span class="badge">B1+ . VERB PATTERNS</span>
+    <button class="nav-toggle" onclick="openNav()" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button></div>
+</header>
+
+<div class="hero">
+  <h1>I <s>need that you</s> <em>need you to</em></h1>
+  <p class="deck">In Portuguese, "preciso que você me mande" works every time. In English, that structure breaks. In customer service you ask people to do things all day: send photos, confirm an address, call back. This page shows how English connects your request to the other person's action.</p>
+</div>
+
+<div class="rt">
+  <div class="rt-card">
+    <div class="rt-label">Real Talk</div>
+    <p class="rt-text">Em português, a gente usa "que" + subjuntivo para tudo: "Preciso <b>que você me mande</b> as fotos", "O Marcos pediu <b>que a gente trocasse</b> o lote", "O Diego sugeriu <b>que eu ligasse</b> pro cliente". Uma estrutura só, funciona com qualquer verbo. Em inglês, essa estrutura com "that" quase nunca funciona. O inglês troca o "que" por uma construção diferente dependendo do verbo. São três famílias. A boa notícia: cada uma tem um padrão fixo, e juntas cobrem tudo.</p>
+  </div>
+</div>
+</div>
+
+<div class="pw fams">
+  <div class="fams-label">The three families</div>
+
+  <div class="fams-grid">
+  <div class="fam-card">
+    <div class="fam-head">
+      <span class="fam-badge f1">Family 1</span>
+      <span class="fam-pattern">verb + <span class="hl">object</span> + to infinitive</span>
+    </div>
+    <div class="verb-pills"><span class="verb-pill f1">want</span><span class="verb-pill f1">need</span><span class="verb-pill f1">ask</span><span class="verb-pill f1">tell</span><span class="verb-pill f1">advise</span><span class="verb-pill f1">expect</span><span class="verb-pill f1">allow</span><span class="verb-pill f1">encourage</span><span class="verb-pill f1">persuade</span><span class="verb-pill f1">remind</span><span class="verb-pill f1">order</span><span class="verb-pill f1">warn</span><span class="verb-pill f1">invite</span><span class="verb-pill f1">convince</span><span class="verb-pill f1">teach</span><span class="verb-pill f1">force</span><span class="verb-pill f1">would like</span></div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">I need <span class="obj">you</span> to send me photos of the damaged drums.</div>
+      <div class="fam-ex-wrong">I need that you send me photos of the damaged drums.</div>
+      <div class="fam-ex-pt">Preciso que você me mande fotos dos tambores danificados.</div>
+    </div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">Marcos asked <span class="obj">us</span> to replace the whole batch.</div>
+      <div class="fam-ex-wrong">Marcos asked that we replace the whole batch.</div>
+      <div class="fam-ex-pt">O Marcos pediu que a gente trocasse o lote inteiro.</div>
+    </div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">Diego told <span class="obj">me</span> to call the client before noon.</div>
+      <div class="fam-ex-wrong">Diego told that I call the client before noon.</div>
+      <div class="fam-ex-pt">O Diego disse pra eu ligar pro cliente antes do meio-dia.</div>
+    </div>
+    <div style="padding:12px 14px;background:rgba(232,21,143,.05);border-radius:8px;border-left:3px solid var(--f1);margin-top:4px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--f1);margin-bottom:6px">Negative infinitive</div>
+      <div style="font-size:12.5px;line-height:1.7">
+        <div>Para dizer "para NÃO fazer", o <b>not</b> vai antes do <b>to</b>:</div>
+        <div style="margin-top:6px;color:var(--mid)">Diego told me <b>not to</b> promise a delivery date. <span style="opacity:.6">O Diego disse pra eu não prometer data de entrega.</span></div>
+        <div style="margin-top:4px;color:var(--mid)">We warned him <b>not to</b> open the leaking drums. <span style="opacity:.6">A gente avisou ele pra não abrir os tambores vazando.</span></div>
+        <div style="margin-top:8px;font-size:11.5px;color:var(--mid)">O erro comum é colocar o "don't": <s style="opacity:.5">Diego told me don't promise.</s> Em inglês, o "not" fica grudado no "to".</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam-card">
+    <div class="fam-head">
+      <span class="fam-badge f2">Family 2</span>
+      <span class="fam-pattern">let / make / have + <span class="hl">object</span> + bare verb</span>
+    </div>
+    <div class="verb-pills"><span class="verb-pill f2">let</span><span class="verb-pill f2">make</span><span class="verb-pill f2">have</span></div><div style="font-size:12px;color:var(--mid);margin-bottom:12px">No "to" after the object</div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">Let <span class="obj">me</span> check the tracking number for you.</div>
+      <div class="fam-ex-wrong">Let me to check the tracking number for you.</div>
+      <div class="fam-ex-pt">Deixa eu conferir o código de rastreio pra você.</div>
+    </div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">Please don't make <span class="obj">the client</span> wait on hold.</div>
+      <div class="fam-ex-wrong">Please don't make the client to wait on hold.</div>
+      <div class="fam-ex-pt">Por favor, não faça o cliente esperar na linha.</div>
+    </div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">I'll have <span class="obj">our logistics team</span> call you back today.</div>
+      <div class="fam-ex-wrong">I'll have that our logistics team calls you back today.</div>
+      <div class="fam-ex-pt">Vou pedir pro nosso time de logística te ligar de volta hoje.</div>
+    </div>
+    <div style="padding:12px 14px;background:rgba(6,161,92,.06);border-radius:8px;border-left:3px solid var(--f2);margin-top:4px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--f2);margin-bottom:8px">ask vs. have vs. order</div>
+      <div style="font-size:12.5px;line-height:1.7">
+        <div><b style="color:var(--f1)">ask</b> + object + <b>to</b> · pedido, a pessoa pode recusar<br><span style="color:var(--mid)">I asked the carrier <b>to resend</b> the photos.</span></div>
+        <div style="margin-top:6px"><b style="color:var(--f2)">have</b> + object + <b>bare verb</b> · instrução neutra, é esperado que aconteça<br><span style="color:var(--mid)">I had the carrier <b>resend</b> the photos.</span></div>
+        <div style="margin-top:6px"><b style="color:var(--f1)">order</b> + object + <b>to</b> · comando, sem escolha<br><span style="color:var(--mid)">I ordered the carrier <b>to resend</b> the photos.</span></div>
+        <div style="margin-top:8px;font-size:11.5px;color:var(--mid)">No dia a dia corporativo, <b>have</b> é o mais comum. Ask soa como se a pessoa pudesse recusar. Order é forte demais para o trabalho.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam-card">
+    <div class="fam-head">
+      <span class="fam-badge f3">Family 3</span>
+      <span class="fam-pattern">suggest / recommend + <span class="hl">that</span> + subject + bare verb</span>
+    </div>
+    <div class="verb-pills"><span class="verb-pill f3">suggest</span><span class="verb-pill f3">recommend</span><span class="verb-pill f3">insist</span><span class="verb-pill f3">demand</span><span class="verb-pill f3">propose</span><span class="verb-pill f3">request</span></div><div style="font-size:12px;color:var(--mid);margin-bottom:12px">Formal. Day-to-day alternatives below each example.</div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">I recommend that <span class="obj">you</span> keep the drums until our technician arrives.</div>
+      <div class="fam-ex-wrong">I recommend you to keep the drums until our technician arrives.</div>
+      <div class="fam-ex-pt">Eu recomendo que você guarde os tambores até o nosso técnico chegar.</div>
+    </div>
+    <div class="fam-ex">
+      <div class="fam-ex-right">Marcos insisted that <span class="obj">we</span> send a new batch this week.</div>
+      <div class="fam-ex-wrong">Marcos insisted us to send a new batch this week.</div>
+      <div class="fam-ex-pt">O Marcos insistiu que a gente mandasse um lote novo essa semana.</div>
+    </div>
+    <div class="fam-ex" style="background:rgba(13,122,138,.06)">
+      <div class="fam-ex-right" style="color:var(--teal)">Day-to-day alternatives: "I suggest keeping the drums" / "I suggest you keep the drums" / "Why don't you keep the drums?"</div>
+      <div class="fam-ex-pt">No dia a dia, a Family 3 é rara. Use as alternativas acima.</div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="pron">
+  <div class="pron-label">The pronoun switch</div>
+  <div class="pron-card">
+    <div class="pron-title">Subject &#8594; Object</div>
+    <p class="pron-intro">Em português, "Preciso que <b>ele</b> assine" usa o sujeito "ele". Em inglês, o pronome muda: "I need <b>him</b> to sign." Quando a pessoa sai de sujeito de uma oração e vira objeto de outra, o pronome troca.</p>
+    <div class="pron-grid">
+      <div class="pron-pair"><div class="pron-subj">I</div><div class="pron-arrow">&#8595;</div><div class="pron-obj">me</div></div>
+      <div class="pron-pair"><div class="pron-subj">you</div><div class="pron-arrow">&#8595;</div><div class="pron-obj">you</div></div>
+      <div class="pron-pair"><div class="pron-subj">he</div><div class="pron-arrow">&#8595;</div><div class="pron-obj">him</div></div>
+      <div class="pron-pair"><div class="pron-subj">she</div><div class="pron-arrow">&#8595;</div><div class="pron-obj">her</div></div>
+      <div class="pron-pair"><div class="pron-subj">we</div><div class="pron-arrow">&#8595;</div><div class="pron-obj">us</div></div>
+      <div class="pron-pair"><div class="pron-subj">they</div><div class="pron-arrow">&#8595;</div><div class="pron-obj">them</div></div>
+    </div>
+    <p class="pron-note">Se usar o nome da pessoa, o pronome não aparece: "I need <b>Marcos</b> to sign." Mas se trocar por pronome, é objeto: "I need <b>him</b> to sign." A Family 3 é a exceção: "I recommend that <b>he</b> keep the drums" mantém o sujeito, porque o "that" cria uma nova oração.</p>
+  </div>
+</div>
+
+
+
+<div class="pw pn">
+  <div class="pn-label">Practice &middot; Name &rarr; pronoun</div>
+  <div class="pn-title">Swap the name for a pronoun.</div>
+  <p class="pn-intro">Troque o nome em destaque pelo pronome certo. Depois do verbo, objeto (him, her, us, them). Depois do <b>that</b> da Family 3, sujeito (he, she, we, they).</p>
+  <div class="pn-score" id="pnScore">0 / 10</div>
+  <div id="pnList"></div>
+</div>
+
+<div class="sm">
+  <div class="sm-label">How the sentence changes</div>
+  <div class="sm-title">See it transform, step by step.</div>
+  <p class="sm-intro">Each family restructures the sentence differently. Pick the family first, then tap each step to watch the sentence change.</p>
+  <div id="smCards"></div>
+</div>
+
+
+<div class="tr">
+  <div class="tr-label">Translate</div>
+  <div class="tr-title">Say it in English.</div>
+  <p class="tr-intro">Read the Portuguese sentence. Write the English version using the correct verb pattern. The verb is highlighted to help you pick the family.</p>
+
+  <div class="tr-example">
+    <div class="tr-ex-label">Solved example</div>
+    <div class="tr-ex-pt">O Marcos <b>pediu que eu <span class="tip" tabindex="0">enviasse<span class="tt">send</span></span></b> o <span class="tip" tabindex="0">relatório<span class="tt">report</span></span> antes de sexta.</div>
+    <div class="tr-ex-think">The verb is "ask". Ask is Family 1: verb + object + to.</div>
+    <div class="tr-ex-think">"Eu" becomes "me" (subject → object pronoun).</div>
+    <div class="tr-ex-think">"Enviasse" becomes "to send" (infinitive with to).</div>
+    <div class="tr-ex-result">Marcos asked <span class="obj">me</span> to send the report before Friday.</div>
+  </div>
+
+  <div id="trCards"></div>
+</div>
+
+<div class="pw exercises">
+  <div class="ex-label">Fix it</div>
+  <div class="ex-title">Renata wrote fast. Fix her mistakes.</div>
+  <p class="ex-intro">Each sentence has a Portuguese-style "that" construction. Rewrite it using the correct English pattern.</p>
+  <div id="exCards"></div>
+</div>
+
+<div class="pw" style="padding-bottom:32px">
+  <div class="gloss-wrap">
+    <div class="gloss-label">Key vocabulary</div>
+    <div class="gloss-grid">
+      <div class="gloss-item"><span class="gloss-en">advise someone to</span><span class="gloss-pt">Aconselhar alguém a</span></div>
+      <div class="gloss-item"><span class="gloss-en">remind someone to</span><span class="gloss-pt">Lembrar alguém de</span></div>
+      <div class="gloss-item"><span class="gloss-en">persuade someone to</span><span class="gloss-pt">Convencer alguém a</span></div>
+      <div class="gloss-item"><span class="gloss-en">warn someone not to</span><span class="gloss-pt">Avisar alguém para não</span></div>
+      <div class="gloss-item"><span class="gloss-en">let someone do</span><span class="gloss-pt">Deixar alguém fazer</span></div>
+      <div class="gloss-item"><span class="gloss-en">make someone do</span><span class="gloss-pt">Fazer alguém fazer</span></div>
+      <div class="gloss-item"><span class="gloss-en">have someone do</span><span class="gloss-pt">Mandar alguém fazer</span></div>
+      <div class="gloss-item"><span class="gloss-en">suggest that someone do</span><span class="gloss-pt">Sugerir que alguém faça</span></div>
+      <div class="gloss-item"><span class="gloss-en">expect someone to</span><span class="gloss-pt">Esperar que alguém faça</span></div>
+      <div class="gloss-item"><span class="gloss-en">encourage someone to</span><span class="gloss-pt">Incentivar alguém a</span></div>
+      <div class="gloss-item"><span class="gloss-en">convince someone to</span><span class="gloss-pt">Convencer alguém a</span></div>
+      <div class="gloss-item"><span class="gloss-en">allow someone to</span><span class="gloss-pt">Permitir que alguém faça</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="pw" style="padding-bottom:48px">
+  <div class="prod-wrap">
+    <div class="prod-label">Your turn</div>
+    <div class="prod-title">Say it the way Renata would.</div>
+    <p class="prod-intro">Six situations at Altiva. Write the sentence using the correct pattern. Say it out loud before you write.</p>
+    <div class="prod-grid" id="prodGrid"></div>
+    <div class="prod-footer">The object always goes between the verb and the infinitive. If you catch yourself writing "that", stop and restructure.</div>
+  </div>
+</div>
+
+<footer class="pw">
+  <span>EIC . Escola de Idiomas e Cultura</span>
+  <span>Altiva Biosolutions . Verb Patterns</span>
+</footer>
+
+<script>
+/* ═══ real checking: whole sentence, with a hint that points where to look ═══ */
+var VP_ACC = { ex: ["i need you to send me the batch number printed on the drums", "let me (talk|speak) (to|with) our quality team first", "diego told me to offer (a )?(10%|10 percent|ten percent) credit", "we need (the carrier|them) to confirm the new delivery window", "i understand (that )?the delay made you stop your production line", "i would like you to keep the damaged drums for inspection", "i suggest (that )?you take photos before opening the pallets|i suggest taking photos before opening the pallets", "can you remind (diego|him) to approve the credit note today", "do not let (the driver|him) leave without a signed receipt", "marcos asked (us|me) to call him before (9|nine)( am)?", "we expect (the new batch|the batch|it) to arrive on thursday", "our quality team advised us (not to|to not) ship the rest of the order yet"], tr: ["i want you to (check|confirm|double check|verify) the order number", "let me (check|see|verify|look at) (the status of your order|your order status|your orders status)", "i suggest (that )?you (refuse|reject) the delivery|i suggest (refusing|rejecting) the delivery", "(can|could) you ask (marcos|him) to send (the|his) invoice", "the delay made (the client|the customer|him|them) miss a deadline", "we need (the client|the customer|him|them|marcos) to sign the delivery receipt", "diego recommended (that )?we offer a discount|diego recommended offering a discount", "they told her to wait for the technician", "i will have (the warehouse|them) (resend|send) the order( again)? tomorrow", "we advised (him|marcos) (not to|to not) use the leaking drums", "we expect (the carrier|them|the shipping company) to deliver (by|before|on) friday", "renata convinced (him|marcos) to wait (one more day|another day)", "remind him to send the photos today", "the (client|customer) insisted (that )?altiva (pay for|cover|pay) the freight", "i would like you to confirm the delivery address"] };
+function vpNorm(t){
+  return (' ' + t.toLowerCase().replace(/[\u2018\u2019`]/g, "'") + ' ')
+    .replace(/\bi'll\b/g, 'i will').replace(/\bwe'll\b/g, 'we will').replace(/\bi'd\b/g, 'i would')
+    .replace(/\bcan't\b|\bcannot\b/g, 'can not').replace(/\bdon't\b/g, 'do not').replace(/\bdoesn't\b/g, 'does not')
+    .replace(/n't\b/g, ' not').replace(/'/g, '')
+    .replace(/\b([ap])\.m\./g, '$1m').replace(/[.,!?;:"()]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function vpHint(t, fam){
+  fam = String(fam).toLowerCase();
+  if (/\bthat (i|you|he|she|we|they|the|our|diego|marcos|renata|altiva)\b/.test(t) && fam !== 'f3')
+    return 'Tire o <b>that</b>. Aqui é verbo + pessoa + ' + (fam === 'f2' ? 'verbo sem to.' : '<b>to</b> + verbo.');
+  if (/\b(don't|do not) (promise|open|ship|use|approve)\b/.test(t) && !/\bnot to\b/.test(t))
+    return 'Pra negar, o <b>not</b> vai colado no to: <b>not to</b> + verbo.';
+  if (fam !== 'f3' && /\b(want|need|ask|asked|told|tell|expect|advised|remind|convinced|would like|let|make|made|have)\s+(i|he|she|we|they)\b/.test(t))
+    return 'Depois do verbo, a pessoa vai no pronome objeto: <b>me, him, her, us, them</b>.';
+  if (fam === 'f2' && /\b(let|make|made|have|had)\s+(\w+\s){1,3}to\s/.test(t))
+    return 'Depois de <b>let, make, have</b> não tem to. O verbo vai nu.';
+  if (fam === 'f3' && /\b(suggest|recommend|recommended|insist|insisted)\s+(\w+)\s+to\b/.test(t))
+    return 'Suggest, recommend e insist não levam pessoa + to. Use <b>that</b> + he / we / you + verbo.';
+  if (fam === 'f3' && /\bthat \w+ (\w+s)\b/.test(t) && !/\bthat \w+ (was|is|has|does)\b/.test(t))
+    return 'Na Family 3 o verbo fica na forma base, sem -s: <b>that Altiva pay</b>, <b>that he keep</b>.';
+  if (fam === 'f1' && !/\bto \w+/.test(t))
+    return 'Falta o <b>to</b> antes do verbo da ação.';
+  return 'Quase. O padrão pode estar certo: confira o resto da frase com o modelo.';
+}
+function vpCheck(kind, i, card, inputSel, fbSel, modelId, revealSel, fam){
+  var input = card.querySelector(inputSel), fb = card.querySelector(fbSel);
+  var t = vpNorm(input.value); if (!t) return;
+  var ok = new RegExp('^(' + VP_ACC[kind][i] + ')$').test(t);
+  input.classList.toggle('good', ok); input.classList.toggle('bad', !ok);
+  fb.className = fbSel.slice(1) + ' show ' + (ok ? 'yes' : 'no');
+  var note = (ok && /\bverify\b/.test(t)) ? ' No atendimento, <b>check</b> soa mais natural. <a href="check-verify.html">Ver a diferença</a>' : '';
+  fb.innerHTML = ok ? 'Correct.' + note : vpHint(t, fam);
+  var m = document.getElementById(modelId), rv = card.querySelector(revealSel);
+  if (ok){ m.classList.add('show'); rv.textContent = 'Hide model answer'; }
+}
+</script>
+<script>
+var EX=[
+  {fam:"f1",
+   wrong:'I need <s>that you send</s> me the batch number printed on the drums.',
+   accept:["need you to send"],
+   model:"I need you to send me the batch number printed on the drums.",
+   pt:"Preciso que você me mande o número do lote impresso nos tambores."},
+  {fam:"f2",
+   wrong:'Let me <s>to talk</s> to our quality team first.',
+   accept:["let me talk", "let me speak", "let me check"],
+   model:"Let me talk to our quality team first.",
+   pt:"Deixa eu falar com o nosso time de qualidade primeiro."},
+  {fam:"f1",
+   wrong:'Diego told <s>that I offer</s> a 10% credit.',
+   accept:["told me to offer"],
+   model:"Diego told me to offer a 10% credit.",
+   pt:"O Diego disse pra eu oferecer um crédito de 10%."},
+  {fam:"f1",
+   wrong:'We need <s>that the carrier confirms</s> the new delivery window.',
+   accept:["need the carrier to confirm", "need them to confirm"],
+   model:"We need the carrier to confirm the new delivery window.",
+   pt:"Precisamos que a transportadora confirme a nova janela de entrega."},
+  {fam:"f2",
+   wrong:'I understand the delay made <s>you to stop</s> your production line.',
+   accept:["made you stop"],
+   model:"I understand the delay made you stop your production line.",
+   pt:"Entendo que o atraso fez vocês pararem a linha de produção."},
+  {fam:"f1",
+   wrong:'I would like <s>that you keep</s> the damaged drums for inspection.',
+   accept:["would like you to keep", "like you to keep"],
+   model:"I would like you to keep the damaged drums for inspection.",
+   pt:"Eu gostaria que você guardasse os tambores danificados para inspeção."},
+  {fam:"f3",
+   wrong:'I suggest <s>you to take</s> photos before opening the pallets.',
+   accept:["suggest that you take", "suggest you take", "suggest taking"],
+   model:"I suggest that you take photos before opening the pallets.",
+   pt:"Eu sugiro que você tire fotos antes de abrir os paletes."},
+  {fam:"f1",
+   wrong:'Can you remind <s>that Diego approves</s> the credit note today?',
+   accept:["remind diego to approve", "remind him to approve"],
+   model:"Can you remind Diego to approve the credit note today?",
+   pt:"Você pode lembrar o Diego de aprovar a nota de crédito hoje?"},
+  {fam:"f2",
+   wrong:'Don\'t let <s>the driver to leave</s> without a signed receipt.',
+   accept:["let the driver leave", "let him leave"],
+   model:"Don't let the driver leave without a signed receipt.",
+   pt:"Não deixe o motorista ir embora sem um comprovante assinado."},
+  {fam:"f1",
+   wrong:'Marcos asked <s>that we call</s> him before 9 a.m.',
+   accept:["asked us to call", "asked me to call"],
+   model:"Marcos asked us to call him before 9 a.m.",
+   pt:"O Marcos pediu que a gente ligasse pra ele antes das 9h."},
+  {fam:"f1",
+   wrong:'We expect <s>that the new batch arrives</s> on Thursday.',
+   accept:["expect the new batch to arrive", "expect the batch to arrive", "expect it to arrive"],
+   model:"We expect the new batch to arrive on Thursday.",
+   pt:"Esperamos que o novo lote chegue na quinta."},
+  {fam:"f1",
+   wrong:'Our quality team advised <s>that we don\'t ship</s> the rest of the order yet.',
+   accept:["advised us not to ship", "advised us to wait", "advised us to hold"],
+   model:"Our quality team advised us not to ship the rest of the order yet.",
+   pt:"O nosso time de qualidade aconselhou a gente a não enviar o resto do pedido ainda."}
+];
+
+var exBox=document.getElementById('exCards');
+EX.forEach(function(e,i){
+  var d=document.createElement('div');d.className='ex-card';
+  d.innerHTML='<div class="ex-head"><span class="ex-num">'+String(i+1).padStart(2,'0')+'</span>'+
+    '<span class="fam-badge '+e.fam+'">'+(e.fam==='f1'?'Family 1':e.fam==='f2'?'Family 2':'Family 3')+'</span></div>'+
+    '<div class="ex-wrong-sent">'+e.wrong+'</div>'+
+    '<div class="ex-entry"><input class="ex-input" type="text" placeholder="Rewrite correctly..." autocomplete="off" spellcheck="false">'+
+    '<button class="ex-btn" onclick="exCheck(this,'+i+')">Check</button></div>'+
+    '<div class="ex-fb"></div>'+
+    '<button class="ex-reveal" onclick="exReveal(this,'+i+')">Show model answer</button>'+
+    '<div class="ex-model" id="ex-m-'+i+'"><div class="ex-model-label">Model</div>'+
+    '<div class="ex-model-text">"'+e.model+'"</div>'+
+    '<div class="ex-model-pt">'+e.pt+'</div></div>';
+  exBox.appendChild(d);
+});
+
+function exCheck(btn,i){
+  vpCheck('ex', i, btn.closest('.ex-card'), '.ex-input', '.ex-fb', 'ex-m-'+i, '.ex-reveal', EX[i].fam);
+}
+
+function exReveal(btn,i){
+  var model=document.getElementById('ex-m-'+i);
+  var open=model.classList.toggle('show');
+  btn.textContent=open?'Hide model answer':'Show model answer';
+}
+
+/* production */
+var PROD=[
+  {scene:"A colleague is talking to Marcos today. Marcos still hasn't sent the <span class='tip' tabindex='0'>delivery receipt<span class='tt'>comprovante de entrega</span></span> from last week.",ptScene:"Você pode lembrar o Marcos de mandar o comprovante de entrega?",
+   target:"remind + object + to",
+   example:"Can you remind Marcos to send the delivery receipt?",
+   pt:"Você pode lembrar o Marcos de mandar o comprovante de entrega?"},
+  {scene:"Marcos wants to <span class='tip' tabindex='0'>send back<span class='tt'>devolver</span></span> the drums on his own truck. Renata needs to say no until the quality team <span class='tip' tabindex='0'>signs off<span class='tt'>aprova</span></span>.",ptScene:"A gente não pode deixar vocês devolverem os tambores antes de o time de qualidade aprovar.",
+   target:"let + object + bare verb",
+   example:"We can't let you send back the drums before our quality team signs off.",
+   pt:"A gente não pode deixar vocês devolverem os tambores antes de o time de qualidade aprovar."},
+  {scene:"Diego wants the full <span class='tip' tabindex='0'>incident report<span class='tt'>relatório do incidente</span></span> by 5 p.m.",ptScene:"Ele quer que eu mande o relatório do incidente pra ele até as 17h.",
+   target:"want + object + to",
+   example:"He wants me to send him the incident report by 5 p.m.",
+   pt:"Ele quer que eu mande o relatório do incidente pra ele até as 17h."},
+  {scene:"The carrier's driver didn't <span class='tip' tabindex='0'>scan<span class='tt'>escanear</span></span> the drums at pickup. Renata calls the carrier.",ptScene:"Preciso que o seu motorista escaneie os tambores antes de sair do nosso depósito.",
+   target:"need + object + to",
+   example:"I need your driver to scan the drums before he leaves our warehouse.",
+   pt:"Preciso que o seu motorista escaneie os tambores antes de sair do nosso depósito."},
+  {scene:"A colleague suggests sending a technician to <span class='tip' tabindex='0'>inspect<span class='tt'>inspecionar</span></span> the drums at Frutamax.",ptScene:"Ela sugere que a gente mande um técnico inspecionar os tambores na Frutamax.",
+   target:"suggest + that + bare verb",
+   example:"She suggests that we send a technician to inspect the drums at Frutamax.",
+   pt:"Ela sugere que a gente mande um técnico inspecionar os tambores na Frutamax."},
+  {scene:"Renata <span class='tip' tabindex='0'>convinced<span class='tt'>convenceu</span></span> Marcos to accept a <span class='tip' tabindex='0'>partial delivery<span class='tt'>entrega parcial</span></span>. It took three calls.",ptScene:"A Renata convenceu o Marcos a aceitar uma entrega parcial, mas levou três ligações.",
+   target:"convince + object + to",
+   example:"Renata convinced Marcos to accept a partial delivery, but it took three calls.",
+   pt:"A Renata convenceu o Marcos a aceitar uma entrega parcial, mas levou três ligações."}
+];
+
+var prodGrid=document.getElementById('prodGrid');
+PROD.forEach(function(p,i){
+  var card=document.createElement('div');card.className='prod-card';
+  card.innerHTML='<div class="prod-num">'+String(i+1).padStart(2,'0')+'</div>'+
+    '<div class="prod-scene">'+p.scene+'</div>'+
+    (p.ptScene?'<div style="font-size:13px;color:rgba(255,255,255,.7);font-style:italic;margin-bottom:10px;border-left:3px solid var(--orange);padding-left:12px">'+p.ptScene+'</div>':'')+
+    '<span class="prod-target">'+p.target+'</span>'+
+    '<textarea class="prod-input" placeholder="Write your sentence..." rows="2"></textarea>'+
+    '<button class="prod-reveal">See one example</button>'+
+    '<div class="prod-example">'+p.example+'<div class="prod-example-pt">'+p.pt+'</div></div>';
+  prodGrid.appendChild(card);
+});
+prodGrid.addEventListener('click',function(e){
+  var btn=e.target.closest('.prod-reveal');
+  if(!btn)return;
+  var ex=btn.nextElementSibling;
+  ex.classList.toggle('show');
+  btn.textContent=ex.classList.contains('show')?'Hide example':'See one example';
+});
+</script>
+
+<script>
+(function(){
+var SM=[
+  {type:"Family 1",fam:"f1",
+   typePt:"verb + object + to infinitive",
+   original:'I need <span class="dead">that you send</span> the photos.',
+   ptOrigin:"Eu preciso <b>que você mande</b> as fotos.",
+   hint:"O verbo \"need\" pede objeto + to. Quem vai mandar? \"You\". Ele sai de depois do \"that\" e vai para entre o verbo e o infinitivo.",
+   tool:"verb + object + to",
+   toolWhy:"Want, need, ask, tell, expect, advise... todos pedem objeto + to.",
+   steps:[
+     {action:"Find who does the action. If it is a pronoun, switch to object form (he \u2192 him, I \u2192 me).",
+      pt:"Ache quem faz a ação. Se for pronome, troca para objeto (he \u2192 him, I \u2192 me).",
+      result:'I need <span class="dead">that</span> <span class="hl-obj">you</span> <span class="dead">send</span> the photos.'},
+     {action:"Remove \"that\". Pull the person right after the verb.",
+      pt:"Tire o \"that\". Puxe a pessoa para depois do verbo.",
+      result:'I need <span class="hl-obj">you</span> <span class="dead">send</span> the photos.'},
+     {action:"Add \"to\" before the action verb.",
+      pt:"Coloque \"to\" antes do verbo da ação.",
+      result:'I need <span class="hl-obj">you</span> <span class="hl">to send</span> the photos.'}
+   ]},
+
+  {type:"Family 2",fam:"f2",
+   typePt:"let / make / have + object + bare verb (sem to)",
+   original:'Please don\'t make <span class="dead">the client to wait</span> on hold.',
+   ptOrigin:"Por favor, não <b>faça o cliente esperar</b> na linha.",
+   hint:"Os verbos let, make e have NÃO usam \"to\". O verbo da ação vai nu, na forma base, direto depois do objeto.",
+   tool:"verb + object + bare verb",
+   toolWhy:"Let, make, have. Sem \"to\", sem \"that\". Verbo nu.",
+   steps:[
+     {action:"Identify the object (who does the action).",
+      pt:"Identifique o objeto (quem faz a ação).",
+      result:'Please don\'t make <span class="hl-obj">the client</span> <span class="dead">to wait</span> on hold.'},
+     {action:"Remove \"to\". After make, let, have, the verb goes bare.",
+      pt:"Tire o \"to\". Depois de make, let, have, o verbo vai nu.",
+      result:'Please don\'t make <span class="hl-obj">the client</span> <span class="hl">wait</span> on hold.'}
+   ]},
+
+  {type:"Family 3",fam:"f3",
+   typePt:"suggest / recommend + that + subject + bare verb",
+   original:'I recommend <span class="dead">him to keep</span> the drums.',
+   ptOrigin:"Eu <b>recomendo que ele guarde</b> os tambores.",
+   hint:"Suggest e recommend NÃO aceitam objeto + to. Eles pedem \"that\" + sujeito + verbo na forma base (sem conjugar).",
+   tool:"that + subject + bare verb",
+   toolWhy:"Suggest, recommend, insist, demand. Com \"that\", verbo na forma base.",
+   steps:[
+     {action:"Here it is reversed: swap the object (\"him\") for the subject (\"he\"). Family 3 keeps the subject after \"that\".",
+      pt:"Aqui é ao contrário: troque o objeto (\"him\") pelo sujeito (\"he\"). Family 3 mantém o sujeito depois do \"that\".",
+      result:'I recommend <span class="dead">him</span> <span class="hl-obj">he</span> <span class="dead">to keep</span> the drums.'},
+     {action:"Remove \"to\" and add \"that\" before the subject.",
+      pt:"Tire o \"to\" e adicione \"that\" antes do sujeito.",
+      result:'I recommend <span class="hl">that</span> <span class="hl-obj">he</span> <span class="hl">keep</span> the drums.'}
+   ]}
+];
+
+var TOOLS=["verb + object + to","verb + object + bare verb","that + subject + bare verb"];
+var smBox=document.getElementById('smCards');
+
+SM.forEach(function(m,mi){
+  var card=document.createElement('div');card.className='sm-card';card.id='sm-'+mi;
+  var stepsHtml=m.steps.map(function(st,si){
+    return '<div class="sm-step'+(si===0?' active':' locked')+'" data-si="'+si+'" onclick="smTap('+mi+','+si+')">'+
+      '<div class="sm-sn">'+(si+1)+'</div>'+
+      '<div><div class="sm-action">'+st.action+'</div>'+
+      '<div class="sm-action-pt">'+st.pt+'</div></div></div>';
+  }).join('');
+
+  var pickerHtml='<div class="sm-picker"><div class="sm-pick-label">Qual família?</div><div class="sm-pick-opts">'+
+    TOOLS.map(function(t){return '<button class="sm-pick-opt" data-tool="'+t+'" onclick="smPick(this,'+mi+')">'+t+'</button>'}).join('')+
+    '</div><div class="sm-pick-result" id="sm-pr-'+mi+'"></div></div>';
+
+  card.innerHTML='<div class="sm-type">'+m.type+'</div> <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;font-weight:600">'+m.typePt+'</span>'+
+    '<div class="sm-pt-origin">'+m.ptOrigin+'</div>'+
+    '<div class="sm-sentence" id="sm-sent-'+mi+'">'+m.original+'</div>'+
+    '<div class="sm-hint-ctx">'+m.hint+'</div>'+
+    pickerHtml+
+    '<div class="sm-steps" id="sm-steps-'+mi+'">'+stepsHtml+'</div>'+
+    '<button class="sm-reset" onclick="smReset('+mi+')">Recomeçar</button>';
+  smBox.appendChild(card);
+});
+
+window.smPick=function(btn,mi){
+  var card=document.getElementById('sm-'+mi);
+  var opts=card.querySelectorAll('.sm-pick-opt');
+  var m=SM[mi];
+  var picked=btn.dataset.tool;
+  var isRight=m.tool===picked;
+  opts.forEach(function(b){
+    b.setAttribute('disabled','');
+    if(b.dataset.tool===m.tool)b.classList.add('right');
+    else b.classList.add('dim');
+  });
+  var res=document.getElementById('sm-pr-'+mi);
+  res.textContent=m.toolWhy;
+  res.className='sm-pick-result show';
+  res.style.color=isRight?'var(--neon-green)':'#FF4D8F';
+  document.getElementById('sm-steps-'+mi).classList.add('unlocked');
+};
+
+window.smTap=function(mi,si){
+  var card=document.getElementById('sm-'+mi);
+  var steps=card.querySelectorAll('.sm-step');
+  var step=steps[si];
+  if(step.classList.contains('locked'))return;
+  if(step.classList.contains('done'))return;
+  step.classList.remove('active');
+  step.classList.add('done');
+  var sent=document.getElementById('sm-sent-'+mi);
+  sent.innerHTML=SM[mi].steps[si].result;
+  if(si===SM[mi].steps.length-1){sent.classList.add('done')}
+  if(si+1<steps.length){
+    steps[si+1].classList.remove('locked');
+    steps[si+1].classList.add('active');
+  }
+};
+
+window.smReset=function(mi){
+  var card=document.getElementById('sm-'+mi);
+  var sent=document.getElementById('sm-sent-'+mi);
+  sent.innerHTML=SM[mi].original;
+  sent.classList.remove('done');
+  card.querySelectorAll('.sm-step').forEach(function(s,i){
+    s.classList.remove('done','active','locked');
+    if(i===0)s.classList.add('active');
+    else s.classList.add('locked');
+  });
+  card.querySelectorAll('.sm-pick-opt').forEach(function(b){
+    b.removeAttribute('disabled');b.classList.remove('right','dim');
+  });
+  var res=document.getElementById('sm-pr-'+mi);
+  res.className='sm-pick-result';res.textContent='';
+  document.getElementById('sm-steps-'+mi).classList.remove('unlocked');
+};
+})();
+</script>
+
+<script>
+(function(){
+var TR=[
+  {num:1,fam:"F1",verb:"want",
+   pt:"Eu <b>quero que você <span class='tip' tabindex='0'>confira<span class='tt'>check</span></span></b> o <span class='tip' tabindex='0'>número do pedido<span class='tt'>order number</span></span>.",
+   accept:["want you to check", "want you to confirm", "want you to double-check"],
+   model:"I want <span class=\"obj\">you</span> to check the order number."},
+  {num:2,fam:"F2",verb:"let",
+   pt:"<b>Deixa eu <span class='tip' tabindex='0'>verificar<span class='tt'>check</span></span></b> o status do seu pedido.",
+   accept:["let me check", "let me look"],
+   model:"Let <span class=\"obj\">me</span> check the status of your order."},
+  {num:3,fam:"F3",verb:"suggest",
+   pt:"Eu <b>sugiro que você <span class='tip' tabindex='0'>recuse<span class='tt'>refuse</span></span></b> a <span class='tip' tabindex='0'>entrega<span class='tt'>delivery</span></span>.",
+   accept:["suggest that you refuse", "suggest you refuse", "suggest refusing"],
+   model:"I suggest that <span class=\"obj\">you</span> refuse the delivery."},
+  {num:4,fam:"F1",verb:"ask",
+   pt:"Você pode <b>pedir pro Marcos <span class='tip' tabindex='0'>mandar<span class='tt'>send</span></span></b> a <span class='tip' tabindex='0'>nota fiscal<span class='tt'>invoice</span></span>?",
+   accept:["ask marcos to send", "ask him to send"],
+   model:"Can you ask <span class=\"obj\">Marcos</span> to send the invoice?"},
+  {num:5,fam:"F2",verb:"make",
+   pt:"O atraso <b>fez o cliente <span class='tip' tabindex='0'>perder<span class='tt'>miss</span></span></b> um <span class='tip' tabindex='0'>prazo<span class='tt'>deadline</span></span>.",
+   accept:["made the client miss", "made them miss", "made him miss"],
+   model:"The delay made <span class=\"obj\">the client</span> miss a deadline."},
+  {num:6,fam:"F1",verb:"need",
+   pt:"<b>Precisamos que o cliente <span class='tip' tabindex='0'>assine<span class='tt'>sign</span></span></b> o <span class='tip' tabindex='0'>comprovante de entrega<span class='tt'>delivery receipt</span></span>.",
+   accept:["need the client to sign", "need them to sign", "need him to sign", "need marcos to sign"],
+   model:"We need <span class=\"obj\">the client</span> to sign the delivery receipt."},
+  {num:7,fam:"F3",verb:"recommend",
+   pt:"O Diego <b>recomendou que a gente <span class='tip' tabindex='0'>oferecesse<span class='tt'>offer</span></span></b> um <span class='tip' tabindex='0'>desconto<span class='tt'>discount</span></span>.",
+   accept:["recommended that we offer", "recommended we offer", "recommended offering"],
+   model:"Diego recommended that <span class=\"obj\">we</span> offer a discount."},
+  {num:8,fam:"F1",verb:"tell",
+   pt:"Eles <b>disseram pra ela <span class='tip' tabindex='0'>esperar<span class='tt'>wait for</span></span></b> o <span class='tip' tabindex='0'>técnico<span class='tt'>technician</span></span>.",
+   accept:["told her to wait"],
+   model:"They told <span class=\"obj\">her</span> to wait for the technician."},
+  {num:9,fam:"F2",verb:"have",
+   pt:"Vou <b>pedir pro <span class='tip' tabindex='0'>depósito<span class='tt'>warehouse</span></span> <span class='tip' tabindex='0'>reenviar<span class='tt'>resend</span></span></b> o pedido amanhã.",
+   accept:["have the warehouse resend", "have the warehouse send", "have them resend", "have them send"],
+   model:"I'll have <span class=\"obj\">the warehouse</span> resend the order tomorrow."},
+  {num:10,fam:"F1",verb:"advise",
+   pt:"A gente <b><span class='tip' tabindex='0'>aconselhou<span class='tt'>advised</span></span> ele a não <span class='tip' tabindex='0'>usar<span class='tt'>use</span></span></b> os tambores <span class='tip' tabindex='0'>vazando<span class='tt'>leaking</span></span>.",
+   accept:["advised him not to use", "advised marcos not to use"],
+   model:"We advised <span class=\"obj\">him</span> not to use the leaking drums."},
+  {num:11,fam:"F1",verb:"expect",
+   pt:"<b>Esperamos que a <span class='tip' tabindex='0'>transportadora<span class='tt'>carrier</span></span> <span class='tip' tabindex='0'>entregue<span class='tt'>deliver</span></span></b> até sexta.",
+   accept:["expect the carrier to deliver", "expect them to deliver"],
+   model:"We expect <span class=\"obj\">the carrier</span> to deliver by Friday."},
+  {num:12,fam:"F1",verb:"convince",
+   pt:"A Renata <b><span class='tip' tabindex='0'>convenceu<span class='tt'>convinced</span></span> ele a <span class='tip' tabindex='0'>esperar<span class='tt'>wait</span></span></b> mais um dia.",
+   accept:["convinced him to wait", "convinced marcos to wait"],
+   model:"Renata convinced <span class=\"obj\">him</span> to wait one more day."},
+  {num:13,fam:"F1",verb:"remind",
+   pt:"<b><span class='tip' tabindex='0'>Lembra<span class='tt'>Remind</span></span> ele de <span class='tip' tabindex='0'>mandar<span class='tt'>send</span></span></b> as fotos hoje.",
+   accept:["remind him to send"],
+   model:"Remind <span class=\"obj\">him</span> to send the photos today."},
+  {num:14,fam:"F3",verb:"insist",
+   pt:"O cliente <b><span class='tip' tabindex='0'>insistiu<span class='tt'>insisted</span></span> que a Altiva <span class='tip' tabindex='0'>pagasse<span class='tt'>pay for</span></span></b> o <span class='tip' tabindex='0'>frete<span class='tt'>freight</span></span>.",
+   accept:["insisted that altiva pay", "insisted altiva pay", "insisted that altiva cover", "insisted altiva cover"],
+   model:"The client insisted that <span class=\"obj\">Altiva</span> pay for the freight."},
+  {num:15,fam:"F1",verb:"would like",
+   pt:"Eu <b>gostaria que você <span class='tip' tabindex='0'>confirmasse<span class='tt'>confirm</span></span></b> o endereço de entrega.",
+   accept:["would like you to confirm", "like you to confirm"],
+   model:"I would like <span class=\"obj\">you</span> to confirm the delivery address."}
+];
+
+var trBox=document.getElementById('trCards');
+TR.forEach(function(t,i){
+  var d=document.createElement('div');d.className='tr-card';
+  d.innerHTML='<div class="tr-head"><span class="tr-num">'+String(t.num).padStart(2,'0')+'</span><span class="tr-fam">'+t.fam+'</span></div>'+
+    '<div class="tr-pt">'+t.pt+'</div>'+
+    '<div class="tr-verb">Verb: '+t.verb+'</div>'+
+    '<div class="tr-entry"><input class="tr-input" type="text" placeholder="Write in English..." autocomplete="off" spellcheck="false">'+
+    '<button class="tr-btn" onclick="trCheck(this,'+i+')">Check</button></div>'+
+    '<div class="tr-fb"></div>'+
+    '<button class="tr-reveal" onclick="trReveal(this,'+i+')">Show model answer</button>'+
+    '<div class="tr-model" id="tr-m-'+i+'"><div class="tr-model-label">Model</div>'+
+    '<div class="tr-model-text">'+t.model+'</div></div>';
+  trBox.appendChild(d);
+});
+
+window.trCheck=function(btn,i){
+  vpCheck('tr', i, btn.closest('.tr-card'), '.tr-input', '.tr-fb', 'tr-m-'+i, '.tr-reveal', TR[i].fam);
+};
+
+window.trReveal=function(btn,i){
+  var model=document.getElementById('tr-m-'+i);
+  var open=model.classList.toggle('show');
+  btn.textContent=open?'Hide model answer':'Show model answer';
+};
+})();
+</script>
+<script>
+function openNav(){document.getElementById('navOverlay').classList.add('open');document.getElementById('navSidebar').classList.add('open');}
+function closeNav(){document.getElementById('navOverlay').classList.remove('open');document.getElementById('navSidebar').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav();});
+</script>
+<script>
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  var t=e.target; if(!t.classList)return;
+  if(t.classList.contains('ex-input')){e.preventDefault();t.closest('.ex-card').querySelector('.ex-btn').click();}
+  if(t.classList.contains('tr-input')){e.preventDefault();t.closest('.tr-card').querySelector('.tr-btn').click();}
+});
+document.addEventListener('input',function(e){
+  var t=e.target; if(t.classList&&(t.classList.contains('ex-input')||t.classList.contains('tr-input'))){t.classList.remove('good','bad');}
+});
+</script>
+<script>
+(function(){
+  var PN = [["I need ", "Marcos", " to sign the receipt.", ["him", "he", "his", "them"], "him", "Depois de <b>need</b>, objeto: Marcos &rarr; <b>him</b>."], ["Let ", "Renata", " check the tracking number.", ["her", "she", "hers", "him"], "her", "Depois de <b>let</b>, objeto: Renata &rarr; <b>her</b>."], ["Diego told ", "Renata and me", " to wait.", ["us", "we", "our", "them"], "us", "Renata + eu = nós. Como objeto: <b>us</b>."], ["We expect ", "the drivers", " to arrive at 10.", ["them", "they", "their", "it"], "them", "Os motoristas, no plural. Objeto: <b>them</b>."], ["I recommend that ", "Marcos", " keep the drums.", ["he", "him", "his", "it"], "he", "Family 3: depois do <b>that</b> vem o sujeito. Marcos &rarr; <b>he</b>."], ["Can you remind ", "Diego", " to approve the credit?", ["him", "he", "his", "her"], "him", "Depois de <b>remind</b>, objeto: Diego &rarr; <b>him</b>."], ["Marcos asked ", "Renata", " to call him back.", ["her", "she", "hers", "him"], "her", "Depois de <b>ask</b>, objeto: Renata &rarr; <b>her</b>."], ["Diego insisted that ", "Renata and I", " send a new batch.", ["we", "us", "our", "they"], "we", "Family 3: depois do <b>that</b>, sujeito. Renata + eu &rarr; <b>we</b>."], ["We warned ", "the drivers", " not to open the drums.", ["them", "they", "their", "us"], "them", "Depois de <b>warn</b>, objeto: os motoristas &rarr; <b>them</b>."], ["Let ", "Renata and me", " check the drums first.", ["us", "we", "our", "them"], "us", "Depois de <b>let</b>, objeto: Renata + eu &rarr; <b>us</b>. Por isso se diz <b>let's</b>."]];
+  var box = document.getElementById('pnList'); if (!box) return;
+  var done = 0;
+  function sh(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  PN.forEach(function(it, i){
+    var row = document.createElement('div'); row.className = 'pn-row';
+    row.innerHTML = '<span class="pn-n">' + String(i + 1).padStart(2, '0') + '</span><div><div class="pn-sent">' + it[0] +
+      '<span class="pn-noun">' + it[1] + '</span>' + it[2] + '</div><div class="pn-opts"></div><div class="pn-why"></div></div>';
+    var opts = row.querySelector('.pn-opts'), why = row.querySelector('.pn-why'), sent = row.querySelector('.pn-sent');
+    sh(it[3]).forEach(function(o){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'pn-opt'; b.textContent = o;
+      b.addEventListener('click', function(){
+        if (o === it[4]){
+          opts.querySelectorAll('button').forEach(function(x){ x.disabled = true; });
+          b.classList.add('right');
+          var start = it[0] === '' ? o.charAt(0).toUpperCase() + o.slice(1) : o;
+          sent.innerHTML = it[0] + '<span class="pn-pro">' + start + '</span>' + it[2];
+          why.className = 'pn-why yes'; why.innerHTML = it[5];
+          done++; document.getElementById('pnScore').textContent = done + ' / ' + PN.length;
+        } else {
+          b.classList.remove('wrong'); void b.offsetWidth; b.classList.add('wrong');
+          why.className = 'pn-why no';
+          why.innerHTML = /that $/.test(it[0]) ? 'Olhe o <b>that</b>: depois dele vem sujeito.' :
+            (['he','she','we','they','i'].indexOf(o) !== -1 ? '<b>' + o + '</b> é sujeito. Depois do verbo vai o objeto.' :
+             (['his','hers','our','their','its'].indexOf(o) !== -1 ? '<b>' + o + '</b> é possessivo, mostra de quem é. Aqui a pessoa faz a ação.' : 'Confira quem é: uma pessoa, várias, você incluído?'));
+        }
+      });
+      opts.appendChild(b);
+    });
+    box.appendChild(row);
+  });
+})();
+</script>
+</body>
+</html>
