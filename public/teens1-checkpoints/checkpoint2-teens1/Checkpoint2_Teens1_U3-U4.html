@@ -305,6 +305,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     else {if(window.speechSynthesis) speechSynthesis.cancel(); var c=cur; cur=-1; a=aud[c]; escolher(k);}
   }
   trks.forEach(function(b,i){b.addEventListener('click',function(){modo(i);});});
+  if(trks[0].hidden) modo(1);   // versão sem a primeira faixa: começa na segunda
   // ---------- guia de aplicação ----------
   var fab=document.getElementById('fab'),guia=document.getElementById('guia');
   function guiaOn(on){guia.hidden=!on;fab.setAttribute('aria-expanded',on?'true':'false');}
