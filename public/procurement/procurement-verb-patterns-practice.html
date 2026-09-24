@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verb Patterns · Conversation Practice · EIC B1+</title>
+<style>
+:root{
+  --ink:#0A1628;--paper:#F7F8FB;--accent:#1034A6;
+  --mid:#6B7280;--surface:#EEF0F4;--border:#DDE1E8;
+  --dark:#071020;--neon:#C8FF00;
+  --f1:#1034A6;--f2:#0D7A8A;--f3:#7C3AED;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:Inter,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--neon);color:var(--ink)}
+.pw{max-width:960px;margin:0 auto;padding:0 56px}
+@media(max-width:820px){.pw{padding:0 22px}}
+
+.mast{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0 16px;border-bottom:1.5px solid var(--ink);flex-wrap:wrap;row-gap:10px}
+.mast-left{display:flex;align-items:center;gap:12px}
+.mast-logo{font-size:11px;font-weight:900;letter-spacing:.12em}
+.mast-logo .dot{color:var(--accent)}
+.mast-sep{width:1.5px;height:18px;background:var(--border)}
+.mast-mod{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--mid)}
+.mast-nav{display:flex;gap:4px;flex-wrap:wrap}
+.mast-nav a{font-size:11px;font-weight:600;color:var(--mid);text-decoration:none;padding:5px 10px;border-radius:100px;transition:all .12s}
+.mast-nav a:hover{color:var(--ink);background:var(--surface)}
+.badge{font-size:10px;font-weight:800;letter-spacing:.08em;border:1.5px solid var(--ink);padding:4px 10px;white-space:nowrap}
+
+.hero{padding:56px 0 20px}
+.hero h1{font-size:clamp(34px,6vw,52px);font-weight:900;letter-spacing:-.035em;line-height:.95;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.deck{margin-top:16px;max-width:52ch;font-size:15.5px;color:var(--mid);font-weight:500;line-height:1.65}
+
+.how{padding:20px 0 36px}
+.how-card{background:var(--surface);padding:16px 20px;border-radius:12px;border-left:3px solid var(--accent)}
+.how-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.how-text{font-size:13.5px;line-height:1.65}
+
+.tabs{display:flex;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:28px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:Inter,sans-serif;font-size:12px;font-weight:700;color:var(--mid);background:none;border:none;padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all .12s;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--ink);font-weight:800;border-bottom-color:var(--accent)}
+.panel{display:none}
+.panel.on{display:block}
+
+.prompt{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:10px;transition:border-color .15s}
+.prompt:hover{border-color:var(--accent)}
+.prompt-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.prompt-num{font-size:11px;font-weight:800;color:var(--mid)}
+.prompt-fam{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:100px}
+.prompt-fam.f1{background:rgba(16,52,166,.08);color:var(--f1)}
+.prompt-fam.f2{background:rgba(13,122,138,.08);color:var(--f2)}
+.prompt-fam.f3{background:rgba(124,58,237,.08);color:var(--f3)}
+.prompt-q{font-size:18px;font-weight:800;letter-spacing:-.02em;line-height:1.4;margin-bottom:8px}
+.prompt-q b{color:var(--accent)}
+.prompt-pt{font-size:12px;color:var(--mid)}
+.prompt-pt-toggle{cursor:pointer;font-weight:700;color:var(--border);user-select:none}
+.prompt-pt-toggle:hover{color:var(--mid)}
+.prompt-pt-text{display:none;margin-top:4px;font-style:italic}
+.prompt-pt-text.show{display:block}
+.prompt-follow{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.prompt-follow-label{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-bottom:5px}
+.prompt-follow-text{font-size:13px;color:var(--mid);line-height:1.55}
+
+footer{padding:28px 0 48px;font-size:12px;color:var(--mid)}
+
+.dl-btn{display:inline-flex;align-items:center;gap:6px;font-family:Inter,sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:.05em;background:var(--accent);color:#fff;
+  border:none;border-radius:20px;padding:7px 14px;cursor:pointer;text-decoration:none;
+  transition:background .15s;flex:none}
+.dl-btn:hover{background:var(--ink)}
+
+</style>
+</head>
+<body>
+
+<div class="pw">
+<header class="mast">
+  <div class="mast-left">
+    <span class="mast-logo">E<span class="dot">.</span>I<span class="dot">.</span>C</span>
+    <span class="mast-sep"></span>
+    <span class="mast-mod">Althea Industrial &middot; Procurement</span>
+  </div>
+  <nav class="mast-nav">
+    <a href="./procurement-grammar-three.html">Grammar</a>
+    <a href="./procurement-story-search.html">Story Search</a>
+    <a href="./coatex-supply-terms.html">Supply Terms</a>
+    <a href="./procurement-dependent-prepositions.html">Prepositions</a>
+    <a href="./procurement-verb-patterns.html">Verb Patterns</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a class="dl-btn" id="dlPdf" href="#">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      PDF
+    </a>
+    <span class="badge">B1+ &middot; Conversation Practice</span>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Ask it <em>right</em></h1>
+  <p class="deck">Questions you can use in any conversation. Every question uses the verb patterns from the lesson. Pick a few, practice with your teacher, and make the structure automatic.</p>
+</div>
+
+<div class="how">
+  <div class="how-card">
+    <div class="how-label">How to use this page</div>
+    <p class="how-text">Pick 3 questions from any tab. Answer out loud — full sentence. Your teacher listens and follows up. The goal is to produce the pattern naturally, without stopping to think about the grammar. If you need the Portuguese, tap "Show in Portuguese" below each question.</p>
+  </div>
+</div>
+</div>
+
+<div class="pw">
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
+</div>
+
+<footer class="pw">EIC . Escola de Idiomas e Cultura &middot; Procurement &middot; Verb Patterns Practice</footer>
+
+<script>
+var DATA = {
+  "All mixed": [
+    {q:"What do you <b>want</b> your suppliers <b>to guarantee</b> before you sign a contract?",
+     pt:"O que você quer que seus fornecedores garantam antes de você assinar um contrato?",
+     fam:"f1",follow:"Follow up: Has a supplier ever failed to do that? What did you ask them to do?"},
+    {q:"What <b>makes you</b> trust a supplier right away?",
+     pt:"O que te faz confiar em um fornecedor imediatamente?",
+     fam:"f2",follow:"Ask: Does your company let you choose suppliers on your own, or does someone else decide?"},
+    {q:"Would you <b>recommend that</b> your company review all supplier contracts this year?",
+     pt:"Você recomendaria que sua empresa revisasse todos os contratos com fornecedores este ano?",
+     fam:"f3",follow:"Ask: Would you suggest that a lawyer do it, or the procurement team?"},
+    {q:"Has a manager ever <b>told you to</b> approve something you weren't comfortable with?",
+     pt:"Algum gestor já te mandou aprovar algo com que você não se sentia confortável?",
+     fam:"f1",follow:"Follow up: Did you want them to explain the decision? What did you do?"},
+    {q:"Does your company <b>let</b> procurement teams <b>negotiate</b> directly with suppliers?",
+     pt:"Sua empresa deixa o time de compras negociar diretamente com os fornecedores?",
+     fam:"f2",follow:"Ask: Would you prefer to have more autonomy, or would you want a manager to stay involved?"},
+    {q:"Would you <b>insist that</b> a supplier issue a credit note before you release the next payment?",
+     pt:"Você insistiria que um fornecedor emitisse uma nota de crédito antes de você liberar o próximo pagamento?",
+     fam:"f3",follow:"Follow up: Or would you let them make good on the next delivery instead?"}
+  ],
+  "Family 1": [
+    {q:"Has your manager ever <b>asked you to</b> approve a purchase you thought was too expensive?",
+     pt:"Seu gestor já te pediu para aprovar uma compra que você achava cara demais?",
+     fam:"f1",follow:"Ask: What did they want you to consider?"},
+    {q:"Who <b>taught you to</b> read a supply contract carefully?",
+     pt:"Quem te ensinou a ler um contrato de fornecimento com atenção?",
+     fam:"f1",follow:"Follow up: Did they advise you not to sign anything without checking the payment terms?"},
+    {q:"Has anyone ever <b>convinced you to</b> change your preferred supplier?",
+     pt:"Alguém já te convenceu a trocar de fornecedor preferido?",
+     fam:"f1",follow:"Ask: What did they tell you to look for in the new one?"},
+    {q:"Do you <b>expect</b> suppliers <b>to respond</b> to emails within 24 hours?",
+     pt:"Você espera que fornecedores respondam emails em até 24 horas?",
+     fam:"f1",follow:"Follow up: Has anyone ever reminded you to follow up when they didn't?"},
+    {q:"Would you <b>allow</b> a junior colleague <b>to sign</b> a delivery receipt on your behalf?",
+     pt:"Você permitiria que um colega júnior assinasse um comprovante de entrega em seu nome?",
+     fam:"f1",follow:"Ask: What would you advise them to check before signing?"},
+    {q:"Has a supplier ever <b>asked you to</b> pay before the invoice was due?",
+     pt:"Algum fornecedor já te pediu para pagar antes do vencimento da nota fiscal?",
+     fam:"f1",follow:"Follow up: Did you want them to offer a discount in return?"},
+    {q:"Do you <b>need</b> someone <b>to remind</b> you to follow up on open purchase orders?",
+     pt:"Você precisa que alguém te lembre de acompanhar pedidos de compra em aberto?",
+     fam:"f1",follow:"Ask: Or do you prefer the system to do it automatically?"},
+    {q:"Would you <b>like</b> your company <b>to invest</b> in a better procurement system?",
+     pt:"Você gostaria que sua empresa investisse em um sistema de compras melhor?",
+     fam:"f1",follow:"Ask: What would you want it to do that the current one doesn't?"},
+    {q:"Has a contract ever <b>required you to</b> use a specific lab for quality testing?",
+     pt:"Algum contrato já exigiu que você usasse um laboratório específico para testes de qualidade?",
+     fam:"f1",follow:"Follow up: Did you want them to cover the cost, or was that on you?"},
+    {q:"Would you <b>encourage</b> a new colleague <b>to push back</b> when a supplier misses a deadline?",
+     pt:"Você encorajaria um colega novo a contestar quando um fornecedor perde um prazo?",
+     fam:"f1",follow:"Ask: What would you tell them to say?"}
+  ],
+  "Family 2": [
+    {q:"What <b>makes</b> a supplier relationship <b>work</b> long term?",
+     pt:"O que faz uma relação com fornecedor funcionar a longo prazo?",
+     fam:"f2",follow:"Follow up: Has a bad relationship ever made you switch suppliers?"},
+    {q:"Would you <b>let</b> your team <b>approve</b> purchases up to a certain amount without you?",
+     pt:"Você deixaria sua equipe aprovar compras até um certo valor sem você?",
+     fam:"f2",follow:"Ask: Would you have them report every purchase, or just the big ones?"},
+    {q:"Has a short delivery ever <b>made you</b> stop a production line?",
+     pt:"Uma entrega incompleta já te fez parar uma linha de produção?",
+     fam:"f2",follow:"Ask: Did your manager let you hold the supplier's next payment?"},
+    {q:"Do you <b>let yourself</b> <b>push back</b> when a supplier changes a price without notice?",
+     pt:"Você se permite contestar quando um fornecedor muda um preço sem aviso?",
+     fam:"f2",follow:"Follow up: Has a dispute ever made you want to find a backup supplier?"},
+    {q:"Would you <b>have</b> a third-party lab <b>test</b> every batch before accepting delivery?",
+     pt:"Você mandaria um laboratório terceirizado testar cada lote antes de aceitar a entrega?",
+     fam:"f2",follow:"Ask: Would you let the supplier choose the lab, or would you insist on your own?"},
+    {q:"What <b>makes you</b> decide to escalate a supplier issue to your legal team?",
+     pt:"O que te faz decidir escalar um problema com fornecedor para o jurídico?",
+     fam:"f2",follow:"Follow up: Has a supplier ever made you regret not escalating sooner?"}
+  ],
+  "Family 3": [
+    {q:"What would you <b>recommend that</b> a new procurement team do in their first 90 days?",
+     pt:"O que você recomendaria que um novo time de compras fizesse nos primeiros 90 dias?",
+     fam:"f3",follow:"Follow up: Would you suggest that they audit all current supplier contracts first?"},
+    {q:"Would you <b>suggest that</b> all purchase orders above a certain value require two approvals?",
+     pt:"Você sugeriria que todos os pedidos de compra acima de um certo valor exigissem duas aprovações?",
+     fam:"f3",follow:"Ask: How much? Would you insist that the CFO be one of them?"},
+    {q:"Has a supplier ever <b>demanded that</b> you change your standard payment terms?",
+     pt:"Algum fornecedor já exigiu que você mudasse suas condições de pagamento padrão?",
+     fam:"f3",follow:"Ask: Did you agree, or did you suggest that they review their pricing instead?"},
+    {q:"Would you <b>propose that</b> your company qualify at least two suppliers for every critical material?",
+     pt:"Você proporia que sua empresa qualificasse pelo menos dois fornecedores para cada material crítico?",
+     fam:"f3",follow:"Follow up: Would you recommend that one always be a local supplier?"},
+    {q:"Do you <b>insist that</b> suppliers send a lab report with every delivery of chemical products?",
+     pt:"Você insiste que fornecedores enviem um laudo de laboratório a cada entrega de produtos químicos?",
+     fam:"f3",follow:"Ask: Or would you suggest that spot checks are enough?"}
+  ]
+};
+
+var tabs = document.getElementById('tabs');
+var panels = document.getElementById('panels');
+var cats = Object.keys(DATA);
+
+cats.forEach(function(cat, ci){
+  var tab = document.createElement('button');
+  tab.className = 'tab' + (ci === 0 ? ' on' : '');
+  tab.textContent = cat;
+  tab.onclick = function(){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+    tab.classList.add('on');
+    document.getElementById('pan-' + ci).classList.add('on');
+  };
+  tabs.appendChild(tab);
+
+  var panel = document.createElement('div');
+  panel.className = 'panel' + (ci === 0 ? ' on' : '');
+  panel.id = 'pan-' + ci;
+
+  DATA[cat].forEach(function(item, qi){
+    var card = document.createElement('div');
+    card.className = 'prompt';
+    var famLabel = item.fam === 'f1' ? 'Family 1' : item.fam === 'f2' ? 'Family 2' : 'Family 3';
+    card.innerHTML =
+      '<div class="prompt-head">' +
+        '<span class="prompt-num">' + String(qi + 1).padStart(2, '0') + '</span>' +
+        '<span class="prompt-fam ' + item.fam + '">' + famLabel + '</span>' +
+      '</div>' +
+      '<div class="prompt-q">' + item.q + '</div>' +
+      '<div class="prompt-pt">' +
+        '<span class="prompt-pt-toggle" onclick="' +
+          'this.nextElementSibling.classList.toggle(\'show\');' +
+          'this.textContent=this.nextElementSibling.classList.contains(\'show\')?' +
+          '\'▲ Hide\':\'▼ Show in Portuguese\'' +
+        '">▼ Show in Portuguese</span>' +
+        '<div class="prompt-pt-text">' + item.pt + '</div>' +
+      '</div>' +
+      '<div class="prompt-follow">' +
+        '<div class="prompt-follow-label">Keep going</div>' +
+        '<div class="prompt-follow-text">' + item.follow + '</div>' +
+      '</div>';
+    panel.appendChild(card);
+  });
+
+  panels.appendChild(panel);
+});
+
+(function(){
+  var btn = document.getElementById('dlPdf');
+  if(btn){
+    btn.href = "data:application/pdf;base64,JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyAxMSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxMCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovQ29udGVudHMgMTIgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTAgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjcgMCBvYmoKPDwKL0NvbnRlbnRzIDEzIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDEwIDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgMTAgMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9BdXRob3IgKFwoYW5vbnltb3VzXCkpIC9DcmVhdGlvbkRhdGUgKEQ6MjAyNjA5MjQxNzU5MTIrMDAnMDAnKSAvQ3JlYXRvciAoXCh1bnNwZWNpZmllZFwpKSAvS2V5d29yZHMgKCkgL01vZERhdGUgKEQ6MjAyNjA5MjQxNzU5MTIrMDAnMDAnKSAvUHJvZHVjZXIgKFJlcG9ydExhYiBQREYgTGlicmFyeSAtIFwob3BlbnNvdXJjZVwpKSAKICAvU3ViamVjdCAoXCh1bnNwZWNpZmllZFwpKSAvVGl0bGUgKFZlcmIgUGF0dGVybnMgXDI2NyBDb252ZXJzYXRpb24gUHJhY3RpY2UgXDI2NyBFSUMgQjErKSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjEwIDAgb2JqCjw8Ci9Db3VudCAzIC9LaWRzIFsgNSAwIFIgNiAwIFIgNyAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjExIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE2OTUKPj4Kc3RyZWFtCkdiISNcaGMmUG4mOldmR2ZMT1liXHM/biZhJjw1az5ZRjVpMyhVVUUkbm9JNU0pZWYyYVlrLj1JOTFULlMuSWAkTDFDWFRgKy5LNFgpSWFdSU0pWXRzJTJmJms1X0Q5cSI1ajQ2PUckSmAsZSYuST1nX01ra2liSixkN0FaSilCY2VqTFpRcFNlbm4hIWYrQzRLN0tCRShXYiNjQjI2TjgpPzp1bCNtbC9jJWBeTlZncWZoYy5WVmlnXCd0cHJVPUgicVY1UjpvaTZtRms4bjZOYTohWTAwTV9ga09KNC43V1AzUTs6K0NTL1w8R2ZaTTBSSj8nY1NociJFdFVLdEgjMUlxVjNqbXVLLDs4WydPUVA1cHRRMShTNSxVN1loS1NxMU1dNnIpaiJfRCZhQC1tbTJPZlJqJyM6TihOYDRObWRcUW9sNGJqSEIhXmFQcT1QWDNRV0Z1ZV5UWE4sVnJ0RFtgW1VfZjE3QCpDKSJGL1EwUTUiMWtWMCRQRztzWmsrak42JWoybzgjTDNcMiY0MWRKbVRNP2k/WmNUUV5qSG5EUCNCQl1yVDgrWjNBSiQ0UDMsW3MvSjpnNSErOFFES3JcdSkzTFNsQklLVF5zKCJxS2dZTkBCTUdgbF5vYlUrVGFMLSFjdV5UWz1tU0R1IWJcSlRhIkxjTjZFMi05V2E8MmI1R1FsJFFAQSQyb2NwUWBiUiZMRTpjOzI/WEFJY2VVIylkZFxuWEhRMSVJQmxtVCFSN2pxVjRGWE1kYDBNLlNnT05DLXFSZjZgUHUjaFlYdC5TOFNObWtISUBYcUdAT3RFcmRYZVNLWFgkJHBnNDM5aFkrU3JoYUFPPFdcPEU+MCFcKis0SSc3KnFxPHIsUyNzV042NURjZ1xDaVREREBKKG9dbkZfc3VqTTdNbSM/dGYiRz9LaC5BSCRpRXE8WlFwQ0ZkXEJUQEA2PFxRdDMjY0tUQjJERFVsdFg1akJIXSpCM1RHWXIwR2VVPUlHLlhkUCJMWEljKDRTL2lPTiotJ00xXll0QCYiWDJdR01gVV8/aiEsQ0dxa0snQUJkdEVXJ0BQQjFtT0k6S2wrWVY3LDElbGhkZzNiPkxaJjwpI1lqSzVaKyJxK1xMRkovOUhtRExGOUgqQyMtYVQvOlNAM1EmK3NLWUdVZihuYG1xI2FHc1o3cCU+Sj9gdVczPGs0SlMzbSxibzxEI3E0NSwxZU09Pz45UVFcJy0oSUExaERVZWtjVnMmMD01MChvVktWWi1FYGkoIy9WQmJYR11RIUNCbGNTOXA6cjtaJmdOa15fPk49VDlDOUJbNCskbUYrNzFeJj8yWUcpJCpXYT4vKVE3YV5zQiddMkhbWTZ0ZilCVUgnY08tKFZQbnMiOG9BQyJAJVdqOlgwKDVdRFhpY3RaJl1TUSExaTtTI21WM1xaJ0w/Ni5kTSRxRCMtLGpvQUxdYVsuSFlvIis7cW4xVyxtc3VwT2lYTCU1Pjctck1NTGJbbV1pJ0BOaUhsZXAtJTllaGplQ0ElLGZLO0A+RWchRCpDOUxDRi5gREs7Si4rVTFFT24lc0FtTD9WNzN0a291LCdfMWtPXDFoMj5vZ1VXbTVnY29kUlo/XmxBMzY+Tz1Nb0VNKTgnQFY2UHFAMEdTaWVkVSo+Vz9FTCwoOmVMOHQiKDk6RFFTLU10MT0jSkwocTNHLiwlSjQhOFQzdCxcTGYqc1s/YU1LIkgwcWlGXDlOYyVvZkxtX1haNGBiV0M2OiFYSzBsXFBbYT85XlFIXDRxYlBoJW83YFMlOSQ5MjdIMSgxUWIiKHBKN0MnZk82M3UiSy0xUjtIJCY0VlRqQVcwJDtcJ00ndD5wbjoiSTJbalJySmQ1Ql8oXkMsWlxCUG1Qaig1RVJ1NTtSQW08JjxYXHMhdDo2bkkrYHU3OnFQailHKCglKXQtP0hiMys7Q3A6a1pGZmUsIjVWKFFhUjJSJkxuXWRaJC88QSYjV1wuME5uQy1aUDhfLSNhZ25ZIy4laCM9VS1xRyo/ZCRqMGckXj0+cCR1XjVVaWE+cT9FXlAnTydwNiFaL1kjalxdK0kjLVozalBBKEY0PkdNQz9VJGAhViU5IjJQN0NjRjojYCVyIzE9KF4sKkZmIkEjZ1tmNi4+Ki42RGMzPVI+TVo7cW9KPGIkSjptWiNbKyI1JzRmUnBwR0hXLVpUJEcxSGAxa0lPJVZnQ1FGKzxLOydkL1tUY0UmN1BicnJSVk5hI2p+PmVuZHN0cmVhbQplbmRvYmoKMTIgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTcyOQo+PgpzdHJlYW0KR2F1SE1nTiklLCY6TzpTbHNuYm5jaWgvTTteWTsnMlAic0xadF9YbW5JJWFmLFdJJ2MhMkxYdWxhcVtYTDNEWS9lPEk+XCckXFUvRU5qKiUwJCMwMj9malMyKVc4WE5TQS9bTzMzNSRSVSosJzw+Qm1QOnFmSSJrUC5EJVNFJ0IoW1NxSXNhOzNaZlQlUkQpXyNtUCMtKmFmNj1ZbUBXcGohYjZMWWAoOz1lYVZvLVJQZT9rWSFeWj9cRSQzZzA2TT5xYGxfJ0AidGtpYzNgWSw7ZF01O1slZ1RQaVElVGUvOXJXNGQvS2hebVgwK0RQNCc1ZSlsP2heR0ddOHJSPlhbVC5pInBFbF5kZXBKVl5bKVRET01oOlFJJ2AyUlAnQnBucFkwbFVzT2I0I0RoIjRWViIqRktGKEdMKF1rYjlTOSJ0ITM2XF02aS5NWSVRZC9yWkU2YVRiZk5FUztWWUFqYjQzMig5R2coYHIlN0FdTCFeVzQkR1ZnQ3VQOlI9J04iXERtLWg2NnBVdT5BS2NsZVdeRmNFc3VrVk8tWDxFJmBlb1xXLD5RK2hnYCJeMmYiQEtVSWNNT2gqW2c2QXNWNUNETVhxWmZsRzdGYEVMSmgkQXIqV21USyE6Y2p1VXVfbW06XkcudWlQcTovPUZBSzdWJygsZV8qVjkyVDZeV0NEMG49Y0M/UTNZWE9kWV5vWjlHT1hfYDEvNWA7SGcyJElGdUVmSHNGOkIyV1MiJS9qYilvKV9XXD1uN3VWJCNcKmk4T0chNUcnZ2k2ayohMyNCPzdxTVxaMFtXLW5vdVNHJ2oyWV5eYyZQQUtVJGROJERxaVF0ckNZUCk1I2U0NFRjIzU3UyxsZSVzXFhrQWBLNWYrRkZgaE5nZzc4Rm9AVj87MFw0MDBlYC4mIUl0JC5JdVFbKzJVSzdkVlg4SFYqOUA7QSNjIT09P2gxS0Q8bUhAJFI0cGNmYmlvNlEqU1dDOF07WigrIXI5VWJiSmMmcXEkVDFZViRGQC9wIlpaYHNVKlpSQjE4N0RJM3Q5KyQ5SkY0KFJpWy9lPXFWZDo1XEtXKGZZT15NRDljUG9rTC0uZXFlTDglQEJXWyJnW2ZQN2kuXC5uLGpCdW5UR1YmLHBpb2A1U2xxVU1FdSh1VCY3PFA+PFxvbXBubFEmXFVdMD5YQEhoRml0OlVHU1hdTS9KLlZXW1hZVkI0Mm9wJS8yX2k1cixBOi1tLmR0P1pcI0c/c3UrJEUrcjFkVkJBPEotKk8rKm10TzAvV19kU1s/ZytvMmg4KjgxKzVwZ2U6OClMXVtacicpZUxqS1Y4c1VtSzhpOFNePF0kKSomNy8sKyolRkVhSCdScV9YKUxgLGtcR1VmNktmXT1WM1wiLm1MRGlHJTJOJlw9N1Q1PWxjdFchSUAzTCpPOVBIPVRjW2hpaSxkVUpmak9qVCVFVWFeTnJPOy5VMWVALW9ZXy0zMWxETDM9R1JlZVBLKnVtbiwkOTEjSHFNNHA/KGMiJiVdUjpBK0Z0Zkg2T2xZXmUtZSJJdFxvNTZTNTkyNEdUSz83WCxEaEk+JnFrY1xbRCs+YGU8Uys4PiNbP3I+ITg1K1JrUlNxUGxEJ2BoTWVMJGBGNloqTkUmQT9iVy8iRXBcSFxDJ0ZgPDReYkdwNyFMIlspaGdlITFaOEBeJTpnL09eQk5TODNeQ0NyZm1EOEZ1QWhNJlQuQkErPUpYNjhXU0lwUzw2MmhCISNvPSo2aFlcTGtsVDhPIlc9MzQwVVA/KmAiRzFGZUZ0LEhpcilyWD9qO0VCaTosKWdUSWYhJiNdIitMU2c5PC0qOztjOiRAVCVHLlJGLzoqQzNaVmRbMy1iYTU3bEhdQGMqLiE2MVRQc0dsb0JuaEFrUS06dVM8SWlpPUpTU0MjW2snRDhMRGtMQFQ2TUYlPjIzImxiWls9JTZrJmRNWHVWUV8lUDVqUFoiLE0mR003LVE2J1dXa14+NCIvWzRNN2QmKGpYZEY6WCgnZmJdK1xIPURsWCJbPEk7cThyNFVrbWdWS2twZy9tMzE8WklPYlheWixBazpOY3E2WT5FWEc4LGhZQFUjTzJbYmw7YjRmaD1qJ2k4PyUrbzZyQEIjVisnaVpKTiNjI2gxc3ImJCcoLUlUQF5aI3VwNiwnSGclcmpvMj08V1JTSDpcJl4lUmwwLD1XRWY4Xz5YQzY1RWtNPUs7cjNYMFxvKTtYUEpzRkA9UGBMI2ZZSTtzOy5mM2RTYiM2YidJTWYhY0RHcjsnSVRyPkQuKCIyTWoyXl1+PmVuZHN0cmVhbQplbmRvYmoKMTMgMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTcxOQo+PgpzdHJlYW0KR2F1STdEZj1BZyZCPFZqO3IjUTZgRGh1cnMoXmMvRzNkTGBtOkxHV08+ak83NDNTdHRUcWw1ZVZyJ2pGUUs/VzlAUDthJyxfUlM6OihRZjtHOWVDVF5XY1okLyMiK3RvXWRHQWBiRGsoKDQlLks1MSYnO2VfTzRpUEx0XzZcRiwmJU11QW1RME1NQm0sOzhWLUpXWCpoIz9Zbi0kRzgyZkdzVlEnPU5WSyouWExWZlJRNWQxRChBPzpjbyRqdEhEQmVRQmM+QUs/LjI6Z25sRmptMVxMSj9Sc3JgRlxlSis3SD0mKCtNMiE6aGwscEZqaVoiP0JkZDEzKGZEK0dZbzY6Zk5IUz5DSVFCSGpJIi8jKD4/YilaRVonV0sqU0BsX0duInIkTmshXGQyODo2TVQlOlRPMi1UaldhMUZsNGBMJmxvZCtfKytBODAiNmdsZERoWFM/LWU5KGcyYk1yK09FaVolRUdtXmB1VSVxakpZZi8xL1w9QSJIKkxZcGBCLWkyY1Q/TzU6UF5wXF8jJlpDblZua1hPPyMnJUdiZDtnYyVlVkhtK0xrMSVQTi0mST1ZZHAwOVUlRishJClyLWtFRW4uMTlNOF5tLlNjQVs+TyQ+ZXVIbWMkOlNLZl8tZylhLzBuJ3VZXDg3SVJrP0I5VWw0J1luOjxma1dnXkNGWVQmcDVAViclQm9eI0Fsa1UqUTNNKylOcEltLlxqXzY2OUJVS1RqLzpgOSYyaCQpT0c4biRKXjw2LWNoSGZBSTAhMSVDMTNiNGxEbz0wRjciVTRvWUtZOktPcVs7LE5dSz81LXUlQFMpJWhbO1gkUWRfNmU2cCgrPFFTO25XIjFmRWp0T0xjI1VfV1BpKkpgV25uXE8mLVtSVWhWPztWMlBTVkheL3AsbjZpTmwuZFAlMixxX3Ata1RATzNXWilwQ05HZj9lJjFlc2g6XHVxWmstUyY2N0M9Kz9uPkQxVVpcSlQiUWQzPVVtNS1HWkkiPmZJS1hBcm0wbSpVJEMwb2ouI09lTDkuI1ZnMzpvQGA5KUNea2xsV2I9QXArWVBjZ0g+MGBxSTprIW1adWAhZCM9KzZIJT5NKHBabTFodV9pbWxYL1AhcSExZVo0byFHUmg+PSx1JmY7I1tuZSgrXFtwN1htb25uXHJBNiNvZmtUcVx0XDluVlRrLW0rVFVVYFcxNmZqYVlwTVMuazZsVURxN2NKYGdMZHMzOl0zc2NJKGNtOD5HWVU6Y1s9IzQiaysuWEVncSNtQlcuQ3RnKk40ZSQ6XjQ0PDRyJVBfUzwxVV4wS3I6aDk7U2xpXis0L2NhTSdJNycxY1Q/Xi4wLTguVlhmKVZIM3Q9a3NCZlw5ZDtDRzVWYyJfSzk5LydNNU1hWEApOTBIVnRCby8tPVVmPlE2WFZaXz5fOUkmKEBjYyhGUCxKXSQ5Km9WQD9GNzhaVS50MlpmXEk5bkRbQlUiPUNHR1YyXUA1aDxVcyZTRlNpRlVJQjVJRic2P0ouUyZDK1k4VCRvNDVSP2BzbFVVOy1VOC4+bFleN08iP005TUhqLyFrNkwpO25gVVZINUFIJlM4S25DXjVZYTo9WShKRG9VRTdOVS1wdW9kZyksU0dUPG9tTlxOZV8yXV9xY11KVyFITV1gKCxHQU8ib3RmXypnPWY4PipgNCN1IUcwTTxPJVgwTVxLJTYqdXUyT1BCRjM3aVJNMVkhcFoiX2kuT1lnW1tkXG0wRSo/MWZmJT9sTmpsXXJHK1VLczhPcllvKVQ2MCU+bio5QUUsaktpUjwjL2opW1Y4XD0lKyRHQmg+cV1SJ0orJ3M0VypCQSldYiVLJjs8Oz42QkVWOktOJGkrcUEmTExfRk45YlhUXWdhXTQ7RCRJUWxfUDwoXHRNZjczR2BMP3AuJVphOzZAXy9Ec1I6WSROIjgtcjoxIU9HU1ppIXI1RDlyO2VmT1k1U1prNEtzRDwoOmYrc2VbWltJNkUvITpQQltyJjwiYTUtXltjMFAxXSs4ZFRnQls8cXAjNjhhaT4/LSlnKDBDYHJvJC0jQGc9Vm1lMVBpMHFrSDRsX0IsYVRnVTspbDxiJD5kX0IlLEVNMyxSSTlzbG9DQ3RqU0ZkTC1hUD1ddDYxQkdPbjFTbDRWLHFmdDUwJV8uS1pkZGFjJE9mXCFkKUZTZSpnTDctdCYiOzlWL11zS0Q5QG0hJDhRbnI4ZjMtPWpQPFBnZ2pNKCpRI3J1RFhoSnBkMmdRLVBrKWI0ZDpgaGlWNVNOInNIXlpRSVZkZn4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMTIgMDAwMDAgbiAKMDAwMDAwMDIxOSAwMDAwMCBuIAowMDAwMDAwMzMxIDAwMDAwIG4gCjAwMDAwMDA0NDYgMDAwMDAgbiAKMDAwMDAwMDY1MSAwMDAwMCBuIAowMDAwMDAwODU2IDAwMDAwIG4gCjAwMDAwMDEwNjEgMDAwMDAgbiAKMDAwMDAwMTEzMCAwMDAwMCBuIAowMDAwMDAxNDUwIDAwMDAwIG4gCjAwMDAwMDE1MjIgMDAwMDAgbiAKMDAwMDAwMzMwOSAwMDAwMCBuIAowMDAwMDA1MTMwIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPGI2OTIzYzQ5MmY4NDk3MGQ3MDI4N2FhNjhmYTIwMDEyPjxiNjkyM2M0OTJmODQ5NzBkNzAyODdhYTY4ZmEyMDAxMj5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gOSAwIFIKL1Jvb3QgOCAwIFIKL1NpemUgMTQKPj4Kc3RhcnR4cmVmCjY5NDEKJSVFT0YK";
+    btn.download = "procurement-verb-patterns-practice.pdf";
+  }
+})();
+
+</script>
+</body>
+</html>
