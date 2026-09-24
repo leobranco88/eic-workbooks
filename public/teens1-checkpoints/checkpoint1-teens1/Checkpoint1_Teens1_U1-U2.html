@@ -32,6 +32,20 @@ button{font:inherit;color:inherit;cursor:pointer}
 .fill{position:absolute;left:0;top:9px;height:2px;background:var(--ink);width:0}
 .knob{position:absolute;top:4px;width:12px;height:12px;border-radius:50%;background:var(--ink);transform:translateX(-6px);left:0}
 .times{display:flex;justify-content:space-between;font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums}
+.cast{margin:8px 0 0;font-size:13px;color:var(--soft)}
+.cast b{color:var(--ink);font-weight:700;margin-right:6px}
+.cast .ler{color:var(--ink);background:#EFEEE9;padding:1px 6px;border-radius:3px}
+.shead{margin:0 0 10px;padding-bottom:8px;border-bottom:1px dashed var(--line);font-size:13px;color:var(--soft)}
+.shead b{color:var(--ink);margin-right:6px}
+.shead .aviso{display:block;margin-top:5px}
+.cast .ler{color:var(--ink)}
+.shead .aviso{color:#0A0A0F;background:var(--yellow);display:inline-block;padding:2px 8px;border-radius:3px;font-weight:600}
+.sbtn[aria-expanded="true"]{background:#0A0A0F;color:var(--yellow);border-color:#0A0A0F}
+.spanel{margin-top:8px;max-height:40vh;overflow:auto;border-top:1px solid var(--line);padding:8px 0 4px;font-size:14px;line-height:1.55}
+.spanel p{margin:0 0 6px;display:grid;grid-template-columns:110px 1fr;gap:10px}
+.spanel p b{font-weight:700}
+.spanel p.nar{color:var(--soft);font-style:italic}
+.player.dmode .cast,.player.dmode .spanel,.player.dmode .sbtn{display:none}
 .dstrip{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
 .drow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
 .dl2{font-size:12.5px;font-weight:700;width:96px;flex:none}
@@ -177,7 +191,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div class="player"><div class="in">
   <div class="prow">
     <div class="tracks">
-      <button class="trk" data-t="0" aria-pressed="true"><b>Track 1.1</b><span>ex. 13 e 14</span></button>
+      <button class="trk" data-t="0" aria-pressed="true" ><b>Track 1.1</b><span>ex. 13 e 14</span></button>
       <button class="trk" data-t="1" aria-pressed="false" ><b>Track 2.1</b><span>ex. 15 e 16</span></button>
       <button class="trk" data-t="2" aria-pressed="false"><b>Dictation</b><span>folha à parte</span></button>
     </div>
@@ -190,9 +204,12 @@ button{font:inherit;color:inherit;cursor:pointer}
       <div class="bar" id="bar" role="slider" tabindex="0" aria-label="Posição do áudio" aria-valuemin="0" aria-valuemax="104" aria-valuenow="0"><div class="fill" id="fill"></div><div class="knob" id="knob"></div></div>
       <div class="times"><span id="cur">0:00</span><span id="dur">1:44</span></div>
     </div>
+    <button class="small sbtn" id="sbtn" aria-expanded="false">Script</button>
     <button class="small tbtn" id="tbtn" aria-expanded="false">Timer</button>
     <a class="small dl" href="Checkpoint1_Teens1_U1-U2.pdf" download>Prova PDF</a>
   </div>
+  <p class="cast" id="cast"></p>
+  <div class="spanel" id="spanel" hidden></div>
   <div class="dstrip" id="dstrip" hidden>
     <div class="drow"><span class="dl2">A · Words</span><button class="di" data-k="w0">1</button><button class="di" data-k="w1">2</button><button class="di" data-k="w2">3</button><button class="di" data-k="w3">4</button><button class="di" data-k="w4">5</button><button class="di" data-k="w5">6</button><button class="di" data-k="w6">7</button><button class="di" data-k="w7">8</button><button class="di" data-k="w8">9</button><button class="di" data-k="w9">10</button></div>
     <div class="drow"><span class="dl2">B · Sentences</span><button class="di" data-k="s0">1</button><button class="di" data-k="s1">2</button><button class="di" data-k="s2">3</button><button class="di" data-k="s3">4</button>
@@ -232,7 +249,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   <ol class="gs">
     <li><b>Antes:</b> imprima a prova da versão escolhida e a folha do ditado, teste o som das faixas e deixe o timer no tempo da versão.</li>
     <li><b>Ditado primeiro</b> (cerca de 12 min), com a turma toda junto: player do topo, botão Dictation (partes A, B e C); a parte D você faz com a turma.</li>
-    <li><b>Listening em seguida</b>, ainda todos juntos: cada faixa duas vezes. Só depois a turma segue sozinha no resto da prova.</li>
+    <li><b>Listening em seguida</b>, ainda todos juntos. Antes de cada faixa, leia a frase que aparece sob o player (<i>Before you play · Read aloud…</i>); quando ela disser <i>Don’t read the cast</i>, não leia. Depois, toque cada faixa duas vezes. Só depois a turma segue sozinha no resto da prova.</li>
+    <li><b>Esta tela pode ficar projetada:</b> sob o player só aparece o que a turma pode ver. Não abra <b>Script</b>, <b>Answer key</b> nem a aba <b>Dictation</b> com o projetor ligado: elas mostram respostas e as notas do professor.</li>
     <li><b>Resto da prova em silêncio</b>, com o timer projetado em tela cheia. Avise quando o anel ficar preto: faltam 5 minutos.</li>
     <li><b>Correção:</b> answer key e rubrica aqui embaixo; o ditado não vale nota, mas os erros vão para o plano de reforço.</li>
   </ol>
@@ -304,6 +322,23 @@ button{font:inherit;color:inherit;cursor:pointer}
     else {if(window.speechSynthesis) speechSynthesis.cancel(); var c=cur; cur=-1; a=aud[c]; escolher(k);}
   }
   trks.forEach(function(b,i){b.addEventListener('click',function(){modo(i);});});
+  // ---------- script e elenco (cast) da faixa ----------
+  var SCR=[{"cast": ["Jorge", "Isabela", "Riko", "Khalid", "Nelson", "Maria", "Mariana (teacher)", "Rui", "Milos", "Paula"], "linhas": [["Narrator", "Conversation one."], ["Jorge", "Hi, I’m Jorge."], ["Isabela", "Hi, Jorge. Nice to meet you. I’m Isabela. That’s a nice bag."], ["Jorge", "Thank you. It’s red, my favorite color."], ["Isabela", "It’s very nice."], ["Narrator", "Conversation two."], ["Riko", "Hi, I’m Riko."], ["Khalid", "Hi, Riko. I’m Khalid. Nice to meet you."], ["Riko", "Nice to meet you. My desk is here."], ["Khalid", "Oh, great. Welcome to the class."], ["Narrator", "Conversation three."], ["Nelson", "Hi, I’m Nelson. That’s a nice laptop."], ["Maria", "Thank you. I’m Maria. Nice to meet you, Nelson."], ["Nelson", "My laptop is at home. It’s white. Your laptop is black."], ["Maria", "Yes. It’s different."], ["Narrator", "Conversation four."], ["Mariana", "Hi, I’m Mariana. I’m your teacher."], ["Rui", "Hi, Mariana. Nice to meet you. I’m Rui."], ["Mariana", "Nice to meet you. Here’s your English book. Open to page six, please."], ["Rui", "Thank you."], ["Narrator", "Conversation five."], ["Milos", "Hi, I’m Milos."], ["Paula", "I’m Paula. Nice to meet you."], ["Milos", "Nice to meet you, Paula. Here’s a notebook. It’s for the class."], ["Paula", "Oh, great. Thanks very much."]], "ler": null, "aviso": "The names are the answers to ex. 13 (matching conversations and students): don’t read them aloud.", "aviso_ex": "U1-8"}, {"cast": ["Receptionist", "Javier Lopez"], "linhas": [["Receptionist", "Hi. Are you here for the evening class?"], ["Javier", "Yes, I am."], ["Receptionist", "OK, great. What’s your first name?"], ["Javier", "It’s Javier."], ["Receptionist", "Can you spell that, please?"], ["Javier", "Yes. It’s J-A-V-I-E-R."], ["Receptionist", "And what’s your last name?"], ["Javier", "Lopez. L-O-P-E-Z. It’s in my passport."], ["Receptionist", "Oh, yes. Great. Are you from Colombia?"], ["Javier", "Yes, I am."], ["Receptionist", "Oh, Colombia is beautiful. What’s your address in the U.K.?"], ["Javier", "It’s 63 Mountain Street, London."], ["Receptionist", "Oh, Mountain Street is a nice street. What’s your email address?"], ["Javier", "It’s javier.lopez@onemail.com."], ["Receptionist", "Good. What’s your phone number?"], ["Javier", "It’s 44 850 95 03."], ["Receptionist", "OK. You’re ready."], ["Javier", "Thank you."]], "ler": "You’ll hear a receptionist and a student at an evening class.", "aviso": "Don’t say the name Javier: it’s the answer to ex. 16, item 1.", "aviso_ex": "U2-9"}], castEl=document.getElementById('cast'), sp=document.getElementById('spanel'), sbtn=document.getElementById('sbtn');
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function roteiro(k){
+    var d=SCR[k]||{cast:[],linhas:[]};
+    // tela projetada: sob o player só o que é seguro para a turma ver (nada de nomes-resposta)
+    castEl.innerHTML=!d.cast.length?'':(d.ler?'<b>Before you play</b>Read aloud: <span class="ler">“'+esc(d.ler)+'”</span>'
+                                               :'<b>Before you play</b>Don’t read the cast for this track.');
+    sp.innerHTML='<div class="shead"><b>Cast</b> '+esc(d.cast.join(' · '))+(d.aviso?'<span class="aviso">Teacher’s note: '+esc(d.aviso)+'</span>':'')+'</div>'+
+      d.linhas.map(function(l){return '<p class="'+(l[0]==='Narrator'?'nar':'')+'"><b>'+esc(l[0])+'</b><span>'+esc(l[1])+'</span></p>';}).join('');
+    sbtn.hidden=!d.linhas.length;
+  }
+  sbtn.addEventListener('click',function(){var on=sp.hidden; sp.hidden=!on; sbtn.setAttribute('aria-expanded',on?'true':'false');});
+  trks.forEach(function(b,i){if(i<2) b.addEventListener('click',function(){roteiro(i);});});
+  roteiro(0);
+  if(trks[0].hidden) modo(1);   // versão sem a primeira faixa: começa na segunda
+  roteiro(trks[0].hidden?1:0);
   // ---------- guia de aplicação ----------
   var fab=document.getElementById('fab'),guia=document.getElementById('guia');
   function guiaOn(on){guia.hidden=!on;fab.setAttribute('aria-expanded',on?'true':'false');}
