@@ -1,0 +1,50 @@
+[debug] [2026-09-24T14:12:05.227Z] ----------------------------------------------------------------------
+[debug] [2026-09-24T14:12:05.229Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2026-09-24T14:12:05.229Z] CLI Version:   15.24.0
+[debug] [2026-09-24T14:12:05.229Z] Platform:      darwin
+[debug] [2026-09-24T14:12:05.229Z] Node Version:  v24.14.0
+[debug] [2026-09-24T14:12:05.229Z] Detected Agent: unknown
+[debug] [2026-09-24T14:12:05.230Z] Time:          Thu Sep 24 2026 11:12:05 GMT-0300 (Brasilia Standard Time)
+[debug] [2026-09-24T14:12:05.230Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-09-24T14:12:06.075Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-09-24T14:12:06.075Z] > authorizing via signed-in user (leobranco@eicschool.com.br)
+[debug] [2026-09-24T14:12:06.075Z] [iam] checking project eic-worksheets for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-09-24T14:12:06.081Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:06.082Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:06.082Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions [none]
+[debug] [2026-09-24T14:12:06.082Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions  x-goog-user-project=eic-worksheets
+[debug] [2026-09-24T14:12:06.082Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-09-24T14:12:07.173Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions 200
+[debug] [2026-09-24T14:12:07.173Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/eic-worksheets:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-09-24T14:12:07.176Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:07.176Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:07.176Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets [none]
+[debug] [2026-09-24T14:12:07.625Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets 200
+[debug] [2026-09-24T14:12:07.625Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/eic-worksheets {"projectId":"eic-worksheets","projectNumber":"671300791274","displayName":"EIC Worksheets","name":"projects/eic-worksheets","resources":{"hostingSite":"eic-worksheets"},"state":"ACTIVE","labels":{"firebase":"enabled","firebase/storage-default-bucket":"created"},"etag":"1_d379637b-c275-460f-a0e6-f2d83c5503ae"}
+[info] 
+[info] === Deploying to 'eic-worksheets'...
+[info] 
+[info] i  deploying hosting 
+[info] Running command: node generate-hub.cjs
+[info] ✔  hosting[worksheets]: Finished running predeploy script. 
+[info] Running command: node generate-hub.cjs
+[info] ✔  hosting[familia]: Finished running predeploy script. 
+[debug] [2026-09-24T14:12:19.085Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:19.085Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:19.085Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:19.085Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:19.085Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/eic-worksheets/sites/eic-worksheets [none]
+[debug] [2026-09-24T14:12:19.088Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/eic-worksheets/sites/eic-familia [none]
+[debug] [2026-09-24T14:12:20.284Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/eic-worksheets/sites/eic-familia 200
+[debug] [2026-09-24T14:12:20.284Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/eic-worksheets/sites/eic-familia {"name":"projects/eic-worksheets/sites/eic-familia","defaultUrl":"https://eic-familia.web.app","type":"USER_SITE"}
+[debug] [2026-09-24T14:12:20.285Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:20.285Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:20.285Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/eic-familia/versions [none]
+[debug] [2026-09-24T14:12:20.285Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/eic-familia/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-09-24T14:12:20.309Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/eic-worksheets/sites/eic-worksheets 200
+[debug] [2026-09-24T14:12:20.309Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/eic-worksheets/sites/eic-worksheets {"name":"projects/eic-worksheets/sites/eic-worksheets","defaultUrl":"https://eic-worksheets.web.app","type":"DEFAULT_SITE"}
+[debug] [2026-09-24T14:12:20.309Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:20.309Z] Checked if tokens are valid: true, expires at: 1790262700145
+[debug] [2026-09-24T14:12:20.309Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/eic-worksheets/versions [none]
+[debug] [2026-09-24T14:12:20.309Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/eic-worksheets/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
