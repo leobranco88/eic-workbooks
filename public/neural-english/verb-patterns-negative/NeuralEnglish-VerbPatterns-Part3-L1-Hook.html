@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Verb Patterns Part 2 &middot; Neural English &middot; EIC</title>
+<title>Verb Patterns Part 3 &middot; Lesson 1 &middot; Hook &middot; Neural English &middot; EIC</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* Neural English · EIC · folha de estilo oficial (base + componentes testados) */
@@ -1510,7 +1510,124 @@ td.f-rare .w-en .fx-k, td.f-less .w-en .fx-k { color: var(--mid); }
   .rail-labels.r8 { display: none; }
 }
 
+/* ── Hook prototype ── */
+.hk-list { border-top: 2px solid var(--ink); margin-top: 6px; }
+.hk-pair, .hk-say, .hk-quiz { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 10px; padding: 18px 0; border-bottom: 1px solid var(--light); }
+.hk-n { font-size: clamp(18px, .6vw + 14px, 26px); font-weight: 900; color: var(--mid); line-height: 1.3; }
+.hk-pb { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+.hk-s { display: flex; gap: 12px; align-items: baseline; padding: 4px 0; border: 0; background: none; font-size: clamp(16px, .6vw + 13px, 24px); font-weight: 600; text-align: left; }
+.hk-l8 { position: relative; flex: none; width: 1.3em; height: 1.3em; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid var(--mid); color: var(--mid); font-size: .6em; font-weight: 900; transform: translateY(-.15em); }
+.hk-t { line-height: 1.35; }
+.hk-s:hover .hk-t { text-decoration: underline; text-decoration-color: var(--light); text-underline-offset: 5px; }
+.hk-pair.done .hk-s { cursor: default; } .hk-pair.done .hk-s:hover .hk-t { text-decoration: none; }
+.hk-ring { position: absolute; left: -9px; top: -8px; width: calc(100% + 18px); height: calc(100% + 16px); display: none; pointer-events: none; overflow: visible; }
+.hk-ring path { fill: none; stroke: var(--blue); stroke-width: 2.4px; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.hk-note { display: none; margin-left: .45em; font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: 1.25em; transform: rotate(-4deg); white-space: nowrap; }
+.hk-s.nat .hk-ring { display: block; } .hk-s.nat .hk-note { display: inline-block; }
+.hk-s.nat .hk-l8 { border-color: var(--blue); color: var(--blue); }
+.hk-s.wrong .hk-t { text-decoration: line-through; text-decoration-color: var(--bad); text-decoration-thickness: 2px; color: var(--mid); }
+.hk-pair.done .hk-s.wrong:hover .hk-t { text-decoration: line-through; }
+.hk-s.chose.wrong .hk-l8 { border-color: var(--bad); border-width: 2px; }
+.hk-o, .hk-l, .hk-mark button, .hk-go, .hk-rb { font: inherit; cursor: pointer; background: var(--white); color: var(--ink); border: 1.5px solid var(--light); text-align: left; -webkit-appearance: none; appearance: none; }
+.hk-o, .hk-l, .hk-mark button { border-color: var(--ink); }
+.hk-o:hover:not(:disabled), .hk-l:hover, .hk-mark button:hover { background: #F4F4F1; }
+.hk-quiz.done .hk-o:hover { background: var(--white); }
+.hk-l[aria-pressed="true"]:hover, .hk-mark button[aria-pressed="true"]:hover { background: var(--ink); }
+.hk-score { margin-top: 12px; font-weight: 800; font-size: clamp(14px, .4vw + 12px, 19px); }
+.hk-round { display: inline-flex; border: 1.5px solid var(--ink); margin: 6px 0 16px; }
+.hk-rb { border: 0; padding: 8px 14px; font-weight: 700; font-size: clamp(13px, .3vw + 11.5px, 16px); }
+.hk-rb i { font-style: normal; font-weight: 500; color: var(--mid); }
+.hk-rb[aria-pressed="true"] { background: var(--ink); color: var(--white); } .hk-rb[aria-pressed="true"] i { color: #CFCFCF; }
+.hk-pt { font-size: clamp(18px, .8vw + 13px, 28px); font-weight: 700; letter-spacing: -.01em; }
+.hk-clock { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.hk-go { padding: 8px 16px; font-weight: 800; border-color: var(--ink); white-space: nowrap; }
+.hk-go span { font-weight: 500; color: var(--mid); }
+.hk-go:disabled { opacity: .4; cursor: default; }
+.hk-bar { flex: 1; height: 4px; background: var(--light); position: relative; }
+.hk-bar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--ink); }
+.hk-say.timeup .hk-bar i { background: var(--bad); }
+.hk-mark { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+.hk-ml { font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--mid); margin-right: 4px; }
+.hk-ml i { font-style: normal; text-transform: none; letter-spacing: 0; font-weight: 500; }
+.hk-mark button { padding: 7px 12px; font-weight: 700; font-size: clamp(13px, .3vw + 11.5px, 16px); }
+.hk-mark button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--white); }
+.hk-model { display: none; margin-top: 12px; }
+.hk-say.marked .hk-model { display: block; }
+.hk-hand { display: block; font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: clamp(24px, 1vw + 18px, 34px); line-height: 1.1; border-bottom: 1.5px solid var(--ink); padding-bottom: 2px; max-width: 34em; }
+.hk-err { display: block; margin-top: 6px; color: var(--mid); font-size: clamp(13px, .3vw + 11.5px, 17px); }
+.hk-err s { text-decoration-color: var(--bad); text-decoration-thickness: 2px; color: var(--ink); }
+.hk-q { font-size: clamp(17px, .6vw + 13px, 24px); font-weight: 700; line-height: 1.4; }
+.hk-q b { color: var(--orange); }
+.hk-opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.hk-o { position: relative; padding: 9px 16px; font-weight: 700; }
+.hk-o .hk-ring { left: -10px; top: -9px; width: calc(100% + 20px); height: calc(100% + 18px); }
+.hk-o.nat .hk-ring { display: block; }
+.hk-o.nat { margin-right: 5.6em; }
+.hk-o.wrong { border-color: var(--light); color: var(--mid); text-decoration: line-through; text-decoration-color: var(--bad); text-decoration-thickness: 2.5px; }
+.pen-note { position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%) rotate(-5deg); font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: 1.4em; white-space: nowrap; pointer-events: none; }
+.hk-quiz.done .hk-o { cursor: default; }
+.hk-rev { display: none; margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--ink); }
+.hk-quiz.done .hk-rev { display: block; }
+.hk-rs { font-size: clamp(17px, .6vw + 13px, 24px); font-weight: 700; }
+.hk-rs u { text-decoration: none; color: var(--orange); }
+.hk-rpt { margin-top: 4px; color: var(--mid); font-size: clamp(13px, .3vw + 11.5px, 17px); line-height: 1.5; }
+.hk-let { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+.hk-l { padding: 9px 14px; font-weight: 600; }
+.hk-l[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--white); }
+.hk-frame { font-size: clamp(18px, .8vw + 13px, 28px); font-weight: 700; letter-spacing: -.01em; padding: 14px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--light); }
+.hk-frame b { color: var(--orange); }
+.th { border-top: 2px solid var(--ink); margin-top: 6px; }
+.th-r { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--light); align-items: baseline; }
+.th-k { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+.th-v { font-size: clamp(16px, .5vw + 13px, 22px); font-weight: 700; font-variant-numeric: tabular-nums; }
+.th-go { margin-top: 22px; padding: 18px 20px; background: var(--ink); color: var(--white); }
+.th-gk { display: block; font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #BDBDBD; margin-bottom: 6px; }
+.th-go p { font-size: clamp(16px, .55vw + 13px, 23px); line-height: 1.5; }
+.th-go b { color: var(--neon); }
+@media (max-width: 720px) { .th-r { grid-template-columns: 1fr; gap: 2px; } .hk-pb { grid-template-columns: 1fr; gap: 8px; } }
+
 .mnav-t.mnav-t2 { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--light); }
+
+/* ── Part 3 hook: would you rather + offers ── */
+.hk-wo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 12px; }
+.hk-or { font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: 1.5em; line-height: 1; }
+.hk-w { font: inherit; cursor: pointer; background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); padding: 9px 14px; font-weight: 600; text-align: left; -webkit-appearance: none; appearance: none; max-width: 30em; }
+.hk-w b { color: var(--orange); font-weight: 800; }
+.hk-w:hover { background: #F4F4F1; }
+.hk-w[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.hk-wyr.done .hk-w[aria-pressed="false"] { border-color: var(--light); color: var(--mid); }
+.hk-wyr.done .hk-w[aria-pressed="false"] b { color: var(--mid); }
+.hk-wa { margin-top: 12px; font-size: clamp(17px, .6vw + 13px, 24px); font-weight: 700; }
+.hk-wa:empty { display: none; }
+.hk-wa b { color: var(--orange); }
+.hk-frame2 { font-size: clamp(15px, .5vw + 12px, 21px); font-weight: 600; color: var(--mid); padding: 10px 0 0; }
+.hk-frame2 b { color: var(--ink); }
+.hk-frame2 i { font-style: normal; font-weight: 500; }
+
+/* ── Question families quick reference (Part 3) ── */
+.qi { width: 72px; height: 33px; flex: none; overflow: visible; }
+.qi rect { fill: none; stroke-width: 1.6px; vector-effect: non-scaling-stroke; } .qi .g { stroke: #9A9A96; } .qi .k { stroke: var(--ink); } .qi .o { stroke: var(--orange); stroke-width: 2.6px; }
+.qi text { font: 900 9px Inter, sans-serif; fill: var(--ink); }
+.qi .ar, .qi .pl { fill: none; stroke: var(--orange); stroke-width: 1.8px; stroke-linecap: round; stroke-linejoin: round; } .qi .br { fill: none; stroke: var(--ink); stroke-width: 1.6px; }
+.qlt { display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; border: 1.5px solid var(--ink); font-weight: 900; margin-right: .5em; flex: none; letter-spacing: 0; }
+.qq-top { display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
+.qq-top .qq-i { width: 60px; height: 28px; margin-right: 10px; }
+.qq-top .qlt { font-size: 12px; color: var(--ink); }
+.qq-top .nm { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.qq-top .nm i { font-style: normal; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--mid); font-size: 12px; }
+.qq-les { margin-left: auto; font-size: 10.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); border-bottom: 1.5px solid var(--light); }
+.qq-formula { font-size: 19px; }
+.qq-ex b { color: var(--orange); font-weight: 800; } .qq-ex i { font-style: normal; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.qq-note { margin-top: 9px; padding-left: 12px; border-left: 2px solid var(--ink); font-size: 13.5px; line-height: 1.5; color: var(--mid); }
+.qq-note b { color: var(--ink); } .qq-note i { color: var(--ink); }
+.qq-two { font-size: 13px; color: var(--mid); line-height: 1.55; padding-top: 16px; }
+.qq-two b { color: var(--ink); }
+
+.qq-btn { position: fixed; z-index: 60; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); font: inherit; cursor: pointer; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .2s, transform .2s; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+.qq-btn.show { opacity: 1; transform: none; pointer-events: auto; }
+.qq-btn:hover { background: #F4F4F1; }
+.qq-btn .qq-ls { display: flex; gap: 3px; } .qq-btn .qq-ls span { width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid var(--ink); font-size: 11px; font-weight: 900; }
+.qq-btn .qr-lab { font-size: 14px; font-weight: 800; }
 </style>
 <script>(function(){var m=null,q=/[?&]mode=(class|home)\b/.exec(location.search);if(q)m=q[1];else{try{m=localStorage.getItem("ne-mode");}catch(e){}}if(m==="class")document.documentElement.classList.add("mode-class");})();</script>
 </head>
@@ -1521,165 +1638,102 @@ td.f-rare .w-en .fx-k, td.f-less .w-en .fx-k { color: var(--mid); }
     <button type="button" class="mnav-btn" id="mnavBtn" aria-controls="mnav" aria-expanded="false"><i></i><span>Module</span></button><img src="data:image/png;base64,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" alt="EIC" class="nav-logo">
     <div class="nav-module">
       <span class="nav-module-label">Neural English</span>
-      <span class="nav-module-name">Verb Patterns 2</span>
+      <span class="nav-module-name">Verb Patterns 3</span>
     </div>
   </div>
   <div class="nav-right">
 <div class="mode" role="group" aria-label="Version"><button type="button" class="mode-b" data-mode="class" aria-pressed="false">Class</button><span class="mode-sep" aria-hidden="true">/</span><button type="button" class="mode-b" data-mode="home" aria-pressed="true">Home</button></div>
     <span class="nav-level">B1+ &middot; Everyday English</span>
-    <a class="nav-link" href="NeuralEnglish-VerbPatterns-Part2-Practice.html"><span class="nav-link-text">Practice</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 </nav>
-<div class="mnav-back" id="mnavBack"></div><nav class="mnav" id="mnav" aria-label="Verb Patterns module"><div class="mnav-t">Verb Patterns · Part 1</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns.html"><b>1</b><span>The lesson</span><small>Verb Patterns</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-HearTheTo.html"><b>2</b><span>Hear the to</span><small>Listening</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Practice.html"><b>3</b><span>Practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-MorePractice.html"><b>4</b><span>More practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot.html"><b>5</b><span>The not</span><small>22 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot-Auxiliaries.html"><b>6</b><span>Every auxiliary</span><small>8 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 2 · more verbs</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html"><b>1</b><span>Hook</span><small>Start of class</small></a></li><li class="mn-i on"><a href="NeuralEnglish-VerbPatterns-Part2.html" aria-current="page"><b>2</b><span>What’s new</span><small>New verbs</small></a><div class="mn-sub"></div></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html"><b>3</b><span>Practice</span><small>13 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 3 · questions</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html"><b>1</b><span>Lesson 1 · Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1.html"><b>2</b><span>Lesson 1 · What’s new</span><small>Ask about the action</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Practice.html"><b>3</b><span>Lesson 1 · Practice</span><small>14 exercises</small></a></li></ol><div class="mnav-foot"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html">‹ Hook</a><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html">Practice ›</a></div></nav>
+<div class="mnav-back" id="mnavBack"></div><nav class="mnav" id="mnav" aria-label="Verb Patterns module"><div class="mnav-t">Verb Patterns · Part 1</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns.html"><b>1</b><span>The lesson</span><small>Verb Patterns</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-HearTheTo.html"><b>2</b><span>Hear the to</span><small>Listening</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Practice.html"><b>3</b><span>Practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-MorePractice.html"><b>4</b><span>More practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot.html"><b>5</b><span>The not</span><small>22 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot-Auxiliaries.html"><b>6</b><span>Every auxiliary</span><small>8 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 2 · more verbs</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html"><b>1</b><span>Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2.html"><b>2</b><span>What’s new</span><small>New verbs</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html"><b>3</b><span>Practice</span><small>13 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 3 · questions</div><ol><li class="mn-i on"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html" aria-current="page"><b>1</b><span>Lesson 1 · Hook</span><small>Start of class</small></a><div class="mn-sub"></div></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1.html"><b>2</b><span>Lesson 1 · What’s new</span><small>Ask about the action</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Practice.html"><b>3</b><span>Lesson 1 · Practice</span><small>14 exercises</small></a></li></ol><div class="mnav-foot"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html">‹ Practice</a><a href="NeuralEnglish-VerbPatterns-Part3-L1.html">Lesson 1 · What’s new ›</a></div></nav>
 
 
 <button type="button" class="where" id="where" aria-live="polite" tabindex="-1"><span class="where-in"><span class="w-k" id="wK"></span><span class="w-n" id="wN"></span><span class="w-t" id="wT"></span><span class="w-s" id="wS"></span></span></button>
-<div class="rail"><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div></div>
-<div class="rail-labels r8">
-  <span>Recap</span><span>Family 1</span><span>arrange</span><span>help</span><span>get · have · make</span><span>Family 2</span><span>Two homes</span><span>Family 3</span><span>The trap</span>
-</div>
+<div class="rail"><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div></div>
+<div class="rail-labels r8" style="grid-template-columns: repeat(4, 1fr);"><span>Natural?</span><span>Say it</span><span>Use it</span><span>Thermometer</span></div>
 
 <header class="hero">
-  <div class="hero-eyebrow">Verb Patterns &middot; Part 2 &middot; More verbs</div>
-  <h1><span class="h1-gone">I’d love that you come.</span><br>I’d love <span class="h1-ans">you to</span> come.</h1>
-  <p class="hero-sub">You already know the three families. This page adds the verbs that were missing, and the cases where you need to look twice.</p>
-  <p class="hero-sub class-only"><strong>Class version.</strong> The new verbs and the rules. The extra notes are in <strong>Home</strong>.<span class="hero-sub-pt">Na aula, só o essencial. Em casa, tudo.</span></p>
-  <p class="hero-pt home-only">As famílias não mudam. Entram verbos novos em cada uma, e cinco casos que pedem atenção: o “help”, que vive em duas famílias; o “get”, ao lado de “have” e “make”; o “arrange”, que não é arranjar; os verbos de <strong>ver e ouvir</strong>; e os verbos que <strong>não aceitam</strong> pessoa + to.</p>
+  <div class="hero-eyebrow">Verb Patterns &middot; Part 3 &middot; Lesson 1 &middot; Hook</div>
+  <h1>Before the rule,<br><span class="h1-ans">your questions.</span></h1>
+  <p class="hero-sub">Six minutes. Three moves. The answers tell your teacher where to start.</p>
+  <p class="hero-pt">A Part 3 é sobre <strong>perguntar</strong> com os verbos das três famílias. Primeiro você <strong>reconhece</strong>, depois <strong>fala</strong>, depois <strong>usa</strong>. Não é prova: é o termômetro da aula. No fim, as frases do passo 2 voltam, e você vê o antes e o depois.</p>
 </header>
 
 <section class="part" id="p1">
-  <div class="part-eyebrow"><span class="num">1</span> Recap</div>
-  <h2>The three families, in one look</h2>
-  <div class="h2-pt">As três famílias da Part 1. Nada mudou nelas</div>
-  <div class="rc">
-    <div class="rc-r"><span class="xf-num">1</span><div><p class="rc-f">verb + sb + <b>to</b> + verb</p><p class="rc-e">My boss asked me <b>to</b> stay late.<span>Meu chefe me pediu pra ficar até mais tarde.</span></p></div></div>
-    <div class="rc-r"><span class="xf-num">2</span><div><p class="rc-f">let · make · have + sb + <b>verb</b></p><p class="rc-e">Our neighbor let us <b>park</b> in his garage.<span>Nosso vizinho deixou a gente estacionar na garagem dele.</span></p></div></div>
-    <div class="rc-r"><span class="xf-num">3</span><div><p class="rc-f">suggest · recommend + <b>that</b> + sb + verb</p><p class="rc-e">The dentist recommended <b>that</b> she floss every day.<span>A dentista recomendou que ela passasse fio dental todo dia.</span></p></div></div>
-  </div>
-  <div class="bi"><p class="bi-en">The rule stays the same. What changes is the <b>list of verbs</b>.</p><p class="bi-pt">A Part 2 não traz família nova. Ela traz os verbos que ainda não estavam nas listas, e cinco casos em que você precisa olhar duas vezes.</p></div>
+  <div class="part-eyebrow"><span class="num">1</span> Recognize</div>
+  <h2>Which one sounds natural?</h2>
+  <div class="h2-pt">Qual soa natural? Toque na frase. Vá pelo ouvido, sem pensar na regra</div>
+  <div class="hk-list" id="pairs"><div class="hk-pair" data-i="0"><span class="hk-n">1</span><div class="hk-pb"><button type="button" class="hk-s" data-ok="0"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">What do you want that I do?<span class="hk-note">natural</span></span></button><button type="button" class="hk-s" data-ok="1"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">What do you want me to do?<span class="hk-note">natural</span></span></button></div></div><div class="hk-pair" data-i="1"><span class="hk-n">2</span><div class="hk-pb"><button type="button" class="hk-s" data-ok="1"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">Did the dentist make you wait?<span class="hk-note">natural</span></span></button><button type="button" class="hk-s" data-ok="0"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">Did the dentist make you to wait?<span class="hk-note">natural</span></span></button></div></div><div class="hk-pair" data-i="2"><span class="hk-n">3</span><div class="hk-pb"><button type="button" class="hk-s" data-ok="1"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">Did they let you in? Yes, they did.<span class="hk-note">natural</span></span></button><button type="button" class="hk-s" data-ok="0"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">Did they let you in? Yes, they let.<span class="hk-note">natural</span></span></button></div></div><div class="hk-pair" data-i="3"><span class="hk-n">4</span><div class="hk-pb"><button type="button" class="hk-s" data-ok="0"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">What your boss asked you to do?<span class="hk-note">natural</span></span></button><button type="button" class="hk-s" data-ok="1"><span class="hk-l8"><svg class="hk-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="hk-t">What did your boss ask you to do?<span class="hk-note">natural</span></span></button></div></div></div>
+  <p class="hk-score" id="pairScore">0 / 4</p>
 </section>
 
 <section class="part" id="p2">
-  <div class="fam-head"><span class="xf-num">1</span><div><div class="xf-name">Family 1</div><h2>New verbs, same rule</h2><div class="h2-pt">Pessoa (ou coisa) + to</div></div></div>
-  <p class="vl-key"><b>sb</b> = somebody <span>alguém</span><b>sth</b> = something <span>algo</span></p>
-  <div class="vl"><div class="vl-i"><b>get</b> <span class="vl-o">sb / sth to</span><i>conseguir que alguém / algo</i></div><div class="vl-i"><b>urge</b> <span class="vl-o">sb to</span><i>insistir com alguém para</i></div><div class="vl-i"><b>beg</b> <span class="vl-o">sb to</span><i>implorar para alguém</i></div><div class="vl-i"><b>permit</b> <span class="vl-o">sb / sth to</span><i>permitir que alguém / algo</i></div><div class="vl-i"><b>require</b> <span class="vl-o">sb / sth to</span><i>exigir que alguém / algo</i></div><div class="vl-i"><b>enable</b> <span class="vl-o">sb / sth to</span><i>tornar possível que alguém / algo</i></div><div class="vl-i"><b>inspire</b> <span class="vl-o">sb to</span><i>inspirar alguém a</i></div><div class="vl-i"><b>trust</b> <span class="vl-o">sb to</span><i>confiar que alguém vai</i></div><div class="vl-i"><b>dare</b> <span class="vl-o">sb to</span><i>desafiar alguém a</i></div><div class="vl-i"><b>would love</b> <span class="vl-o">sb / sth to</span><i>adoraria que alguém / algo</i></div><div class="vl-i"><b>would hate</b> <span class="vl-o">sb / sth to</span><i>odiaria que alguém / algo</i></div><div class="vl-i"><b>would prefer</b> <span class="vl-o">sb / sth to</span><i>preferiria que alguém / algo</i></div></div>
-  <div class="tag" aria-hidden="true">sb ou sth?</div>
-  <div class="bi"><p class="bi-en">Some verbs take a <b>thing</b> in the place of the person.</p><p class="bi-pt">Onde a lista diz <strong>sb / sth</strong>, cabe uma coisa no lugar da pessoa. Onde diz só <strong>sb</strong>, é sempre uma pessoa: ninguém implora para uma impressora.</p></div>
-  <div class="exr"><p><b>sb</b><em>I got <span class="ec-circ blue">my brother<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">pessoa</span></span> <u>to</u> help me.</em><span>Convenci meu irmão a me ajudar.</span></p><p><b>sth</b><em>I can’t get <span class="ec-circ blue">the printer<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">coisa</span></span> <u>to</u> work.</em><span>Não consigo fazer a impressora funcionar.</span></p></div>
-  <div class="tag" aria-hidden="true">+ “for”?</div>
-  <div class="bi"><p class="bi-en">“<b>would love</b>”, “<b>would hate</b>” and “<b>would prefer</b>” can take “<b class="or">for</b>”.</p><p class="bi-pt">Com ou sem “for”, a frase está certa e quer dizer a mesma coisa. Com “for” é muito comum na fala americana. Com “want”, nunca: é sempre <i>I want you to come</i>.</p></div>
-  <div class="both"><p>We’d hate you <b>to miss</b> the wedding.</p><p>We’d hate <span class="ec-circ blue">for<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">opcional</span></span> you <b>to miss</b> the wedding.</p><p class="both-pt">A gente odiaria que você perdesse o casamento.</p></div>
-</section>
-
-<section class="part" id="p2b">
-  <div class="part-eyebrow"><span class="num">2</span> arrange</div>
-  <h2>arrange: combinar, not arranjar</h2>
-  <div class="h2-pt">Um falso amigo que esconde um verb pattern</div>
-  <div class="bi"><p class="bi-en">“<b>arrange</b>” means to plan or organize something with other people.</p><p class="bi-pt">Em português, “arranjar” é conseguir: <i>arranjei um emprego</i> é <i>I got a job</i>. “Arrange” é combinar, marcar, providenciar: deixar uma coisa organizada.</p></div>
-  <div class="vl"><div class="vl-i"><b>arrange</b> <span class="vl-o">to do</span><i>combinar de fazer</i></div><div class="vl-i"><b>arrange</b> <span class="vl-o">for sb / sth to do</span><i>providenciar que alguém / algo faça</i></div><div class="vl-i"><b>arrange</b> <span class="vl-o">sth</span><i>marcar, organizar algo</i></div></div>
-  <div class="exr"><p><b>to</b><em>We arranged <u>to meet</u> at the station.</em><span>Combinamos de nos encontrar na estação.</span></p><p><b>for</b><em>I’ve arranged for a taxi <u>to pick</u> you up at six.</em><span>Já providenciei um táxi pra te buscar às seis.</span></p><p><b>sth</b><em>Can you arrange a meeting with the director?</em><span>Você pode marcar uma reunião com o diretor?</span></p></div>
-  <div class="tag" aria-hidden="true">“for” obrigatório!</div>
-  <div class="bi"><p class="bi-en">With <b>sb / sth</b> in the middle, “<b>arrange</b>” needs “<b class="or">for</b>”.</p><p class="bi-pt">Diferente de “would love”, aqui o “for” não sai. Sem ele, a frase quebra.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: I arranged him to pick me up at the airport. Say: I arranged for him to pick me up at the airport."><span aria-hidden="true">I arranged <span class="ec-fix"><span class="ec-hand">for him</span><s class="ec-was">him</s></span> to <span class="ec-circ">pick<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">com to</span></span> me up at the airport.</span></p><p class="ec-pt">Combinei com ele de me buscar no aeroporto.</p></div>
-  <div class="tag" aria-hidden="true">“arranjar”?</div>
-  <div class="bi"><p class="bi-en">When you mean “<b>arranjar</b>”, say “<b>get</b>” or “<b>find</b>”.</p><p class="bi-pt">Arranjar um emprego, um lugar, um tempo: “get” ou “find”. “Arrange”, nunca.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: I finally arranged a new job. Say: I finally got a new job."><span aria-hidden="true">I finally <span class="ec-fix"><span class="ec-hand">got</span><s class="ec-was">arranged</s></span> a new job.</span></p><p class="ec-pt">Finalmente arranjei um emprego novo.</p></div>
+  <div class="part-eyebrow"><span class="num">2</span> Produce</div>
+  <h2>How would you say it?</h2>
+  <div class="h2-pt">Como você diria? Em voz alta, em cinco segundos. O professor marca como saiu</div>
+  <div class="hk-round" role="group" aria-label="Round"><button type="button" class="hk-rb" data-r="0" aria-pressed="true">Start of class <i>· início</i></button><button type="button" class="hk-rb" data-r="1" aria-pressed="false">End of class <i>· fim</i></button></div>
+  <div class="hk-list" id="says"><div class="hk-say" data-i="0"><span class="hk-n">1</span><div>
+  <p class="hk-pt">O que você quer que eu faça?</p>
+  <div class="hk-clock"><button type="button" class="hk-go">Start <span>· 5 seconds</span></button><div class="hk-bar"><i></i></div></div>
+  <div class="hk-mark" role="group" aria-label="How did it come out?"><span class="hk-ml">How did it come out? <i>· como saiu?</i></span>
+    <button type="button" data-m="ok">Right</button><button type="button" data-m="err">The usual mistake</button><button type="button" data-m="stuck">Got stuck</button></div>
+  <div class="hk-model"><span class="hk-hand">I’d love you to visit my city.</span><span class="hk-err">The usual mistake: <s>I’d love that you visit my city.</s></span></div>
+</div></div><div class="hk-say" data-i="1"><span class="hk-n">2</span><div>
+  <p class="hk-pt">Quer que eu te ajude com as malas?</p>
+  <div class="hk-clock"><button type="button" class="hk-go">Start <span>· 5 seconds</span></button><div class="hk-bar"><i></i></div></div>
+  <div class="hk-mark" role="group" aria-label="How did it come out?"><span class="hk-ml">How did it come out? <i>· como saiu?</i></span>
+    <button type="button" data-m="ok">Right</button><button type="button" data-m="err">The usual mistake</button><button type="button" data-m="stuck">Got stuck</button></div>
+  <div class="hk-model"><span class="hk-hand">She told me to call tomorrow.</span><span class="hk-err">The usual mistake: <s>She said me to call tomorrow.</s></span></div>
+</div></div><div class="hk-say" data-i="2"><span class="hk-n">3</span><div>
+  <p class="hk-pt">A sua mãe te deixou ir? Deixou.</p>
+  <div class="hk-clock"><button type="button" class="hk-go">Start <span>· 5 seconds</span></button><div class="hk-bar"><i></i></div></div>
+  <div class="hk-mark" role="group" aria-label="How did it come out?"><span class="hk-ml">How did it come out? <i>· como saiu?</i></span>
+    <button type="button" data-m="ok">Right</button><button type="button" data-m="err">The usual mistake</button><button type="button" data-m="stuck">Got stuck</button></div>
+  <div class="hk-model"><span class="hk-hand">I saw him leave the building.</span><span class="hk-err">The usual mistake: <s>I saw him to leave the building.</s></span></div>
+</div></div><div class="hk-say" data-i="3"><span class="hk-n">4</span><div>
+  <p class="hk-pt">O que o médico mandou você fazer?</p>
+  <div class="hk-clock"><button type="button" class="hk-go">Start <span>· 5 seconds</span></button><div class="hk-bar"><i></i></div></div>
+  <div class="hk-mark" role="group" aria-label="How did it come out?"><span class="hk-ml">How did it come out? <i>· como saiu?</i></span>
+    <button type="button" data-m="ok">Right</button><button type="button" data-m="err">The usual mistake</button><button type="button" data-m="stuck">Got stuck</button></div>
+  <div class="hk-model"><span class="hk-hand">I got my mom to use her new phone.</span><span class="hk-err">The usual mistake: <s>I got my mom use her new phone.</s></span></div>
+</div></div></div>
 </section>
 
 <section class="part" id="p3">
-  <div class="part-eyebrow"><span class="num">3</span> help</div>
-  <h2>help: with or without to</h2>
-  <div class="h2-pt">O único verbo que mora na Família 1 e na 2 ao mesmo tempo</div>
-  <div class="bi"><p class="bi-en">After “<b>help</b>”, both are right.</p><p class="bi-pt">Com “to” ou sem, a frase está certa e quer dizer a mesma coisa. Sem “to” é o mais comum no inglês americano do dia a dia.</p></div>
-  <div class="both"><p>Can you help me <b>carry</b> these boxes? <span class="hn">Family 2 · sem to</span></p><p>Can you help me <b>to carry</b> these boxes? <span class="hn">Family 1 · com to</span></p><p class="both-pt">Você pode me ajudar a carregar essas caixas?</p></div>
-  <div class="tag home-only" aria-hidden="true">sem pessoa?</div>
-  <div class="bi home-only"><p class="bi-en">The person can disappear, too.</p><p class="bi-pt">Quando a ajuda é para qualquer um, a pessoa sai: <strong>This app helps (to) save time.</strong> Este aplicativo ajuda a economizar tempo.</p></div>
+  <div class="part-eyebrow"><span class="num">3</span> Use</div>
+  <h2>Would you rather…?</h2>
+  <div class="h2-pt">Escolha um dos dois e fale a resposta inteira. Depois faça a mesma pergunta ao colega</div>
+  <div class="hk-list"><div class="hk-quiz hk-wyr" data-i="0"><span class="hk-n">1</span><div>
+  <p class="hk-q">Would you rather have a boss who…</p>
+  <div class="hk-wo"><button type="button" class="hk-w" aria-pressed="false" data-a="I’d rather have a boss who <b>lets me work</b> from home."><b>lets</b> you work from home</button><span class="hk-or">or</span><button type="button" class="hk-w" aria-pressed="false" data-a="I’d rather have a boss who <b>makes me come</b> to the office but pays me more."><b>makes</b> you come to the office but pays you more</button></div>
+  <p class="hk-wa"></p>
+</div></div><div class="hk-quiz hk-wyr" data-i="1"><span class="hk-n">2</span><div>
+  <p class="hk-q">Would you rather go to a school that…</p>
+  <div class="hk-wo"><button type="button" class="hk-w" aria-pressed="false" data-a="I’d rather go to a school that <b>lets me choose</b> my subjects."><b>lets</b> you choose your subjects</button><span class="hk-or">or</span><button type="button" class="hk-w" aria-pressed="false" data-a="I’d rather go to a school that <b>makes me learn</b> three languages."><b>makes</b> you learn three languages</button></div>
+  <p class="hk-wa"></p>
+</div></div><div class="hk-quiz hk-wyr" data-i="2"><span class="hk-n">3</span><div>
+  <p class="hk-q">Would you rather have a roommate who…</p>
+  <div class="hk-wo"><button type="button" class="hk-w" aria-pressed="false" data-a="I’d rather have a roommate who <b>lets me play</b> music late at night."><b>lets</b> you play music late at night</button><span class="hk-or">or</span><button type="button" class="hk-w" aria-pressed="false" data-a="I’d rather have a roommate who cooks for me but <b>makes me clean</b> every Saturday.">cooks for you but <b>makes</b> you clean every Saturday</button></div>
+  <p class="hk-wa"></p>
+</div></div></div>
+  <div class="tag" aria-hidden="true">and you?</div>
+  <div class="bi"><p class="bi-en">Your friend is moving to a new apartment on Saturday. What can you <b>offer</b> to do?</p><p class="bi-pt">Toque numa tarefa e ofereça em voz alta. O colega responde: <i>Yes, please</i> ou <i>No, it’s OK, thanks</i>.</p></div>
+  <div class="hk-let" id="offBox"><button type="button" class="hk-l" aria-pressed="false">carry the boxes</button><button type="button" class="hk-l" aria-pressed="false">pack the kitchen</button><button type="button" class="hk-l" aria-pressed="false">drive the van</button><button type="button" class="hk-l" aria-pressed="false">look after the dog</button><button type="button" class="hk-l" aria-pressed="false">bring lunch</button><button type="button" class="hk-l" aria-pressed="false">clean the old place</button></div>
+  <p class="hk-frame" id="offFrame">Do you want me to <b>…</b>?</p>
+  <p class="hk-frame2" id="offFrame2">Would you like me to <b>…</b>? <i>· mais educado</i></p>
 </section>
 
 <section class="part" id="p4">
-  <div class="part-eyebrow"><span class="num">4</span> get · have · make</div>
-  <h2>get, have or make?</h2>
-  <div class="h2-pt">Três jeitos de fazer alguém fazer alguma coisa</div>
-  <div class="bi"><p class="bi-en">All three put someone to work. Only “<b>get</b>” takes “<b>to</b>”.</p><p class="bi-pt">Em português, os três podem virar “fazer alguém fazer”. O que decide é <strong>como</strong> a pessoa chegou a fazer: foi convencida, era a função dela, ou não teve escolha.</p></div>
-  <div class="sa-grid">
-    <div class="sa-row head"><span>Verb</span><span>Example</span><span>When you use it</span></div>
-    <div class="sa-row">
-      <div><div class="sa-open">get</div><div class="sa-class c-n">Family 1 &middot; to</div></div>
-      <div><div class="sa-cell-label">Example</div><div class="sa-a">I finally got my dad <span class="aux-hl">to see</span> a doctor.<span class="hn-b">convenci!</span></div></div>
-      <div><div class="sa-cell-label">When you use it</div><div class="sa-q">Você <strong>convenceu</strong>: conversou, insistiu, e a pessoa aceitou. Custou um pouco.</div></div>
-    </div>
-    <div class="sa-row">
-      <div><div class="sa-open">have</div><div class="sa-class c-n">Family 2 &middot; no to</div></div>
-      <div><div class="sa-cell-label">Example</div><div class="sa-a">I had the nurse <span class="aux-hl">check</span> my blood pressure.<span class="hn-b">é o trabalho dela</span></div></div>
-      <div><div class="sa-cell-label">When you use it</div><div class="sa-q">Aquilo é <strong>função da pessoa</strong>. Você não convence nem obriga: passa a tarefa para quem faz aquilo.</div></div>
-    </div>
-    <div class="sa-row">
-      <div><div class="sa-open">make</div><div class="sa-class c-n">Family 2 &middot; no to</div></div>
-      <div><div class="sa-cell-label">Example</div><div class="sa-a">The pain made him <span class="aux-hl">call</span> the doctor.<span class="hn-b">não teve escolha</span></div></div>
-      <div><div class="sa-cell-label">When you use it</div><div class="sa-q">A pessoa <strong>não teve escolha</strong>. Quem obriga pode ser alguém ou alguma coisa: a dor, o chefe, a chuva.</div></div>
-    </div>
+  <div class="part-eyebrow"><span class="num">4</span> For the teacher</div>
+  <h2>The thermometer</h2>
+  <div class="h2-pt">O que os passos 1 e 2 dizem sobre onde começar</div>
+  <div class="th">
+    <div class="th-r"><span class="th-k">Recognize</span><span class="th-v" id="thR">—</span></div>
+    <div class="th-r"><span class="th-k">Produce · start</span><span class="th-v" id="thP0">—</span></div>
+    <div class="th-r"><span class="th-k">Produce · end</span><span class="th-v" id="thP1">—</span></div>
   </div>
-  <div class="neon-box"><b>If you had to convince, it’s “get”.</b><span class="warn-pt">E o “get” é o único dos três com “to”: <i>I got him <b>to</b> sign</i>, mas <i>I had him sign</i> e <i>I made him sign</i>.</span></div>
-</section>
-
-<section class="part" id="p5">
-  <div class="fam-head"><span class="xf-num">2</span><div><div class="xf-name">Family 2</div><h2>see · hear · watch · feel · notice</h2><div class="h2-pt">Os verbos dos sentidos também vão sem to</div></div></div>
-  <p class="vl-key"><b>sb</b> = somebody <span>alguém</span><b>sth</b> = something <span>algo</span></p>
-  <div class="vl"><div class="vl-i"><b>see</b> <span class="vl-o">sb / sth do</span><i>ver alguém / algo fazer</i></div><div class="vl-i"><b>hear</b> <span class="vl-o">sb / sth do</span><i>ouvir alguém / algo fazer</i></div><div class="vl-i"><b>watch</b> <span class="vl-o">sb / sth do</span><i>ver alguém / algo fazer, com atenção</i></div><div class="vl-i"><b>feel</b> <span class="vl-o">sb / sth do</span><i>sentir alguém / algo fazer</i></div><div class="vl-i"><b>notice</b> <span class="vl-o">sb / sth do</span><i>reparar que alguém / algo fez</i></div></div>
-  <div class="bi"><p class="bi-en">What you see or hear someone do: no “<b>to</b>”.</p><p class="bi-pt">Igual a “let”, “make” e “have”: depois da pessoa, o verbo vai sem “to”. A diferença é o sentido: aqui ninguém manda nem deixa, você só <strong>viu</strong>, <strong>ouviu</strong> ou <strong>sentiu</strong>.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: I saw him to leave the house at six. Say: I saw him leave the house at six."><span aria-hidden="true">I saw <span class="ec-fix"><span class="ec-hand">him</span><s class="ec-was">him to</s></span> <span class="ec-circ">leave<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">sem to</span></span> the house at six.</span></p><p class="ec-pt">Eu vi ele sair de casa às seis.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: Did you hear that the baby cry last night? Say: Did you hear the baby cry last night?"><span aria-hidden="true">Did you hear <span class="ec-fix"><span class="ec-hand">the baby</span><s class="ec-was">that the baby</s></span> <span class="ec-circ">cry<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">sem to</span></span> last night?</span></p><p class="ec-pt">Você ouviu o bebê chorar ontem à noite?</p></div>
-  <div class="tag home-only" aria-hidden="true">“-ing”?</div>
-  <div class="bi home-only"><p class="bi-en">With “<b>-ing</b>”, you caught the action in the middle.</p><p class="bi-pt"><strong>I saw her cross the street</strong>: vi a ação inteira, do começo ao fim. <strong>I saw her crossing the street</strong>: vi um pedaço, ela estava atravessando. As duas estão certas.</p></div>
-</section>
-
-<section class="part" id="p6">
-  <div class="part-eyebrow"><span class="num">5</span> Two homes</div>
-  <h2>One verb, two families</h2>
-  <div class="h2-pt">advise, ask, urge e require entram na Família 1 e na 3</div>
-  <div class="bi"><p class="bi-en">Family 1 is everyday English. Family 3 is formal.</p><p class="bi-pt">Os quatro aceitam as duas estruturas, com o mesmo sentido. No dia a dia, use a Família 1. A Família 3 aparece em regras, avisos e e-mails formais.</p></div>
-  <div class="two"><div class="two-h"><span></span><span>Family 1 · everyday</span><span>Family 3 · formal</span></div><div class="two-r"><div class="two-v">advise</div><p><span class="two-k">Family 1</span>My doctor advised me <u>to rest</u>.</p><p><span class="two-k">Family 3</span>My doctor advised <u>that I rest</u>.</p></div><div class="two-r"><div class="two-v">ask</div><p><span class="two-k">Family 1</span>The pilot asked us <u>to stay</u> seated.</p><p><span class="two-k">Family 3</span>The pilot asked <u>that we stay</u> seated.</p></div><div class="two-r"><div class="two-v">urge</div><p><span class="two-k">Family 1</span>Her friends urged her <u>to call</u> the police.</p><p><span class="two-k">Family 3</span>Her friends urged <u>that she call</u> the police.</p></div><div class="two-r"><div class="two-v">require</div><p><span class="two-k">Family 1</span>The gym requires members <u>to show</u> their card.</p><p><span class="two-k">Family 3</span>The gym requires <u>that members show</u> their card.</p></div></div>
-  <div class="tag" aria-hidden="true">só uma casa</div>
-  <div class="bi"><p class="bi-en">“<b>suggest</b>” and “<b>recommend</b>” have only one home.</p><p class="bi-pt">Eles não entram na Família 1, nunca. Só “that” + pessoa + verbo.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: I suggest you to rest this weekend. Say: I suggest that you rest this weekend."><span aria-hidden="true">I suggest <span class="ec-fix"><span class="ec-hand">that you</span><s class="ec-was">you to</s></span> <span class="ec-circ">rest<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">sem to</span></span> this weekend.</span></p><p class="ec-pt">Sugiro que você descanse neste fim de semana.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: The doctor recommended me to drink more water. Say: The doctor recommended that I drink more water."><span aria-hidden="true">The doctor recommended <span class="ec-fix"><span class="ec-hand">that I</span><s class="ec-was">me to</s></span> <span class="ec-circ">drink<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">sem to</span></span> more water.</span></p><p class="ec-pt">O médico recomendou que eu bebesse mais água.</p></div>
-</section>
-
-<section class="part" id="p7">
-  <div class="fam-head"><span class="xf-num">3</span><div><div class="xf-name">Family 3</div><h2>demand · request · propose</h2><div class="h2-pt">E as frases com it’s important that</div></div></div>
-  <div class="vl c2"><div class="vl-i"><b>demand that</b> <span class="vl-o">sb</span><i>exigir que</i></div><div class="vl-i"><b>request that</b> <span class="vl-o">sb</span><i>solicitar que</i></div><div class="vl-i"><b>propose that</b> <span class="vl-o">sb</span><i>propor que</i></div><div class="vl-i"><b>it’s important that</b> <span class="vl-o">sb</span><i>é importante que</i></div><div class="vl-i"><b>it’s essential that</b> <span class="vl-o">sb</span><i>é essencial que</i></div><div class="vl-i"><b>it’s vital that</b> <span class="vl-o">sb</span><i>é fundamental que</i></div></div>
-  <div class="bi"><p class="bi-en">Same rule: “<b>that</b>” + person + verb, and the verb never changes.</p><p class="bi-pt">Depois do “that”, o verbo fica na forma do dicionário para todo mundo, até para he, she e it: <strong>that he be</strong>, <strong>that she call</strong>.</p></div>
-  <div class="exr"><p><b>demand</b><em>The customer demanded that the manager <u>call</u> her back.</em><span>A cliente exigiu que o gerente retornasse a ligação.</span></p><p><b>request</b><em>The hotel requests that guests <u>leave</u> the room by noon.</em><span>O hotel solicita que os hóspedes deixem o quarto até o meio-dia.</span></p><p><b>propose</b><em>I propose that we <u>vote</u> on Friday.</em><span>Proponho que a gente vote na sexta.</span></p><p><b>important</b><em>It’s important that he <span class="ec-circ blue">be<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">nunca is</span></span> here on time.</em><span>É importante que ele esteja aqui no horário.</span></p></div>
-  <div class="tag home-only" aria-hidden="true">no dia a dia?</div>
-  <div class="bi home-only"><p class="bi-en">In everyday English, <b>for + person + to</b> is more common.</p><p class="bi-pt"><strong>It’s important for him to be here on time.</strong> Mesma ideia, menos formal. Na escrita formal e no trabalho, a Família 3.</p></div>
-</section>
-
-<section class="part" id="p8">
-  <div class="part-eyebrow"><span class="num">6</span> The trap</div>
-  <h2>explain, say, suggest, recommend</h2>
-  <div class="h2-pt">Verbos que não aceitam pessoa + to</div>
-  <div class="bi"><p class="bi-en">These verbs never take <b>sb + to</b>.</p><p class="bi-pt">Em português, “ele me explicou”, “ela me disse pra esperar” e “sugeri que você” saem naturais. Em inglês, a pessoa não pode vir colada nesses verbos.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: She said me to wait. Say: She told me to wait."><span aria-hidden="true">She <span class="ec-fix"><span class="ec-hand">told</span><s class="ec-was">said</s></span> me to <span class="ec-circ end">wait<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">com to</span></span>.</span></p><p class="ec-pt">Ela me disse pra esperar.</p></div>
-  <div class="ec"><p class="ec-s" aria-label="Not: He explained me how the app works. Say: He explained to me how the app works."><span aria-hidden="true">He <span class="ec-circ">explained<svg class="ec-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg><span class="ec-note">pessoa com to</span></span> <span class="ec-fix"><span class="ec-hand">to me</span><s class="ec-was">me</s></span> how the app works.</span></p><p class="ec-pt">Ele me explicou como o aplicativo funciona.</p></div>
-  <div class="tag" aria-hidden="true">“say” → “tell”</div>
-  <div class="neon-box"><b>With a person, “say” becomes “tell”.</b><span class="warn-pt">“Say” não aceita pessoa logo depois; “tell” aceita, e é Família 1: <i>She told me to wait.</i> Com “explain”, a pessoa vem com “to”: <i>explain <b>to me</b></i>, ou <i>explain it <b>to me</b></i>.</span></div>
-</section>
-
-<section class="part" id="outcomes">
-  <div class="outcomes">
-    <div class="outcomes-header"><h3>My Outcomes</h3><span class="outcomes-counter" id="outcomesCounter">0 / 6</span></div>
-    <p class="outcomes-sub">Clique em cada frase que você sente que já domina.</p>
-    <div id="outcomesList"><button class="outcome-item" data-key="n1"><span class="outcome-check">&#10003;</span><span class="outcome-text">I can use the new Family 1 verbs. <span class="oc-pt">get, urge, beg, dare, would love…</span></span></button><button class="outcome-item" data-key="n2"><span class="outcome-check">&#10003;</span><span class="outcome-text">I can use help with or without to. <span class="oc-pt">Help me carry it. Help me to carry it.</span></span></button><button class="outcome-item" data-key="n3"><span class="outcome-check">&#10003;</span><span class="outcome-text">I can choose between get, have and make. <span class="oc-pt">Convenci, era a função dela, ou não teve escolha.</span></span></button><button class="outcome-item" data-key="n4"><span class="outcome-check">&#10003;</span><span class="outcome-text">I can say what I saw or heard someone do. <span class="oc-pt">I heard her leave. I saw him fall.</span></span></button><button class="outcome-item" data-key="n5"><span class="outcome-check">&#10003;</span><span class="outcome-text">I know the verbs that never take sb + to. <span class="oc-pt">explain, say, suggest, recommend.</span></span></button><button class="outcome-item" data-key="n6"><span class="outcome-check">&#10003;</span><span class="outcome-text">I use arrange for combinar, not arranjar. <span class="oc-pt">We arranged to meet. I arranged for him to come.</span></span></button></div>
-  </div>
-</section>
-
-<section class="part" id="next">
-  <div class="part-eyebrow"><span class="num">&rarr;</span> Keep going</div>
-  <h2>After this page</h2>
-  <div class="h2-pt">Depois desta página: praticar os verbos novos, depois misturar com os da Part 1</div>
-  <div class="next-list">
-    <a class="next-row" href="NeuralEnglish-VerbPatterns-Part2-Practice.html"><span class="next-k">Practice</span><span class="next-t">The new verbs<span class="next-pt">Só os verbos desta página, na mesma ordem de exercícios da Part 1.</span></span><span class="next-go">&rarr;</span></a>
-    </div>
+  <div class="th-go" id="thGo"><span class="th-gk">Where to start</span><p id="thTxt">Faça os passos 1 e 2 para ver o caminho.</p></div>
 </section>
 
 <footer>Neural English &middot; EIC &middot; Escola de Idiomas e Cultura</footer>
@@ -1733,44 +1787,131 @@ td.f-rare .w-en .fx-k, td.f-less .w-en .fx-k { color: var(--mid); }
     
   </div>
 </aside>
+<button class="qq-btn" id="qqBtn" type="button" aria-haspopup="dialog" aria-controls="qqPanel" aria-expanded="false"><span class="qq-ls" aria-hidden="true"><span>A</span><span>B</span><span>C</span></span><span class="qr-lab">Questions</span></button>
+<div class="qr-back" id="qqBack"></div>
+<aside class="qr-panel" id="qqPanel" role="dialog" aria-modal="true" aria-labelledby="qqTitle">
+  <div class="qr-head">
+    <div><div class="qr-eyebrow">Quick reference &middot; consulta r&aacute;pida</div><div class="qr-title" id="qqTitle">Question families</div></div>
+    <button class="qr-close" id="qqClose" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="qr-fam qq-fam">
+    <div class="qq-top"><svg class="qi qq-i" viewBox="0 0 56 26" aria-hidden="true"><rect class="o" x="2" y="11" width="12" height="10"/><rect class="g" x="18" y="11" width="12" height="10"/><rect class="g" x="34" y="11" width="12" height="10"/><path class="ar" d="M24 9C22 2 11 2 8.4 8.6M5 5.6 8.4 9 11.6 5.8"/></svg><span class="qlt">A</span><span class="nm">Family A &middot; flip it <i>&middot; inverte</i></span></div>
+    <div class="qr-verbs">Já tem auxiliar na frase: be, can, will, would, should…</div>
+    <div class="qr-formula qq-formula">auxiliary + person + verb</div>
+    <div class="qr-ex qq-ex"><b>Will</b> your parents <i>let</i> you go?<span class="pt">Seus pais vão te deixar ir?</span></div>
+    <div class="qq-note">Short answer: <b>Yes, they will.</b> Nunca entra “do”: <i>Can you…?</i>, não <i>Do you can…?</i></div>
+  </div><div class="qr-fam qq-fam">
+    <div class="qq-top"><svg class="qi qq-i" viewBox="0 0 56 26" aria-hidden="true"><rect class="o" x="2" y="11" width="12" height="10"/><path class="pl" d="M8 13.2V18.8M5.2 16H10.8"/><rect class="g" x="18" y="11" width="12" height="10"/><rect class="g" x="34" y="11" width="12" height="10"/></svg><span class="qlt">B</span><span class="nm">Family B &middot; add it <i>&middot; adiciona</i></span></div>
+    <div class="qr-verbs">Não tem auxiliar: entra do, does ou did.</div>
+    <div class="qr-formula qq-formula">do · does · did + person + base verb</div>
+    <div class="qr-ex qq-ex"><b>Did</b> she <i>tell</i> you to wait?<span class="pt">Ela te mandou esperar?</span></div>
+    <div class="qq-note">O passado vai para o “did”: <i>Did she tell</i>, nunca <i>Did she told</i>. Short answer: <b>Yes, she did.</b></div>
+  </div><div class="qr-fam qq-fam">
+    <div class="qq-top"><svg class="qi qq-i" viewBox="0 0 56 26" aria-hidden="true"><rect class="k" x="2" y="11" width="12" height="10"/><text x="8.0" y="19.3" text-anchor="middle">?</text><rect class="o" x="18" y="11" width="12" height="10"/><rect class="g" x="34" y="11" width="12" height="10"/></svg><span class="qlt">C</span><span class="nm">Family C &middot; wh first <i>&middot; palavra na frente</i></span></div>
+    <div class="qr-verbs">Você não sabe a ação, a coisa, o lugar: what, who, where na frente.</div>
+    <div class="qr-formula qq-formula">what · who · where + A or B</div>
+    <div class="qr-ex qq-ex"><b>What do</b> you <i>want</i> me to do?<span class="pt">O que você quer que eu faça?</span></div>
+    <div class="qq-note">Depois do “what”, a pergunta é A ou B normal. Perguntando a ação, o “do” fica no fim.</div>
+  </div><div class="qr-fam qq-fam">
+    <div class="qq-top"><svg class="qi qq-i" viewBox="0 0 56 26" aria-hidden="true"><rect class="k" x="2" y="11" width="12" height="10"/><text x="8.0" y="19.3" text-anchor="middle">?</text><rect class="g" x="18" y="11" width="12" height="10"/><rect class="g" x="34" y="11" width="12" height="10"/></svg><span class="qlt">D</span><span class="nm">Family D &middot; keep it <i>&middot; não mexe</i></span><span class="qq-les">Lesson 2</span></div>
+    <div class="qr-verbs">O who ou o what é o sujeito: quem fez, o que causou.</div>
+    <div class="qr-formula qq-formula">who · what + verb</div>
+    <div class="qr-ex qq-ex"><b>Who</b> <i>told</i> you to come?<span class="pt">Quem te mandou vir?</span></div>
+    <div class="qq-note">Nada pula, nada entra: <i>Who told</i>, nunca <i>Who did tell</i>.</div>
+  </div><div class="qr-fam qq-fam">
+    <div class="qq-top"><svg class="qi qq-i" viewBox="0 0 56 26" aria-hidden="true"><rect class="g" x="2" y="11" width="12" height="10"/><path class="br" d="M20 8H17.5V24H20M50 8H52.5V24H50"/><rect class="k" x="22" y="11" width="12" height="10"/><text x="28.0" y="19.3" text-anchor="middle">?</text><rect class="g" x="37" y="11" width="11" height="10"/></svg><span class="qlt">E</span><span class="nm">Family E &middot; hide it <i>&middot; esconde</i></span><span class="qq-les">Lesson 3</span></div>
+    <div class="qr-verbs">A pergunta fica dentro de outra frase: Do you know…? Can you tell me…?</div>
+    <div class="qr-formula qq-formula">Do you know + what + person + verb</div>
+    <div class="qr-ex qq-ex">Do you know <b>what</b> she <i>wants</i> me to do?<span class="pt">Você sabe o que ela quer que eu faça?</span></div>
+    <div class="qq-note">Dentro da frase, ordem de afirmação: <i>what she wants</i>, nunca <i>what does she want</i>.</div>
+  </div><p class="qq-two">Toda pergunta tem duas famílias: a <b>letra</b> diz como montar a pergunta, o <b>número</b> é o verb pattern.</p>
+</aside>
 
 <script>
 /* QUICK REFERENCE */
 (function(){
-  var btn = document.getElementById('qrBtn'), panel = document.getElementById('qrPanel'),
-      back = document.getElementById('qrBack'), close = document.getElementById('qrClose');
-  var hero = document.querySelector('.hero'), last = null;
+  var btn = document.getElementById('qrBtn'), panel = document.getElementById('qrPanel'), back = document.getElementById('qrBack'), close = document.getElementById('qrClose');
+  if (!btn) return; var hero = document.querySelector('.hero'), last = null;
   function vis(){ var y = hero ? hero.offsetTop + hero.offsetHeight * 0.6 : 300; btn.classList.toggle('show', window.scrollY > y && !panel.classList.contains('open')); }
-  function open(){ last = document.activeElement; panel.classList.add('open'); back.classList.add('open'); document.body.classList.add('qr-lock');
-    btn.setAttribute('aria-expanded', 'true'); btn.classList.remove('show'); setTimeout(function(){ close.focus(); }, 60); }
-  function shut(fb){ panel.classList.remove('open'); back.classList.remove('open'); document.body.classList.remove('qr-lock');
-    btn.setAttribute('aria-expanded', 'false'); vis(); if (fb && last) last.focus(); }
+  function open(){ last = document.activeElement; panel.classList.add('open'); back.classList.add('open'); document.body.classList.add('qr-lock'); btn.setAttribute('aria-expanded', 'true'); btn.classList.remove('show'); setTimeout(function(){ close.focus(); }, 60); }
+  function shut(fb){ panel.classList.remove('open'); back.classList.remove('open'); document.body.classList.remove('qr-lock'); btn.setAttribute('aria-expanded', 'false'); vis(); if (fb && last) last.focus(); }
   btn.addEventListener('click', open); close.addEventListener('click', function(){ shut(true); }); back.addEventListener('click', function(){ shut(true); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && panel.classList.contains('open')) shut(true); });
-  panel.addEventListener('click', function(e){ var g = e.target.closest('.qr-go'); if (!g) return; shut(false);
-    var t = document.getElementById(g.dataset.go); if (t){ var nav = document.querySelector('.nav'); var off = nav ? nav.offsetHeight + 12 : 12;
-      window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - off, behavior: 'smooth' }); } });
+  panel.addEventListener('click', function(e){ var g = e.target.closest('.qr-go'); if (g){ shut(false); location.href = 'NeuralEnglish-VerbPatterns-Part2.html#' + g.dataset.go; } });
   window.addEventListener('scroll', vis, { passive: true }); vis();
 })();
 /* RAIL */
 (function(){
-  var secs = ['p1','p2','p2b','p3','p4','p5','p6','p7','p8'].map(function(id){ return document.getElementById(id); });
-  var st = Array.prototype.slice.call(document.querySelectorAll('.rail-step'));
-  function up(){ var y = window.scrollY + window.innerHeight * 0.35;
-    secs.forEach(function(s, i){ st[i].classList.toggle('filled', !!s && s.offsetParent !== null && y >= s.offsetTop); }); }
-  window.addEventListener('scroll', up, { passive: true }); window.addEventListener('resize', up); window.addEventListener('modechange', up); up();
+  var secs = ['p1','p2','p3','p4'].map(function(id){ return document.getElementById(id); }), st = Array.prototype.slice.call(document.querySelectorAll('.rail-step'));
+  function up(){ var y = window.scrollY + window.innerHeight * 0.35; secs.forEach(function(s, i){ st[i].classList.toggle('filled', !!s && y >= s.offsetTop); }); }
+  window.addEventListener('scroll', up, { passive: true }); window.addEventListener('resize', up); up();
 })();
-/* OUTCOMES */
+/* HOOK */
 (function(){
-  var KEY = 'eic-outcomes-verb-patterns-2';
-  var items = Array.prototype.slice.call(document.querySelectorAll('#outcomesList .outcome-item'));
-  var counter = document.getElementById('outcomesCounter'), state;
-  try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
-  function up(){ counter.textContent = items.filter(function(i){ return i.classList.contains('confirmed'); }).length + ' / ' + items.length; }
-  items.forEach(function(it){ if (state[it.dataset.key]) it.classList.add('confirmed');
-    it.addEventListener('click', function(){ it.classList.toggle('confirmed'); state[it.dataset.key] = it.classList.contains('confirmed');
-      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} up(); }); });
-  up();
+  var R = { rec: {}, prod: [{}, {}] }, round = 0;
+  /* 1 · natural? */
+  document.getElementById('pairs').addEventListener('click', function(e){
+    var b = e.target.closest('.hk-s'); if (!b) return; var p = b.closest('.hk-pair'); if (p.classList.contains('done')) return;
+    p.classList.add('done'); var ok = b.dataset.ok === '1'; b.classList.add('chose');
+    p.querySelector('.hk-s[data-ok="1"]').classList.add('nat'); p.querySelector('.hk-s[data-ok="0"]').classList.add('wrong'); R.rec[p.dataset.i] = ok ? 1 : 0;
+    var n = Object.keys(R.rec).length, got = Object.values(R.rec).reduce(function(a, x){ return a + x; }, 0);
+    document.getElementById('pairScore').textContent = got + ' / 4' + (n < 4 ? '' : (got === 4 ? ' · natural ear' : got >= 2 ? ' · almost there' : ' · the ear still follows Portuguese'));
+    therm();
+  });
+  /* 2 · say it */
+  var says = Array.prototype.slice.call(document.querySelectorAll('.hk-say'));
+  says.forEach(function(box){
+    var go = box.querySelector('.hk-go'), bar = box.querySelector('.hk-bar i'), t = null;
+    go.addEventListener('click', function(){
+      if (t) return; box.classList.add('run'); go.disabled = true; var t0 = Date.now();
+      t = setInterval(function(){ var k = Math.min(1, (Date.now() - t0) / 5000); bar.style.width = (k * 100) + '%';
+        if (k >= 1){ clearInterval(t); t = null; box.classList.remove('run'); box.classList.add('timeup'); go.disabled = false; go.firstChild.textContent = 'Again '; } }, 50);
+    });
+    box.querySelector('.hk-mark').addEventListener('click', function(e){
+      var m = e.target.closest('button[data-m]'); if (!m) return;
+      R.prod[round][box.dataset.i] = m.dataset.m;
+      box.querySelectorAll('.hk-mark button').forEach(function(x){ x.setAttribute('aria-pressed', x === m ? 'true' : 'false'); });
+      box.classList.add('marked'); therm();
+    });
+  });
+  function paintRound(){
+    document.querySelectorAll('.hk-rb').forEach(function(b){ b.setAttribute('aria-pressed', +b.dataset.r === round ? 'true' : 'false'); });
+    says.forEach(function(box){ var v = R.prod[round][box.dataset.i];
+      box.classList.toggle('marked', !!v); box.classList.remove('timeup', 'run'); box.querySelector('.hk-bar i').style.width = '0';
+      box.querySelector('.hk-go').firstChild.textContent = 'Start ';
+      box.querySelectorAll('.hk-mark button').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.m === v ? 'true' : 'false'); }); });
+  }
+  document.querySelector('.hk-round').addEventListener('click', function(e){ var b = e.target.closest('.hk-rb'); if (!b) return; round = +b.dataset.r; paintRound(); });
+  /* 3 · would you rather + offers */
+  document.querySelectorAll('.hk-wyr').forEach(function(q){
+    q.addEventListener('click', function(e){ var b = e.target.closest('.hk-w'); if (!b) return;
+      q.querySelectorAll('.hk-w').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      q.querySelector('.hk-wa').innerHTML = b.dataset.a; q.classList.add('done'); });
+  });
+  var offs = Array.prototype.slice.call(document.querySelectorAll('#offBox .hk-l'));
+  offs.forEach(function(b){ b.addEventListener('click', function(){
+    offs.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    document.getElementById('offFrame').innerHTML = 'Do you want me to <b>' + b.textContent + '</b>?';
+    document.getElementById('offFrame2').innerHTML = 'Would you like me to <b>' + b.textContent + '</b>? <i>\u00b7 mais educado</i>'; }); });
+  /* 4 · thermometer */
+  function cnt(o, k){ return Object.keys(o).filter(function(x){ return o[x] === k; }).length; }
+  function line(o){ var n = Object.keys(o).length; if (!n) return '\u2014';
+    return cnt(o, 'ok') + ' right \u00b7 ' + cnt(o, 'err') + ' usual mistake \u00b7 ' + cnt(o, 'stuck') + ' stuck' + (n < 4 ? ' (' + n + ' / 4)' : ''); }
+  function therm(){
+    var rn = Object.keys(R.rec).length, rg = Object.values(R.rec).reduce(function(a, x){ return a + x; }, 0), p = R.prod[0], pn = Object.keys(p).length;
+    document.getElementById('thR').textContent = rn ? rg + ' / ' + rn + ' natural' : '\u2014';
+    document.getElementById('thP0').textContent = line(p); document.getElementById('thP1').textContent = line(R.prod[1]);
+    var txt = 'Faça os passos 1 e 2 para ver o caminho.';
+    if (rn === 4 && pn === 4){
+      var ok = cnt(p, 'ok');
+      if (rg >= 3 && ok >= 3) txt = '<b>Reconhece e produz.</b> Passe rápido pelo What\u2019s new e vá direto para a Practice.';
+      else if (rg >= 3) txt = '<b>Reconhece, mas não produz.</b> Ela sabe montar a pergunta lendo, mas falando sai o português. Faça o What\u2019s new rápido e gaste o tempo na Practice, falando em voz alta.';
+      else if (ok >= 3) txt = '<b>Produz, mas o ouvido ainda não confia.</b> Ela acerta falando e duvida lendo. Use o What\u2019s new com foco nas frases riscadas e corrigidas.';
+      else txt = '<b>Ainda segue o português.</b> Comece pelo quadro da pergunta (auxiliar + pessoa + verbo) antes de juntar as famílias.';
+      if (Object.keys(R.prod[1]).length === 4){ var d = cnt(R.prod[1], 'ok') - ok; txt += '<br><b>Fim da aula:</b> ' + (d > 0 ? d + (d === 1 ? ' frase a mais saiu certa.' : ' frases a mais saíram certas.') : d === 0 ? 'mesmo número de acertos que no início.' : 'menos acertos que no início: vale repetir a Practice.'); }
+    }
+    document.getElementById('thTxt').innerHTML = txt;
+  }
 })();
 </script>
 <script>
@@ -1873,6 +2014,21 @@ td.f-rare .w-en .fx-k, td.f-less .w-en .fx-k { color: var(--mid); }
   document.addEventListener('click', function(){ setTimeout(ask, 0); });
   if (td && window.MutationObserver) new MutationObserver(ask).observe(td, { childList: true, characterData: true, subtree: true });
   paint();
+})();
+</script>
+<script>
+/* QUESTIONS QUICK REFERENCE: its own floating button, stacked above Families */
+(function(){
+  var btn = document.getElementById('qqBtn'), panel = document.getElementById('qqPanel'), back = document.getElementById('qqBack'), close = document.getElementById('qqClose'),
+      fam = document.getElementById('qrBtn'), last = null;
+  function place(){ var r = fam.getBoundingClientRect(), mob = window.innerWidth <= 720; btn.style.right = (window.innerWidth - r.right) + 'px'; btn.style.bottom = (window.innerHeight - r.top + 10) + 'px'; }
+  function vis(){ btn.classList.toggle('show', fam.classList.contains('show') && !panel.classList.contains('open')); place(); }
+  function open(){ last = document.activeElement; panel.classList.add('open'); back.classList.add('open'); document.body.classList.add('qr-lock'); btn.setAttribute('aria-expanded', 'true'); btn.classList.remove('show'); setTimeout(function(){ close.focus(); }, 60); }
+  function shut(){ panel.classList.remove('open'); back.classList.remove('open'); document.body.classList.remove('qr-lock'); btn.setAttribute('aria-expanded', 'false'); vis(); if (last) last.focus(); }
+  btn.addEventListener('click', open); close.addEventListener('click', shut); back.addEventListener('click', shut);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && panel.classList.contains('open')) shut(); });
+  new MutationObserver(vis).observe(fam, { attributes: true, attributeFilter: ['class'] });
+  window.addEventListener('resize', vis); window.addEventListener('scroll', vis, { passive: true }); vis();
 })();
 </script>
 </body>

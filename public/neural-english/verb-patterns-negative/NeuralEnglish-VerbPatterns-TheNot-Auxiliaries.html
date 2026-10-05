@@ -1551,7 +1551,7 @@ html:not(.mode-class) .class-only { display: none !important; }
 <svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewbox="0 0 24 24" width="13"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"></path></svg><span>Worksheet PDF</span></a>
 </div>
 </nav>
-<div class="mnav-back" id="mnavBack"></div><nav class="mnav" id="mnav" aria-label="Verb Patterns module"><div class="mnav-t">Verb Patterns · Part 1</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns.html"><b>1</b><span>The lesson</span><small>Verb Patterns</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-HearTheTo.html"><b>2</b><span>Hear the to</span><small>Listening</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Practice.html"><b>3</b><span>Practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-MorePractice.html"><b>4</b><span>More practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot.html"><b>5</b><span>The not</span><small>22 exercises</small></a></li><li class="mn-i on"><a href="NeuralEnglish-VerbPatterns-TheNot-Auxiliaries.html" aria-current="page"><b>6</b><span>Every auxiliary</span><small>8 exercises</small></a><div class="mn-sub"></div></li></ol><div class="mnav-t mnav-t2">Part 2 · more verbs</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html"><b>1</b><span>Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2.html"><b>2</b><span>What’s new</span><small>New verbs</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html"><b>3</b><span>Practice</span><small>13 exercises</small></a></li></ol><div class="mnav-foot"><a href="NeuralEnglish-VerbPatterns-TheNot.html">‹ The not</a><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html">Hook ›</a></div></nav>
+<div class="mnav-back" id="mnavBack"></div><nav class="mnav" id="mnav" aria-label="Verb Patterns module"><div class="mnav-t">Verb Patterns · Part 1</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns.html"><b>1</b><span>The lesson</span><small>Verb Patterns</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-HearTheTo.html"><b>2</b><span>Hear the to</span><small>Listening</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Practice.html"><b>3</b><span>Practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-MorePractice.html"><b>4</b><span>More practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot.html"><b>5</b><span>The not</span><small>22 exercises</small></a></li><li class="mn-i on"><a href="NeuralEnglish-VerbPatterns-TheNot-Auxiliaries.html" aria-current="page"><b>6</b><span>Every auxiliary</span><small>8 exercises</small></a><div class="mn-sub"></div></li></ol><div class="mnav-t mnav-t2">Part 2 · more verbs</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html"><b>1</b><span>Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2.html"><b>2</b><span>What’s new</span><small>New verbs</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html"><b>3</b><span>Practice</span><small>13 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 3 · questions</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html"><b>1</b><span>Lesson 1 · Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1.html"><b>2</b><span>Lesson 1 · What’s new</span><small>Ask about the action</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Practice.html"><b>3</b><span>Lesson 1 · Practice</span><small>14 exercises</small></a></li></ol><div class="mnav-foot"><a href="NeuralEnglish-VerbPatterns-TheNot.html">‹ The not</a><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html">Hook ›</a></div></nav>
 
 <button type="button" class="where" id="where" aria-live="polite" tabindex="-1"><span class="where-in"><span class="w-k" id="wK"></span><span class="w-n" id="wN"></span><span class="w-t" id="wT"></span><span class="w-s" id="wS"></span></span></button>
 <div class="rail"><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div></div>
@@ -1586,17 +1586,32 @@ function hits(g, acc, mode){
   var s = ' ' + g + ' ';
   return acc.some(function(a){ var n = norm(strip(a)); return mode === 'exact' ? g === n : s.indexOf(' ' + n + ' ') !== -1; });
 }
-function hint(g){
+function hint(g, it){
   var s = ' ' + g + ' ';
-  if (/ (will not|cannot|could not|should not|would not|did not|does not|do not) (lets|makes|wants|asks|tells|needs|has|gets) /.test(s)) return 'Depois do auxiliar, o verbo fica na forma base, sem -s: <b>won\u2019t let</b>, <b>doesn\u2019t want</b>.';
-  if (/ (did not|will not|cannot|could not|should not|would not|does not|do not) (asked|told|made|wanted|invited|needed|expected|had|let us|allowed) /.test(s) && !/ did not let /.test(s)) return 'Depois de <b>didn\u2019t</b> (e de won\u2019t, can\u2019t, shouldn\u2019t) o verbo volta pra base: <b>didn\u2019t ask</b>. O passado j\u00e1 est\u00e1 no did.';
-  if (/ (has not|have not) (ask|asks|tell|tells|invite|invites|want|need|expect|allow|convince|advise) /.test(s)) return 'Depois de <b>hasn\u2019t</b> e <b>haven\u2019t</b> vem o partic\u00edpio: <b>hasn\u2019t asked</b>.';
-  if (/ (is not|are not|was not|were not) (let|lets|make|makes|ask|asks|tell|tells|allow) /.test(s)) return 'Depois de <b>isn\u2019t</b> e <b>aren\u2019t</b> vem -ing: <b>isn\u2019t letting</b>.';
-  if (/ (have not|has not|had not) (me|you|him|her|us|them|the \w+|my \w+|a \w+|his \w+|our \w+) /.test(s)) return 'Aqui <b>have</b> \u00e9 o verbo principal (mandar algu\u00e9m fazer). Precisa de <b>don\u2019t, doesn\u2019t, didn\u2019t</b>.';
+  /* 1. The auxiliary doesn't match the Portuguese (compare with the model's auxiliary family) */
+  var FAM = [['is not going to','fut'],['are not going to','fut'],['was not going to','was'],['were not going to','was'],['will not','fut'],['would not','was'],
+             ['cannot','can'],['could not','can'],['should not','should'],['has not','have'],['have not','have'],['is not','be'],['are not','be'],
+             ['does not','pres'],['do not','pres'],['did not','past']];
+  function fam(t){ t = ' ' + t + ' '; for (var i = 0; i < FAM.length; i++) if (t.indexOf(' ' + FAM[i][0] + ' ') !== -1) return FAM[i][1]; return null; }
   if (/ (do not|does not|did not) (will|can|should|would|has|have been|is|are) /.test(s)) return 'A frase j\u00e1 tem auxiliar. O <span class="tn">not</span> gruda nele, sem do.';
+  if (/ (have not|has not|had not) (me|you|him|her|us|them|the \w+|my \w+|a \w+|his \w+|our \w+) /.test(s)) return 'Aqui <b>have</b> \u00e9 o verbo principal (mandar algu\u00e9m fazer). Precisa de <b>don\u2019t, doesn\u2019t, didn\u2019t</b>.';
+  if (it && it.model){
+    var ok = {}; [it.model].concat(it.a || []).forEach(function(t){ var f = fam(norm(strip(t))); if (f) ok[f] = 1; });
+    var got = fam(g);
+    if (got && Object.keys(ok).length && !ok[got]) return 'O auxiliar não combina com o português. Releia: <i>vai</i> (will), <i>ia</i> (was going to), <i>consigo</i> (can), <i>deveria</i> (should), <i>ainda não</i> (have), <i>estão</i> (be). Sem nenhum desses: don’t, doesn’t, didn’t.';
+  }
+  /* 2. he, she, it with don't */
+  if (/^ (he|she|it|my (mom|dad|mother|father|sister|brother|boss|son|daughter|teacher|friend)|the (school|teacher|company|manager|hotel)) do not /.test(s)) return 'Com he, she, it (my mom, the school): <b>doesn’t</b>, não don’t.';
+  /* 3. verb form after the auxiliary */
+  if (/ (will not|cannot|could not|should not|would not|did not|does not|do not) (lets|makes|wants|asks|tells|needs|has|gets) /.test(s)) return 'Depois do auxiliar, o verbo fica na forma base, sem -s: <b>won’t let</b>, <b>doesn’t want</b>.';
+  if (/ (did not|will not|cannot|could not|should not|would not|does not|do not) (asked|told|made|wanted|invited|needed|expected|allowed) /.test(s)) return 'Depois de <b>didn’t</b> (e de won’t, can’t, shouldn’t), o verbo volta pra base: <b>asked</b> vira <b>ask</b>. O passado já está no did.';
+  if (/ (has not|have not) (ask|asks|tell|tells|invite|invites|want|need|expect|allow|convince|advise) /.test(s)) return 'Depois de <b>hasn’t</b> e <b>haven’t</b> vem o particípio: <b>hasn’t asked</b>.';
+  if (/ (is not|are not|was not|were not) (let|lets|make|makes|ask|asks|tell|tells|allow) /.test(s)) return 'Depois de <b>isn’t</b> e <b>aren’t</b> vem -ing: <b>isn’t letting</b>.';
+  if (/ (have not|has not|had not) (me|you|him|her|us|them|the \w+|my \w+|a \w+|his \w+|our \w+) /.test(s)) return 'Aqui <b>have</b> é o verbo principal (mandar alguém fazer). Precisa de <b>don’t, doesn’t, didn’t</b>.';
+  if (/ (do not|does not|did not) (will|can|should|would|has|have been|is|are) /.test(s)) return 'A frase já tem auxiliar. O <span class="tn">not</span> gruda nele, sem do.';
   if (/ (let|lets|make|makes|made|letting|making) (me|you|him|her|us|them|the \w+|my \w+|his \w+|our \w+|their \w+|a \w+|students) to /.test(s)) return 'Depois de <b>let</b> e <b>make</b>, o verbo vai sem <b>to</b>.';
-  if (/ (let|lets|make|makes|made|tell|told|ask|asked|have|had) (me|you|him|her|us|them|the \w+|my \w+|\w+) (do not|did not|does not) /.test(s)) return 'O <b>don\u2019t</b> n\u00e3o entra depois da pessoa. Ele vai no primeiro verbo.';
-  return 'Confira o auxiliar: a frase tem will, can, should, have, is? O <span class="tn">not</span> gruda nele. Se n\u00e3o tem, use don\u2019t, doesn\u2019t ou didn\u2019t, e o verbo volta pra base.';
+  if (/ (let|lets|make|makes|made|tell|told|ask|asked|have|had) (me|you|him|her|us|them|the \w+|my \w+|\w+) (do not|did not|does not) /.test(s)) return 'O <b>don’t</b> não entra depois da pessoa. Ele vai no primeiro verbo.';
+  return 'Confira o auxiliar: a frase tem will, can, should, have, is? O <span class="tn">not</span> gruda nele. Se não tem, use don’t, doesn’t ou didn’t, e o verbo volta pra base.';
 }
 
 var BAD = {1: 'Tem auxiliar na frase cinza? Olhe tamb\u00e9m o verbo depois da lacuna: base, partic\u00edpio ou -ing.',
@@ -1659,7 +1674,7 @@ EXS.forEach(function(e){
       else fb.innerHTML = '<span class="ok">Correct.</span> ' + it.model;
     } else {
       fb.innerHTML = '<span class="bad">Not yet.</span> ' + (e.kind === 'word' ? 'Olhe o verbo antes da lacuna.' :
-        (e.mode === 'exact' ? 'Confira a ordem e o auxiliar. O verbo depois de do, does ou did fica na forma base.' : hint(g)));
+        (e.mode === 'exact' ? 'Confira a ordem e o auxiliar. O verbo depois de do, does ou did fica na forma base.' : hint(g, it)));
     }
   }
   list.addEventListener('click', function(ev){

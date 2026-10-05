@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Writing nos Teens</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Caveat:wght@700&display=swap">
+<style>
+html{color-scheme:light}
+body{margin:0}
+/* Layout: caderno de professor. Uma coluna de leitura, objetivo em letra grande à esquerda, detalhes em fios à direita; a caneta azul só onde o professor falaria. */
+:root{
+  --bg:#FFFFFF; --fg:#0A0A0A; --mid:#555550; --line:#E4E4E0; --logo-d:block; --logo-l:none;
+  --blue:#0D1FFF; --orange:#E8302C; --neon:#F2FF3D; --neon-ink:#0A0A0A;
+  --sans:'Inter',Arial,sans-serif; --hand:'Caveat','Comic Sans MS',cursive;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F0F0D; --fg:#F1F1EC; --mid:#A5A59D; --line:#2C2C28; --blue:#8E97FF; --orange:#FF6B66; --logo-d:none; --logo-l:block; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F0F0D; --fg:#F1F1EC; --mid:#A5A59D; --line:#2C2C28; --blue:#8E97FF; --orange:#FF6B66; --logo-d:none; --logo-l:block; color-scheme:dark}
+*{box-sizing:border-box}
+h1,h2,h3,p,figure{margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:18px;line-height:1.55;padding-inline:20px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{max-width:1120px;margin-inline:auto}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:12px}
+.eyebrow.bar::before{content:"";width:28px;height:4px;background:var(--orange)}
+.label{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--mid)}
+.hand{font-family:var(--hand);font-weight:700;color:var(--blue);line-height:.9;transform:rotate(-3deg);transform-origin:left bottom;display:inline-block}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-20px;padding-inline:20px}
+nav .wrap{display:flex;gap:28px;overflow-x:auto;white-space:nowrap;padding-block:14px;scrollbar-width:none}
+nav a{font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--mid)}
+nav a:hover{color:var(--fg)}
+
+header{padding-block:72px 64px;display:flex;flex-direction:column;gap:28px}
+h1{font-size:clamp(52px,10vw,132px);font-weight:900;line-height:.95;letter-spacing:-.035em;text-wrap:balance}
+.sub{font-size:clamp(20px,2.4vw,28px);font-weight:600;line-height:1.35;max-width:30ch;color:var(--fg)}
+header .hand{font-size:44px;align-self:flex-start;margin-top:8px}
+
+section{padding-block:64px;border-top:2px solid var(--fg)}
+.grid{display:grid;grid-template-columns:5fr 7fr;gap:56px}
+.grid>*{min-width:0}
+.left{display:flex;flex-direction:column;gap:20px}
+h2{font-size:clamp(40px,6vw,76px);font-weight:900;line-height:1;letter-spacing:-.03em}
+.goal{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.25;letter-spacing:-.01em;text-wrap:pretty}
+.goal-l{color:var(--orange)}
+.url{display:inline-block;align-self:flex-start;font-weight:800;font-size:17px;border:1.5px solid var(--fg);padding:10px 16px;text-decoration:none;overflow-wrap:anywhere}
+.url:hover{background:var(--fg);color:var(--bg)}
+.right{display:flex;flex-direction:column;gap:12px}
+.rows{border-top:2px solid var(--fg)}
+.row{display:grid;grid-template-columns:190px 1fr;gap:24px;padding-block:20px;border-bottom:1px solid var(--line)}
+.row .en{font-weight:600;font-size:19px}
+.pt{color:var(--mid);font-weight:400;font-size:16px;line-height:1.5;margin-top:6px;padding-left:12px;border-left:2px solid var(--line);max-width:60ch}
+.sub-pt{font-size:18px;margin-top:10px;max-width:46ch}
+.goal-pt{font-size:17px}
+.neon .pt{color:var(--neon-ink);opacity:.75;border-left-color:rgba(10,10,10,.35)}
+.rel .g .pt{font-size:15px}
+td .pt{font-size:14px;margin-top:2px;padding-left:0;border-left:0}
+.neon{background:var(--neon);color:var(--neon-ink);padding:20px 24px;display:flex;flex-direction:column;gap:6px}
+.neon .en{font-weight:600;font-size:18px}
+.neon .label{color:var(--neon-ink)}
+
+/* Logo e selos */
+.logo{height:96px;width:auto;max-width:100%;align-self:flex-start;object-fit:contain}
+.logo.d{display:var(--logo-d)} .logo.l{display:var(--logo-l)}
+.stamps{display:flex;flex-wrap:wrap;gap:8px 6px;align-items:center;padding-top:8px}
+.stamps img{width:100px;height:100px}
+.stamps img:nth-child(odd){transform:rotate(-5deg)} .stamps img:nth-child(even){transform:rotate(4deg)}
+.stamps.one img{width:150px;height:150px}
+.stamps-l{margin-top:4px}
+footer .logo{height:44px}
+
+/* Relance */
+#relance{border-top:2px solid var(--fg)}
+.rel{margin-top:28px;border-top:2px solid var(--fg)}
+.rel .r{display:grid;grid-template-columns:48px 170px 1fr auto;gap:24px;align-items:baseline;padding-block:20px;border-bottom:1px solid var(--line)}
+.rel .n{font-weight:900;color:var(--orange)}
+.rel .nm{font-weight:900;font-size:24px;letter-spacing:-.02em}
+.rel .g .en{font-weight:600}
+.rel a{font-weight:800;font-size:15px;overflow-wrap:anywhere}
+.group{padding-block:28px 0;display:flex;align-items:center;gap:12px}
+
+/* circled word */
+.circ{position:relative;display:inline-block;padding-bottom:.1em;white-space:nowrap}
+.circ svg{position:absolute;left:-.3em;top:-.22em;width:calc(100% + .6em);height:1.6em;overflow:visible}
+.circ path{fill:none;stroke:var(--blue);stroke-width:2.4px;vector-effect:non-scaling-stroke;stroke-linecap:round}
+
+table{width:100%;border-collapse:collapse;min-width:520px}
+.tw{overflow-x:auto;border-top:2px solid var(--fg)}
+th{text-align:left;font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--mid);padding:14px 16px 10px 0}
+td{padding:14px 16px 14px 0;border-top:1px solid var(--line);font-weight:600;font-size:17px;vertical-align:top}
+td.k{font-weight:900;white-space:nowrap}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.code{font-weight:900;font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.02em}
+.wide{grid-column:1 / -1;display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.two>*{min-width:0}
+
+/* Hands-on: faixa invertida */
+.inv{background:var(--fg);color:var(--bg);margin-inline:-20px;padding-inline:20px;border-top:0}
+.inv .label,.inv .eyebrow{color:var(--bg);opacity:.7}
+.inv .goal-l{color:#FF6B66}
+.inv .rows{border-top-color:var(--bg)}
+.inv .row{border-bottom-color:rgba(128,128,120,.45)}
+.inv .url{border-color:var(--bg)}
+.inv .url:hover{background:var(--bg);color:var(--fg)}
+.inv .hand{color:#FF6B66}
+.inv .pt{color:var(--bg);opacity:.72;border-left-color:rgba(128,128,120,.5)}
+
+footer{padding-block:40px 64px;border-top:2px solid var(--fg);display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between;font-size:15px;color:var(--mid);font-weight:600}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:1fr;gap:32px}
+  .rel .r{grid-template-columns:36px 1fr;gap:6px 16px}
+  .rel .g,.rel a{grid-column:2}
+  .row{grid-template-columns:1fr;gap:4px}
+  .two{grid-template-columns:1fr;gap:28px}
+  header{padding-block:48px 40px}
+  section{padding-block:48px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+
+<nav aria-label="Projects"><div class="wrap">
+<a href="#relance">At a glance</a><a href="#poll">Poll</a><a href="#writing">Writing</a><a href="#notebook">Notebook</a><a href="#correcao">Correction</a><a href="#hands-on">Hands-on</a>
+</div></nav>
+
+<div class="wrap">
+<header>
+<img class="logo d" src="assets/logo-dark.png" alt="EIC · Escola de Idiomas e Cultura" width="184" height="96"><img class="logo l" src="assets/logo-light.png" alt="EIC · Escola de Idiomas e Cultura" width="184" height="96">
+<p class="eyebrow bar">EIC · Teachers' meeting · Reunião de professores · Teens 1–5</p>
+<h1>Writing<br>in the Teens</h1>
+<div><p class="sub">The goal of each project, on a single page.</p><p class="pt sub-pt">O objetivo de cada projeto, em uma página só.</p></div>
+<span class="hand" aria-hidden="true">It's all online!</span>
+</header>
+
+<section id="relance">
+<p class="eyebrow">At a glance · De relance</p>
+<div class="group"><span class="label">With students · Com os alunos</span></div>
+<div class="rel" style="margin-top:12px">
+<div class="r"><span class="n">01</span><span class="nm">Poll</span><span class="g"><div class="bi"><p class="en">Activate what students already think and can say before the unit.</p><p class="pt">Ativar o que o aluno já pensa e sabe dizer antes da unidade.</p></div></span><a href="https://eic-polls.web.app/" target="_blank" rel="noopener">eic-polls.web.app</a></div>
+<div class="r"><span class="n">02</span><span class="nm">Writing</span><span class="g"><div class="bi"><p class="en">Give students more writing practice, with a topic and a sheet ready to go.</p><p class="pt">Dar mais prática de writing, com tema e folha prontos.</p></div></span><a href="https://eic-writing.web.app/" target="_blank" rel="noopener">eic-writing.web.app</a></div>
+<div class="r"><span class="n">03</span><span class="nm">Notebook</span><span class="g"><div class="bi"><p class="en">Support students in each Life writing task.</p><p class="pt">Apoiar o aluno em cada tarefa de writing do Life.</p></div></span><a href="https://eic-writing-notebook.web.app/" target="_blank" rel="noopener">eic-writing-notebook.web.app</a></div>
+</div>
+<div class="group"><span class="label">Between teachers · Entre professores</span></div>
+<div class="rel" style="margin-top:12px">
+<div class="r"><span class="n">04</span><span class="nm">Correction</span><span class="g"><div class="bi"><p class="en">Correct and grade writing the same way, across all teachers.</p><p class="pt">Corrigir e dar nota de writing do mesmo jeito.</p></div></span><a href="https://eic-correction.web.app/" target="_blank" rel="noopener">eic-correction.web.app</a></div>
+<div class="r"><span class="n">05</span><span class="nm">Hands-on</span><span class="g"><div class="bi"><p class="en">Train your correction eye on real texts.</p><p class="pt">Treinar o olhar de correção em textos reais.</p></div></span><a href="https://eic-correction.web.app/hands-on/" target="_blank" rel="noopener">eic-correction.web.app/hands-on</a></div>
+</div>
+</section>
+
+<section id="poll">
+<div class="grid">
+<div class="left">
+<p class="eyebrow">01 · With students · Com os alunos</p>
+<h2>EIC Poll</h2>
+<p class="label goal-l">Goal · Objetivo</p>
+<div class="bi"><p class="goal">Activate what students already think and can say before the unit.</p><p class="pt goal-pt">Ativar o que o aluno já pensa e já sabe dizer antes da unidade.</p></div>
+<span class="label stamps-l">Poll stamp · Selo do poll</span>
+<div class="stamps one"><img src="assets/selo-poll.png" alt="EIC Poll stamp: Ask 5 people"></div>
+<a class="url" href="https://eic-polls.web.app/" target="_blank" rel="noopener">eic-polls.web.app</a>
+</div>
+<div class="right">
+<span class="hand" style="font-size:40px">How to use it?</span>
+<div class="rows">
+<div class="row"><span class="label">What it is</span><div class="bi"><p class="en">Six opinion questions per unit, Teens 1 to 5.</p><p class="pt">Seis perguntas de opinião por unidade, do Teens 1 ao 5.</p></div></div>
+<div class="row"><span class="label">Printed</span><div class="bi"><p class="en">Each student asks five classmates and writes down the answers.</p><p class="pt">O aluno pergunta a cinco colegas e anota as respostas.</p></div></div>
+<div class="row"><span class="label">Projected in class</span><div class="bi"><p class="en">The whole class votes on the screen and you discuss the answers.</p><p class="pt">A turma inteira vota na tela e vocês comentam as respostas.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="writing">
+<div class="grid">
+<div class="left">
+<p class="eyebrow">02 · With students · Com os alunos</p>
+<h2>EIC Writing</h2>
+<p class="label goal-l">Goal · Objetivo</p>
+<div class="bi"><p class="goal">Give students more writing practice, with a topic and a sheet ready in a minute.</p><p class="pt goal-pt">Dar ao aluno mais prática de writing, com tema e folha prontos em um minuto.</p></div>
+<span class="label stamps-l">Sheet stamps · Selos das folhas</span>
+<div class="stamps"><img src="assets/stamp-topic-sentence.png" alt="Topic sentence stamp: about becomes an idea"><img src="assets/stamp-opinion-essay.png" alt="Opinion essay stamp: bad becomes because"><img src="assets/stamp-narrative.png" alt="Narrative stamp: scared becomes hands shook"><img src="assets/stamp-review.png" alt="Review stamp: good becomes worth it"></div>
+<a class="url" href="https://eic-writing.web.app/" target="_blank" rel="noopener">eic-writing.web.app</a>
+</div>
+<div class="right">
+<div class="rows">
+<div class="row"><span class="label">Topic generator</span><div class="bi"><p class="en">Level, unit and text type: opinion or both sides.</p><p class="pt">Nível, unidade e tipo de texto: opinião ou os dois lados.</p></div></div>
+<div class="row"><span class="label">Situation generator</span><div class="bi"><p class="en">Writing scenarios tied to the content of each unit.</p><p class="pt">Cenários de escrita ligados ao conteúdo de cada unidade.</p></div></div>
+<div class="row"><span class="label">Custom sheet</span><div class="bi"><p class="en">Letter or A4, line spacing and line numbers for correction.</p><p class="pt">Letter ou A4, espaço entre linhas e numeração para a correção.</p></div></div>
+<div class="row"><span class="label">Practice sheets</span><div class="bi"><p class="en">Topic sentence and opinion essay, with answer key.</p><p class="pt">Topic sentence e opinion essay, com gabarito.</p></div></div>
+</div>
+<span class="hand" style="font-size:40px;margin-top:12px">Heads up!</span>
+<div class="neon"><p class="label">Heads up · Atenção</p><div class="bi"><p class="en">Topics were proposed and checked by AI, with no teacher involved. If something sounds off, tell us.</p><p class="pt">Os temas foram propostos e conferidos por IA, sem professor. Se algo soar estranho, avisem.</p></div></div>
+</div>
+</div>
+</section>
+
+<section id="notebook">
+<div class="grid">
+<div class="left">
+<p class="eyebrow">03 · With students · Com os alunos</p>
+<h2>Writing Notebook</h2>
+<p class="label goal-l">Goal · Objetivo</p>
+<div class="bi"><p class="goal">Support students in each Life writing task, without replacing the book.</p><p class="pt goal-pt">Apoiar o aluno em cada tarefa de writing do Life, sem substituir o livro.</p></div>
+<span class="label stamps-l">Notebook stamp · Selo do caderno</span>
+<div class="stamps one"><img src="assets/selo-notebook.png" alt="My voice, my words stamp"></div>
+<a class="url" href="https://eic-writing-notebook.web.app/" target="_blank" rel="noopener">eic-writing-notebook.web.app</a>
+</div>
+<div class="right">
+<span class="hand" style="font-size:40px">And the book?</span>
+<div class="rows">
+<div class="row"><span class="label">One sheet per task</span><div class="bi"><p class="en">Every Life writing task, Teens 1 to 5, has its own sheet.</p><p class="pt">Cada tarefa de writing do Life, do Teens 1 ao 5, tem a sua.</p></div></div>
+<div class="row"><span class="label">Useful chunks</span><div class="bi"><p class="en">Ready-made language blocks students can use in their text.</p><p class="pt">Blocos de linguagem prontos para o aluno usar no texto.</p></div></div>
+<div class="row"><span class="label">Before you hand in</span><div class="bi"><p class="en">A revision checklist: students check their text and read it aloud before handing it in.</p><p class="pt">Checklist de revisão: o aluno confere e lê em voz alta antes de entregar.</p></div></div>
+<div class="row"><span class="label">The book rules</span><div class="bi"><p class="en">The sheet summarizes the task. The official reference is still Life.</p><p class="pt">A folha resume o enunciado. A referência oficial continua sendo o Life.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="correcao">
+<div class="grid">
+<div class="left">
+<p class="eyebrow">04 · Between teachers · Entre professores</p>
+<h2>Correction</h2>
+<p class="label goal-l">Goal · Objetivo</p>
+<div class="bi"><p class="goal">All teachers correct and grade writing the <span class="circ">same way<svg viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span>.</p><p class="pt goal-pt">Todos os professores corrigem e dão nota de writing do mesmo jeito.</p></div>
+<span class="label stamps-l">Correction stamp · Selo da correção</span>
+<div class="stamps one"><img src="assets/selo-correcao.png" alt="There, their stamp: their crossed out"></div>
+<a class="url" href="https://eic-correction.web.app/" target="_blank" rel="noopener">eic-correction.web.app</a>
+</div>
+<div class="right">
+<span class="hand" style="font-size:40px">And the grade?</span>
+<div class="rows">
+<div class="row"><span class="label">Rubric</span><div class="bi"><p class="en">Four criteria, 0 to 5 each. The total divided by 2 gives a grade from 0 to 10.</p><p class="pt">Quatro critérios de 0 a 5. A soma dividida por 2 dá a nota de 0 a 10.</p></div></div>
+<div class="row"><span class="label">Mark little, count it all</span><div class="bi"><p class="en">Mark 3 to 5 error categories, but count every error when you grade. A repeated error counts once.</p><p class="pt">Marque de 3 a 5 categorias de erro, mas conte todos os erros ao dar a nota. Erro repetido conta uma vez.</p></div></div>
+<div class="row"><span class="label">Rules</span><div class="bi"><p class="en">One pen only, students rewrite what was marked, and every text gets at least one praise mark.</p><p class="pt">Uma caneta só, o aluno reescreve o que foi marcado e todo texto recebe ao menos um elogio.</p></div></div>
+<div class="row"><span class="label">Examples</span><div class="bi"><p class="en">Two texts corrected step by step: Theo (7.5) and Lena (9.5).</p><p class="pt">Dois textos corrigidos passo a passo: Theo (7,5) e Lena (9,5).</p></div></div>
+</div>
+</div>
+<div class="wide two">
+<div style="display:flex;flex-direction:column;gap:12px">
+<span class="label">The four criteria · Os quatro critérios</span>
+<div class="tw"><table>
+<tr><th>Criterion</th><th>Score</th><th>Errors</th></tr>
+<tr><td class="k">Task and content</td><td colspan="2">The four parts of the text, developed<p class="pt">As quatro partes do texto, desenvolvidas</p></td></tr>
+<tr><td class="k">Organization</td><td colspan="2">Logical order and linking words<p class="pt">Ordem lógica e conectores</p></td></tr>
+<tr><td class="k">Vocabulary</td><td class="num">5 · 3 · 1</td><td class="num">up to 2 · 3 to 5 · 6+</td></tr>
+<tr><td class="k">Grammar</td><td class="num">5 · 3 · 1</td><td class="num">by error range<p class="pt">por faixas de erros</p></td></tr>
+</table></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<span class="label">Some of the 17 symbols · Alguns dos 17 símbolos</span>
+<div class="tw"><table>
+<tr><th>Mark</th><th>Meaning</th></tr>
+<tr><td class="code">WW</td><td>Wrong word<p class="pt">Palavra errada</p></td></tr>
+<tr><td class="code">SVA</td><td>Subject-verb agreement<p class="pt">Concordância sujeito-verbo</p></td></tr>
+<tr><td class="code">NS</td><td>New sentence<p class="pt">Nova frase</p></td></tr>
+</table></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<section id="hands-on" class="inv">
+<div class="wrap">
+<div class="grid">
+<div class="left">
+<p class="eyebrow">05 · Between teachers · Entre professores</p>
+<h2>Hands-on</h2>
+<p class="label goal-l">Goal · Objetivo</p>
+<div class="bi"><p class="goal">Train your correction eye on real texts before correcting your own class’s.</p><p class="pt goal-pt">Treinar o olhar de correção em textos reais antes de corrigir os da turma.</p></div>
+<a class="url" href="https://eic-correction.web.app/hands-on/" target="_blank" rel="noopener">eic-correction.web.app/hands-on</a>
+</div>
+<div class="right">
+<span class="hand" style="font-size:40px">Practice!</span>
+<div class="rows">
+<div class="row"><span class="label">Text and marks</span><div class="bi"><p class="en">Students’ texts with the correction-code marks already on them.</p><p class="pt">Textos de alunas com as marcas do código de correção.</p></div></div>
+<div class="row"><span class="label">Scoring</span><div class="bi"><p class="en">You score the four criteria and compare with the reference grade.</p><p class="pt">Você pontua pelos quatro critérios e compara com a nota de referência.</p></div></div>
+<div class="row"><span class="label">Comments</span><div class="bi"><p class="en">Every decision is explained, so we align our criteria.</p><p class="pt">Cada decisão vem explicada, para alinhar o critério entre nós.</p></div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="wrap">
+<footer><span><img class="logo d" src="assets/logo-dark.png" alt="EIC · Escola de Idiomas e Cultura" width="84" height="44"><img class="logo l" src="assets/logo-light.png" alt="EIC · Escola de Idiomas e Cultura" width="84" height="44"></span><span>Teens 1–5 · Writing</span></footer>
+</div>
+
+</body>
+</html>
