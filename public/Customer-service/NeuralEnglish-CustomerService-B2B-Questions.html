@@ -10,9 +10,9 @@ button { font: inherit; color: inherit; }
 .top { position: sticky; top: 0; z-index: 40; display: flex; justify-content: space-between; align-items: center; padding: 14px 22px; background: var(--white); border-bottom: 1px solid var(--light); }
 .brand { font-weight: 900; letter-spacing: -.01em; } .brand i { font-style: normal; color: var(--orange); }
 .lvl { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
-.rail { position: sticky; top: 51px; z-index: 39; display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; width: var(--w); margin: 14px auto 0; }
+.rail { position: sticky; top: 51px; z-index: 39; display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; width: var(--w); margin: 14px auto 0; }
 .rail span { height: 4px; background: var(--light); transition: background .2s; } .rail span.on { background: var(--ink); }
-.rail-l { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; width: var(--w); margin: 6px auto 0; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--mid); }
+.rail-l { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; width: var(--w); margin: 6px auto 0; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--mid); }
 .hero, .part { width: var(--w); margin: 0 auto; }
 .hero { padding: 48px 0 40px; }
 .hero-eyebrow { display: flex; align-items: center; gap: 12px; font-size: clamp(11px, .5vw + 9px, 17px); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
@@ -174,6 +174,35 @@ body.qr-lock { overflow: hidden; }
 .qq-two { font-size: 13px; color: var(--mid); line-height: 1.55; padding-top: 16px; }
 .qq-two b { color: var(--ink); }
 
+.ar-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 8px 0 0; }
+.bx { border: 1.5px solid var(--ink); padding: 10px 12px 12px; background: var(--white); }
+.bx-t { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+.bx-n { font-size: 36px; font-weight: 900; letter-spacing: -.03em; line-height: 1.05; margin: 6px 0 4px; }
+.bx-l { font-size: 14px; font-weight: 600; line-height: 1.35; }
+.bx-s { margin-top: 8px; font-size: 12px; color: var(--mid); }
+.bx.did { border-top: 6px solid var(--orange); } .bx.did .bx-t { color: var(--orange); }
+.art { margin-top: 8px; }
+.art .art-lead { max-width: 30ch; font-size: clamp(28px, 2.4vw + 14px, 54px); font-weight: 900; letter-spacing: -.03em; line-height: 1.08; margin: 6px 0 14px; }
+.art .art-note { max-width: 60ch; margin-bottom: 26px; padding-bottom: 20px; border-bottom: 1.5px solid var(--ink); }
+.art-cols { column-width: 22em; column-gap: 44px; column-rule: 1px solid var(--light); }
+.art-cols h3 { break-after: avoid; break-inside: avoid; margin: 0 0 10px; padding-top: 22px; }
+.art-cols h3:first-child { padding-top: 0; }
+.art-cols p, .art-cols li { orphans: 3; widows: 3; }
+.art-cols h3:first-child + p::first-letter { float: left; font-size: 4.1em; line-height: .82; font-weight: 900; padding: 5px 8px 0 0; }
+.art-cols .art-note { border: 0; padding: 0; margin: 0 0 8px; font-size: 14px; }
+.art h3 { font-size: clamp(19px, .8vw + 15px, 26px); font-weight: 900; letter-spacing: -.02em; line-height: 1.2; margin: 38px 0 10px; }
+.art p { font-size: clamp(16px, .3vw + 14.5px, 18px); line-height: 1.6; margin: 0 0 14px; }
+.art .art-note { color: var(--mid); font-size: 14px; }
+.art ol { margin: 0 0 14px 1.3em; } .art li { font-size: clamp(16px, .3vw + 14.5px, 18px); line-height: 1.55; margin-bottom: 6px; }
+.art-q { margin-top: 18px; max-width: 52ch; } .art-q .qa-q { margin-bottom: 0; } .art-h { font-size: 20px; font-weight: 900; margin: 40px 0 10px; }
+.tq { column-width: 18em; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 44px; margin-top: 6px; }
+.tq-i { padding-top: 18px; border-top: 1.5px solid var(--ink); }
+.tq-q { display: flex; gap: 12px; align-items: flex-start; font-size: clamp(18px, .5vw + 15px, 22px); font-weight: 800; letter-spacing: -.01em; line-height: 1.25; min-height: 3.8em; }
+.tq-l { flex: none; width: 26px; height: 26px; border: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; letter-spacing: 0; margin-top: 1px; }
+.tq .fl { height: 38px; border-bottom: 1px solid var(--mid); margin: 0; }
+.fl { height: 40px; border-bottom: 1.5px solid var(--ink); margin-bottom: 10px; }
+.art-src { list-style: none; margin-left: 0; column-width: 22em; column-gap: 44px; margin-top: 8px; font-size: 13px; color: var(--mid); line-height: 1.5; } .art-src li { margin-bottom: 4px; }
+.gs-more { color: var(--ink); font-weight: 700; margin-left: 6px; }
 .vt { text-decoration: underline dotted var(--mid); text-decoration-thickness: 1.5px; text-underline-offset: 4px; cursor: help; }
 .vt:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .qa-h .vt { text-decoration-color: var(--blue); }
@@ -189,8 +218,8 @@ body.qr-lock { overflow: hidden; }
 </style></head>
 <body>
 <header class="top"><span class="brand">EIC <i>·</i> Neural English</span><span class="lvl">B1+ · B2B customer service</span></header>
-<div class="rail" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-<div class="rail-l" aria-hidden="true"><span>Stand</span><span>Natural</span><span>Say it</span><span>Your job</span><span>Customers</span><span>Traps</span><span>Role-play</span></div>
+<div class="rail" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="rail-l" aria-hidden="true"><span>Stand</span><span>Read</span><span>Natural</span><span>Say it</span><span>Your job</span><span>Customers</span><span>Traps</span><span>Role-play</span></div>
 
 <header class="hero">
   <div class="hero-eyebrow">Verb Patterns &middot; Questions at work &middot; B2B customer service</div>
@@ -206,14 +235,72 @@ body.qr-lock { overflow: hidden; }
   <div class="lks"><fieldset class="lk"><legend class="lk-t">A good agent never lets a customer hear about a delay from the <span class="vt" tabindex="0" data-pt="transportadora" data-tip="A empresa que leva a carga. Não é “carrier” de celular.">carrier</span>.</legend><div class="lk-row"><label class="lk-o"><input type="radio" name="lk0" value="0"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly disagree</span></label><label class="lk-o"><input type="radio" name="lk0" value="1"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Disagree</span></label><label class="lk-o"><input type="radio" name="lk0" value="2"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Not sure</span></label><label class="lk-o"><input type="radio" name="lk0" value="3"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Agree</span></label><label class="lk-o"><input type="radio" name="lk0" value="4"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly agree</span></label></div></fieldset><fieldset class="lk"><legend class="lk-t">Sales shouldn’t let customers expect a date that supply chain hasn’t confirmed.</legend><div class="lk-row"><label class="lk-o"><input type="radio" name="lk1" value="0"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly disagree</span></label><label class="lk-o"><input type="radio" name="lk1" value="1"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Disagree</span></label><label class="lk-o"><input type="radio" name="lk1" value="2"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Not sure</span></label><label class="lk-o"><input type="radio" name="lk1" value="3"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Agree</span></label><label class="lk-o"><input type="radio" name="lk1" value="4"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly agree</span></label></div></fieldset><fieldset class="lk"><legend class="lk-t">Suppliers should ask customers to send a <span class="vt" tabindex="0" data-pt="previsão de demanda" data-tip="Quanto o cliente acha que vai comprar nos próximos meses.">forecast</span> every month.</legend><div class="lk-row"><label class="lk-o"><input type="radio" name="lk2" value="0"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly disagree</span></label><label class="lk-o"><input type="radio" name="lk2" value="1"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Disagree</span></label><label class="lk-o"><input type="radio" name="lk2" value="2"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Not sure</span></label><label class="lk-o"><input type="radio" name="lk2" value="3"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Agree</span></label><label class="lk-o"><input type="radio" name="lk2" value="4"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly agree</span></label></div></fieldset><fieldset class="lk"><legend class="lk-t">In B2B, a good relationship makes customers forgive a late delivery.</legend><div class="lk-row"><label class="lk-o"><input type="radio" name="lk3" value="0"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly disagree</span></label><label class="lk-o"><input type="radio" name="lk3" value="1"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Disagree</span></label><label class="lk-o"><input type="radio" name="lk3" value="2"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Not sure</span></label><label class="lk-o"><input type="radio" name="lk3" value="3"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Agree</span></label><label class="lk-o"><input type="radio" name="lk3" value="4"><span class="lk-c" aria-hidden="true"></span><span class="lk-l">Strongly agree</span></label></div></fieldset></div>
   <div class="tag" aria-hidden="true">how close?</div>
   <div class="bi"><p class="bi-en">Two real numbers about B2B buyers. <b>Guess</b> first.</p><p class="bi-pt">Escreva o seu palpite e confira. O número vem de uma pesquisa de verdade, com a fonte embaixo.</p></div>
-  <div class="gss"><div class="gs" data-real="74"><p class="gs-q">What percentage of B2B buyers say they would <span class="vt" tabindex="0" data-pt="trocar de fornecedor" data-tip="">switch suppliers</span> for a better experience?</p><p class="gs-sub">Not for a better price. For a better experience.</p><div class="gs-row"><label class="gs-l" for="g0">My guess</label><input class="gs-in" id="g0" type="number" min="0" max="100" inputmode="numeric"><span class="gs-pc">%</span><button type="button" class="b gs-go">Check</button></div><p class="gs-r" aria-live="polite"><span class="hand gs-n"></span><span class="gs-d"></span></p><p class="gs-src">Sana Commerce survey with 1,000 B2B buyers at manufacturers, distributors, wholesalers and retailers, reported by Digital Commerce 360, March 2024.</p></div><div class="gs" data-real="33"><p class="gs-q">In the same survey, what percentage of the buyers’ online orders had an error?</p><p class="gs-sub">Out of every 100 orders.</p><div class="gs-row"><label class="gs-l" for="g1">My guess</label><input class="gs-in" id="g1" type="number" min="0" max="100" inputmode="numeric"><span class="gs-pc">%</span><button type="button" class="b gs-go">Check</button></div><p class="gs-r" aria-live="polite"><span class="hand gs-n"></span><span class="gs-d"></span></p><p class="gs-src">Sana Commerce survey with 1,000 B2B buyers at manufacturers, distributors, wholesalers and retailers, reported by Digital Commerce 360, March 2024.</p></div></div>
+  <div class="gss"><div class="gs" data-real="74"><p class="gs-q">What percentage of B2B buyers say they would <span class="vt" tabindex="0" data-pt="trocar de fornecedor" data-tip="">switch suppliers</span> for a better experience?</p><p class="gs-sub">If another supplier’s web store offered a better experience.</p><div class="gs-row"><label class="gs-l" for="g0">My guess</label><input class="gs-in" id="g0" type="number" min="0" max="100" inputmode="numeric"><span class="gs-pc">%</span><button type="button" class="b gs-go">Check</button></div><p class="gs-r" aria-live="polite"><span class="hand gs-n"></span><span class="gs-d"></span></p><p class="gs-src">Survey of 1,000 B2B buyers by Sapio Research, commissioned by Sana Commerce, reported by Digital Commerce 360, March 2024. <a class="gs-more" href="#s7">Read more in Part 2 ↓</a></p></div><div class="gs" data-real="33"><p class="gs-q">In the same survey, what percentage of the buyers’ online orders had an error?</p><p class="gs-sub">Out of every 100 orders.</p><div class="gs-row"><label class="gs-l" for="g1">My guess</label><input class="gs-in" id="g1" type="number" min="0" max="100" inputmode="numeric"><span class="gs-pc">%</span><button type="button" class="b gs-go">Check</button></div><p class="gs-r" aria-live="polite"><span class="hand gs-n"></span><span class="gs-d"></span></p><p class="gs-src">Survey of 1,000 B2B buyers by Sapio Research, commissioned by Sana Commerce, reported by Digital Commerce 360, March 2024.</p></div></div>
   <div class="tag" aria-hidden="true">talk first</div>
   <div class="bi"><p class="bi-en">Talk about these before the questions.</p><p class="bi-pt">Responda em inglês, sem se preocupar com o erro. O professor anota as perguntas que você quis fazer e não conseguiu montar: elas voltam no fim da aula.</p></div>
   <ol class="tk"><li><span class="n">1</span><p>Who are your customers? What do they use your enzymes for?</p></li><li><span class="n">2</span><p>Think of your most difficult customer. What did they want you to do?</p></li><li><span class="n">3</span><p>Should supply chain let customer service see the <span class="vt" tabindex="0" data-pt="estoque" data-tip="Em inglês americano também se diz inventory.">stock</span> <span class="vt" tabindex="0" data-pt="em tempo real" data-tip="">in real time</span>? Why?</p></li><li><span class="n">4</span><p>What makes a business customer stay with the same supplier for years?</p></li><li><span class="n">5</span><p>If your company let you change one thing in the order process, what would you change?</p></li></ol>
 </section>
 
+<section class="part" id="s7">
+  <div class="eyebrow"><span class="num">2</span>Read</div>
+  <h2>Would they really switch?</h2>
+  <div class="h2-pt">Quatro números de quatro pesquisas. Olhe a etiqueta de cada caixa antes de ler o texto</div>
+  <div class="ar-box">
+    <div class="bx"><div class="bx-t">Said</div><div class="bx-n">74%</div><div class="bx-l">would switch suppliers for a better web store</div><div class="bx-s">Sana, 2024</div></div>
+    <div class="bx"><div class="bx-t">Reported</div><div class="bx-n">33%</div><div class="bx-l">of online orders had an error</div><div class="bx-s">Sana, 2024</div></div>
+    <div class="bx"><div class="bx-t">Said</div><div class="bx-n">84%</div><div class="bx-l">would stay for a great relationship</div><div class="bx-s">Sana, 2021</div></div>
+    <div class="bx did"><div class="bx-t">Did</div><div class="bx-n">53%</div><div class="bx-l">switched all purchases in 12 months</div><div class="bx-s">Wunderman Thompson, 2021</div></div>
+  </div>
+  <div class="tag" aria-hidden="true">said is not the same as did</div>
+  <div class="art">
+    <p class="art-lead">Three in four business buyers say they would switch suppliers. Would they really?</p>
+    <p class="art-note">B2B means business-to-business: one company sells to another company.</p>
+    <div class="art-cols">
+    <h3>The number everyone quotes</h3>
+    <p>A 2024 survey of 1,000 buyers in six countries found that 74% would <span class="vt" tabindex="0" data-pt="trocar de fornecedor" data-tip="">switch suppliers</span> if another B2B web store offered a better experience. In the US the number was 91%.</p>
+    <p>The research company Sapio Research ran the survey, and Sana Commerce paid for it. Sana sells software for B2B online stores.</p>
+    <p>The same survey found a second problem. Buyers said 33% of their online orders had an error. In 2019 the number was 28%.</p>
+    <h3>Read the small print</h3>
+    <p><b>First, the question was about web stores.</b> It was not about phone calls, prices or the person who answers your emails.</p>
+    <p><b>Second, the company that paid for the survey sells a solution.</b> That does not make the data wrong. It is a good reason to look at other studies too.</p>
+    <p><b>Third, “would switch” is not the same as “did switch.”</b> People are not always good at predicting what they will do. A 2010 study of business customers in facilities management found that the reasons customers gave for leaving were quite different from the real reasons. Even satisfied customers left, and they left more often because of <span class="vt" tabindex="0" data-pt="preço" data-tip="">price</span> than they had said.</p>
+    <p>McKinsey’s 2026 survey of nearly 4,000 decision-makers adds more detail. Just over half of them (53%) are “adapters”. They value trust and familiar ways of working, and they often stay with a known supplier even when the experience is not great. A smaller group (29%), the “seekers”, expect <span class="vt" tabindex="0" data-pt="fluido, sem atrito" data-tip="">smooth</span> service across all channels, and they are among the most likely to switch.</p>
+    <p>So 74% is probably too high as a prediction. As a warning, it is useful.</p>
+    <h3>But buyers do switch</h3>
+    <p>Some surveys ask what buyers actually did. In 2021, Wunderman Thompson reported that 53% of the businesses it surveyed had switched suppliers for all purchases in the last 12 months, up from 18% the year before. That was during the pandemic, when supply was a big problem. In the smaller 2020 edition, the most common reason for switching was that the old supplier was <span class="vt" tabindex="0" data-pt="sem estoque" data-tip="">out of stock</span> (44%).</p>
+    <h3>What are buyers unhappy about?</h3>
+    <p>In the Sana survey, buyers said the biggest <span class="vt" tabindex="0" data-pt="barreiras" data-tip="">barriers</span> to ordering online were inaccurate delivery times (31%), inaccurate prices (29%), inaccurate stock levels (28%) and missing product information (28%). In McKinsey’s survey, the top reason for switching was inconsistent information across teams. The second was not being able to reach knowledgeable people.</p>
+    <p>These are problems with information: a date that is wrong, a stock level that is wrong, two people who say two different things.</p>
+    <h3>What keeps a customer?</h3>
+    <p>Relationships help. In an earlier Sana survey of 1,282 buyers (2021), as many as 84% said they would buy from a supplier they have a great relationship with, even if the terms were less <span class="vt" tabindex="0" data-pt="favoráveis" data-tip="">favorable</span>. A 2016 academic study of real purchases found that the relationship was the one thing that clearly reduced actual switching. Other costs, such as money or learning a new process, did not protect against switching.</p>
+    <p>Effort matters too. A Harvard Business Review study of more than 75,000 customers (not only business customers) found that going <span class="vt" tabindex="0" data-pt="além do esperado" data-tip="">above and beyond</span> makes little difference. Customers mostly want a simple, quick solution. Gartner says service interactions are nearly four times more likely to lead to <span class="vt" tabindex="0" data-pt="perda de lealdade" data-tip="">disloyalty</span> than to loyalty. A Gartner expert also says that great service can reduce disloyalty, but loyalty depends mainly on the product or service itself.</p>
+    <h3>A Tuesday morning</h3>
+    <p>Imagine a buyer at a food factory. Her production line will stop on Friday if the enzymes do not arrive. Supplier A says, “It’s on the way.” Supplier B says, “There is a delay. The new date is Monday. Do you want us to send half of the order by air?”</p>
+    <p>Supplier B gave bad news. But she did not have to <span class="vt" tabindex="0" data-pt="cobrar, ficar atrás de" data-tip="">chase</span> anyone or guess. Next time, she will probably call Supplier B first.</p>
+    <h3>What to do with this</h3>
+    <p class="art-note">These three ideas are my suggestions, based on the studies above.</p>
+    <ol><li>Check the date with the other team before you promise it.</li><li>Tell the customer about a problem first, and give a new date.</li><li>Make stock and delivery information easy to find.</li></ol>
+    <p>You do not need to worry about 74%. You need to find the small problems in your own process and fix them first.</p>
+    </div>
+  </div>
+  <div class="tag" aria-hidden="true">talk about it</div>
+  <div class="bi"><p class="bi-en">Ask your teacher. Then write your own answer.</p><p class="bi-pt">Responda em voz alta e depois escreva uma frase sua na linha</p></div>
+  <div class="tq"><div class="tq-i"><div class="tq-q"><span class="tq-l">A</span><span>Would your customers switch suppliers for a better experience?</span></div><div class="fl"></div><div class="fl"></div><div class="fl"></div></div><div class="tq-i"><div class="tq-q"><span class="tq-l">B</span><span>Does your company let you promise a delivery date?</span></div><div class="fl"></div><div class="fl"></div><div class="fl"></div></div><div class="tq-i"><div class="tq-q"><span class="tq-l">E</span><span>Do you know what customers want you to improve?</span></div><div class="fl"></div><div class="fl"></div><div class="fl"></div></div></div>
+  <h3 class="art-h">Where the numbers come from</h3>
+  <ul class="art-src">
+    <li>Sana Commerce B2B buyer survey (Sapio Research, 1,000 buyers), reported by Digital Commerce 360, March 2024.</li>
+    <li>Sana Commerce survey of 1,282 buyers, reported by VentureBeat, December 2021.</li>
+    <li>Naumann, Haverila, Khan and Williams (2010), Journal of Marketing Management.</li>
+    <li>McKinsey, Global B2B Pulse, May 2026.</li>
+    <li>Blut et al. (2016), Industrial Marketing Management.</li>
+    <li>Dixon, Freeman and Toman, “Stop Trying to Delight Your Customers”, Harvard Business Review, 2010.</li>
+    <li>Gartner, customer service research.</li>
+    <li>Wunderman Thompson, The B2B Future Shopper Report, 2020 and 2021.</li>
+  </ul>
+</section>
+
 <section class="part" id="s1">
-  <div class="eyebrow"><span class="num">2</span>Natural?</div>
+  <div class="eyebrow"><span class="num">3</span>Natural?</div>
   <h2>Which one sounds natural?</h2>
   <div class="h2-pt">Qual soa natural? Toque na frase. Vá pelo ouvido, sem pensar na regra</div>
   <div class="list" id="duels"><div class="dl" data-i="0"><span class="n">1</span><div class="dl-pb"><button type="button" class="dl-s" data-ok="0"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Do you want that I send you the certificate of analysis?<span class="dl-note">natural</span></span></button><button type="button" class="dl-s" data-ok="1"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Do you want me to send you the certificate of analysis?<span class="dl-note">natural</span></span></button></div></div><div class="dl" data-i="1"><span class="n">2</span><div class="dl-pb"><button type="button" class="dl-s" data-ok="1"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Who asked you to change the delivery date?<span class="dl-note">natural</span></span></button><button type="button" class="dl-s" data-ok="0"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Who did ask you to change the delivery date?<span class="dl-note">natural</span></span></button></div></div><div class="dl" data-i="2"><span class="n">3</span><div class="dl-pb"><button type="button" class="dl-s" data-ok="0"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Do you know when will the truck arrive?<span class="dl-note">natural</span></span></button><button type="button" class="dl-s" data-ok="1"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Do you know when the truck will arrive?<span class="dl-note">natural</span></span></button></div></div><div class="dl" data-i="3"><span class="n">4</span><div class="dl-pb"><button type="button" class="dl-s" data-ok="1"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Did customs make you pay extra fees?<span class="dl-note">natural</span></span></button><button type="button" class="dl-s" data-ok="0"><span class="dl-box"><svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg></span><span class="dl-t">Did customs make you to pay extra fees?<span class="dl-note">natural</span></span></button></div></div></div>
@@ -221,7 +308,7 @@ body.qr-lock { overflow: hidden; }
 </section>
 
 <section class="part" id="s2">
-  <div class="eyebrow"><span class="num">3</span>Say it</div>
+  <div class="eyebrow"><span class="num">4</span>Say it</div>
   <h2>How would you say it?</h2>
   <div class="h2-pt">Como você diria? Em voz alta, em cinco segundos. O professor marca como saiu</div>
   <div class="list"><div class="sy" data-i="0"><span class="n">1</span><div>
@@ -249,7 +336,7 @@ body.qr-lock { overflow: hidden; }
 </section>
 
 <section class="part" id="s3">
-  <div class="eyebrow"><span class="num">4</span>Your job</div>
+  <div class="eyebrow"><span class="num">5</span>Your job</div>
   <h2>Questions about your job</h2>
   <div class="h2-pt">O professor pergunta, você responde com a sua realidade. A resposta à mão é só um modelo</div>
   <div class="rv-bar"><button type="button" class="rv-all" data-sec="s3" aria-pressed="false"><span class="rv-sw" aria-hidden="true"></span>Show all answers <span class="rv-pt">· mostrar todas</span></button></div>
@@ -291,7 +378,7 @@ body.qr-lock { overflow: hidden; }
 </section>
 
 <section class="part" id="s4">
-  <div class="eyebrow"><span class="num">5</span>Customers</div>
+  <div class="eyebrow"><span class="num">6</span>Customers</div>
   <h2>Questions you ask the customer</h2>
   <div class="h2-pt">Ofertas, pedidos e perguntas do atendimento. A resposta é o que o cliente costuma dizer</div>
   <div class="rv-bar"><button type="button" class="rv-all" data-sec="s4" aria-pressed="false"><span class="rv-sw" aria-hidden="true"></span>Show all answers <span class="rv-pt">· mostrar todas</span></button></div>
@@ -317,14 +404,14 @@ body.qr-lock { overflow: hidden; }
 </section>
 
 <section class="part" id="s5">
-  <div class="eyebrow"><span class="num">6</span>Traps</div>
+  <div class="eyebrow"><span class="num">7</span>Traps</div>
   <h2>Three traps with customers</h2>
   <div class="h2-pt">Os erros que mais aparecem no atendimento, um de cada família</div>
   <div class="ec"><p class="ec-s" aria-label="Not: Do you want that I check the stock? Say: Do you want me to check the stock?"><span aria-hidden="true">Do you want <span class="ec-fix"><span class="ec-hand">me to</span><s class="ec-was">that I</s></span> check the stock?</span></p><p class="ec-pt">Quer que eu verifique o estoque?</p></div><div class="tag" aria-hidden="true">“did” no who?</div><div class="ec"><p class="ec-s" aria-label="Not: Who did ask you to change the date? Say: Who asked you to change the date?"><span aria-hidden="true">Who <span class="ec-fix"><span class="ec-hand">asked</span><s class="ec-was">did ask</s></span> you to change the date?</span></p><p class="ec-pt">Quem pediu pra você mudar a data? Família D: nada entra.</p></div><div class="tag" aria-hidden="true">escondida?</div><div class="ec"><p class="ec-s" aria-label="Not: Do you know when will the truck arrive? Say: Do you know when the truck will arrive?"><span aria-hidden="true">Do you know when <span class="ec-fix"><span class="ec-hand">the truck will arrive</span><s class="ec-was">will the truck arrive</s></span>?</span></p><p class="ec-pt">Você sabe quando o caminhão vai chegar? Família E: ordem de afirmação.</p></div>
 </section>
 
 <section class="part" id="s6">
-  <div class="eyebrow"><span class="num">7</span>Role-play</div>
+  <div class="eyebrow"><span class="num">8</span>Role-play</div>
   <h2>What do you ask?</h2>
   <div class="h2-pt">A situação está no card. Faça a pergunta em voz alta, depois vire o card para conferir</div>
   <div class="cd-wrap">
@@ -381,7 +468,7 @@ body.qr-lock { overflow: hidden; }
 (function(){
   var $ = function(s, r){ return (r || document).querySelector(s); }, $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   /* rail */
-  var secs = ['s0','s1','s2','s3','s4','s5','s6'].map(function(id){ return document.getElementById(id); }), st = $$('.rail span');
+  var secs = ['s0','s7','s1','s2','s3','s4','s5','s6'].map(function(id){ return document.getElementById(id); }), st = $$('.rail span');
   function rail(){ var y = window.scrollY + window.innerHeight * .35; secs.forEach(function(s, i){ st[i].classList.toggle('on', y >= s.offsetTop); }); }
   window.addEventListener('scroll', rail, { passive: true }); window.addEventListener('resize', rail); rail();
   /* guess */
