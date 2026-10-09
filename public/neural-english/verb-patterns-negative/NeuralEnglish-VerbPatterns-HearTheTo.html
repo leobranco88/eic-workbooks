@@ -1154,6 +1154,9 @@ h1 .h1-ans { white-space: nowrap; }
 .w-ctx span { display: block; margin-top: 7px; padding-left: 12px; border-left: 2px solid var(--light); font-size: clamp(12.15px, calc(10.019px + 0.5683vw), 20.93px); font-weight: 500; letter-spacing: 0; color: var(--mid); }
 .w-sent { min-height: 1.6em; margin: 16px 0 14px; font-size: clamp(16px, 1.15vw + 11px, 30px); font-weight: 700; letter-spacing: -0.02em; color: var(--mid); }
 .w-sent b { color: var(--ink); }
+.w-sent .wd { color: var(--ink); }
+.w-sent .wd.hid { display: inline-block; height: .12em; margin: 0 .1em .12em; vertical-align: baseline; background: var(--light); border-radius: 1px; }
+.w-sent .wd.gap { display: inline-block; min-width: 2.4em; height: 0; margin: 0 .1em; border-bottom: 3px solid var(--orange); vertical-align: baseline; }
 .w-sent .snd { margin-left: 10px; font-size: .8em; color: var(--ink); }
 
 .dt-item { display: grid; grid-template-columns: 44px 1fr; gap: 0 14px; padding: 16px 0; border-bottom: 1px solid var(--light); }
@@ -1570,7 +1573,7 @@ var PLAYER = (function(){
     return plays[id];
   }
   function label(n){ return n === 1 ? 'played once' : 'played ' + n + ' times'; }
-  return { play: play, label: label };
+  return { play: play, label: label, count: function(id){ return plays[id] || 0; } };
 })();
 
 (function(){
@@ -1589,16 +1592,36 @@ var PLAYER = (function(){
   /* Class: P01 to P06 only (shuffled); Home: all 12 */
   function pick(){ items = shuffle(document.documentElement.classList.contains('mode-class') ? ALL.slice(0, 6) : ALL); idx = 0; hits = 0;
     $('wCount').textContent = '0 correct'; $('wFill').style.width = '0%'; $('wOpts').style.display = ''; }
-  var idx = 0, hits = 0, locked = false, $ = function(id){ return document.getElementById(id); };
+  var idx = 0, hits = 0, wrong = 0, listens = 0, locked = false, $ = function(id){ return document.getElementById(id); };
   var HINT = { him: 'im', her: 'er', them: 'em' };
   function render(){
-    var it = items[idx]; locked = false;
+    var it = items[idx]; locked = false; wrong = 0; listens = 0; lastN = PLAYER.count(it.id);
     $('wStat').textContent = (idx + 1) + ' / ' + items.length;
     $('wCtx').innerHTML = it.ctx + '<span>' + it.ctxPt + '</span>';
     $('wSent').innerHTML = ''; $('wFb').className = 'conv-fb'; $('wFb').textContent = ''; $('wPlays').textContent = 'Listen to the sentence';
     $('wOpts').querySelectorAll('.opt-btn').forEach(function(b){ b.disabled = false; b.className = 'opt-btn'; });
   }
-  $('wPlay').addEventListener('click', function(){ var n = PLAYER.play($('wPlay'), items[idx].id); if (n) $('wPlays').textContent = PLAYER.label(n); });
+  /* From the 2nd attempt on, show the sentence a little at a time. The pronoun is never shown: it stays the gap.
+     Each replay after the first, and each wrong answer, reveals 2 more words (the ones next to the gap, where the sound sticks). */
+  function partial(it, w){
+    var tk = it.st.split(' '), g = -1;
+    tk.forEach(function(t, k){ if (g < 0 && t.replace(/[^a-z]/gi, '').toLowerCase() === it.a) g = k; });
+    var order = tk.map(function(_, k){ return k; }).filter(function(k){ return k !== g; })
+      .sort(function(a, b){ return Math.abs(a - g) - Math.abs(b - g) || a - b; });
+    var shown = {}; order.slice(0, Math.min(order.length, w * 2)).forEach(function(k){ shown[k] = 1; });
+    return tk.map(function(t, k){
+      if (k === g) return '<span class="wd gap"></span>' + (/[.,!?]$/.test(t) ? t.slice(-1) : '');
+      if (shown[k]) return '<span class="wd">' + t + '</span>';
+      return '<span class="wd hid" style="width:' + (t.length * 0.5).toFixed(1) + 'em"></span>';
+    }).join(' ');
+  }
+  var lastN = 0;
+  $('wPlay').addEventListener('click', function(){
+    var n = PLAYER.play($('wPlay'), items[idx].id); if (!n) return;
+    $('wPlays').textContent = PLAYER.label(n);
+    if (n > lastN && !locked){ listens++; if (listens + wrong > 1) $('wSent').innerHTML = partial(items[idx], listens - 1 + wrong); }
+    lastN = n;
+  });
   $('wOpts').addEventListener('click', function(e){
     var b = e.target.closest('.opt-btn'); if (!b || locked) return;
     var it = items[idx];
@@ -1614,7 +1637,8 @@ var PLAYER = (function(){
         render();
       }, 2200);
     } else {
-      b.classList.add('incorrect'); b.disabled = true;
+      b.classList.add('incorrect'); b.disabled = true; wrong++;
+      $('wSent').innerHTML = partial(it, listens - 1 + wrong < 1 ? wrong : listens - 1 + wrong);
       $('wFb').className = 'conv-fb bad';
       $('wFb').innerHTML = 'Releia a situa\u00e7\u00e3o: de quem se est\u00e1 falando? Uma pessoa ou mais? Depois ou\u00e7a o som colado no verbo: <b>im</b> \u00e9 him, <b>er</b> \u00e9 her, <b>em</b> \u00e9 them.';
     }
