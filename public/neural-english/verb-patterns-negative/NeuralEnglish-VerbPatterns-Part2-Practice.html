@@ -1328,6 +1328,80 @@ html:not(.mode-class) .class-only { display: none !important; }
 .opt-btn.correct .rv-ring { display: block; }
 .opt-btn.incorrect, .opt-btn.incorrect:disabled { background: var(--white); border-color: var(--light); color: var(--mid); text-decoration: line-through; text-decoration-color: var(--bad); text-decoration-thickness: 2.5px; }
 .pen-note { position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%) rotate(-5deg); font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: 1.4em; white-space: nowrap; pointer-events: none; text-decoration: none; }
+
+/* QUICK REFERENCE (floating) */
+.qr-btn {
+  position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 150;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--ink); color: var(--white); border: none; border-radius: 12px;
+  padding: 11px 16px 11px 12px; font-family: inherit; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(10,10,10,0.22);
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+.qr-btn.show { opacity: 1; transform: none; pointer-events: auto; }
+.qr-btn:hover { background: #222; }
+.qr-nums { display: flex; gap: 3px; }
+.qr-nums span {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--white); color: var(--ink);
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;
+}
+.qr-lab { font-size: 14px; font-weight: 800; letter-spacing: -0.01em; }
+.qr-back {
+  position: fixed; inset: 0; z-index: 200; background: rgba(10,10,10,0.45);
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.qr-back.open { opacity: 1; pointer-events: auto; }
+.qr-panel {
+  position: fixed; z-index: 201; top: 0; right: 0; bottom: 0; width: min(460px, 100vw);
+  background: var(--white); overflow-y: auto; overscroll-behavior: contain;
+  padding: calc(26px + env(safe-area-inset-top, 0px)) 28px calc(30px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.2,.8,.2,1);
+  visibility: hidden;
+}
+.qr-panel.open { transform: none; visibility: visible; }
+.qr-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+.qr-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+.qr-title { font-size: 26px; font-weight: 900; letter-spacing: -0.025em; line-height: 1.1; margin-top: 4px; }
+.qr-close {
+  flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--light);
+  background: var(--white); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; font-family: inherit;
+}
+.qr-close:hover { border-color: var(--ink); }
+.qr-fam { padding: 18px 0 16px; border-bottom: 1px solid var(--light); }
+.qr-fam-top { display: flex; align-items: center; gap: 8px; }
+.qr-fam-top .num {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; flex: none;
+}
+.qr-fam-top .nm { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+.qr-formula { font-size: 21px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.2; margin-top: 6px; }
+.qr-verbs { font-size: 13.5px; color: var(--mid); line-height: 1.55; margin-top: 6px; }
+.qr-ex { font-size: 16px; font-weight: 700; margin-top: 9px; line-height: 1.4; }
+.qr-ex .aux-hl { font-size: 0.95em; }
+.qr-ex span.pt { display: block; font-weight: 500; font-size: 13px; color: var(--mid); font-style: italic; margin-top: 1px; }
+.qr-note { margin-top: 10px; padding: 9px 12px; background: var(--neon); color: var(--neon-ink); border-radius: 8px; font-size: 13.5px; line-height: 1.5; }
+.qr-note b { font-weight: 900; }
+.qr-go { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; }
+.qr-go:hover { color: var(--orange); }
+.qr-obj { padding-top: 18px; }
+.qr-pr { display: grid; grid-template-columns: 62px repeat(7, 1fr); margin-top: 10px; border-top: 1.5px solid var(--ink); }
+.qr-pr > div { text-align: center; padding: 8px 1px; border-bottom: 1px solid var(--light); font-size: 14px; }
+.qr-pr .l { text-align: left; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); align-self: center; border-bottom: 1px solid var(--light); }
+.qr-pr .s { color: var(--mid); font-weight: 600; }
+.qr-pr .o { font-weight: 900; font-size: 16px; }
+.qr-obj-note { font-size: 13px; color: var(--mid); line-height: 1.55; margin-top: 10px; }
+.qr-obj-note b { color: var(--ink); }
+body.qr-lock { overflow: hidden; }
+@media (max-width: 720px) {
+  .qr-btn { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .qr-panel { top: auto; left: 0; width: 100%; max-height: 86vh; border-radius: 20px 20px 0 0; transform: translateY(100%); padding-left: 20px; padding-right: 20px; }
+  .qr-panel.open { transform: none; }
+  .qr-pr { grid-template-columns: 50px repeat(7, 1fr); }
+  .qr-pr > div { font-size: 13px; }
+  .qr-pr .o { font-size: 14px; }
+}
+@media print { .qr-btn, .qr-back, .qr-panel { display: none !important; } }
 </style>
 <script>(function(){var m=null,q=/[?&]mode=(class|home)\b/.exec(location.search);if(q)m=q[1];else{try{m=localStorage.getItem("ne-mode");}catch(e){}}if(m==="class")document.documentElement.classList.add("mode-class");})();</script>
 </head>
@@ -1344,7 +1418,7 @@ html:not(.mode-class) .class-only { display: none !important; }
     <a class="nav-link" href="NeuralEnglish-VerbPatterns-Part2.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span class="nav-link-text">What&rsquo;s new</span></a>
   </div>
 </nav>
-<div class="mnav-back" id="mnavBack"></div><nav class="mnav" id="mnav" aria-label="Verb Patterns module"><div class="mnav-t">Verb Patterns · Part 1</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns.html"><b>1</b><span>The lesson</span><small>Verb Patterns</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-HearTheTo.html"><b>2</b><span>Hear the to</span><small>Listening</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Practice.html"><b>3</b><span>Practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-MorePractice.html"><b>4</b><span>More practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot.html"><b>5</b><span>The not</span><small>22 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot-Auxiliaries.html"><b>6</b><span>Every auxiliary</span><small>8 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 2 · more verbs</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html"><b>1</b><span>Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2.html"><b>2</b><span>What’s new</span><small>New verbs</small></a></li><li class="mn-i on"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html" aria-current="page"><b>3</b><span>Practice</span><small>13 exercises</small></a><div class="mn-sub"></div></li></ol><div class="mnav-t mnav-t2">Part 3 · questions</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html"><b>1</b><span>Lesson 1 · Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1.html"><b>2</b><span>Lesson 1 · What’s new</span><small>Ask about the action</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Practice.html"><b>3</b><span>Lesson 1 · Practice</span><small>14 exercises</small></a></li></ol><div class="mnav-foot"><a href="NeuralEnglish-VerbPatterns-Part2.html">‹ What’s new</a><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html">Lesson 1 · Hook ›</a></div></nav>
+<div class="mnav-back" id="mnavBack"></div><nav class="mnav" id="mnav" aria-label="Verb Patterns module"><div class="mnav-t">Verb Patterns · Part 1</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns.html"><b>1</b><span>The lesson</span><small>Verb Patterns</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-HearTheTo.html"><b>2</b><span>Hear the to</span><small>Listening</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Practice.html"><b>3</b><span>Practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-MorePractice.html"><b>4</b><span>More practice</span><small>30 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot.html"><b>5</b><span>The not</span><small>22 exercises</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-TheNot-Auxiliaries.html"><b>6</b><span>Every auxiliary</span><small>8 exercises</small></a></li></ol><div class="mnav-t mnav-t2">Part 2 · more verbs</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Hook.html"><b>1</b><span>Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2.html"><b>2</b><span>What’s new</span><small>New verbs</small></a></li><li class="mn-i on"><a href="NeuralEnglish-VerbPatterns-Part2-Practice.html" aria-current="page"><b>3</b><span>Practice</span><small>13 exercises</small></a><div class="mn-sub"></div></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part2-Build.html"><b>4</b><span>Build the sentence</span><small>30 sentences</small></a></li></ol><div class="mnav-t mnav-t2">Part 3 · questions</div><ol><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html"><b>1</b><span>Lesson 1 · Hook</span><small>Start of class</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1.html"><b>2</b><span>Lesson 1 · What’s new</span><small>Ask about the action</small></a></li><li class="mn-i"><a href="NeuralEnglish-VerbPatterns-Part3-L1-Practice.html"><b>3</b><span>Lesson 1 · Practice</span><small>14 exercises</small></a></li></ol><div class="mnav-foot"><a href="NeuralEnglish-VerbPatterns-Part2.html">‹ What’s new</a><a href="NeuralEnglish-VerbPatterns-Part3-L1-Hook.html">Lesson 1 · Hook ›</a></div></nav>
 
 <button type="button" class="where" id="where" aria-live="polite" tabindex="-1"><span class="where-in"><span class="w-k" id="wK"></span><span class="w-n" id="wN"></span><span class="w-t" id="wT"></span><span class="w-s" id="wS"></span></span></button>
 <div class="rail"><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div><div class="rail-step"></div></div>
@@ -1673,6 +1747,70 @@ EXS.forEach(function(e){
   document.addEventListener('click', function(){ setTimeout(ask, 0); });
   if (td && window.MutationObserver) new MutationObserver(ask).observe(td, { childList: true, characterData: true, subtree: true });
   paint();
+})();
+</script>
+
+<button class="qr-btn" id="qrBtn" type="button" aria-haspopup="dialog" aria-controls="qrPanel" aria-expanded="false">
+  <span class="qr-nums" aria-hidden="true"><span>1</span><span>2</span><span>3</span></span>
+  <span class="qr-lab">Families</span>
+</button>
+<div class="qr-back" id="qrBack"></div>
+<aside class="qr-panel" id="qrPanel" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+  <div class="qr-head">
+    <div><div class="qr-eyebrow">Quick reference &middot; consulta r&aacute;pida</div><div class="qr-title" id="qrTitle">The three families</div></div>
+    <button class="qr-close" id="qrClose" type="button" aria-label="Close">&times;</button>
+  </div>
+
+  <div class="qr-fam">
+    <div class="qr-fam-top"><span class="num">1</span><span class="nm">Family 1 &middot; most verbs</span></div>
+    <div class="qr-formula">Verb + object + to</div>
+    <div class="qr-verbs">want, need, ask, tell, advise, expect, allow, encourage, persuade, remind, warn, invite, convince, teach, force, would like<br><b>New:</b> get, urge, beg, permit, require, enable, inspire, trust, dare, would love, would hate, would prefer, <b>arrange</b> (for sb to), <b>help</b> (sb or sb to)<br><b>Tell it apart:</b> <i>get</i> = convenceu &middot; <i>have</i> = função dela &middot; <i>make</i> = sem escolha (only <i>get</i> takes to)</div>
+    <div class="qr-ex">I want <b>you</b> <span class="aux-hl">to</span> call her.<span class="pt">Eu quero que voc&ecirc; ligue pra ela.</span></div>
+    <div class="qr-note"><b>not</b> goes before <b>to</b>: <i>I told him <b>not to</b> eat it.</i></div>
+    <a class="qr-go" href="NeuralEnglish-VerbPatterns-Part2.html#p2">See Family 1 in Part 2</a>
+  </div>
+
+  <div class="qr-fam">
+    <div class="qr-fam-top"><span class="num">2</span><span class="nm">Family 2 &middot; three verbs, no to</span></div>
+    <div class="qr-formula">let &middot; make &middot; have + object + verb</div>
+    <div class="qr-verbs">let, make, have &middot; <i>have</i> = aquilo &eacute; fun&ccedil;&atilde;o da pessoa<br><b>New:</b> see, hear, watch, feel, notice &middot; <b>help</b> (sem to)</div>
+    <div class="qr-ex">Let <b>me</b> <span class="aux-hl">carry</span> that bag.<span class="pt">Deixa eu carregar essa sacola.</span></div>
+    <a class="qr-go" href="NeuralEnglish-VerbPatterns-Part2.html#p5">See Family 2 in Part 2</a>
+  </div>
+
+  <div class="qr-fam">
+    <div class="qr-fam-top"><span class="num">3</span><span class="nm">Family 3 &middot; keeps that &middot; formal</span></div>
+    <div class="qr-formula">suggest &middot; recommend + that + subject + verb</div>
+    <div class="qr-verbs">suggest, recommend, insist, demand, propose, request<br><b>New:</b> it’s important / essential / vital that · <b>advise, ask, urge, require</b> (also Family 1)<br><b>Not allowed with sb + to:</b> say &rarr; <i>tell</i>, explain &rarr; <i>explain to me</i>, suggest / recommend &rarr; <i>that you</i></div>
+    <div class="qr-ex">The teacher suggested that <b>we</b> <span class="aux-hl">read</span> more.<span class="pt">A professora sugeriu que a gente lesse mais.</span></div>
+    <div class="qr-note">Same bare verb for everyone, <b>even he, she, it</b>: that he <b>go</b>, that she <b>be</b>. Never <i>goes</i>, never <i>is</i>.</div>
+    <a class="qr-go" href="NeuralEnglish-VerbPatterns-Part2.html#p7">See Family 3 in Part 2</a>
+  </div>
+
+  <div class="qr-obj">
+    <div class="qr-fam-top"><span class="nm">The object &middot; families 1 and 2</span></div>
+    <div class="qr-pr">
+      <div class="l">Subject</div><div class="s">I</div><div class="s">you</div><div class="s">he</div><div class="s">she</div><div class="s">it</div><div class="s">we</div><div class="s">they</div>
+      <div class="l">Object</div><div class="o">me</div><div class="o">you</div><div class="o">him</div><div class="o">her</div><div class="o">it</div><div class="o">us</div><div class="o">them</div>
+    </div>
+    <p class="qr-obj-note">Com nome, nada muda: <b>I want Rafa to go.</b> Coisas: <b>it</b>, e no plural <b>them</b>.</p>
+    
+  </div>
+</aside>
+<script>
+/* QUICK REFERENCE */
+(function(){
+  var btn = document.getElementById('qrBtn'), panel = document.getElementById('qrPanel'),
+      back = document.getElementById('qrBack'), close = document.getElementById('qrClose');
+  var hero = document.querySelector('.hero'), last = null;
+  function vis(){ var y = hero ? hero.offsetTop + hero.offsetHeight * 0.6 : 300; btn.classList.toggle('show', window.scrollY > y && !panel.classList.contains('open')); }
+  function open(){ last = document.activeElement; panel.classList.add('open'); back.classList.add('open'); document.body.classList.add('qr-lock');
+    btn.setAttribute('aria-expanded', 'true'); btn.classList.remove('show'); setTimeout(function(){ close.focus(); }, 60); }
+  function shut(fb){ panel.classList.remove('open'); back.classList.remove('open'); document.body.classList.remove('qr-lock');
+    btn.setAttribute('aria-expanded', 'false'); vis(); if (fb && last) last.focus(); }
+  btn.addEventListener('click', open); close.addEventListener('click', function(){ shut(true); }); back.addEventListener('click', function(){ shut(true); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && panel.classList.contains('open')) shut(true); });
+  window.addEventListener('scroll', vis, { passive: true }); vis();
 })();
 </script>
 </body>
