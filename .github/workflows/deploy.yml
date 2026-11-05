@@ -1,6 +1,7 @@
 # Publica o site no Firebase Hosting a cada push no main.
 # O hub (public/hub.html) é gerado aqui, pelo predeploy do firebase.json.
-# Precisa do secret FIREBASE_SERVICE_ACCOUNT (JSON da conta de serviço do projeto eic-worksheets).
+# Sem chave guardada: o GitHub se identifica no Google por Workload Identity Federation
+# (a política da organização bloqueia a criação de chaves de conta de serviço).
 name: Deploy Firebase Hosting
 
 on:
@@ -19,6 +20,10 @@ concurrency:
   group: deploy-hosting
   cancel-in-progress: false
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -32,21 +37,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Conferir o secret
-        env:
-          SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: |
-          if [ -z "$SA" ]; then
-            echo "::error::Falta o secret FIREBASE_SERVICE_ACCOUNT (Settings > Secrets and variables > Actions)."
-            exit 1
-          fi
-          printf '%s' "$SA" > "$RUNNER_TEMP/firebase-sa.json"
+      - name: Entrar no Google sem chave (Workload Identity Federation)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/671300791274/locations/global/workloadIdentityPools/github/providers/eic-workbooks
+          service_account: github-deploy@eic-worksheets.iam.gserviceaccount.com
 
       - name: Deploy (worksheets e familia)
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-sa.json
         run: npx --yes firebase-tools@13 deploy --only hosting:worksheets,hosting:familia --project eic-worksheets --non-interactive
-
-      - name: Apagar a chave do runner
-        if: always()
-        run: rm -f "$RUNNER_TEMP/firebase-sa.json"
