@@ -27,11 +27,11 @@
     grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr);
     margin:24px;
     border:1.5px solid var(--ink);
-    height:calc(100vh - 48px);
+    height:calc(100vh - 112px);
     min-height:520px;
   }
   .mapside{display:flex;align-items:center;background:#fff}
-  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 52px)}
+  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 116px)}
   .panel{
     padding:32px 32px 26px;
     border-left:1.5px solid var(--ink);
@@ -128,7 +128,7 @@
   #intro{display:none}
   body.intro-on #intro{display:block}
   body.intro-on .stage{display:none}
-#intro .istage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(340px,1fr);margin:24px;border:1.5px solid var(--ink);min-height:calc(100vh - 48px)}
+#intro .istage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(340px,1fr);margin:24px;border:1.5px solid var(--ink);min-height:calc(100vh - 112px)}
 #intro .rule{padding:34px 40px 30px;display:flex;flex-direction:column}
 #intro .gloss{padding:34px 34px 30px;border-left:1.5px solid var(--ink)}
 #intro .eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 12px}
@@ -168,9 +168,20 @@
 #intro .gloss{border-left:0;border-top:1.5px solid var(--ink);padding:26px 18px}
 #intro .rule{padding:26px 18px}
   }
+
+  .controls{gap:6px}
+  .controls .b{font-size:15px;padding:10px 11px}
+  .moments{display:flex;flex-wrap:wrap;margin:24px 24px 0}
+  .moments a{font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border:1.5px solid #0A0A0A;color:#0A0A0A;background:#fff;text-decoration:none}
+  .moments a+a{border-left:0}
+  .moments a:hover{background:#F4F4F1}
+  .moments a[aria-current=page]{background:#0A0A0A;color:#fff}
+  .moments a:focus-visible{outline:3px solid #FF3C38;outline-offset:3px}
+  @media (max-width:900px){.moments{margin:12px 12px 0}}
 </style>
 </head>
 <body class="intro-on">
+<nav class="moments" aria-label="Be the GPS moments"><a href="BeTheGPS-WorldEnglish-Unit6.html" aria-current="page">1 · Watch</a><a href="BeTheGPS-Where-WorldEnglish-Unit6.html">2 · Where do you go?</a><a href="BeTheGPS-Drive-WorldEnglish-Unit6.html">3 · Drive</a></nav>
 <main id="intro" lang="pt-BR"><div class="istage">
 
   <section class="rule" aria-labelledby="t">
