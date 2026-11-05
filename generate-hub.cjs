@@ -21,7 +21,7 @@ const GRUPOS = [
   { nome: 'Turmas e alunos',   pastas: ['erik','rafael','toshie','deb','vitoria','teens1','teens3'] },
   { nome: 'Business',          pastas: ['sales','ventix','procurement','customer-service','strategic-hr','self-development','health'] },
   { nome: 'Método',            pastas: ['neural-english','neural-english-oficial','neural-english-presentation','grammar',
-                                        'verb-patterns','speaking practice'] },
+                                        'verb-patterns','speaking practice','on-the-move'] },
   { nome: 'Viagem e temas',    pastas: ['airport','getting-around','european-garden','wh-questions-airport-hopistal','study-abroad'] },
   { nome: 'Escola',            pastas: ['eic-philosophy','eic-teacher-training','eic_curriculum_system','eic-teaching',
                                         'internal','gamefik','placement-test'] },
