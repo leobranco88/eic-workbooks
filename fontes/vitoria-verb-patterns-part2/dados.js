@@ -61,13 +61,43 @@ var EX4 = {
   ]
 };
 
-/* Exercício 5: texto. */
+/* Exercício 5: responder ao e-mail de um cliente. A página da aluna e o painel do professor leem este objeto. */
 var EX5 = {
   min: 70, max: 130,
-  title: 'Write the email',
-  pt: 'Escreva o e-mail',
-  brief: 'Write an email to a client, a paint maker. The exchange rate went up, so your prices will go up next month. Ask the client to place the order before that. Explain what you got your supplier to do for them.',
-  briefpt: 'Escreva um e-mail para um cliente, fabricante de tintas. O câmbio subiu, então os preços da sua empresa vão subir no mês que vem. Peça para o cliente fazer o pedido antes disso. Explique o que você conseguiu que o fornecedor fizesse por ele.',
-  goals: ['Use at least three structures from today.', 'Use two of the lesson words.', '70 to 130 words.'],
-  goalspt: 'Use pelo menos três estruturas de hoje, duas palavras da aula e escreva entre 70 e 130 palavras.'
+  title: 'Reply to the client',
+  pt: 'Responda ao cliente',
+  mail: {
+    subject: 'Price update for January?',
+    from: 'Marcos Teixeira <marcos.teixeira@alvorada-paints.example>',
+    to: 'Vitória · Midland',
+    date: 'Monday, 9:14 AM',
+    paras: [
+      'Hi Vitória,',
+      'A colleague told me your prices will go up next month because of the exchange rate. <span class="ask">Is that true?<sup>1</sup></span>',
+      'We are planning our January production and we need raw materials for it. I would love to know if there is any way to keep the current price.',
+      'Also, the fee on our last invoice was higher than usual. <span class="ask">Can you explain why?<sup>2</sup></span>',
+      'If it is worth it for both sides, we can place the order this week.'
+    ],
+    sig: ['Best regards,', 'Marcos Teixeira', 'Purchasing · Alvorada Paints'],
+    note: 'Marcos asked two questions. Answer both!'
+  },
+  steps: [
+    { en: 'Tell him yes: the prices go up next month.', pt: 'Diga que sim: os preços sobem no mês que vem, por causa do câmbio.' },
+    { en: 'Ask him to place the order before that.', pt: 'Peça que ele faça o pedido antes disso.' },
+    { en: 'Explain what you got your supplier to do for him.', pt: 'Explique o que você conseguiu que o fornecedor fizesse por ele.' }
+  ],
+  hint: 'Use structures from today and two lesson words.',
+  hintpt: 'Use estruturas de hoje e duas palavras da aula.',
+  quote: 'On Monday, 9:14 AM, Marcos Teixeira wrote:<br>A colleague told me your prices will go up next month because of the exchange rate. Is that true? […]'
 };
+
+/* Palavras da aula que aparecem no texto da aluna (para o painel e para a dica abaixo da caixa). */
+var LESSON_RX = [
+  ['enrollment fee', /enrollment fees?/i],
+  ['lower prices', /lower\b.{0,12}\bprices?/i],
+  ['worth it', /\bworth\b/i],
+  ['crowded', /\bcrowded\b/i],
+  ['exchange rate', /exchange rate/i],
+  ['fee', /(?<!enrollment )\bfees?\b/i],
+  ['go up', /\b(?:go|goes|going|went|gone) up\b/i]
+];

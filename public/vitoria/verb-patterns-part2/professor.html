@@ -53,6 +53,18 @@ td.s small{display:block;color:var(--mid);font-weight:400;margin-top:3px;font-si
 .txt{white-space:pre-wrap;font-size:1.02em;line-height:1.7;padding:14px 0 6px}
 .txt mark{background:var(--neon);mix-blend-mode:multiply;padding:0 2px;border-radius:3px 7px 4px 6px}
 .q{font-weight:800;font-size:1.1em;letter-spacing:-.01em}
+.mailthread{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0 clamp(28px,4vw,60px);margin-top:6px}
+@media(max-width:900px){.mailthread{grid-template-columns:1fr;row-gap:28px}}
+.mailthread .in{color:var(--mid);font-size:.95em;border-left:3px solid var(--light);padding-left:14px}
+.mailthread .in .subj{font-weight:800;color:var(--ink);font-size:1.1em;margin-bottom:4px}
+.mailthread .in .frm{font-size:.85em;margin-bottom:10px}
+.mailthread p{margin-bottom:.9em}
+.mailthread .tg{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;color:var(--mid)}
+.mailthread .out .tg{color:var(--orange)}
+.ask{white-space:nowrap;text-decoration:underline;text-decoration-color:var(--blue);text-decoration-thickness:2.5px;text-underline-offset:4px}
+.ask sup{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:1.5em;line-height:0;margin-left:3px;vertical-align:baseline;position:relative;top:-.12em}
+.mailthread .out .txt{padding-top:0}
+.mailthread .fr{color:var(--mid)}
 .ans-block{border-top:1px solid var(--light);padding:20px 0}
 .ans-block:first-of-type{border-top:2px solid var(--ink)}
 .chips{font-size:13px;color:var(--mid);display:flex;gap:18px;flex-wrap:wrap;margin-top:4px}
@@ -232,16 +244,46 @@ var EX4 = {
   ]
 };
 
-/* Exercício 5: texto. */
+/* Exercício 5: responder ao e-mail de um cliente. A página da aluna e o painel do professor leem este objeto. */
 var EX5 = {
   min: 70, max: 130,
-  title: 'Write the email',
-  pt: 'Escreva o e-mail',
-  brief: 'Write an email to a client, a paint maker. The exchange rate went up, so your prices will go up next month. Ask the client to place the order before that. Explain what you got your supplier to do for them.',
-  briefpt: 'Escreva um e-mail para um cliente, fabricante de tintas. O câmbio subiu, então os preços da sua empresa vão subir no mês que vem. Peça para o cliente fazer o pedido antes disso. Explique o que você conseguiu que o fornecedor fizesse por ele.',
-  goals: ['Use at least three structures from today.', 'Use two of the lesson words.', '70 to 130 words.'],
-  goalspt: 'Use pelo menos três estruturas de hoje, duas palavras da aula e escreva entre 70 e 130 palavras.'
+  title: 'Reply to the client',
+  pt: 'Responda ao cliente',
+  mail: {
+    subject: 'Price update for January?',
+    from: 'Marcos Teixeira <marcos.teixeira@alvorada-paints.example>',
+    to: 'Vitória · Midland',
+    date: 'Monday, 9:14 AM',
+    paras: [
+      'Hi Vitória,',
+      'A colleague told me your prices will go up next month because of the exchange rate. <span class="ask">Is that true?<sup>1</sup></span>',
+      'We are planning our January production and we need raw materials for it. I would love to know if there is any way to keep the current price.',
+      'Also, the fee on our last invoice was higher than usual. <span class="ask">Can you explain why?<sup>2</sup></span>',
+      'If it is worth it for both sides, we can place the order this week.'
+    ],
+    sig: ['Best regards,', 'Marcos Teixeira', 'Purchasing · Alvorada Paints'],
+    note: 'Marcos asked two questions. Answer both!'
+  },
+  steps: [
+    { en: 'Tell him yes: the prices go up next month.', pt: 'Diga que sim: os preços sobem no mês que vem, por causa do câmbio.' },
+    { en: 'Ask him to place the order before that.', pt: 'Peça que ele faça o pedido antes disso.' },
+    { en: 'Explain what you got your supplier to do for him.', pt: 'Explique o que você conseguiu que o fornecedor fizesse por ele.' }
+  ],
+  hint: 'Use structures from today and two lesson words.',
+  hintpt: 'Use estruturas de hoje e duas palavras da aula.',
+  quote: 'On Monday, 9:14 AM, Marcos Teixeira wrote:<br>A colleague told me your prices will go up next month because of the exchange rate. Is that true? […]'
 };
+
+/* Palavras da aula que aparecem no texto da aluna (para o painel e para a dica abaixo da caixa). */
+var LESSON_RX = [
+  ['enrollment fee', /enrollment fees?/i],
+  ['lower prices', /lower\b.{0,12}\bprices?/i],
+  ['worth it', /\bworth\b/i],
+  ['crowded', /\bcrowded\b/i],
+  ['exchange rate', /exchange rate/i],
+  ['fee', /(?<!enrollment )\bfees?\b/i],
+  ['go up', /\b(?:go|goes|going|went|gone) up\b/i]
+];
 
 </script>
 <script>
@@ -312,8 +354,21 @@ function render(log){
     });
     document.getElementById('s'+ex).innerHTML=html;
   }
+  function openMail(o){
+    var M=EX5.mail,html='<h2>Exercício 5 · '+EX5.title+' · '+EX5.pt+'</h2><div class="sub">O e-mail do cliente e a resposta dela, na última versão. O marca-texto mostra estruturas de hoje que o programa achou; o programa pode errar, então confira lendo.</div>';
+    html+='<div class="mailthread"><div class="in"><span class="tg">E-mail do cliente</span><div class="subj">'+esc(M.subject)+'</div><div class="frm">'+esc(M.from)+' · '+esc(M.date)+'</div>'+M.paras.map(function(p){return '<p>'+p+'</p>';}).join('')+'<p>'+M.sig.map(esc).join('<br>')+'</p></div><div class="out"><span class="tg">Resposta dela</span>';
+    if(!o)html+='<div class="empty">Ainda não escreveu.</div>';
+    else{
+      var l=o.rows[o.rows.length-1],sentRow=null;
+      o.rows.forEach(function(r){if(!r.draft)sentRow=r;});
+      var lw=LESSON_RX.filter(function(x){return x[1].test(l.resp);}).map(function(x){return x[0];});
+      html+='<div class="txt"><span class="fr">Hi Marcos,</span>\n\n'+mark(l.resp,l.found)+'\n\n<span class="fr">Best regards,\nVitória</span></div><div class="chips"><span><b>'+(l.words||0)+'</b> palavras</span><span>'+(l.found||[]).length+' estrutura(s) achada(s)</span><span>'+(lw.length?'Palavras da aula: '+esc(lw.join(', ')):'Nenhuma palavra da aula')+'</span><span>'+fmt(l.ms)+'</span><span>'+dt(l.ts)+'</span>'+(l.draft?'<span class="draft">Rascunho, ainda não enviou'+(sentRow?' (ela já enviou uma versão em '+dt(sentRow.ts)+')':'')+'</span>':'<span><b>Enviado por ela</b></span>')+'</div>';
+    }
+    html+='</div></div>';
+    document.getElementById('s5').innerHTML=html;
+  }
   openHtml(4,'Exercício 4 · Your answer · Dissertativas',EX4.items.map(function(x){return x.q;}));
-  openHtml(5,'Exercício 5 · '+EX5.title+' · E-mail',[EX5.brief]);
+  openMail(by[5][1]);
   document.getElementById('nAcertos').textContent=nOk1;
   document.getElementById('nErros').textContent=nErr;
   document.getElementById('nVer').textContent=nRev;

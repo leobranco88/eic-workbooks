@@ -109,6 +109,53 @@ textarea.mid{min-height:6em}
 .hintline{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:26px;margin:6px 0 6px;line-height:1.1}
 .goals{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:2px solid var(--ink);margin:6px 0 20px}
 .goals div{padding:12px 18px 12px 0;border-bottom:1px solid var(--light);font-weight:600}
+/* exercício 5: e-mail */
+.em-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0 clamp(32px,5vw,72px);padding-top:8px;align-items:start}
+@media(max-width:900px){.em-grid{grid-template-columns:1fr;row-gap:44px}}
+.em-lbl{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:10px}
+.em-mail{border-top:1.5px solid var(--ink)}
+.em-subj{font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15;padding:16px 0 12px}
+.em-meta{display:grid;grid-template-columns:5.2em 1fr;gap:3px 12px;font-size:14px;color:var(--mid);padding-bottom:14px;border-bottom:1px solid var(--light)}
+.em-meta dt{font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+.em-meta dd{color:var(--ink);overflow-wrap:anywhere}
+.em-body{padding:20px 0 6px;font-size:1.04em}
+.em-body p{margin-bottom:1em}
+.em-body .sig{color:var(--mid);font-size:.92em}
+.ask{white-space:nowrap;text-decoration:underline;text-decoration-color:var(--blue);text-decoration-thickness:2.5px;text-underline-offset:4px}
+.ask sup{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:1.5em;line-height:0;margin-left:3px;vertical-align:baseline;position:relative;top:-.12em}
+.em-note{font-family:Caveat,cursive;font-weight:700;color:var(--blue);display:block;font-size:26px;line-height:1.1;margin:18px 0 0}
+.em-rh{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.em-steps{margin:12px 0 10px;border-top:1px solid var(--light);counter-reset:s}
+.em-steps li{counter-increment:s;display:grid;grid-template-columns:2em 1fr;gap:0 8px;padding:9px 0;border-bottom:1px solid var(--light);font-weight:600}
+.em-steps li:before{content:counter(s);font-weight:900;font-size:1.25em;line-height:1.2}
+.em-steps small{display:block;font-weight:400;color:var(--mid);font-size:.82em}
+.em-hint{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:26px;line-height:1.1;margin:0 0 18px}
+.em-hint small{font-family:Inter,system-ui,sans-serif;font-weight:400;color:var(--mid);font-size:13px;margin-left:8px}
+.em-compose{border:1.5px solid var(--ink)}
+.em-row{display:grid;grid-template-columns:5.2em 1fr;gap:12px;padding:9px 14px;border-bottom:1px solid var(--light);font-size:15px;align-items:baseline}
+.em-row span:first-child{font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.em-open{padding:14px 14px 0;font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:34px;line-height:1}
+textarea.em-ta{display:block;width:100%;min-height:280px;border:0;outline:0;resize:vertical;font:inherit;font-size:1.05em;line-height:1.7;padding:6px 14px 10px;background:repeating-linear-gradient(transparent 0 calc(1.7em - 1px),var(--light) calc(1.7em - 1px) 1.7em);background-attachment:local;color:var(--ink);border-radius:0}
+textarea.em-ta:disabled{background:var(--white);color:var(--ink)}
+.em-close{padding:0 14px 14px;color:var(--mid);font-size:.95em}
+.em-quote{border-top:1px solid var(--light);padding:8px 14px}
+.em-quote button{font:inherit;font-size:13px;color:var(--mid);background:none;border:0;border-bottom:1px dotted var(--mid);cursor:pointer}
+.em-quote .q2{display:none;margin-top:10px;border-left:3px solid var(--light);padding-left:12px;color:var(--mid);font-size:.92em;font-weight:400;letter-spacing:0;line-height:1.5}
+.em-quote.open .q2{display:block}
+.em-foot{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0 0}
+.em-send{font-size:15px;padding:9px 26px}
+.em-send:disabled{opacity:1;border-color:var(--light);color:#8a8a8a;cursor:not-allowed}
+.em-cnt{font-size:14px;font-weight:700}
+.em-cnt.bad{color:var(--bad)}
+.em-cnt .r{font-weight:400;color:var(--mid);margin-left:8px}
+.em-why{font-size:14px;color:var(--mid)}
+.em-found{margin-top:16px;font-size:14px;color:var(--mid)}
+.em-found b{color:var(--ink)}
+.em-found mark,.em-body mark{background:var(--neon);color:inherit;padding:0 2px}
+.em-sent{display:none;margin-top:16px}
+.em-sent .pen{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:34px;display:block;line-height:1}
+.em-sent.on{display:block}
+.em-foot.off,.em-found.off{display:none}
 .fin h2{font-size:clamp(22px,1.4vw + 14px,38px)}
 .voc{border-bottom:1.5px dotted var(--orange);font-weight:700;cursor:pointer}
 .voc-bubble{position:fixed;z-index:999;background:var(--ink);color:var(--white);font-size:15px;font-weight:600;line-height:1.4;padding:8px 12px;border-radius:6px;max-width:min(82vw,340px);text-align:center;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .15s,transform .15s}
@@ -342,13 +389,55 @@ function openBox(opt){
   document.getElementById('ex4').insertAdjacentHTML('beforeend','');
 })();
 (function(){
-  var sec=document.getElementById('ex5');
-  head(sec,5,EX5.title,EX5.pt,EX5.brief,EX5.briefpt);
-  sec.insertAdjacentHTML('beforeend','<div class="goals">'+EX5.goals.map(function(g){return '<div>'+esc(g)+'</div>';}).join('')+'</div><div class="bi-pt" style="margin-top:0">'+esc(EX5.goalspt)+'</div>');
-  sec.insertAdjacentHTML('beforeend','<span class="tag" aria-hidden="true">Dear client,</span>');
-  var li=el('div','');
-  li.innerHTML='<textarea class="say big" autocomplete="off" spellcheck="false" aria-label="Email" style="min-height:16em"></textarea><div class="meta"></div><div class="found"></div><div class="fb"></div><div class="acts"><button class="btn">Save email</button></div>';
-  sec.appendChild(li); openBox({li:li,ta:li.querySelector('textarea'),ex:5,item:1,min:EX5.min,max:EX5.max});
+  var sec=document.getElementById('ex5'),M=EX5.mail;
+  head(sec,5,EX5.title,EX5.pt,'','');
+  sec.insertAdjacentHTML('beforeend',
+   '<div class="em-grid"><div><div class="em-lbl">1 · Read the email</div><div class="em-mail">'+
+   '<h3 class="em-subj">'+esc(M.subject)+'</h3>'+
+   '<dl class="em-meta"><dt>From</dt><dd>'+esc(M.from)+'</dd><dt>To</dt><dd>'+esc(M.to)+'</dd><dt>Date</dt><dd>'+esc(M.date)+'</dd></dl>'+
+   '<div class="em-body">'+M.paras.map(function(p){return '<p>'+p+'</p>';}).join('')+'<p class="sig">'+M.sig.map(esc).join('<br>')+'</p></div>'+
+   '<span class="em-note">'+esc(M.note)+'</span></div></div>'+
+   '<div><div class="em-lbl">2 · Write your reply</div><h3 class="em-rh">Your reply to Marcos</h3>'+
+   '<ol class="em-steps">'+EX5.steps.map(function(x){return '<li><div>'+esc(x.en)+'<small>'+esc(x.pt)+'</small></div></li>';}).join('')+'</ol>'+
+   '<div class="em-hint">'+esc(EX5.hint)+'<small>'+esc(EX5.hintpt)+'</small></div>'+
+   '<div class="em-compose"><div class="em-row"><span>To</span><span>Marcos Teixeira</span></div><div class="em-row"><span>Subject</span><span>Re: '+esc(M.subject)+'</span></div>'+
+   '<div class="em-open">Hi Marcos,</div><textarea class="em-ta" autocomplete="off" spellcheck="false" aria-label="Your reply"></textarea>'+
+   '<div class="em-close">Best regards,<br>Vitória</div>'+
+   '<div class="em-quote"><button type="button">··· Show the original email</button><div class="q2">'+EX5.quote+'</div></div></div>'+
+   '<div class="em-foot"><button class="btn em-send" disabled>Send</button><span class="em-cnt">0 words<span class="r">'+EX5.min+' to '+EX5.max+'</span></span><span class="em-why"></span></div>'+
+   '<div class="em-found"></div>'+
+   '<div class="em-sent"><span class="pen">Sent!</span><div style="margin-top:6px">Your teacher can read your email now. <button class="lnk" type="button">Edit and send again</button><div style="color:var(--mid);font-size:13px;margin-top:4px">Seu professor já pode ler o seu e-mail.</div></div></div>'+
+   '</div></div>');
+  var ta=sec.querySelector('.em-ta'),send=sec.querySelector('.em-send'),cnt=sec.querySelector('.em-cnt'),why=sec.querySelector('.em-why'),found=sec.querySelector('.em-found'),foot=sec.querySelector('.em-foot'),sent=sec.querySelector('.em-sent'),qt=sec.querySelector('.em-quote'),qb=qt.querySelector('button');
+  var s={t0:null,saves:0,last:'',timer:null};
+  function lessonWords(t){return LESSON_RX.filter(function(x){return x[1].test(t);}).map(function(x){return x[0];});}
+  function grow(){ta.style.height='auto';ta.style.height=Math.max(280,ta.scrollHeight+4)+'px';}
+  function upd(){
+    grow();var t=ta.value,w=wc(t),f=findStructures(t),n=w;
+    cnt.firstChild.textContent=n+(n===1?' word':' words');cnt.className='em-cnt'+(n>EX5.max?' bad':'');
+    if(n===0){why.textContent='Write at least '+EX5.min+' words to send.';send.disabled=true;}
+    else if(n<EX5.min){why.textContent=(EX5.min-n)+' more word'+(EX5.min-n>1?'s':'')+' to send.';send.disabled=true;}
+    else if(n>EX5.max){why.textContent='Too long: take out '+(n-EX5.max)+' word'+(n-EX5.max>1?'s':'')+'.';send.disabled=true;}
+    else{why.textContent='';send.disabled=false;}
+    var lw=lessonWords(t);
+    found.innerHTML=n?('<b>Structures I found:</b> '+(f.length?f.slice(0,6).map(function(x){return '<mark>'+esc(x)+'</mark>';}).join(' · '):'none yet')+'<br><b>Lesson words:</b> '+(lw.length?lw.map(esc).join(', '):'none yet')):'';
+    return {w:w,f:f};
+  }
+  function save(draft){
+    var t=ta.value.trim(); if(!t||(draft&&t===s.last))return; var u=upd(); s.last=t; s.saves++;
+    log({ex:5,item:1,resp:t,ok:null,tries:s.saves,ms:s.t0?Date.now()-s.t0:null,rev:false,words:u.w,found:u.f.slice(0,12),draft:!!draft});
+  }
+  ta.addEventListener('focus',function(){if(!s.t0)s.t0=Date.now();});
+  ta.addEventListener('input',function(){upd();clearTimeout(s.timer);s.timer=setTimeout(function(){save(true);},9000);});
+  send.addEventListener('click',function(){
+    clearTimeout(s.timer);if(send.disabled)return;
+    save(false);ta.disabled=true;foot.classList.add('off');found.classList.add('off');sent.classList.add('on');
+  });
+  sent.querySelector('.lnk').addEventListener('click',function(){
+    ta.disabled=false;foot.classList.remove('off');found.classList.remove('off');sent.classList.remove('on');ta.focus();upd();
+  });
+  qb.addEventListener('click',function(){qt.classList.toggle('open');qb.textContent=qt.classList.contains('open')?'··· Hide the original email':'··· Show the original email';});
+  upd();
 })();
 
 /* Palavras da aula nos exercícios: pontilhado laranja, toque para ver a tradução */
@@ -374,6 +463,8 @@ function openBox(opt){
     [/\bquarter\b/i,'Trimestre'],
     [/paint makers/i,'Fabricantes de tintas'],
     [/crowded/i,'Lotado; cheio de gente'],
+    [/raw materials?/i,'Matéria-prima; insumos'],
+    [/invoices?/i,'Fatura; nota de cobrança'],
     [/exchange rate/i,'Taxa de câmbio; câmbio'],
     [/\bfees?\b/i,'Taxa; tarifa; mensalidade'],
     [/\b(?:go|goes|going|went|gone) up\b/i,'Subir; aumentar']
@@ -396,7 +487,7 @@ function openBox(opt){
     });
   }
   window.vocWrap=wrap;
-  document.querySelectorAll('#ex1 .line,#ex2 .line,#ex4 .q,#ex5 .bi-en,#ex3 .worked .ans').forEach(wrap);
+  document.querySelectorAll('#ex1 .line,#ex2 .line,#ex4 .q,#ex5 .em-body,#ex5 .em-steps li>div,#ex5 .q2,#ex3 .worked .ans').forEach(wrap);
   var bub=document.createElement('div');bub.className='voc-bubble';document.body.appendChild(bub);
   var open=null;
   function hide(){bub.classList.remove('show');open=null;}
