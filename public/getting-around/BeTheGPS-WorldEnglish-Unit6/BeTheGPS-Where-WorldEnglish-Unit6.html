@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="hub-title" content="Be the GPS · Where do you go? · World English Unit 6">
+<meta name="hub-desc" content="As 13 ações do livro ligadas aos lugares de Marlow, e My World para o aluno falar da sua cidade.">
+<meta name="hub-type" content="Interativo">
+<meta name="hub-level" content="A1+">
+<title>Be the GPS · Where do you go?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0A0A0A;--mid:#545454;--light:#E8E8E4;--pen:#FF3C38}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:#fff;color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.4}
+
+  .stage{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr);margin:24px;border:1.5px solid var(--ink);height:calc(100vh - 48px);min-height:560px}
+  .mapside{display:flex;align-items:center;background:#fff}
+  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 52px)}
+  .panel{padding:26px 30px 24px;border-left:1.5px solid var(--ink);display:flex;flex-direction:column;min-height:0;overflow-y:auto}
+
+  .tabs{display:flex;margin:0 0 22px}
+  .tab{font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer}
+  .tab+.tab{border-left:0}
+  .tab[aria-pressed=true]{background:var(--ink);color:#fff}
+  .tab:focus-visible,.b:focus-visible{outline:3px solid var(--pen);outline-offset:3px}
+
+  .steps{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:6px;font-size:15px;color:var(--mid);font-weight:600}
+  .steps li{display:flex;gap:10px;align-items:baseline}
+  .steps .n{flex:none;width:20px;height:20px;background:var(--ink);color:#fff;font:800 12px Inter,sans-serif;display:inline-grid;place-items:center;transform:translateY(-1px)}
+
+  h1{font-size:clamp(30px,3.1vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.02;margin:0 0 22px}
+  h1 em{font-style:normal;color:var(--pen)}
+  .count{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+
+  .sent{font-size:clamp(21px,2.2vw,34px);font-weight:700;letter-spacing:-.01em;line-height:1.75;margin:0}
+  .sent b{font-weight:900}
+  .blank{display:inline-block;width:5.2em;border-bottom:3px solid var(--ink);margin:0 .2em;transform:translateY(.1em)}
+  .w{position:relative;display:inline-block;margin:0 .3em;white-space:nowrap;font-weight:900}
+  .wr{position:absolute;left:-.5em;top:-.42em;width:calc(100% + 1em);height:1.95em;overflow:visible;pointer-events:none}
+  .wr path,.ring path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .w.on .wr path,.ring.on path{animation:draw .7s ease-out forwards}
+  .ring.pring path{stroke-width:1.5}
+  .ring:not(.on) path,.w:not(.on) .wr path{opacity:0}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pen);line-height:1;display:inline-block}
+  .fb{font-size:clamp(26px,2.1vw,34px);margin:12px 0 0 4px;transform:rotate(-2deg);transform-origin:left;min-height:1em}
+
+  .prog{display:flex;gap:5px;margin:auto 0 0;padding-top:22px}
+  .prog span{flex:1;height:6px;background:var(--light)}
+  .prog span.done{background:var(--ink)}
+  .prog span.cur{background:var(--pen)}
+
+  .controls{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;align-items:center}
+  .b{font:800 16px Inter,sans-serif;padding:10px 18px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer}
+  .b:hover:not(:disabled){background:#F4F4F1}
+  .b:disabled{opacity:.35;cursor:default}
+
+  ol.mine{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  ol.mine li{font-size:clamp(19px,1.8vw,27px);font-weight:700;line-height:1.5;padding-left:14px;border-left:3px solid var(--ink)}
+  ol.mine li .w{margin:0}
+  .empty{font-size:18px;color:var(--mid);font-weight:600;margin:0}
+
+  /* map */
+  .pl{cursor:pointer}
+  .pl rect{fill:#fff;stroke:var(--ink);stroke-width:1.5}
+  .pl.park rect{stroke-dasharray:5 5}
+  .pl text{font-family:Inter,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);text-anchor:middle;pointer-events:none}
+  .pl:hover rect{stroke-width:3}
+  .pl:focus-visible{outline:none}
+  .pl:focus-visible rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.focus rect,.pl.sel rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.focus rect{animation:pop .6s ease-out 1}
+  @keyframes pop{0%{stroke-width:9}100%{stroke-width:3.5}}
+  .st{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.13em;fill:#545454;text-anchor:middle;pointer-events:none}
+  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pen);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round;pointer-events:none;transition:opacity .2s}
+  .hide{display:none}
+
+  @media (prefers-reduced-motion:reduce){.w.on .wr path,.ring.on path{animation:none;stroke-dashoffset:0}.pl.focus rect{animation:none}}
+  @media (max-width:900px){
+    .stage{grid-template-columns:1fr;margin:12px;height:auto}
+    .mapside{position:sticky;top:0;z-index:2;border-bottom:1.5px solid var(--ink)}
+    .panel{border-left:0;padding:20px 18px;overflow:visible}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="mapside">
+    <svg id="map" viewBox="0 0 960 600" role="group" aria-label="Map of Marlow. Tap a place."></svg>
+  </div>
+  <section class="panel" id="panel" aria-live="polite"></section>
+</div>
+
+<script>
+/* ---------- City (same Marlow as the Watch) ---------- */
+const NS='http://www.w3.org/2000/svg';
+const PEN='#FF3C38',INK='#0A0A0A',LIGHT='#E8E8E4';
+const RING='M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6';
+const STREETS_H=[{name:'Maple Street',y:150},{name:'Cedar Street',y:300},{name:'Harbor Street',y:450}];
+const STREETS_V=[{name:'Oak Avenue',x:240},{name:'River Avenue',x:480},{name:'Station Avenue',x:720}];
+const COLS=[[0,222],[258,462],[498,702],[738,960]];
+const ROWS=[[0,132],[168,282],[318,432],[468,600]];
+const PLACES=[
+  [{id:'bus',n:'Bus station'},{id:'park',n:'Linden Park',park:1},{id:'library',n:'Public library'},{id:'train',n:'Train station'}],
+  [{id:'market',n:'Supermarket'},{id:'post',n:'Post office'},{id:'cafe',n:'Café'},{id:'museum',n:'Museum'}],
+  [{id:'hotel',n:'Hotel'},{id:'mall',n:'Shopping mall',big:1},{id:'bank',n:'Bank'},{id:'cinema',n:'Movie theater'}],
+  [{id:'tourist',n:'Tourist office'},{id:'restaurant',n:'Restaurant'},{id:'club',n:'Nightclub'},{id:'eic',n:'EIC'}]
+];
+/* How each place sounds inside a sentence */
+const SAY={bus:'the bus station',park:'Linden Park',library:'the public library',train:'the train station',market:'the supermarket',post:'the post office',cafe:'the café',museum:'the museum',hotel:'the hotel',mall:'the shopping mall',bank:'the bank',cinema:'the movie theater',tourist:'the tourist office',restaurant:'the restaurant',club:'the nightclub',eic:'EIC'};
+
+/* The 13 actions of the book (Vocabulary A), each with the places of Marlow that fit */
+const ACTS=[
+  {act:'buy food for the week',ok:['market']},
+  {act:'ask for information about the town',ok:['tourist']},
+  {act:'eat a meal',ok:['restaurant','cafe']},
+  {act:'look at old objects',ok:['museum']},
+  {act:'read a book',ok:['library']},
+  {act:'stay the night',ok:['hotel']},
+  {act:'watch a movie',ok:['cinema']},
+  {act:'send mail',ok:['post']},
+  {act:'get some money',ok:['bank']},
+  {act:'go shopping for clothes',ok:['mall']},
+  {act:'relax outside',ok:['park']},
+  {act:'go dancing',ok:['club']},
+  {act:'take transportation',ok:['bus','train']}
+];
+ACTS.forEach((a,i)=>a.n=i+1);
+/* "My World": what a place is for, in the student's own sentence */
+function myAct(id){const a=ACTS.find(x=>x.ok.includes(id));return a?a.act:'study English';}
+
+/* Filled by the generator (ElevenLabs): "Q<n>" = the question, "A<n>_<place>" = the answer. Silent without recordings. */
+const AUDIO=/*AUDIO_START*/{}/*AUDIO_END*/;
+let curAudio=null;
+function speak(key){
+  if(curAudio){curAudio.pause();curAudio=null;}
+  if(AUDIO[key]){curAudio=new Audio(AUDIO[key]);curAudio.play().catch(()=>{});}
+}
+
+/* ---------- Draw the map ---------- */
+const svg=document.getElementById('map');
+function el(t,a,p,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);if(txt!=null)e.textContent=txt;return e;}
+const defs=el('defs',{},svg);
+const flt=el('filter',{id:'wob',filterUnits:'userSpaceOnUse',x:0,y:0,width:960,height:600},defs);
+el('feTurbulence',{type:'fractalNoise',baseFrequency:'0.025',numOctaves:2,seed:4,result:'n'},flt);
+el('feDisplacementMap',{in:'SourceGraphic',in2:'n',scale:5},flt);
+el('rect',{x:0,y:0,width:960,height:600,fill:'#fff'},svg);
+STREETS_H.forEach(s=>el('line',{x1:0,x2:960,y1:s.y,y2:s.y,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
+STREETS_V.forEach(s=>el('line',{y1:0,y2:600,x1:s.x,x2:s.x,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
+
+const info={},placeEls={};
+const OPEN=[0,1,1,2];    /* row 0 opens to Maple, rows 1-2 to Cedar, row 3 to Harbor */
+PLACES.forEach((row,r)=>row.forEach((p,c)=>{
+  const [x0,x1]=COLS[c],[y0,y1]=ROWS[r];
+  el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:LIGHT},svg);
+  const g=el('g',{class:'pl'+(p.park?' park':''),id:'pl-'+p.id,tabindex:0,role:'button','aria-label':p.n},svg);
+  const ins=p.big?8:16;
+  el('rect',{x:x0+ins,y:y0+ins,width:x1-x0-2*ins,height:y1-y0-2*ins},g);
+  el('text',{x:(x0+x1)/2,y:(y0+y1)/2+5},g,p.n);
+  /* label centre kept separate from the dot's stop (info.cx) */
+  placeEls[p.id]=g;
+  info[p.id]={cx:x1-34,cy:(y0+y1)/2+8,x0,x1,y0,y1,street:STREETS_H[OPEN[r]].y};
+}));
+STREETS_H.forEach(s=>[111,849].forEach(x=>el('text',{class:'st',x,y:s.y-7},svg,s.name.toUpperCase())));
+STREETS_V.forEach(s=>{const px=s.x-7,py=70;el('text',{class:'st',x:px,y:py,transform:`rotate(-90 ${px} ${py})`},svg,s.name.toUpperCase());});
+
+/* hint rings (hand-drawn) around every place */
+const ringLayer=el('g',{filter:'url(#wob)',style:'pointer-events:none'},svg);
+const pRings={};
+Object.keys(info).forEach(id=>{
+  const i=info[id];
+  const s=el('svg',{class:'ring pring',x:i.x0-4,y:i.y0-4,width:i.x1-i.x0+8,height:i.y1-i.y0+8,viewBox:'0 0 100 50',preserveAspectRatio:'none',overflow:'visible'},ringLayer);
+  el('path',{pathLength:1,d:RING},s);
+  pRings[id]=s;
+});
+
+/* ---------- Streets graph: the dot always walks on the streets ---------- */
+const nodes={};
+function N(k,x,y){nodes[k]={x,y,adj:[]};}
+STREETS_H.forEach((h,i)=>STREETS_V.forEach((v,j)=>N('I'+i+j,v.x,h.y)));
+Object.keys(info).forEach(id=>{const i=info[id];N('E'+id,i.cx,i.street);N('C'+id,i.cx,i.cy);});
+function link(a,b){const w=Math.hypot(nodes[a].x-nodes[b].x,nodes[a].y-nodes[b].y);nodes[a].adj.push([b,w]);nodes[b].adj.push([a,w]);}
+STREETS_H.forEach(h=>{
+  const ks=Object.keys(nodes).filter(k=>k[0]!=='C'&&nodes[k].y===h.y).sort((a,b)=>nodes[a].x-nodes[b].x);
+  for(let i=1;i<ks.length;i++)link(ks[i-1],ks[i]);
+});
+STREETS_V.forEach((v,j)=>{for(let i=1;i<STREETS_H.length;i++)link('I'+(i-1)+j,'I'+i+j);});
+Object.keys(info).forEach(id=>link('C'+id,'E'+id));
+function pathPts(a,b){
+  const src='C'+a,dst='C'+b,dist={},prev={},todo=new Set(Object.keys(nodes));
+  todo.forEach(k=>dist[k]=Infinity);dist[src]=0;
+  while(todo.size){
+    let u=null;todo.forEach(k=>{if(u===null||dist[k]<dist[u])u=k;});
+    todo.delete(u);if(u===dst)break;
+    nodes[u].adj.forEach(([v,w])=>{if(dist[u]+w<dist[v]){dist[v]=dist[u]+w;prev[v]=u;}});
+  }
+  const seq=[];for(let k=dst;k;k=prev[k])seq.unshift(k);
+  const pts=[];seq.forEach(k=>{const p=[nodes[k].x,nodes[k].y];const l=pts[pts.length-1];if(!l||l[0]!==p[0]||l[1]!==p[1])pts.push(p);});
+  return pts;
+}
+
+/* trail, dot and tag */
+const route=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
+const dot=el('circle',{r:9,fill:INK,stroke:'#fff','stroke-width':3,style:'pointer-events:none'},svg);
+const tagT=el('text',{id:'tagT'},svg);
+let total=0;
+function setRoute(pts){route.setAttribute('d','M'+pts.map(p=>p.join(' ')).join(' L'));total=route.getTotalLength();}
+function snap(dist){
+  const p=route.getPointAtLength(dist);
+  dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);
+  route.setAttribute('stroke-dasharray',dist+' '+(total+10));
+  placeTag(p);
+}
+function placeTag(p){
+  const w=tagT.textContent?tagT.getBBox().width:0;
+  const x=p.x>740?p.x-16-w:p.x+16,y=p.y-20;
+  tagT.setAttribute('x',x);tagT.setAttribute('y',y);tagT.setAttribute('transform','rotate(-4 '+x+' '+y+')');
+}
+function showTag(txt){tagT.style.opacity=txt?1:0;tagT.textContent=txt||'';placeTag({x:+dot.getAttribute('cx')||0,y:+dot.getAttribute('cy')||0});}
+function putDot(id){
+  const i=info[id];
+  route.setAttribute('d','M'+i.cx+' '+i.cy+' L'+i.cx+' '+(i.cy+.01));total=.01;
+  route.setAttribute('stroke-dasharray','0 10');
+  dot.setAttribute('cx',i.cx);dot.setAttribute('cy',i.cy);showTag('');
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const REDUCED=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function animate(a,b,dur){
+  return new Promise(res=>{
+    if(REDUCED){snap(b);res();return;}
+    const t0=performance.now();
+    (function f(t){
+      const k=Math.min(1,(t-t0)/dur);
+      const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      snap(a+(b-a)*e);
+      if(k<1)requestAnimationFrame(f);else res();
+    })(t0);
+  });
+}
+async function walk(from,to){
+  const pts=pathPts(from,to);setRoute(pts);
+  await animate(0,total,Math.min(2400,Math.max(700,total/480*1000)));
+  return total;
+}
+async function walkBack(len){await animate(len,0,Math.min(1100,Math.max(500,len/800*1000)));}
+
+/* ---------- Panel ---------- */
+const panel=document.getElementById('panel');
+const RINGSVG='<svg class="wr" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="'+RING+'"/></svg>';
+const cap=s=>s[0].toUpperCase()+s.slice(1);
+const STEPS_A=['Read the question.','Tap the place on the map.','Say the answer out loud.'];
+const STEPS_B=['Tap the places you often go to.','Read your sentences to your partner.','Your partner asks: What do you do there?'];
+function steps(a){return '<ol class="steps">'+a.map((t,i)=>`<li><span class="n">${i+1}</span><span>${t}</span></li>`).join('')+'</ol>';}
+function tabs(){
+  return `<div class="tabs"><button class="tab" data-m="A" aria-pressed="${mode==='A'}">A · Match</button><button class="tab" data-m="B" aria-pressed="${mode==='B'}">B · My World</button></div>`;
+}
+
+let mode='A',order=[],qi=0,solved=false,locked=false,wrong=0,here='eic',done=0;
+const sel=[];
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function newOrder(){
+  /* shuffled every time, never the book's own order */
+  let o;do{o=shuffle(ACTS.map((_,i)=>i));}while(o.every((v,i)=>v===i));
+  return o;
+}
+
+function clearMapState(){
+  Object.values(placeEls).forEach(g=>g.classList.remove('focus','sel'));
+  Object.values(pRings).forEach(r=>r.classList.remove('on'));
+}
+
+function renderA(){
+  const A=ACTS[order[qi]];
+  const bars=order.map((_,k)=>`<span class="${k<qi||(k===qi&&solved)?'done':(k===qi?'cur':'')}"></span>`).join('');
+  const last=qi===order.length-1;
+  panel.innerHTML=tabs()+steps(STEPS_A)+
+   `<p class="count">${qi+1} of ${order.length}</p>
+    <h1>Where do you go to <em>${A.act}</em>?</h1>
+    <p class="sent" id="sent">${solved?sentenceHTML(solved,A):`I go to <span class="blank"></span> to <b>${A.act}</b>.`}</p>
+    <p class="pen fb" id="fb"></p>
+    <div class="prog" aria-hidden="true">${bars}</div>
+    <div class="controls">
+      <button class="b" id="hint" ${solved?'disabled':''}>Hint</button>
+      <button class="b" id="next" ${solved?'':'disabled'}>${last?'Next: My World':'Next'}</button>
+    </div>`;
+  wireTabs();
+  document.getElementById('hint').onclick=hint;
+  document.getElementById('next').onclick=next;
+}
+function sentenceHTML(pid,A){return `I go to <span class="w on">${SAY[pid]}${RINGSVG}</span> to <b>${A.act}</b>.`;}
+
+function startQ(){
+  locked=false;solved=false;wrong=0;
+  clearMapState();
+  /* the dot stays where it is, the trail is cleared */
+  putDot(here);
+  renderA();
+  speak('Q'+ACTS[order[qi]].n);
+}
+function hint(){
+  const A=ACTS[order[qi]];
+  A.ok.forEach(id=>{const r=pRings[id];r.classList.remove('on');void r.getBoundingClientRect();r.classList.add('on');});
+}
+async function pick(id){
+  if(mode==='B'){toggle(id);return;}
+  if(locked||solved)return;
+  const A=ACTS[order[qi]];
+  const fb=()=>document.getElementById('fb');
+  locked=true;
+  let len=0;
+  if(id!==here)len=await walk(here,id);
+  if(A.ok.includes(id)){
+    here=id;solved=id;locked=false;
+    placeEls[id].classList.add('focus');
+    document.getElementById('sent').innerHTML=sentenceHTML(id,A);
+    fb().textContent='';
+    document.querySelectorAll('.prog span')[qi].className='done';
+    document.getElementById('next').disabled=false;
+    document.getElementById('hint').disabled=true;
+    done=Math.max(done,qi+1);
+    speak('A'+A.n+'_'+id);
+    return;
+  }
+  wrong++;
+  showTag('not here');
+  fb().textContent='That’s '+SAY[id]+'. You can’t '+A.act+' there.';
+  await wait(REDUCED?400:1000);
+  showTag('');
+  if(len)await walkBack(len);
+  locked=false;
+  if(wrong>=2)hint();
+}
+function next(){
+  if(qi<order.length-1){qi++;startQ();}
+  else setMode('B');
+}
+
+/* ---------- B · My World ---------- */
+function renderB(){
+  const list=sel.length?'<ol class="mine">'+sel.map(id=>`<li>I go to <span class="w on">${SAY[id]}${RINGSVG}</span> to ${myAct(id)}.</li>`).join('')+'</ol>':'<p class="empty">Your sentences will appear here.</p>';
+  panel.innerHTML=tabs()+steps(STEPS_B)+
+   `<h1>Which places do you often go to?</h1>
+    ${list}
+    <p class="pen fb" style="font-size:clamp(28px,2.4vw,38px);margin-top:16px">${sel.length?'What do you do there?':''}</p>
+    <div class="controls" style="margin-top:auto;padding-top:18px">
+      <button class="b" id="clear" ${sel.length?'':'disabled'}>Clear</button>
+      <button class="b" id="again">Play A again</button>
+    </div>`;
+  wireTabs();
+  document.getElementById('clear').onclick=()=>{sel.length=0;syncSel();renderB();};
+  document.getElementById('again').onclick=()=>setMode('A',true);
+}
+function syncSel(){Object.entries(placeEls).forEach(([id,g])=>g.classList.toggle('sel',sel.includes(id)));}
+function toggle(id){const k=sel.indexOf(id);if(k<0)sel.push(id);else sel.splice(k,1);syncSel();renderB();}
+
+function wireTabs(){panel.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setMode(b.dataset.m));}
+function setMode(m,reset){
+  mode=m;locked=false;
+  clearMapState();
+  if(m==='A'){
+    [dot,route].forEach(e=>e.classList.remove('hide'));
+    if(reset){order=newOrder();qi=0;}
+    startQ();
+  }else{
+    [dot,route].forEach(e=>e.classList.add('hide'));showTag('');
+    syncSel();renderB();
+  }
+}
+Object.entries(placeEls).forEach(([id,g])=>{
+  g.addEventListener('click',()=>pick(id));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(id);}});
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='n'&&mode==='A'){const b=document.getElementById('next');if(b&&!b.disabled)b.click();}
+});
+
+/* start */
+order=newOrder();
+putDot('eic');
+startQ();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>showTag(tagT.textContent));
+</script>
+</body>
+</html>
