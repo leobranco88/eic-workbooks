@@ -1,0 +1,52 @@
+# Publica o site no Firebase Hosting a cada push no main.
+# O hub (public/hub.html) é gerado aqui, pelo predeploy do firebase.json.
+# Precisa do secret FIREBASE_SERVICE_ACCOUNT (JSON da conta de serviço do projeto eic-worksheets).
+name: Deploy Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'public-familia/**'
+      - 'firebase.json'
+      - '.firebaserc'
+      - 'generate-hub.cjs'
+  workflow_dispatch:
+
+# Um deploy por vez; se chegar outro push, espera o atual terminar.
+concurrency:
+  group: deploy-hosting
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # o hub usa o histórico do git para datar cada material
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Conferir o secret
+        env:
+          SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$SA" ]; then
+            echo "::error::Falta o secret FIREBASE_SERVICE_ACCOUNT (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+          printf '%s' "$SA" > "$RUNNER_TEMP/firebase-sa.json"
+
+      - name: Deploy (worksheets e familia)
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-sa.json
+        run: npx --yes firebase-tools@13 deploy --only hosting:worksheets,hosting:familia --project eic-worksheets --non-interactive
+
+      - name: Apagar a chave do runner
+        if: always()
+        run: rm -f "$RUNNER_TEMP/firebase-sa.json"
