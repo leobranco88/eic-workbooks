@@ -18,7 +18,7 @@ const GRUPOS = [
   { nome: 'Famílias',          pastas: ['familia-kids1','familia-kids2','familia-kids3','familia-kids4','familia-kids5','familia-kids6'] },
   { nome: 'Checkpoints Teens', pastas: ['teens1-checkpoints','teens2-checkpoints','teens3-checkpoints','teens4-checkpoints',
                                         'check-point-teens5-6-guide','checkpoint-teens','checkpoint-teens2-final'] },
-  { nome: 'Turmas e alunos',   pastas: ['erik','rafael','toshie','deb','teens1','teens3'] },
+  { nome: 'Turmas e alunos',   pastas: ['erik','rafael','toshie','deb','vitoria','teens1','teens3'] },
   { nome: 'Business',          pastas: ['sales','ventix','procurement','customer-service','strategic-hr','self-development','health'] },
   { nome: 'Método',            pastas: ['neural-english','neural-english-oficial','neural-english-presentation','grammar',
                                         'verb-patterns','speaking practice'] },
@@ -63,6 +63,7 @@ const NOMES = {
   'neural-english-presentation':'Neural English · Apresentação',
   'wh-questions-airport-hopistal':'Wh-questions · Airport e Hospital',
   'strategic-hr':               'Strategic HR',
+  'vitoria':                    'Vitória',
 };
 
 // Linhas do método: atravessam as pastas (um material do Erik pode ser Neural English)
