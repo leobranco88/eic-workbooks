@@ -27,11 +27,11 @@
     grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr);
     margin:24px;
     border:1.5px solid var(--ink);
-    height:calc(100vh - 112px);
+    height:calc(100vh - 120px);
     min-height:520px;
   }
   .mapside{display:flex;align-items:center;background:#fff}
-  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 116px)}
+  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 124px)}
   .panel{
     padding:32px 32px 26px;
     border-left:1.5px solid var(--ink);
@@ -128,7 +128,7 @@
   #intro{display:none}
   body.intro-on #intro{display:block}
   body.intro-on .stage{display:none}
-#intro .istage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(340px,1fr);margin:24px;border:1.5px solid var(--ink);min-height:calc(100vh - 112px)}
+#intro .istage{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(340px,1fr);margin:24px;border:1.5px solid var(--ink);min-height:calc(100vh - 120px)}
 #intro .rule{padding:34px 40px 30px;display:flex;flex-direction:column}
 #intro .gloss{padding:34px 34px 30px;border-left:1.5px solid var(--ink)}
 #intro .eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 12px}
@@ -171,17 +171,18 @@
 
   .controls{gap:6px}
   .controls .b{font-size:15px;padding:10px 11px}
-  .moments{display:flex;flex-wrap:wrap;margin:24px 24px 0}
-  .moments a{font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;border:1.5px solid #0A0A0A;color:#0A0A0A;background:#fff;text-decoration:none}
-  .moments a+a{border-left:0}
-  .moments a:hover{background:#F4F4F1}
-  .moments a[aria-current=page]{background:#0A0A0A;color:#fff}
-  .moments a:focus-visible{outline:3px solid #FF3C38;outline-offset:3px}
-  @media (max-width:900px){.moments{margin:12px 12px 0}}
+  .moments{display:flex;flex-wrap:wrap;align-items:stretch;background:#0A0A0A;margin:24px 24px 0}
+  .moments a{color:#BDBDBA;text-decoration:none;font:700 14px Inter,sans-serif;padding:13px 16px 10px;border-bottom:3px solid transparent}
+  .moments a:hover{color:#fff}
+  .moments a[aria-current=page]{color:#fff;border-bottom-color:#FF3C38}
+  .moments a.nx{margin-left:auto;color:#FF6A66;font-weight:800}
+  .moments a.nx:hover{color:#fff}
+  .moments a:focus-visible{outline:3px solid #FF3C38;outline-offset:-3px}
+  @media (max-width:900px){.moments{margin:12px 12px 0}.moments a{padding:11px 11px 8px;font-size:13px}.moments a.nx{margin-left:0}}
 </style>
 </head>
 <body class="intro-on">
-<nav class="moments" aria-label="Be the GPS moments"><a href="BeTheGPS-WorldEnglish-Unit6.html" aria-current="page">1 · Watch</a><a href="BeTheGPS-Where-WorldEnglish-Unit6.html">2 · Where do you go?</a><a href="BeTheGPS-Drive-WorldEnglish-Unit6.html">3 · Drive</a><a href="BeTheGPS-Give-WorldEnglish-Unit6.html">4 · Give directions</a></nav>
+<nav class="moments" aria-label="Be the GPS moments"><a data-k="intro" href="BeTheGPS-WorldEnglish-Unit6.html#intro">Intro</a><a data-k="watch" href="BeTheGPS-WorldEnglish-Unit6.html#watch">1 · Watch</a><a data-k="where" href="BeTheGPS-Where-WorldEnglish-Unit6.html">2 · Where do you go?</a><a data-k="drive" href="BeTheGPS-Drive-WorldEnglish-Unit6.html">3 · Drive</a><a data-k="give" href="BeTheGPS-Give-WorldEnglish-Unit6.html">4 · Give directions</a><a class="nx" id="nx" href="BeTheGPS-Where-WorldEnglish-Unit6.html">Next: Where do you go? →</a></nav>
 <main id="intro" lang="pt-BR"><div class="istage">
 
   <section class="rule" aria-labelledby="t">
@@ -253,15 +254,14 @@
     <h1>Where is the museum?</h1>
     <ol id="lines"></ol>
     <div class="controls">
-      <button class="b" id="prev">Previous</button>
+      <button class="b" id="prev">Previous line</button>
       <span class="pw" id="pw">
         <svg class="pr" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg>
         <button class="b" id="play">Play</button>
         <span class="pen hint" aria-hidden="true">start here!</span>
       </span>
-      <button class="b" id="next">Next</button>
+      <button class="b" id="next">Next line</button>
       <button class="b" id="restart">Restart</button>
-      <button class="b" id="introBtn">Intro</button>
     </div>
   </section>
 </div>
@@ -558,8 +558,22 @@ document.addEventListener('keydown',e=>{
   if(e.code==='ArrowLeft')document.getElementById('prev').click();
 });
 
-document.getElementById('introStart').addEventListener('click',()=>{document.body.classList.remove('intro-on');window.scrollTo(0,0);});
-document.getElementById('introBtn').addEventListener('click',()=>{stop();document.body.classList.add('intro-on');window.scrollTo(0,0);});
+document.getElementById('introStart').addEventListener('click',()=>{location.hash='#watch';});
+
+/* Intro / Watch live on the same page: the top bar switches with the address (#intro or #watch) */
+function showView(){
+  const w=location.hash==='#watch';
+  if(w)document.body.classList.remove('intro-on');else{stop();document.body.classList.add('intro-on');}
+  document.querySelectorAll('.moments a[data-k=intro],.moments a[data-k=watch]').forEach(a=>{
+    if(a.dataset.k===(w?'watch':'intro'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+  });
+  const nx=document.getElementById('nx');
+  if(w){nx.textContent='Next: Where do you go? →';nx.href='BeTheGPS-Where-WorldEnglish-Unit6.html';}
+  else{nx.textContent='Start: Watch →';nx.href='BeTheGPS-WorldEnglish-Unit6.html#watch';}
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',showView);
+showView();
 
 /* Start state (wait for fonts so the tag is measured with Caveat) */
 snap(0);showTag('You are here');ui();
