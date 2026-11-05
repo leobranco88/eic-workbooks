@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="hub-title" content="Verb Patterns · Part 2 · Prática da Vitória">
+<meta name="hub-desc" content="Prática online do Verb Patterns Part 2 (Neural English) no contexto de vendas. As respostas ficam gravadas para o professor.">
+<meta name="hub-type" content="Prática">
+<meta name="hub-level" content="B1">
+<title>Verb Patterns · Part 2 · Practice · Neural English · EIC</title>
+<!--FONTS-->
+<style>
+:root{--ink:#0A0A0A;--mid:#545454;--light:#E8E8E4;--white:#fff;--blue:#0D1FFF;--orange:#FF3C38;--bad:#F5006A;--neon:#F2FF3D;--graf:#4A4E54}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.5;font-size:clamp(16px,.5vw + 12px,20px);-webkit-font-smoothing:antialiased}
+.nav{display:flex;align-items:center;gap:16px;padding:12px clamp(20px,4vw,64px);border-bottom:1.5px solid var(--ink);position:sticky;top:0;background:var(--white);z-index:5}
+.nav img{height:30px}
+.nav .mod{font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.nav .who{margin-left:auto;font-size:13px;font-weight:600;color:var(--mid)}
+.saved{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:22px;line-height:1;min-width:120px;text-align:right}
+.saved.err{color:var(--bad)}
+main{padding:0 clamp(20px,4vw,64px) 140px}
+.hero{padding:clamp(36px,6vw,92px) 0 clamp(28px,4vw,56px);border-bottom:2px solid var(--ink)}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-size:clamp(10px,.46vw + 8px,17px);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:16px}
+.hero-eyebrow::before{content:'';display:inline-block;width:24px;height:3px;background:var(--orange)}
+h1{font-size:clamp(38px,4.2vw + 20px,96px);font-weight:900;line-height:1;letter-spacing:-.03em;margin-bottom:22px}
+h1 .h1-gone{color:var(--mid);opacity:.45;font-weight:700;text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:3px}
+h1 .h1-ans{color:var(--orange)}
+.hero .sub{font-size:clamp(17px,1.2vw + 11.5px,31px);font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.hero .pt{margin-top:11px;padding-left:16px;border-left:2px solid var(--light);font-size:clamp(13px,.57vw + 10px,21px);color:var(--mid)}
+section{padding:clamp(36px,5vw,72px) 0;border-bottom:1px solid var(--light)}
+.part-eyebrow{display:flex;align-items:center;gap:10px;font-size:clamp(10px,.46vw + 8px,17px);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:10px}
+h2{font-size:clamp(24px,2vw + 15px,52px);font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-bottom:12px}
+.h2-pt{margin:0 0 26px;font-size:clamp(13px,.57vw + 10px,21px);font-weight:600;color:var(--mid)}
+.exn{background:var(--ink);color:var(--white);font-weight:900;font-size:15px;min-width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center}
+.exh{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.exh h2{margin:0}
+.score{margin-left:auto;font-weight:800;font-size:14px;color:var(--mid)}
+.bi-en{font-size:clamp(17px,1.2vw + 11.5px,31px);font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.bi-pt{margin:11px 0 26px;padding-left:16px;border-left:2px solid var(--light);font-size:clamp(13px,.57vw + 10px,21px);line-height:1.65;color:var(--mid)}
+.tag{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:clamp(40px,2vw + 26px,64px);line-height:.9;transform:rotate(-4deg);transform-origin:left bottom;margin:44px 0 8px;display:block}
+/* palavras */
+.words{width:100%;border-collapse:collapse}
+.words td{padding:16px 20px 16px 0;border-top:1px solid var(--light);vertical-align:top}
+.words tr:first-child td{border-top:2px solid var(--ink)}
+.words .w{font-weight:900;font-size:1.25em;width:19%;letter-spacing:-.01em}
+.words .ipa{display:block;color:var(--mid);font-size:.7em;font-weight:500;margin-top:2px}
+.words .cls{font-size:.7em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);width:9%}
+.words .tr{width:22%;font-weight:600}
+.words .ex{font-weight:600}
+.words .ex small{display:block;margin-top:4px;color:var(--mid);font-weight:400;font-size:.85em;padding-left:12px;border-left:2px solid var(--light)}
+@media(max-width:820px){.goals{grid-template-columns:1fr}.words,.words tbody,.words tr,.words td{display:block;width:100%!important}.words tr{border-top:2px solid var(--ink);padding:12px 0}.words td{border:0!important;padding:3px 0}}
+/* exemplo resolvido */
+.worked{display:grid;grid-template-columns:78px 1fr;gap:0 14px;padding:16px 0;border-top:2px solid var(--ink);border-bottom:3px solid var(--ink);margin-bottom:6px}
+.worked .lab{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:34px;line-height:1;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+.worked .line{font-size:1.1em;font-weight:600}
+.worked .ans{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:1.5em;border-bottom:2px solid var(--blue);padding:0 8px;margin:0 3px;line-height:1}
+.worked .pt{color:var(--mid);font-size:.82em;margin-top:6px;padding-left:12px;border-left:2px solid var(--light)}
+.worked .nt{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:26px;margin-top:4px;line-height:1}
+.yt{font-weight:900;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 0 6px}
+.yt span{background:var(--orange);color:var(--white);padding:3px 8px;margin-right:8px}
+.yt small{font-weight:600;color:var(--mid);text-transform:none;letter-spacing:0;font-size:13px}
+ol{list-style:none}
+.it{display:grid;grid-template-columns:44px 1fr;gap:2px 12px;padding:20px 0;border-top:1px solid var(--light)}
+.it .n{font-weight:900;font-size:22px;letter-spacing:-.02em;line-height:1.3}
+.it .line{font-size:1.15em;font-weight:600;line-height:2}
+.it .pt{color:var(--mid);font-size:.82em;padding-left:12px;border-left:2px solid var(--light);margin-top:4px}
+.fb{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:26px;line-height:1.1;min-height:1.1em;margin-top:8px}
+.it .fb{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:26px;line-height:1.1;min-height:1.1em;margin-top:8px;transform:rotate(-1deg);transform-origin:left}
+.acts{display:flex;gap:18px;align-items:center;margin-top:10px;flex-wrap:wrap}
+input.gap{font:inherit;font-weight:700;border:0;border-bottom:2px solid var(--ink);background:transparent;padding:0 6px;width:9ch;text-align:center;outline:none;border-radius:0}
+input.gap:focus{border-bottom-color:var(--blue);background:#F4F4F1}
+input.gap.wrong{text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2.5px;color:var(--mid)}
+input.gap.done{border-bottom-color:var(--blue)}
+input.gap.revealed{font-family:Caveat,cursive;font-weight:700;font-size:1.4em;color:var(--graf);border-bottom-color:var(--graf);background:linear-gradient(transparent 12%,var(--neon) 12%,var(--neon) 88%,transparent 88%);mix-blend-mode:multiply}
+.ok-note{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:1.5em;display:inline-block;transform:rotate(-4deg);margin:0 14px 0 8px}
+.btn{font:inherit;font-weight:700;font-size:14px;background:var(--white);color:var(--ink);border:1.5px solid var(--ink);padding:7px 18px;cursor:pointer;border-radius:0}
+.btn:hover:not(:disabled){background:#F4F4F1}
+.btn:disabled{opacity:.35;cursor:default}
+.lnk{font:inherit;font-size:13px;color:var(--mid);background:none;border:0;border-bottom:1px dotted var(--mid);cursor:pointer;padding:0}
+.sw{display:flex;width:fit-content;align-items:center;gap:10px;font:inherit;font-size:13px;font-weight:600;color:var(--mid);background:none;border:0;cursor:pointer;margin:0 0 14px auto}
+.sw i{width:34px;height:18px;border:1.5px solid var(--ink);border-radius:9px;position:relative;background:var(--white)}
+.sw i::after{content:'';position:absolute;left:2px;top:2px;width:11px;height:11px;border-radius:50%;background:var(--ink)}
+.sw[aria-pressed=true] i{background:var(--blue);border-color:var(--blue)}
+.sw[aria-pressed=true] i::after{left:19px;background:var(--white)}
+/* opções */
+.opts{display:flex;flex-wrap:wrap;gap:0;margin-top:10px;align-items:center}
+.opt{position:relative;font:inherit;font-weight:700;background:var(--white);border:1.5px solid var(--ink);margin:0 -1.5px 0 0;padding:9px 22px;cursor:pointer;border-radius:0;min-width:104px;color:var(--ink)}
+.opt:hover:not(:disabled):not(.correct){background:#F4F4F1}
+.opt.incorrect{border-color:var(--light);color:var(--mid);text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2.5px;cursor:default}
+.opt.correct{cursor:default;margin-right:calc(5.6em + 6px)}
+.opt .rv-ring{position:absolute;left:-9px;top:-7px;width:calc(100% + 18px);height:calc(100% + 14px);display:none;pointer-events:none;overflow:visible}
+.opt .rv-ring path{fill:none;stroke:var(--blue);stroke-width:2.4px;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.opt.correct .rv-ring{display:block}
+.pen-note{position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%) rotate(-5deg);font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:1.6em;white-space:nowrap;pointer-events:none}
+/* escrita */
+textarea.say{width:100%;font:inherit;font-size:1.05em;font-weight:500;border:0;border-bottom:2px solid var(--ink);background:transparent;padding:8px 2px;resize:vertical;outline:none;border-radius:0;line-height:1.6}
+textarea.say:focus{border-bottom-color:var(--blue);background:#F4F4F1}
+textarea.say[readonly]{color:var(--ink)}
+textarea.big{min-height:11em;border:1.5px solid var(--ink);padding:12px 14px}
+textarea.mid{min-height:6em}
+.model{font-family:Caveat,cursive;font-weight:700;color:var(--graf);font-size:1.7em;line-height:1.3;margin-top:6px}
+.model mark{background:var(--neon);color:var(--graf);padding:0 3px;mix-blend-mode:multiply;border-radius:3px 7px 4px 6px}
+.meta{font-size:13px;font-weight:600;color:var(--mid);margin-top:6px;display:flex;gap:18px;flex-wrap:wrap}
+.found{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:24px;line-height:1.1;margin-top:6px}
+.q{font-size:clamp(17px,1.2vw + 11.5px,28px);font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.hintline{font-family:Caveat,cursive;font-weight:700;color:var(--blue);font-size:26px;margin:6px 0 6px;line-height:1.1}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:2px solid var(--ink);margin:6px 0 20px}
+.goals div{padding:12px 18px 12px 0;border-bottom:1px solid var(--light);font-weight:600}
+.fin h2{font-size:clamp(22px,1.4vw + 14px,38px)}
+.voc{border-bottom:1.5px dotted var(--orange);font-weight:700;cursor:pointer}
+.voc-bubble{position:fixed;z-index:999;background:var(--ink);color:var(--white);font-size:15px;font-weight:600;line-height:1.4;padding:8px 12px;border-radius:6px;max-width:min(82vw,340px);text-align:center;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .15s,transform .15s}
+.voc-bubble.show{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="nav">
+  <img src="eic-logo.png" alt="EIC">
+  <span class="mod">Neural English · Verb Patterns · Part 2 · Practice</span>
+  <span class="who" id="who"></span>
+  <span class="saved" id="saved"></span>
+</div>
+<main>
+  <div class="hero">
+    <div class="hero-eyebrow">Verb Patterns · Part 2 · Sales</div>
+    <h1><span class="h1-gone">I’d love that you check.</span><br>I’d love <span class="h1-ans">you to</span> check.</h1>
+    <p class="sub">Get people to act: make, have, get, urge, require. With the words you use with clients every day.</p>
+    <p class="pt">Faça as pessoas agirem: make, have, get, urge, require. Com as palavras que você usa com clientes todos os dias.</p>
+  </div>
+
+  <section id="words">
+    <div class="part-eyebrow">Before you start</div>
+    <h2>Words for this lesson</h2>
+    <div class="h2-pt">Palavras desta aula. Você vai ver essas palavras dentro das frases dos exercícios.</div>
+    <table class="words" id="wordsTable"><tbody></tbody></table>
+  </section>
+
+  <section id="ex1"></section>
+  <section id="ex2"></section>
+  <section id="ex3"></section>
+  <section id="ex4"></section>
+  <section id="ex5"></section>
+
+  <section class="fin" style="border:0">
+    <h2>Done for today.</h2>
+    <div class="h2-pt">Suas respostas foram salvas. Seu professor vai ler tudo, inclusive o e-mail.</div>
+  </section>
+</main>
+
+<!--SCRIPTS-->
+<script src="config.js"></script>
+<script src="firebase-comum.js"></script>
+<script src="dados.js"></script>
+<script>
+(function(){
+var ALUNA=(new URLSearchParams(location.search).get('aluna')||'vitoria').toLowerCase().replace(/[^a-z0-9_-]/g,'');
+var NOMES={vitoria:'Vitória'};
+document.getElementById('who').textContent=NOMES[ALUNA]||ALUNA;
+var savedEl=document.getElementById('saved');
+function setSaved(s){
+  savedEl.className='saved'+(s===false?' err':'');
+  savedEl.textContent=s==='local'?'Test mode':(s?'Saved!':'Offline, will retry');
+}
+function log(rec){EICStore.save(ALUNA,rec).then(function(r){setSaved(r==='local'?'local':true);}).catch(function(){setSaved(false);});}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function norm(s){return String(s).toLowerCase().replace(/[‘’]/g,"'").replace(/[.!?,;:]+$/,'').replace(/\s+/g,' ').trim();}
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
+var RING='<svg class="rv-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg>';
+
+var tb=document.querySelector('#wordsTable tbody');
+WORDS.forEach(function(w){
+  var tr=el('tr');
+  tr.innerHTML='<td class="w">'+esc(w.w)+'<span class="ipa">'+esc(w.ipa)+'</span></td><td class="cls">'+esc(w.cls)+'</td><td class="tr">'+esc(w.pt)+'</td><td class="ex">“'+esc(w.ex)+'”<small>'+esc(w.expt)+'</small></td>';
+  tb.appendChild(tr);
+});
+
+function head(sec,n,title,pt,en,bipt){
+  sec.innerHTML='<div class="exh"><span class="exn">'+n+'</span><h2>'+title+'</h2><span class="score" id="sc'+n+'"></span></div><div class="h2-pt">'+pt+'</div>'+(en?'<p class="bi-en">'+en+'</p><p class="bi-pt">'+bipt+'</p>':'');
+}
+function worked(html,pt,note){
+  return '<div class="worked"><div class="lab" aria-hidden="true">Example</div><div><div class="line">'+html+'</div><div class="pt">'+esc(pt)+'</div>'+(note?'<div class="nt">'+esc(note)+'</div>':'')+'</div></div><div class="yt"><span>Your turn</span><small>Agora é você</small></div>';
+}
+function mkSwitch(rows){
+  var sw=el('button','sw','<span>Show all answers · Mostrar todas as respostas</span><i></i>'); sw.setAttribute('aria-pressed','false');
+  sw.addEventListener('click',function(){sw.setAttribute('aria-pressed','true');rows.forEach(function(r){r();});});
+  return sw;
+}
+function score(st){document.getElementById('sc'+st.n).textContent=st.done+' / '+st.total;}
+
+/* ---------- 1 ---------- */
+(function(){
+  var MAX=3;
+  var sec=document.getElementById('ex1'),st={n:1,total:EX1.items.length,done:0};
+  head(sec,1,'Fill the gap','Complete a lacuna','Write the verb. Some verbs need <b>to</b>, some do not.','Escreva o verbo. Alguns pedem o “to”, outros não.');
+  var ex=EX1.example,rows=[];
+  sec.insertAdjacentHTML('beforeend','<span class="tag" aria-hidden="true">Com “to” ou sem?</span>');
+  sec.insertAdjacentHTML('beforeend',worked(esc(ex.pre)+' <span class="ans">'+esc(ex.answer)+'</span> '+esc(ex.post),ex.pt,'Had + pessoa + verbo, sem “to”'));
+  var ol=el('ol'); sec.appendChild(ol);
+  EX1.items.forEach(function(it,i){
+    var li=el('li','it'),s={tries:0,t0:null,done:false,rev:false};
+    li.innerHTML='<div class="n">'+(i+1)+'</div><div><div class="line">'+esc(it.pre)+' <input class="gap" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Item '+(i+1)+'"> '+esc(it.post)+'</div><div class="pt">'+esc(it.pt)+'</div><div class="fb"></div><div class="acts"><button class="btn">Check</button><button class="lnk" hidden>Show answer</button></div></div>';
+    var inp=li.querySelector('input'),fb=li.querySelector('.fb'),chk=li.querySelector('.btn'),shw=li.querySelector('.lnk');
+    inp.addEventListener('focus',function(){if(!s.t0)s.t0=Date.now();});
+    inp.addEventListener('input',function(){inp.classList.remove('wrong');});
+    function check(){
+      if(s.done||s.rev)return; var v=norm(inp.value); if(!v)return; s.tries++;
+      var ok=it.accept.some(function(a){return norm(a)===v;});
+      log({ex:1,item:i+1,resp:inp.value.trim(),ok:ok,tries:s.tries,ms:s.t0?Date.now()-s.t0:null,rev:false});
+      if(ok){s.done=true;inp.classList.add('done');inp.readOnly=true;inp.value=it.accept[0];fb.innerHTML='';chk.disabled=true;
+        inp.insertAdjacentHTML('afterend','<span class="ok-note">'+(s.tries===1?'Yes!':'This one!')+'</span>');st.done+=(s.tries===1?1:0);score(st);}
+      else{inp.classList.add('wrong');
+        if(/\bthat\b/.test(v))fb.textContent='Tire o “that”: depois da pessoa, o verbo vem direto.';
+        else if(it.fam===1&&!/^to /.test(v))fb.textContent='Esse verbo pede pessoa + to + verbo. Falta o “to”.';
+        else if(it.fam===2&&/^to /.test(v))fb.textContent='Esse verbo vai sem “to”. Tire o “to”.';
+        else fb.textContent='Quase! Releia o português e confira o verbo.';
+        if(s.tries>=MAX&&!s.rev)shw.hidden=false;}
+    }
+    function reveal(auto){
+      if(s.done||s.rev)return; s.rev=true;inp.readOnly=true;inp.value=it.accept[0];inp.classList.remove('wrong');inp.classList.add('revealed');chk.disabled=true;fb.textContent='';shw.hidden=true;
+      log({ex:1,item:i+1,resp:'',ok:false,tries:s.tries,ms:s.t0?Date.now()-s.t0:null,rev:true});
+      if(auto===true)fb.textContent='Vamos ver a resposta. Leia com calma e siga em frente.';
+    }
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+    chk.addEventListener('click',check);shw.addEventListener('click',reveal);
+    rows.push(reveal);ol.appendChild(li);
+  });
+  score(st);
+})();
+
+/* ---------- 2 ---------- */
+(function(){
+  var sec=document.getElementById('ex2'),st={n:2,total:EX2.items.length,done:0};
+  head(sec,2,'Choose the verb','Escolha o verbo','Tap the form that fits the gap.','Toque na forma que completa a frase.');
+  var ex=EX2.example;
+  sec.insertAdjacentHTML('beforeend','<span class="tag" aria-hidden="true">Pessoa + ?</span>');
+  sec.insertAdjacentHTML('beforeend',worked(esc(ex.pre)+' <span class="ans">'+esc(ex.opts[ex.right])+'</span> '+esc(ex.post),ex.pt,ex.note));
+  var ol=el('ol'); sec.appendChild(ol);
+  EX2.items.forEach(function(it,i){
+    var li=el('li','it'),s={tries:0,t0:Date.now(),done:false};
+    li.innerHTML='<div class="n">'+(i+1)+'</div><div><div class="line">'+esc(it.pre)+' <b>___</b> '+esc(it.post)+'</div><div class="pt">'+esc(it.pt)+'</div><div class="opts"></div><div class="fb"></div></div>';
+    var box=li.querySelector('.opts'),fb=li.querySelector('.fb');
+    it.opts.forEach(function(o,k){
+      var b=el('button','opt',esc(o)+RING);
+      b.addEventListener('click',function(){
+        if(s.done||b.classList.contains('incorrect'))return; s.tries++; var ok=(k===it.right);
+        log({ex:2,item:i+1,resp:o,ok:ok,tries:s.tries,ms:Date.now()-s.t0,rev:false});
+        if(ok){s.done=true;fb.textContent='';b.classList.add('correct');
+          b.insertAdjacentHTML('beforeend','<span class="pen-note">'+(s.tries===1?'Yes!':'This one!')+'</span>');
+          st.done+=(s.tries===1?1:0);score(st);}
+        else{b.classList.add('incorrect');
+          fb.textContent=/^that /.test(o)?'Tire o “that”: aqui a pessoa vem direto depois do verbo.':(it.fam===1?'Esse verbo pede pessoa + to + verbo.':'Esse verbo vai sem “to”.');}
+      });
+      box.appendChild(b);
+    });
+    ol.appendChild(li);
+  });
+  score(st);
+})();
+
+/* ---------- 3 ---------- */
+function hlm(model,fam){
+  var m=esc(model);
+  if(fam===1)return m.replace(/\bto\b(?= [a-z]+)/,'<mark>to</mark>');
+  return m.replace(/\b(made|had|saw|watched)\b/,'<mark>$1</mark>');
+}
+(function(){
+  var MAX=3;
+  var sec=document.getElementById('ex3'),st={n:3,total:EX3.items.length,done:0};
+  head(sec,3,'Say it in English','Diga em inglês','Write the sentence. Use the verb that fits.','Escreva a frase em inglês. Use o verbo que combina.');
+  var ex=EX3.example,rows=[];
+  sec.insertAdjacentHTML('beforeend','<span class="tag" aria-hidden="true">Sem “that”!</span>');
+  sec.insertAdjacentHTML('beforeend',worked('<span class="ans">'+esc(ex.model)+'</span>',ex.pt,'Saw + pessoa + verbo, sem “to”'));
+  var ol=el('ol'); sec.appendChild(ol);
+  EX3.items.forEach(function(it,i){
+    var li=el('li','it'),s={tries:0,t0:null,done:false,rev:false};
+    li.innerHTML='<div class="n">'+(i+1)+'</div><div><div class="line">'+esc(it.pt)+'</div><textarea class="say" rows="1" autocomplete="off" spellcheck="false" aria-label="Item '+(i+1)+'"></textarea><div class="fb"></div><div class="model" hidden></div><div class="acts"><button class="btn">Check</button><button class="lnk" hidden>Show answer</button></div></div>';
+    var ta=li.querySelector('textarea'),fb=li.querySelector('.fb'),md=li.querySelector('.model'),chk=li.querySelector('.btn'),shw=li.querySelector('.lnk');
+    ta.addEventListener('focus',function(){if(!s.t0)s.t0=Date.now();});
+    function showModel(){md.innerHTML=hlm(it.model,it.fam);md.hidden=false;if(window.vocWrap)window.vocWrap(md);}
+    function check(){
+      if(s.done||s.rev)return; var v=norm(ta.value); if(!v)return; s.tries++;
+      var ok=it.ok.some(function(r){return new RegExp(r).test(v);});
+      log({ex:3,item:i+1,resp:ta.value.trim(),ok:ok,tries:s.tries,ms:s.t0?Date.now()-s.t0:null,rev:false});
+      if(ok){s.done=true;ta.readOnly=true;fb.textContent=(s.tries===1?'Yes!':'This one!');showModel();st.done+=(s.tries===1?1:0);score(st);chk.disabled=true;}
+      else{
+        if(/\bthat\b/.test(v))fb.textContent='Tire o “that”. Em português vem “que você…”; em inglês vem pessoa + verbo.';
+        else if(it.fam===1&&!/\bto\b/.test(v))fb.textContent='Esse verbo pede pessoa + to + verbo. Falta o “to”.';
+        else if(it.fam===2&&/\b(me|him|her|us|them|team|client|supplier|prices|showroom) to\b/.test(v))fb.textContent='Esse verbo vai sem “to”. Tire o “to”.';
+        else fb.textContent='Quase! Releia o português e confira o verbo e a pessoa.';
+        if(s.tries>=MAX&&!s.rev)shw.hidden=false;}
+    }
+    function reveal(auto){
+      if(s.done||s.rev)return; s.rev=true;ta.readOnly=true;chk.disabled=true;fb.textContent='';shw.hidden=true;showModel();
+      log({ex:3,item:i+1,resp:'',ok:false,tries:s.tries,ms:s.t0?Date.now()-s.t0:null,rev:true});
+      if(auto===true)fb.textContent='Vamos ver a resposta. Leia com calma e siga em frente.';
+    }
+    ta.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();check();}});
+    chk.addEventListener('click',check);shw.addEventListener('click',reveal);
+    rows.push(reveal);ol.appendChild(li);
+  });
+  score(st);
+})();
+
+/* ---------- estruturas encontradas (só uma dica para o professor) ---------- */
+var F1=/\b(require[sd]?|urge[sd]?|enable[sd]?|inspire[sd]?|get|gets|got|persuade[sd]?|ask(?:ed|s)?|tell|tells|told|invite[sd]?|allow(?:ed|s)?|permit(?:ted|s)?|beg(?:ged|s)?|expect(?:ed|s)?|want(?:ed|s)?|need(?:ed|s)?|remind(?:ed|s)?|warn(?:ed|s)?|encourage[sd]?|force[sd]?|teach|taught|trust(?:ed|s)?|help(?:ed|s)?|love|like|prefer|hate)\s+(?:me|you|him|her|us|them|(?:the|our|my|your|their)\s+\w+|[A-Z]\w+)\s+to\s+[a-z]+/gi;
+var F2=/\b(made|make|makes|had|have|has|let|lets|saw|see|sees|watched|watch|watches|heard|hear|hears|helped|help|helps)\s+(?:me|you|him|her|us|them|(?:the|our|my|your|their)\s+\w+)\s+(?!to\b|been\b|a\b|an\b|the\b|any\b|some\b|no\b|not\b|got\b|had\b|made\b)[a-z]+/gi;
+function findStructures(t){var out=[];[F1,F2].forEach(function(r){var m;r.lastIndex=0;while((m=r.exec(t)))out.push(m[0].replace(/\s+/g,' '));});return out;}
+function wc(t){var m=t.trim().match(/[A-Za-zÀ-ÿ'’]+/g);return m?m.length:0;}
+
+/* ---------- 4 e 5: texto livre ---------- */
+function openBox(opt){
+  var li=opt.li,ta=opt.ta,s={t0:null,saves:0,last:'',timer:null};
+  var meta=li.querySelector('.meta'),found=li.querySelector('.found'),btn=li.querySelector('.btn'),note=li.querySelector('.fb');
+  function upd(){
+    var t=ta.value,w=wc(t),f=findStructures(t);
+    meta.innerHTML='<span>'+w+' words · palavras</span>'+(opt.max?'<span>'+opt.min+' to '+opt.max+'</span>':'<span>at least '+opt.min+'</span>');
+    found.textContent=f.length?'Estruturas que achei: '+f.slice(0,5).join(' · '):'';
+    return {w:w,f:f};
+  }
+  function save(draft){
+    var t=ta.value.trim(); if(!t||t===s.last)return; var u=upd(); s.last=t; s.saves++;
+    log({ex:opt.ex,item:opt.item,resp:t,ok:null,tries:s.saves,ms:s.t0?Date.now()-s.t0:null,rev:false,words:u.w,found:u.f.slice(0,12),draft:!!draft});
+    if(!draft){note.textContent='Saved! O professor vai ler.';}
+  }
+  ta.addEventListener('focus',function(){if(!s.t0)s.t0=Date.now();});
+  ta.addEventListener('input',function(){upd();note.textContent='';clearTimeout(s.timer);s.timer=setTimeout(function(){save(true);},9000);});
+  btn.addEventListener('click',function(){clearTimeout(s.timer);if(wc(ta.value)<opt.min){note.textContent='Um pouco mais! Escreva pelo menos '+opt.min+' palavras.';return;}save(false);});
+  upd();
+}
+(function(){
+  var sec=document.getElementById('ex4');
+  head(sec,4,'Your answer','Sua resposta','Answer in your own words. Two or three sentences each.','Responda com as suas palavras, em duas ou três frases para cada pergunta. Use o que você aprendeu hoje.');
+  sec.insertAdjacentHTML('beforeend','<span class="tag" aria-hidden="true">E você?</span>');
+  var ol=el('ol'); sec.appendChild(ol);
+  EX4.items.forEach(function(it,i){
+    var li=el('li','it');
+    li.innerHTML='<div class="n">'+(i+1)+'</div><div><p class="q">'+esc(it.q)+'</p><div class="pt">'+esc(it.pt)+'</div><div class="hintline">'+esc(it.hint)+'</div><textarea class="say mid big" autocomplete="off" spellcheck="false" aria-label="Question '+(i+1)+'"></textarea><div class="meta"></div><div class="found"></div><div class="fb"></div><div class="acts"><button class="btn">Save answer</button></div></div>';
+    ol.appendChild(li); openBox({li:li,ta:li.querySelector('textarea'),ex:4,item:i+1,min:EX4.min});
+  });
+  document.getElementById('ex4').insertAdjacentHTML('beforeend','');
+})();
+(function(){
+  var sec=document.getElementById('ex5');
+  head(sec,5,EX5.title,EX5.pt,EX5.brief,EX5.briefpt);
+  sec.insertAdjacentHTML('beforeend','<div class="goals">'+EX5.goals.map(function(g){return '<div>'+esc(g)+'</div>';}).join('')+'</div><div class="bi-pt" style="margin-top:0">'+esc(EX5.goalspt)+'</div>');
+  sec.insertAdjacentHTML('beforeend','<span class="tag" aria-hidden="true">Dear client,</span>');
+  var li=el('div','');
+  li.innerHTML='<textarea class="say big" autocomplete="off" spellcheck="false" aria-label="Email" style="min-height:16em"></textarea><div class="meta"></div><div class="found"></div><div class="fb"></div><div class="acts"><button class="btn">Save email</button></div>';
+  sec.appendChild(li); openBox({li:li,ta:li.querySelector('textarea'),ex:5,item:1,min:EX5.min,max:EX5.max});
+})();
+
+/* Palavras da aula nos exercícios: pontilhado laranja, toque para ver a tradução */
+(function(){
+  var T=[
+    [/enrollment fee/i,'Taxa de matrícula; taxa de inscrição'],
+    [/(?:reduce|lower|cut) (?:the )?fees?/i,'Reduzir a taxa'],
+    [/lower (?:the )?prices/i,'Preços mais baixos; baixar os preços'],
+    [/worth it/i,'Valer a pena; valeu a pena'],
+    [/trade fairs?/i,'Feira de negócios'],
+    [/exhibitors?/i,'Expositor (quem tem estande na feira)'],
+    [/\bquotes?\b/i,'Cotação; orçamento'],
+    [/suppliers?/i,'Fornecedor'],
+    [/\bredo\b/i,'Refazer'],
+    [/\b(?:enable|enabled)\b/i,'Permitir; tornar possível'],
+    [/\b(?:urge|urged)\b/i,'Insistir para; pedir com insistência'],
+    [/\b(?:require|requires|required)\b/i,'Exigir'],
+    [/\b(?:inspire|inspired)\b/i,'Inspirar; motivar'],
+    [/\bbooth\b/i,'Estande'],
+    [/\bstand\b/i,'Estande'],
+    [/\bclerk\b/i,'Funcionário; balconista'],
+    [/\bsamples?\b/i,'Amostra'],
+    [/\bquarter\b/i,'Trimestre'],
+    [/paint makers/i,'Fabricantes de tintas'],
+    [/crowded/i,'Lotado; cheio de gente'],
+    [/exchange rate/i,'Taxa de câmbio; câmbio'],
+    [/\bfees?\b/i,'Taxa; tarifa; mensalidade'],
+    [/\b(?:go|goes|going|went|gone) up\b/i,'Subir; aumentar']
+  ];
+  var all=new RegExp(T.map(function(t){return '(?:'+t[0].source+')';}).join('|'),'gi');
+  function tr(m){for(var i=0;i<T.length;i++){if(new RegExp('^(?:'+T[i][0].source+')$','i').test(m))return T[i][1];}return '';}
+  function wrap(root){
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[],n;
+    while((n=w.nextNode()))nodes.push(n);
+    nodes.forEach(function(t){
+      var x=t.nodeValue;if(!all.test(x)){all.lastIndex=0;return;}all.lastIndex=0;
+      var f=document.createDocumentFragment(),last=0,m;
+      while((m=all.exec(x))){
+        f.appendChild(document.createTextNode(x.slice(last,m.index)));
+        var sp=document.createElement('span');sp.className='voc';sp.dataset.t=tr(m[0]);sp.textContent=m[0];f.appendChild(sp);
+        last=m.index+m[0].length;
+      }
+      f.appendChild(document.createTextNode(x.slice(last)));
+      t.parentNode.replaceChild(f,t);
+    });
+  }
+  window.vocWrap=wrap;
+  document.querySelectorAll('#ex1 .line,#ex2 .line,#ex4 .q,#ex5 .bi-en,#ex3 .worked .ans').forEach(wrap);
+  var bub=document.createElement('div');bub.className='voc-bubble';document.body.appendChild(bub);
+  var open=null;
+  function hide(){bub.classList.remove('show');open=null;}
+  document.addEventListener('click',function(e){
+    var v=e.target.closest&&e.target.closest('.voc');
+    if(!v||v===open){hide();return;}
+    open=v;bub.textContent=v.dataset.t;bub.classList.add('show');
+    var r=v.getBoundingClientRect(),w=bub.offsetWidth;
+    bub.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px';
+    bub.style.top=(r.top-bub.offsetHeight-8)+'px';
+  });
+  addEventListener('scroll',hide,{passive:true});
+})();
+
+log({ex:0,item:0,resp:'open',ok:null,tries:0,ms:null,rev:false});
+})();
+</script>
+</body>
+</html>

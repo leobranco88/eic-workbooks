@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /links/{doc} {
+      allow read, write: if true;
+    }
+    match /reforco/{id} {
+      allow read, write: if true;
+    }
+    match /gameMissions/{missionId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.title is string
+          && request.resource.data.title.size() <= 80
+          && request.resource.data.coins is int
+          && request.resource.data.status in ['active', 'draft', 'archived']
+          && request.resource.data.attachments is list
+          && request.resource.data.attachments.size() <= 40;
+      allow delete: if true;
+    }
+
+    // EIC Lousa (class board)
+    match /lousaTeachers/{tid} {
+      allow read, write: if true;
+      match /pages/{p} {
+        allow read, write: if true;
+      }
+    }
+    match /rooms/{code} {
+      allow read, write: if true;
+      match /players/{pid} {
+        allow read, write: if true;
+      }
+    }
+
+    // Reunião de professores: poll ao vivo
+    match /reuniaoPoll/{sid} {
+      allow read, write: if true;
+      match /votes/{vid} {
+        allow read, write: if true;
+      }
+    }
+
+    // NOVO: Neural English, prática online (uma subcoleção de respostas por aluna)
+    match /neural_praticas/{aluna}/respostas/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['ex','item','resp','ok','tries','ms','rev','ts','words','found','draft'])
+                    && request.resource.data.ex is int
+                    && request.resource.data.ex >= 0 && request.resource.data.ex <= 9
+                    && (!('resp' in request.resource.data) || request.resource.data.resp.size() <= 4000);
+      allow update, delete: if false;
+    }
+  }
+}
