@@ -24,7 +24,7 @@ const GRUPOS = [
                                         'verb-patterns','speaking practice','on-the-move'] },
   { nome: 'Viagem e temas',    pastas: ['airport','getting-around','european-garden','wh-questions-airport-hopistal','study-abroad'] },
   { nome: 'Escola',            pastas: ['eic-philosophy','eic-teacher-training','eic_curriculum_system','eic-teaching',
-                                        'internal','gamefik','placement-test'] },
+                                        'internal','gamefik','placement-test','transicao-curriculo'] },
   { nome: 'Clipping',          pastas: ['clipping'] },
 ];
 
@@ -65,6 +65,7 @@ const NOMES = {
   'wh-questions-airport-hopistal':'Wh-questions · Airport e Hospital',
   'strategic-hr':               'Strategic HR',
   'vitoria':                    'Vitória',
+  'transicao-curriculo':        'Mapa de Transição Kids → Teens',
 };
 
 // Linhas do método: atravessam as pastas (um material do Erik pode ser Neural English)
