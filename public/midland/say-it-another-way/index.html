@@ -132,6 +132,56 @@ h1 .h1-ans{color:var(--orange)}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .chip{padding:7px 12px;font-size:14px}
 
+
+/* Quiz em overlay */
+.qz-go{display:inline-flex;align-items:center;padding:13px 24px;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);font:inherit;font-weight:800;font-size:16px;cursor:pointer}
+.qz-go:hover,.qz-x:hover,.qz-b:hover{background:#F4F4F1}
+.qz{position:fixed;inset:0;z-index:100;background:var(--white);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.qz[hidden]{display:none}
+.qz-in{max-width:820px;margin:0 auto;padding:0 28px 80px}
+.qz-top{position:sticky;top:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0 14px;z-index:2}
+.qz-t{font-size:clamp(10px,.46vw + 8px,15px);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:12px}
+.qz-t::before{content:'';width:24px;height:3px;background:var(--orange)}
+.qz-x,.qz-b{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);font:inherit;font-weight:800;font-size:14px;cursor:pointer}
+.qz-x:focus-visible,.qz-b:focus-visible,.qz-go:focus-visible,.qz-o:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.qz-prog{display:flex;align-items:center;gap:14px;padding-top:14px;border-top:2px solid var(--ink);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.qz-bar{flex:1;display:flex;gap:4px}
+.qz-bar i{flex:1;height:6px;background:var(--light)}
+.qz-bar i.d{background:var(--ink)}
+.qz-bar i.n{background:var(--ink);opacity:.35}
+.qz-q{padding:30px 0 10px}
+.qz-n{font-family:'Caveat',cursive;font-weight:700;color:var(--blue);font-size:clamp(36px,2vw + 24px,56px);line-height:.9;transform:rotate(-4deg);transform-origin:left bottom;margin-bottom:10px;display:inline-block}
+.qz-en{font-size:clamp(20px,1.2vw + 14px,34px);font-weight:800;letter-spacing:-.02em;line-height:1.25;max-width:26ch}
+.qz-pt{margin-top:12px;padding-left:16px;border-left:2px solid var(--light);font-size:clamp(13px,.5vw + 11px,18px);color:var(--mid);max-width:56ch}
+.qz-os{display:grid;gap:12px;margin-top:30px}
+.qz-o{position:relative;display:flex;align-items:center;gap:16px;width:100%;text-align:left;padding:15px 18px;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);font:inherit;font-weight:700;font-size:clamp(16px,.6vw + 13px,21px);cursor:pointer}
+.qz-k{flex:none;width:30px;height:30px;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px}
+.qz-o:hover:not(:disabled){background:#F4F4F1}
+.qz-o:disabled{cursor:default}
+.qz-ring{position:absolute;left:-9px;top:-8px;width:calc(100% + 18px);height:calc(100% + 16px);display:none;pointer-events:none;overflow:visible}
+.qz-ring path{fill:none;stroke:var(--blue);stroke-width:2.4px;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.qz-o.ok .qz-ring{display:block}
+.qz-note{display:none;position:absolute;right:14px;top:-26px;font-family:'Caveat',cursive;font-weight:700;color:var(--blue);font-size:30px;line-height:1;transform:rotate(-5deg);background:var(--white);padding:0 6px;white-space:nowrap}
+.qz-o.ok .qz-note{display:block}
+.qz-o.no{border-color:var(--light);color:var(--mid);text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2.5px}
+.qz-o.no .qz-k{border-color:var(--light)}
+.qz-fb{margin-top:34px;display:none}
+.qz-fb.on{display:block}
+.qz-why{padding-left:16px;border-left:2px solid var(--ink);font-size:clamp(15px,.5vw + 12px,19px);line-height:1.6;max-width:58ch}
+.qz-fb .qz-b{margin-top:22px}
+.qz-end{display:none;padding:34px 0 10px}
+.qz-end.on{display:block}
+.qz-score{font-size:clamp(64px,6vw + 30px,140px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.qz-score small{font-size:.38em;color:var(--mid);font-weight:700;letter-spacing:-.02em}
+.qz-hn{font-family:'Caveat',cursive;font-weight:700;color:var(--blue);font-size:clamp(34px,2vw + 22px,52px);line-height:1;transform:rotate(-2deg);display:inline-block;margin:12px 0 22px}
+.qz-miss{border-top:2px solid var(--ink);margin-top:18px}
+.qz-miss h3{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);padding:14px 0 6px}
+.qz-miss li{list-style:none;padding:12px 0;border-bottom:1px solid var(--light)}
+.qz-mq{font-weight:800;font-size:17px}
+.qz-ma{margin-top:2px;color:var(--mid);font-size:15px}
+.qz-ma b{color:var(--ink)}
+.qz-end .qz-b{margin:26px 12px 0 0}
+@media (max-width:760px){.qz-in{padding:0 20px 60px}.qz-o{padding:13px 14px}.qz-note{font-size:26px;right:8px}}
 /* Ícones dos termos */
 .t-name .sqi{align-self:center;width:56px;height:56px;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;background:var(--white);flex:none}
 .ic{display:block;flex:none}
@@ -590,6 +640,14 @@ footer.wrap{margin-top:80px}
     <div class="wr"><span class="sq">3</span><div class="wc"><div class="wl">It’s like… but…</div><div class="line"></div></div></div>
   </article>
 </section>
+
+<section class="wrap part" id="quiz">
+  <div class="part-eyebrow"><span class="num">6</span>Test yourself</div>
+  <h2>How do you say it?</h2>
+  <p class="h2-pt">As palavras que mais confundem, até quem estuda inglês. Doze perguntas, uma explicação depois de cada resposta.</p>
+  <button class="qz-go" id="qzgo" type="button">Start the quiz</button>
+</section>
+
 </main>
 
 <div id="tip" role="tooltip"></div>
@@ -705,6 +763,61 @@ footer.wrap{margin-top:80px}
 })();
 </script>
 
+
+<div class="qz" id="qz" role="dialog" aria-modal="true" aria-label="Quiz: how do you say it?" hidden>
+  <div class="qz-in">
+    <div class="qz-top"><span class="qz-t">Quiz · How do you say it?</span><button class="qz-x" id="qzx" type="button"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" fill="none" stroke="currentColor" stroke-width="2"/></svg>Close</button></div>
+    <div class="qz-prog" id="qzp"></div>
+    <div class="qz-q" id="qzq"></div>
+    <div class="qz-end" id="qze"></div>
+  </div>
+</div>
+<script>
+(function(){
+var Q=[{"a": "You send a customer a written price offer. I’ll send you the ___ by tomorrow.", "pt": "Você manda ao cliente uma oferta de preço por escrito. Como diz “orçamento”?", "o": ["budget", "quote", "bill", "receipt"], "c": 1, "e": "“Quote” é o orçamento de venda. “Budget” é o dinheiro que a pessoa tem para gastar."}, {"a": "How do you explain a nota fiscal to a foreign client?", "pt": "Como você explica a nota fiscal para um cliente estrangeiro?", "o": ["A paper receipt from the store", "A bill you pay at the bank", "A letter from the tax office", "An official tax invoice, reported to the government"], "c": 3, "e": "Nos EUA, “invoice” é só a cobrança do vendedor. A nota fiscal é oficial e vai para o governo."}, {"a": "How do you say “CPF” in English?", "pt": "Como se diz “CPF” em inglês?", "o": ["A personal tax ID", "A company tax ID", "A work contract", "A bank slip"], "c": 0, "e": "CPF é o número fiscal de uma pessoa, com 11 dígitos. O de uma empresa é o CNPJ, com 14."}, {"a": "How do you explain a boleto?", "pt": "Como você explica o boleto?", "o": ["A credit card payment", "A check you sign", "A bank slip with a barcode", "An invoice sent by email"], "c": 2, "e": "Boleto é uma guia de pagamento com código de barras. Dá para pagar no banco, numa loja ou no aplicativo."}, {"a": "Your client is abroad and can’t use Pix. What do you offer?", "pt": "Seu cliente está fora do Brasil e não pode usar Pix. O que você oferece?", "o": ["A boleto", "A Pix key", "An installment", "A wire transfer"], "c": 3, "e": "Para cliente de fora, a saída é “wire transfer”."}, {"a": "We can split the payment into six monthly ___.", "pt": "Podemos dividir o pagamento em seis ___ mensais.", "o": ["parcels", "installments", "portions", "fractions"], "c": 1, "e": "“Parcelado” é “in installments”. Cuidado: “parcel” é encomenda, pacote."}, {"a": "Would you like the ___ included in the price, or as an extra?", "pt": "Você quer o frete incluído no preço ou cobrado à parte?", "o": ["shipping", "frete", "fret", "transport tax"], "c": 0, "e": "Para o custo de enviar a mercadoria, diga “shipping” (ou “freight”)."}, {"a": "Let’s have lunch at a ___ near the office.", "pt": "Vamos almoçar em um restaurante por quilo perto do escritório.", "o": ["self-service restaurant", "all-you-can-eat buffet", "pay-by-weight buffet", "weight restaurant"], "c": 2, "e": "Quase ninguém diz “self-service” em inglês. Só “buffet” faz o cliente entender “coma à vontade”."}, {"a": "The contract needs to be ___ at a cartório before we can sign.", "pt": "O contrato precisa ser reconhecido em cartório antes de assinarmos.", "o": ["stamped", "notarized", "translated", "printed"], "c": 1, "e": "No cartório, o documento é “notarized”: reconhecido e autenticado."}, {"a": "How do you say “PJ” in English?", "pt": "Como se diz “PJ” em inglês?", "o": ["An employee", "An intern", "A partner", "An independent contractor"], "c": 3, "e": "PJ trabalha como prestador de serviço, pela própria empresa. Nos EUA, o mais parecido é o 1099 contractor."}, {"a": "In the US, a rodízio is closest to a…", "pt": "Nos EUA, o rodízio é mais parecido com…", "o": ["salad bar", "food truck", "Brazilian steakhouse", "pay-by-weight buffet"], "c": 2, "e": "Rodízio é um “all-you-can-eat Brazilian steakhouse”. Nos EUA, também chamam de churrascaria."}, {"a": "You can’t think of the word. Which question is natural?", "pt": "Você não lembra da palavra. Qual pergunta é natural?", "o": ["How do you say “nota fiscal” in English?", "How you say “nota fiscal” in English?", "What means “nota fiscal” in English?", "How do you say “nota fiscal” on English?"], "c": 0, "e": "Use “How do you say … in English?”. Com “do”, a pergunta fica completa."}];
+var RING='<svg class="qz-ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg>';
+var i=0,score=0,miss=[],L='ABCD';
+var ov=document.getElementById('qz'),go=document.getElementById('qzgo'),prog=document.getElementById('qzp'),box=document.getElementById('qzq'),end=document.getElementById('qze');
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function bar(){var h='<span>'+Math.min(i+1,Q.length)+' / '+Q.length+'</span><span class="qz-bar">';
+  for(var k=0;k<Q.length;k++)h+='<i class="'+(k<i?'d':k===i?'n':'')+'"></i>';prog.innerHTML=h+'</span>';}
+function show(){
+  bar();var q=Q[i];end.className='qz-end';box.style.display='';prog.style.display='';ov.scrollTop=0;
+  var h='<div class="qz-n" aria-hidden="true">'+(i===0?'ready?':i===Q.length-1?'last one!':'question '+(i+1))+'</div>'+
+   '<p class="qz-en">'+esc(q.a)+'</p><p class="qz-pt">'+esc(q.pt)+'</p><div class="qz-os">';
+  q.o.forEach(function(t,k){h+='<button type="button" class="qz-o" data-k="'+k+'"><span class="qz-k">'+L[k]+'</span><span>'+esc(t)+'</span>'+RING+'<span class="qz-note"></span></button>';});
+  h+='</div><div class="qz-fb" id="qzfb"><p class="qz-why">'+esc(q.e)+'</p><button type="button" class="qz-b" id="qzn">'+(i===Q.length-1?'See my score':'Next question')+'</button></div>';
+  box.innerHTML=h;
+  box.querySelectorAll('.qz-o').forEach(function(b){b.addEventListener('click',function(){pick(+b.dataset.k);});});
+}
+function pick(k){
+  var q=Q[i],bs=box.querySelectorAll('.qz-o');
+  bs.forEach(function(b){b.disabled=true;});
+  var good=bs[q.c];good.classList.add('ok');
+  if(k===q.c){score++;good.querySelector('.qz-note').textContent='yes!';}
+  else{bs[k].classList.add('no');good.querySelector('.qz-note').textContent='this one!';miss.push(i);}
+  document.getElementById('qzfb').classList.add('on');
+  var nx=document.getElementById('qzn');nx.focus();
+  nx.addEventListener('click',function(){i++;if(i<Q.length)show();else finish();});
+}
+function finish(){
+  box.style.display='none';prog.style.display='none';end.className='qz-end on';ov.scrollTop=0;
+  var note=score===Q.length?'perfect!':score>=Q.length*0.75?'very good!':score>=Q.length*0.5?'good start!':'one more time?';
+  var h='<div class="qz-score">'+score+'<small> / '+Q.length+'</small></div><div class="qz-hn" aria-hidden="true">'+note+'</div>';
+  if(miss.length){h+='<div class="qz-miss"><h3>To review</h3><ul>';
+    miss.forEach(function(m){var q=Q[m];h+='<li><p class="qz-mq">'+esc(q.a)+'</p><p class="qz-ma"><b>'+esc(q.o[q.c])+'</b> · '+esc(q.e)+'</p></li>';});h+='</ul></div>';}
+  h+='<button type="button" class="qz-b" id="qza">Try again</button><button type="button" class="qz-b" id="qzc">Back to the page</button>';
+  end.innerHTML=h;
+  document.getElementById('qza').addEventListener('click',function(){i=0;score=0;miss=[];show();});
+  document.getElementById('qzc').addEventListener('click',close);
+}
+function open(){i=0;score=0;miss=[];ov.hidden=false;document.body.style.overflow='hidden';show();document.getElementById('qzx').focus();}
+function close(){ov.hidden=true;document.body.style.overflow='';go.focus();}
+go.addEventListener('click',open);
+document.getElementById('qzx').addEventListener('click',close);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});
+})();
+</script>
 <footer class="wrap"><div class="foot"><span>EIC · Escola de Idiomas e Cultura</span><span>Business English</span></div></footer>
 </body>
 </html>
