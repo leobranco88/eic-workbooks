@@ -19,7 +19,7 @@ const GRUPOS = [
   { nome: 'Checkpoints Teens', pastas: ['teens1-checkpoints','teens2-checkpoints','teens3-checkpoints','teens4-checkpoints',
                                         'check-point-teens5-6-guide','checkpoint-teens','checkpoint-teens2-final'] },
   { nome: 'Turmas e alunos',   pastas: ['erik','rafael','toshie','deb','vitoria','teens1','teens3'] },
-  { nome: 'Business',          pastas: ['sales','ventix','procurement','customer-service','strategic-hr','self-development','health'] },
+  { nome: 'Business',          pastas: ['midland','sales','ventix','procurement','customer-service','strategic-hr','self-development','health'] },
   { nome: 'Método',            pastas: ['neural-english','neural-english-oficial','neural-english-presentation','grammar',
                                         'verb-patterns','speaking practice','on-the-move'] },
   { nome: 'Viagem e temas',    pastas: ['airport','getting-around','european-garden','wh-questions-airport-hopistal','study-abroad'] },
