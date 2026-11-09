@@ -603,6 +603,7 @@ footer.wrap{margin-top:80px}
   var keys=Object.keys(D).sort(function(a,b){return b.length-a.length});
   var esc=function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')};
   var re=new RegExp('(^|[^A-Za-z0-9-])('+keys.map(esc).join('|')+')(?![A-Za-z0-9])','gi');
+  var DL={};Object.keys(D).forEach(function(k){DL[k.toLowerCase()]=D[k];});
   var sel='.t-body .en, .t-en, .model, .pod-body .en, .bi-en, .eq-en, .t-body .say';
   document.querySelectorAll(sel).forEach(function(box){
     var w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null),nodes=[],n;
@@ -615,7 +616,7 @@ footer.wrap{margin-top:80px}
         var start=m.index+m[1].length;
         frag.appendChild(document.createTextNode(txt.slice(last,start)));
         var s=document.createElement('span');
-        s.className='tt'; s.tabIndex=0; s.setAttribute('data-tip',D[m[2].toLowerCase()]);
+        s.className='tt'; s.tabIndex=0; s.setAttribute('data-tip',DL[m[2].toLowerCase()]);
         s.textContent=m[2]; frag.appendChild(s);
         last=start+m[2].length;
       }
