@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="hub-title" content="Mumbleton Academy: apresentação para a professora">
+<meta name="hub-desc" content="Jogo de magia narrado pelo app: história, cerimônia, cartas holográficas, capítulo e mapa.">
+<meta name="hub-type" content="Apresentação">
+<meta name="hub-level" content="Kids 6">
+<meta name="robots" content="noindex">
+<title>Mumbleton Academy · Apresentação</title>
+<style>
+@font-face{font-family:BSD;src:url(fonts/bsd-800.woff2) format('woff2');font-weight:800}
+@font-face{font-family:PS;src:url(fonts/ps-400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:PS;src:url(fonts/ps-600.woff2) format('woff2');font-weight:600}
+@font-face{font-family:DM;src:url(fonts/dmm-500.woff2) format('woff2');font-weight:500}
+:root{--teal:#2f5f5c;--deep:#1d3b39;--cream:#f3e6c8;--ink:#1e1b1a;--mus:#e6a923;--terra:#b44f33;--sage:#bcd3cc}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;overflow-x:hidden;background:#12201f;color:var(--cream);font-family:PS,system-ui,sans-serif}
+#view{display:block}
+.pw{position:relative;width:100%;overflow:hidden;background:var(--deep)}
+.s{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--deep);color:var(--cream)}
+.s.light{background:var(--cream);color:var(--ink)}
+.s.teal{background:var(--teal)}
+.s>*{position:absolute}
+.k{font:500 26px/1 DM;letter-spacing:.16em;text-transform:uppercase;color:var(--mus)}
+.light .k{color:var(--terra)}
+h1,h2{font:800 150px/.92 BSD;text-transform:uppercase;letter-spacing:.005em}
+h2{font-size:124px}
+h3{font:800 54px/1 BSD;text-transform:uppercase;letter-spacing:.02em}
+p{font-size:38px;line-height:1.38;color:var(--sage)}
+.light p{color:#4a423b}
+p b,li b{color:var(--cream);font-weight:600}
+.light p b,.light li b{color:var(--ink)}
+.q{font:600 1em PS;color:var(--mus)}
+.light .q{color:var(--terra)}
+img,video{display:block}
+.shot{border:8px solid var(--cream);box-shadow:0 22px 50px rgba(0,0,0,.4);object-fit:cover}
+.foot{left:128px;bottom:48px;font:500 22px/1 DM;letter-spacing:.14em;text-transform:uppercase;color:#7da29b;display:flex;gap:28px}
+.light .foot{color:#8c7f6c}
+/* timeline */
+.tl{left:128px;right:128px;top:470px;height:2px;background:rgba(243,230,200,.35)}
+.step{width:300px}
+.step i{display:block;font:800 150px/1 BSD;color:var(--mus);font-style:normal}
+.step span{display:block;margin-top:6px;font:800 50px/1 BSD;text-transform:uppercase}
+.step em{display:block;margin-top:14px;font:400 30px/1.35 PS;color:var(--sage);font-style:normal}
+/* classes */
+.row{display:grid;grid-template-columns:330px 520px 1fr;align-items:baseline;border-top:2px solid rgba(243,230,200,.3);padding:24px 0}
+.row b{font:800 54px/1 BSD;text-transform:uppercase;color:var(--cream)}
+.row u{font:800 54px/1 BSD;text-decoration:none;color:var(--mus);text-transform:none}
+.row span{font-size:30px;color:var(--sage);line-height:1.3}
+/* rodada */
+ol{list-style:none;counter-reset:n}
+ol li{counter-increment:n;display:grid;grid-template-columns:100px 1fr;align-items:baseline;font-size:32px;line-height:1.25;color:var(--sage);padding:14px 0;border-top:2px solid rgba(243,230,200,.25)}
+ol li:before{content:counter(n);font:800 76px/1 BSD;color:var(--mus)}
+ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(--cream)}
+.light ol li{color:#4a423b;border-top-color:rgba(30,27,26,.25)}
+.light ol li b{color:var(--ink)}
+.row2{display:grid;grid-template-columns:360px 1fr;align-items:baseline;border-top:2px solid rgba(243,230,200,.3);padding:24px 0}
+.row2 b{font:800 54px/1 BSD;text-transform:uppercase;color:var(--mus)}
+.row2 span{font-size:38px;line-height:1.3;color:var(--cream)}
+.bkh{font:800 58px/.95 BSD;text-transform:uppercase;color:#2a2018}
+.bkk{font:500 20px/1 DM;letter-spacing:.16em;text-transform:uppercase;color:#b44f33}
+.bkp{font:400 31px/1.4 PS;color:#3b2d20}
+.bkp:first-letter{font:800 76px/.8 BSD;color:#b44f33;float:left;margin:8px 10px 0 0}
+.hc{filter:drop-shadow(0 26px 30px rgba(0,0,0,.45))}
+.lab{font:800 58px/1 BSD;text-transform:uppercase;letter-spacing:.02em}
+.lab small{display:block;margin-top:10px;font:400 28px/1.3 PS;text-transform:none;color:var(--sage);letter-spacing:0}
+.ap{width:190px;height:265px;border-radius:12px;box-shadow:0 14px 26px rgba(0,0,0,.4)}
+.apn{font:800 44px/1 BSD;text-transform:uppercase}
+.apn small{display:block;margin-top:6px;font:500 20px/1 DM;letter-spacing:.14em;color:var(--mus)}
+/* UI */
+#hud{position:fixed;left:0;right:0;bottom:0;height:5px;background:rgba(0,0,0,.25);z-index:5}
+#bar{height:100%;width:0;background:var(--mus);transition:width .35s}
+#cnt{position:fixed;right:16px;bottom:14px;font:500 13px DM;color:#9fbdb6;letter-spacing:.12em;z-index:5;opacity:.7}
+#notes{position:fixed;left:0;right:0;bottom:0;background:rgba(18,32,31,.96);color:var(--cream);padding:18px 28px 26px;font:400 20px/1.5 PS;z-index:6;display:none;border-top:3px solid var(--mus)}
+#notes.on{display:block}
+#help{position:fixed;left:16px;bottom:14px;font:500 13px DM;color:#9fbdb6;letter-spacing:.1em;z-index:5;opacity:.7}
+.nt{display:none}
+.fc{width:140px;height:196px;flex:none;perspective:700px;cursor:pointer}
+.fc div{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.fc.f div{transform:rotateY(180deg)}
+.fc img{position:absolute;inset:0;width:100%;height:100%;border-radius:8px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 10px 20px rgba(0,0,0,.4)}
+.fc img+img{transform:rotateY(180deg)}
+.hint{font:500 22px/1 DM;letter-spacing:.12em;text-transform:uppercase;color:var(--mus)}
+.holo-card{--hc-w:320px;--hc-ratio:.716;--hc-radius:14px;position:relative;width:var(--hc-w);max-width:100%;aspect-ratio:var(--hc-ratio);touch-action:pan-y;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;outline:none}
+.holo-card:focus-visible{outline:3px solid var(--ink);outline-offset:6px}
+.holo-card__rotor{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.holo-card__face{position:absolute;inset:0;border-radius:var(--hc-radius);overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.holo-card__face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.holo-card__face canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;pointer-events:none}
+.holo-card[data-ready] .holo-card__face canvas{opacity:1}
+.holo-card[data-ready] .holo-card__face--front img{visibility:hidden}
+.holo-card__face--back{transform:rotateY(180deg)}
+.holo-card__shadow{position:absolute;inset:6% 4% -2%;border-radius:var(--hc-radius);background:rgba(30,27,26,.28);filter:blur(22px);pointer-events:none}
+.holo-card[data-back-ready] .holo-card__face--back img{visibility:hidden}.holo-card[data-back-ready] .holo-card__face--back canvas{opacity:1}
+</style>
+</head>
+<body>
+<div id="view">
+
+<!-- 1 CAPA -->
+<div class="pw"><section class="s teal " data-notes="Abertura. Mumbleton Academy é um RPG de magia que roda na lousa, narrado pelo app. Os alunos não olham o celular: olham a lousa, falam inglês em voz alta e a professora conduz.">
+  <img src="img/ui/logo.webp" alt="Mumbleton Academy" style="left:96px;top:120px;width:760px;height:auto">
+  <div class="k" style="left:128px;top:760px;width:700px;line-height:1.6">Protótipo jogável · Kids 6 · Learning Well</div>
+  <h1 style="left:960px;top:150px;width:840px;font-size:136px">Uma escola de magia desastrada.</h1>
+  <p style="left:960px;top:660px;width:780px;font-size:46px;color:var(--cream)">Os feitiços são frases em inglês. Quando alguém erra, o feitiço sai torto, e o erro vira piada.</p>
+  <div class="foot" style="left:960px"><span>EIC · Escola de Idiomas e Cultura</span></div>
+</section></div>
+
+<!-- 2 IDEIA -->
+<div class="pw"><section class="s teal" data-notes="Mumbleton Academy é um jogo de magia para a turma jogar junto. Se você nunca jogou RPG, a ideia é simples: cada aluno vira um personagem dentro de uma história. Quem narra essa história é o aplicativo, na lousa, e tudo o que os alunos veem e ouvem está em inglês. Você fica livre para observar, ajudar e corrigir.">
+<div class="k" style="left:128px;top:128px">O jogo</div>
+<h2 style="left:128px;top:200px;width:1600px">Um jogo de magia para a turma jogar junto.</h2>
+<div style="left:128px;top:500px;width:1664px">
+<div class="row2"><b>O jogo</b><span>Mumbleton Academy é um jogo de aventura e magia. A turma joga junto, na lousa.</span></div>
+<div class="row2"><b>RPG</b><span>Um “RPG” é um jogo em que cada pessoa interpreta um personagem dentro de uma história.</span></div>
+<div class="row2"><b>O narrador</b><span>Quem conta a história é o aplicativo. A professora não precisa ser a mestra do jogo.</span></div>
+</div><div class="foot"><span>Mumbleton Academy</span><span>O jogo</span></div>
+</section></div>
+<div class="pw"><section class="s light" data-notes="A ideia em uma frase. A história cria necessidade real de falar inglês: sem a frase certa, o feitiço não funciona. O humor tira a vergonha do erro.">
+  <div class="k" style="left:128px;top:128px">A ideia</div>
+  <h2 style="left:128px;top:200px;width:1150px;font-size:150px">O aluno fala.<br>A magia responde.</h2>
+  <div style="left:1320px;top:230px;width:480px">
+    <p style="font-size:34px"><b>O app narra.</b> A professora não precisa ser a mestra do jogo.</p>
+    <p style="font-size:34px;margin-top:44px"><b>Humor e coisas estranhas.</b> Criaturas que ninguém espera encontrar no corredor.</p>
+    <p style="font-size:34px;margin-top:44px"><b>Uma unidade, um capítulo.</b> Cada capítulo treina a estrutura da unidade do Learning Well.</p>
+  </div>
+  <p style="left:128px;top:720px;width:1100px;font-size:46px;color:var(--ink)">Exemplo do capítulo de hoje: <span class="q">“It must be… It might be… It can’t be…”</span> para descobrir uma criatura invisível pelo som, pelo cheiro e pelo toque.</p>
+  <div class="foot"><span>Mumbleton Academy</span><span>A ideia</span></div>
+</section></div>
+
+<!-- 3 HISTORIA -->
+<div class="pw"><section class="s light" data-notes="O objetivo é capturar a criatura do capítulo, e o jeito de capturar é falar inglês junto. Ninguém tem todas as pistas sozinho, então todos precisam falar. Quando a turma acerta os feitiços, a criatura se acalma e a página volta para o livro. Ao longo da temporada, a turma vai completando o álbum e o livro.">
+<div class="k" style="left:128px;top:128px">O objetivo</div>
+<h2 style="left:128px;top:200px;width:900px;font-size:112px">A turma captura uma criatura mágica falando inglês junto.</h2>
+<ol style="left:1080px;top:200px;width:712px">
+<li><span><b>As pistas</b>A turma ouve e descobre quem é a criatura do capítulo.</span></li>
+<li><span><b>Os feitiços</b>Os alunos lançam frases em inglês da unidade.</span></li>
+<li><span><b>A captura</b>Com os feitiços certos, a criatura se acalma e a página volta ao livro.</span></li>
+<li><span><b>A temporada</b>Capítulo a capítulo, a turma completa o álbum e o livro.</span></li>
+</ol><div class="foot"><span>Mumbleton Academy</span><span>O objetivo</span></div>
+</section></div>
+<div class="pw"><section class="s light" data-notes="A história em quatro partes. 1) Uma escola de magia onde os feitiços são frases em inglês. 2) O Mr. Typo embaralha o livro de feitiços. 3) Em cada aula, a turma recupera uma página. 4) Quando algumas páginas voltaram, a turma enfrenta o Mr. Typo.">
+<div class="k" style="left:128px;top:128px">A história</div>
+<h2 style="left:128px;top:200px;width:1600px">Em quatro partes.</h2>
+<div class="tl" style="background:rgba(30,27,26,.3);top:470px"></div>
+<div class="step" style="left:128px;top:520px;width:370px"><i>1</i><span style="color:var(--ink)">A escola</span><em style="color:#4a423b">Uma escola de magia onde os feitiços são frases em inglês.</em></div>
+<div class="step" style="left:560px;top:520px;width:370px"><i>2</i><span style="color:var(--ink)">A travessura</span><em style="color:#4a423b">O Mr. Typo embaralha o livro de feitiços da escola.</em></div>
+<div class="step" style="left:992px;top:520px;width:370px"><i>3</i><span style="color:var(--ink)">A missão</span><em style="color:#4a423b">A cada aula, a turma recupera uma página do livro.</em></div>
+<div class="step" style="left:1424px;top:520px;width:370px"><i>4</i><span style="color:var(--ink)">O confronto</span><em style="color:#4a423b">Com algumas páginas de volta, a turma enfrenta o Mr. Typo.</em></div>
+<div class="foot"><span>Mumbleton Academy</span><span>A história</span></div>
+</section></div>
+<div class="pw"><section class="s" style="background:#1b4947" data-notes="Primeira parte. A escola de magia e o livro de feitiços com 12 páginas. Os feitiços não são em latim: são frases em inglês.">
+<img src="media/livro.webp" alt="Livro de feitiços aberto" style="left:210px;top:30px;width:1500px;height:844px">
+<div style="left:462px;top:149px;width:430px"><div class="bkk">The Academy</div><div class="bkh" style="margin-top:16px">Mumbleton Academy</div><p class="bkp" style="margin-top:28px">Mumbleton Academy is a school of magic, and its spells are not words in Latin. They are sentences in English. Say the right sentence, and the magic works.</p></div>
+<div style="left:1018px;top:149px;width:440px"><div class="bkk">The Spellbook</div><div class="bkh" style="margin-top:16px">Twelve pages</div><p class="bkp" style="margin-top:28px">The Academy keeps one great Spellbook. It holds twelve pages, and each page holds one spell. As long as the Spellbook is whole, the school is calm.</p></div>
+<div class="k" style="left:210px;top:900px">Em português</div>
+<p style="left:210px;top:940px;width:1500px;font-size:34px;line-height:1.3;color:var(--cream)">A Academia Mumbleton é uma escola de magia onde os feitiços são frases em inglês. O Livro de Feitiços guarda 12 páginas, uma para cada feitiço.</p>
+</section></div>
+<div class="pw"><section class="s" style="background:#1b4947" data-notes="Segunda parte. O Mr. Typo, duende travesso, sacode o livro. As 12 páginas viram 12 criaturas e objetos estranhos, escondidos em cada cômodo.">
+<img src="media/livro.webp" alt="Livro de feitiços aberto" style="left:210px;top:30px;width:1500px;height:844px">
+<div style="left:462px;top:149px;width:430px"><div class="bkk">The Trouble</div><div class="bkh" style="margin-top:16px">Mr. Typo</div><p class="bkp" style="margin-top:28px">Mr. Typo is a small, sneaky goblin. He loves mixing up words, and he never says sorry. One night, he opened the Spellbook.</p></div>
+<div style="left:1018px;top:149px;width:440px"><div class="bkk">The Mess</div><div class="bkh" style="margin-top:16px">The pages fly</div><p class="bkp" style="margin-top:28px">He shook it hard. The twelve pages flew out, and each one turned into a strange creature or object. They are hiding in every room of the school.</p></div>
+<div class="k" style="left:210px;top:900px">Em português</div>
+<p style="left:210px;top:940px;width:1500px;font-size:34px;line-height:1.3;color:var(--cream)">O Mr. Typo, um duende travesso, embaralhou o livro. As 12 páginas viraram 12 criaturas e objetos estranhos, escondidos nos cômodos da escola.</p>
+</section></div>
+<div class="pw"><section class="s" style="background:#1b4947" data-notes="Terceira e quarta partes. Em cada aula, a turma recupera uma página: ouve as pistas, diz o feitiço em inglês e a criatura se acalma. Com algumas páginas de volta, abre o confronto final com o Mr. Typo. Quantas páginas liberam o confronto ainda não está decidido.">
+<img src="media/livro.webp" alt="Livro de feitiços aberto" style="left:210px;top:30px;width:1500px;height:844px">
+<div style="left:462px;top:149px;width:430px"><div class="bkk">The Mission</div><div class="bkh" style="margin-top:16px">You are apprentices</div><p class="bkp" style="margin-top:28px">Every class, one creature appears. Listen to the clues, say the spell in English, and the creature calms down. Then its page goes back to the Spellbook.</p></div>
+<div style="left:1018px;top:149px;width:440px"><div class="bkk">The Ending</div><div class="bkh" style="margin-top:16px">Face Mr. Typo</div><p class="bkp" style="margin-top:28px">When enough pages are back, the Spellbook opens a door. Behind it waits Mr. Typo. Can the apprentices fix his mess with their own words?</p></div>
+<div class="k" style="left:210px;top:900px">Em português</div>
+<p style="left:210px;top:940px;width:1500px;font-size:34px;line-height:1.3;color:var(--cream)">A cada aula, a turma recupera uma página. Quando algumas já voltaram, abre o confronto final com o Mr. Typo.</p>
+</section></div>
+<div class="pw"><section class="s teal" data-notes="O vilão é o Mr. Typo, um duende que embaralhou o livro de feitiços da Academia. As 12 páginas viraram 12 criaturas e objetos soltos pela escola. Cada capítulo recupera uma página. Ao final, o confronto com o Mr. Typo.">
+  <div class="k" style="left:128px;top:128px">A história</div>
+  <h2 style="left:128px;top:200px;width:1000px">12 páginas, 12 criaturas.</h2>
+  <p style="left:128px;top:560px;width:900px;font-size:40px">Cada página virou <b>uma criatura ou objeto estranho</b>, e cada uma mora em um cômodo da Academia. Esta é a temporada completa. Clique nas cartas para virar.</p>
+  <div id="legend" class="hc" style="left:1260px;top:96px;width:440px;height:615px"></div>
+  <div class="hint" style="left:128px;top:790px">Clique nas cartas para virar</div><div id="strip" style="left:0;right:0;top:830px;height:260px;display:flex;justify-content:center;gap:10px;overflow:hidden"></div>
+</section></div>
+
+<!-- 4 AULA -->
+<div class="pw"><section class="s" data-notes="Estrutura aprovada: um capítulo funciona sozinho e em qualquer ordem, porque a professora escolhe o capítulo pela unidade em que a turma está. Uma aula de cerca de 40 minutos. Doze capítulos formam uma temporada.">
+  <div class="k" style="left:128px;top:128px">Como funciona</div>
+  <h2 style="left:128px;top:200px;width:1500px">Um capítulo é uma aula.</h2>
+  <div class="tl"></div>
+  <div class="step" style="left:128px;top:520px"><i>1</i><span>Cerimônia</span><em>Cada aluno descobre seu aprendiz e sua classe.</em></div>
+  <div class="step" style="left:520px;top:520px"><i>3</i><span>Cenas</span><em>Três cenas, cada uma com um sentido: som, cheiro e toque, visão.</em></div>
+  <div class="step" style="left:912px;top:520px"><i>1</i><span>Captura</span><em>Todos falam com a criatura, com gentileza.</em></div>
+  <div class="step" style="left:1304px;top:520px"><i>40</i><span>Minutos</span><em>Tempo de uma aula. Doze capítulos formam uma temporada.</em></div>
+  <div class="foot"><span>Mumbleton Academy</span><span>Como funciona</span></div>
+</section></div>
+
+<!-- 5 SORTEIO -->
+<div class="pw"><section class="s teal" data-notes="Cerimônia do sorteio. A professora toca em 'Draw the cards' e cada carta aparece em primeiro plano, com efeito de magia: balança, vira e voa para o lugar do aluno. Cada aluno ganha um aprendiz e uma classe. Tem um botão para pular o show.">
+  <div class="k" style="left:128px;top:128px">Cena de abertura</div>
+  <h2 style="left:128px;top:200px;width:620px">A cerimônia do sorteio</h2>
+  <p style="left:128px;top:520px;width:600px;font-size:36px">Cada carta aparece em primeiro plano, balança, vira e voa até o lugar do aluno. <b>O nome do aluno fica abaixo da carta</b>, com a classe e a frase que só ele pode dizer.</p>
+  <video data-src="media/cerimonia.mp4" muted loop playsinline preload="metadata" poster="media/sorteio.webp" class="shot" style="left:810px;top:210px;width:980px;height:552px"></video>
+  <div class="foot"><span>Mumbleton Academy</span><span>Cerimônia</span></div>
+</section></div>
+
+<!-- 6 APRENDIZES -->
+<div class="pw"><section class="s" data-notes="Oito aprendizes, cada um com um efeito holográfico pessoal: Juno estrelas, Kai cacos de vidro, Pim glitter, Odette redemoinho, Rafa explosões, Mina dourado, Theo cosmos, Zuri arco-íris. O efeito é suave para o texto da carta continuar legível.">
+  <div class="k" style="left:128px;top:128px">Os personagens</div>
+  <h2 style="left:128px;top:200px;width:1500px">Cada aluno vira um aprendiz.</h2>
+  <p style="left:128px;top:360px;width:1000px;font-size:36px">Oito aprendizes, cada um com um brilho próprio na carta. A professora não escolhe quem é quem: o sorteio decide. <b>Clique em uma carta para virar:</b> no verso fica a classe.</p>
+  <div id="aps" style="left:128px;top:560px;width:1664px;height:420px"></div>
+</section></div>
+
+<!-- 7 CLASSES -->
+<div class="pw"><section class="s teal" data-notes="Seis classes permanentes. Cada classe é dona de uma frase fixa que a turma diz em voz alta. Quando a frase é dita, a professora toca no botão correspondente na lousa. Frases sem dono pertencem ao grupo todo. Limites por cena: Echo, Pacer e Decoder duas vezes, Rescuer uma vez.">
+  <div class="k" style="left:128px;top:96px">Classes</div>
+  <h2 style="left:128px;top:150px;font-size:96px;width:1500px">Cada classe tem uma frase só dela.</h2>
+  <div style="left:128px;top:300px;width:1664px">
+    <div class="row"><b>The Caller</b><u>“Ready?”</u><span>Abre cada rodada. A turma responde “Ready!”.</span></div>
+    <div class="row"><b>The Caster</b><u>“Cast it!”</u><span>Lança o feitiço depois que o grupo escolhe a frase.</span></div>
+    <div class="row"><b>The Echo</b><u>“Say it again.”</u><span>Repete a narração. Duas vezes por cena.</span></div>
+    <div class="row"><b>The Pacer</b><u>“Slower, please.”</u><span>Deixa a narração mais devagar. Duas vezes por cena.</span></div>
+    <div class="row"><b>The Decoder</b><u>“What does it mean?”</u><span>Pede uma dica em português. Duas vezes por cena.</span></div>
+    <div class="row"><b>The Rescuer</b><u>“I need help.”</u><span>Pede uma pista extra. Uma vez por cena.</span></div>
+  </div>
+</section></div>
+
+<!-- 8 BIPE -->
+<div class="pw"><section class="s" data-notes="Cada aluno tem um cartão com código de barras, como no escape room. O leitor funciona como teclado: digita o número e dá Enter. A mesma engenharia da aba Bipe do /grupos/. O aluno bipa e o personagem aparece. Cartão novo recebe um aprendiz que ninguém tem; cartão repetido reconhece a identidade e mostra rápido.">
+  <div class="k" style="left:128px;top:128px">Entrada do aluno</div>
+  <h2 style="left:128px;top:200px;width:760px">Bipar o cartão.</h2>
+  <p style="left:128px;top:480px;width:660px;font-size:38px">Cada aluno tem um <b>cartão com código de barras</b>, como no escape room, e o mesmo leitor. Ao bipar, o personagem aparece na lousa.</p>
+  <p style="left:128px;top:780px;width:660px;font-size:30px">O cartão guarda a identidade: no capítulo seguinte o aluno continua com o mesmo aprendiz e a mesma classe.</p>
+  <video data-src="media/bipe.mp4" muted loop playsinline preload="metadata" poster="media/bipe.webp" class="shot" style="left:870px;top:200px;width:920px;height:518px"></video>
+  <div class="foot" style="left:870px;bottom:112px"><span>Leitor de código de barras · sem celular</span></div>
+</section></div>
+
+<!-- 9 CENA -->
+<div class="pw"><section class="s teal" data-notes="Capítulo 3, The Thing in the Hallway, unidade Amazing Senses. Um barulho no corredor e ninguém vê nada. Cada cena usa um sentido. O jogo chama pela função ou pelo sentido, nunca pelo nome do aluno, para não criar pressão. Se ninguém responde em cerca de 9 ou 10 segundos, o jogo dá um empurrão.">
+  <div class="k" style="left:128px;top:128px">Capítulo 3 · Amazing Senses</div>
+  <h2 style="left:128px;top:200px;width:640px">The Thing in the Hallway</h2>
+  <p style="left:128px;top:540px;width:600px;font-size:36px">Um barulho no corredor, e ninguém vê nada. A turma descobre a criatura pelos sentidos.</p>
+  <p style="left:128px;top:760px;width:600px;font-size:34px"><b>O jogo chama por sentido, não pelo nome do aluno.</b> Ninguém fica exposto.</p>
+  <img src="media/cena1.webp" alt="Cena 1 do capítulo 3, o corredor, com o botão Ready" class="shot" style="left:810px;top:150px;width:980px;height:551px">
+  <img src="media/cena3.webp" alt="Cena 3 do capítulo" class="shot" style="left:1230px;top:590px;width:560px;height:315px">
+</section></div>
+
+<!-- 10 RODADA -->
+<div class="pw"><section class="s" data-notes="A rodada. 1) Caller diz Ready. 2) O app narra com pistas físicas, como bater na mesa ou assobiar. 3) Chama um sentido. 4) O grupo mostra o quanto tem certeza: 100, 50 ou 0. 5) Monta a frase It must, might ou can't be. 6) O Caster diz Cast it. A professora toca em Continue ou Try again. Se errar, o feitiço sai torto, com efeito engraçado.">
+  <div class="k" style="left:128px;top:96px">A rodada</div>
+  <ol style="left:128px;top:140px;width:900px">
+    <li><span><b>Ready?</b>O Caller chama e todos respondem “Ready!”.</span></li>
+    <li><span><b>Narração</b>O app lê e a professora faz os sons e os toques.</span></li>
+    <li><span><b>Um sentido</b>O jogo chama por função: quem ouviu, quem cheirou.</span></li>
+    <li><span><b>How sure are you?</b>100, 50 ou 0, sem medo de errar.</span></li>
+    <li><span><b>A frase</b>It must be… It might be… It can’t be…</span></li>
+    <li><span><b>Cast it!</b>O Caster lança. Errou? O feitiço sai torto.</span></li>
+  </ol>
+  <img src="media/cena2.webp" alt="Cena 2 do capítulo com o botão Ready" class="shot" style="left:1090px;top:250px;width:700px;height:394px">
+  <p style="left:1090px;top:700px;width:700px;font-size:30px">A barra de calma sobe a cada acerto do grupo. Quando enche, a criatura aparece.</p>
+</section></div>
+
+<!-- 11 CAPTURA -->
+<div class="pw"><section class="s" style="background:#0f1c1b" data-notes="Captura. Quando a barra de calma enche, a criatura aparece e cada aluno diz uma frase gentil para ela. Depois entra a carta da criatura, com brilho, e vai para o álbum.">
+  <img src="media/captura.webp" alt="Mumblewick aparece com brilho e entra no álbum" style="left:560px;top:0;width:1360px;height:1080px;object-fit:cover;object-position:60% 50%;opacity:.95">
+  <div style="left:0;top:0;width:1920px;height:1080px;background:linear-gradient(90deg,#0f1c1b 0%,#0f1c1b 36%,rgba(15,28,27,.55) 52%,rgba(15,28,27,0) 70%)"></div>
+  <div class="k" style="left:128px;top:128px">Final do capítulo</div>
+  <h2 style="left:128px;top:200px;width:700px">Falar com a criatura. Com gentileza.</h2>
+  <p style="left:128px;top:640px;width:620px;font-size:38px;color:var(--cream)">A Mumblewick é uma lanterna nervosa. Cada aluno diz uma frase, a carta aparece com brilho e entra no álbum.</p>
+</section></div>
+
+<!-- 12 HOLO -->
+<div class="pw"><section class="s teal" data-notes="As cartas têm efeito holográfico de verdade na tela: passe o mouse para inclinar. A raridade define o brilho: comum sem brilho, rara com glitter prata, especial dourada, lendária com estrelas. Na versão impressa, o acabamento é feito com verniz localizado e hot stamping.">
+  <div class="k" style="left:128px;top:96px">As cartas</div>
+  <h2 style="left:128px;top:150px;width:1200px;font-size:88px;white-space:nowrap">Quanto mais rara, mais brilha.</h2>
+  <p style="left:128px;top:262px;width:1300px;font-size:30px">Passe o mouse e clique nas cartas para virar. Na lousa, elas respondem ao movimento. No papel, a gráfica reproduz com verniz e hot stamping.</p>
+  <div id="rar" style="left:128px;top:360px;width:1664px;height:640px"></div>
+</section></div>
+
+<!-- 13 MAPA -->
+<div class="pw"><section class="s" data-notes="O mapa da escola mostra os 12 cômodos. Cada criatura mora em um cômodo, que acende quando ela é capturada. A barra mostra o progresso da temporada. O álbum completo mostra as doze.">
+  <img src="media/mapa.webp" alt="Mapa da escola com as doze criaturas" class="shot" style="left:128px;top:70px;width:1130px;height:900px;object-fit:cover;object-position:top">
+  <div class="k" style="left:1340px;top:128px">Temporada</div>
+  <h2 style="left:1340px;top:200px;width:520px;font-size:100px">O mapa da escola</h2>
+  <p style="left:1340px;top:520px;width:480px;font-size:34px">Cada criatura mora em um cômodo. O cômodo acende quando a turma a captura.</p>
+  <p style="left:1340px;top:760px;width:480px;font-size:34px"><b>12 capítulos, 12 criaturas.</b> A última é o Mr. Typo.</p>
+</section></div>
+
+<!-- 14 FIGURINHAS -->
+<div class="pw"><section class="s teal" data-notes="Decisão: o álbum do mapa é da turma, porque a captura acontece em grupo. No fim do capítulo, cada aluno presente ganha a figurinha da criatura para levar para casa, física ou digital. Quem faltou não ganha aquela.">
+  <div class="k" style="left:128px;top:128px">Álbum e figurinhas</div>
+  <h2 style="left:128px;top:200px;width:1500px">O álbum é da turma. A figurinha vai para casa.</h2>
+  <div style="left:128px;top:600px;width:760px">
+    <h3 style="color:var(--mus)">Álbum da turma</h3>
+    <p style="margin-top:18px;font-size:36px">A criatura é capturada em grupo, então o cômodo acende para todos na lousa.</p>
+  </div>
+  <div style="left:1000px;top:600px;width:760px">
+    <h3 style="color:var(--mus)">Figurinha de cada aluno</h3>
+    <p style="margin-top:18px;font-size:36px">Quem esteve no capítulo leva a figurinha da criatura. Quem faltou não leva aquela.</p>
+  </div>
+  <div style="left:940px;top:610px;width:2px;height:240px;background:rgba(243,230,200,.3)"></div>
+</section></div>
+
+<!-- 15 PROXIMOS -->
+<div class="pw"><section class="s teal" data-notes="O inglês aqui tem função de verdade: sem falar, a turma não descobre a criatura. Os feitiços são as frases da unidade, então a turma pratica o que está estudando. E, se alguém erra, o feitiço sai torto, a sala ri e o grupo tenta outra vez. O erro vira parte da brincadeira, e não motivo de vergonha.">
+<div class="k" style="left:128px;top:128px">Por que ensina inglês</div>
+<h2 style="left:128px;top:200px;width:1600px">Sem falar, a turma não avança.</h2>
+<ol style="left:128px;top:480px;width:1664px">
+<li><span><b>A turma precisa falar</b>Ninguém tem todas as pistas. Cada aluno conta a sua em inglês, e o grupo só descobre a criatura se todos falarem.</span></li>
+<li><span><b>O feitiço é a frase da unidade</b>No capítulo de demonstração: “It must be…”, “It might be…” e “It can’t be…”, para deduzir o que a criatura é.</span></li>
+<li><span><b>O erro vira piada</b>Se o grupo erra ou hesita, o feitiço sai torto, com um efeito engraçado. O grupo diz a frase de novo.</span></li>
+</ol><div class="foot"><span>Mumbleton Academy</span><span>Por que ensina inglês</span></div>
+</section></div>
+<div class="pw"><section class="s light" data-notes="Você não precisa saber RPG: o aplicativo narra, e você toca nos botões e ajuda a turma. O aplicativo não julga pronúncia, quem decide se o feitiço saiu bom é você. Por enquanto só existe um capítulo de demonstração, e eu quero testá-lo com uma turma de verdade.">
+<div class="k" style="left:128px;top:96px">Perguntas</div>
+<h2 style="left:128px;top:150px;width:1600px;font-size:100px">O que você provavelmente quer saber.</h2>
+<ol style="left:128px;top:340px;width:1664px">
+<li><span><b>Preciso saber jogar RPG?</b>Não. O aplicativo narra e conduz. Seu papel é tocar nos botões, ajudar a turma e corrigir com delicadeza. Cada capítulo terá um manual em português.</span></li>
+<li><span><b>O aplicativo avalia a pronúncia?</b>Não. Quem decide se o feitiço saiu bom é você, tocando em “Continue” ou “Try again”.</span></li>
+<li><span><b>E se a turma ainda não viu a estrutura?</b>Cada capítulo é ligado a uma unidade. Você escolhe o capítulo da unidade em que a turma está, em qualquer ordem.</span></li>
+<li><span><b>Já dá para usar em sala?</b>Ainda não. Hoje existe um capítulo de demonstração, para testar com uma turma de verdade.</span></li>
+</ol><div class="foot"><span>Mumbleton Academy</span><span>Perguntas</span></div>
+</section></div>
+<div class="pw"><section class="s light" data-notes="Próximos passos e o que preciso da professora. Quero testar em uma turma de verdade e ouvir o que fica estranho. Perguntas: os nomes vêm do KAITS ou são cadastrados por você? O tempo de espera antes do empurrão está bom?">
+  <div class="k" style="left:128px;top:128px">Próximos passos</div>
+  <h2 style="left:128px;top:200px;width:1000px">Falta testar com alunos de verdade.</h2>
+  <ol style="left:128px;top:500px;width:960px">
+    <li><span><b>Uma aula de teste</b>Com uma turma Kids 6, com você conduzindo.</span></li>
+    <li><span><b>Manual do capítulo</b>Em português, com versão fácil e difícil dos feitiços.</span></li>
+    <li><span><b>Cartões impressos</b>Com o código de barras de cada aluno.</span></li>
+  </ol>
+  <h3 style="left:1240px;top:520px;width:560px;color:var(--terra)">O que preciso de você</h3>
+  <p style="left:1240px;top:610px;width:540px;font-size:34px">O que parece estranho? Os nomes dos alunos vêm do KAITS ou você cadastra? A espera de 9 a 10 segundos antes do empurrão está boa?</p>
+</section></div>
+
+</div>
+<div id="hud"><div id="bar"></div></div>
+<div id="cnt"></div>
+<div id="notes"></div>
+
+<script src="holo.js"></script>
+<script>
+const W=[...document.querySelectorAll('.pw')],S=W.map(w=>w.firstElementChild);
+const live=S.map(()=>[]);
+function fit(){const k=innerWidth/1920;W.forEach((w,i)=>{w.style.height=(1080*k)+'px';S[i].style.transform='scale('+k+')'})}
+addEventListener('resize',fit);fit();
+const P={C:{preset:'none'},R:{preset:'glitter',intensity:.55,edgeSparkle:.5,glare:.3},S:{preset:'gold',intensity:.45,foilColor:'#f2d9a0',edgeSparkle:.45,glare:.3},L:{preset:'stars',intensity:.6,edgeSparkle:.45}};
+const AP=[['01','Juno','Estrelas','stars',.5],['02','Kai','Vidro','shards',.45],['03','Pim','Glitter','glitter',.5],['04','Odette','Redemoinho','swirl',.45],['05','Rafa','Explosões','bursts',.4],['06','Mina','Dourado','gold',.45],['07','Theo','Cosmos','cosmos',.4],['08','Zuri','Arco-íris','rainbow',.35]];
+function holo(i,el,img,back,w,p){try{live[i].push(HoloCard(el,Object.assign({image:img,backImage:back,alt:'',width:w,radius:14},p)))}catch(e){el.innerHTML='<img src="'+img+'" style="width:'+w+'px;border-radius:14px">'}}
+function build(i){
+ const s=S[i];
+ if(s.querySelector('#legend')){const l=s.querySelector('#legend');l.innerHTML='';holo(i,l,'img/album/f12.webp','img/album/b12.webp',440,P.L)}
+ if(s.querySelector('#aps')){const ap=s.querySelector('#aps');ap.innerHTML='';AP.forEach((a,k)=>{const d=document.createElement('div');d.style.cssText='position:absolute;left:'+(k*210)+'px;top:'+(k%2?44:0)+'px;width:190px';
+  d.innerHTML='<div style="width:190px;height:265px"></div><div class="apn" style="margin-top:20px">'+a[1]+'<small>'+a[2]+'</small></div>';ap.appendChild(d);
+  holo(i,d.firstChild,'img/ap/c'+a[0]+'.webp','img/ap/cls'+(k%6+1)+'.webp',190,{preset:a[3],intensity:a[4],edgeSparkle:.45,glare:.3,radius:10})})}
+ if(s.querySelector('#rar')){const r=s.querySelector('#rar');r.innerHTML='';
+  [['02','Comum','Sem brilho, só inclina.','C'],['01','Rara','Glitter prata fosco.','R'],['05','Especial','Dourado na carta.','S'],['12','Lendária','Estrelas.','L']].forEach((x,k)=>{
+   const d=document.createElement('div');d.style.cssText='position:absolute;left:'+(k*424)+'px;top:0;width:380px';
+   d.innerHTML='<div class="hc" style="width:380px;height:531px"></div><div class="lab" style="margin-top:22px">'+x[1]+'<small>'+x[2]+'</small></div>';r.appendChild(d);
+   holo(i,d.firstChild,'img/album/f'+x[0]+'.webp','img/album/b'+x[0]+'.webp',380,P[x[3]])})}
+}
+function teardown(i){live[i].forEach(c=>{try{c.destroy()}catch(e){}});live[i]=[];['#aps','#legend','#rar'].forEach(q=>{const e=S[i].querySelector(q);if(e)e.innerHTML=''})}
+(function(){const st=document.getElementById('strip');for(let n=1;n<=12;n++){const m=document.createElement('div');const f=String(n).padStart(2,'0');m.className='fc';m.style.marginTop=(n%2?0:34)+'px';
+ m.innerHTML='<div><img src="img/album/f'+f+'.webp" alt=""><img src="img/album/b'+f+'.webp" alt=""></div>';m.onclick=()=>m.classList.toggle('f');st.appendChild(m)}})();
+const on=new Set();
+const io=new IntersectionObserver(es=>es.forEach(e=>{const i=W.indexOf(e.target);
+ if(e.isIntersecting&&!on.has(i)){on.add(i);build(i);S[i].querySelectorAll('video').forEach(v=>{if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})})}
+ else if(!e.isIntersecting&&on.has(i)){on.delete(i);teardown(i);S[i].querySelectorAll('video').forEach(v=>v.pause())}}),{rootMargin:'150px 0px'});
+W.forEach(w=>io.observe(w));
+let curN=0;
+function upd(){const h=document.documentElement,max=h.scrollHeight-innerHeight;document.getElementById('bar').style.width=(max>0?scrollY/max*100:0)+'%';
+ const mid=scrollY+innerHeight/2;let k=0;W.forEach((w,i)=>{if(w.offsetTop<=mid)k=i});curN=k;
+ document.getElementById('cnt').textContent=(k+1)+' / '+S.length;document.getElementById('notes').textContent=S[k].dataset.notes||''}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+addEventListener('keydown',e=>{if(e.key==='n'||e.key==='N')document.getElementById('notes').classList.toggle('on')});
+</script>
+</body>
+</html>
