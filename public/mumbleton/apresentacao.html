@@ -94,6 +94,12 @@ ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(
 .holo-card__face--back{transform:rotateY(180deg)}
 .holo-card__shadow{position:absolute;inset:6% 4% -2%;border-radius:var(--hc-radius);background:rgba(30,27,26,.28);filter:blur(22px);pointer-events:none}
 .holo-card[data-back-ready] .holo-card__face--back img{visibility:hidden}.holo-card[data-back-ready] .holo-card__face--back canvas{opacity:1}
+.sn{font:800 28px/1 BSD;letter-spacing:.06em;text-transform:uppercase;padding:16px 24px 15px;border:3px solid currentColor;background:transparent;color:var(--cream);cursor:pointer}
+.sn:hover,.sn:focus-visible{background:var(--mus);border-color:var(--mus);color:var(--ink);outline:0}
+.s.light .sn,.s:not(.teal):not(.light) .sn{color:var(--cream)}
+.sn.on{background:var(--mus);border-color:var(--mus);color:var(--ink)}
+.snk{font:500 18px/1 DM;letter-spacing:.14em;text-transform:uppercase;color:var(--mus)}
+.snr{display:flex;gap:14px;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -199,14 +205,27 @@ ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(
   <p style="left:128px;top:520px;width:600px;font-size:36px">Cada carta aparece em primeiro plano, balança, vira e voa até o lugar do aluno. <b>O nome do aluno fica abaixo da carta</b>, com a classe e a frase que só ele pode dizer.</p>
   <video data-src="media/cerimonia.mp4" muted loop playsinline preload="metadata" poster="media/sorteio.webp" class="shot" style="left:810px;top:210px;width:980px;height:552px"></video>
   <div class="foot"><span>Mumbleton Academy</span><span>Cerimônia</span></div>
+  <div class="snk" style="left:128px;top:866px">Clique para ouvir</div>
+  <div class="snr" style="left:128px;top:900px"><button class="sn" data-snd="sorteio-explode">▶ Explosão de estrelas</button></div>
 </section></div>
 
 <!-- 6 APRENDIZES -->
-<div class="pw"><section class="s" data-notes="Oito aprendizes, cada um com um efeito holográfico pessoal: Juno estrelas, Kai cacos de vidro, Pim glitter, Odette redemoinho, Rafa explosões, Mina dourado, Theo cosmos, Zuri arco-íris. O efeito é suave para o texto da carta continuar legível.">
+<div class="pw"><section class="s" data-notes="Oito aprendizes, cada um com um efeito holográfico pessoal: Juno estrelas, Kai cacos de vidro, Pim glitter, Odette redemoinho, Rafa explosões, Mina dourado, Theo cosmos, Zuri arco-íris. O efeito é suave para o texto da carta continuar legível. No verso, cada aprendiz tem as mesmas seis qualidades (Curious, Careful, Patient, Kind, Brave, Playful) em níveis diferentes, e um soluço engraçado. Todos somam 12 pontos, então ninguém é o melhor. Os níveis são um rascunho.">
   <div class="k" style="left:128px;top:128px">Os personagens</div>
   <h2 style="left:128px;top:200px;width:1500px">Cada aluno vira um aprendiz.</h2>
-  <p style="left:128px;top:360px;width:1000px;font-size:36px">Oito aprendizes, cada um com um brilho próprio na carta. A professora não escolhe quem é quem: o sorteio decide. <b>Clique em uma carta para virar:</b> no verso fica a classe.</p>
+  <p style="left:128px;top:360px;width:1000px;font-size:36px">Oito aprendizes, cada um com um brilho próprio na carta. A professora não escolhe quem é quem: o sorteio decide. <b>Clique em uma carta para virar:</b> no verso ficam as seis qualidades do aprendiz, e o jeito que ele exagera.</p>
   <div id="aps" style="left:128px;top:560px;width:1664px;height:420px"></div>
+</section></div>
+
+<!-- 6b QUALIDADES -->
+<div class="pw"><section class="s" data-notes="Cada aprendiz tem as mesmas seis qualidades do universo (Curious, Careful, Patient, Kind, Brave, Playful) em níveis de 1 a 3 pontos, e um soluço engraçado quando a qualidade exagera. Todos somam 12 pontos, então ninguém é o melhor. Em um desafio, a criatura pede uma qualidade e o grupo decide em inglês quem enviar. Se a escolha não combina, o resultado é engraçado e a turma escolhe de novo. Os níveis são um rascunho, e esta mecânica ainda não está no protótipo.">
+  <div class="k" style="left:128px;top:128px">Os personagens</div>
+  <h2 style="left:128px;top:200px;width:900px;font-size:112px">Cada aprendiz tem seu jeito.</h2>
+  <p style="left:128px;top:470px;width:900px;font-size:38px">Todos têm as <b>mesmas seis qualidades</b>, em níveis diferentes, e um soluço engraçado quando a qualidade exagera.</p>
+  <p style="left:128px;top:680px;width:900px;font-size:38px">A criatura pede uma qualidade, e o grupo decide em inglês quem enviar: <b>“Send Pim. He’s careful.”</b></p>
+  <p style="left:128px;top:860px;width:900px;font-size:28px">Todos somam 12 pontos. Ninguém é o melhor, só diferente.</p>
+  <div id="qual" class="hc" style="left:1210px;top:100px;width:520px;height:726px"></div>
+  <div class="hint" style="left:1210px;top:880px">Clique na carta para virar</div>
 </section></div>
 
 <!-- 7 CLASSES -->
@@ -231,16 +250,20 @@ ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(
   <p style="left:128px;top:780px;width:660px;font-size:30px">O cartão guarda a identidade: no capítulo seguinte o aluno continua com o mesmo aprendiz e a mesma classe.</p>
   <video data-src="media/bipe.mp4" muted loop playsinline preload="metadata" poster="media/bipe.webp" class="shot" style="left:870px;top:200px;width:920px;height:518px"></video>
   <div class="foot" style="left:870px;bottom:112px"><span>Leitor de código de barras · sem celular</span></div>
+  <div class="snk" style="left:128px;top:896px">Clique para ouvir</div>
+  <div class="snr" style="left:128px;top:930px"><button class="sn" data-snd="bipe">▶ Bipe</button></div>
 </section></div>
 
 <!-- 9 CENA -->
 <div class="pw"><section class="s teal" data-notes="Capítulo 3, The Thing in the Hallway, unidade Amazing Senses. Um barulho no corredor e ninguém vê nada. Cada cena usa um sentido. O jogo chama pela função ou pelo sentido, nunca pelo nome do aluno, para não criar pressão. Se ninguém responde em cerca de 9 ou 10 segundos, o jogo dá um empurrão.">
   <div class="k" style="left:128px;top:128px">Capítulo 3 · Amazing Senses</div>
   <h2 style="left:128px;top:200px;width:640px">The Thing in the Hallway</h2>
-  <p style="left:128px;top:540px;width:600px;font-size:36px">Um barulho no corredor, e ninguém vê nada. A turma descobre a criatura pelos sentidos.</p>
-  <p style="left:128px;top:760px;width:600px;font-size:34px"><b>O jogo chama por sentido, não pelo nome do aluno.</b> Ninguém fica exposto.</p>
+  <p style="left:128px;top:500px;width:600px;font-size:36px">Um barulho no corredor, e ninguém vê nada. A turma descobre a criatura pelos sentidos.</p>
+  <p style="left:128px;top:690px;width:600px;font-size:34px"><b>O jogo chama por sentido, não pelo nome do aluno.</b> Ninguém fica exposto.</p>
   <img src="media/cena1.webp" alt="Cena 1 do capítulo 3, o corredor, com o botão Ready" class="shot" style="left:810px;top:150px;width:980px;height:551px">
   <img src="media/cena3.webp" alt="Cena 3 do capítulo" class="shot" style="left:1230px;top:590px;width:560px;height:315px">
+  <div class="snk" style="left:128px;top:896px">Clique para ouvir</div>
+  <div class="snr" style="left:128px;top:930px"><button class="sn" data-snd="s1-bang">▶ BANG!</button><button class="sn" data-snd="s1-assobio">▶ Assobio</button><button class="sn" data-snd="s1-sussurro">▶ Sussurro</button></div>
 </section></div>
 
 <!-- 10 RODADA -->
@@ -248,7 +271,7 @@ ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(
   <div class="k" style="left:128px;top:96px">A rodada</div>
   <ol style="left:128px;top:140px;width:900px">
     <li><span><b>Ready?</b>O Caller chama e todos respondem “Ready!”.</span></li>
-    <li><span><b>Narração</b>O app lê e a professora faz os sons e os toques.</span></li>
+    <li><span><b>Narração</b>O app lê e toca os sons. Sem som, a professora faz ao vivo.</span></li>
     <li><span><b>Um sentido</b>O jogo chama por função: quem ouviu, quem cheirou.</span></li>
     <li><span><b>How sure are you?</b>100, 50 ou 0, sem medo de errar.</span></li>
     <li><span><b>A frase</b>It must be… It might be… It can’t be…</span></li>
@@ -256,6 +279,8 @@ ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(
   </ol>
   <img src="media/cena2.webp" alt="Cena 2 do capítulo com o botão Ready" class="shot" style="left:1090px;top:250px;width:700px;height:394px">
   <p style="left:1090px;top:700px;width:700px;font-size:30px">A barra de calma sobe a cada acerto do grupo. Quando enche, a criatura aparece.</p>
+  <div class="snk" style="left:1090px;top:826px">Clique para ouvir</div>
+  <div class="snr" style="left:1090px;top:900px"><button class="sn" data-snd="feitico-lanca">▶ Cast it!</button><button class="sn" data-snd="feitico-bom">▶ Feitiço bom</button><button class="sn" data-snd="feitico-oops">▶ Oops</button></div>
 </section></div>
 
 <!-- 11 CAPTURA -->
@@ -265,6 +290,8 @@ ol li b{display:block;font:800 46px/1.05 BSD;text-transform:uppercase;color:var(
   <div class="k" style="left:128px;top:128px">Final do capítulo</div>
   <h2 style="left:128px;top:200px;width:700px">Falar com a criatura. Com gentileza.</h2>
   <p style="left:128px;top:640px;width:620px;font-size:38px;color:var(--cream)">A Mumblewick é uma lanterna nervosa. Cada aluno diz uma frase, a carta aparece com brilho e entra no álbum.</p>
+  <div class="snk" style="left:128px;top:866px">Clique para ouvir</div>
+  <div class="snr" style="left:128px;top:900px"><button class="sn" data-snd="criatura-capturada">▶ Criatura capturada</button></div>
 </section></div>
 
 <!-- 12 HOLO -->
@@ -350,14 +377,15 @@ function build(i){
  if(s.querySelector('#legend')){const l=s.querySelector('#legend');l.innerHTML='';holo(i,l,'img/album/f12.webp','img/album/b12.webp',440,P.L)}
  if(s.querySelector('#aps')){const ap=s.querySelector('#aps');ap.innerHTML='';AP.forEach((a,k)=>{const d=document.createElement('div');d.style.cssText='position:absolute;left:'+(k*210)+'px;top:'+(k%2?44:0)+'px;width:190px';
   d.innerHTML='<div style="width:190px;height:265px"></div><div class="apn" style="margin-top:20px">'+a[1]+'<small>'+a[2]+'</small></div>';ap.appendChild(d);
-  holo(i,d.firstChild,'img/ap/c'+a[0]+'.webp','img/ap/cls'+(k%6+1)+'.webp',190,{preset:a[3],intensity:a[4],edgeSparkle:.45,glare:.3,radius:10})})}
+  holo(i,d.firstChild,'img/ap/c'+a[0]+'.webp','img/ap/v'+a[0]+'.webp',190,{preset:a[3],intensity:a[4],edgeSparkle:.45,glare:.3,radius:10})})}
+ if(s.querySelector('#qual')){const q=s.querySelector('#qual');q.innerHTML='';holo(i,q,'img/ap/c01.webp','img/ap/v01.webp',520,{preset:'stars',intensity:.3,edgeSparkle:.4,glare:.3})}
  if(s.querySelector('#rar')){const r=s.querySelector('#rar');r.innerHTML='';
   [['02','Comum','Sem brilho, só inclina.','C'],['01','Rara','Glitter prata fosco.','R'],['05','Especial','Dourado na carta.','S'],['12','Lendária','Estrelas.','L']].forEach((x,k)=>{
    const d=document.createElement('div');d.style.cssText='position:absolute;left:'+(k*424)+'px;top:0;width:380px';
    d.innerHTML='<div class="hc" style="width:380px;height:531px"></div><div class="lab" style="margin-top:22px">'+x[1]+'<small>'+x[2]+'</small></div>';r.appendChild(d);
    holo(i,d.firstChild,'img/album/f'+x[0]+'.webp','img/album/b'+x[0]+'.webp',380,P[x[3]])})}
 }
-function teardown(i){live[i].forEach(c=>{try{c.destroy()}catch(e){}});live[i]=[];['#aps','#legend','#rar'].forEach(q=>{const e=S[i].querySelector(q);if(e)e.innerHTML=''})}
+function teardown(i){live[i].forEach(c=>{try{c.destroy()}catch(e){}});live[i]=[];['#aps','#legend','#rar','#qual'].forEach(q=>{const e=S[i].querySelector(q);if(e)e.innerHTML=''})}
 (function(){const st=document.getElementById('strip');for(let n=1;n<=12;n++){const m=document.createElement('div');const f=String(n).padStart(2,'0');m.className='fc';m.style.marginTop=(n%2?0:34)+'px';
  m.innerHTML='<div><img src="img/album/f'+f+'.webp" alt=""><img src="img/album/b'+f+'.webp" alt=""></div>';m.onclick=()=>m.classList.toggle('f');st.appendChild(m)}})();
 const on=new Set();
@@ -371,6 +399,8 @@ function upd(){const h=document.documentElement,max=h.scrollHeight-innerHeight;d
  document.getElementById('cnt').textContent=(k+1)+' / '+S.length;document.getElementById('notes').textContent=S[k].dataset.notes||''}
 addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
 addEventListener('keydown',e=>{if(e.key==='n'||e.key==='N')document.getElementById('notes').classList.toggle('on')});
+
+document.querySelectorAll('[data-snd]').forEach(b=>{b.onclick=()=>{const a=new Audio('snd/'+b.dataset.snd+'.mp3');a.volume=({'s1-bang':.65,'s1-assobio':.5,'s1-sussurro':.5}[b.dataset.snd]||.8);b.classList.add('on');a.onended=()=>b.classList.remove('on');a.play().catch(()=>b.classList.remove('on'))}});
 </script>
 </body>
 </html>
