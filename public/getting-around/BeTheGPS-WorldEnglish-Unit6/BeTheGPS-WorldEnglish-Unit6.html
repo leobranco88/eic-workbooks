@@ -16,7 +16,7 @@
     --ink:#0A0A0A;
     --mid:#545454;
     --light:#E8E8E4;
-    --pen:#FF3C38;   /* the teacher's pen AND what enters the sentence: one color, one job */
+    --pen:#F2A100;--pent:#B86F00;   /* the teacher's pen AND what enters the sentence: one color, one job */
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -64,7 +64,7 @@
   }
   li .say{display:block;font-size:clamp(18px,1.85vw,29px);font-weight:700;letter-spacing:-.01em;line-height:1.3}
   li .say b{font-weight:900;transition:color .2s}
-  li.on .say b{color:var(--pen)}
+  li.on .say b{color:var(--pent)}
 
   /* words the pen circles */
   .w{position:relative;display:inline-block;margin:0 .3em;white-space:nowrap}
@@ -75,7 +75,7 @@
   @keyframes draw{to{stroke-dashoffset:0}}
 
   /* the pen's notes */
-  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pen);line-height:1;display:inline-block}
+  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pent);line-height:1;display:inline-block}
   li .note{display:block;font-size:clamp(26px,2.1vw,34px);margin:8px 0 0 14px;transform:rotate(-3deg);transform-origin:left;opacity:0;transition:opacity .3s}
   li.on .note.show{opacity:1}
 
@@ -108,7 +108,7 @@
   .st{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.13em;fill:#545454;text-anchor:middle}
   #facing,#btw{opacity:0;transition:opacity .3s}
   #facing.show,#btw.show{opacity:1}
-  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pen);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pent);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
   #tagT{transition:opacity .2s}
 
   @media (prefers-reduced-motion:reduce){
@@ -142,14 +142,14 @@
 #intro .pat:last-of-type{border-bottom:1.5px solid var(--ink)}
 #intro .formula{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:baseline;font-size:clamp(22px,2.3vw,36px);font-weight:800;letter-spacing:-.02em;margin:2px 0 10px}
 #intro .v{border-bottom:3px solid var(--ink)}
-#intro .p{color:var(--pen)}
+#intro .p{color:var(--pent)}
 #intro .plus{color:var(--mid);font-weight:600}
 #intro .ex{font-size:clamp(17px,1.5vw,21px);font-weight:700;margin:4px 0}
 #intro .ex .v{border-bottom-width:2px}
 #intro .pt{font-size:15px;font-weight:400;color:var(--mid);margin:8px 0 0;max-width:36em}
 #intro .pt b{color:var(--ink);font-weight:700}
 #intro /* the pen */
-  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pen);line-height:1;display:inline-block}
+  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pent);line-height:1;display:inline-block}
 #intro .note{font-size:clamp(26px,2.2vw,34px);transform:rotate(-3deg);transform-origin:left;margin:10px 0 0}
 #intro .go{margin-top:auto;padding-top:26px;display:flex;gap:10px;flex-wrap:wrap}
 #intro .b{font:800 16px Inter,sans-serif;padding:11px 20px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer;text-decoration:none;display:inline-block}
@@ -174,19 +174,17 @@
   .moments{display:flex;flex-wrap:wrap;align-items:stretch;background:#0A0A0A;margin:24px 24px 0}
   .moments a{color:#BDBDBA;text-decoration:none;font:700 14px Inter,sans-serif;padding:13px 16px 10px;border-bottom:3px solid transparent}
   .moments a:hover{color:#fff}
-  .moments a[aria-current=page]{color:#fff;border-bottom-color:#FF3C38}
+  .moments a[aria-current=page]{color:#fff;border-bottom-color:#F2A100}
   .moments a.pdf{margin-left:auto;color:#fff;font-weight:800;border-bottom-color:transparent}.moments a.pdf:hover{border-bottom-color:#fff}.moments a.pdf+a.nx{margin-left:6px}
-  .moments a.nx{margin-left:auto;color:#FF6A66;font-weight:800}
+  .moments a.nx{margin-left:auto;color:#FFC24D;font-weight:800}
   .moments a.nx:hover{color:#fff}
-  .moments a:focus-visible{outline:3px solid #FF3C38;outline-offset:-3px}
+  .moments a:focus-visible{outline:3px solid #F2A100;outline-offset:-3px}
   @media (max-width:900px){.moments{margin:12px 12px 0}.moments a{padding:11px 11px 8px;font-size:13px}.moments a.nx{margin-left:0}}
 
 /* --- map icons, UP/DOWN signs, arrows --- */
 .pl .ic{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
 .pl.dest .ic,.pl.focus .ic,.pl.sel .ic{stroke:var(--pen)}
 #pl-eic rect{stroke-width:3.5}
-.udchip rect{fill:var(--ink)}.udchip path{stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.udchip text{fill:#fff;font-family:Inter,sans-serif;font-weight:900;font-size:11px;letter-spacing:.04em;text-anchor:start;pointer-events:none}
 .chev{pointer-events:none}.chev path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .35s}
 .chev.on path{opacity:.75}
 .dg{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -280,7 +278,7 @@
 <script>
 /* ---------- City data (reused by the next moments: Drive and Give directions) ---------- */
 const NS='http://www.w3.org/2000/svg';
-const PEN='#FF3C38',INK='#0A0A0A',LIGHT='#E8E8E4';
+const PEN='#F2A100',INK='#0A0A0A',LIGHT='#E8E8E4';
 const RING='M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6';
 const STREETS_H=[{id:'maple',name:'Maple Street',y:150},{id:'cedar',name:'Cedar Street',y:300},{id:'harbor',name:'Harbor Street',y:450}];
 const STREETS_V=[{id:'oak',name:'Oak Avenue',x:240},{id:'river',name:'River Avenue',x:480},{id:'station',name:'Station Avenue',x:720}];
@@ -348,6 +346,27 @@ el('path',{d:'M0 0L10 5L0 10z',fill:PEN},mk);
 const ICONS={"bus": "<rect x=\"4\" y=\"3.5\" width=\"16\" height=\"14\"/><path d=\"M4 10h16M8 17.5v2.5M16 17.5v2.5\"/><circle cx=\"8\" cy=\"14\" r=\".6\"/><circle cx=\"16\" cy=\"14\" r=\".6\"/>", "park": "<circle cx=\"12\" cy=\"9\" r=\"6\"/><path d=\"M12 15v6M9 21h6\"/>", "library": "<path d=\"M3 5.5l9 2 9-2v13l-9 2-9-2z\"/><path d=\"M12 7.5v13\"/>", "train": "<rect x=\"6\" y=\"3\" width=\"12\" height=\"14\"/><path d=\"M6 11h12M9 20.5l-1.5 1M15 20.5l1.5 1M4 21h16\"/><circle cx=\"9.5\" cy=\"14\" r=\".7\"/><circle cx=\"14.5\" cy=\"14\" r=\".7\"/>", "market": "<path d=\"M2 4h3l2.2 11h11l2.3-8H6\"/><circle cx=\"9\" cy=\"19\" r=\"1.5\"/><circle cx=\"17\" cy=\"19\" r=\"1.5\"/>", "post": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"12\"/><path d=\"M3 6l9 7 9-7\"/>", "cafe": "<path d=\"M4.5 8h11v6a4 4 0 0 1-4 4h-3a4 4 0 0 1-4-4z\"/><path d=\"M15.5 9.5h1.5a2.3 2.3 0 0 1 0 4.6h-1.5M8 3.5v2M12 3.5v2\"/>", "museum": "<path d=\"M2.5 9.5L12 3.5l9.5 6zM4.5 20.5h15M5.5 11.5v7M10 11.5v7M14 11.5v7M18.5 11.5v7\"/>", "hotel": "<path d=\"M3 19V6M3 14h18v5M21 14v-3a2 2 0 0 0-2-2h-7v5\"/><circle cx=\"7.5\" cy=\"11\" r=\"1.6\"/>", "mall": "<rect x=\"5\" y=\"8\" width=\"14\" height=\"13\"/><path d=\"M9 8V6.5a3 3 0 0 1 6 0V8\"/>", "bank": "<rect x=\"2.5\" y=\"6\" width=\"19\" height=\"12\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M6 9.5v5M18 9.5v5\"/>", "cinema": "<rect x=\"3\" y=\"10\" width=\"18\" height=\"10\"/><path d=\"M3 10l1.8-5 15.4 3-.7 2M8 6.3l1.6 3.4M13.5 7.3l1.6 3.3\"/>", "tourist": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 11v6\"/><circle cx=\"12\" cy=\"7.6\" r=\".6\"/>", "restaurant": "<path d=\"M6 3v7a2 2 0 0 0 2 2v9M10 3v7a2 2 0 0 1-2 2M17 21V3c-2.5 1.5-3 5-3 8h3\"/>", "club": "<circle cx=\"12\" cy=\"13\" r=\"7.5\"/><path d=\"M12 2v3.5M4.5 13h15M12 5.5v15M6.5 8.5q5.5 2.5 11 0M6.5 17.5q5.5-2.5 11 0\"/>", "eic": "<path d=\"M2 9l10-5 10 5-10 5z\"/><path d=\"M6 11.5v5c3 3 9 3 12 0v-5M22 9v6\"/>"};
 const GLYPH={"walk": "<circle cx=\"12\" cy=\"5\" r=\"2.6\"/><path d=\"M12 8v7M12 10l-4 4M12 10l4 4M12 15l-3.5 6M12 15l3.5 6\"/>", "bike": "<circle cx=\"6\" cy=\"16\" r=\"3.6\"/><circle cx=\"18\" cy=\"16\" r=\"3.6\"/><path d=\"M6 16l4-8h5l3 8M10 8H8M10 16l5-8\"/>", "drive": "<path d=\"M3 15v-4l2-4h14l2 4v4z\"/><circle cx=\"8\" cy=\"16.5\" r=\"2\"/><circle cx=\"16\" cy=\"16.5\" r=\"2\"/>"};
 let MODE='walk';
+
+/* ---------- street signs, UP/DOWN plates, START sign ---------- */
+const TEAL='#137C8B';
+function blade(cx,cy,w,t,rot){
+  const g=el('g',{class:'blade',transform:`translate(${cx} ${cy}) rotate(${rot})`,style:'pointer-events:none'},svg);
+  el('rect',{x:-w/2,y:-11,width:w,height:22,rx:4,fill:TEAL},g);
+  el('rect',{x:-w/2+2,y:-9,width:w-4,height:18,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  const tx=el('text',{x:0,y:4,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':11,'letter-spacing':1,fill:'#fff'},g,t);
+  return g;
+}
+function plate(x,y,up){
+  const w=up?60:76,g=el('g',{class:'udchip',transform:`translate(${x-w/2} ${y})`,style:'pointer-events:none'},svg);
+  el('rect',{width:w,height:28,rx:4,fill:TEAL},g);el('rect',{x:2,y:2,width:w-4,height:24,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  el('path',{d:up?'M11 21V9M5 14l6-7 6 7':'M11 7v12M5 14l6 7 6-7',transform:'translate(3 -1) scale(.9)',fill:'none',stroke:'#fff','stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+  el('text',{x:25,y:19,'font-family':'Inter,sans-serif','font-weight':800,'font-size':12,fill:'#fff'},g,up?'UP':'DOWN');
+}
+const startSign=el('g',{style:'pointer-events:none;display:none'},svg);
+el('circle',{cx:0,cy:0,r:20,fill:TEAL},startSign);el('circle',{cx:0,cy:0,r:17.5,fill:'none',stroke:'#fff','stroke-width':1.6},startSign);
+el('path',{d:'M-4 -13l10 6.5-10 6.5z',fill:'#fff'},startSign);
+el('text',{x:0,y:12,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':8.5,'letter-spacing':.4,fill:'#fff'},startSign,'START');
+function markStart(x,y){svg.appendChild(startSign);startSign.style.display='';startSign.setAttribute('transform',`translate(${x-38} ${y})`);}
 el('rect',{x:0,y:0,width:960,height:600,fill:'#fff'},svg);
 STREETS_H.forEach(s=>el('line',{x1:0,x2:960,y1:s.y,y2:s.y,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
 STREETS_V.forEach(s=>el('line',{y1:0,y2:600,x1:s.x,x2:s.x,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
@@ -373,12 +392,11 @@ function ring(parent,x,y,w,h){
 const ringLayer=el('g',{filter:'url(#wob)'},svg);
 const stRings={};
 STREETS_H.forEach(s=>{
-  [111,849].forEach(x=>el('text',{class:'st',x,y:s.y-7},svg,s.name.toUpperCase()));
+  [111,849].forEach(x=>blade(x,s.y-17,116,s.name.toUpperCase(),0));
   stRings[s.id]=ring(ringLayer,849-70,s.y-34,140,44);
 });
 STREETS_V.forEach(s=>{
-  const px=s.x-7,py=98;
-  el('text',{class:'st',x:px,y:py,transform:`rotate(-90 ${px} ${py})`},svg,s.name.toUpperCase());
+  blade(s.x,100,124,s.name.toUpperCase(),-90);
 });
 
 /* "Between" arrow (right of the museum) and "across from" arrow (café ↔ museum), drawn by hand */
@@ -393,12 +411,7 @@ const total=route.getTotalLength();
 route.setAttribute('stroke-dasharray','0 '+(total+10));
 
 /* UP / DOWN signs at both ends of every avenue, and the orange arrows that show the direction */
-STREETS_V.forEach(s=>{
-  const up=el('g',{class:'udchip',transform:`translate(${s.x-32} 6)`},svg);
-  el('rect',{x:0,y:0,width:64,height:22},up);el('path',{d:'M9 15l5-8 5 8'},up);el('text',{x:25,y:16},up,'UP');
-  const dn=el('g',{class:'udchip',transform:`translate(${s.x-32} 572)`},svg);
-  el('rect',{x:0,y:0,width:64,height:22},dn);el('path',{d:'M9 7l5 8 5-8'},dn);el('text',{x:25,y:16},dn,'DOWN');
-});
+STREETS_V.forEach(s=>{plate(s.x,2,true);plate(s.x,570,false);});
 const chev=el('g',{class:'chev'},svg);
 STREETS_V.forEach(s=>{for(let y=90;y<=560;y+=47)el('path',{d:`M${s.x-9} ${y+6} l9 -11 l9 11`},chev);});
 function showUD(dir){chev.classList.toggle('on',!!dir);chev.setAttribute('transform',dir==='down'?'rotate(180 480 300)':'');}

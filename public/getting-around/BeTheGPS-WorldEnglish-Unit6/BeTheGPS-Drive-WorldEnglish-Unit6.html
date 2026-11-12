@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#0A0A0A;--mid:#545454;--light:#E8E8E4;--pen:#FF3C38}
+  :root{--ink:#0A0A0A;--mid:#545454;--light:#E8E8E4;--pen:#F2A100;--pent:#B86F00}
   *{box-sizing:border-box}
   html,body{margin:0}
   body{background:#fff;color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.4}
@@ -33,7 +33,7 @@
   .steps .n{flex:none;width:20px;height:20px;background:var(--ink);color:#fff;font:800 12px Inter,sans-serif;display:inline-grid;place-items:center;transform:translateY(-1px)}
 
   h1{font-size:clamp(30px,3.1vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.02;margin:0 0 22px}
-  h1 em{font-style:normal;color:var(--pen)}
+  h1 em{font-style:normal;color:var(--pent)}
   .count{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
 
   .sent{font-size:clamp(21px,2.2vw,34px);font-weight:700;letter-spacing:-.01em;line-height:1.75;margin:0}
@@ -47,7 +47,7 @@
   .ring:not(.on) path,.w:not(.on) .wr path{opacity:0}
   @keyframes draw{to{stroke-dashoffset:0}}
 
-  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pen);line-height:1;display:inline-block}
+  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pent);line-height:1;display:inline-block}
   .fb{font-size:clamp(26px,2.1vw,34px);margin:12px 0 0 4px;transform:rotate(-2deg);transform-origin:left;min-height:1em}
 
   .prog{display:flex;gap:5px;margin:auto 0 0;padding-top:22px}
@@ -77,7 +77,7 @@
   .pl.focus rect{animation:pop .6s ease-out 1}
   @keyframes pop{0%{stroke-width:9}100%{stroke-width:3.5}}
   .st{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.13em;fill:#545454;text-anchor:middle;pointer-events:none}
-  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pen);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round;pointer-events:none;transition:opacity .2s}
+  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pent);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round;pointer-events:none;transition:opacity .2s}
   .hide{display:none}
 
   @media (prefers-reduced-motion:reduce){.w.on .wr path,.ring.on path{animation:none;stroke-dashoffset:0}.pl.focus rect{animation:none}}
@@ -104,19 +104,17 @@
   .moments{display:flex;flex-wrap:wrap;align-items:stretch;background:#0A0A0A;margin:24px 24px 0}
   .moments a{color:#BDBDBA;text-decoration:none;font:700 14px Inter,sans-serif;padding:13px 16px 10px;border-bottom:3px solid transparent}
   .moments a:hover{color:#fff}
-  .moments a[aria-current=page]{color:#fff;border-bottom-color:#FF3C38}
+  .moments a[aria-current=page]{color:#fff;border-bottom-color:#F2A100}
   .moments a.pdf{margin-left:auto;color:#fff;font-weight:800;border-bottom-color:transparent}.moments a.pdf:hover{border-bottom-color:#fff}.moments a.pdf+a.nx{margin-left:6px}
-  .moments a.nx{margin-left:auto;color:#FF6A66;font-weight:800}
+  .moments a.nx{margin-left:auto;color:#FFC24D;font-weight:800}
   .moments a.nx:hover{color:#fff}
-  .moments a:focus-visible{outline:3px solid #FF3C38;outline-offset:-3px}
+  .moments a:focus-visible{outline:3px solid #F2A100;outline-offset:-3px}
   @media (max-width:900px){.moments{margin:12px 12px 0}.moments a{padding:11px 11px 8px;font-size:13px}.moments a.nx{margin-left:0}}
 
 /* --- map icons, UP/DOWN signs, arrows --- */
 .pl .ic{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
 .pl.dest .ic,.pl.focus .ic,.pl.sel .ic{stroke:var(--pen)}
 #pl-eic rect{stroke-width:3.5}
-.udchip rect{fill:var(--ink)}.udchip path{stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.udchip text{fill:#fff;font-family:Inter,sans-serif;font-weight:900;font-size:11px;letter-spacing:.04em;text-anchor:start;pointer-events:none}
 .chev{pointer-events:none}.chev path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .35s}
 .chev.on path{opacity:.75}
 .dg{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -142,7 +140,7 @@
 <script>
 /* ---------- City (same Marlow as the Watch) ---------- */
 const NS='http://www.w3.org/2000/svg';
-const PEN='#FF3C38',INK='#0A0A0A',LIGHT='#E8E8E4';
+const PEN='#F2A100',INK='#0A0A0A',LIGHT='#E8E8E4';
 const RING='M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6';
 const STREETS_H=[{name:'Maple Street',y:150},{name:'Cedar Street',y:300},{name:'Harbor Street',y:450}];
 const STREETS_V=[{name:'Oak Avenue',x:240},{name:'River Avenue',x:480},{name:'Station Avenue',x:720}];
@@ -174,6 +172,27 @@ let MODE='walk';
 const VERB={walk:'walk',bike:'ride',drive:'drive'},SPEED={walk:1,bike:.75,drive:.55},LABEL={walk:'Walk',bike:'Bike',drive:'Drive'};
 const cap=w=>w[0].toUpperCase()+w.slice(1);
 const vtxt=t=>t.replace(/\{V\}/g,cap(VERB[MODE])).replace(/\{v\}/g,VERB[MODE]);
+
+/* ---------- street signs, UP/DOWN plates, START sign ---------- */
+const TEAL='#137C8B';
+function blade(cx,cy,w,t,rot){
+  const g=el('g',{class:'blade',transform:`translate(${cx} ${cy}) rotate(${rot})`,style:'pointer-events:none'},svg);
+  el('rect',{x:-w/2,y:-11,width:w,height:22,rx:4,fill:TEAL},g);
+  el('rect',{x:-w/2+2,y:-9,width:w-4,height:18,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  const tx=el('text',{x:0,y:4,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':11,'letter-spacing':1,fill:'#fff'},g,t);
+  return g;
+}
+function plate(x,y,up){
+  const w=up?60:76,g=el('g',{class:'udchip',transform:`translate(${x-w/2} ${y})`,style:'pointer-events:none'},svg);
+  el('rect',{width:w,height:28,rx:4,fill:TEAL},g);el('rect',{x:2,y:2,width:w-4,height:24,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  el('path',{d:up?'M11 21V9M5 14l6-7 6 7':'M11 7v12M5 14l6 7 6-7',transform:'translate(3 -1) scale(.9)',fill:'none',stroke:'#fff','stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+  el('text',{x:25,y:19,'font-family':'Inter,sans-serif','font-weight':800,'font-size':12,fill:'#fff'},g,up?'UP':'DOWN');
+}
+const startSign=el('g',{style:'pointer-events:none;display:none'},svg);
+el('circle',{cx:0,cy:0,r:20,fill:TEAL},startSign);el('circle',{cx:0,cy:0,r:17.5,fill:'none',stroke:'#fff','stroke-width':1.6},startSign);
+el('path',{d:'M-4 -13l10 6.5-10 6.5z',fill:'#fff'},startSign);
+el('text',{x:0,y:12,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':8.5,'letter-spacing':.4,fill:'#fff'},startSign,'START');
+function markStart(x,y){svg.appendChild(startSign);startSign.style.display='';startSign.setAttribute('transform',`translate(${x-38} ${y})`);}
 el('rect',{x:0,y:0,width:960,height:600,fill:'#fff'},svg);
 STREETS_H.forEach(s=>el('line',{x1:0,x2:960,y1:s.y,y2:s.y,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
 STREETS_V.forEach(s=>el('line',{y1:0,y2:600,x1:s.x,x2:s.x,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
@@ -192,8 +211,8 @@ PLACES.forEach((row,r)=>row.forEach((p,c)=>{
   placeEls[p.id]=g;
   info[p.id]={cx:x1-34,cy:(y0+y1)/2+8,x0,x1,y0,y1,street:STREETS_H[OPEN[r]].y};
 }));
-STREETS_H.forEach(s=>[111,849].forEach(x=>el('text',{class:'st',x,y:s.y-7},svg,s.name.toUpperCase())));
-STREETS_V.forEach(s=>{const px=s.x-7,py=98;el('text',{class:'st',x:px,y:py,transform:`rotate(-90 ${px} ${py})`},svg,s.name.toUpperCase());});
+STREETS_H.forEach(s=>[111,849].forEach(x=>blade(x,s.y-17,116,s.name.toUpperCase(),0)));
+STREETS_V.forEach(s=>blade(s.x,100,124,s.name.toUpperCase(),-90));
 
 
 /* ---------- Missions: every step has ONE blank (the preposition) and a consequence for each wrong choice ---------- */
@@ -239,12 +258,7 @@ const doneTrail=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'str
 const route=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
 
 /* UP / DOWN signs at both ends of every avenue, and the orange arrows that show the direction */
-STREETS_V.forEach(s=>{
-  const up=el('g',{class:'udchip',transform:`translate(${s.x-32} 6)`},svg);
-  el('rect',{x:0,y:0,width:64,height:22},up);el('path',{d:'M9 15l5-8 5 8'},up);el('text',{x:25,y:16},up,'UP');
-  const dn=el('g',{class:'udchip',transform:`translate(${s.x-32} 572)`},svg);
-  el('rect',{x:0,y:0,width:64,height:22},dn);el('path',{d:'M9 7l5 8 5-8'},dn);el('text',{x:25,y:16},dn,'DOWN');
-});
+STREETS_V.forEach(s=>{plate(s.x,2,true);plate(s.x,570,false);});
 const chev=el('g',{class:'chev'},svg);
 STREETS_V.forEach(s=>{for(let y=90;y<=560;y+=47)el('path',{d:`M${s.x-9} ${y+6} l9 -11 l9 11`},chev);});
 function showUD(dir){chev.classList.toggle('on',!!dir);chev.setAttribute('transform',dir==='down'?'rotate(180 480 300)':'');}
@@ -270,7 +284,7 @@ function placeTag(p){
   const x=p.x>740?p.x-16-w:p.x+16,y=p.y-20;
   tagT.setAttribute('x',x);tagT.setAttribute('y',y);tagT.setAttribute('transform','rotate(-4 '+x+' '+y+')');
 }
-function showTag(txt){tagT.style.opacity=txt?1:0;tagT.textContent=txt||'';placeTag({x:+dot.getAttribute('cx')||0,y:+dot.getAttribute('cy')||0});}
+function showTag(txt){if(txt==='start'){markStart(+dot.getAttribute('cx')||0,+dot.getAttribute('cy')||0);txt='';}tagT.style.opacity=txt?1:0;tagT.textContent=txt||'';placeTag({x:+dot.getAttribute('cx')||0,y:+dot.getAttribute('cy')||0});}
 function putDot(id){
   const i=info[id];
   route.setAttribute('d','M'+i.cx+' '+i.cy+' L'+i.cx+' '+(i.cy+.01));total=.01;
@@ -342,7 +356,7 @@ function startMission(){
   const i=info[m.from];
   setRoute([m.start,[m.start[0],m.start[1]+.01]]);snap(0);
   dot.setAttribute('cx',m.start[0]);dot.setAttribute('cy',m.start[1]);
-  route.setAttribute('stroke-dasharray','0 10');showTag('');
+  route.setAttribute('stroke-dasharray','0 10');showTag('');markStart(m.start[0],m.start[1]);
   render();
 }
 async function choose(p){
