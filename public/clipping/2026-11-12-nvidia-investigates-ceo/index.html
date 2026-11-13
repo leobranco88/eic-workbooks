@@ -159,6 +159,15 @@ body.lg-open .scrim{opacity:1;pointer-events:auto}
 .drawer dt{font:700 15px var(--body);margin:11px 0 0}
 .drawer dd{margin:0;font:500 12.5px/1.4 var(--ui);color:var(--grey)}
 .drawer .civ{margin-top:6px;padding-top:22px;border-top:1px solid var(--ink)}
+.drawer .civ+.civ{margin-top:22px}.drawer dd.xs{font:italic 400 13px/1.4 var(--body);color:var(--ink);margin-top:2px}
+.cmp2{margin-top:6px}.cmp2 .ch{display:grid;grid-template-columns:1fr 1fr;gap:14px;border-bottom:1.5px solid var(--ink);padding-bottom:6px}.cmp2 .ch span{display:none}
+.cmp2 .ch b{font:700 17px var(--head)}.cmp2 small{display:block;font:500 11.5px var(--ui);color:var(--grey);font-weight:500;margin-top:1px}
+.cmp2 .cr{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.cmp2 .rl{grid-column:1/3;font:700 10.5px var(--ui);letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}.cmp2 .rl small{display:inline;margin-left:8px;letter-spacing:0;text-transform:none;font-size:11.5px;color:var(--grey)}
+.cmp2 .cr p{margin:0;font:400 14px/1.45 var(--body)}
+.chp{margin:8px 0 12px;border-top:1.5px solid var(--ink)}.cp{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.cp b{font:700 16px var(--head)}.cp .st{font:700 10.5px var(--ui);letter-spacing:.12em;text-transform:uppercase;align-self:center;text-align:right}.cp .sN{color:var(--accent)}.cp .sC{border-bottom:1.5px solid var(--ink);padding-bottom:1px}.cp .sA{color:var(--grey)}
+.cp p{grid-column:1/3;margin:0;font:400 14px/1.45 var(--body)}.cp small{display:block;font:500 11.5px var(--ui);color:var(--grey);margin-top:1px}
 .drawer .ft{font:500 12px/1.5 var(--ui);color:var(--grey);margin:26px 0 0}
 @media(max-width:560px){.drawer{padding:24px 22px 60px}.lgtab{top:auto;bottom:90px}}
 .go{margin:0}.go a{font:700 16px var(--body);color:var(--ink);border-bottom:2px solid var(--accent);text-decoration:none}.go a:hover{background:var(--hi)}.go.pr{margin-top:14px}.go span{display:block;font:500 12.5px var(--ui);color:var(--grey);margin-top:5px}
@@ -252,10 +261,16 @@ function wrapWords(root){
   n.parentNode.replaceChild(f,n)});
 }
 
+function legalExtra(X){if(!X)return"";
+ const tbl=t=>`<div class="cmp2"><div class="ch"><span></span>${t.cols.map(c=>`<b>${c[0]}<small>${c[1]}</small></b>`).join("")}</div>${t.rows.map(r=>`<div class="cr"><div class="rl">${r[0]}<small>${r[1]}</small></div>${r[2].map(c=>`<p>${c}</p>`).join("")}</div>`).join("")}</div>`;
+ const pr=X.pairs.map(s=>`<div class="civ"><h3>${s.en}</h3><p class="pt">${s.pt}</p><p class="tx">${s.text}</p>${s.story?`<p class="sy">${s.story}</p>`:""}${s.table?tbl(s.table):""}</div>`).join("");
+ const c=X.chips,vl=v=>`<div class="civ"><h3>${v.en}</h3><p class="pt">${v.pt}</p><dl>${v.words.map(w=>`<dt>${w[0]}</dt><dd>${w[1]}</dd><dd class="xs">${w[2]}</dd>`).join("")}</dl></div>`;
+ const ch=c?`<div class="civ"><h3>${c.en}</h3><p class="pt">${c.pt}</p><p class="tx">${c.text}</p><div class="chp">${c.rows.map(r=>`<div class="cp"><b>${r[0]}</b><span class="st s${r[1][0]}">${r[1]}</span><p>${r[2]}<small>${r[3]}</small></p></div>`).join("")}</div><p class="sy">${c.story}</p></div>`:"";
+ return pr+ch+vl(X.vocab)+(X.vocab2?vl(X.vocab2):"")}
 function legalHTML(L){
  const words=ws=>"<dl>"+ws.map(w=>`<dt>${w[0]}</dt><dd>${w[1]}</dd>`).join("")+"</dl>";
  const step=s=>`<h3>${s.en}</h3><p class="pt">${s.pt}</p>${s.tag?`<span class="tag">${s.tag}</span>`:""}<p class="tx">${s.text}</p>${s.story?`<p class="sy">${s.story}</p>`:""}${words(s.words)}`;
- return `<button class="x" id="lgx" aria-label="Close">×</button><p class="k">${L.kicker}</p><div class="ttl"><svg class="lg" viewBox="0 0 96 96" aria-hidden="true"><rect x="1.5" y="1.5" width="93" height="93" fill="#fff" stroke="#0A0A0F" stroke-width="3"/><rect x="62" y="0" width="34" height="96" fill="#0A0A0F"/><rect x="62" y="0" width="34" height="6" fill="#E63946"/><text x="79" y="60" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#fff">§</text><rect x="12" y="24" width="38" height="6" fill="#0A0A0F"/><rect x="12" y="40" width="38" height="4" fill="#0A0A0F"/><rect x="12" y="50" width="38" height="4" fill="#0A0A0F"/><rect x="12" y="60" width="24" height="4" fill="#0A0A0F"/></svg><h2>${L.title}</h2></div><p class="ptl">${L.pt}</p><p class="in">${L.intro}</p><p class="inp">${L.intro_pt}</p><ol class="st">${L.steps.map(s=>"<li>"+step(s)+"</li>").join("")}</ol><div class="civ">${step(L.civil)}</div><p class="ft">${L.foot}</p><p class="go"><a href="practice.html">Practice these words</a><span>Pratique estas palavras</span></p><p class="go pr"><a href="legalese.pdf" target="_blank" rel="noopener">Print this page (PDF)</a><span>Imprimir esta página</span></p>`}
+ return `<button class="x" id="lgx" aria-label="Close">×</button><p class="k">${L.kicker}</p><div class="ttl"><svg class="lg" viewBox="0 0 96 96" aria-hidden="true"><rect x="1.5" y="1.5" width="93" height="93" fill="#fff" stroke="#0A0A0F" stroke-width="3"/><rect x="62" y="0" width="34" height="96" fill="#0A0A0F"/><rect x="62" y="0" width="34" height="6" fill="#E63946"/><text x="79" y="60" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#fff">§</text><rect x="12" y="24" width="38" height="6" fill="#0A0A0F"/><rect x="12" y="40" width="38" height="4" fill="#0A0A0F"/><rect x="12" y="50" width="38" height="4" fill="#0A0A0F"/><rect x="12" y="60" width="24" height="4" fill="#0A0A0F"/></svg><h2>${L.title}</h2></div><p class="ptl">${L.pt}</p><p class="in">${L.intro}</p><p class="inp">${L.intro_pt}</p><ol class="st">${L.steps.map(s=>"<li>"+step(s)+"</li>").join("")}</ol><div class="civ">${step(L.civil)}</div>${legalExtra(L.extra)}<p class="ft">${L.foot}</p><p class="go"><a href="practice.html">Practice these words</a><span>Pratique estas palavras</span></p><p class="go pr"><a href="legalese.pdf" target="_blank" rel="noopener">Print this page (PDF)</a><span>Imprimir esta página</span></p>`}
 function openLegal(on){document.body.classList.toggle("lg-open",on);$("lgtab").setAttribute("aria-expanded",on);if(on){$("drawer").scrollTop=0;$("drawer").focus()}else $("lgtab").focus()}
 function initLegal(){const L=DATA.meta.legal;if(!L)return;$("drawer").innerHTML=legalHTML(L);
  $("lgtab").onclick=()=>openLegal(true);$("scrim").onclick=()=>openLegal(false);$("lgx").onclick=()=>openLegal(false);
@@ -282,7 +297,7 @@ function render(){
  $("meta").innerHTML=`<b>${d.name} · ${d.cefr}</b> · ${d.words} words · ${d.avg} words per sentence · ${gl.length} glossed`+(location.protocol.indexOf("http")===0?` · <a href="pdf-level-${lvl}.pdf" target="_blank" rel="noopener" style="color:inherit">Print PDF</a>`:"");
  $("lv").innerHTML=[1,2,3].map(n=>`<button data-l="${n}" class="${n===lvl?"on":""}">${n}<small>${DATA[n].cefr}</small></button>`).join("");
  document.querySelectorAll(".w").forEach(w=>w.onclick=()=>w.classList.toggle("open"));
- $("dl").innerHTML=`<li><a href="pdf-level-${lvl}.pdf" download>This article, level ${lvl} (PDF)</a><span>${d.cefr} · 3 pages</span></li><li><a href="legalese.pdf" download>Legalese guide (PDF)</a><span>2 pages · to keep</span></li><li><a href="practice.pdf" download>Legalese practice sheet (PDF)</a><span>2 pages · for the student</span></li>`;
+ $("dl").innerHTML=`<li><a href="pdf-level-${lvl}.pdf" download>This article, level ${lvl} (PDF)</a><span>${d.cefr} · 3 pages</span></li><li><a href="legalese.pdf" download>Legalese guide (PDF)</a><span>3 pages · to keep</span></li><li><a href="practice.pdf" download>Legalese practice sheet (PDF)</a><span>2 pages · for the student</span></li>`;
  loadAudio();
 }
 function waffle(a,b,u){const S=13,G=3;let r="";
