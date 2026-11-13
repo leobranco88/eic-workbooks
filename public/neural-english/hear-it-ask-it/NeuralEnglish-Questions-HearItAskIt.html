@@ -1218,6 +1218,10 @@ h1 .h1-ans { color: var(--orange); }
 .story-text { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--light); max-width: 70ch;
   font-size: clamp(14.4px, calc(11.876px + 0.6731vw), 24.8px); line-height: 1.7; font-weight: 500; color: var(--ink); }
 .story-text[hidden] { display: none; }
+.story-lock { grid-column: 1 / -1; font-size: 14px; font-weight: 600; color: var(--mid); padding-left: 2px; }
+.story-lock b { color: var(--ink); font-weight: 800; }
+.story-lock small { font-size: 13px; font-weight: 400; }
+.story-lock[hidden] { display: none; }
 .story-text .sn { opacity: 0; animation: snIn .35s forwards; }
 @keyframes snIn { to { opacity: 1; } }
 .qa-list { list-style: none; border-top: 1px solid var(--ink); margin-top: 22px; }
@@ -1438,7 +1442,8 @@ function round(r){
     exampleAnswer(r) +
     '<div class="story" data-story="' + r.storyId + '"><div class="story-bar">' + playBtn(r.storyId, 'Play the story') +
     '<div class="story-meta"><span class="story-name">' + esc(r.genre) + '</span><span class="plays" data-plays="' + r.storyId + '"></span></div>' +
-    '<button class="reveal-btn story-hint" type="button" hidden>Show the story, two sentences at a time</button></div>' +
+    '<button class="reveal-btn story-hint" type="button" hidden>Show the story, two sentences at a time</button>' +
+    '<span class="story-lock">Script <b>unlocks</b> after you play the story twice <small>· O script abre depois da 2ª vez que você ouvir</small></span></div>' +
     '<p class="story-text" hidden></p></div>' +
     '<ol class="qa-list">' + r.qa.map(function(q, i){ return qaItem(r, q, i + 1); }).join('') + '</ol>' +
     '</section>';
@@ -1575,7 +1580,7 @@ document.addEventListener('eic-played', function(ev){
   var item = $('.ask-item[data-id="' + id + '"]');
   if (item && n >= 2){ var h = $('.hint-link', item); if (h && !(HINT[id] && HINT[id].shown >= HINT[id].order.length)) h.hidden = false; }
   var st = $('.story[data-story="' + id + '"]');
-  if (st && n >= 2){ var s = $('.story-hint', st); var r = +st.getAttribute('data-shown') || 0; if (s && !st.getAttribute('data-done')) s.hidden = false; }
+  if (st && n >= 2){ var s = $('.story-hint', st); var r = +st.getAttribute('data-shown') || 0; if (s && !st.getAttribute('data-done')) s.hidden = false; var lk = $('.story-lock', st); if (lk) lk.hidden = true; }
 });
 
 /* ── outcomes ── */
