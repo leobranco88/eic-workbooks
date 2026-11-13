@@ -925,6 +925,7 @@ footer { padding: 32px 60px 60px; text-align: center; font-size: clamp(10.8px, c
 }
 .play:hover { background: var(--ink); color: var(--white); }
 .play.playing { background: var(--ink); color: var(--white); }
+.play.paused { background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
 .play svg { display: block; }
 .plays { font-size: clamp(10.35px, calc(8.537px + 0.4835vw), 17.82px); font-weight: 700; color: var(--mid); }
 .reveal-btn {
@@ -1350,7 +1351,7 @@ function hl(text, isQuestion){
 window.__hl = hl;
 
 /* ── áudio ── */
-var cur = null, plays = {};
+var cur = null, curId = null, curBtn = null, plays = {};
 function plainOf(id){
   for (var i = 0; i < ROUNDS.length; i++){
     var r = ROUNDS[i];
@@ -1359,19 +1360,27 @@ function plainOf(id){
   }
   return '';
 }
+function pauseIcon(){ return '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.4z" fill="currentColor"/></svg>'; }
+function setBtn(b, on){ if (!b) return; b.classList.toggle('playing', on); b.innerHTML = on ? pauseIcon() : playIcon(); }
 function stopAll(){
   if (cur){ try { cur.pause(); } catch (e){} cur = null; }
+  curId = null; curBtn = null;
   if (window.speechSynthesis) window.speechSynthesis.cancel();
-  $$('.play.playing').forEach(function(b){ b.classList.remove('playing'); });
+  $$('.play.playing, .play.paused').forEach(function(b){ b.classList.remove('paused'); setBtn(b, false); });
 }
 function playIcon(){ return '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>'; }
 function playBtn(id, label){ return '<button class="play" type="button" data-play="' + id + '" aria-label="' + esc(label) + '">' + playIcon() + '</button>'; }
 function play(id, btn){
+  if (cur && curId === id && btn === curBtn){
+    if (!cur.paused){ cur.pause(); setBtn(btn, false); btn.classList.add('paused'); btn.setAttribute('aria-label', 'Resume'); }
+    else { var rp = cur.play(); if (rp && rp.catch) rp.catch(function(){}); btn.classList.remove('paused'); setBtn(btn, true); btn.setAttribute('aria-label', 'Pause'); }
+    return;
+  }
   stopAll();
   plays[id] = (plays[id] || 0) + 1;
   $$('[data-plays="' + id + '"]').forEach(function(el){ el.textContent = plays[id] === 1 ? 'played once' : 'played ' + plays[id] + ' times'; });
-  btn.classList.add('playing');
-  var done = function(){ btn.classList.remove('playing'); };
+  setBtn(btn, true); curId = id; curBtn = btn;
+  var done = function(){ btn.classList.remove('paused'); setBtn(btn, false); if (curBtn === btn){ cur = null; curId = null; curBtn = null; } };
   if (AUDIO[id]){
     var a = new Audio(AUDIO[id]); cur = a; a.onended = done; a.onerror = done;
     var p = a.play(); if (p && p.catch) p.catch(done);
