@@ -18,7 +18,7 @@ const GRUPOS = [
   { nome: 'Famílias',          pastas: ['familia-kids1','familia-kids2','familia-kids3','familia-kids4','familia-kids5','familia-kids6'] },
   { nome: 'Checkpoints Teens', pastas: ['teens1-checkpoints','teens2-checkpoints','teens3-checkpoints','teens4-checkpoints',
                                         'check-point-teens5-6-guide','checkpoint-teens','checkpoint-teens2-final'] },
-  { nome: 'Turmas e alunos',   pastas: ['erik','rafael','toshie','deb','vitoria','teens1','teens3'] },
+  { nome: 'Turmas e alunos',   pastas: ['erik','rafael','toshie','deb','vitoria','renata','teens1','teens3'] },
   { nome: 'Business',          pastas: ['midland','business','sales','ventix','procurement','customer-service','strategic-hr','self-development','health'] },
   { nome: 'Método',            pastas: ['neural-english','neural-english-oficial','neural-english-presentation','grammar',
                                         'verb-patterns','speaking practice','on-the-move'] },
