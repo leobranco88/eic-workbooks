@@ -1476,6 +1476,147 @@ body.qr-lock { overflow: hidden; }
   <p class="hero-sub class-only"><strong>Class version.</strong> 5 sentences. The full set, with 40, is in <strong>Home</strong>.<span class="hero-sub-pt">Na aula, só o essencial. Em casa, tudo.</span></p>
   <div class="total"><span id="totDone">0</span> / <span id="totAll">4</span> exercises complete</div>
 </header>
+<style id="sortit-css">
+#sortit .ds-tag{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+#sortit .ds-steps{display:flex;gap:22px;flex-wrap:wrap;font-weight:800;font-size:17px;margin-bottom:6px}
+#sortit .ds-steps b{display:inline-block;margin-right:6px}
+#sortit .ds-pt{color:var(--mid);font-size:14px;border-left:3px solid var(--light);padding-left:12px;margin:8px 0 0}
+#sortit .ds-bar{display:flex;align-items:center;gap:16px;margin:28px 0 18px;border-top:2px solid var(--ink);padding-top:12px}
+#sortit .ds-score{font-weight:800;font-size:15px;white-space:nowrap}
+#sortit .ds-prog{flex:1;height:4px;background:var(--light)}
+#sortit .ds-prog i{display:block;height:100%;width:0;background:var(--ink);transition:width .25s}
+#sortit .ds-btn{font:inherit;font-size:13px;font-weight:700;background:none;border:0;border-bottom:1px dotted var(--mid);color:var(--mid);cursor:pointer;padding:2px 0}
+#sortit .ds-btn:hover{color:var(--ink)}
+#sortit .ds-lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--light)}
+#sortit .ds-lane{padding:18px 18px 22px;min-height:300px;border-right:1px solid var(--light)}
+#sortit .ds-lane:last-child{border-right:0}
+#sortit .ds-lane.ds-over{background:var(--snow)}
+#sortit .ds-lane .ds-n{font-size:64px;font-weight:900;line-height:.9;letter-spacing:-.04em}
+#sortit .ds-lane h3{font-size:19px;font-weight:900;margin:8px 0 2px}
+#sortit .ds-lane .ds-rule{font-size:13px;color:var(--mid);font-weight:500}
+#sortit .ds-lane .ds-ex{margin:12px 0 14px;padding:8px 10px;font-size:14px;font-weight:600;border-left:3px solid currentColor}
+#sortit .ds-l1{color:var(--a)}#sortit .ds-l2{color:var(--b)}#sortit .ds-l3{color:var(--c)}
+#sortit .ds-l1 .ds-ex{background:var(--a-tint)}#sortit .ds-l2 .ds-ex{background:var(--b-tint)}#sortit .ds-l3 .ds-ex{background:var(--c-tint)}
+#sortit .ds-lane .ds-ex span{color:var(--ink)}
+#sortit .ds-lane .ds-ex em{font-style:normal;background:var(--neon);color:var(--ink);padding:0 2px}
+#sortit .ds-drop{display:flex;flex-direction:column;gap:6px}
+#sortit .ds-placed{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 14px 9px;border-radius:999px;font-weight:700;font-size:15px}
+#sortit .ds-l1 .ds-placed{background:var(--a-tint)}#sortit .ds-l2 .ds-placed{background:var(--b-tint)}#sortit .ds-l3 .ds-placed{background:var(--c-tint)}
+#sortit .ds-placed small{font-weight:500;color:var(--mid);font-size:12px}
+#sortit .ds-hint{font-size:13px;font-weight:600;color:var(--c);min-height:20px;margin:16px 0 8px}
+#sortit .ds-bank{display:flex;flex-wrap:wrap;gap:10px;padding:20px;background:var(--snow);min-height:78px;border-radius:14px}
+.ds-card{font:inherit;font-size:16px;font-weight:700;letter-spacing:-.005em;padding:9px 20px 10px;background:#fff;color:var(--ink);border:1px solid #bdbdb6;border-radius:999px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;transition:background .12s,border-color .12s}
+.ds-card:hover{border-color:var(--ink);background:#fff}
+#sortit .ds-card.ds-sel{background:var(--neon);border-color:var(--ink)}
+.ds-card.ds-drag{position:fixed;left:0;top:0;z-index:50;pointer-events:none;box-shadow:0 8px 22px rgba(0,0,0,.16);background:var(--neon);border-color:var(--ink);cursor:grabbing;will-change:transform;transition:none}
+#sortit .ds-card.ds-no{border-color:var(--c);color:var(--c);background:var(--c-tint)}
+#sortit .ds-bank-lab{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:26px 0 8px}
+#sortit .ds-nextb{margin-top:20px;font:inherit;font-weight:800;font-size:15px;padding:11px 26px;border-radius:999px;border:0;background:var(--ink);color:#fff;cursor:pointer}
+#sortit .ds-nextb:hover{background:#333}
+#sortit .ds-done{display:none;margin-top:20px;font-weight:800;font-size:18px}
+@media(max-width:720px){#sortit .ds-lanes{grid-template-columns:1fr}#sortit .ds-lane{border-right:0;border-bottom:1px solid var(--light);min-height:0}#sortit .ds-lane .ds-n{font-size:44px}}
+.ds-card.ds-drag{position:fixed}
+#sortit{max-width:var(--content-w);margin:0 auto;padding:40px 28px 24px}
+#sortit .ds-h{font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1.08;margin:6px 0 12px}
+
+</style>
+<section id="sortit" class="sortit" aria-label="Warm-up: sort the verbs">
+  <div class="ds-tag">Warm-up · before exercise 1</div>
+  <h2 class="ds-h">Which family?<br>Drag the verb home.</h2>
+  <div class="ds-steps"><span><b>1</b>Read the verb.</span><span><b>2</b>Think of its pattern.</span><span><b>3</b>Drag it to its family.</span></div>
+  <p class="ds-pt">Arraste cada verbo para a família dele. Advise, ask, urge e require valem em duas famílias. No celular, toque no verbo e depois na família.</p>
+  <div class="ds-bar"><span class="ds-score" id="ds-score">0 / 39 placed</span><span class="ds-tag" id="ds-round">Round 1 of 3</span><div class="ds-prog"><i id="ds-fill"></i></div>
+    <button class="ds-btn" id="ds-showAll">Show all answers</button><button class="ds-btn" id="ds-reset">Start again</button></div>
+  <div class="ds-lanes">
+    <div class="ds-lane ds-l1" data-f="1"><div class="ds-n">1</div><h3>Verb + sb + to</h3><div class="ds-rule">pessoa + “to” + verbo</div>
+      <div class="ds-ex">___ <span>me <em>to</em> help</span></div><div class="ds-drop"></div></div>
+    <div class="ds-lane ds-l2" data-f="2"><div class="ds-n">2</div><h3>Verb + sb + verb</h3><div class="ds-rule">pessoa + verbo, sem “to”</div>
+      <div class="ds-ex">___ <span>me <em>go</em></span></div><div class="ds-drop"></div></div>
+    <div class="ds-lane ds-l3" data-f="3"><div class="ds-n">3</div><h3>Verb + that + verb</h3><div class="ds-rule">“that” + pessoa + verbo</div>
+      <div class="ds-ex">___ <span><em>that</em> we wait</span></div><div class="ds-drop"></div></div>
+  </div>
+  <div class="ds-hint" id="ds-hint" aria-live="polite"></div>
+  <div class="ds-bank-lab">Verbs</div>
+  <div class="ds-bank" id="ds-bank"></div>
+  <button class="ds-nextb" id="ds-next" type="button" style="display:none">Next round →</button>
+  <div class="ds-done" id="ds-done">All 39 verbs in the right home. Nice.</div>
+</div>
+</section>
+<script id="sortit-js">
+(function(){
+
+/* f: family (1,2,3) or 0 = fits both 1 and 3 */
+var P=[
+ // Family 1
+ ['want',1,'want you to stay'],['need',1,'need you to sign'],['tell',1,'tell me to wait'],['expect',1,'expect them to arrive'],
+ ['allow',1,'allow us to leave'],['encourage',1,'encourage her to apply'],['persuade',1,'persuade him to stay'],['remind',1,'remind me to call'],
+ ['warn',1,'warn him to be careful'],['invite',1,'invite us to join'],['convince',1,'convince her to try'],['teach',1,'teach him to swim'],
+ ['force',1,'force us to wait'],['get',1,'get him to call'],['beg',1,'beg you to stay'],['permit',1,'permit us to leave'],
+ ['enable',1,'enable users to log in'],['inspire',1,'inspire us to try'],['trust',1,'trust you to decide'],['dare',1,'dare me to jump'],
+ // both 1 and 3
+ ['advise',0,'advise you to rest · advise that you rest'],['ask',0,'ask us to wait · ask that we wait'],['urge',0,'urge them to act · urge that they act'],['require',0,'require us to sign · require that we sign'],
+ // Family 2
+ ['let',2,'let me go'],['make',2,'make us leave'],['have',2,'have her call'],['see',2,'see him leave'],['hear',2,'hear them sing'],
+ ['watch',2,'watch them play'],['feel',2,'feel it shake'],['notice',2,'notice him leave'],['help',2,'help me carry it'],
+ // Family 3
+ ['suggest',3,'suggest that we wait'],['recommend',3,'recommend that you rest'],['insist',3,'insist that I come'],['demand',3,'demand that he leave'],
+ ['propose',3,'propose that we meet'],['request',3,'request that she attend']
+];
+var HINT={1:function(w){return w+': pessoa + “to” depois do verbo.'},
+ 2:function(w){return w+': a pessoa vem direto com o verbo, sem “to”.'},
+ 3:function(w){return w+' pede “that” + pessoa + verbo.'},
+ 0:function(w){return w+' aceita “to” (Família 1) e também “that” (Família 3), nunca verbo seco.'}};
+var HINT_X={have:'have (pedir a alguém): pessoa + verbo, sem “to”.',make:'make (obrigar): pessoa + verbo, sem “to”.',help:'help: pessoa + verbo. O “to” é opcional, então não é Família 1.',
+ get:'get (conseguir que): pessoa + “to”.',insist:'insist não aceita pessoa + “to”. Use “that”.',suggest:'suggest não aceita pessoa + “to”. Use “that”.',recommend:'recommend não aceita pessoa + “to”. Use “that”.'};
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+var bank=document.getElementById('ds-bank'),hint=document.getElementById('ds-hint'),sel=null,placed=0,round=0,rounds=[];
+var lanes=[].slice.call(document.querySelectorAll('#sortit .ds-lane')),TOTAL=P.length;
+function deal(){ // 3 rounds of 13, mixed families, reshuffled each time
+  var g={1:[],2:[],3:[],0:[]};P.forEach(function(p,i){g[p[1]].push(i)});for(var k in g)shuf(g[k]);
+  var plan=[{1:7,0:1,2:3,3:2},{1:7,0:1,2:3,3:2},{1:6,0:2,2:3,3:2}];
+  rounds=plan.map(function(pl){var r=[];for(var k in pl){for(var n=0;n<pl[k];n++)r.push(g[k].shift())}return shuf(r)})}
+function mk(i){var b=document.createElement('button');b.type='button';b.className='ds-card';b.textContent=P[i][0];b.dataset.i=i;return b}
+function showRound(){bank.innerHTML='';lanes.forEach(function(l){l.querySelector('.ds-drop').innerHTML=''});sel=null;hint.textContent='';
+  document.getElementById('ds-next').style.display='none';document.getElementById('ds-done').style.display='none';
+  rounds[round].forEach(function(i){bank.appendChild(mk(i))});upd()}
+function start(){deal();round=0;placed=0;showRound()}
+function upd(){document.getElementById('ds-score').textContent=placed+' / '+TOTAL+' placed';document.getElementById('ds-fill').style.width=(placed/TOTAL*100)+'%';
+  document.getElementById('ds-round').textContent='Round '+(round+1)+' of 3';
+  if(!bank.querySelector('.ds-card')){ if(round<2){document.getElementById('ds-next').style.display='inline-block'} else document.getElementById('ds-done').style.display='block'}}
+function ok(p,lane){var f=+lane.dataset.f;return p[1]===f||(p[1]===0&&(f===1||f===3))}
+function place(card,lane){var p=P[card.dataset.i];
+  if(ok(p,lane)){var r=document.createElement('div');r.className='ds-placed';var x=p[1]===0?(+lane.dataset.f===1?p[2].split(' · ')[0]:p[2].split(' · ')[1]):p[2];
+    r.innerHTML='<span>'+p[0]+'</span><small>'+x+'</small>';lane.querySelector('.ds-drop').appendChild(r);card.remove();placed++;hint.textContent='';sel=null;upd();return true}
+  card.classList.add('ds-no');setTimeout(function(){card.classList.remove('ds-no')},700);hint.textContent=HINT_X[p[0]]&&p[1]!==0?HINT_X[p[0]]:HINT[p[1]](p[0]);return false}
+// drag: listeners on window, transform-based ghost, one hit-test per frame
+var drag=null,raf=0,lastLane=null;
+function clearDrag(){if(drag&&drag.ghost)drag.ghost.remove();if(drag&&drag.c)drag.c.style.opacity='';
+  [].forEach.call(document.querySelectorAll('.ds-card.ds-drag'),function(g){g.remove()});lanes.forEach(function(x){x.classList.remove('ds-over')});drag=null;lastLane=null}
+function laneAt(x,y){for(var k=0;k<lanes.length;k++){var r=lanes[k].getBoundingClientRect();if(x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom)return lanes[k]}return null}
+bank.addEventListener('dragstart',function(e){e.preventDefault()});
+bank.addEventListener('selectstart',function(e){e.preventDefault()});
+bank.addEventListener('pointerdown',function(e){var c=e.target.closest('.ds-card');if(!c||e.button>0)return;e.preventDefault();clearDrag();
+  drag={c:c,x:e.clientX,y:e.clientY,px:e.clientX,py:e.clientY,moved:false,ghost:null,id:e.pointerId}});
+window.addEventListener('pointermove',function(e){if(!drag||e.pointerId!==drag.id)return;drag.px=e.clientX;drag.py=e.clientY;
+  if(!drag.moved){if(Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y)<6)return;
+    drag.moved=true;var g=drag.c.cloneNode(true);g.className='ds-card ds-drag';g.style.width=drag.c.offsetWidth+'px';document.body.appendChild(g);drag.ghost=g;drag.c.style.opacity='.3'}
+  if(!raf)raf=requestAnimationFrame(function(){raf=0;if(!drag||!drag.ghost)return;
+    drag.ghost.style.transform='translate('+(drag.px-drag.ghost.offsetWidth/2)+'px,'+(drag.py-20)+'px)';
+    var l=laneAt(drag.px,drag.py);if(l!==lastLane){lanes.forEach(function(x){x.classList.toggle('ds-over',x===l)});lastLane=l}})});
+function end(e){if(!drag||e.pointerId!==drag.id)return;var d=drag,wasMoved=d.moved,x=e.clientX,y=e.clientY,cancel=e.type==='pointercancel';
+  clearDrag();
+  if(wasMoved){if(!cancel){var l=laneAt(x,y);if(l&&d.c.isConnected)place(d.c,l)}}
+  else if(!cancel){if(sel)sel.classList.remove('ds-sel');sel=(sel===d.c)?null:d.c;if(sel)sel.classList.add('ds-sel')}}
+window.addEventListener('pointerup',end);window.addEventListener('pointercancel',end);
+window.addEventListener('blur',clearDrag);document.addEventListener('visibilitychange',clearDrag);
+lanes.forEach(function(l){l.addEventListener('click',function(){if(sel&&sel.isConnected){var c=sel;c.classList.remove('ds-sel');sel=null;place(c,l)}})});
+document.getElementById('ds-reset').onclick=start;
+document.getElementById('ds-next').onclick=function(){round++;showRound();document.getElementById('sortit').scrollIntoView({behavior:'smooth',block:'start'})};
+document.getElementById('ds-showAll').onclick=function(){[].slice.call(bank.querySelectorAll('.ds-card')).forEach(function(c){var p=P[c.dataset.i];place(c,lanes[(p[1]===0?1:p[1])-1])});hint.textContent=''};
+start();
+
+})();
+</script>
 <section class="part" id="pt0"><div class="part-eyebrow"><span class="num">1</span> <span>Part 1 &middot; <span class="home-only">exercise 1</span><span class="class-only">exercise 1, five sentences</span></span></div><h2>Plain and simple</h2><div class="xb" id="x1"><div class="xb-head"><span class="xb-n">1</span><div><h3>Translate</h3></div></div><div class="xb-en"><ol class="st3"><li>Read the sentence.</li><li>Say it in English.</li><li>Write it.</li></ol></div><div class="xb-ipt">Pense no verbo principal primeiro: ele decide a família.</div><div class="worked"><div class="wk-lab">Example</div><div class="wk-src">A professora deixou a gente sair cedo.</div><ol class="wk-steps"><li>Verbo principal: deixar, <b>“let”</b>, Família 2.</li><li>Pessoa + verbo sem <b>“to”</b>: let us leave.</li></ol><div class="wk-en"><span class="wk-a">The teacher let us <span class='hl'>leave</span> early.</span></div></div><div class="turn">Your turn</div><div class="ti-score"><span id="sc1">0 / 10 correct</span><div class="match-progress-bar"><div class="match-progress-fill" id="fl1"></div></div></div><div class="rv-bar"><button type="button" class="rv-all" data-n="1" aria-pressed="false"><span class="rv-sw" aria-hidden="true"></span>Show all answers</button></div><div class="xb-list" data-n="1"></div></div></section>
 <section class="part home-only" id="pt1"><div class="part-eyebrow"><span class="num">2</span> <span>Part 2 &middot; exercise 2</span></div><div class="hand-tag">careful with “not”!</div><h2>Watch the “not”</h2><div class="xb home-only" id="x2"><div class="xb-head"><span class="xb-n">2</span><div><h3>Translate</h3></div></div><div class="xb-en"><ol class="st3"><li>Read the sentence.</li><li>Say it in English.</li><li>Write it.</li></ol></div><div class="xb-ipt">Em algumas frases entra o “not”. Nas outras, atenção ao padrão do verbo.</div><div class="worked"><div class="wk-lab">Example</div><div class="wk-src">O guia pediu para a gente não tocar nas obras.</div><ol class="wk-steps"><li>Verbo principal: pedir, <b>“ask”</b>, Família 1.</li><li>Com “não”, o <b>“not”</b> vem logo antes do <b>“to”</b>.</li></ol><div class="wk-en"><span class="wk-a">The guide asked us <span class='hl'>not to</span> touch the artwork.</span></div></div><div class="turn">Your turn</div><div class="ti-score"><span id="sc2">0 / 10 correct</span><div class="match-progress-bar"><div class="match-progress-fill" id="fl2"></div></div></div><div class="rv-bar"><button type="button" class="rv-all" data-n="2" aria-pressed="false"><span class="rv-sw" aria-hidden="true"></span>Show all answers</button></div><div class="xb-list" data-n="2"></div></div></section>
 <section class="part home-only" id="pt2"><div class="part-eyebrow"><span class="num">3</span> <span>Part 3 &middot; exercise 3</span></div><div class="hand-tag">longer ones!</div><h2>Longer ones</h2><div class="xb home-only" id="x3"><div class="xb-head"><span class="xb-n">3</span><div><h3>Translate</h3></div></div><div class="xb-en"><ol class="st3"><li>Read the sentence.</li><li>Say it in English.</li><li>Write it.</li></ol></div><div class="xb-ipt">Frases mais longas. Ache o verbo principal e o resto vem junto.</div><div class="worked"><div class="wk-lab">Example</div><div class="wk-src">O dentista recomendou que eu escovasse os dentes depois de comer.</div><ol class="wk-steps"><li>Verbo principal: recomendar, <b>“recommend”</b>, Família 3.</li><li><b>“that”</b> + pessoa + verbo, sem “to”.</li></ol><div class="wk-en"><span class="wk-a">The dentist recommended <span class='hl'>that</span> I brush my teeth after eating.</span></div></div><div class="turn">Your turn</div><div class="ti-score"><span id="sc3">0 / 10 correct</span><div class="match-progress-bar"><div class="match-progress-fill" id="fl3"></div></div></div><div class="rv-bar"><button type="button" class="rv-all" data-n="3" aria-pressed="false"><span class="rv-sw" aria-hidden="true"></span>Show all answers</button></div><div class="xb-list" data-n="3"></div></div></section>
