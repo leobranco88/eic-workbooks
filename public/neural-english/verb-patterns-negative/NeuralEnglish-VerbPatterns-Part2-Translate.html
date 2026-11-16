@@ -1510,6 +1510,7 @@ body.qr-lock { overflow: hidden; }
 #sortit .ds-card.ds-sel{background:var(--neon);border-color:var(--ink)}
 .ds-card.ds-drag{position:fixed;left:0;top:0;z-index:50;pointer-events:none;box-shadow:0 8px 22px rgba(0,0,0,.16);background:var(--neon);border-color:var(--ink);cursor:grabbing;will-change:transform;transition:none}
 #sortit .ds-card.ds-no{border-color:var(--c);color:var(--c);background:var(--c-tint)}
+.ds-card .ds-g{font-weight:500;font-size:12px;color:var(--mid);margin-left:8px;letter-spacing:0}
 #sortit .ds-bank-lab{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:26px 0 8px}
 #sortit .ds-nextb{margin-top:20px;font:inherit;font-weight:800;font-size:15px;padding:11px 26px;border-radius:999px;border:0;background:var(--ink);color:#fff;cursor:pointer}
 #sortit .ds-nextb:hover{background:#333}
@@ -1548,19 +1549,19 @@ body.qr-lock { overflow: hidden; }
 /* f: family (1,2,3) or 0 = fits both 1 and 3 */
 var P=[
  // Family 1
- ['want',1,'want you to stay'],['need',1,'need you to sign'],['tell',1,'tell me to wait'],['expect',1,'expect them to arrive'],
- ['allow',1,'allow us to leave'],['encourage',1,'encourage her to apply'],['persuade',1,'persuade him to stay'],['remind',1,'remind me to call'],
- ['warn',1,'warn him to be careful'],['invite',1,'invite us to join'],['convince',1,'convince her to try'],['teach',1,'teach him to swim'],
- ['force',1,'force us to wait'],['get',1,'get him to call'],['beg',1,'beg you to stay'],['permit',1,'permit us to leave'],
- ['enable',1,'enable users to log in'],['inspire',1,'inspire us to try'],['trust',1,'trust you to decide'],['dare',1,'dare me to jump'],
+ ['want',1,'want you to stay','querer'],['need',1,'need you to sign','precisar'],['tell',1,'tell me to wait','dizer'],['expect',1,'expect them to arrive','esperar'],
+ ['allow',1,'allow us to leave','permitir'],['encourage',1,'encourage her to apply','incentivar'],['persuade',1,'persuade him to stay','persuadir'],['remind',1,'remind me to call','lembrar'],
+ ['warn',1,'warn him to be careful','avisar'],['invite',1,'invite us to join','convidar'],['convince',1,'convince her to try','convencer'],['teach',1,'teach him to swim','ensinar'],
+ ['force',1,'force us to wait','forçar'],['get',1,'get him to call','conseguir'],['beg',1,'beg you to stay','implorar'],['permit',1,'permit us to leave','permitir'],
+ ['enable',1,'enable users to log in','possibilitar'],['inspire',1,'inspire us to try','inspirar'],['trust',1,'trust you to decide','confiar'],['dare',1,'dare me to jump','desafiar'],
  // both 1 and 3
- ['advise',0,'advise you to rest · advise that you rest'],['ask',0,'ask us to wait · ask that we wait'],['urge',0,'urge them to act · urge that they act'],['require',0,'require us to sign · require that we sign'],
+ ['advise',0,'advise you to rest · advise that you rest','aconselhar'],['ask',0,'ask us to wait · ask that we wait','pedir'],['urge',0,'urge them to act · urge that they act','insistir'],['require',0,'require us to sign · require that we sign','exigir'],
  // Family 2
- ['let',2,'let me go'],['make',2,'make us leave'],['have',2,'have her call'],['see',2,'see him leave'],['hear',2,'hear them sing'],
- ['watch',2,'watch them play'],['feel',2,'feel it shake'],['notice',2,'notice him leave'],['help',2,'help me carry it'],
+ ['let',2,'let me go','deixar'],['make',2,'make us leave','obrigar'],['have',2,'have her call','mandar'],['see',2,'see him leave','ver'],['hear',2,'hear them sing','ouvir'],
+ ['watch',2,'watch them play','observar'],['feel',2,'feel it shake','sentir'],['notice',2,'notice him leave','perceber'],['help',2,'help me carry it','ajudar'],
  // Family 3
- ['suggest',3,'suggest that we wait'],['recommend',3,'recommend that you rest'],['insist',3,'insist that I come'],['demand',3,'demand that he leave'],
- ['propose',3,'propose that we meet'],['request',3,'request that she attend']
+ ['suggest',3,'suggest that we wait','sugerir'],['recommend',3,'recommend that you rest','recomendar'],['insist',3,'insist that I come','insistir'],['demand',3,'demand that he leave','exigir'],
+ ['propose',3,'propose that we meet','propor'],['request',3,'request that she attend','solicitar']
 ];
 var HINT={1:function(w){return w+': pessoa + “to” depois do verbo.'},
  2:function(w){return w+': a pessoa vem direto com o verbo, sem “to”.'},
@@ -1575,7 +1576,7 @@ function deal(){ // 3 rounds of 13, mixed families, reshuffled each time
   var g={1:[],2:[],3:[],0:[]};P.forEach(function(p,i){g[p[1]].push(i)});for(var k in g)shuf(g[k]);
   var plan=[{1:7,0:1,2:3,3:2},{1:7,0:1,2:3,3:2},{1:6,0:2,2:3,3:2}];
   rounds=plan.map(function(pl){var r=[];for(var k in pl){for(var n=0;n<pl[k];n++)r.push(g[k].shift())}return shuf(r)})}
-function mk(i){var b=document.createElement('button');b.type='button';b.className='ds-card';b.textContent=P[i][0];b.dataset.i=i;return b}
+function mk(i){var b=document.createElement('button');b.type='button';b.className='ds-card';b.innerHTML=P[i][0]+'<span class="ds-g">'+P[i][3]+'</span>';b.dataset.i=i;return b}
 function showRound(){bank.innerHTML='';lanes.forEach(function(l){l.querySelector('.ds-drop').innerHTML=''});sel=null;hint.textContent='';
   document.getElementById('ds-next').style.display='none';document.getElementById('ds-done').style.display='none';
   rounds[round].forEach(function(i){bank.appendChild(mk(i))});upd()}
