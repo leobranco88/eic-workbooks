@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mumbleton Academy · Apprentice rooms</title>
+<style>
+@font-face{font-family:K;src:url(fonts/kalam-400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:K;src:url(fonts/kalam-700.woff2) format('woff2');font-weight:700}
+:root{--dk:92px;--cream:#f3e6c8;--ink:#1e1b1a;--mus:#e6a923;--terra:#b44f33;--teal:#2f5f5c;--hl:#f4dd8a}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#142a2a;color:var(--cream);font:400 18px/1.4 K,system-ui,sans-serif;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
+button{font:inherit;color:inherit;cursor:pointer}
+.stage{position:relative;width:min(100vw,calc((100vh - var(--dk))*1.7778));aspect-ratio:16/9;background:#142a2a center/100% 100% no-repeat;overflow:hidden}
+
+/* ribbon title + counter */
+.title{position:absolute;left:1.6%;top:1.8%;z-index:3;text-align:center;background:url(img/ui/k_ribbon.webp) center/100% 100% no-repeat;padding:clamp(12px,2.2vh,22px) clamp(50px,6vw,84px) clamp(14px,2.4vh,26px);color:var(--ink);filter:drop-shadow(0 4px 6px rgba(0,0,0,.4))}
+.title small{display:block;font:700 clamp(10px,1vw,13px)/1 K;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.title b{font:700 clamp(20px,2.6vw,36px)/1.1 K}
+.meter{position:absolute;right:2.4%;top:3%;z-index:3;text-align:right;text-shadow:0 2px 6px rgba(0,0,0,.7)}
+.meter small{display:block;font:700 clamp(10px,1vw,13px)/1 K;letter-spacing:.14em;text-transform:uppercase}
+.meter b{font:700 clamp(22px,2.6vw,36px)/1.1 K}
+
+/* Rafa */
+.rafa{position:absolute;left:var(--sx,70%);bottom:2%;height:var(--sh,56%);z-index:2;background:none;border:0;padding:0;filter:drop-shadow(0 14px 12px rgba(0,0,0,.4))}
+.rafa img{height:100%;display:block}
+
+/* hotspots */
+.hs{position:absolute;background:none;border:0;z-index:3;border-radius:6px}
+.hs:hover{outline:3px dashed rgba(243,230,200,.75);outline-offset:2px}
+.hs .mk{position:absolute;left:50%;top:50%;translate:-50% -50%;width:clamp(30px,3.6vw,54px);aspect-ratio:1;background:url(img/ui/k_badge.webp) center/100% 100% no-repeat;color:var(--ink);font:700 clamp(15px,1.8vw,26px)/1 K;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 3px 4px rgba(0,0,0,.45));transition:opacity .2s}
+.hs.seen .mk{opacity:.5}
+.nomk .hs .mk{display:none}
+.hs.bonus .mk{width:clamp(24px,2.8vw,40px);font-size:clamp(14px,1.6vw,22px)}
+
+/* bubble */
+.bub{position:absolute;right:21%;bottom:45%;translate:0 12px;z-index:6;isolation:isolate;width:min(560px,56%);padding:clamp(22px,3.4vh,34px) clamp(40px,5vw,66px) clamp(40px,5.6vh,58px);color:var(--ink);text-align:center;opacity:0;pointer-events:none;transition:.22s;filter:drop-shadow(0 10px 14px rgba(0,0,0,.45))}
+.bub::before{content:'';position:absolute;inset:0;z-index:-1;background:url(img/ui/k_bubble.webp) center/100% 100% no-repeat;transform:scaleX(-1)}
+.bub.on{opacity:1;translate:0 0}
+.bub .tg{font:700 clamp(11px,1.1vw,14px)/1 K;letter-spacing:.14em;text-transform:uppercase;color:#6b5a3c}
+.bub .en{font:700 clamp(24px,3.1vw,42px)/1.15 K;margin-top:4px}
+.bub .pt{font:400 clamp(14px,1.5vw,19px)/1.3 K;margin-top:4px;color:#4a3f30}
+.nopt .bub .pt{display:none}
+
+/* action buttons */
+.acts{position:absolute;left:50%;bottom:2.2%;translate:-50% 0;z-index:5;display:flex;gap:clamp(8px,1.4vw,22px)}
+.act{background:url(img/ui/k_choice.webp) center/100% 100% no-repeat;border:0;color:var(--ink);text-align:center;padding:clamp(14px,2.4vh,24px) clamp(30px,3.4vw,50px) clamp(14px,2.4vh,24px) clamp(62px,6vw,88px);font:700 clamp(17px,2vw,27px)/1.1 K;white-space:nowrap;filter:drop-shadow(0 5px 6px rgba(0,0,0,.4));transition:.15s}
+.act:hover{filter:brightness(1.07) drop-shadow(0 5px 6px rgba(0,0,0,.4))}
+
+/* panel */
+.shade{position:absolute;inset:0;z-index:8;background:rgba(14,28,28,.62);display:none;align-items:center;justify-content:center}
+.shade.on{display:flex}
+.panel{width:min(900px,92%);max-height:none;overflow:visible;transform-origin:center;background:none;border:38px solid transparent;border-image:url(img/ui/k_panel.webp) 70 fill/38px stretch;color:var(--ink);padding:clamp(26px,4.4vh,44px) clamp(14px,2.4vw,40px) clamp(6px,1.4vh,16px) clamp(40px,5vw,72px);filter:drop-shadow(0 14px 20px rgba(0,0,0,.5))}
+.panel .k{font:700 clamp(11px,1.1vw,14px)/1 K;letter-spacing:.14em;text-transform:uppercase;color:#6b5a3c}
+.panel h2{font:700 clamp(26px,3.4vw,46px)/1.1 K;margin:6px 0 10px}
+.tabs{display:flex;gap:10px;margin:2px 0 12px}
+.tab{background:url(img/ui/k_tile.webp) center/100% 100% no-repeat;border:0;padding:clamp(10px,1.6vh,16px) clamp(20px,2.4vw,34px);font:700 clamp(15px,1.7vw,22px)/1.1 K;color:var(--ink);opacity:.62}
+.tab.on{opacity:1;background-image:url(img/ui/k_tile2.webp)}
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;font:700 clamp(17px,2vw,26px)/1.3 K;margin:8px 0;padding-left:1.7em;position:relative}
+.steps li::before{content:counter(s)".";position:absolute;left:0;color:var(--terra)}
+.steps li span{display:block;font:400 clamp(15px,1.7vw,21px)/1.3 K;color:#4a3f30}
+.how{font:400 clamp(15px,1.7vw,21px)/1.3 K;color:#4a3f30;margin:0 0 10px}
+.lines{margin:10px 0 4px}
+.lines p{font:700 clamp(20px,2.4vw,32px)/1.5 K;border-bottom:3px solid var(--ink);margin:4px 0}
+.bank{margin-top:12px;font:400 clamp(15px,1.7vw,21px)/1.3 K}
+.bank b{background:var(--hl);padding:0 7px;margin-right:6px;font-weight:700;display:inline-block}
+.qs{display:grid;gap:4px}
+.q{text-align:left;background:url(img/ui/k_choice.webp) center/100% 100% no-repeat;border:0;padding:clamp(10px,1.5vh,15px) 6% clamp(10px,1.5vh,15px) 16%;text-align:center;font:700 clamp(16px,1.7vw,22px)/1.2 K;color:var(--ink);filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))}
+.q:hover{filter:brightness(1.07) drop-shadow(0 3px 4px rgba(0,0,0,.3))}
+.big{font:700 clamp(30px,4.4vw,62px)/1.1 K;margin:6px 0 2px}
+.mania{font:400 clamp(16px,1.9vw,24px)/1.3 K;color:#4a3f30;margin-bottom:6px}
+.be{display:grid;grid-template-columns:1fr auto;gap:2vw;align-items:end}.be img{height:clamp(200px,44vh,380px);margin-right:1vw;filter:drop-shadow(0 8px 8px rgba(0,0,0,.3))}
+
+.prof{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,2.4vw,34px);align-items:start}
+.prof .cd{height:clamp(200px,44vh,380px);rotate:-2deg;filter:drop-shadow(0 10px 10px rgba(0,0,0,.35));display:block}
+.prof .sub{font:400 clamp(15px,1.8vw,22px)/1.3 K;margin:0 0 8px}
+.prof .sub mark{background:var(--hl);padding:0 6px;margin-right:-5px;font-weight:700}
+.ql{display:grid;grid-template-columns:1fr 1fr;gap:2px 28px;margin:4px 0 8px}
+.ql div{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ink);padding:2px 0;font:700 clamp(15px,1.7vw,22px)/1.3 K}
+.ql i{display:inline-block;width:.8em;height:.8em;border:2.5px solid var(--ink);border-radius:50%;margin-left:5px}
+.ql i.f{background:var(--mus)}
+.tg2{display:flex;flex-wrap:wrap;gap:8px 18px;font:400 clamp(14px,1.6vw,20px)/1.3 K;margin:4px 0}
+.tg2 b{background:var(--ink);color:var(--cream);font:700 clamp(10px,1vw,13px)/1 K;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;margin-right:6px}
+.say{font:700 clamp(20px,2.6vw,34px)/1.15 K;margin:4px 0 6px}
+.say small{display:block;font:700 clamp(10px,1vw,13px)/1 K;letter-spacing:.14em;text-transform:uppercase;color:#6b5a3c;margin-bottom:2px}
+@media (max-height:700px){.prof .cd{height:clamp(190px,50vh,300px)}.ql div{padding:0}.prof .sub{margin:0 0 4px}}
+
+.tab,.ptab{background:url(img/ui/k_tile.webp) center/100% 100% no-repeat;border:0;padding:clamp(10px,1.6vh,16px) clamp(20px,2.4vw,34px);font:700 clamp(15px,1.7vw,22px)/1.1 K;color:var(--ink);opacity:.62}
+.ptab.on{opacity:1;background-image:url(img/ui/k_tile2.webp)}
+.who{display:flex;gap:clamp(14px,2vw,28px);align-items:center;margin-bottom:6px}
+.av{width:clamp(96px,15vh,150px);aspect-ratio:1;object-fit:cover;border:4px solid var(--ink);rotate:-2deg;box-shadow:0 6px 8px rgba(0,0,0,.25)}
+.who h2{margin:0}.hd{font:400 clamp(14px,1.6vw,20px)/1.3 K;color:#4a3f30}.hd b{color:var(--ink)}
+.bio{font:700 clamp(19px,2.3vw,30px)/1.2 K;margin-top:4px}
+.fx{display:grid;grid-template-columns:1fr 1fr;gap:2px 28px;margin:6px 0}
+.fx div{display:flex;flex-direction:column;border-bottom:2px solid var(--ink);padding:3px 0}
+.fx b,.bf b{font:700 clamp(10px,1vw,13px)/1.4 K;letter-spacing:.14em;text-transform:uppercase;color:#6b5a3c}
+.fx span{font:700 clamp(17px,2vw,26px)/1.2 K}
+.bf{display:flex;gap:14px;align-items:center;margin:8px 0 2px}
+.bf img{height:clamp(70px,13vh,120px);rotate:2deg;filter:drop-shadow(0 4px 5px rgba(0,0,0,.3))}
+.bf .fn{display:block;font:700 clamp(20px,2.4vw,32px)/1.1 K}.bf .fl{display:block;font:400 clamp(14px,1.6vw,20px)/1.3 K;color:#4a3f30}
+.posts{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,28px);margin:4px 0}
+.po{background:#fbf5e6;padding:10px 10px 12px;box-shadow:0 6px 10px rgba(0,0,0,.28)}
+.po:nth-child(1){rotate:-1.2deg}.po:nth-child(2){rotate:1deg}
+.po img{width:100%;aspect-ratio:330/165;object-fit:cover;display:block}
+.po .cp{font:700 clamp(15px,1.8vw,23px)/1.25 K;margin:8px 0 6px}
+.po .cm{font:400 clamp(13px,1.5vw,19px)/1.3 K;color:#4a3f30;border-top:2px dashed #b9a77f;padding-top:6px}.po .cm b{display:block;color:var(--ink)}
+@media (max-height:700px){.po img{aspect-ratio:330/120}.prof .cd{height:clamp(170px,40vh,260px)}.tabs{margin:0 0 4px}.ptab{padding:8px 22px}.panel .k{display:none}.av{width:92px}.fx div{padding:0}.bf img{height:64px}.po .cp{margin:4px 0}.po .sp{margin:0 0 3px}.bio{margin-top:0}}
+
+.sp{display:flex;align-items:center;gap:clamp(10px,1.4vw,18px);margin:0 0 6px}
+.spb{position:relative;display:flex;align-items:center;gap:8px;background:transparent;border:0;padding:2px 4px;font:700 clamp(15px,1.8vw,22px)/1 K;color:var(--ink);cursor:pointer}
+.spb img{height:clamp(30px,4vw,48px);width:auto;display:block;transition:scale .15s}
+.po .sp img{width:auto;aspect-ratio:auto;object-fit:contain}.po .spb em img{width:100%;height:auto}.spb:active img{scale:.88}
+.spb em{font-style:normal;position:absolute;left:-6px;top:-12px;width:clamp(26px,3.4vw,40px);pointer-events:none;opacity:0}
+.spb em img{height:auto;width:100%}
+.spb.pop em{animation:bur .55s ease-out}
+@keyframes bur{0%{opacity:1;scale:.5}100%{opacity:0;scale:1.5}}
+.spb span b.n{font-weight:700}.spb span small{font:700 clamp(10px,1vw,13px)/1 K;letter-spacing:.1em;text-transform:uppercase;color:#6b5a3c;margin-left:5px}
+.sp .cmt{display:flex;align-items:center;gap:6px;font:700 clamp(15px,1.8vw,22px)/1 K;color:var(--ink)}.sp .cmt img{height:clamp(22px,2.8vw,32px)}
+.cin{display:flex;gap:8px;align-items:center;margin-top:2px}
+.cin input{flex:1;min-width:0;background:transparent;border:0;border-bottom:2px solid var(--ink);font:400 clamp(14px,1.6vw,20px)/1.3 K;color:var(--ink);padding:2px 2px;outline:none}
+.cin input::placeholder{color:#8a7a5c}.cin input:focus{background:var(--hl)}
+.cin button{background:var(--ink);color:var(--cream);border:0;font:700 clamp(12px,1.3vw,16px)/1 K;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px}
+.cdone{display:block;font:700 clamp(15px,1.8vw,22px)/1.25 K;color:var(--ink);background:var(--hl);padding:2px 8px;margin-top:2px}
+.back{margin-top:10px;background:url(img/ui/btn_main.webp) center/100% 100% no-repeat;border:0;padding:clamp(12px,2vh,18px) clamp(30px,3vw,46px);font:700 clamp(16px,1.8vw,22px)/1 K;color:#3a1d12}
+
+/* peek bar */
+.peek{position:fixed;right:14px;bottom:8px;z-index:20;font:700 10px/1 K;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.peek a{color:var(--cream);text-underline-offset:3px}.peek b{color:var(--mus)}.peek button{background:none;border:0;color:var(--cream);text-decoration:underline;text-underline-offset:3px;font:inherit}
+@media (max-height:700px){.panel{border-width:30px;padding-top:22px}.panel h2{font-size:clamp(24px,2.8vw,36px);margin:2px 0 4px}.how{display:none}.tabs{margin:0 0 6px}.q{padding-top:7px;padding-bottom:7px}.steps li{margin:3px 0}.back{margin-top:6px}.lines p{line-height:1.3}}
+@media (max-height:620px){.acts{bottom:1.4%}.bub{bottom:44%}}
+
+/* choice buttons: keep the tape at its natural proportion (horizontal 3-slice) */
+.q,.act{box-sizing:border-box;display:flex;align-items:center;justify-content:center;background:none;border:solid transparent;border-width:0 calc(var(--h)*.31) 0 calc(var(--h)*.465);border-image:url(img/ui/k_choice.webp) 0 100 0 150 fill/0 calc(var(--h)*.31) 0 calc(var(--h)*.465) stretch;height:var(--h)}
+.q{--h:clamp(44px,6.2vh,58px);padding:0 8px}
+.act{--h:clamp(52px,7.6vh,74px);padding:0 10px 0 4px}
+.panel .k{margin-bottom:8px}.panel h2{margin-top:2px}
+.go{position:absolute;right:2.4%;top:13%;bottom:auto;left:auto;z-index:4;--h:clamp(40px,5.4vh,54px);font-size:clamp(12px,1.3vw,17px)}
+.go[hidden]{display:none}
+
+/* character bar */
+.dk{width:min(100vw,calc((100vh - var(--dk))*1.7778));height:var(--dk);background:#0e1f1f;border-top:3px solid #c9a24a;display:flex;align-items:center;justify-content:space-between;padding:0 2.2%;flex:none}
+.dkrow{display:flex;align-items:flex-end;gap:clamp(8px,1.1vw,16px)}
+.dkav{display:flex;flex-direction:column;align-items:center;gap:3px;font:700 11px/1 K;color:var(--cream);letter-spacing:.08em;text-transform:uppercase;opacity:.72;text-decoration:none;transition:opacity .15s}
+a.dkav:hover{opacity:1}
+.dkav i{display:block;width:clamp(36px,4.1vw,52px);aspect-ratio:1;border-radius:50%;background:center/cover;border:3px solid var(--cream);box-shadow:0 3px 0 #000a;transition:transform .15s}
+a.dkav:hover i{transform:translateY(-2px)}
+.dkav.dkon{opacity:1}.dkav.dkon i{width:clamp(44px,4.9vw,62px);border-color:var(--mus);box-shadow:0 0 0 3px var(--ink),0 4px 0 3px #000a}
+.dkav.dkon span{color:var(--mus)}
+.dkav.dklock{opacity:.5}.dkav.dklock i{background:#1c3a3a;border:3px dashed #5b7a73;display:flex;align-items:center;justify-content:center;font:700 clamp(16px,1.7vw,22px) K;color:#5b7a73;box-shadow:none;font-style:normal}
+.dktg{display:flex;gap:clamp(10px,1.6vw,22px)}
+.dktg button{background:none;border:0;color:var(--cream);font:700 10px/1 K;letter-spacing:.12em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px;opacity:.85;cursor:pointer}
+@media (max-height:700px){:root{--dk:72px}.dkav{font-size:9px}}
+@media (max-height:420px){.bub{bottom:38%;padding:14px 34px 28px}.bub .en{font-size:20px}.bub .pt{font-size:12px}}
+@media (max-width:600px){body{overflow-x:hidden}.dk{width:100vw;height:auto;min-height:var(--dk);flex-direction:column;gap:6px;padding:6px 8px}.dkrow{overflow-x:auto;max-width:100%}.dktg{flex-wrap:wrap;justify-content:center;gap:8px 14px}.acts{scale:.6;transform-origin:center bottom;gap:6px;bottom:0}.title{left:0}}
+
+</style></head>
+<body>
+<div class="stage" id="st">
+ <div class="title"><small>Mumbleton Academy</small><b id="ttl"></b></div>
+ <div id="hsl"></div>
+ <button class="act go" id="go" hidden></button>
+ <button class="rafa" id="rf"><img id="stand" alt=""></button>
+
+ <div class="bub" id="bub"></div>
+
+ <div class="acts">
+  <button class="act" data-p="write">Write about me</button>
+  <button class="act" data-p="ask">Ask me</button>
+  <button class="act" data-p="be">Be me</button>
+ </div>
+
+ <div class="shade" id="sh"><div class="panel" id="pn"></div></div>
+</div>
+<div class="dk"><div class="dkrow" id="who"></div><div class="dktg"><button id="sdb">Sound: on</button><button id="amb">Ambience: off</button><button id="mkb">Markers: on</button><button id="ptb">Portuguese: on</button></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+const AP={
+rafa:{name:'Rafa',title:'Rafa’s room',room:'img/room/rafa_room.webp',stand:'img/room/rafa_stand.webp',sx:'70%',sh:'56%',pron:'his',
+ obj:[
+ ['button','I pushed it first.','Eu apertei primeiro.',[11.5,67,12.5,12]],
+ ['wands','This is my wand.','Esta é a minha varinha.',[21.5,45,9.5,30]],
+ ['bed','My bed is messy.','A minha cama está bagunçada.',[29,37,36,36]],
+ ['ceiling','Oops! A little burst.','Ops! Uma explosãozinha.',[58,0,12,14]],
+ ['broom','I am not scared.','Eu não estou com medo.',[84,12,12.5,54]],
+ ['ball','I like playing.','Eu gosto de brincar.',[33.5,65.5,6.5,8]],
+ ['drawings','These are my friends.','Estes são os meus amigos.',[61,18,13,17]],
+ ['sandwich','I am hungry.','Estou com fome.',[0,77,16,13]],
+ ['shelf','There is a plant on the shelf.','Tem uma planta na prateleira.',[24.5,7,22,25]],
+ ['window','I can see a castle.','Eu consigo ver um castelo.',[3,10,18,44]]],
+ prof:{name:'Rafa',no:'05',handle:'@rafa.first',avatar:'img/room/avatar_rafa.webp',bio:'I love magic. I never wait.',since:'Year 2',
+ intro:'Rafa always goes first, and',hl:'thinks later',card:'img/ap/c05.webp',
+ q:[['Curious',1],['Careful',1],['Patient',1],['Kind',3],['Brave',3],['Playful',3]],
+ say:'I’ll go first!',mania:'Reckless. Jumps in before thinking.',
+ likes:'sandwiches, a good ball game, drawing his friends',scared:'missing the fun',
+ facts:[['Favorite place','The practice yard'],['Favorite food','Sandwiches'],['I can','ride a broom'],['I can’t','wait']],
+ friend:{name:'Pim',card:'img/ap/c03.webp',line:'He asks if it is safe. I say yes!'},
+ posts:[{img:'img/room/post_sandwich.webp',cap:'Best lunch ever! I ate it in two bites.',ex:'I like sandwiches too!'},
+        {img:'img/room/post_burst.webp',cap:'Oops. A little burst in my room.',ex:'Are you OK, Rafa?'}]},
+ kids:{
+ a:{write:{lines:['Rafa has ______.','Rafa likes ______.','Rafa is ______.'],bank:['a wand','a ball','a broom','sandwiches','ball games','magic','hungry','happy','brave']},
+    qs:[['What is your name?','I am Rafa.'],['Do you like sandwiches?','Yes, I do! I am always hungry.'],['Do you have a ball?','Yes, I do. It is under my bed.'],['Are you scared?','No, I am not!'],['What is this? (point to the wand)','It is my wand. It is a little bent.']]},
+ b:{write:{steps:[['Write 4 sentences about Rafa’s room.','Use: there is, there are, next to, under, on.'],['Rafa pushed the button. What happened next?','Write 2 sentences.']],example:'There is a ball under the bed.'},
+    qs:[['Why did you push the button?','I always push the button first. I cannot wait!'],['What do you do after school?','I play with my friends and practice magic.'],['What are you afraid of?','Nothing! Well… maybe missing the fun.'],['What would you do if the button was broken?','I would fix it with my wand. Or push it harder!'],['What is your favorite thing in your room?','My wands. This one is a little bent.']]}},
+ be:{big:'I’ll go first!',mania:'Rafa pushes the button first. He never waits.',steps:[['Stand like Rafa.','Cape out, wand up, big smile.'],['Say it to a classmate.','“I’ll go first!”'],['Answer a question from the class, as Rafa.','Use the questions in “Ask me”.']]}},
+juno:{bm:'3%',name:'Juno',title:'Juno’s room',room:'img/room/juno_room.webp',stand:'img/room/stand_juno.webp',sx:'68%',sh:'56%',pron:'her',
+ obj:[
+ ['sticky notes','I write my ideas here.','Eu escrevo as minhas ideias aqui.',[27,12.5,15,28]],
+ ['hat','This is my hat.','Este é o meu chapéu.',[12,17,14.5,27]],
+ ['cloud','This is my cloud.','Esta é a minha nuvem.',[41,6,12,20]],
+ ['pencils','I draw my ideas.','Eu desenho as minhas ideias.',[40.5,35,12,17]],
+ ['pancakes','I like pancakes.','Eu gosto de panquecas.',[6.2,66.5,12.5,13]],
+ ['plants','I have a plant.','Eu tenho uma planta.',[54.4,28,20.5,20]],
+ ['rocket','This is my first idea. Where is it?','Esta é a minha primeira ideia. Onde ela está?',[82,19.5,8.5,21]],
+ ['bed','Where is my pencil?','Onde está o meu lápis?',[23,61,28,25]],
+ ['window','There is a castle outside.','Tem um castelo lá fora.',[52,5,22,22]],
+ ['shelf','There are books on the shelf.','Tem livros na prateleira.',[76,5,19,17]]],
+ prof:{name:'Juno',no:'01',handle:'@juno.idea',avatar:'img/room/avatar_juno.webp',bio:'I have an idea. Wait… what was it?',since:'Year 1',
+ intro:'Juno has ten ideas, and',hl:'forgets the first',card:'img/ap/c01.webp',
+ q:[['Curious',3],['Careful',1],['Patient',1],['Kind',2],['Brave',2],['Playful',3]],
+ say:'Wait, I have an idea.',mania:'Forgets what she is doing. Always has a new idea.',
+ likes:'pancakes, sticky notes, drawing rockets',scared:'losing an idea',
+ facts:[['Favorite place','The garden'],['Favorite food','Pancakes'],['I can','think of ten ideas'],['I can’t','remember my first idea']],
+ friend:{name:'Kai',card:'img/ap/c02.webp',line:'He remembers my ideas for me.'},
+ posts:[{img:'img/room/post_juno_pancakes.webp',cap:'Pancake tower! I made ten.',ex:'I like pancakes too!'},
+        {img:'img/room/post_juno_note.webp',cap:'I had an idea. Now I have a note.',ex:'What is your idea, Juno?'}]},
+ kids:{
+ a:{write:{lines:['Juno has ______.','Juno likes ______.','Juno is ______.'],bank:['a hat','a plant','a rocket','pancakes','pencils','clouds','curious','happy','messy']},
+    qs:[['What is your name?','I am Juno.'],['Do you like pancakes?','Yes, I do! I made ten.'],['Do you have a hat?','Yes, I do. It is purple.'],['Where is your pencil?','I do not know! Wait… I have an idea.'],['What is this? (point to the cloud)','It is my cloud. It is happy.']]},
+ b:{write:{steps:[['Write 4 sentences about Juno’s room.','Use: there is, there are, on, next to, under.'],['Juno has a new idea. What is it?','Write 2 sentences.']],example:'There is a hat on the wall.'},
+    qs:[['Why do you have so many notes?','I have a lot of ideas! They are on my wall.'],['What do you do after school?','I draw rockets and eat pancakes.'],['What are you afraid of?','Losing an idea.'],['What would you do if you lost your hat?','I would look in my room. Wait… where is my room?'],['What is your favorite thing in your room?','My cloud. It is always happy.']]}},
+ be:{big:'Wait, I have an idea.',mania:'Juno forgets what she is doing.',steps:[['Stand like Juno.','One finger up, mouth wide open.'],['Say it to a classmate.','“Wait, I have an idea.”'],['Answer a question from the class, as Juno.','Use the questions in “Ask me”.']]}},
+pim:{bm:'3%',name:'Pim',title:'Pim’s kitchen',go:'kitchen',room:'img/room/pim_kitchen.webp',stand:'img/room/stand_pim.webp',sx:'80%',sh:'56%',pron:'his',
+ obj:[
+ ['firefly jar','My firefly jar. My night light goes with me.','Meu pote de vaga-lumes. Minha luz noturna vai comigo.',[12.9,57.2,8.1,18.3]],
+ ['big light','The big light. I love it.','A luz grande. Eu adoro.',[18.9,4.3,20.8,19]],
+ ['hot chocolate','Hot chocolate! Careful, it is hot.','Chocolate quente! Cuidado, está quente.',[22.6,48.4,8.5,20.5]],
+ ['photo','This is Rafa. He goes first.','Este é o Rafa. Ele vai primeiro.',[41,9.8,11.6,23.4]],
+ ['backpack','My bag. My night light goes inside.','Minha mochila. Minha luz noturna vai dentro.',[56,50,15,32]],
+ ['slippers','My slippers. Warm and safe.','Minhas pantufas. Quentinhas e seguras.',[61.2,79.2,12.6,12.8]],
+ ['plant','My plant. I give it water every day.','Minha planta. Dou água todo dia.',[25.7,27.8,21.5,23.4]],
+ ['cookies','Cookies for my friends. Take one!','Biscoitos para meus amigos. Pega um!',[23.6,70.5,12.5,9.5]],
+ ['window','The window. Curtains closed. Good night!','A janela. Cortinas fechadas. Boa noite!',[1.5,11,24,42]],
+ ['lanterns','Two lanterns. Just in case.','Duas lanternas. Por precaução.',[55,10,14.5,20.7]]],
+ more:[{go:'bedroom',title:'Pim’s bedroom',room:'img/room/pim_bedroom.webp',sx:'66%',obj:[
+ ['night light','My night light. It stays on all night.','Minha luz noturna. Fica acesa a noite toda.',[1.2,37.2,6.8,17]],
+ ['bed','My bed. Blanket up to my nose.','Minha cama. Cobertor até o nariz.',[0,63.8,29.5,34]],
+ ['door','The door. A little light comes in.','A porta. Entra um pouquinho de luz.',[85.5,8,14.5,74.5]],
+ ['bear','My bear. He sleeps with the light on.','Meu urso. Ele dorme com a luz acesa.',[18.2,46.8,8.7,20.2]],
+ ['lantern','My lantern. Always next to my bed.','Minha lanterna. Sempre ao lado da cama.',[28.1,40.4,6,18.6]],
+ ['book','My bedtime book. Only happy stories.','Meu livro da hora de dormir. Só histórias felizes.',[33.5,53.7,8.1,8.5]],
+ ['stars','Stars on my ceiling. Little lights.','Estrelas no meu teto. Luzinhas.',[11,0,52,22]],
+ ['drawing','A drawing from Rafa. My best friend.','Um desenho do Rafa. Meu melhor amigo.',[10.5,24,12.3,19.1]],
+ ['rug','My rug. Warm feet.','Meu tapete. Pés quentinhos.',[36,74,12,8]],
+ ['curtains','Curtains closed. Good night!','Cortinas fechadas. Boa noite!',[35.9,23,21.5,32]]]}],
+ prof:{name:'Pim',no:'03',handle:'@pim.safe',avatar:'img/room/avatar_pim.webp',bio:'Is it safe? Then I am ready.',since:'Year 1',
+ intro:'Pim is kind and careful, and',hl:'is afraid of the dark',card:'img/ap/c03.webp',
+ q:[['Curious',1],['Careful',3],['Patient',2],['Kind',3],['Brave',1],['Playful',2]],
+ say:'Is it safe?',mania:'Afraid of the dark. Always has a light.',
+ likes:'hot chocolate, night lights, cookies, slippers',scared:'the dark',
+ facts:[['Favorite place','The kitchen'],['Favorite drink','Hot chocolate'],['I can','find a night light anywhere'],['I can’t','go in the dark']],
+ friend:{name:'Rafa',card:'img/ap/c05.webp',line:'He always goes first. I come second.'},
+ posts:[{img:'img/room/post_pim_chocolate.webp',cap:'Hot chocolate and my night light. Perfect.',ex:'I like hot chocolate too!'},
+        {img:'img/room/post_pim_cookies.webp',cap:'I made cookies for my friends. Take one!',ex:'Can I have one?'}]},
+ kids:{
+ a:{write:{lines:['Pim has ______.','Pim likes ______.','Pim is ______.'],bank:['a night light','a bear','a lantern','cookies','slippers','hot chocolate','careful','kind','happy']},
+    qs:[['What is your name?','I am Pim.'],['Do you like hot chocolate?','Yes, I do! Careful, it is hot.'],['Do you have a night light?','Yes, I do. I have two.'],['Is it dark?','Yes, it is. Please turn on the light.'],['What is this? (point to the bear)','It is my bear. He sleeps with the light on.']]},
+ b:{write:{steps:[['Write 4 sentences about Pim’s kitchen and bedroom.','Use: there is, there are, next to, on, under.'],['Pim wants to go to the kitchen at night. What does he take?','Write 2 sentences.']],example:'There is a bear on the bed.'},
+    qs:[['Why do you always have a light?','I do not like the dark. With a light, I feel safe.'],['What do you do after school?','I drink hot chocolate. Then I read in my room.'],['What are you afraid of?','The dark. But I can find a night light anywhere.'],['What would you do if the light went out?','I would take my lantern. Then I would take one small step.'],['What is your favorite thing in your room?','My bear. And my night light.']]}},
+ be:{big:'Is it safe?',mania:'Pim is afraid of the dark. He always has a light.',steps:[['Stand like Pim.','Look around slowly, hands on your backpack straps.'],['Say it to a classmate.','“Is it safe?”'],['Answer a question from the class, as Pim.','Use the questions in “Ask me”.']]}},
+odette:{bm:'3%',name:'Odette',title:'Odette’s room',room:'img/room/odette_room.webp',stand:'img/room/stand_odette.webp',sx:'68%',sh:'56%',pron:'her',
+ obj:[
+ ['books','I can read a whole book in a day.','Eu leio um livro inteiro em um dia.',[0.9,62.2,16.4,36.2]],
+ ['armchair','My chair. It stays right here.','Minha poltrona. Ela fica bem aqui.',[18,50,22,40]],
+ ['cheese bread','I like cheese bread.','Eu gosto de pão de queijo.',[38,53.7,6.6,6.4]],
+ ['glasses','My glasses. I read better with them.','Meus óculos. Eu leio melhor com eles.',[44.5,58.5,9,6.5]],
+ ['hourglass','I can wait. I am very patient.','Eu sei esperar. Sou muito paciente.',[13.2,19.7,5.4,13.3]],
+ ['alarm clock','My alarm clock. I wake up at seven.','Meu despertador. Eu acordo às sete.',[19.1,20.7,5.1,12.2]],
+ ['notebook','My notes. Every page has a tab.','Minhas anotações. Toda página tem um marcador.',[12,36.1,6,10.1]],
+ ['photo','This is Theo. He wants five more minutes.','Este é o Theo. Ele quer mais cinco minutos.',[53.8,16,13.2,17]],
+ ['window','It is raining. Good. I read more.','Está chovendo. Ótimo. Eu leio mais.',[31.1,7.4,20.3,41.5]],
+ ['paper plane','My paper plane. I fold it very carefully.','Meu aviãozinho de papel. Eu dobro com muito cuidado.',[19.4,37.7,7.2,8.5]]],
+ prof:{name:'Odette',no:'04',handle:'@odette.reads',avatar:'img/room/avatar_odette.webp',bio:'Read it again. I have not changed my mind.',since:'Year 3',
+ intro:'Odette is sure about everything, and',hl:'never changes her mind',card:'img/ap/c04.webp',
+ q:[['Curious',2],['Careful',3],['Patient',3],['Kind',1],['Brave',1],['Playful',2]],
+ say:'Read it again.',mania:'Never changes her mind, even after reading it again.',
+ likes:'books, cheese bread, rain, paper planes',scared:'being interrupted',
+ facts:[['Favorite place','The reading corner'],['Favorite food','Cheese bread'],['I can','read a whole book in a day'],['I can’t','change my mind']],
+ friend:{name:'Theo',card:'img/ap/c07.webp',line:'He wants five more minutes. I wait.'},
+ posts:[{img:'img/room/post_odette_bread.webp',cap:'Cheese bread and my book. Please, no talking.',ex:'What is the book about?'},
+        {img:'img/room/post_odette_notes.webp',cap:'I read it again. I still like my answer.',ex:'What is your answer, Odette?'}]},
+ kids:{
+ a:{write:{lines:['Odette has ______.','Odette likes ______.','Odette is ______.'],bank:['an armchair','an hourglass','a paper plane','books','cheese bread','rain','careful','patient','quiet']},
+    qs:[['What is your name?','I am Odette.'],['Do you like cheese bread?','Yes, I do. It is my favorite.'],['Do you have glasses?','Yes, I do. I read better with them.'],['What time do you wake up?','I wake up at seven.'],['What is this? (point to the hourglass)','It is an hourglass. I can wait.']]},
+ b:{write:{steps:[['Write 4 sentences about Odette’s room.','Use: there is, there are, on, next to, behind.'],['Odette has one more hour to read. What does she do next?','Write 2 sentences.']],example:'There is a lamp next to the clock.'},
+    qs:[['Why do you read things twice?','I want to be sure. So I read it again.'],['What do you do after school?','I read in my chair. Then I eat cheese bread.'],['What are you afraid of?','Being interrupted. I am almost at the good part.'],['Would you ever change your mind?','No. I read it again. I am sure.'],['What is your favorite thing in your room?','My chair. And my books.']]}},
+ be:{big:'Read it again.',mania:'Odette never changes her mind.',steps:[['Stand like Odette.','Hold an open book, one hand on your glasses.'],['Say it to a classmate.','“Read it again.”'],['Answer a question from the class, as Odette.','Use the questions in “Ask me”.']]}},
+theo:{bm:'3%',name:'Theo',title:'Theo’s room',room:'img/room/theo_room.webp',stand:'img/room/stand_theo.webp',sx:'79%',sh:'56%',pron:'his',
+ obj:[
+ ['armchair','My big armchair. I can sit here all day.','Minha poltrona grande. Eu posso ficar aqui o dia todo.',[40,32,24,36]],
+ ['alarm clock','My alarm clock. It rings. I do not hear it.','Meu despertador. Ele toca. Eu não ouço.',[27.2,36,5.4,12.8]],
+ ['pancakes','My pancakes. Breakfast at ten.','Minhas panquecas. Café da manhã às dez.',[55,64.5,11.6,14]],
+ ['snail','My snail. We go at the same speed.','Meu caracol. Nós vamos na mesma velocidade.',[35.6,52.6,7.5,12.2]],
+ ['board game','My game. Five more minutes, please.','Meu jogo. Mais cinco minutos, por favor.',[29.6,78,20,10]],
+ ['backpack','My bag. It is not ready.','Minha mochila. Ela não está pronta.',[11.4,70.7,18.5,25.5]],
+ ['window','The sun is up. I am not.','O sol já acordou. Eu não.',[4.8,1.6,15.5,34.5]],
+ ['drawing','This is Odette. She wakes me up.','Esta é a Odette. Ela me acorda.',[53.2,4.3,13.2,26.6]],
+ ['bed','My bed. Very soft. Very hard to leave.','Minha cama. Muito macia. Muito difícil de largar.',[0,40.4,15,28]],
+ ['pillows','Pillows. I have six.','Almofadas. Eu tenho seis.',[62.2,39.3,16.2,39.9]]],
+ prof:{name:'Theo',no:'07',handle:'@theo.slow',avatar:'img/room/avatar_theo.webp',bio:'Just five more minutes.',since:'Year 2',
+ intro:'Theo can wait for anything, and',hl:'cannot wake up on time',card:'img/ap/c07.webp',
+ q:[['Curious',1],['Careful',1],['Patient',3],['Kind',2],['Brave',2],['Playful',3]],
+ say:'Just five more minutes.',mania:'Always needs five more minutes.',
+ likes:'pancakes, his snail, board games, the big armchair',scared:'getting up early',
+ facts:[['Favorite place','The big armchair'],['Favorite food','Pancakes'],['I can','wait for anything'],['I can’t','wake up on time']],
+ friend:{name:'Odette',card:'img/ap/c04.webp',line:'She wakes me up. I say five more minutes.'},
+ posts:[{img:'img/room/post_theo_pancakes.webp',cap:'I made pancakes at ten. It is breakfast.',ex:'It is lunch time, Theo!'},
+        {img:'img/room/post_theo_alarms.webp',cap:'I set five alarms. Odette is my sixth.',ex:'Good morning, Theo!'}]},
+ kids:{
+ a:{write:{lines:['Theo has ______.','Theo likes ______.','Theo is ______.'],bank:['an armchair','an alarm clock','a snail','pancakes','board games','pillows','sleepy','patient','slow']},
+    qs:[['What is your name?','I am Theo.'],['Do you like pancakes?','Yes, I do! I eat them at ten.'],['Do you have a pet?','Yes, I do. I have a snail.'],['What time is it?','I do not know. Just five more minutes.'],['What is this? (point to the armchair)','It is my big armchair. I can sit here all day.']]},
+ b:{write:{steps:[['Write 4 sentences about Theo’s room.','Use: there is, there are, on, next to, in front of.'],['Odette comes to wake Theo up. What does he say?','Write 2 sentences.']],example:'There is a snail on the pillow.'},
+    qs:[['Why do you need five more minutes?','My armchair is very comfortable. I am not ready.'],['What do you do after school?','I play a board game. Then I sit in my armchair.'],['What are you afraid of?','The morning. It comes too early.'],['What would you do if you had a lot of time?','I would wait. I am very good at it.'],['What is your favorite thing in your room?','My big armchair. And my snail.']]}},
+ be:{big:'Just five more minutes.',mania:'Theo is always sleepy. He wants five more minutes.',steps:[['Stand like Theo.','Yawn, one hand on your mouth.'],['Say it to a classmate.','“Just five more minutes.”'],['Answer a question from the class, as Theo.','Use the questions in “Ask me”.']]}},
+mina:{bm:'3%',name:'Mina',title:'Mina’s room',room:'img/room/mina_room.webp',stand:'img/room/stand_mina.webp',sx:'68%',sh:'56%',pron:'her',
+ obj:[
+ ['plan board','This is my plan. Trust me.','Este é o meu plano. Confia em mim.',[2.5,15.5,23.5,31]],
+ ['whistle','My whistle. Everybody, line up!','Meu apito. Todo mundo em fila!',[26.2,20.5,3.8,14]],
+ ['pizza','I like pizza.','Eu gosto de pizza.',[40.2,57,8.2,6.8]],
+ ['first aid box','My first aid box. Everybody is safe.','Minha caixa de primeiros socorros. Todo mundo está seguro.',[31.5,50.5,8.9,12.5]],
+ ['map','My map. I know every room.','Meu mapa. Eu conheço todas as salas.',[50.5,10.5,17,20.5]],
+ ['scarves','Scarves for my team. Everybody gets one.','Lenços para o meu time. Todo mundo ganha um.',[50.2,34,19,22]],
+ ['chair','My chair. I sit at the front.','Minha cadeira. Eu sento na frente.',[20.5,62,17,24]],
+ ['photo','This is Zuri. She is the star. I am the director.','Esta é a Zuri. Ela é a estrela. Eu sou a diretora.',[13.7,47.5,10,16.5]],
+ ['window','I can see the front steps from here.','Eu vejo os degraus da entrada daqui.',[31.5,8,17,23]],
+ ['gold pencil','My gold pencil. It writes the best plans.','Meu lápis dourado. Ele escreve os melhores planos.',[35,64,9.5,4.5]]],
+ prof:{name:'Mina',no:'06',handle:'@mina.boss',avatar:'img/room/avatar_mina.webp',bio:'Trust me. I know the plan.',since:'Year 2',
+ intro:'Mina has a plan for everything, and',hl:'cannot let anyone else lead',card:'img/ap/c06.webp',
+ q:[['Curious',2],['Careful',2],['Patient',2],['Kind',3],['Brave',2],['Playful',1]],
+ say:'Trust me.',mania:'Always has a plan, and everybody has to follow it.',
+ likes:'pizza, plans, her whistle, scarves for the team',scared:'a team with no plan',
+ facts:[['Favorite place','The front steps'],['Favorite food','Pizza'],['I can','make everybody feel safe'],['I can’t','let someone else lead']],
+ friend:{name:'Zuri',card:'img/ap/c08.webp',line:'She is the star. I am the director.'},
+ posts:[{img:'img/room/post_mina_pizza.webp',cap:'Pizza and a plan. Trust me.',ex:'What is the plan?'},
+        {img:'img/room/post_mina_whistle.webp',cap:'The team is ready. Everybody has a scarf.',ex:'Which scarf is mine?'}]},
+ kids:{
+ a:{write:{lines:['Mina has ______.','Mina likes ______.','Mina is ______.'],bank:['a plan','a whistle','a map','pizza','plans','scarves','kind','careful','bossy']},
+    qs:[['What is your name?','I am Mina.'],['Do you like pizza?','Yes, I do. Pizza and a plan.'],['Do you have a whistle?','Yes, I do. Everybody, line up!'],['Who is your best friend?','Zuri. She is my best friend.'],['What is this? (point to the first aid box)','It is my first aid box. Everybody is safe.']]},
+ b:{write:{steps:[['Write 4 sentences about Mina’s room.','Use: there is, there are, on, next to, behind.'],['Mina makes a plan for the class. What does she say?','Write 2 sentences.']],example:'There is a whistle next to the window.'},
+    qs:[['Why do you make plans?','I want everybody to feel safe. So I make a plan.'],['What do you do after school?','I sit on the front steps. Then I make a plan.'],['What are you afraid of?','A team with no plan. Somebody can get lost.'],['Would you let someone else lead?','No. I am the director. But you can help!'],['What is your favorite thing in your room?','My map. I know every room.']]}},
+ be:{big:'Trust me.',mania:'Mina is the director. Everybody follows her plan.',steps:[['Stand like Mina.','Hold a pencil like a director, one hand pointing.'],['Say it to a classmate.','“Trust me.”'],['Answer a question from the class, as Mina.','Use the questions in “Ask me”.']]}},
+zuri:{bm:'3%',name:'Zuri',title:'Zuri’s room',room:'img/room/zuri_room.webp',stand:'img/room/stand_zuri.webp',sx:'73%',sh:'56%',pron:'her',
+ obj:[
+ ['stage','My stage. Everybody, watch!','Meu palco. Todo mundo, olha!',[31,54,38.5,9]],
+ ['microphone','My microphone. Louder is better.','Meu microfone. Quanto mais alto, melhor.',[49.4,31.4,4.5,22]],
+ ['popcorn','I like popcorn.','Eu gosto de pipoca.',[40,45.7,7.8,8.5]],
+ ['magic hat','My magic hat. Watch this!','Minha cartola mágica. Olha isso!',[55.4,45,7.5,9]],
+ ['spotlight','My spotlight. It follows me.','Meu holofote. Ele me segue.',[59,7,9.5,16]],
+ ['mirror','My mirror. It is my first audience.','Meu espelho. Ele é a minha primeira plateia.',[0.3,23,12.3,30]],
+ ['audience chairs','My audience chairs. Please, sit down.','Minhas cadeiras da plateia. Por favor, sentem-se.',[29.5,64,43.5,22]],
+ ['photo','This is Mina. She is my director.','Esta é a Mina. Ela é a minha diretora.',[13.3,21.5,8.4,20]],
+ ['tickets','My tickets. One for each friend.','Meus ingressos. Um para cada amigo.',[1.5,60.5,10,6.5]],
+ ['costume trunk','My costume trunk. Open it!','Meu baú de figurinos. Abre!',[10.7,66,19,24]]],
+ prof:{name:'Zuri',no:'08',handle:'@zuri.watch',avatar:'img/room/avatar_zuri.webp',bio:'Watch this! Everybody, watch!',since:'Year 1',
+ intro:'Zuri turns everything into a show, and',hl:'cannot do it without an audience',card:'img/ap/c08.webp',
+ q:[['Curious',2],['Careful',1],['Patient',1],['Kind',2],['Brave',3],['Playful',3]],
+ say:'Watch this!',mania:'Needs everybody to watch, even for a small trick.',
+ likes:'popcorn, magic tricks, her mirror, the stage',scared:'an empty room',
+ facts:[['Favorite place','The stage'],['Favorite food','Popcorn'],['I can','do a magic show anywhere'],['I can’t','do it without an audience']],
+ friend:{name:'Mina',card:'img/ap/c06.webp',line:'She tells me when to start.'},
+ posts:[{img:'img/room/post_zuri_popcorn.webp',cap:'Popcorn for the show. Everybody, sit!',ex:'When is the show?'},
+        {img:'img/room/post_zuri_hat.webp',cap:'I did a trick. Nobody saw it. So I did it again.',ex:'I saw it, Zuri!'}]},
+ kids:{
+ a:{write:{lines:['Zuri has ______.','Zuri likes ______.','Zuri is ______.'],bank:['a stage','a microphone','a magic hat','popcorn','magic tricks','shows','brave','funny','loud']},
+    qs:[['What is your name?','I am Zuri.'],['Do you like popcorn?','Yes, I do! Popcorn for the show.'],['Do you have a magic hat?','Yes, I do. Watch this!'],['Who is your best friend?','Mina. She is my best friend.'],['What is this? (point to the microphone)','It is my microphone. Louder is better.']]},
+ b:{write:{steps:[['Write 4 sentences about Zuri’s room.','Use: there is, there are, on, in front of, next to.'],['Zuri does a magic trick. Nobody is watching. What does she say?','Write 2 sentences.']],example:'There is a hat on the stage.'},
+    qs:[['Why do you like shows?','I like it when everybody watches. It makes me happy.'],['What do you do after school?','I do a show. Then I eat popcorn.'],['What are you afraid of?','An empty room. Nobody can watch me.'],['What would you do if nobody came to your show?','I would do it again. Louder!'],['What is your favorite thing in your room?','My magic hat. And my mirror.']]}},
+ be:{big:'Watch this!',mania:'Zuri is a show-off. She needs everybody to watch.',steps:[['Stand like Zuri.','Open your arms wide, big smile.'],['Say it to a classmate.','“Watch this!”'],['Answer a question from the class, as Zuri.','Use the questions in “Ask me”.']]}},
+kai:{bm:'3%',name:'Kai',title:'Kai’s room',room:'img/room/kai_room.webp',stand:'img/room/stand_kai.webp',sx:'66%',sh:'56%',pron:'his',
+ obj:[
+ ['bookshelf','I can find any book fast.','Eu encontro qualquer livro rapidinho.',[12.5,9,17,52]],
+ ['magnifying glass','I look closely.','Eu olho de perto.',[58.5,26,12,26]],
+ ['list','I check my list.','Eu confiro a minha lista.',[72.5,16,10.5,26]],
+ ['rice and beans','I like rice and beans.','Eu gosto de arroz e feijão.',[46.5,42.5,8,14]],
+ ['paper bird','I make paper birds.','Eu faço passarinhos de papel.',[52,9,10,9.5]],
+ ['backpack','My bag is ready.','A minha mochila está pronta.',[5.5,56,15.5,34]],
+ ['armchair','I read here.','Eu leio aqui.',[26.5,41.5,20,40]],
+ ['kite','I play after I check.','Eu brinco depois de conferir.',[85.5,26.5,9.5,36]],
+ ['window','I can see the clouds.','Eu consigo ver as nuvens.',[31.5,2,19.5,38]],
+ ['plant','My plant. I check it every day.','Minha planta. Eu confiro todo dia.',[61.5,4,9.5,21]]],
+ prof:{name:'Kai',no:'02',handle:'@kai.check',avatar:'img/room/avatar_kai.webp',bio:'Let me check. Let me check again.',since:'Year 2',
+ intro:'Kai checks everything, and',hl:'checks again',card:'img/ap/c02.webp',
+ q:[['Curious',3],['Careful',3],['Patient',1],['Kind',2],['Brave',2],['Playful',1]],
+ say:'Let me check.',mania:'Checks again and again. Always the last one.',
+ likes:'books, paper birds, rice and beans, kites',scared:'leaving without checking',
+ facts:[['Favorite place','The library'],['Favorite food','Rice and beans'],['I can','find any book in one minute'],['I can’t','leave without checking']],
+ friend:{name:'Juno',card:'img/ap/c01.webp',line:'She has ideas. I write them down.'},
+ posts:[{img:'img/room/post_kai_book.webp',cap:'I found my book in one minute.',ex:'Which book is it?'},
+        {img:'img/room/post_kai_kite.webp',cap:'I checked three times. Then I flew my kite!',ex:'I like your kite, Kai!'}]},
+ kids:{
+ a:{write:{lines:['Kai has ______.','Kai likes ______.','Kai is ______.'],bank:['a kite','a list','a backpack','books','paper birds','rice and beans','curious','careful','happy']},
+    qs:[['What is your name?','I am Kai.'],['Do you like rice and beans?','Yes, I do! It is my favorite.'],['Do you have a book?','Yes, I do. I have many books.'],['Are you ready?','Wait. Let me check.'],['What is this? (point to the paper bird)','It is a paper bird. I made it.']]},
+ b:{write:{steps:[['Write 4 sentences about Kai’s room.','Use: there is, there are, next to, on, in.'],['Kai checks his list. What does he do next?','Write 2 sentences.']],example:'There is a bookshelf next to the armchair.'},
+    qs:[['Why do you check twice?','I do not want to forget anything. Let me check again.'],['What do you do after school?','I read in my armchair. Then I fly my kite.'],['What are you afraid of?','Leaving something behind. So I check my bag.'],['What would you do if you lost a book?','I would look in the library. I can find any book in one minute.'],['What is your favorite thing in your room?','My books. And my paper bird.']]}},
+ be:{big:'Let me check.',mania:'Kai checks everything twice. He is always the last one.',steps:[['Stand like Kai.','Book open, one hand on your chin.'],['Say it to a classmate.','“Let me check.”'],['Answer a question from the class, as Kai.','Use the questions in “Ask me”.']]}}
+};
+const ID=(location.hash.slice(1)||new URLSearchParams(location.search).get('a')||'rafa').toLowerCase(),D=AP[ID]||AP.rafa;
+const PROF=D.prof,KIDS=D.kids,SC=[{title:D.title,room:D.room,obj:D.obj,sx:D.sx,go:D.go}].concat(D.more||[]),seenS=SC.map(()=>new Set());let OBJ=D.obj,sc=0;
+$('stand').src=D.stand;$('stand').alt=D.name;$('rf').setAttribute('aria-label',D.name);
+$('bub').style.marginBottom=D.bm||'0';$('rf').style.setProperty('--sh',D.sh);
+function scene(n){sc=n;const S=SC[n];OBJ=S.obj;$('st').style.backgroundImage='url('+S.room+')';$('ttl').textContent=S.title;document.title=S.title+' · Mumbleton Academy';$('rf').style.setProperty('--sx',S.sx);
+ $('hsl').innerHTML=OBJ.map((o,i)=>'<button class="hs'+(i>7?' bonus':'')+(seenS[n].has(i)?' seen':'')+'" data-i="'+i+'" style="left:'+o[3][0]+'%;top:'+o[3][1]+'%;width:'+o[3][2]+'%;height:'+o[3][3]+'%"><span class="mk">'+(i>7?'+':i+1)+'</span></button>').join('');
+ const g=$('go');g.hidden=SC.length<2;if(SC.length>1)g.textContent='Go to the '+SC[(n+1)%SC.length].go;$('bub').classList.remove('on');if(window.AMBU)AMBU()}
+$('go').onclick=()=>scene((sc+1)%SC.length);
+const ORD=['rafa','pim','juno','kai','odette','theo','mina','zuri'];
+$('who').innerHTML=ORD.map(k=>{const a=AP[k];if(!a)return '<div class="dkav dklock"><i>?</i><span>'+k[0].toUpperCase()+k.slice(1)+'</span></div>';
+ const im='<i style="background-image:url('+a.prof.avatar+')"></i><span>'+a.name+'</span>';
+ return k===ID?'<div class="dkav dkon" aria-current="true">'+im+'</div>':'<a class="dkav" href="#'+k+'" onclick="setTimeout(()=>location.reload(),260)">'+im+'</a>'}).join('');
+let bt;
+function say(tag,en,pt,ms=4200){const b=$('bub');b.innerHTML='<div class="tg">'+tag+'</div><div class="en">'+en+'</div><div class="pt">'+pt+'</div>';b.classList.add('on');clearTimeout(bt);bt=setTimeout(()=>b.classList.remove('on'),ms)}
+$('hsl').onclick=e=>{const h=e.target.closest('.hs');if(!h)return;const i=+h.dataset.i,o=OBJ[i];say(o[0],o[1],o[2]);seenS[sc].add(i);h.classList.add('seen');};
+scene(0);
+let ptab='about';
+function profile(t){if(typeof t==='string')ptab=t;const d=PROF,dots=n=>[1,2,3].map(i=>'<i class="'+(i<=n?'f':'')+'"></i>').join('');
+ const tb='<div class="tabs">'+[['about','About'],['stats','Stats']].concat(d.posts.length?[['posts','Posts']]:[]).map(x=>'<button class="ptab'+(ptab===x[0]?' on':'')+'" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>';
+ let b='';
+ if(ptab==='about')b='<div class="who"><img class="av" src="'+d.avatar+'" alt=""><div><h2>'+d.name+'</h2><div class="hd">'+d.handle+' · At the Academy since <b>'+d.since+'</b></div><p class="bio">“'+d.bio+'”</p></div></div>'
+  +'<div class="fx">'+d.facts.map(f=>'<div><b>'+f[0]+'</b><span>'+f[1]+'</span></div>').join('')+'</div>'
+  +'<div class="bf"><img src="'+d.friend.card+'" alt=""><div><b>Best friend</b><span class="fn">'+d.friend.name+'</span><span class="fl">“'+d.friend.line+'”</span></div></div>';
+ if(ptab==='stats')b='<div class="prof"><img class="cd" src="'+d.card+'" alt=""><div><div class="k">Apprentice · '+d.no+' / 08</div><h2>'+d.name+'</h2><p class="sub">'+d.intro+' <mark>'+d.hl+'</mark>.</p>'
+  +'<div class="ql">'+d.q.map(x=>'<div>'+x[0]+'<span>'+dots(x[1])+'</span></div>').join('')+'</div>'
+  +'<div class="say"><small>Always says</small>“'+d.say+'”</div>'
+  +'<div class="tg2"><span><b>When it goes wrong</b>'+d.mania+'</span></div>'
+  +'<div class="tg2"><span><b>Likes</b>'+d.likes+'</span><span><b>Scared of</b>'+d.scared+'</span></div></div></div>';
+ if(ptab==='posts')b='<div class="posts">'+d.posts.map((x,i)=>'<div class="po"><img src="'+x.img+'" alt=""><p class="cp">'+x.cap+'</p><div class="sp"><button class="spb" data-i="'+i+'" aria-label="Send a spark"><img class="hh" src="img/ui/sp_heart'+(x.sp?'1':'0')+'.webp" alt=""><em><img src="img/ui/sp_burst.webp" alt=""></em><span><b class="n">'+(x.sp||0)+'</b><small>'+(x.sp===1?'spark':'sparks')+'</small></span></button><span class="cmt"><img src="img/ui/sp_bubble.webp" alt="">'+(x.comment?1:0)+'</span></div><div class="cm"><b>'+(x.comment?'Our class says:':'Write a comment for '+d.name+'.')+'</b>'+(x.comment?'<span class="cdone"></span>':'<div class="cin"><input data-i="'+i+'" maxlength="90" placeholder="Example: “'+x.ex+'”"><button data-i="'+i+'">Post</button></div>')+'</div></div>').join('')+'</div>';
+ panel('<div class="k">Apprentice profile</div>'+tb+b+'<button class="back">Back to the room</button>');
+ $('pn').querySelectorAll('.ptab').forEach(t=>t.onclick=()=>profile(t.dataset.t));
+ $('pn').querySelectorAll('.cdone').forEach((e,k)=>{const x=d.posts.filter(p=>p.comment)[k];e.textContent='“'+x.comment+'”'});
+ $('pn').querySelectorAll('.spb').forEach(bt=>bt.onclick=()=>{const x=d.posts[+bt.dataset.i];x.sp=(x.sp||0)+1;bt.querySelector('.n').textContent=x.sp;bt.querySelector('small').textContent=x.sp===1?'spark':'sparks';bt.querySelector('.hh').src='img/ui/sp_heart1.webp';bt.classList.remove('pop');void bt.offsetWidth;bt.classList.add('pop')});
+ const send=i=>{const v=$('pn').querySelector('input[data-i="'+i+'"]').value.trim();if(v){d.posts[i].comment=v;profile()}};
+ $('pn').querySelectorAll('.cin button').forEach(bt=>bt.onclick=()=>send(+bt.dataset.i));
+ $('pn').querySelectorAll('.cin input').forEach(inp=>inp.onkeydown=e=>{if(e.key==='Enter')send(+inp.dataset.i)})}
+$('rf').onclick=profile;
+
+let lv='a';
+function fit(){const p=$('pn'),s=$('sh');if(!s.classList.contains('on'))return;p.style.zoom=1;const k=Math.min(1,s.clientHeight*.94/p.offsetHeight,s.clientWidth*.96/p.offsetWidth);p.style.zoom=k<1?k:1}
+addEventListener('resize',fit);
+function panel(h){$('pn').innerHTML=h;if(!$('sh').classList.contains('on'))SND.play('painel-abre');$('sh').classList.add('on');fit();$('pn').querySelectorAll('img').forEach(i=>{if(!i.complete)i.addEventListener('load',fit,{once:true})});$('pn').querySelectorAll('.tab').forEach(t=>t.onclick=()=>{lv=t.dataset.l;open_(cur)});const bk=$('pn').querySelector('.back');if(bk)bk.onclick=()=>$('sh').classList.remove('on');$('pn').querySelectorAll('.q').forEach(q=>q.onclick=()=>{$('sh').classList.remove('on');say(D.name,q.dataset.a,'',6500);$('bub').classList.add('hidept')})}
+const tabs=()=>'<div class="tabs"><button class="tab'+(lv==='a'?' on':'')+'" data-l="a">Kids 1–3</button><button class="tab'+(lv==='b'?' on':'')+'" data-l="b">Kids 4–6</button></div>';
+let cur='write';
+function open_(p){cur=p;let h;
+ if(p==='write'){const d=KIDS[lv].write;
+  h='<div class="k">Write about me</div><h2>Write about '+D.name+'.</h2>'+tabs();
+  if(lv==='a')h+='<ol class="steps"><li>Look at '+SC[sc].title+'.</li><li>Finish the sentences.</li></ol><div class="lines">'+d.lines.map(l=>'<p>'+l+'</p>').join('')+'</div><div class="bank">'+d.bank.map(w=>'<b>'+w+'</b>').join('')+'</div>';
+  else h+='<ol class="steps">'+d.steps.map(s=>'<li>'+s[0]+'<span>'+s[1]+'</span></li>').join('')+'</ol><div class="bank">Example: <b>'+d.example+'</b></div>';
+  h+='<button class="back">Back to the room</button>'}
+ if(p==='ask'){const d=KIDS[lv];
+  h='<div class="k">Ask me</div><h2>Ask '+D.name+' a question.</h2>'+tabs()+'<p class="how">A student reads a question out loud. Then tap it, and '+D.name+' answers.</p><div class="qs">'+d.qs.map(q=>'<button class="q" data-a="'+q[1]+'">'+q[0]+'</button>').join('')+'</div><button class="back">Back to the room</button>'}
+ if(p==='be'){const e=D.be;
+  h='<div class="be"><div><div class="k">Be me</div><h2>Be '+D.name+'!</h2><div class="big">“'+e.big+'”</div><div class="mania">'+e.mania+'</div><ol class="steps">'+e.steps.map(x=>'<li>'+x[0]+'<span>'+x[1]+'</span></li>').join('')+'</ol></div><img src="'+D.stand+'" alt=""></div><button class="back">Back to the room</button>'}
+ panel(h)}
+document.querySelectorAll('.acts .act').forEach(b=>b.onclick=()=>open_(b.dataset.p));
+$('sh').onclick=e=>{if(e.target===$('sh'))$('sh').classList.remove('on')};
+
+let mk=true,pt=true;
+$('mkb').onclick=()=>{mk=!mk;$('st').classList.toggle('nomk',!mk);$('mkb').textContent='Markers: '+(mk?'on':'off')};
+$('ptb').onclick=()=>{pt=!pt;$('st').classList.toggle('nopt',!pt);$('ptb').textContent='Portuguese: '+(pt?'on':'off')};
+
+/* sound */
+const SND=(()=>{const V={'objeto-toc':.5,'objeto-bonus':.5,'personagem-toca':.6,'cena-porta':.6,'troca-aprendiz':.5,'painel-abre':.55,'painel-fecha':.45,'aba':.35,'botao-papel':.55,'resposta-ask':.4,'faisca':.7,'comentario':.4},C={};
+ let on=true,am=false;try{on=localStorage.getItem('mumb_sound')!=='off';am=localStorage.getItem('mumb_amb')==='on'}catch(e){}
+ const AM={pim0:'amb-cozinha',odette0:'amb-chuva',kai0:'amb-vento'};let loop=null,loopN='';
+ const f=n=>C[n]||(C[n]=new Audio('snd/'+n+'.mp3'));
+ const o={play(n){if(!on)return;try{const x=f(n).cloneNode();x.volume=V[n]||.5;const r=x.play();r&&r.catch&&r.catch(()=>{})}catch(e){}},
+  amb(){const n=on&&am?AM[ID+sc]:null;if(n===loopN)return;if(loop){const l=loop;let v=l.volume;const t=setInterval(()=>{v-=.02;if(v<=.01){clearInterval(t);l.pause()}else l.volume=v},60)}loop=null;loopN=n||'';
+   if(n){const x=new Audio('snd/'+n+'.mp3');x.loop=true;x.volume=.14;loop=x;const r=x.play();r&&r.catch&&r.catch(()=>{loop=null;loopN=''})}},
+  tog(){on=!on;try{localStorage.setItem('mumb_sound',on?'on':'off')}catch(e){}$('sdb').textContent='Sound: '+(on?'on':'off');o.amb()},
+  togA(){am=!am;try{localStorage.setItem('mumb_amb',am?'on':'off')}catch(e){}$('amb').textContent='Ambience: '+(am?'on':'off');o.amb()}};
+ $('sdb').textContent='Sound: '+(on?'on':'off');$('amb').textContent='Ambience: '+(am?'on':'off');$('sdb').onclick=o.tog;$('amb').onclick=o.togA;return o})();
+window.AMBU=()=>SND.amb();
+document.addEventListener('click',e=>{const t=e.target;let h;
+ if(h=t.closest('.hs'))return SND.play(h.classList.contains('bonus')?'objeto-bonus':'objeto-toc');
+ if(t.closest('#rf'))return SND.play('personagem-toca');
+ if(t.closest('#go'))return SND.play('cena-porta');
+ if(t.closest('a.dkav'))return SND.play('troca-aprendiz');
+ if(t.closest('.acts .act'))return SND.play('botao-papel');
+ if(t.closest('.tab,.ptab'))return SND.play('aba');
+ if(t.closest('.back')||t===$('sh'))return SND.play('painel-fecha');
+ if(t.closest('.q'))return SND.play('resposta-ask');
+ if(t.closest('.spb'))return SND.play('faisca');
+ if(t.closest('.cin button'))return SND.play('comentario')},true);
+</script></body></html>
