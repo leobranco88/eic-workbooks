@@ -1347,22 +1347,21 @@ html:not(.mode-class) .class-only { display: none !important; }
   display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;
 }
 .qr-lab { font-size: 14px; font-weight: 800; letter-spacing: -0.01em; }
-.qr-back {
-  position: fixed; inset: 0; z-index: 200; background: rgba(10,10,10,0.45);
-  opacity: 0; pointer-events: none; transition: opacity .2s;
-}
-.qr-back.open { opacity: 1; pointer-events: auto; }
+.qr-back { display: none !important; }
 .qr-panel {
-  position: fixed; z-index: 201; top: 0; right: 0; bottom: 0; width: min(460px, 100vw);
-  background: var(--white); overflow-y: auto; overscroll-behavior: contain;
-  padding: calc(26px + env(safe-area-inset-top, 0px)) 28px calc(30px + env(safe-area-inset-bottom, 0px));
-  transform: translateX(100%); transition: transform .28s cubic-bezier(.2,.8,.2,1);
-  visibility: hidden;
+  position: fixed; z-index: 201; top: 84px; right: 24px; width: min(430px, calc(100vw - 16px)); max-height: calc(100vh - 108px);
+  background: var(--white); border: 3px solid var(--ink); display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 14px 34px rgba(10,10,10,0.14);
+  opacity: 0; transform: translateY(8px); transition: opacity .18s, transform .18s; visibility: hidden;
 }
-.qr-panel.open { transform: none; visibility: visible; }
-.qr-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+.qr-panel.open { opacity: 1; transform: none; visibility: visible; }
+.qr-panel.dragging { box-shadow: 0 22px 44px rgba(10,10,10,0.22); transition: none; }
+.qr-body { overflow-y: auto; overscroll-behavior: contain; padding: 0 20px 26px; flex: 1; }
+.wb-hint { font-size: 13px; color: var(--mid); margin: 12px 0 0; }
+.qr-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 14px 16px 12px 20px; border-bottom: 2px solid var(--ink); flex: none; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.qr-panel.dragging .qr-head { cursor: grabbing; }
 .qr-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
-.qr-title { font-size: 26px; font-weight: 900; letter-spacing: -0.025em; line-height: 1.1; margin-top: 4px; }
+.qr-title { font-size: 22px; font-weight: 900; letter-spacing: -0.025em; line-height: 1.1; margin-top: 4px; }
 .qr-close {
   flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--light);
   background: var(--white); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; font-family: inherit;
@@ -1392,11 +1391,9 @@ html:not(.mode-class) .class-only { display: none !important; }
 .qr-pr .o { font-weight: 900; font-size: 16px; }
 .qr-obj-note { font-size: 13px; color: var(--mid); line-height: 1.55; margin-top: 10px; }
 .qr-obj-note b { color: var(--ink); }
-body.qr-lock { overflow: hidden; }
 @media (max-width: 720px) {
   .qr-btn { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
-  .qr-panel { top: auto; left: 0; width: 100%; max-height: 86vh; border-radius: 20px 20px 0 0; transform: translateY(100%); padding-left: 20px; padding-right: 20px; }
-  .qr-panel.open { transform: none; }
+  .qr-panel { top: 70px; right: 8px; }
   .qr-pr { grid-template-columns: 50px repeat(7, 1fr); }
   .qr-pr > div { font-size: 13px; }
   .qr-pr .o { font-size: 14px; }
@@ -1429,6 +1426,8 @@ body.qr-lock { overflow: hidden; }
 .demo-note{font-size:clamp(13px,.5vw + 10px,19px);color:var(--mid);max-width:62ch;line-height:1.6;margin:8px 0 18px}
 .demo-note strong{color:var(--ink)}
 
+.xi-vb{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(19px,.7vw + 14px,26px);letter-spacing:0;color:rgba(13,31,255,.5);margin-left:12px;white-space:nowrap;display:inline-block;transform:rotate(-2deg);vertical-align:middle;line-height:1}
+@media print{.xi-vb{display:none}}
 .tr-q{font-weight:700;font-size:clamp(17px,1vw + 13px,26px);line-height:1.35;letter-spacing:-.01em;margin-bottom:2px;max-width:60ch}
 .st3{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 24px;counter-reset:s}
 .st3 li{counter-increment:s;font-weight:700}
@@ -1436,7 +1435,7 @@ body.qr-lock { overflow: hidden; }
 .hand-tag{font-family:'Caveat',cursive;font-weight:700;color:var(--blue);font-size:clamp(26px,1vw + 20px,38px);transform:rotate(-1.5deg);transform-origin:left;display:inline-block;margin:0 0 2px;line-height:1}
 .reveal-btn.lock{display:inline-block}
 .wb-g{display:flex;align-items:center;gap:8px;margin-top:22px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
-.wb-g .num{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:0}
+.wb-g .num{flex:none;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:0}
 .wb{width:100%;border-collapse:collapse;margin-top:6px}
 .wb td{padding:7px 0;border-bottom:1px solid var(--ink);font-size:15px;font-weight:700;vertical-align:baseline;line-height:1.3}
 .wb td+td{padding-left:12px;font-weight:400;color:var(--mid);font-size:13.5px;width:46%}
@@ -1541,7 +1540,6 @@ body.qr-lock { overflow: hidden; }
   <div class="ds-bank" id="ds-bank"></div>
   <button class="ds-nextb" id="ds-next" type="button" style="display:none">Next round →</button>
   <div class="ds-done" id="ds-done">All 39 verbs in the right home. Nice.</div>
-</div>
 </section>
 <script id="sortit-js">
 (function(){
@@ -1687,11 +1685,12 @@ function itemTrap(it, g){
   return null;
 }
 function famName(f){ return f === 4 ? 'Family 1 or 2' : 'Family ' + f; }
+var VB = [[["pedir", "ask"], ["deixar", "let"], ["exigir", "demand"], ["ficar olhando", "watch"], ["convencer", "get · convince"], ["permitir", "allow · permit"], ["adorar", "would love"], ["fazer", "make"], ["mandar", "have"], ["desafiar", "dare"]], [["pedir", "ask"], ["deixar", "let"], ["ouvir", "hear"], ["dizer", "tell"], ["recomendar", "recommend"], ["sugerir", "suggest"], ["permitir", "allow"], ["preferir", "would prefer"], ["ajudar", "help"], ["providenciar", "arrange for"]], [["convencer", "get · convince"], ["fazer", "make"], ["exigir", "require"], ["é importante", "it’s important that"], ["perceber", "notice"], ["fazer", "make"], ["ajudar", "help"], ["insistir", "insist"], ["querer", "want"], ["deixar", "let"]], [["querer", "want"], ["fazer", "make"], ["permitir", "allow · permit"], ["ver", "see"], ["é importante", "it’s important that"], ["pedir", "ask"], ["deixar", "let"], ["ajudar", "help"], ["deixar", "let"], ["querer", "want"]]];
 EXS.forEach(function(items, bi){
   var n = bi + 1, list = document.querySelector('.xb-list[data-n="' + n + '"]'), solved = SOLVED[n] = {}, tries = {};
   TOTALS[n] = items.length;
   list.innerHTML = items.map(function(it, i){
-    return '<div class="xi' + (CLASS[n] && i >= CLASS[n] ? ' home-only' : '') + '" data-i="' + i + '"><span class="xi-n">' + (i + 1) + '.</span><div><div class="xi-q tr-q">' + it.q + '</div>' +
+    return '<div class="xi' + (CLASS[n] && i >= CLASS[n] ? ' home-only' : '') + '" data-i="' + i + '"><span class="xi-n">' + (i + 1) + '.</span><div><div class="xi-q tr-q">' + it.q + ' <span class="xi-vb" title="Verbo principal">' + VB[bi][i][0] + ' &middot; ' + VB[bi][i][1] + '</span></div>' +
       '<div class="xi-row"><input class="ti-in" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" aria-label="Your sentence in English" placeholder="Write it in English…"><span class="xi-hand" aria-hidden="true">' + it.model + '</span><button class="ti-go" type="button">Check</button><button class="reveal-btn lock" type="button">Show answer</button></div></div><div class="xi-fb"></div></div>';
   }).join('') + (CLASS[n] ? '<div class="xb-more class-only">Items ' + (CLASS[n] + 1) + ' to ' + items.length + ' at home <span>&middot; in Home mode</span></div>' : '');
   function reveal(row, on){
@@ -1880,9 +1879,10 @@ markDone();
 
 <button class="qr-btn" id="qrBtn" type="button" aria-haspopup="dialog" aria-controls="qrPanel" aria-expanded="false"><span class="qr-lab">Word bank</span></button>
 <div class="qr-back" id="qrBack"></div>
-<aside class="qr-panel" id="qrPanel" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
-  <div class="qr-head"><div><div class="qr-eyebrow">Word bank</div><div class="qr-title" id="qrTitle">Verbs and words</div></div><button class="qr-close" id="qrClose" type="button" aria-label="Close">&times;</button></div>
-  <div class="wb-g"><span class="num">1</span>Family 1 &middot; verb + sb + to</div><table class="wb"><tr><td>ask sb to</td><td>pedir que alguém</td></tr><tr><td>tell sb to</td><td>mandar, dizer para alguém</td></tr><tr><td>want sb to</td><td>querer que alguém</td></tr><tr><td>get sb to</td><td>conseguir que alguém · convencer alguém a</td></tr><tr><td>urge sb to</td><td>insistir com alguém para</td></tr><tr><td>beg sb to</td><td>implorar que alguém</td></tr><tr><td>permit · allow sb to</td><td>permitir que alguém</td></tr><tr><td>require sb to</td><td>exigir que alguém</td></tr><tr><td>enable sb to</td><td>tornar possível que alguém</td></tr><tr><td>trust sb to</td><td>confiar que alguém vai</td></tr><tr><td>dare · challenge sb to</td><td>desafiar alguém a</td></tr><tr><td>would love · prefer sb to</td><td>adoraria · preferiria que alguém</td></tr><tr><td>arrange for sb to</td><td>providenciar que alguém</td></tr></table>  <div class="wb-g"><span class="num">2</span>Family 2 &middot; no to</div><table class="wb"><tr><td>let sb + verb</td><td>deixar alguém</td></tr><tr><td>make sb + verb</td><td>fazer, obrigar alguém a</td></tr><tr><td>have sb + verb</td><td>mandar, pedir a alguém que faça (faz parte do trabalho dele)</td></tr><tr><td>see · hear · watch · notice sb + verb</td><td>ver · ouvir · ficar olhando · perceber</td></tr><tr><td>help sb (to) + verb</td><td>ajudar alguém a</td></tr></table>  <div class="wb-g"><span class="num">3</span>Family 3 &middot; that + verb</div><table class="wb"><tr><td>suggest · recommend that</td><td>sugerir · recomendar que</td></tr><tr><td>demand · insist · require that</td><td>exigir · insistir · requerer que</td></tr><tr><td>it’s important that</td><td>é importante que</td></tr><tr><td>with not: that she not call</td><td>com “não”: o not vem antes do verbo</td></tr></table>  <div class="wb-g">Words</div><table class="wb"><tr><td>afternoon off</td><td>tarde livre</td></tr><tr><td>assignment</td><td>trabalho, tarefa</td></tr><tr><td>attend</td><td>participar de</td></tr><tr><td>grades</td><td>notas (da escola)</td></tr><tr><td>hire</td><td>contratar</td></tr><tr><td>let sb know</td><td>avisar alguém</td></tr><tr><td>repair · fix</td><td>consertar</td></tr><tr><td>reschedule</td><td>remarcar</td></tr><tr><td>salespeople</td><td>vendedores</td></tr><tr><td>turn in</td><td>entregar (um trabalho)</td></tr><tr><td>ring · go off</td><td>tocar (alarme)</td></tr></table>
+<aside class="qr-panel" id="qrPanel" role="dialog" aria-modal="false" aria-labelledby="qrTitle">
+  <div class="qr-head" id="qrHead"><div><div class="qr-eyebrow">Word bank</div><div class="qr-title" id="qrTitle">All the verbs</div></div><button class="qr-close" id="qrClose" type="button" aria-label="Close">&times;</button></div>
+  <div class="qr-body"><p class="wb-hint">Arraste o topo para mover o painel pela página.</p><div class="wb-g"><span class="num">1</span>Family 1 &middot; verb + sb + to</div><table class="wb"><tr><td>allow · permit sb to</td><td>permitir que alguém</td></tr><tr><td>arrange for sb to</td><td>providenciar que alguém</td></tr><tr><td>beg sb to</td><td>implorar que alguém</td></tr><tr><td>dare · challenge sb to</td><td>desafiar alguém a</td></tr><tr><td>enable sb to</td><td>tornar possível que alguém</td></tr><tr><td>encourage sb to</td><td>incentivar alguém a</td></tr><tr><td>expect sb to</td><td>esperar que alguém</td></tr><tr><td>force sb to</td><td>forçar alguém a</td></tr><tr><td>get · convince · persuade sb to</td><td>conseguir que · convencer · persuadir alguém a</td></tr><tr><td>inspire sb to</td><td>inspirar alguém a</td></tr><tr><td>invite sb to</td><td>convidar alguém para</td></tr><tr><td>need sb to</td><td>precisar que alguém</td></tr><tr><td>prefer sb to</td><td>preferir que alguém</td></tr><tr><td>remind sb to</td><td>lembrar alguém de</td></tr><tr><td>teach sb to</td><td>ensinar alguém a</td></tr><tr><td>tell sb to</td><td>mandar, dizer para alguém</td></tr><tr><td>trust sb to</td><td>confiar que alguém vai</td></tr><tr><td>want sb to</td><td>querer que alguém</td></tr><tr><td>warn sb to</td><td>avisar alguém para</td></tr><tr><td>would love · would like sb to</td><td>adoraria · gostaria que alguém</td></tr></table><div class="wb-g"><span class="num">1</span><span class="num">3</span>Family 1 or 3 &middot; to or that</div><table class="wb"><tr><td>advise sb to · advise that</td><td>aconselhar alguém a · aconselhar que</td></tr><tr><td>ask sb to · ask that</td><td>pedir que alguém · pedir que</td></tr><tr><td>require sb to · require that</td><td>exigir que alguém · exigir que</td></tr><tr><td>urge sb to · urge that</td><td>insistir com alguém para · insistir que</td></tr></table><div class="wb-g"><span class="num">2</span>Family 2 &middot; no to</div><table class="wb"><tr><td>feel sb + verb</td><td>sentir alguém fazendo algo</td></tr><tr><td>have sb + verb</td><td>mandar, pedir a alguém que faça (faz parte do trabalho dele)</td></tr><tr><td>hear sb + verb</td><td>ouvir alguém fazendo algo</td></tr><tr><td>help sb (to) + verb</td><td>ajudar alguém a</td></tr><tr><td>let sb + verb</td><td>deixar alguém</td></tr><tr><td>make sb + verb</td><td>fazer, obrigar alguém a</td></tr><tr><td>notice sb + verb</td><td>perceber alguém fazendo algo</td></tr><tr><td>see sb + verb</td><td>ver alguém fazendo algo</td></tr><tr><td>watch sb + verb</td><td>ficar olhando alguém fazer algo</td></tr></table><div class="wb-g"><span class="num">3</span>Family 3 &middot; that + verb</div><table class="wb"><tr><td>demand that</td><td>exigir que</td></tr><tr><td>insist that</td><td>insistir que</td></tr><tr><td>propose that</td><td>propor que</td></tr><tr><td>recommend that</td><td>recomendar que</td></tr><tr><td>request that</td><td>solicitar que</td></tr><tr><td>suggest that</td><td>sugerir que</td></tr><tr><td>it’s important that</td><td>é importante que</td></tr><tr><td>with not: that she not call</td><td>com “não”: o not vem antes do verbo</td></tr></table>  <div class="wb-g">Words</div><table class="wb"><tr><td>afternoon off</td><td>tarde livre</td></tr><tr><td>assignment</td><td>trabalho, tarefa</td></tr><tr><td>attend</td><td>participar de</td></tr><tr><td>grades</td><td>notas (da escola)</td></tr><tr><td>hire</td><td>contratar</td></tr><tr><td>let sb know</td><td>avisar alguém</td></tr><tr><td>repair · fix</td><td>consertar</td></tr><tr><td>reschedule</td><td>remarcar</td></tr><tr><td>salespeople</td><td>vendedores</td></tr><tr><td>turn in</td><td>entregar (um trabalho)</td></tr><tr><td>ring · go off</td><td>tocar (alarme)</td></tr></table>
+</div>
 </aside>
 <script>
 /* QUICK REFERENCE */
@@ -1891,13 +1891,24 @@ markDone();
       back = document.getElementById('qrBack'), close = document.getElementById('qrClose');
   var hero = document.querySelector('.hero'), last = null;
   function vis(){ var y = hero ? hero.offsetTop + hero.offsetHeight * 0.6 : 300; btn.classList.toggle('show', window.scrollY > y && !panel.classList.contains('open')); }
-  function open(){ last = document.activeElement; panel.classList.add('open'); back.classList.add('open'); document.body.classList.add('qr-lock');
+  function open(){ last = document.activeElement; panel.classList.add('open');
     btn.setAttribute('aria-expanded', 'true'); btn.classList.remove('show'); setTimeout(function(){ close.focus(); }, 60); }
-  function shut(fb){ panel.classList.remove('open'); back.classList.remove('open'); document.body.classList.remove('qr-lock');
+  function shut(fb){ panel.classList.remove('open');
     btn.setAttribute('aria-expanded', 'false'); vis(); if (fb && last) last.focus(); }
   btn.addEventListener('click', open); close.addEventListener('click', function(){ shut(true); }); back.addEventListener('click', function(){ shut(true); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && panel.classList.contains('open')) shut(true); });
   window.addEventListener('scroll', vis, { passive: true }); vis();
+  var head = document.getElementById('qrHead'), dx = 0, dy = 0, drag = false;
+  function clamp(){ var r = panel.getBoundingClientRect(), w = window.innerWidth, hh = window.innerHeight;
+    panel.style.left = Math.max(0, Math.min(r.left, w - r.width)) + 'px'; panel.style.top = Math.max(0, Math.min(r.top, hh - Math.min(r.height, hh - 8) - 8)) + 'px'; panel.style.right = 'auto'; }
+  head.addEventListener('pointerdown', function(e){ if (e.target.closest('#qrClose') || e.button > 0) return;
+    var r = panel.getBoundingClientRect(); dx = e.clientX - r.left; dy = e.clientY - r.top; drag = true;
+    panel.style.left = r.left + 'px'; panel.style.top = r.top + 'px'; panel.style.right = 'auto';
+    panel.classList.add('dragging'); head.setPointerCapture(e.pointerId); e.preventDefault(); });
+  head.addEventListener('pointermove', function(e){ if (!drag) return; panel.style.left = (e.clientX - dx) + 'px'; panel.style.top = (e.clientY - dy) + 'px'; clamp(); });
+  function endDrag(){ if (!drag) return; drag = false; panel.classList.remove('dragging'); }
+  head.addEventListener('pointerup', endDrag); head.addEventListener('pointercancel', endDrag);
+  window.addEventListener('resize', function(){ if (panel.style.left) clamp(); });
 })();
 </script>
 <script>(function(){function clamp(e){var t=e.target.closest&&e.target.closest(".tt");if(!t)return;t.style.setProperty("--dx","0px");var r=t.getBoundingClientRect(),w=Math.min(260,window.innerWidth*.72)+20,over=r.left+w-(window.innerWidth-8);t.dataset.shift=over>0?"1":"";if(over>0){t.classList.add("tt-r")}else t.classList.remove("tt-r")}document.addEventListener("mouseover",clamp);document.addEventListener("focusin",clamp)})();</script></body>
