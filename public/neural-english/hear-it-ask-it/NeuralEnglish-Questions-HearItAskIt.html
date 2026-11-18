@@ -1687,14 +1687,18 @@ ocCount();
 #fwDock kbd{font-family:inherit;font-size:11px;font-weight:800;border:1.5px solid rgba(255,255,255,.55);padding:0 6px;line-height:1.5}
 #fwDock:focus-visible,#fwDrawer button:focus-visible{outline:3px solid var(--neon);outline-offset:2px}
 #fwDock[aria-expanded="true"]{display:none}
-#fwDrawer{position:fixed;top:0;right:0;bottom:0;z-index:1001;width:min(460px,100vw);background:var(--white);border-left:3px solid var(--ink);
-  overflow-y:auto;padding:22px 24px 40px;box-shadow:-18px 0 40px rgba(10,10,10,.08)}
+#fwDrawer{position:fixed;top:84px;right:24px;z-index:1001;width:min(400px,calc(100vw - 16px));max-height:calc(100vh - 108px);background:var(--white);border:3px solid var(--ink);
+  display:flex;flex-direction:column;overflow:hidden;box-shadow:0 14px 34px rgba(10,10,10,.14)}
 #fwDrawer[hidden]{display:none}
+.fwd-head{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;padding:14px 16px 12px 20px;border-bottom:1px solid var(--ink);flex:none}
+#fwDrawer.dragging .fwd-head{cursor:grabbing}
+#fwDrawer.dragging{box-shadow:0 22px 44px rgba(10,10,10,.22)}
+.fwd-body{overflow-y:auto;padding:0 20px 26px;flex:1}
 .fwd-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .fwd-eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
-.fwd-hand{font-family:'Caveat',cursive;font-weight:700;color:var(--hand-blue);font-size:34px;line-height:1;transform:rotate(-2.5deg);transform-origin:left center;margin-top:6px}
-#fwClose{border:0;background:none;color:var(--ink);font-family:inherit;cursor:pointer;padding:0 0 0 8px;margin:-6px -4px 0 0;display:flex;flex-direction:column;align-items:center;gap:6px}
-#fwClose b{font-size:96px;font-weight:300;line-height:.72;display:block}
+.fwd-hand{font-family:'Caveat',cursive;font-weight:700;color:var(--hand-blue);font-size:30px;line-height:1;transform:rotate(-2.5deg);transform-origin:left center;margin-top:6px}
+#fwClose{border:0;background:none;color:var(--ink);font-family:inherit;cursor:pointer;padding:0 0 0 8px;margin:-4px -2px 0 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+#fwClose b{font-size:68px;font-weight:300;line-height:.72;display:block}
 #fwClose small{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
 #fwClose:hover b{color:var(--hand-blue)}
 .fwd-pt{margin:14px 0 14px;padding-left:12px;border-left:2px solid var(--light);color:var(--mid);font-size:14px}
@@ -1723,8 +1727,8 @@ ocCount();
 <aside id="fwDrawer" role="dialog" aria-label="Focus words · Palavras em foco" tabindex="-1" hidden>
   <div class="fwd-head"><div><div class="fwd-eyebrow">Focus words · Palavras em foco</div><div class="fwd-hand">Click a word!</div></div>
   <button id="fwClose" type="button" aria-label="Close"><b aria-hidden="true">×</b><small>Esc</small></button></div>
-  <p class="fwd-pt">Clique numa palavra para ver o que ela pede na pergunta.</p>
-  <ul id="fwList"></ul>
+  <div class="fwd-body"><p class="fwd-pt">Clique numa palavra para ver o que ela pede na pergunta. Arraste o topo para mover o painel.</p>
+  <ul id="fwList"></ul></div>
 </aside>
 
 <script id="fwd-js">
@@ -1764,6 +1768,20 @@ ocCount();
     Array.prototype.forEach.call(list.querySelectorAll('.fwd-row'),function(x){x.setAttribute('aria-expanded','false');document.getElementById(x.getAttribute('aria-controls')).hidden=true;});
     if(!was){b.setAttribute('aria-expanded','true');document.getElementById(b.getAttribute('aria-controls')).hidden=false;}
   });
+  var head=dr.querySelector('.fwd-head'),dx=0,dy=0,drag=false;
+  function clamp(){var r=dr.getBoundingClientRect(),w=window.innerWidth,h=window.innerHeight;
+    var l=Math.max(0,Math.min(r.left,w-r.width)),t=Math.min(Math.max(r.top,0),h-60);
+    dr.style.left=l+'px';dr.style.top=t+'px';dr.style.right='auto';}
+  head.addEventListener('pointerdown',function(e){
+    if(e.target.closest('#fwClose')||e.button>0)return;
+    var r=dr.getBoundingClientRect();dx=e.clientX-r.left;dy=e.clientY-r.top;drag=true;
+    dr.style.left=r.left+'px';dr.style.top=r.top+'px';dr.style.right='auto';
+    dr.classList.add('dragging');head.setPointerCapture(e.pointerId);e.preventDefault();});
+  head.addEventListener('pointermove',function(e){
+    if(!drag)return;dr.style.left=(e.clientX-dx)+'px';dr.style.top=(e.clientY-dy)+'px';clamp();});
+  function end(e){if(!drag)return;drag=false;dr.classList.remove('dragging');}
+  head.addEventListener('pointerup',end);head.addEventListener('pointercancel',end);
+  window.addEventListener('resize',function(){if(!dr.hidden&&dr.style.left)clamp();});
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape'&&!dr.hidden){open(false);return;}
     if((e.key==='f'||e.key==='F')&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
