@@ -1498,7 +1498,7 @@ function round(r){
     exampleAnswer(r) +
     '<div class="story" data-story="' + r.storyId + '"><div class="story-bar">' + playBtn(r.storyId, 'Play the story') +
     '<div class="story-meta"><span class="story-name">' + esc(r.genre) + '</span><span class="plays" data-plays="' + r.storyId + '"></span></div>' +
-    '<button class="reveal-btn story-hint" type="button" hidden>Show the story, two sentences at a time</button>' +
+    '<button class="reveal-btn story-hint" type="button" hidden>Show the script, two sentences at a time</button>' +
     '<div class="story-ctl"><button class="sk" type="button" data-skip="-5" aria-label="Back 5 seconds">−5</button><button class="sk" type="button" data-skip="5" aria-label="Forward 5 seconds">+5</button><input class="seek" type="range" min="0" max="1" step="0.1" value="0" aria-label="Position"><span class="tm">0:00 / 0:00</span><button class="spd" type="button" aria-label="Speed 1×">1×</button></div>' +
     '<span class="story-lock">Script <b>unlocks</b> after you play the story twice <small>· O script abre depois da 2ª vez que você ouvir</small></span></div>' +
     '<p class="story-text" hidden></p></div>' +
@@ -1893,6 +1893,15 @@ ocCount();
       if(txt.hidden){txt.hidden=false; hide.innerHTML='Hide the script <small>· Esconder o script</small>';}
       else{txt.hidden=true; hide.innerHTML='Show the script again <small>· Mostrar o script de novo</small>';}
     });
+    var lk=st.querySelector('.story-lock');
+    if(lk){
+      var now=document.createElement('button'); now.type='button'; now.className='reveal-btn story-now';
+      now.style.marginLeft='14px'; now.innerHTML='Show it now <small>· Mostrar agora</small>';
+      lk.appendChild(now);
+      now.addEventListener('click',function(){
+        lk.hidden=true; var h=st.querySelector('.story-hint'); if(h){h.hidden=false; h.click();}
+      });
+    }
     st.addEventListener('click',function(e){
       if(e.target.closest('.story-hint')){hide.hidden=false; hide.innerHTML='Hide the script <small>· Esconder o script</small>';}
     });
