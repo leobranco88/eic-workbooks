@@ -1679,5 +1679,99 @@ ocCount();
   });
 })();
 </script>
+
+<style id="fwd-css">
+#fwDock{position:fixed;right:0;bottom:26px;z-index:1000;display:flex;align-items:baseline;gap:10px;border:0;cursor:pointer;
+  background:var(--ink);color:var(--white);font-family:inherit;padding:13px 16px 13px 18px;font-size:15px;font-weight:800;letter-spacing:.01em}
+#fwDock small{font-size:12px;font-weight:500;opacity:.7;letter-spacing:0}
+#fwDock kbd{font-family:inherit;font-size:11px;font-weight:800;border:1.5px solid rgba(255,255,255,.55);padding:0 6px;line-height:1.5}
+#fwDock:focus-visible,#fwDrawer button:focus-visible{outline:3px solid var(--neon);outline-offset:2px}
+#fwDock[aria-expanded="true"]{display:none}
+#fwDrawer{position:fixed;top:0;right:0;bottom:0;z-index:1001;width:min(460px,100vw);background:var(--white);border-left:3px solid var(--ink);
+  overflow-y:auto;padding:22px 24px 40px;box-shadow:-18px 0 40px rgba(10,10,10,.08)}
+#fwDrawer[hidden]{display:none}
+.fwd-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.fwd-eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.fwd-hand{font-family:'Caveat',cursive;font-weight:700;color:var(--hand-blue);font-size:34px;line-height:1;transform:rotate(-2.5deg);transform-origin:left center;margin-top:6px}
+#fwClose{border:0;background:none;color:var(--ink);font-family:inherit;cursor:pointer;padding:0 0 0 8px;margin:-6px -4px 0 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+#fwClose b{font-size:96px;font-weight:300;line-height:.72;display:block}
+#fwClose small{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+#fwClose:hover b{color:var(--hand-blue)}
+.fwd-pt{margin:14px 0 14px;padding-left:12px;border-left:2px solid var(--light);color:var(--mid);font-size:14px}
+#fwList{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+#fwList li{border-bottom:1px solid var(--light)}
+.fwd-row{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:14px;cursor:pointer;padding:13px 2px}
+.fwd-row:focus-visible{outline:3px solid var(--neon);outline-offset:-3px}
+.fwd-w{font-size:19px;font-weight:600;color:var(--mid)}
+.fwd-wh{font-size:19px;font-weight:900;color:var(--ink);text-align:right}
+.fwd-row[aria-expanded="true"] .fwd-w{color:var(--ink)}
+.fwd-row[aria-expanded="true"] .fwd-wh{background:var(--neon);padding:0 6px}
+.fwd-det{padding:2px 2px 18px}
+.fwd-det[hidden]{display:none}
+.fwd-what{font-size:16px;font-weight:700;color:var(--ink);margin:0 0 12px}
+.fwd-ex{margin:0 0 14px;padding-left:12px;border-left:2px solid var(--ink)}
+.fwd-en{font-size:17px;line-height:1.4;color:var(--ink)}
+.fwd-en mark{background:none;color:var(--ink);font-weight:800;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.fwd-q{font-family:'Caveat',cursive;font-weight:700;color:var(--graphite);font-size:28px;line-height:1.15;margin-top:4px}
+.fwd-q mark{background:var(--neon);color:var(--neon-ink);padding:0 3px}
+.fwd-note{font-size:14px;color:var(--mid);margin:0}
+.fwd-note b{color:var(--ink)}
+@media print{#fwDock,#fwDrawer{display:none!important}}
+</style>
+
+<button id="fwDock" type="button" aria-expanded="false" aria-controls="fwDrawer"><span>Focus words</span><small>Palavras em foco</small><kbd>F</kbd></button>
+<aside id="fwDrawer" role="dialog" aria-label="Focus words · Palavras em foco" tabindex="-1" hidden>
+  <div class="fwd-head"><div><div class="fwd-eyebrow">Focus words · Palavras em foco</div><div class="fwd-hand">Click a word!</div></div>
+  <button id="fwClose" type="button" aria-label="Close"><b aria-hidden="true">×</b><small>Esc</small></button></div>
+  <p class="fwd-pt">Clique numa palavra para ver o que ela pede na pergunta.</p>
+  <ul id="fwList"></ul>
+</aside>
+
+<script id="fwd-js">
+(function(){
+  var D=[
+   {w:'something',wh:'What',pt:'Pede a coisa. O quê?',ex:[['She would like us to do *something* this weekend?','What would she like us to do this weekend?']]},
+   {w:'somewhere',wh:'Where',pt:'Pede o lugar. Onde?',ex:[['She wants us to go *somewhere*?','Where does she want us to go?']]},
+   {w:'someone · somebody',wh:'Who',pt:'Pede a pessoa. Quem?',ex:[['She asked us to bring *someone*?','Who did she ask us to bring?'],['*Somebody* told us to wait?','Who told us to wait?']],note:'Quando a palavra é o <b>sujeito</b>, não entra do, does nem did.'},
+   {w:'somebody’s',wh:'Whose',pt:'Pede o dono. De quem?',ex:[['She invited us to visit *somebody’s* house?','Whose house did she invite us to visit?']]},
+   {w:'a certain …',wh:'Which',pt:'Pede a escolha entre opções. Qual?',ex:[['She wants us to use *a certain* template?','Which template does she want us to use?']]},
+   {w:'some kind of',wh:'What kind of',pt:'Pede o tipo. Que tipo de?',ex:[['She wants us to rent *some kind of* car?','What kind of car does she want us to rent?']]},
+   {w:'a specific time',wh:'What time',pt:'Pede o horário. Que horas?',ex:[['She told us to be there at *a specific time*?','What time did she tell us to be there?']]},
+   {w:'for some reason · because of',wh:'Why',pt:'Pede o motivo. Por quê?',ex:[['She told us to send her the slides by Friday *for some reason*?','Why did she tell us to send her the slides by Friday?'],['She wants us to go early because of *something*?','Why does she want us to go early?']]},
+   {w:'a lot of',wh:'How many · How much',pt:'Pede a quantidade.',ex:[['The coach expects us to run *a lot of* kilometers?','How many kilometers does the coach expect us to run?'],['She told us to bring *a lot of* water?','How much water did she tell us to bring?']],note:'Contável: <b>How many</b>. Incontável: <b>How much</b>.'},
+   {w:'a few minutes · for some time',wh:'How long',pt:'Pede a duração. Quanto tempo?',ex:[['She wants us to speak for *a few minutes*?','How long does she want us to speak?'],['The doctor advised us to rest *for some time*?','How long did the doctor advise us to rest?']]},
+   {w:'regularly',wh:'How often',pt:'Pede a frequência. Com que frequência?',ex:[['She asked us to call her *regularly*?','How often did she ask us to call her?']]},
+   {w:'so early',wh:'How early',pt:'Pede o grau. Quão cedo?',ex:[['Mr. Lopes made us get up *so early*?','How early did Mr. Lopes make us get up?']]}
+  ];
+  var WH=['What kind of','What time','How many','How much','How long','How often','How early','Whose','Where','Which','What','Who','Why'];
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function en(s){return esc(s).replace(/\*([^*]+)\*/g,'<mark>$1</mark>')}
+  function q(s){for(var i=0;i<WH.length;i++){if(s.indexOf(WH[i]+' ')===0)return '<mark>'+WH[i]+'</mark>'+esc(s.slice(WH[i].length));}return esc(s)}
+  var list=document.getElementById('fwList');
+  list.innerHTML=D.map(function(d,i){
+    return '<li><button class="fwd-row" type="button" aria-expanded="false" aria-controls="fwd'+i+'"><span class="fwd-w">'+esc(d.w)+'</span><b class="fwd-wh">'+esc(d.wh)+'</b></button>'+
+      '<div class="fwd-det" id="fwd'+i+'" hidden><p class="fwd-what">'+esc(d.pt)+'</p>'+
+      d.ex.map(function(e){return '<div class="fwd-ex"><div class="fwd-en">'+en(e[0])+'</div><div class="fwd-q">→ '+q(e[1])+'</div></div>'}).join('')+
+      (d.note?'<p class="fwd-note">'+d.note+'</p>':'')+'</div></li>';
+  }).join('');
+  var dock=document.getElementById('fwDock'),dr=document.getElementById('fwDrawer'),cl=document.getElementById('fwClose');
+  function open(on){dr.hidden=!on;dock.setAttribute('aria-expanded',on?'true':'false');if(on){dr.focus();}else{dock.focus();}}
+  dock.addEventListener('click',function(){open(true)});
+  cl.addEventListener('click',function(){open(false)});
+  list.addEventListener('click',function(e){
+    var b=e.target.closest('.fwd-row'); if(!b)return;
+    var was=b.getAttribute('aria-expanded')==='true';
+    Array.prototype.forEach.call(list.querySelectorAll('.fwd-row'),function(x){x.setAttribute('aria-expanded','false');document.getElementById(x.getAttribute('aria-controls')).hidden=true;});
+    if(!was){b.setAttribute('aria-expanded','true');document.getElementById(b.getAttribute('aria-controls')).hidden=false;}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&!dr.hidden){open(false);return;}
+    if((e.key==='f'||e.key==='F')&&!e.metaKey&&!e.ctrlKey&&!e.altKey){
+      var t=e.target; if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+      e.preventDefault(); open(dr.hidden);
+    }
+  });
+})();
+</script>
 </body>
 </html>
