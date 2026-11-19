@@ -1149,9 +1149,24 @@ h1 .h1-ans { color: var(--orange); }
 .tag { font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: clamp(40px, 2vw + 26px, 64px); line-height: .9; transform: rotate(-4deg); transform-origin: left bottom; margin: 30px 0 10px; }
 .hn { font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: clamp(28px, 1vw + 20px, 40px); line-height: 1; display: inline-block; transform: rotate(-2deg); white-space: nowrap; }
 
+.work { display: grid; grid-template-columns: minmax(0, 1fr) clamp(200px, 15vw, 280px); gap: 0 clamp(32px, 3.4vw, 64px); align-items: start; }
+/* banco de palavras: margem de dicionário */
+.bank { border-top: 2px solid var(--ink); padding-top: 14px; position: sticky; top: 78px; }
+.bank-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.bank-lab { font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+.bank ul { list-style: none; }
+.bank li { padding: 9px 0; border-bottom: 1px solid var(--light); font-size: clamp(14.5px, calc(11.9px + .66vw), 24px); font-weight: 800; letter-spacing: -.01em; line-height: 1.3; }
+.bank li.used .bk-w { color: var(--mid); opacity: .45; text-decoration: line-through; text-decoration-color: var(--mid); text-decoration-thickness: 1.5px; }
+.bank .bk-pt { display: none; margin-top: 2px; font-size: .74em; font-weight: 500; color: var(--mid); letter-spacing: 0; line-height: 1.35; }
+.bank.pt-on .bk-pt { display: block; }
+@media (max-width: 860px) {
+  .work { grid-template-columns: 1fr; }
+  .bank { position: static; order: -1; margin-bottom: 26px; }
+  .bank ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+}
 .cloze { border-top: 2px solid var(--ink); padding-top: 22px; }
 section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px); }
-.cloze p { font-size: clamp(17px, .62vw + 13.5px, 28px); font-weight: 500; line-height: 2.55; letter-spacing: -.005em; max-width: 64em; margin-bottom: 1.1em; }
+.cloze p { font-size: clamp(17px, .62vw + 13.5px, 28px); font-weight: 500; line-height: 2.55; letter-spacing: -.005em; max-width: none; margin-bottom: 1.1em; }
 .cloze p:last-child { margin-bottom: 0; }
 
 /* a lacuna */
@@ -1292,6 +1307,17 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
     }
     return null;
   }
+  function shuffleBank(words) {
+    var n = words.length, best = words.slice();
+    for (var tries = 0; tries < 40; tries++) {
+      var a = words.slice();
+      for (var i = n - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; }
+      var same = 0, rev = 0;
+      for (var k = 0; k < n; k++) { if (a[k] === words[k]) same++; if (a[k] === words[n - 1 - k]) rev++; }
+      best = a; if (same <= 1 && rev <= 1) break;
+    }
+    return best;
+  }
   var POS = positions(D.total) || positions(D.total) || [], pi = 0;
 
   var T = D.texts.map(function (t) {
@@ -1299,7 +1325,7 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
     t.paras.forEach(function (p) { p.forEach(function (tok) {
       if (tok.g) { var c = POS[pi++]; gaps.push({ ans: tok.g, dis: tok.d, cap: !!tok.cap, opts: c ? [tok.d, tok.g] : [tok.g, tok.d], choice: null, state: null }); }
     }); });
-    return { d: t, gaps: gaps, revealed: false, checked: false, score: null, pt: false };
+    return { d: t, gaps: gaps, revealed: false, checked: false, score: null, pt: false, bank: shuffleBank(gaps.map(function (g) { return g.ans; })) };
   });
 
   var rail = document.getElementById('rail'), railLab = document.getElementById('railLabels');
@@ -1342,16 +1368,26 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
     t.result = el('div', 'result');
     t.resScore = el('span', 'score'); t.resNote = el('span', 'hn');
     t.result.appendChild(t.resScore); t.result.appendChild(t.resNote);
-    actions.appendChild(t.checkBtn); actions.appendChild(t.showBtn); actions.appendChild(t.resetBtn); actions.appendChild(t.ptBtn); actions.appendChild(t.result);
+    actions.appendChild(t.checkBtn); actions.appendChild(t.showBtn); actions.appendChild(t.resetBtn); actions.appendChild(t.result);
     cloze.appendChild(actions);
 
-    sec.appendChild(cloze);
+    var bank = el('aside', 'bank'); bank.setAttribute('aria-label', 'Words for text ' + (ti + 1));
+    var head = el('div', 'bank-head', '<span class="bank-lab">Words &middot; ' + t.gaps.length + '</span>');
+    t.ptBtn.classList.add('sm'); head.appendChild(t.ptBtn); bank.appendChild(head);
+    var ul = el('ul'); t.bankLis = {};
+    t.bank.forEach(function (w) {
+      var li = el('li', '', '<span class="bk-w">' + esc(w) + '</span><span class="bk-pt">' + esc(D.pt[w] || '') + '</span>');
+      t.bankLis[w] = li; ul.appendChild(li);
+    });
+    bank.appendChild(ul); t.bankEl = bank;
+    var work = el('div', 'work'); work.appendChild(cloze); work.appendChild(bank);
+    sec.appendChild(work);
     host.appendChild(sec);
 
     t.checkBtn.addEventListener('click', function () { check(ti); });
     t.showBtn.addEventListener('click', function () { toggleShow(ti); });
     t.resetBtn.addEventListener('click', function () { reset(ti); });
-    t.ptBtn.addEventListener('click', function () { t.pt = !t.pt; t.ptBtn.setAttribute('aria-pressed', String(t.pt)); });
+    t.ptBtn.addEventListener('click', function () { t.pt = !t.pt; t.ptBtn.setAttribute('aria-pressed', String(t.pt)); t.bankEl.classList.toggle('pt-on', t.pt); });
     paint(ti);
   });
 
@@ -1380,6 +1416,8 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
       }
       b.setAttribute('aria-label', label);
     });
+    var used = {}; if (!t.revealed) t.gaps.forEach(function (g) { if (g.choice) used[g.choice] = true; });
+    Object.keys(t.bankLis).forEach(function (w) { t.bankLis[w].classList.toggle('used', !!used[w]); });
     t.showBtn.setAttribute('aria-pressed', String(t.revealed));
     t.showBtn.textContent = t.revealed ? 'Hide answers' : 'Show answers';
     t.checkBtn.disabled = t.revealed;
