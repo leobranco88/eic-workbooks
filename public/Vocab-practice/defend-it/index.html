@@ -1149,10 +1149,9 @@ h1 .h1-ans { color: var(--orange); }
 .tag { font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: clamp(40px, 2vw + 26px, 64px); line-height: .9; transform: rotate(-4deg); transform-origin: left bottom; margin: 30px 0 10px; }
 .hn { font-family: 'Caveat', cursive; font-weight: 700; color: var(--blue); font-size: clamp(28px, 1vw + 20px, 40px); line-height: 1; display: inline-block; transform: rotate(-2deg); white-space: nowrap; }
 
-.work { display: grid; grid-template-columns: minmax(0, 1fr) clamp(200px, 15vw, 280px); gap: 0 clamp(32px, 3.4vw, 64px); align-items: start; }
 .cloze { border-top: 2px solid var(--ink); padding-top: 22px; }
 section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px); }
-.cloze p { font-size: clamp(17px, .62vw + 13.5px, 28px); font-weight: 500; line-height: 2.55; letter-spacing: -.005em; max-width: none; margin-bottom: 1.1em; }
+.cloze p { font-size: clamp(17px, .62vw + 13.5px, 28px); font-weight: 500; line-height: 2.55; letter-spacing: -.005em; max-width: 64em; margin-bottom: 1.1em; }
 .cloze p:last-child { margin-bottom: 0; }
 
 /* a lacuna */
@@ -1180,21 +1179,6 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
 .gap.shown .w { color: var(--blue); }
 .gap.shown .ring { display: none; }
 
-/* banco de palavras: margem de dicionário */
-.bank { border-top: 2px solid var(--ink); padding-top: 14px; position: sticky; top: 78px; }
-.bank-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
-.bank-lab { font-size: clamp(9.9px, calc(8.165px + 0.4628vw), 17.05px); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
-.bank ul { list-style: none; }
-.bank li { padding: 9px 0; border-bottom: 1px solid var(--light); font-size: clamp(14.5px, calc(11.9px + .66vw), 24px); font-weight: 800; letter-spacing: -.01em; line-height: 1.3; }
-.bank li.used .bk-w { color: var(--mid); opacity: .45; text-decoration: line-through; text-decoration-color: var(--mid); text-decoration-thickness: 1.5px; }
-.bank .bk-pt { display: none; margin-top: 2px; font-size: .74em; font-weight: 500; color: var(--mid); letter-spacing: 0; line-height: 1.35; }
-.bank.pt-on .bk-pt { display: block; }
-@media (max-width: 860px) {
-  .work { grid-template-columns: 1fr; }
-  .bank { position: static; order: -1; margin-bottom: 26px; }
-  .bank ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
-}
-
 /* botões: contorno fino, sem sombra, sem canto arredondado */
 .btn { font: inherit; font-size: clamp(12.15px, calc(10.019px + .5683vw), 20.93px); font-weight: 700; background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); border-radius: 0; padding: 9px 16px; cursor: pointer; }
 .btn:hover:not(:disabled) { background: #F4F4F1; }
@@ -1210,10 +1194,11 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
 
 /* seletor de palavra */
 .menu { position: fixed; z-index: 300; background: var(--white); border: 1.5px solid var(--ink); min-width: 230px; max-width: min(92vw, 380px); max-height: min(62vh, 440px); overflow-y: auto; }
-.menu button { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; width: 100%; text-align: left; font: inherit; font-size: 17px; font-weight: 700; padding: 11px 14px; background: var(--white); color: var(--ink); border: 0; border-bottom: 1px solid var(--light); border-radius: 0; cursor: pointer; }
+.menu button { display: block; width: 100%; text-align: left; font: inherit; font-size: 17px; font-weight: 700; padding: 11px 14px; background: var(--white); color: var(--ink); border: 0; border-bottom: 1px solid var(--light); border-radius: 0; cursor: pointer; }
 .menu button:last-child { border-bottom: 0; }
 .menu button:hover, .menu button:focus-visible { background: #F4F4F1; outline: none; }
-.menu button .u { font-size: 12px; font-weight: 600; color: var(--mid); white-space: nowrap; }
+.menu button .ow { display: block; }
+.menu button .u { display: block; margin-top: 2px; font-size: 13px; font-weight: 600; color: var(--mid); }
 .menu button.cur { box-shadow: inset 3px 0 0 var(--ink); }
 .menu button.clr { color: var(--mid); font-weight: 600; }
 .scrim { position: fixed; inset: 0; z-index: 250; background: rgba(10,10,10,.28); display: none; }
@@ -1254,8 +1239,8 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
 <header class="hero">
   <div class="hero-eyebrow">EIC Atelier &middot; Vocabulary in context</div>
   <h1>Put each word <span class="h1-ans">where it belongs.</span></h1>
-  <p class="hero-sub">Seven short texts, <strong>55 words</strong>. Each text has gaps. Tap a gap and choose the word that fits.</p>
-  <p class="hero-pt">Sete textos curtos e 55 palavras. Toque em cada lacuna e escolha a palavra que completa a frase. Quando terminar o texto, toque em <strong>Check</strong>.</p>
+  <p class="hero-sub">Seven short texts, <strong>55 words</strong>. Each gap has two words. Tap a gap and choose the one that fits.</p>
+  <p class="hero-pt">Sete textos curtos e 55 palavras. Cada lacuna tem duas palavras. Toque nela e escolha a que completa a frase. Quando terminar o texto, toque em <strong>Check</strong>.</p>
 </header>
 
 <main id="texts"></main>
@@ -1273,7 +1258,7 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
 <div class="scrim" id="scrim"></div>
 <div class="sr" role="status" aria-live="polite" id="live"></div>
 
-<script type="application/json" id="data">{"texts": [{"rail": "Work", "eyebrow": "Work", "title": "My brother’s bike shop", "pt": "Metas, vendas e trabalho por conta própria", "tag": "Read around the gap", "paras": [[{"s": "My brother Davi quit his office job last year and became "}, {"g": "self-employed"}, {"s": ". He repairs bicycles, and his plan was simple: to "}, {"g": "make money"}, {"s": " from fixing old bikes. The first year was hard. In March, "}, {"g": "the market fell"}, {"s": ", and half of his customers stopped buying. For years he had depended on one big client, and that client was a "}, {"g": "crutch"}, {"s": ": when it left, the shop almost closed."}], [{"s": "Now he works every day, and he is no "}, {"g": "slacker"}, {"s": ": he opens at 7 a.m., even on Saturdays. He still has to wait to "}, {"g": "get paid"}, {"s": " for jobs he did last month, but this year he wants to "}, {"g": "surpass"}, {"s": " last year’s sales. I work in sales too. My boss gave me a goal for June, and I really want to "}, {"g": "exceed my target"}, {"s": ", but I’m not sure I can."}]]}, {"rail": "Boston", "eyebrow": "Boston", "title": "Camila wants to study abroad", "pt": "Matrícula, preço e uma decisão", "tag": "Look at the grammar", "paras": [[{"s": "Camila is 19, and she wants to "}, {"g": "enroll"}, {"s": " in an English course in Boston. She called the school, and the secretary said, “Please send your documents "}, {"g": "beforehand"}, {"s": " so we can prepare everything, and your "}, {"g": "enrollment"}, {"s": " will be confirmed in a few days.” Camila had "}, {"g": "previously"}, {"s": " studied English for two years, so she hopes to start at a higher level."}], [{"s": "The price scared her. “I wonder if it’s going "}, {"g": "to be worth it"}, {"s": ",” she said. She works at a bakery to "}, {"g": "earn money"}, {"s": " for the trip. Her aunt, who lives near the school, told her, “Come and stay with me. Your flight is "}, {"g": "all paid for"}, {"s": ". I bought it with my miles.” Camila smiled and said, “Thank you! "}, {"g": "I’ll get back to you later"}, {"s": ". I need to talk to my parents first.”"}]]}, {"rail": "Chicago", "eyebrow": "Chicago", "title": "A month in Chicago", "pt": "Viagem, frio e situações do dia a dia", "tag": "What is the sentence saying?", "paras": [[{"s": "I spent a month in Chicago last spring. I visited many museums "}, {"g": "during my stay"}, {"s": ", and I even found a tiny, "}, {"g": "obscure"}, {"s": " jazz bar that most tourists never see. At first I felt like a "}, {"g": "foreigner"}, {"s": ", and it was hard to "}, {"g": "start a conversation"}, {"s": " with people."}], [{"s": "The cold weather was "}, {"g": "tough"}, {"s": " on me: it took me two weeks to "}, {"g": "get used to"}, {"s": " it. One night it was "}, {"g": "raining cats and dogs"}, {"s": ", and the subway stopped. Nobody explained what was happening, and I was "}, {"g": "in the dark"}, {"s": " because I couldn’t understand the announcements. Another day, my soup was cold, so I asked the waiter to "}, {"g": "send back"}, {"s": " the soup."}]]}, {"rail": "Pressure", "eyebrow": "Pressure", "title": "Too much at once", "pt": "Estresse, sobrecarga e rede de apoio", "tag": "Small words matter", "paras": [[{"s": "Bia is a university student who also works at a call center. Her rent went up, so she needs to "}, {"g": "get more money"}, {"s": ", and she took a second job on weekends. Now she works sixty hours a week, so she is "}, {"g": "overworked"}, {"s": " and underpaid."}], [{"s": "On Monday, her professor gave her a new "}, {"g": "assignment"}, {"s": ", and she opened her email to find forty unread messages. She felt completely "}, {"g": "overwhelmed"}, {"s": " by everything she had to do. That night her little brother, who is always "}, {"g": "whiny"}, {"s": " when he is tired, kept asking her to play, and she was afraid she would "}, {"g": "lash out"}, {"s": " at him. Her mother said, “Don’t "}, {"g": "stress over"}, {"s": " things you can’t change.” Luckily, Bia has a strong "}, {"g": "support system"}, {"s": ": her mother, her sister and two close friends."}]]}, {"rail": "Bosses", "eyebrow": "Bosses", "title": "Three bosses", "pt": "Como os chefes são", "tag": "Same boss? No way!", "paras": [[{"s": "I’ve had three bosses, and they were very different. Mr. Lima had very "}, {"g": "strict"}, {"s": " rules: if you arrived one minute late, your name went on a list, no exceptions. Ana, my second boss, is great with numbers. She is "}, {"g": "detail-oriented"}, {"s": ": she checks every number twice, and she never misses a small mistake in a report. The job itself was "}, {"g": "demanding"}, {"s": ", too: I answered emails at midnight and worked on Saturdays."}], [{"s": "My current boss is totally "}, {"g": "easygoing"}, {"s": ": when I arrive late, he just smiles and says, “No problem.” His assistant, on the other hand, is so "}, {"g": "uptight"}, {"s": " that she can never relax, and she complains when someone laughs in the hallway. Between the two, I "}, {"g": "would rather"}, {"s": " work for the relaxed one, of course."}]]}, {"rail": "Country", "eyebrow": "Country", "title": "A weekend away", "pt": "Um fim de semana no campo", "tag": "Same sound, different word", "paras": [[{"s": "After a month of meetings, I was so "}, {"g": "stressed"}, {"s": " that I rented a small farm for the weekend. The owner had a gray "}, {"g": "donkey"}, {"s": " named Pablo, who carried our bags up the hill. The hill was covered with "}, {"g": "wild"}, {"s": " flowers, and we found old stone "}, {"g": "structures"}, {"s": " near the river."}], [{"s": "On the way back, we heard a loud bang. I think the car "}, {"g": "hit something"}, {"s": ". My cousin looked at the tire and said, “Look, there’s a "}, {"g": "hole"}, {"s": " in it!” We spent the "}, {"g": "whole"}, {"s": " afternoon changing it. It was a "}, {"g": "dumb"}, {"s": " mistake: I had forgotten to check the spare tire before we left."}]]}, {"rail": "Family", "eyebrow": "Family", "title": "Dinner with the family", "pt": "Filhos, regras e um provérbio", "tag": "Chunks, not words", "paras": [[{"s": "At the family dinner, everyone had an opinion about children. My sister Lia hopes "}, {"g": "to be pregnant"}, {"s": " by the end of the year, and she already has strong ideas. She doesn’t want to "}, {"g": "indoctrinate"}, {"s": " her child with her own opinions about politics; she wants him to think for himself. She also says parents shouldn’t let kids "}, {"g": "run wild"}, {"s": ". My grandmother, who raised six children, said, “You "}, {"g": "reap what you sow"}, {"s": ". If you are kind to your kids, they will be kind to you.”"}], [{"s": "When our nephew dropped a glass last week, nobody was angry: he didn’t do it "}, {"g": "on purpose"}, {"s": ". My mother’s rule is simple: always "}, {"g": "give someone the benefit of the doubt"}, {"s": ". Later that night I started reading about parenting on my phone, and I fell down a "}, {"g": "rabbit hole"}, {"s": " of videos. It always happens: you read one article and you "}, {"g": "end up"}, {"s": " watching videos for hours."}]]}], "pt": {"surpass": "superar; ultrapassar", "exceed my target": "superar minha meta", "slacker": "preguiçoso; enrolão", "crutch": "muleta; apoio", "whiny": "chorão; reclamão", "the market fell": "o mercado caiu", "hit something": "bater em alguma coisa", "start a conversation": "começar uma conversa; puxar assunto", "foreigner": "estrangeiro", "make money": "ganhar dinheiro; fazer dinheiro", "earn money": "ganhar dinheiro", "get paid": "receber o pagamento; ser pago", "self-employed": "autônomo", "during my stay": "durante a minha estadia", "previously": "anteriormente; antes", "beforehand": "com antecedência", "indoctrinate": "doutrinar", "run wild": "ficar fora de controle; crescer solto", "give someone the benefit of the doubt": "dar o benefício da dúvida", "on purpose": "de propósito", "end up": "acabar (em algum lugar ou fazendo algo)", "wild": "selvagem", "reap what you sow": "colher o que se planta", "to be pregnant": "estar grávida", "overwhelmed": "sobrecarregado (emocionalmente)", "overworked": "exausto de trabalhar demais", "structures": "estruturas; construções", "get more money": "ganhar mais dinheiro", "to be worth it": "valer a pena", "stress over": "ficar estressado com", "I’ll get back to you later": "eu te retorno depois", "easygoing": "tranquilo; de boa", "lash out": "atacar verbalmente; explodir de raiva", "stressed": "estressado; tenso", "dumb": "burro; bobo", "donkey": "burro; jumento", "uptight": "tenso; careta", "detail-oriented": "detalhista", "get used to": "acostumar-se com", "strict": "rigoroso; severo", "demanding": "exigente", "would rather": "preferir", "tough": "difícil; duro", "enroll": "matricular-se", "enrollment": "matrícula", "all paid for": "tudo pago", "raining cats and dogs": "chovendo canivetes", "send back": "devolver; mandar de volta", "in the dark": "sem saber de nada, por fora", "obscure": "obscuro, pouco conhecido", "support system": "rede de apoio", "rabbit hole": "toca de coelho (situação sem fim)", "hole": "buraco", "whole": "inteiro; todo", "assignment": "tarefa"}, "total": 55}</script>
+<script type="application/json" id="data">{"texts": [{"rail": "Work", "eyebrow": "Work", "title": "My brother’s bike shop", "pt": "Metas, vendas e trabalho por conta própria", "tag": "Read around the gap", "paras": [[{"s": "My brother Davi quit his office job last year and became "}, {"g": "self-employed", "d": "uptight", "cap": false}, {"s": ". He repairs bicycles, and his plan was simple: to "}, {"g": "make money", "d": "end up", "cap": false}, {"s": " from fixing old bikes. The first year was hard. In March, "}, {"g": "the market fell", "d": "I’ll get back to you later", "cap": false}, {"s": ", and half of his customers stopped buying. For years he had depended on one big client, and that client was a "}, {"g": "crutch", "d": "slacker", "cap": false}, {"s": ": when it left, the shop almost closed."}], [{"s": "Now he works every day, and he is no "}, {"g": "slacker", "d": "foreigner", "cap": false}, {"s": ": he opens at 7 a.m., even on Saturdays. He still has to wait to "}, {"g": "get paid", "d": "get used to", "cap": false}, {"s": " for jobs he did last month, but this year he wants to "}, {"g": "surpass", "d": "exceed my target", "cap": false}, {"s": " last year’s sales. I work in sales too. My boss gave me a goal for June, and I really want to "}, {"g": "exceed my target", "d": "surpass", "cap": false}, {"s": ", but I’m not sure I can."}]]}, {"rail": "Boston", "eyebrow": "Boston", "title": "Camila wants to study abroad", "pt": "Matrícula, preço e uma decisão", "tag": "Look at the grammar", "paras": [[{"s": "Camila is 19, and she wants to "}, {"g": "enroll", "d": "enrollment", "cap": false}, {"s": " in an English course in Boston. She called the school, and the secretary said, “Please send your documents "}, {"g": "beforehand", "d": "previously", "cap": false}, {"s": " so we can prepare everything, and your "}, {"g": "enrollment", "d": "enroll", "cap": false}, {"s": " will be confirmed in a few days.” Camila had "}, {"g": "previously", "d": "beforehand", "cap": false}, {"s": " studied English for two years, so she hopes to start at a higher level."}], [{"s": "The price scared her. “I wonder if it’s going "}, {"g": "to be worth it", "d": "to be pregnant", "cap": false}, {"s": ",” she said. She works at a bakery to "}, {"g": "earn money", "d": "send back", "cap": false}, {"s": " for the trip. Her aunt, who lives near the school, told her, “Come and stay with me. Your flight is "}, {"g": "all paid for", "d": "obscure", "cap": false}, {"s": ". I bought it with my miles.” Camila smiled and said, “Thank you! "}, {"g": "I’ll get back to you later", "d": "on purpose", "cap": true}, {"s": ". I need to talk to my parents first.”"}]]}, {"rail": "Chicago", "eyebrow": "Chicago", "title": "A month in Chicago", "pt": "Viagem, frio e situações do dia a dia", "tag": "What is the sentence saying?", "paras": [[{"s": "I spent a month in Chicago last spring. I visited many museums "}, {"g": "during my stay", "d": "in the dark", "cap": false}, {"s": ", and I even found a tiny, "}, {"g": "obscure", "d": "stressed", "cap": false}, {"s": " jazz bar that most tourists never see. At first I felt like a "}, {"g": "foreigner", "d": "crutch", "cap": false}, {"s": ", and it was hard to "}, {"g": "start a conversation", "d": "send back", "cap": false}, {"s": " with people."}], [{"s": "The cold weather was "}, {"g": "tough", "d": "obscure", "cap": false}, {"s": " on me: it took me two weeks to "}, {"g": "get used to", "d": "send back", "cap": false}, {"s": " it. One night it was "}, {"g": "raining cats and dogs", "d": "all paid for", "cap": false}, {"s": ", and the subway stopped. Nobody explained what was happening, and I was "}, {"g": "in the dark", "d": "overworked", "cap": false}, {"s": " because I couldn’t understand the announcements. Another day, my soup was cold, so I asked the waiter to "}, {"g": "send back", "d": "start a conversation", "cap": false}, {"s": " the soup."}]]}, {"rail": "Pressure", "eyebrow": "Pressure", "title": "Too much at once", "pt": "Estresse, sobrecarga e rede de apoio", "tag": "Small words matter", "paras": [[{"s": "Bia is a university student who also works at a call center. Her rent went up, so she needs to "}, {"g": "get more money", "d": "lash out", "cap": false}, {"s": ", and she took a second job on weekends. Now she works sixty hours a week, so she is "}, {"g": "overworked", "d": "whiny", "cap": false}, {"s": " and underpaid."}], [{"s": "On Monday, her professor gave her a new "}, {"g": "assignment", "d": "crutch", "cap": false}, {"s": ", and she opened her email to find forty unread messages. She felt completely "}, {"g": "overwhelmed", "d": "easygoing", "cap": false}, {"s": " by everything she had to do. That night her little brother, who is always "}, {"g": "whiny", "d": "detail-oriented", "cap": false}, {"s": " when he is tired, kept asking her to play, and she was afraid she would "}, {"g": "lash out", "d": "stress over", "cap": false}, {"s": " at him. Her mother said, “Don’t "}, {"g": "stress over", "d": "lash out", "cap": false}, {"s": " things you can’t change.” Luckily, Bia has a strong "}, {"g": "support system", "d": "assignment", "cap": false}, {"s": ": her mother, her sister and two close friends."}]]}, {"rail": "Bosses", "eyebrow": "Bosses", "title": "Three bosses", "pt": "Como os chefes são", "tag": "Same boss? No way!", "paras": [[{"s": "I’ve had three bosses, and they were very different. Mr. Lima had very "}, {"g": "strict", "d": "whiny", "cap": false}, {"s": " rules: if you arrived one minute late, your name went on a list, no exceptions. Ana, my second boss, is great with numbers. She is "}, {"g": "detail-oriented", "d": "easygoing", "cap": false}, {"s": ": she checks every number twice, and she never misses a small mistake in a report. The job itself was "}, {"g": "demanding", "d": "easygoing", "cap": false}, {"s": ", too: I answered emails at midnight and worked on Saturdays."}], [{"s": "My current boss is totally "}, {"g": "easygoing", "d": "strict", "cap": false}, {"s": ": when I arrive late, he just smiles and says, “No problem.” His assistant, on the other hand, is so "}, {"g": "uptight", "d": "easygoing", "cap": false}, {"s": " that she can never relax, and she complains when someone laughs in the hallway. Between the two, I "}, {"g": "would rather", "d": "end up", "cap": false}, {"s": " work for the relaxed one, of course."}]]}, {"rail": "Country", "eyebrow": "Country", "title": "A weekend away", "pt": "Um fim de semana no campo", "tag": "Same sound, different word", "paras": [[{"s": "After a month of meetings, I was so "}, {"g": "stressed", "d": "easygoing", "cap": false}, {"s": " that I needed a break, so I rented a small farm for the weekend. The owner had a gray "}, {"g": "donkey", "d": "hole", "cap": false}, {"s": " named Pablo, who carried our bags up the hill. The hill was covered with "}, {"g": "wild", "d": "dumb", "cap": false}, {"s": " flowers, and we found old stone "}, {"g": "structures", "d": "donkey", "cap": false}, {"s": " near the river."}], [{"s": "On the way back, we heard a loud bang. I think the car "}, {"g": "hit something", "d": "end up", "cap": false}, {"s": ". My cousin looked at the tire and said, “Look, there’s a "}, {"g": "hole", "d": "whole", "cap": false}, {"s": " in it!” We spent the "}, {"g": "whole", "d": "hole", "cap": false}, {"s": " afternoon changing it. It was a "}, {"g": "dumb", "d": "donkey", "cap": false}, {"s": " mistake: I hadn’t checked the spare tire before we left, and it was flat too."}]]}, {"rail": "Family", "eyebrow": "Family", "title": "Dinner with the family", "pt": "Filhos, regras e um provérbio", "tag": "Chunks, not words", "paras": [[{"s": "At the family dinner, everyone had an opinion about children. My sister Lia hopes "}, {"g": "to be pregnant", "d": "to be worth it", "cap": false}, {"s": " by the end of the year, and she already has strong ideas. She doesn’t want to "}, {"g": "indoctrinate", "d": "lash out", "cap": false}, {"s": " her child with her own opinions about politics; she wants him to think for himself. She also says parents shouldn’t let kids "}, {"g": "run wild", "d": "slacker", "cap": false}, {"s": ". My grandmother, who raised six children, said, “You "}, {"g": "reap what you sow", "d": "end up", "cap": false}, {"s": ". If you are kind to your kids, they will be kind to you.”"}], [{"s": "When our nephew dropped a glass last week, nobody was angry: he didn’t do it "}, {"g": "on purpose", "d": "previously", "cap": false}, {"s": ". My mother’s rule is simple: always "}, {"g": "give someone the benefit of the doubt", "d": "get used to", "cap": false}, {"s": ". Later that night I started reading about parenting on my phone, and I fell down a "}, {"g": "rabbit hole", "d": "crutch", "cap": false}, {"s": " of videos. It always happens: you read one article and you "}, {"g": "end up", "d": "run wild", "cap": false}, {"s": " watching videos for hours."}]]}], "pt": {"surpass": "superar; ultrapassar", "exceed my target": "superar minha meta", "slacker": "preguiçoso; enrolão", "crutch": "muleta; apoio", "whiny": "chorão; reclamão", "the market fell": "o mercado caiu", "hit something": "bater em alguma coisa", "start a conversation": "começar uma conversa; puxar assunto", "foreigner": "estrangeiro", "make money": "ganhar dinheiro; fazer dinheiro", "earn money": "ganhar dinheiro", "get paid": "receber o pagamento; ser pago", "self-employed": "autônomo", "during my stay": "durante a minha estadia", "previously": "anteriormente; antes", "beforehand": "com antecedência", "indoctrinate": "doutrinar", "run wild": "ficar fora de controle; crescer solto", "give someone the benefit of the doubt": "dar o benefício da dúvida", "on purpose": "de propósito", "end up": "acabar (em algum lugar ou fazendo algo)", "wild": "selvagem", "reap what you sow": "colher o que se planta", "to be pregnant": "estar grávida", "overwhelmed": "sobrecarregado (emocionalmente)", "overworked": "exausto de trabalhar demais", "structures": "estruturas; construções", "get more money": "ganhar mais dinheiro", "to be worth it": "valer a pena", "stress over": "ficar estressado com", "I’ll get back to you later": "eu te retorno depois", "easygoing": "tranquilo; de boa", "lash out": "atacar verbalmente; explodir de raiva", "stressed": "estressado; tenso", "dumb": "burro; bobo", "donkey": "burro; jumento", "uptight": "tenso; careta", "detail-oriented": "detalhista", "get used to": "acostumar-se com", "strict": "rigoroso; severo", "demanding": "exigente", "would rather": "preferir", "tough": "difícil; duro", "enroll": "matricular-se", "enrollment": "matrícula", "all paid for": "tudo pago", "raining cats and dogs": "chovendo canivetes", "send back": "devolver; mandar de volta", "in the dark": "sem saber de nada, por fora", "obscure": "obscuro, pouco conhecido", "support system": "rede de apoio", "rabbit hole": "toca de coelho (situação sem fim)", "hole": "buraco", "whole": "inteiro; todo", "assignment": "tarefa"}, "total": 55}</script>
 <script>
 (function () {
   'use strict';
@@ -1281,51 +1266,57 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
   var RING = '<svg class="ring" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path d="M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6"/></svg>';
   var live = document.getElementById('live');
   var scrim = document.getElementById('scrim');
-  var open = null; // {t, g, menu, btn}
+  var open = null;
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function show(g, w) { return g.cap ? w.charAt(0).toUpperCase() + w.slice(1) : w; }
 
-  /* ordem do banco: sorteada, nunca na ordem das lacunas nem invertida */
-  function shuffleBank(words) {
-    var n = words.length, best = null;
-    for (var tries = 0; tries < 40; tries++) {
-      var a = words.slice();
-      for (var i = n - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
-      var same = 0, rev = 0;
-      for (var k = 0; k < n; k++) { if (a[k] === words[k]) same++; if (a[k] === words[n - 1 - k]) rev++; }
-      best = a;
-      if (same <= 1 && rev <= 1) break;
+  /* posição da resposta certa (0 = primeira, 1 = segunda): sorteada para a página inteira,
+     equilibrada, nunca 3 iguais seguidas, sem alternância, primeira e última diferentes */
+  function positions(n) {
+    for (var tries = 0; tries < 3000; tries++) {
+      var a = [], ones = 0, i, dead = false;
+      for (i = 0; i < n && !dead; i++) {
+        var c = [0, 1].filter(function (v) {
+          if (i >= 2 && a[i - 1] === v && a[i - 2] === v) return false;                       // 3 iguais seguidas
+          if (i >= 5) { var alt = v !== a[i - 1]; for (var k = 1; k < 5; k++) if (a[i - k] === a[i - k - 1]) alt = false; if (alt) return false; } // alternância longa
+          return true;
+        });
+        if (!c.length) { dead = true; break; }
+        var v = c[Math.floor(Math.random() * c.length)]; a.push(v); ones += v;
+      }
+      if (dead || a.length < n) continue;
+      if (Math.abs(ones - (n - ones)) > 3 || a[0] === a[n - 1]) continue;
+      return a;
     }
-    return best;
+    return null;
   }
+  var POS = positions(D.total) || positions(D.total) || [], pi = 0;
 
-  /* estado */
   var T = D.texts.map(function (t) {
     var gaps = [];
-    t.paras.forEach(function (p) { p.forEach(function (tok) { if (tok.g) gaps.push({ ans: tok.g, choice: null, state: null }); }); });
-    return { d: t, gaps: gaps, revealed: false, checked: false, score: null, bank: shuffleBank(gaps.map(function (g) { return g.ans; })) };
+    t.paras.forEach(function (p) { p.forEach(function (tok) {
+      if (tok.g) { var c = POS[pi++]; gaps.push({ ans: tok.g, dis: tok.d, cap: !!tok.cap, opts: c ? [tok.d, tok.g] : [tok.g, tok.d], choice: null, state: null }); }
+    }); });
+    return { d: t, gaps: gaps, revealed: false, checked: false, score: null, pt: false };
   });
 
-  /* trilho */
   var rail = document.getElementById('rail'), railLab = document.getElementById('railLabels');
   T.forEach(function (t) { rail.appendChild(el('div', 'rail-step')); railLab.appendChild(el('span', '', esc(t.d.rail))); });
 
-  /* seções */
   var host = document.getElementById('texts');
   T.forEach(function (t, ti) {
-    var sec = el('section', 'part tx');
+    var sec = el('section', 'part');
     sec.id = 't' + (ti + 1);
     sec.appendChild(el('div', 'part-eyebrow', '<span class="num">' + (ti + 1) + '</span> ' + esc(t.d.eyebrow)));
     sec.appendChild(el('h2', '', esc(t.d.title)));
     sec.appendChild(el('div', 'h2-pt', esc(t.d.pt)));
     if (ti === 0) {
-      sec.appendChild(el('div', 'bi', '<p class="bi-en">Tap a gap. Choose the word that fits.</p><p class="bi-pt">Cada palavra entra uma vez s&oacute;. Se escolher uma palavra que j&aacute; est&aacute; em outra lacuna, ela muda de lugar.</p>'));
+      sec.appendChild(el('div', 'bi', '<p class="bi-en">Tap a gap. Choose between the two words.</p><p class="bi-pt">Cada lacuna tem s&oacute; duas op&ccedil;&otilde;es. Leia a frase inteira antes de escolher.</p>'));
     }
-    sec.appendChild(el('div', 'tag', esc(t.d.tag)));
-    t.tagEl = sec.lastChild; t.tagEl.setAttribute('aria-hidden', 'true');
+    var tg = el('div', 'tag', esc(t.d.tag)); tg.setAttribute('aria-hidden', 'true'); sec.appendChild(tg);
 
-    var work = el('div', 'work');
     var cloze = el('div', 'cloze');
     var gi = 0;
     t.d.paras.forEach(function (p) {
@@ -1347,35 +1338,23 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
     t.checkBtn = el('button', 'btn', 'Check'); t.checkBtn.type = 'button';
     t.showBtn = el('button', 'btn', 'Show answers'); t.showBtn.type = 'button'; t.showBtn.setAttribute('aria-pressed', 'false');
     t.resetBtn = el('button', 'btn', 'Start over'); t.resetBtn.type = 'button';
+    t.ptBtn = el('button', 'btn', 'PT'); t.ptBtn.type = 'button'; t.ptBtn.setAttribute('aria-pressed', 'false'); t.ptBtn.title = 'Mostrar o significado em português nas opções';
     t.result = el('div', 'result');
     t.resScore = el('span', 'score'); t.resNote = el('span', 'hn');
     t.result.appendChild(t.resScore); t.result.appendChild(t.resNote);
-    actions.appendChild(t.checkBtn); actions.appendChild(t.showBtn); actions.appendChild(t.resetBtn); actions.appendChild(t.result);
+    actions.appendChild(t.checkBtn); actions.appendChild(t.showBtn); actions.appendChild(t.resetBtn); actions.appendChild(t.ptBtn); actions.appendChild(t.result);
     cloze.appendChild(actions);
 
-    var bank = el('aside', 'bank'); bank.setAttribute('aria-label', 'Words for text ' + (ti + 1));
-    var head = el('div', 'bank-head', '<span class="bank-lab">Words &middot; ' + t.gaps.length + '</span>');
-    var ptBtn = el('button', 'btn sm', 'PT'); ptBtn.type = 'button'; ptBtn.setAttribute('aria-pressed', 'false'); ptBtn.title = 'Mostrar o significado em português';
-    ptBtn.addEventListener('click', function () { var on = ptBtn.getAttribute('aria-pressed') !== 'true'; ptBtn.setAttribute('aria-pressed', String(on)); bank.classList.toggle('pt-on', on); });
-    head.appendChild(ptBtn); bank.appendChild(head);
-    var ul = el('ul'); t.bankLis = {};
-    t.bank.forEach(function (w) {
-      var li = el('li', '', '<span class="bk-w">' + esc(w) + '</span><span class="bk-pt">' + esc(D.pt[w] || '') + '</span>');
-      t.bankLis[w] = li; ul.appendChild(li);
-    });
-    bank.appendChild(ul);
-
-    work.appendChild(cloze); work.appendChild(bank);
-    sec.appendChild(work);
+    sec.appendChild(cloze);
     host.appendChild(sec);
 
     t.checkBtn.addEventListener('click', function () { check(ti); });
     t.showBtn.addEventListener('click', function () { toggleShow(ti); });
     t.resetBtn.addEventListener('click', function () { reset(ti); });
+    t.ptBtn.addEventListener('click', function () { t.pt = !t.pt; t.ptBtn.setAttribute('aria-pressed', String(t.pt)); });
     paint(ti);
   });
 
-  /* placar */
   var tally = document.getElementById('tally');
   T.forEach(function (t, ti) {
     var row = el('div', 'tally-row pending', '<span class="tn">' + (ti + 1) + '</span><span>' + esc(t.d.title) + '</span><span class="tv">&ndash;</span>');
@@ -1383,42 +1362,35 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
   });
 
   function paint(ti) {
-    var t = T[ti], used = {};
+    var t = T[ti];
     t.gaps.forEach(function (g, i) {
       var b = g.btn, w = b.querySelector('.w');
       b.className = 'gap';
       var label;
       if (t.revealed) {
-        w.textContent = g.ans; b.classList.add('shown'); b.disabled = true;
+        w.textContent = show(g, g.ans); b.classList.add('shown'); b.disabled = true;
         label = 'Gap ' + (i + 1) + ', answer: ' + g.ans;
       } else {
         b.disabled = (g.state === 'ok');
-        w.textContent = g.choice || ' ';
+        w.textContent = g.choice ? show(g, g.choice) : ' ';
         if (g.state === 'ok') b.classList.add('ok');
         else if (g.state === 'bad') b.classList.add('bad');
         else if (g.state === 'blank') b.classList.add('blank');
-        label = g.choice ? 'Gap ' + (i + 1) + ': ' + g.choice + (g.state === 'ok' ? ', correct' : g.state === 'bad' ? ', wrong' : '') : 'Gap ' + (i + 1) + ', empty. Choose a word';
+        label = g.choice ? 'Gap ' + (i + 1) + ': ' + g.choice + (g.state === 'ok' ? ', correct' : g.state === 'bad' ? ', wrong' : '') : 'Gap ' + (i + 1) + ', empty. Choose one of two words';
       }
       b.setAttribute('aria-label', label);
-      if (g.choice) used[g.choice] = true;
     });
-    Object.keys(t.bankLis).forEach(function (w) { t.bankLis[w].classList.toggle('used', !!used[w]); });
     t.showBtn.setAttribute('aria-pressed', String(t.revealed));
     t.showBtn.textContent = t.revealed ? 'Hide answers' : 'Show answers';
     t.checkBtn.disabled = t.revealed;
   }
 
-  function gapOfChoice(t, w) { for (var i = 0; i < t.gaps.length; i++) if (t.gaps[i].choice === w) return i; return -1; }
-
   function choose(ti, gi, w) {
-    var t = T[ti], g = t.gaps[gi];
-    if (w != null) { var prev = gapOfChoice(t, w); if (prev > -1 && prev !== gi) { t.gaps[prev].choice = null; t.gaps[prev].state = null; } }
+    var g = T[ti].gaps[gi];
     g.choice = w; g.state = null;
-    hideResult(ti);
+    T[ti].result.classList.remove('show');
     paint(ti);
   }
-
-  function hideResult(ti) { var t = T[ti]; t.result.classList.remove('show'); }
 
   function check(ti) {
     var t = T[ti], right = 0, blanks = 0;
@@ -1440,7 +1412,7 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
   function reset(ti) {
     var t = T[ti]; closeMenu();
     t.gaps.forEach(function (g) { g.choice = null; g.state = null; });
-    t.revealed = false; t.checked = false; t.score = null; hideResult(ti);
+    t.revealed = false; t.checked = false; t.score = null; t.result.classList.remove('show');
     paint(ti); updateTally();
   }
 
@@ -1456,21 +1428,19 @@ section.part, .hero, .rail, .rail-labels { max-width: clamp(1000px, 86vw, 1640px
     document.getElementById('totalBig').innerHTML = total + '<small> / ' + D.total + '</small>';
   }
 
-  /* seletor */
   function openMenu(ti, gi, btn) {
     closeMenu();
     var t = T[ti], g = t.gaps[gi];
     var m = el('div', 'menu'); m.setAttribute('role', 'listbox'); m.setAttribute('aria-label', 'Gap ' + (gi + 1));
-    t.bank.forEach(function (w) {
-      var at = gapOfChoice(t, w);
+    g.opts.forEach(function (w) {
       var it = el('button', w === g.choice ? 'cur' : ''); it.type = 'button'; it.setAttribute('role', 'option'); it.setAttribute('aria-selected', String(w === g.choice));
-      it.innerHTML = '<span>' + esc(w) + '</span>' + (at > -1 && at !== gi ? '<span class="u">In gap ' + (at + 1) + '</span>' : '');
-      it.addEventListener('click', function () { closeMenu(true); choose(ti, gi, w); btn.focus(); });
+      it.innerHTML = '<span class="ow">' + esc(show(g, w)) + '</span>' + (t.pt ? '<span class="u">' + esc(D.pt[w] || '') + '</span>' : '');
+      it.addEventListener('click', function () { closeMenu(); choose(ti, gi, w); btn.focus(); });
       m.appendChild(it);
     });
     if (g.choice) {
       var c = el('button', 'clr', 'Clear this gap'); c.type = 'button';
-      c.addEventListener('click', function () { closeMenu(true); choose(ti, gi, null); btn.focus(); });
+      c.addEventListener('click', function () { closeMenu(); choose(ti, gi, null); btn.focus(); });
       m.appendChild(c);
     }
     document.body.appendChild(m);
