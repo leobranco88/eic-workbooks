@@ -373,6 +373,20 @@ function endDrag(e){
 }
 grab.addEventListener('pointerup',endDrag);
 grab.addEventListener('pointercancel',endDrag);
+/* wrong place: the drawn way rubs itself out, the dot walks back to the start */
+function eraseDrawn(){
+  return new Promise(res=>{
+    if(REDUCED||dpts.length<3){clearDrawn();res();return;}
+    const all=dpts.slice(),n=all.length,t0=performance.now(),dur=Math.min(1600,Math.max(700,n*12));
+    (function f(t){
+      const k=Math.min(1,(t-t0)/dur),keep=Math.max(1,Math.round(n*(1-k)));
+      const q=all.slice(0,keep);
+      drawn.setAttribute('d',keep>1?'M'+q.map(p=>p.join(' ')).join(' L'):'M0 0');
+      const last=q[q.length-1];dot.setAttribute('cx',last[0]);dot.setAttribute('cy',last[1]);
+      if(k<1)requestAnimationFrame(f);else{clearDrawn();res();}
+    })(t0);
+  });
+}
 function armGrab(on){svg.style.touchAction=on?'none':'';grab.style.display=on?'':'none';svg.appendChild(grab);syncGrab();}
 
 const panel=document.getElementById('panel');
@@ -422,6 +436,7 @@ async function pick(id){
   locked=true;picked=id;
   placeEls[id].classList.add('sel');
   await wait(REDUCED?100:500);
+  if(id!==r.to)await eraseDrawn();
   clearMap();
   showTag('');
   const pts=pathPts(r.from,r.to);
