@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="hub-title" content="Be the GPS · Wrong GPS · World English Unit 6">
+<meta name="hub-desc" content="O GPS errou uma palavra. O aluno acha o erro, troca pela palavra certa e o ponto faz o caminho. Três missões.">
+<meta name="hub-type" content="Interativo">
+<meta name="hub-pdf" content="Worksheet-BeTheGPS-WorldEnglish-Unit6.pdf"><meta name="hub-level" content="A1+">
+<title>Be the GPS · Wrong GPS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0A0A0A;--mid:#545454;--light:#E8E8E4;--pen:#F2A100;--pent:#B86F00}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:#fff;color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.4}
+
+  .stage{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr);margin:0 24px 24px;border:1.5px solid var(--ink);height:calc(100vh - 120px);min-height:560px}
+  .mapside{display:flex;align-items:center;background:#fff}
+  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 124px)}
+  .panel{padding:26px 30px 24px;border-left:1.5px solid var(--ink);display:flex;flex-direction:column;min-height:0;overflow-y:auto}
+
+  .tabs{display:flex;margin:0 0 22px}
+  .tab{font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer}
+  .tab+.tab{border-left:0}
+  .tab[aria-pressed=true]{background:var(--ink);color:#fff}
+  .tab:focus-visible,.b:focus-visible{outline:3px solid var(--pen);outline-offset:3px}
+
+  .steps{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:6px;font-size:15px;color:var(--mid);font-weight:600}
+  .steps li{display:flex;gap:10px;align-items:baseline}
+  .steps .n{flex:none;width:20px;height:20px;background:var(--ink);color:#fff;font:800 12px Inter,sans-serif;display:inline-grid;place-items:center;transform:translateY(-1px)}
+
+  h1{font-size:clamp(30px,3.1vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.02;margin:0 0 22px}
+  h1 em{font-style:normal;color:var(--pent)}
+  .count{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+
+  .sent{font-size:clamp(21px,2.2vw,34px);font-weight:700;letter-spacing:-.01em;line-height:1.75;margin:0}
+  .sent b{font-weight:900}
+  .blank{display:inline-block;width:5.2em;border-bottom:3px solid var(--ink);margin:0 .2em;transform:translateY(.1em)}
+  .w{position:relative;display:inline-block;margin:0 .3em;white-space:nowrap;font-weight:900}
+  .wr{position:absolute;left:-.5em;top:-.42em;width:calc(100% + 1em);height:1.95em;overflow:visible;pointer-events:none}
+  .wr path,.ring path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .w.on .wr path,.ring.on path{animation:draw .7s ease-out forwards}
+  .ring.pring path{stroke-width:1.5}
+  .ring:not(.on) path,.w:not(.on) .wr path{opacity:0}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pent);line-height:1;display:inline-block}
+  .fb{font-size:clamp(26px,2.1vw,34px);margin:12px 0 0 4px;transform:rotate(-2deg);transform-origin:left;min-height:1em}
+
+  .prog{display:flex;gap:5px;margin:auto 0 0;padding-top:22px}
+  .prog span{flex:1;height:6px;background:var(--light)}
+  .prog span.done{background:var(--ink)}
+  .prog span.cur{background:var(--pen)}
+
+  .controls{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;align-items:center}
+  .b{font:800 16px Inter,sans-serif;padding:10px 18px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer}
+  .b:hover:not(:disabled){background:#F4F4F1}
+  .b:disabled{opacity:.35;cursor:default}
+
+  ol.mine{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  ol.mine li{font-size:clamp(19px,1.8vw,27px);font-weight:700;line-height:1.5;padding-left:14px;border-left:3px solid var(--ink)}
+  ol.mine li .w{margin:0}
+  .empty{font-size:18px;color:var(--mid);font-weight:600;margin:0}
+
+  /* map */
+  .pl{cursor:pointer}
+  .pl rect{fill:#fff;stroke:var(--ink);stroke-width:1.5}
+  .pl.park rect{stroke-dasharray:5 5}
+  .pl text{font-family:Inter,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);text-anchor:middle;pointer-events:none}
+  .pl:hover rect{stroke-width:3}
+  .pl:focus-visible{outline:none}
+  .pl:focus-visible rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.focus rect,.pl.sel rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.focus rect{animation:pop .6s ease-out 1}
+  @keyframes pop{0%{stroke-width:9}100%{stroke-width:3.5}}
+  .st{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.13em;fill:#545454;text-anchor:middle;pointer-events:none}
+  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pent);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round;pointer-events:none;transition:opacity .2s}
+  .hide{display:none}
+
+  @media (prefers-reduced-motion:reduce){.w.on .wr path,.ring.on path{animation:none;stroke-dashoffset:0}.pl.focus rect{animation:none}}
+  @media (max-width:900px){
+    .stage{grid-template-columns:1fr;margin:12px;height:auto}
+    .mapside{position:sticky;top:0;z-index:2;border-bottom:1.5px solid var(--ink)}
+    .panel{border-left:0;padding:20px 18px;overflow:visible}
+  }
+
+  /* Drive */
+  h1{font-size:clamp(28px,2.9vw,46px)}
+  h1 small{display:block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+  ol.dirs{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+  ol.dirs li{display:grid;grid-template-columns:30px 1fr;gap:0 4px;padding:9px 0;border-top:1px solid var(--light);opacity:.38;transition:opacity .25s}
+  ol.dirs li.on,ol.dirs li.ok{opacity:1}
+  ol.dirs .n{width:22px;height:22px;background:var(--ink);color:#fff;font:800 12px Inter,sans-serif;display:grid;place-items:center;margin-top:4px}
+  ol.dirs .s{font-size:clamp(18px,1.7vw,25px);font-weight:700;line-height:1.7;letter-spacing:-.01em}
+  .gap{display:inline-block;min-width:3.4em;border-bottom:3px solid var(--ink);margin:0 .25em;transform:translateY(.12em)}
+  .chips{grid-column:2;display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .chips .b{font-size:17px}
+  .pl.dest rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.dest text{font-weight:900}
+
+  .moments{display:flex;flex-wrap:wrap;align-items:stretch;background:#0A0A0A;margin:24px 24px 0}
+  .moments a{color:#BDBDBA;text-decoration:none;font:700 14px Inter,sans-serif;padding:13px 16px 10px;border-bottom:3px solid transparent}
+  .moments a:hover{color:#fff}
+  .moments a[aria-current=page]{color:#fff;border-bottom-color:#F2A100}
+  .moments a.pdf{margin-left:auto;color:#fff;font-weight:800;border-bottom-color:transparent}.moments a.pdf:hover{border-bottom-color:#fff}.moments a.pdf+a.nx{margin-left:6px}
+  .moments a.nx{margin-left:auto;color:#FFC24D;font-weight:800}
+  .moments a.nx:hover{color:#fff}
+  .moments a:focus-visible{outline:3px solid #F2A100;outline-offset:-3px}
+  @media (max-width:900px){.moments{margin:12px 12px 0}.moments a{padding:11px 11px 8px;font-size:13px}.moments a.nx{margin-left:0}}
+
+/* --- map icons, UP/DOWN signs, arrows --- */
+.pl .ic{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.pl.dest .ic,.pl.focus .ic,.pl.sel .ic{stroke:var(--pen)}
+#pl-eic rect{stroke-width:3.5}
+.chev{pointer-events:none}.chev path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .35s}
+.chev.on path{opacity:.75}
+.dg{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.rule{margin:0 0 16px;padding:8px 0 8px 12px;border-left:3px solid var(--pen);font-size:13.5px;line-height:1.5;color:var(--mid);font-weight:600}
+.rule b{color:var(--ink);font-weight:800}
+.modes{display:flex;margin:0 0 14px;border:2px solid var(--ink);width:max-content;max-width:100%}
+.modes button{display:flex;align-items:center;gap:7px;padding:8px 14px;border:0;background:#fff;color:var(--ink);font:800 14px Inter,sans-serif;cursor:pointer;border-right:2px solid var(--ink)}
+.modes button:last-child{border-right:0}
+.modes button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.modes button[aria-pressed=true]{background:var(--ink);color:#fff}
+.modes button:focus-visible{outline:3px solid var(--pen);outline-offset:2px}
+.chips .b.long{font-size:15px}
+
+.slot{font:inherit;font-weight:900;color:inherit;background:none;border:0;border-bottom:3px dotted var(--ink);padding:0 2px;margin:0 .15em;cursor:pointer;border-radius:0}
+.slot:hover{background:#F4F4F1}.slot:focus-visible{outline:3px solid var(--pen);outline-offset:2px}
+.slot.sel{background:#FFF3D1;border-bottom-style:solid}
+.slot.x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:3px;border-bottom-color:var(--bad)}
+.slot.okw{border-bottom-color:var(--mid);color:var(--mid)}
+.tally{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 6px}
+.modeline{display:flex;align-items:center;gap:8px;margin:0 0 10px;font:800 15px Inter,sans-serif}.modeline svg{width:26px;height:26px;padding:3px;background:var(--ink);fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<nav class="moments" aria-label="Be the GPS moments"><a data-k="intro" href="BeTheGPS-WorldEnglish-Unit6.html#intro">Intro</a><a data-k="watch" href="BeTheGPS-WorldEnglish-Unit6.html#watch">1 · Watch</a><a data-k="where" href="BeTheGPS-Where-WorldEnglish-Unit6.html">2 · Where do you go?</a><a data-k="drive" href="BeTheGPS-Drive-WorldEnglish-Unit6.html">3 · Drive</a><a data-k="give" href="BeTheGPS-Give-WorldEnglish-Unit6.html">4 · Give directions</a><a data-k="wrong" href="BeTheGPS-Wrong-WorldEnglish-Unit6.html" aria-current="page">5 · Wrong GPS</a><a data-k="whereis" href="BeTheGPS-WhereIs-WorldEnglish-Unit6.html">6 · Where is it?</a><a class="pdf" href="Worksheet-BeTheGPS-WorldEnglish-Unit6.pdf" download>↓ Worksheet PDF</a><a class="nx" id="nx" href="BeTheGPS-WhereIs-WorldEnglish-Unit6.html">Next: Where is it? →</a></nav>
+<div class="stage">
+  <div class="mapside">
+    <svg id="map" viewBox="0 0 960 600" role="img" aria-label="Map of Marlow"></svg>
+  </div>
+  <section class="panel" id="panel" aria-live="polite"></section>
+</div>
+<script>
+/* ---------- City (same Marlow as the Watch) ---------- */
+const NS='http://www.w3.org/2000/svg';
+const PEN='#F2A100',INK='#0A0A0A',LIGHT='#E8E8E4';
+const RING='M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6';
+const STREETS_H=[{name:'Maple Street',y:150},{name:'Cedar Street',y:300},{name:'Harbor Street',y:450}];
+const STREETS_V=[{name:'Oak Avenue',x:240},{name:'River Avenue',x:480},{name:'Station Avenue',x:720}];
+const COLS=[[0,222],[258,462],[498,702],[738,960]];
+const ROWS=[[0,132],[168,282],[318,432],[468,600]];
+const PLACES=[
+  [{id:'bus',n:'Bus station'},{id:'park',n:'Linden Park',park:1},{id:'library',n:'Public library'},{id:'train',n:'Train station'}],
+  [{id:'market',n:'Supermarket'},{id:'post',n:'Post office'},{id:'cafe',n:'Café'},{id:'museum',n:'Museum'}],
+  [{id:'hotel',n:'Hotel'},{id:'mall',n:'Shopping mall',big:1},{id:'bank',n:'Bank'},{id:'cinema',n:'Movie theater'}],
+  [{id:'tourist',n:'Tourist office'},{id:'restaurant',n:'Restaurant'},{id:'club',n:'Nightclub'},{id:'eic',n:'EIC'}]
+];
+/* How each place sounds inside a sentence */
+const SAY={bus:'the bus station',park:'Linden Park',library:'the public library',train:'the train station',market:'the supermarket',post:'the post office',cafe:'the café',museum:'the museum',hotel:'the hotel',mall:'the shopping mall',bank:'the bank',cinema:'the movie theater',tourist:'the tourist office',restaurant:'the restaurant',club:'the nightclub',eic:'EIC'};
+
+
+
+/* ---------- Draw the map ---------- */
+const svg=document.getElementById('map');
+function el(t,a,p,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);if(txt!=null)e.textContent=txt;return e;}
+const defs=el('defs',{},svg);
+const flt=el('filter',{id:'wob',filterUnits:'userSpaceOnUse',x:0,y:0,width:960,height:600},defs);
+el('feTurbulence',{type:'fractalNoise',baseFrequency:'0.025',numOctaves:2,seed:4,result:'n'},flt);
+el('feDisplacementMap',{in:'SourceGraphic',in2:'n',scale:5},flt);
+
+/* ---------- icons, UP/DOWN signs, mode glyphs ---------- */
+const ICONS={"bus": "<rect x=\"4\" y=\"3.5\" width=\"16\" height=\"14\"/><path d=\"M4 10h16M8 17.5v2.5M16 17.5v2.5\"/><circle cx=\"8\" cy=\"14\" r=\".6\"/><circle cx=\"16\" cy=\"14\" r=\".6\"/>", "park": "<circle cx=\"12\" cy=\"9\" r=\"6\"/><path d=\"M12 15v6M9 21h6\"/>", "library": "<path d=\"M3 5.5l9 2 9-2v13l-9 2-9-2z\"/><path d=\"M12 7.5v13\"/>", "train": "<rect x=\"6\" y=\"3\" width=\"12\" height=\"14\"/><path d=\"M6 11h12M9 20.5l-1.5 1M15 20.5l1.5 1M4 21h16\"/><circle cx=\"9.5\" cy=\"14\" r=\".7\"/><circle cx=\"14.5\" cy=\"14\" r=\".7\"/>", "market": "<path d=\"M2 4h3l2.2 11h11l2.3-8H6\"/><circle cx=\"9\" cy=\"19\" r=\"1.5\"/><circle cx=\"17\" cy=\"19\" r=\"1.5\"/>", "post": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"12\"/><path d=\"M3 6l9 7 9-7\"/>", "cafe": "<path d=\"M4.5 8h11v6a4 4 0 0 1-4 4h-3a4 4 0 0 1-4-4z\"/><path d=\"M15.5 9.5h1.5a2.3 2.3 0 0 1 0 4.6h-1.5M8 3.5v2M12 3.5v2\"/>", "museum": "<path d=\"M2.5 9.5L12 3.5l9.5 6zM4.5 20.5h15M5.5 11.5v7M10 11.5v7M14 11.5v7M18.5 11.5v7\"/>", "hotel": "<path d=\"M3 19V6M3 14h18v5M21 14v-3a2 2 0 0 0-2-2h-7v5\"/><circle cx=\"7.5\" cy=\"11\" r=\"1.6\"/>", "mall": "<rect x=\"5\" y=\"8\" width=\"14\" height=\"13\"/><path d=\"M9 8V6.5a3 3 0 0 1 6 0V8\"/>", "bank": "<rect x=\"2.5\" y=\"6\" width=\"19\" height=\"12\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M6 9.5v5M18 9.5v5\"/>", "cinema": "<rect x=\"3\" y=\"10\" width=\"18\" height=\"10\"/><path d=\"M3 10l1.8-5 15.4 3-.7 2M8 6.3l1.6 3.4M13.5 7.3l1.6 3.3\"/>", "tourist": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 11v6\"/><circle cx=\"12\" cy=\"7.6\" r=\".6\"/>", "restaurant": "<path d=\"M6 3v7a2 2 0 0 0 2 2v9M10 3v7a2 2 0 0 1-2 2M17 21V3c-2.5 1.5-3 5-3 8h3\"/>", "club": "<circle cx=\"12\" cy=\"13\" r=\"7.5\"/><path d=\"M12 2v3.5M4.5 13h15M12 5.5v15M6.5 8.5q5.5 2.5 11 0M6.5 17.5q5.5-2.5 11 0\"/>", "eic": "<path d=\"M2 9l10-5 10 5-10 5z\"/><path d=\"M6 11.5v5c3 3 9 3 12 0v-5M22 9v6\"/>"};
+const GLYPH={"walk": "<circle cx=\"12\" cy=\"5\" r=\"2.6\"/><path d=\"M12 8v7M12 10l-4 4M12 10l4 4M12 15l-3.5 6M12 15l3.5 6\"/>", "bike": "<circle cx=\"6\" cy=\"16\" r=\"3.6\"/><circle cx=\"18\" cy=\"16\" r=\"3.6\"/><path d=\"M6 16l4-8h5l3 8M10 8H8M10 16l5-8\"/>", "drive": "<path d=\"M3 15v-4l2-4h14l2 4v4z\"/><circle cx=\"8\" cy=\"16.5\" r=\"2\"/><circle cx=\"16\" cy=\"16.5\" r=\"2\"/>"};
+let MODE='walk';
+const VERB={walk:'walk',bike:'ride',drive:'drive'},SPEED={walk:1,bike:.75,drive:.55},LABEL={walk:'Walk',bike:'Bike',drive:'Drive'};
+const cap=w=>w[0].toUpperCase()+w.slice(1);
+const vtxt=t=>t.replace(/\{V\}/g,cap(VERB[MODE])).replace(/\{v\}/g,VERB[MODE]);
+
+/* ---------- street signs, UP/DOWN plates, START sign ---------- */
+const TEAL='#137C8B';
+function blade(cx,cy,w,t,rot){
+  const g=el('g',{class:'blade',transform:`translate(${cx} ${cy}) rotate(${rot})`,style:'pointer-events:none'},svg);
+  el('rect',{x:-w/2,y:-11,width:w,height:22,rx:4,fill:TEAL},g);
+  el('rect',{x:-w/2+2,y:-9,width:w-4,height:18,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  const tx=el('text',{x:0,y:4,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':11,'letter-spacing':1,fill:'#fff'},g,t);
+  return g;
+}
+function plate(x,y,up){
+  const w=up?60:76,g=el('g',{class:'udchip',transform:`translate(${x-w/2} ${y})`,style:'pointer-events:none'},svg);
+  el('rect',{width:w,height:28,rx:4,fill:TEAL},g);el('rect',{x:2,y:2,width:w-4,height:24,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  el('path',{d:up?'M11 21V9M5 14l6-7 6 7':'M11 7v12M5 14l6 7 6-7',transform:'translate(3 -1) scale(.9)',fill:'none',stroke:'#fff','stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+  el('text',{x:25,y:19,'font-family':'Inter,sans-serif','font-weight':800,'font-size':12,fill:'#fff'},g,up?'UP':'DOWN');
+}
+const startSign=el('g',{style:'pointer-events:none;display:none'},svg);
+el('circle',{cx:0,cy:0,r:20,fill:TEAL},startSign);el('circle',{cx:0,cy:0,r:17.5,fill:'none',stroke:'#fff','stroke-width':1.6},startSign);
+el('path',{d:'M-4 -13l10 6.5-10 6.5z',fill:'#fff'},startSign);
+el('text',{x:0,y:12,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':8.5,'letter-spacing':.4,fill:'#fff'},startSign,'START');
+function markStart(x,y){svg.appendChild(startSign);startSign.style.display='';startSign.setAttribute('transform',`translate(${x-38} ${y})`);}
+el('rect',{x:0,y:0,width:960,height:600,fill:'#fff'},svg);
+STREETS_H.forEach(s=>el('line',{x1:0,x2:960,y1:s.y,y2:s.y,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
+STREETS_V.forEach(s=>el('line',{y1:0,y2:600,x1:s.x,x2:s.x,stroke:LIGHT,'stroke-width':1.5,'stroke-dasharray':'10 8'},svg));
+
+const info={},placeEls={};
+const OPEN=[0,1,1,2];    /* row 0 opens to Maple, rows 1-2 to Cedar, row 3 to Harbor */
+PLACES.forEach((row,r)=>row.forEach((p,c)=>{
+  const [x0,x1]=COLS[c],[y0,y1]=ROWS[r];
+  el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:LIGHT},svg);
+  const g=el('g',{class:'pl'+(p.park?' park':''),id:'pl-'+p.id,tabindex:0,role:'button','aria-label':p.n},svg);
+  const ins=p.big?8:16;
+  el('rect',{x:x0+ins,y:y0+ins,width:x1-x0-2*ins,height:y1-y0-2*ins},g);
+  {const ic=el('g',{class:'ic',transform:`translate(${(x0+x1)/2-24} ${(y0+y1)/2-43}) scale(2)`},g);ic.innerHTML=ICONS[p.id];}
+  el('text',{x:(x0+x1)/2,y:(y0+y1)/2+30},g,p.n);
+  /* label centre kept separate from the dot's stop (info.cx) */
+  placeEls[p.id]=g;
+  info[p.id]={cx:x1-34,cy:(y0+y1)/2+8,x0,x1,y0,y1,street:STREETS_H[OPEN[r]].y};
+}));
+STREETS_H.forEach(s=>[111,849].forEach(x=>blade(x,s.y-17,116,s.name.toUpperCase(),0)));
+STREETS_V.forEach(s=>blade(s.x,100,124,s.name.toUpperCase(),-90));
+
+
+
+/* ---------- Missions: the GPS wrote a wrong word. Find it, fix it, watch the dot ---------- */
+const PREP=['into','out of','along','across','up','down'];
+const BE=['on the left','on the right','straight ahead'];
+const slot=(w,a,o)=>({w,a,o,fixed:false});
+const sp=(w,a,wv,hint)=>({w,a,wv,hint,opts:null,fixed:false});
+function mk(w,a,kind,wv,hint){const o=kind==='turn'?['left','right']:kind==='be'?BE.slice():shuffle(PREP.filter(x=>x!==a)).slice(0,3).concat(a);return{w,a,kind,wv,hint,opts:o,fixed:false,err:w!==a};}
+function build(){return [
+ {mode:'bike',to:'library',title:'From EIC to the public library',from:'eic',start:[926,542],steps:[
+  {t:'Go {0} EIC.',sl:[mk('out of','out of','p')],pts:[[926,542],[926,450]]},
+  {t:'Turn left and {v} {0} Harbor Street to Station Avenue.',sl:[mk('along','along','p')],pts:[[926,450],[720,450]]},
+  {t:'Turn right and {v} {0} Station Avenue to Maple Street.',sl:[mk('across','up','p',[1,0,100],'Look at the UP sign. Station Avenue goes UP to Maple Street.')],pts:[[720,450],[720,150]],ud:'up'},
+  {t:'At Maple Street, the library is {0}.',sl:[mk('on the left','on the left','be')],pts:null,face:'up'},
+  {t:'Turn left and {v} {0} Maple Street to the library.',sl:[mk('along','along','p')],pts:[[720,150],[668,150]]},
+  {t:'Go {0} the public library.',sl:[mk('into','into','p')],pts:[[668,150],[668,74]]}]},
+ {mode:'walk',to:'market',title:'From EIC to the supermarket',from:'eic',start:[926,542],steps:[
+  {t:'Go {0} EIC.',sl:[mk('out of','out of','p')],pts:[[926,542],[926,450]]},
+  {t:'Turn {0} and {v} {1} Harbor Street to Oak Avenue.',sl:[mk('right','left','turn',[1,0,30],'You come out of EIC and look UP. The way to Oak Avenue is on your left.'),mk('along','along','p')],pts:[[926,450],[240,450]]},
+  {t:'Turn right and {v} {0} Oak Avenue to Cedar Street.',sl:[mk('up','up','p')],pts:[[240,450],[240,300]],ud:'up'},
+  {t:'At Cedar Street, the supermarket is {0}.',sl:[mk('on the left','on the left','be')],pts:null,face:'up'},
+  {t:'Turn left and {v} {0} Cedar Street to the supermarket.',sl:[mk('along','along','p')],pts:[[240,300],[188,300]]},
+  {t:'Go {0} the supermarket.',sl:[mk('into','into','p')],pts:[[188,300],[188,233]]}]},
+ {mode:'drive',to:'bank',title:'From the train station to the bank',from:'train',start:[926,74],steps:[
+  {t:'Go {0} the train station.',sl:[mk('out of','out of','p')],pts:[[926,74],[926,150]]},
+  {t:'Turn right and {v} {0} Maple Street to Station Avenue.',sl:[mk('along','along','p')],pts:[[926,150],[720,150]]},
+  {t:'Turn left and {v} {0} Station Avenue to Harbor Street.',sl:[mk('up','down','p',[0,-1,120],'Look at the DOWN sign. Station Avenue goes DOWN to Harbor Street.')],pts:[[720,150],[720,450]],ud:'down'},
+  {t:'At Harbor Street, the bank is {0}.',sl:[mk('on the left','on the right','be',null,'You are going DOWN. Your right is the side of the bank.')],pts:null,face:'down'},
+  {t:'Turn right and {v} {0} Harbor Street to the bank.',sl:[mk('along','along','p')],pts:[[720,450],[668,450]]},
+  {t:'Go {0} the bank.',sl:[mk('into','into','p')],pts:[[668,450],[668,383]]}]}
+];}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const PT={'out of':'sair de','into':'entrar em','along':'ao longo de','up':'subir','down':'descer','across':'atravessar'};
+let MIS=build(),mi=0,sel=null,locked=false,done=false;
+const M=()=>MIS[mi];
+
+/* ---------- Draw the dot, trail and arrows ---------- */
+const route=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
+STREETS_V.forEach(s=>{plate(s.x,2,true);plate(s.x,570,false);});
+const chev=el('g',{class:'chev'},svg);
+STREETS_V.forEach(s=>{for(let y=90;y<=560;y+=47)el('path',{d:`M${s.x-9} ${y+6} l9 -11 l9 11`},chev);});
+function showUD(dir){chev.classList.toggle('on',!!dir);chev.setAttribute('transform',dir==='down'?'rotate(180 480 300)':'');}
+const dot=el('circle',{r:15,fill:INK,stroke:'#fff','stroke-width':3,style:'pointer-events:none'},svg);
+const dotG=el('g',{class:'dg',style:'pointer-events:none'},svg);
+const _sa=dot.setAttribute.bind(dot);
+dot.setAttribute=(k,v)=>{_sa(k,v);if(k==='cx'||k==='cy')dotG.setAttribute('transform','translate('+((+dot.getAttribute('cx')||0)-11)+' '+((+dot.getAttribute('cy')||0)-11)+') scale(.92)');};
+function setMode(m){MODE=m;dotG.innerHTML=GLYPH[m];}
+const tagT=el('text',{id:'tagT'},svg);
+let total=0;
+function setRoute(pts){route.setAttribute('d','M'+pts.map(p=>p.join(' ')).join(' L'));total=route.getTotalLength();}
+function snap(dist){const p=route.getPointAtLength(dist);dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);route.setAttribute('stroke-dasharray',dist+' '+(total+10));placeTag(p);}
+function placeTag(p){const w=tagT.textContent?tagT.getBBox().width:0;const x=p.x>740?p.x-16-w:p.x+16,y=p.y-20;tagT.setAttribute('x',x);tagT.setAttribute('y',y);tagT.setAttribute('transform','rotate(-4 '+x+' '+y+')');}
+function showTag(txt){if(txt==='start'){markStart(+dot.getAttribute('cx')||0,+dot.getAttribute('cy')||0);txt='';}tagT.style.opacity=txt?1:0;tagT.textContent=txt||'';placeTag({x:+dot.getAttribute('cx')||0,y:+dot.getAttribute('cy')||0});}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const REDUCED=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function animate(a,b,dur){return new Promise(res=>{if(REDUCED){snap(b);res();return;}const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/dur);const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;snap(a+(b-a)*e);if(k<1)requestAnimationFrame(f);else res();})(t0);});}
+async function run(pts,dur){setRoute(pts);await animate(0,total,(dur||Math.min(2600,Math.max(700,total/420*1000)))*SPEED[MODE]);return total;}
+async function back(len){await animate(len,0,Math.min(900,Math.max(450,len/700*1000)));}
+
+/* ---------- Panel ---------- */
+const panel=document.getElementById('panel');
+const RINGSVG='<svg class="wr" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="'+RING+'"/></svg>';
+const errsLeft=()=>M().steps.reduce((n,st)=>n+st.sl.filter(x=>x.err&&!x.fixed).length,0);
+const errsAll=()=>M().steps.reduce((n,st)=>n+st.sl.filter(x=>x.err).length,0);
+function stepHTML(st,k){
+  const txt=vtxt(st.t).replace(/\{(\d)\}/g,(m,i)=>{
+    const x=st.sl[+i],isSel=sel&&sel.k===k&&sel.i===+i;
+    if(x.fixed)return `<span class="w on">${x.a}${RINGSVG}</span>`;
+    const cls='slot'+(isSel?' sel':'')+(x.err&&x.shown?' x':'')+(x.okw?' okw':'');
+    return `<button type="button" class="${cls}" data-k="${k}" data-i="${i}">${x.w}</button>`;
+  });
+  let chips='';
+  if(sel&&sel.k===k&&!done){
+    const x=st.sl[sel.i];
+    chips='<div class="chips">'+x.opts.map(o=>`<button class="b${x.kind==='be'?' long':''}" data-o="${o}">${o}</button>`).join('')+'</div>';
+  }
+  return `<li class="${done?'ok':'on'}"><span class="n">${k+1}</span><span class="s">${txt}</span>${chips}</li>`;
+}
+function render(note){
+  const m=M(),last=mi===MIS.length-1;
+  panel.innerHTML=
+   `<p class="eyebrow" style="display:flex;gap:10px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 14px"><span style="width:24px;height:3px;background:var(--pen)"></span>Marlow · Be the GPS · Wrong GPS</p>
+    <ol class="steps"><li><span class="n">1</span><span>Read the GPS. One word is wrong.</span></li><li><span class="n">2</span><span>Tap the wrong word.</span></li><li><span class="n">3</span><span>Choose the right word. Watch the dot.</span></li></ol>
+    <p class="rule"><b>across</b> = from one side to the other. <b>along</b> = on the street, following it. <b>up / down</b> = toward the UP or DOWN sign.</p>
+    <h1><small>Mission ${mi+1} of ${MIS.length}</small>${m.title}</h1>
+    <p class="modeline"><svg viewBox="0 0 24 24" aria-hidden="true">${GLYPH[m.mode]}</svg>You ${m.mode==='walk'?'walk':m.mode==='bike'?'ride a bike':'drive'} this time.</p>
+    <p class="tally">${done?'All mistakes fixed':'Mistakes found: '+(errsAll()-errsLeft())+' of '+errsAll()}</p>
+    <ol class="dirs">${m.steps.map(stepHTML).join('')}</ol>
+    <p class="pen fb" id="fb">${done?'You made it!':(note||'')}</p>
+    <div class="controls" style="margin-top:auto;padding-top:16px">
+      <button class="b" id="again">Restart mission</button>
+      <button class="b" id="next" ${done?'':'disabled'}>${last?'Done':'Next mission'}</button>
+    </div>`;
+  panel.querySelectorAll('.slot').forEach(b=>b.onclick=()=>tapSlot(+b.dataset.k,+b.dataset.i));
+  panel.querySelectorAll('.chips .b').forEach(b=>b.onclick=()=>pick(b.dataset.o));
+  document.getElementById('again').onclick=()=>{MIS[mi]=build()[mi];startMission();};
+  document.getElementById('next').onclick=()=>{if(mi<MIS.length-1){mi++;startMission();}else{MIS=build();mi=0;startMission();}};
+}
+function startMission(){
+  const m=M();sel=null;locked=false;done=false;setMode(m.mode);showUD(null);
+  Object.values(placeEls).forEach(g=>g.classList.remove('dest','focus'));
+  placeEls[m.to].classList.add('dest');
+  setRoute([m.start,[m.start[0],m.start[1]+.01]]);snap(0);
+  dot.setAttribute('cx',m.start[0]);dot.setAttribute('cy',m.start[1]);
+  route.setAttribute('stroke-dasharray','0 10');showTag('');markStart(m.start[0],m.start[1]);
+  render();
+}
+/* where the dot stands before step k */
+function startOf(m,k){for(let j=k;j>=0;j--)if(m.steps[j].pts)return m.steps[j].pts[0];return m.start;}
+async function tapSlot(k,i){
+  if(locked||done)return;
+  const m=M(),st=m.steps[k],x=st.sl[i];
+  if(!x.err){
+    x.okw=true;sel=null;render('“'+x.w+'” is right. Look at the map and find the mistake.');return;
+  }
+  sel={k,i};x.shown=true;
+  if(x.wv){
+    locked=true;render('The GPS says “'+x.w+'”. Look where the dot goes.');
+    const S=startOf(m,k),len=x.wv[2];
+    showUD(null);
+    await run([S,[S[0]+x.wv[0]*len,S[1]+x.wv[1]*len]],900);
+    showTag(x.w);await wait(REDUCED?400:1200);showTag('');
+    await back(len);setRoute([S,[S[0],S[1]+.01]]);snap(0);
+    locked=false;
+  }
+  render(x.wv?'That is not the way. Choose the right word.':'This one is wrong. Choose the right word.');
+}
+async function pick(o){
+  if(locked||!sel)return;
+  const m=M(),st=m.steps[sel.k],x=st.sl[sel.i];
+  if(o!==x.a){
+    const msg=(PT[o]?'“'+o+'” = '+PT[o]+'. ':'')+(x.hint||'Look at the map again.');
+    render(msg);return;
+  }
+  x.fixed=true;sel=null;
+  if(errsLeft()>0){render('Right! Now find the other mistake.');return;}
+  locked=true;done=true;render('');
+  /* now the whole route, step by step, with the arrows showing up and down */
+  const m2=M();
+  doneRoute:{
+    const all=[];m2.steps.forEach(s=>{if(s.pts)s.pts.forEach(p=>{const l=all[all.length-1];if(!l||l[0]!==p[0]||l[1]!==p[1])all.push(p);});});
+    setRoute(all);
+    const L=total;
+    await animate(0,L,Math.min(5200,Math.max(2200,L/420*1000))*SPEED[m2.mode]);
+    const ud=m2.steps.filter(s=>s.ud).pop();showUD(ud?ud.ud:null);
+  }
+  placeEls[m2.to].classList.add('focus');
+  locked=false;render();
+}
+startMission();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>showTag(tagT.textContent));
+</script>
+</body>
+</html>
