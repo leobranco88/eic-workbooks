@@ -334,12 +334,14 @@ function placeAt(p){
   let best=null,bd=1e9;for(const id in info){const i=info[id],d=Math.hypot(p.x-i.cx,p.y-i.cy);if(d<bd){bd=d;best=id;}}
   return bd<60?best:null;
 }
-let lastP=null,dragId=null;
+let lastP=null,dragId=null,carry=false,downT=0;
 grab.addEventListener('pointerdown',e=>{
   if(phase!=='draw'||locked)return;
   e.preventDefault();dragId=e.pointerId;try{grab.setPointerCapture(e.pointerId);}catch(_){}dragging=true;grab.style.cursor='grabbing';
-  const i=info[R().from];dpts=[[i.cx,i.cy]];lastP=null;showTag('');
+  const i=info[R().from];dpts=[[i.cx,i.cy]];lastP=null;carry=false;downT=performance.now();showTag('');
 });
+/* trackpad friendly: one click picks the icon up, the next click drops it */
+window.addEventListener('pointerdown',e=>{if(carry&&dragging){carry=false;endDrag(e);}},true);
 function moveDrag(e){
   if(!dragging||(dragId!==null&&e.pointerId!==dragId))return;
   const p=toMap(e),l=dpts[dpts.length-1];lastP=p;
@@ -350,7 +352,9 @@ function moveDrag(e){
 }
 window.addEventListener('pointermove',moveDrag);
 function endDrag(e){
-  if(!dragging||(dragId!==null&&e.pointerId!==dragId))return;dragging=false;grab.style.cursor='grab';
+  if(!dragging||(dragId!==null&&e.pointerId!==dragId))return;
+  if(e.type==='pointerup'&&!carry&&dpts.length<3&&performance.now()-downT<500){carry=true;grab.style.cursor='grabbing';const fb0=document.getElementById('fb');if(fb0)fb0.textContent='You have the icon. Move it along the streets, then click on the place.';return;}
+  carry=false;dragging=false;grab.style.cursor='grab';
   const p=(e.type==='pointercancel'||(!e.clientX&&!e.clientY))&&lastP?lastP:toMap(e),id=placeAt(p),fb=document.getElementById('fb');
   if(!id||id===R().from||dpts.length<3){
     const i=info[R().from];putAt(R().from);showTag('start');
@@ -409,7 +413,7 @@ function render(note){
      <div class="controls"><button class="b" id="show">Show the route</button><button class="b" id="draw">Draw it</button><button class="b" id="reset">New route</button></div>`;
   }else if(phase==='draw'){
     body=`<h1>Draw the way.</h1>
-     <ol class="steps"><li><span class="n">1</span><span>Press the icon and drag it along the streets.</span></li><li><span class="n">2</span><span>Drop it on ${PT_NAME[S.to]}.</span></li></ol>
+     <ol class="steps"><li><span class="n">1</span><span>Press the icon and drag it along the streets. Or click it once, move, and click again.</span></li><li><span class="n">2</span><span>Drop it on ${PT_NAME[S.to]}.</span></li></ol>
      <p class="pen fb" id="fb">${note||''}</p>
      <div class="controls"><button class="b" id="show">Show the route</button><button class="b" id="reset">New route</button></div>`;
   }else{
