@@ -331,7 +331,63 @@ function clearMap(){
   doneTrail.setAttribute('d','M0 0');
 }
 function showRoute(a,b){const p=pathPts(a,b);doneTrail.setAttribute('d','M'+p.map(q=>q.join(' ')).join(' L'));}
-function putAt(id){const i=info[id];setRoute([[i.cx,i.cy],[i.cx,i.cy+.01]]);dot.setAttribute('cx',i.cx);dot.setAttribute('cy',i.cy);route.setAttribute('stroke-dasharray','0 10');showTag('');}
+function putAt(id){clearDrawn();const i=info[id];setRoute([[i.cx,i.cy],[i.cx,i.cy+.01]]);dot.setAttribute('cx',i.cx);dot.setAttribute('cy',i.cy);route.setAttribute('stroke-dasharray','0 10');showTag('');}
+
+/* drag the icon to draw your own way, then drop it on the place where you think you arrive */
+const drawn=el('path',{d:'M0 0',fill:'none',stroke:'#137C8B','stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
+svg.insertBefore(drawn,dot);
+let dpts=[],dragging=false;
+function clearDrawn(){dpts=[];drawn.setAttribute('d','M0 0');}
+const grab=el('circle',{r:34,fill:'transparent',style:'cursor:grab;touch-action:none;display:none'},svg);
+function syncGrab(){grab.setAttribute('cx',dot.getAttribute('cx')||0);grab.setAttribute('cy',dot.getAttribute('cy')||0);}
+new MutationObserver(syncGrab).observe(dot,{attributes:true,attributeFilter:['cx','cy']});
+function toMap(e){const m=svg.getScreenCTM().inverse();const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m);return {x:Math.max(8,Math.min(952,p.x)),y:Math.max(8,Math.min(592,p.y))};}
+function placeAt(p){
+  for(const id in info){const i=info[id];if(p.x>=i.x0&&p.x<=i.x1&&p.y>=i.y0&&p.y<=i.y1)return id;}
+  let best=null,bd=1e9;for(const id in info){const i=info[id],d=Math.hypot(p.x-i.cx,p.y-i.cy);if(d<bd){bd=d;best=id;}}
+  return bd<60?best:null;
+}
+grab.addEventListener('pointerdown',e=>{
+  if(phase!=='guess'||locked)return;
+  e.preventDefault();grab.setPointerCapture(e.pointerId);dragging=true;grab.style.cursor='grabbing';
+  const i=info[R().from];dpts=[[i.cx,i.cy]];showTag('');
+});
+grab.addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  const p=toMap(e),l=dpts[dpts.length-1];
+  if(Math.hypot(p.x-l[0],p.y-l[1])<4)return;
+  dpts.push([Math.round(p.x),Math.round(p.y)]);
+  dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);
+  drawn.setAttribute('d','M'+dpts.map(q=>q.join(' ')).join(' L'));
+});
+function endDrag(e){
+  if(!dragging)return;dragging=false;grab.style.cursor='grab';
+  const p=toMap(e),id=placeAt(p),fb=document.getElementById('fb');
+  if(!id||id===R().from||dpts.length<3){
+    const i=info[R().from];putAt(R().from);showTag('start');
+    if(fb)fb.textContent=id===R().from?'That’s where you start. Draw the way, then drop the dot on the place.':'Drop the dot on a place on the map.';
+    return;
+  }
+  dot.setAttribute('cx',info[id].cx);dot.setAttribute('cy',info[id].cy);
+  pick(id);
+}
+grab.addEventListener('pointerup',endDrag);
+grab.addEventListener('pointercancel',endDrag);
+/* wrong place: the drawn way rubs itself out, the dot walks back to the start */
+function eraseDrawn(){
+  return new Promise(res=>{
+    if(REDUCED||dpts.length<3){clearDrawn();res();return;}
+    const all=dpts.slice(),n=all.length,t0=performance.now(),dur=Math.min(1600,Math.max(700,n*12));
+    (function f(t){
+      const k=Math.min(1,(t-t0)/dur),keep=Math.max(1,Math.round(n*(1-k)));
+      const q=all.slice(0,keep);
+      drawn.setAttribute('d',keep>1?'M'+q.map(p=>p.join(' ')).join(' L'):'M0 0');
+      const last=q[q.length-1];dot.setAttribute('cx',last[0]);dot.setAttribute('cy',last[1]);
+      if(k<1)requestAnimationFrame(f);else{clearDrawn();res();}
+    })(t0);
+  });
+}
+function armGrab(on){svg.style.touchAction=on?'none':'';grab.style.display=on?'':'none';svg.appendChild(grab);syncGrab();}
 
 const panel=document.getElementById('panel');
 const HELP=()=>{const v=cap(VERB[MODE]);return `<div class="say"><span><b>Go out of</b> the building. <b>Turn left / right.</b></span><span><b>${v} along / up / down</b> … Street. <b>${v} across</b> … Street.</span><span><b>${v} two blocks.</b> It’s <b>on the left / on the right</b> / <b>on the corner</b> / <b>between</b> … and … / <b>across from</b> … / <b>near</b> …</span><span class="rl"><b>up / down</b> = toward the UP or DOWN sign. <b>along</b> = following the street.</span></div>`;};
@@ -356,7 +412,7 @@ function render(note){
      <div class="controls"><button class="b" id="hide">Hide the route</button></div>`;
   }else if(phase==='guess'){
     body=`<h1>${SIDES[other].name}, where are you?</h1>
-     <ol class="steps"><li><span class="n">1</span><span>Look at the board.</span></li><li><span class="n">2</span><span>Tap the place where you think you are.</span></li></ol>
+     <ol class="steps"><li><span class="n">1</span><span>Listen to the way. Look at the board.</span></li><li><span class="n">2</span><span>Drag the dot along the streets. Draw the way you hear.</span></li><li><span class="n">3</span><span>Drop the dot on the place where you arrive. Or just tap the place.</span></li></ol>
      <p class="pen fb" id="fb">${note||''}</p>`;
   }else{
     const hit=picked===r.to;
@@ -366,6 +422,7 @@ function render(note){
      <div class="controls" style="margin-top:auto;padding-top:16px"><button class="b" id="next">${ri<rounds.length-1?'Next round':'Play again'}</button></div>`;
   }
   panel.innerHTML=head2()+body;
+  armGrab(phase==='guess');
   const q=id=>document.getElementById(id);
   if(q('show'))q('show').onclick=()=>{phase='speak';clearMap();placeEls[r.to].classList.add('dest');showRoute(r.from,r.to);putAt(r.from);showTag('start');render();};
   if(q('hide'))q('hide').onclick=()=>{phase='guess';clearMap();putAt(r.from);showTag('start');render();};
@@ -379,6 +436,7 @@ async function pick(id){
   locked=true;picked=id;
   placeEls[id].classList.add('sel');
   await wait(REDUCED?100:500);
+  if(id!==r.to)await eraseDrawn();
   clearMap();
   showTag('');
   const pts=pathPts(r.from,r.to);
