@@ -243,25 +243,11 @@ function pathPts(a,b){
 
 
 /* ---------- Give directions ---------- */
-const SIDES={A:{from:'eic',name:'Student A'},B:{from:'bus',name:'Student B'}};
 const PT_NAME={bus:'the bus station',park:'Linden Park',library:'the public library',train:'the train station',market:'the supermarket',post:'the post office',cafe:'the café',museum:'the museum',hotel:'the hotel',mall:'the shopping mall',bank:'the bank',cinema:'the movie theater',tourist:'the tourist office',restaurant:'the restaurant',club:'the nightclub',eic:'EIC'};
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function routeLen(a,b){const p=pathPts(a,b);let L=0;for(let i=1;i<p.length;i++)L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return L;}
 
-/* 6 rounds: A speaks three times, B speaks three times; destinations never repeat and never sit next door */
-let rounds=[],ri=0,phase='prep',picked=null,locked=false;
-function buildRounds(){
-  const all=Object.keys(info);
-  const used=new Set();
-  const out=[];
-  ['A','B','A','B','A','B'].forEach(side=>{
-    const from=SIDES[side].from;
-    const pool=shuffle(all.filter(id=>id!==from&&id!==SIDES.A.from&&id!==SIDES.B.from&&!used.has(id)&&routeLen(from,id)>=380));
-    const to=pool[0];used.add(to);out.push({side,from,to,mode:['walk','bike','drive'][out.length%3]});
-  });
-  /* the sides do not have to alternate in a fixed rhythm: shuffle the order of the six rounds */
-  shuffle(out);const mm=shuffle(['walk','bike','drive','walk','bike','drive']);out.forEach((r,i)=>r.mode=mm[i]);return out;
-}
+let S={from:null,to:null},phase='start',picked=null,locked=false;
 
 const doneTrail=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
 /* trail, dot and tag */
@@ -348,7 +334,7 @@ function placeAt(p){
   return bd<60?best:null;
 }
 grab.addEventListener('pointerdown',e=>{
-  if(phase!=='guess'||locked)return;
+  if(phase!=='draw'||locked)return;
   e.preventDefault();grab.setPointerCapture(e.pointerId);dragging=true;grab.style.cursor='grabbing';
   const i=info[R().from];dpts=[[i.cx,i.cy]];showTag('');
 });
@@ -369,7 +355,7 @@ function endDrag(e){
     return;
   }
   dot.setAttribute('cx',info[id].cx);dot.setAttribute('cy',info[id].cy);
-  pick(id);
+  judge(id);
 }
 grab.addEventListener('pointerup',endDrag);
 grab.addEventListener('pointercancel',endDrag);
@@ -391,68 +377,92 @@ function armGrab(on){svg.style.touchAction=on?'none':'';grab.style.display=on?''
 
 const panel=document.getElementById('panel');
 const HELP=()=>{const v=cap(VERB[MODE]);return `<div class="say"><span><b>Go out of</b> the building. <b>Turn left / right.</b></span><span><b>${v} along / up / down</b> … Street. <b>${v} across</b> … Street.</span><span><b>${v} two blocks.</b> It’s <b>on the left / on the right</b> / <b>on the corner</b> / <b>between</b> … and … / <b>across from</b> … / <b>near</b> …</span><span class="rl"><b>up / down</b> = toward the UP or DOWN sign. <b>along</b> = following the street.</span></div>`;};
-const R=()=>rounds[ri];
-function head2(){
-  const r=R();const other=r.side==='A'?'B':'A';
-  return `<p class="eyebrow" style="display:flex;gap:10px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 14px"><span style="width:24px;height:3px;background:var(--pen)"></span>Marlow · Be the GPS · Give directions</p>
-   <p class="who">Round ${ri+1} of ${rounds.length}</p>
-   <div class="role"><span class="talk">${SIDES[r.side].name} speaks</span><span>${SIDES[other].name} listens</span></div>`;
+const R=()=>S;
+const EYE='<p class="eyebrow" style="display:flex;gap:10px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 14px"><span style="width:24px;height:3px;background:var(--pen)"></span>Marlow · Be the GPS · Give directions</p>';
+function hideDot(on){
+  dot.style.display=on?'none':'';dotG.style.display=on?'none':'';
+  document.querySelectorAll('.pulse-ring').forEach(r=>r.style.display=on?'none':'');
+  if(on){startSign.style.display='none';tagT.textContent='';}
+}
+function modeRow(){
+  return '<div class="role" id="modes" style="margin:0 0 14px">'+['walk','bike','drive'].map(m=>{const on=MODE===m;
+    return `<button type="button" data-m="${m}" style="font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border:1.5px solid var(--ink);${m==='walk'?'':'border-left-width:0;'}background:${on?'#0A0A0A':'#fff'};color:${on?'#fff':'#0A0A0A'};cursor:pointer">${LABEL[m]}</button>`;}).join('')+'</div>';
 }
 function render(note){
-  const r=R();const other=r.side==='A'?'B':'A';
   let body='';
-  if(phase==='prep'){
-    body=`<h1>${SIDES[other].name}, look away.</h1>
-     <ol class="steps"><li><span class="n">1</span><span>${SIDES[other].name} looks away from the board.</span></li><li><span class="n">2</span><span>${SIDES[r.side].name} sees the route.</span></li><li><span class="n">3</span><span>${SIDES[r.side].name} gives the directions in English.</span></li></ol>
-     <div class="controls"><button class="b" id="show">Show the route to ${SIDES[r.side].name}</button></div>`;
-  }else if(phase==='speak'){
-    body=`<h1>Start at ${PT_NAME[r.from]==='EIC'?'EIC':PT_NAME[r.from]}. Get to ${PT_NAME[r.to]}.</h1>
-     <p class="pen fb" style="margin:0 0 10px">Say the way out loud.</p>
-     <p class="mode"><svg viewBox="0 0 24 24" aria-hidden="true">${GLYPH[MODE]}</svg>You ${MODE==='walk'?'walk':MODE==='bike'?'ride a bike':'drive'} this time.</p>${HELP()}
-     <div class="controls"><button class="b" id="hide">Hide the route</button></div>`;
-  }else if(phase==='guess'){
-    body=`<h1>${SIDES[other].name}, where are you?</h1>
-     <ol class="steps"><li><span class="n">1</span><span>Listen to the way. Look at the board.</span></li><li><span class="n">2</span><span>Drag the dot along the streets. Draw the way you hear.</span></li><li><span class="n">3</span><span>Drop the dot on the place where you arrive. Or just tap the place.</span></li></ol>
-     <p class="pen fb" id="fb">${note||''}</p>`;
+  if(phase==='start'){
+    body=`<h1>Where do you start?</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Choose how you go.</span></li><li><span class="n">2</span><span>Tap the place where you start.</span></li></ol>${modeRow()}
+     <p class="pen fb">${note||''}</p>`;
+  }else if(phase==='dest'){
+    body=`<h1>You start at ${PT_NAME[S.from]}. Where do you go?</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Tap the place where you arrive.</span></li></ol>
+     <p class="pen fb">${note||''}</p>
+     <div class="controls"><button class="b" id="reset">Change the start</button></div>`;
+  }else if(phase==='ready'){
+    body=`<h1>From ${PT_NAME[S.from]} to ${PT_NAME[S.to]}.</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Say the way out loud.</span></li><li><span class="n">2</span><span>Show the route to check it.</span></li><li><span class="n">3</span><span>Or draw it: drag the icon along the streets.</span></li></ol>
+     ${modeRow()}<p class="mode"><svg viewBox="0 0 24 24" aria-hidden="true">${GLYPH[MODE]}</svg>You ${MODE==='walk'?'walk':MODE==='bike'?'ride a bike':'drive'}.</p>${HELP()}
+     <div class="controls"><button class="b" id="show">Show the route</button><button class="b" id="draw">Draw it</button><button class="b" id="reset">New route</button></div>`;
+  }else if(phase==='draw'){
+    body=`<h1>Draw the way.</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Press the icon and drag it along the streets.</span></li><li><span class="n">2</span><span>Drop it on ${PT_NAME[S.to]}.</span></li></ol>
+     <p class="pen fb" id="fb">${note||''}</p>
+     <div class="controls"><button class="b" id="show">Show the route</button><button class="b" id="reset">New route</button></div>`;
   }else{
-    const hit=picked===r.to;
-    body=`<h1>${hit?'You arrived.':'Not this time.'}</h1>
-     <p class="sent" style="font-size:clamp(20px,2vw,30px);font-weight:700;line-height:1.6">You are at ${PT_NAME[r.to]}.</p>
-     <p class="pen fb">${hit?'Same place!':'You chose '+PT_NAME[picked]+'. Check the directions together.'}</p>
-     <div class="controls" style="margin-top:auto;padding-top:16px"><button class="b" id="next">${ri<rounds.length-1?'Next round':'Play again'}</button></div>`;
+    body=`<h1>You arrived.</h1>
+     <p class="sent" style="font-size:clamp(20px,2vw,30px);font-weight:700;line-height:1.6">You are at ${PT_NAME[S.to]}.</p>
+     <p class="pen fb">Same way? The blue line is yours, the orange line is the route.</p>
+     <div class="controls" style="margin-top:auto;padding-top:16px"><button class="b" id="draw">Draw it again</button><button class="b" id="reset">New route</button></div>`;
   }
-  panel.innerHTML=head2()+body;
-  armGrab(phase==='guess');
+  panel.innerHTML=EYE+body;
+  armGrab(phase==='draw');
   const q=id=>document.getElementById(id);
-  if(q('show'))q('show').onclick=()=>{phase='speak';clearMap();placeEls[r.to].classList.add('dest');showRoute(r.from,r.to);putAt(r.from);showTag('start');render();};
-  if(q('hide'))q('hide').onclick=()=>{phase='guess';clearMap();putAt(r.from);showTag('start');render();};
-  if(q('next'))q('next').onclick=()=>{if(ri<rounds.length-1)ri++;else{rounds=buildRounds();ri=0;}startRound();};
+  panel.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{setMode(b.dataset.m);render(note);});
+  if(q('reset'))q('reset').onclick=resetAll;
+  if(q('draw'))q('draw').onclick=()=>{if(locked)return;clearMap();placeEls[S.to].classList.add('dest');putAt(S.from);showTag('start');phase='draw';render();};
+  if(q('show'))q('show').onclick=showIt;
 }
-function startRound(){setMode(R().mode);phase='prep';picked=null;locked=false;clearMap();putAt(R().from);showTag('start');render();}
-async function pick(id){
-  if(phase!=='guess'||locked)return;
-  const r=R();
-  if(id===r.from){document.getElementById('fb').textContent='That’s where you start. Where do you arrive?';return;}
-  locked=true;picked=id;
-  placeEls[id].classList.add('sel');
-  await wait(REDUCED?100:500);
-  if(id!==r.to)await eraseDrawn();
-  clearMap();
-  showTag('');
-  const pts=pathPts(r.from,r.to);
-  doneTrail.setAttribute('d','M0 0');
-  setRoute(pts);
+function resetAll(){if(locked)return;S={from:null,to:null};phase='start';clearMap();clearDrawn();hideDot(true);render();}
+async function showIt(){
+  if(locked)return;locked=true;
+  clearMap();placeEls[S.to].classList.add('dest');putAt(S.from);showTag('start');phase='ready';render();
+  const pts=pathPts(S.from,S.to);setRoute(pts);showTag('');
   await animate(0,total,Math.min(3200,Math.max(1200,total/300*1000)));
-  placeEls[r.to].classList.add('focus');
-  if(id!==r.to)placeEls[id].classList.add('miss');
-  phase='reveal';render();
+  placeEls[S.to].classList.add('focus');locked=false;
+}
+async function judge(id){
+  if(phase!=='draw'||locked)return;
+  locked=true;
+  if(id===S.to){
+    dot.setAttribute('cx',info[id].cx);dot.setAttribute('cy',info[id].cy);
+    showRoute(S.from,S.to);placeEls[id].classList.add('focus');
+    phase='done';locked=false;render();return;
+  }
+  placeEls[id].classList.add('miss');
+  await eraseDrawn();
+  placeEls[id].classList.remove('miss');
+  putAt(S.from);showTag('start');locked=false;phase='draw';
+  render('That’s '+PT_NAME[id]+'. Not '+PT_NAME[S.to]+'. Try again.');
+}
+function tapPlace(id){
+  if(locked)return;
+  if(phase==='start'){
+    S={from:id,to:null};clearMap();hideDot(false);putAt(id);showTag('start');phase='dest';render();
+  }else if(phase==='dest'){
+    if(id===S.from){render('That’s where you start. Where do you arrive?');return;}
+    S.to=id;clearMap();placeEls[id].classList.add('dest');putAt(S.from);showTag('start');phase='ready';render();
+  }else if(phase==='draw'){
+    /* tapping works too, but dragging is the point */
+    if(id===S.from){return;}
+    judge(id);
+  }
 }
 Object.entries(placeEls).forEach(([id,g])=>{
-  g.addEventListener('click',()=>pick(id));
-  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(id);}});
+  g.addEventListener('click',()=>tapPlace(id));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tapPlace(id);}});
 });
-rounds=buildRounds();
-startRound();
+hideDot(true);render();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>showTag(tagT.textContent));
 </script>
 </body>
