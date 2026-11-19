@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="hub-title" content="Be the GPS · London · World English Unit 6">
+<meta name="hub-desc" content="Extra: o mesmo jogo de direções em um mapa de Londres, com o Tâmisa, pontes e lugares famosos. Escolha a partida e o destino, diga o caminho em inglês e desenhe.">
+<meta name="hub-type" content="Interativo">
+<meta name="hub-pdf" content="Worksheet-BeTheGPS-WorldEnglish-Unit6.pdf"><meta name="hub-level" content="A1+">
+<title>Be the GPS · London</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0A0A0A;--mid:#545454;--light:#E8E8E4;--pen:#C8102E;--pent:#C8102E;--navy:#012169}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:#fff;color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.4}
+
+  .stage{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(360px,1fr);margin:0 24px 24px;border:1.5px solid var(--ink);height:calc(100vh - 120px);min-height:560px}
+  .mapside{display:flex;align-items:center;background:#fff}
+  .mapside svg{display:block;width:100%;height:auto;max-height:calc(100vh - 124px)}
+  .panel{padding:26px 30px 24px;border-left:1.5px solid var(--ink);display:flex;flex-direction:column;min-height:0;overflow-y:auto}
+
+  .tabs{display:flex;margin:0 0 22px}
+  .tab{font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer}
+  .tab+.tab{border-left:0}
+  .tab[aria-pressed=true]{background:var(--ink);color:#fff}
+  .tab:focus-visible,.b:focus-visible{outline:3px solid var(--pen);outline-offset:3px}
+
+  .steps{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:6px;font-size:15px;color:var(--mid);font-weight:600}
+  .steps li{display:flex;gap:10px;align-items:baseline}
+  .steps .n{flex:none;width:20px;height:20px;background:var(--ink);color:#fff;font:800 12px Inter,sans-serif;display:inline-grid;place-items:center;transform:translateY(-1px)}
+
+  h1{font-size:clamp(30px,3.1vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.02;margin:0 0 22px}
+  h1 em{font-style:normal;color:var(--pent)}
+  .count{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+
+  .sent{font-size:clamp(21px,2.2vw,34px);font-weight:700;letter-spacing:-.01em;line-height:1.75;margin:0}
+  .sent b{font-weight:900}
+  .blank{display:inline-block;width:5.2em;border-bottom:3px solid var(--ink);margin:0 .2em;transform:translateY(.1em)}
+  .w{position:relative;display:inline-block;margin:0 .3em;white-space:nowrap;font-weight:900}
+  .wr{position:absolute;left:-.5em;top:-.42em;width:calc(100% + 1em);height:1.95em;overflow:visible;pointer-events:none}
+  .wr path,.ring path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .w.on .wr path,.ring.on path{animation:draw .7s ease-out forwards}
+  .ring.pring path{stroke-width:1.5}
+  .ring:not(.on) path,.w:not(.on) .wr path{opacity:0}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  .pen{font-family:Caveat,cursive;font-weight:700;color:var(--pent);line-height:1;display:inline-block}
+  .fb{font-size:clamp(26px,2.1vw,34px);margin:12px 0 0 4px;transform:rotate(-2deg);transform-origin:left;min-height:1em}
+
+  .prog{display:flex;gap:5px;margin:auto 0 0;padding-top:22px}
+  .prog span{flex:1;height:6px;background:var(--light)}
+  .prog span.done{background:var(--ink)}
+  .prog span.cur{background:var(--pen)}
+
+  .controls{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;align-items:center}
+  .b{font:800 16px Inter,sans-serif;padding:10px 18px;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:0;cursor:pointer}
+  .b:hover:not(:disabled){background:#F4F4F1}
+  .b:disabled{opacity:.35;cursor:default}
+
+  ol.mine{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  ol.mine li{font-size:clamp(19px,1.8vw,27px);font-weight:700;line-height:1.5;padding-left:14px;border-left:3px solid var(--ink)}
+  ol.mine li .w{margin:0}
+  .empty{font-size:18px;color:var(--mid);font-weight:600;margin:0}
+
+  /* map */
+  .pl{cursor:pointer}
+  .pl rect{fill:#fff;stroke:var(--ink);stroke-width:1.5}
+  .pl.park rect{stroke-dasharray:5 5}
+  .pl text{font-family:Inter,sans-serif;font-size:13px;font-weight:700;fill:var(--ink);text-anchor:middle;pointer-events:none}
+  .pl:hover rect{stroke-width:3}
+  .pl:focus-visible{outline:none}
+  .pl:focus-visible rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.focus rect,.pl.sel rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.focus rect{animation:pop .6s ease-out 1}
+  @keyframes pop{0%{stroke-width:9}100%{stroke-width:3.5}}
+  .st{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.13em;fill:#545454;text-anchor:middle;pointer-events:none}
+  #tagT{font-family:Caveat,cursive;font-weight:700;font-size:38px;fill:var(--pent);paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round;pointer-events:none;transition:opacity .2s}
+  .hide{display:none}
+
+  @media (prefers-reduced-motion:reduce){.w.on .wr path,.ring.on path{animation:none;stroke-dashoffset:0}.pl.focus rect{animation:none}}
+  @media (max-width:900px){
+    .stage{grid-template-columns:1fr;margin:12px;height:auto}
+    .mapside{position:sticky;top:0;z-index:2;border-bottom:1.5px solid var(--ink)}
+    .panel{border-left:0;padding:20px 18px;overflow:visible}
+  }
+
+  /* Drive */
+  h1{font-size:clamp(28px,2.9vw,46px)}
+  h1 small{display:block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+  ol.dirs{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+  ol.dirs li{display:grid;grid-template-columns:30px 1fr;gap:0 4px;padding:9px 0;border-top:1px solid var(--light);opacity:.38;transition:opacity .25s}
+  ol.dirs li.on,ol.dirs li.ok{opacity:1}
+  ol.dirs .n{width:22px;height:22px;background:var(--ink);color:#fff;font:800 12px Inter,sans-serif;display:grid;place-items:center;margin-top:4px}
+  ol.dirs .s{font-size:clamp(18px,1.7vw,25px);font-weight:700;line-height:1.7;letter-spacing:-.01em}
+  .gap{display:inline-block;min-width:3.4em;border-bottom:3px solid var(--ink);margin:0 .25em;transform:translateY(.12em)}
+  .chips{grid-column:2;display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+  .chips .b{font-size:17px}
+  .pl.dest rect{stroke:var(--pen);stroke-width:3.5}
+  .pl.dest text{font-weight:900}
+
+
+  .pl.miss rect{stroke:var(--ink);stroke-width:3;stroke-dasharray:7 5}
+  .say{margin:0 0 18px;display:grid;gap:3px;font-size:15px;font-weight:400;color:var(--mid)}
+  .say b{color:var(--ink);font-weight:700}
+  .who{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 8px}
+  .role{display:flex;gap:0;margin:0 0 16px}
+  .role span{font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1.5px solid var(--ink)}
+  .role span+span{border-left:0}
+  .role .talk{background:var(--ink);color:#fff}
+  .moments{display:flex;flex-wrap:wrap;align-items:stretch;background:#0A0A0A;margin:24px 24px 0}
+  .moments a{color:#BDBDBA;text-decoration:none;font:700 14px Inter,sans-serif;padding:13px 16px 10px;border-bottom:3px solid transparent}
+  .moments a:hover{color:#fff}
+  .moments a[aria-current=page]{color:#fff;border-bottom-color:#E4313F}
+  .moments a.pdf{margin-left:auto;color:#fff;font-weight:800;border-bottom-color:transparent}.moments a.pdf:hover{border-bottom-color:#fff}.moments a.pdf+a.nx{margin-left:6px}
+  .moments a.nx{margin-left:auto;color:#fff;font-weight:800}
+  .moments a.nx:hover{color:#fff}
+  .moments a:focus-visible{outline:3px solid #E4313F;outline-offset:-3px}
+  @media (max-width:900px){.moments{margin:12px 12px 0}.moments a{padding:11px 11px 8px;font-size:13px}.moments a.nx{margin-left:0}}
+
+/* --- map icons, UP/DOWN signs, arrows --- */
+.pl .ic{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.pl.dest .ic,.pl.focus .ic,.pl.sel .ic{stroke:var(--pen)}
+#pl-eic rect{stroke-width:3.5}
+.chev{pointer-events:none}.chev path{fill:none;stroke:var(--pen);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .35s}
+.chev.on path{opacity:.75}
+.dg{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.mode{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:800 15px Inter,sans-serif}.mode svg{width:26px;height:26px;padding:3px;background:var(--ink);fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.say .rl{color:var(--mid);font-size:13px}
+</style>
+</head>
+<body>
+<nav class="moments" aria-label="Be the GPS moments"><a data-k="intro" href="BeTheGPS-WorldEnglish-Unit6.html#intro">Intro</a><a data-k="watch" href="BeTheGPS-WorldEnglish-Unit6.html#watch">1 · Watch</a><a data-k="where" href="BeTheGPS-Where-WorldEnglish-Unit6.html">2 · Where do you go?</a><a data-k="drive" href="BeTheGPS-Drive-WorldEnglish-Unit6.html">3 · Drive</a><a data-k="give" href="BeTheGPS-Give-WorldEnglish-Unit6.html">4 · Give directions</a><a data-k="wrong" href="BeTheGPS-Wrong-WorldEnglish-Unit6.html">5 · Wrong GPS</a><a data-k="whereis" href="BeTheGPS-WhereIs-WorldEnglish-Unit6.html">6 · Where is it?</a><a data-k="london" href="BeTheGPS-London-WorldEnglish-Unit6.html" aria-current="page">Extra · London</a><a class="pdf" href="Worksheet-BeTheGPS-WorldEnglish-Unit6.pdf" download>↓ Worksheet PDF</a></nav>
+<div class="stage">
+  <div class="mapside">
+    <svg id="map" viewBox="0 -24 960 648" role="img" aria-label="Map of London"></svg>
+  </div>
+  <section class="panel" id="panel" aria-live="polite"></section>
+</div>
+<script>
+
+/* ---------- London (stylised, not to scale) ---------- */
+const NS='http://www.w3.org/2000/svg';
+const PEN='#C8102E',INK='#0A0A0A',LIGHT='#E8E8E4',NAVY='#012169',WATER='#DCE5F4',TEAL='#012169';
+const RING='M9 31C3 15 27 4 57 4c30 0 41 11 39 24-2 14-30 19-55 18C17 45 4 38 7 25 10 15 24 8 41 6';
+const W=120,H=72,PAD=5;
+const COLX=[85,240,395,550,705,860];
+const STREETS_V=[{x:162,name:'Vauxhall Bridge'},{x:317,name:'Westminster Bridge'},{x:472,name:'Waterloo Bridge'},{x:627,name:'Blackfriars Bridge'},{x:782,name:'Tower Bridge'}];
+const RIVER='M-10 296 C 140 266, 260 326, 420 300 S 640 266, 780 304 S 930 314, 970 296';
+const BANK=40;
+const PLACES=[
+ {id:'hyde',n:'Hyde Park',park:1,c:0,row:'N1'},{id:'palace',n:'Buckingham Palace',c:1,row:'N1'},{id:'museum',n:'British Museum',c:3,row:'N1'},
+ {id:'bigben',n:'Big Ben',c:1,row:'N2'},{id:'trafalgar',n:'Trafalgar Square',c:2,row:'N2'},{id:'stpauls',n:'St Paul’s',c:4,row:'N2'},{id:'tower',n:'Tower of London',c:5,row:'N2'},
+ {id:'eye',n:'London Eye',c:1,row:'S1'},{id:'waterloo',n:'Waterloo Station',c:2,row:'S1'},{id:'tate',n:'Tate Modern',c:4,row:'S1'},{id:'market',n:'Borough Market',c:5,row:'S1'},
+ {id:'eic',n:'EIC',c:0,row:'S2'}
+];
+const ROWY={N1:48,N2:168,S1:428,S2:548};
+const SAY={hyde:'Hyde Park',palace:'Buckingham Palace',museum:'the British Museum',bigben:'Big Ben',trafalgar:'Trafalgar Square',stpauls:'St Paul’s Cathedral',tower:'the Tower of London',eye:'the London Eye',waterloo:'Waterloo Station',tate:'the Tate Modern',market:'Borough Market',eic:'EIC'};
+
+/* ---------- Draw the map ---------- */
+const svg=document.getElementById('map');
+function el(t,a,p,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);if(txt!=null)e.textContent=txt;return e;}
+const defs=el('defs',{},svg);
+const flt=el('filter',{id:'wob',filterUnits:'userSpaceOnUse',x:0,y:-24,width:960,height:648},defs);
+el('feTurbulence',{type:'fractalNoise',baseFrequency:'0.025',numOctaves:2,seed:4,result:'n'},flt);
+el('feDisplacementMap',{in:'SourceGraphic',in2:'n',scale:5},flt);
+
+const ICONS={eic:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5v4.5c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v6"/>',hyde:'<circle cx="12" cy="9" r="5"/><path d="M12 14v7M8 21h8"/>',palace:'<path d="M3 10l9-6 9 6"/><rect x="3" y="10" width="18" height="10"/><path d="M8 20v-5h8v5M7 13h.01M17 13h.01"/>',bigben:'<path d="M9 8l3-5 3 5"/><rect x="9" y="8" width="6" height="13"/><circle cx="12" cy="12" r="2"/><path d="M7 21h10"/>',eye:'<circle cx="12" cy="10" r="7"/><circle cx="12" cy="10" r="1.2"/><path d="M12 3v14M5 10h14M7 5l10 10M17 5L7 15M12 10l-4 11M12 10l4 11"/>',trafalgar:'<rect x="10" y="9" width="4" height="10"/><path d="M8 19h8M9 21h6"/><circle cx="12" cy="6" r="2"/>',museum:'<path d="M3 9l9-5 9 5z"/><path d="M6 11v7M10 11v7M14 11v7M18 11v7M3 20h18"/>',stpauls:'<path d="M6 14a6 6 0 0 1 12 0"/><rect x="5" y="14" width="14" height="6"/><path d="M12 8V3M10 5h4M9 20v-3h6v3"/>',tower:'<path d="M4 20V9h3V6h3v3h4V6h3v3h3v11z"/><path d="M10 20v-4a2 2 0 0 1 4 0v4"/>',waterloo:'<rect x="5" y="3.5" width="14" height="14" rx="2"/><path d="M5 11h14M8 17.5l-2 3M16 17.5l2 3"/><circle cx="9" cy="14.2" r=".6"/><circle cx="15" cy="14.2" r=".6"/>',tate:'<rect x="4" y="11" width="16" height="9"/><rect x="14" y="3" width="4" height="8"/><path d="M7 14h.01M10 14h.01M13 14h.01M7 17h.01M10 17h.01M13 17h.01"/>',market:'<path d="M3 9l2-5h14l2 5z"/><path d="M5 9v11h14V9M9 20v-6h6v6"/>'};
+const GLYPH={"walk": "<circle cx=\"12\" cy=\"5\" r=\"2.6\"/><path d=\"M12 8v7M12 10l-4 4M12 10l4 4M12 15l-3.5 6M12 15l3.5 6\"/>", "bike": "<circle cx=\"6\" cy=\"16\" r=\"3.6\"/><circle cx=\"18\" cy=\"16\" r=\"3.6\"/><path d=\"M6 16l4-8h5l3 8M10 8H8M10 16l5-8\"/>", "drive": "<path d=\"M3 15v-4l2-4h14l2 4v4z\"/><circle cx=\"8\" cy=\"16.5\" r=\"2\"/><circle cx=\"16\" cy=\"16.5\" r=\"2\"/>"};
+let MODE='walk';
+const VERB={walk:'walk',bike:'ride',drive:'drive'},LABEL={walk:'Walk',bike:'Bike',drive:'Drive'};
+const cap=w=>w[0].toUpperCase()+w.slice(1);
+
+/* ---------- street signs, UP/DOWN plates, START sign ---------- */
+const TEAL_='#012169';
+function blade(cx,cy,t,rot){
+  const w=Math.round(t.length*7.6+20);
+  const g=el('g',{class:'blade',transform:`translate(${cx} ${cy}) rotate(${rot})`,style:'pointer-events:none'},svg);
+  el('rect',{x:-w/2,y:-11,width:w,height:22,rx:4,fill:NAVY},g);
+  el('rect',{x:-w/2+2,y:-9,width:w-4,height:18,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  el('text',{x:0,y:4,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':10.5,'letter-spacing':.8,fill:'#fff'},g,t);
+}
+function plate(x,y,up){
+  const w=up?52:72,g=el('g',{class:'udchip',transform:`translate(${x-w/2} ${y})`,style:'pointer-events:none'},svg);
+  el('rect',{width:w,height:26,rx:4,fill:NAVY},g);el('rect',{x:2,y:2,width:w-4,height:22,rx:2.5,fill:'none',stroke:'#fff','stroke-width':1.6},g);
+  el('path',{d:up?'M9 19V8M4 12l5-6 5 6':'M9 7v11M4 14l5 6 5-6',transform:'translate(3 0) scale(.9)',fill:'none',stroke:'#fff','stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+  el('text',{x:up?27:32,y:18,'font-family':'Inter,sans-serif','font-weight':800,'font-size':11,fill:'#fff'},g,up?'UP':'DOWN');
+}
+const startSign=el('g',{style:'pointer-events:none;display:none'},svg);
+el('circle',{cx:0,cy:0,r:20,fill:NAVY},startSign);el('circle',{cx:0,cy:0,r:17.5,fill:'none',stroke:'#fff','stroke-width':1.6},startSign);
+el('path',{d:'M-4 -13l10 6.5-10 6.5z',fill:'#fff'},startSign);
+el('text',{x:0,y:12,'text-anchor':'middle','font-family':'Inter,sans-serif','font-weight':800,'font-size':8.5,'letter-spacing':.4,fill:'#fff'},startSign,'START');
+function markStart(x,y){svg.appendChild(startSign);startSign.style.display='';startSign.setAttribute('transform',`translate(${x<760?x+40:x-40} ${y})`);}
+
+el('rect',{x:0,y:-24,width:960,height:648,fill:'#fff'},svg);
+/* the Thames */
+el('path',{d:RIVER,fill:'none',stroke:WATER,'stroke-width':60,'stroke-linecap':'round'},svg);
+const rv=el('path',{d:RIVER,fill:'none',stroke:'none'},svg);
+[-30,30].forEach(o=>el('path',{d:RIVER,fill:'none',stroke:NAVY,'stroke-width':1.6,opacity:.45,transform:`translate(0 ${o})`},svg));
+function yAt(x){const L=rv.getTotalLength();let lo=0,hi=L;for(let i=0;i<40;i++){const m=(lo+hi)/2;if(rv.getPointAtLength(m).x<x)lo=m;else hi=m;}return rv.getPointAtLength(lo).y;}
+el('text',{x:240,y:yAt(240)+6,'font-family':'Caveat,cursive','font-weight':700,'font-size':22,fill:NAVY,opacity:.7,'text-anchor':'middle',transform:'rotate(-1 240 '+(yAt(240)+6)+')',style:'pointer-events:none'},svg,'River Thames');
+/* streets: two straight, two that follow the river */
+const PICC=108,SWK=488;
+const HS=[
+ {key:'picc',name:'Piccadilly',y:()=>PICC},
+ {key:'emb',name:'Embankment',y:x=>yAt(x)-BANK,curved:1},
+ {key:'qw',name:'Queen’s Walk',y:x=>yAt(x)+BANK,curved:1},
+ {key:'swk',name:'Southwark Street',y:()=>SWK}
+];
+const LINE={stroke:'#C9C9C4','stroke-width':1.6,'stroke-dasharray':'10 8',fill:'none'};
+el('line',Object.assign({x1:0,x2:960,y1:PICC,y2:PICC},LINE),svg);
+el('line',Object.assign({x1:0,x2:960,y1:SWK,y2:SWK},LINE),svg);
+[-BANK,BANK].forEach(o=>el('path',Object.assign({d:RIVER,transform:`translate(0 ${o})`},LINE),svg));
+STREETS_V.forEach(v=>el('line',Object.assign({x1:v.x,x2:v.x,y1:-24,y2:624},LINE),svg));
+/* bridges: a solid deck where the street crosses the water */
+STREETS_V.forEach(v=>{const y=yAt(v.x);
+  el('rect',{x:v.x-8,y:y-36,width:16,height:72,fill:'#fff',stroke:NAVY,'stroke-width':2},svg);
+  el('line',{x1:v.x,x2:v.x,y1:y-34,y2:y+34,stroke:'#C9C9C4','stroke-width':1.6,'stroke-dasharray':'6 6'},svg);
+});
+
+const info={},placeEls={};
+PLACES.forEach(p=>{
+  const x=COLX[p.c],y=ROWY[p.row],x0=x-W/2-PAD,x1=x+W/2+PAD,y0=y-H/2-PAD,y1=y+H/2+PAD;
+  el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:LIGHT},svg);
+  const g=el('g',{class:'pl'+(p.park?' park':''),id:'pl-'+p.id,tabindex:0,role:'button','aria-label':p.n},svg);
+  el('rect',{x:x-W/2,y:y-H/2,width:W,height:H},g);
+  {const ic=el('g',{class:'ic',transform:`translate(${x-17} ${y-H/2+6}) scale(1.42)`},g);ic.innerHTML=ICONS[p.id];}
+  el('text',{x:x,y:y+H/2-11,'font-size':p.n.length>14?10:13},g,p.n);
+  placeEls[p.id]=g;
+  /* the door: the edge of the box that faces the street, on the right-hand side */
+  const down=(p.row==='N1'||p.row==='N2'),cx=x+W/2-6,cy=down?y+H/2:y-H/2;
+  const sy=p.row==='N1'?PICC:p.row==='N2'?yAt(cx)-BANK:p.row==='S1'?yAt(cx)+BANK:SWK;
+  info[p.id]={cx,cy,x0,x1,y0,y1,street:sy};
+});
+/* street blades */
+blade(240,PICC,'PICCADILLY',0);blade(705,PICC,'PICCADILLY',0);
+blade(240,SWK,'SOUTHWARK STREET',0);blade(705,SWK,'SOUTHWARK STREET',0);
+blade(395,yAt(395)-BANK,'EMBANKMENT',0);blade(705,yAt(705)-BANK,'EMBANKMENT',0);
+blade(395,yAt(395)+BANK,'QUEEN’S WALK',0);blade(705,yAt(705)+BANK,'QUEEN’S WALK',0);
+STREETS_V.forEach(v=>blade(v.x,yAt(v.x),v.name.toUpperCase(),-90));
+
+/* ---------- Streets graph: the dot always walks on the streets ---------- */
+const nodes={};
+function N(k,x,y){nodes[k]={x,y,adj:[]};}
+function link(a,b){const w=Math.hypot(nodes[a].x-nodes[b].x,nodes[a].y-nodes[b].y);nodes[a].adj.push([b,w]);nodes[b].adj.push([a,w]);}
+/* every street gets a node at each avenue, at each door and every 20 px (so curved streets follow the curve) */
+HS.forEach(h=>{
+  const xs=new Set();for(let x=0;x<=960;x+=20)xs.add(x);
+  STREETS_V.forEach(v=>xs.add(v.x));
+  Object.keys(info).forEach(id=>{const i=info[id];if(Math.abs(i.street-h.y(i.cx))<.5)xs.add(Math.round(i.cx*100)/100);});
+  const arr=[...xs].sort((a,b)=>a-b);
+  arr.forEach(x=>N('S'+h.key+'@'+x,x,h.y(x)));
+  for(let i=1;i<arr.length;i++)link('S'+h.key+'@'+arr[i-1],'S'+h.key+'@'+arr[i]);
+});
+STREETS_V.forEach(v=>{for(let i=1;i<HS.length;i++)link('S'+HS[i-1].key+'@'+v.x,'S'+HS[i].key+'@'+v.x);});
+PLACES.forEach(p=>{const i=info[p.id];
+  const h=HS.find(h=>Math.abs(i.street-h.y(i.cx))<.5);
+  N('C'+p.id,i.cx,i.cy);link('C'+p.id,'S'+h.key+'@'+Math.round(i.cx*100)/100);
+});
+function pathPts(a,b){
+  const src='C'+a,dst='C'+b,dist={},prev={},todo=new Set(Object.keys(nodes));
+  todo.forEach(k=>dist[k]=Infinity);dist[src]=0;
+  while(todo.size){
+    let u=null;todo.forEach(k=>{if(u===null||dist[k]<dist[u])u=k;});
+    todo.delete(u);if(u===dst)break;
+    nodes[u].adj.forEach(([v,w])=>{if(dist[u]+w<dist[v]){dist[v]=dist[u]+w;prev[v]=u;}});
+  }
+  const seq=[];for(let k=dst;k;k=prev[k])seq.unshift(k);
+  const pts=[];seq.forEach(k=>{const p=[+nodes[k].x.toFixed(1),+nodes[k].y.toFixed(1)];const l=pts[pts.length-1];if(!l||l[0]!==p[0]||l[1]!==p[1])pts.push(p);});
+  return pts;
+}
+
+
+/* ---------- Give directions ---------- */
+const PT_NAME=SAY;
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function routeLen(a,b){const p=pathPts(a,b);let L=0;for(let i=1;i<p.length;i++)L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return L;}
+
+let S={from:null,to:null},phase='start',picked=null,locked=false;
+
+const doneTrail=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
+/* trail, dot and tag */
+const route=el('path',{d:'M0 0',fill:'none',stroke:PEN,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
+
+/* UP / DOWN signs at both ends of every avenue, and the orange arrows that show the direction */
+STREETS_V.forEach(s=>{plate(s.x,-22,true);plate(s.x,596,false);});
+const chev=el('g',{class:'chev'},svg);
+STREETS_V.forEach(s=>{for(let y=30;y<=580;y+=47)el('path',{d:`M${s.x-9} ${y+6} l9 -11 l9 11`},chev);});
+function showUD(dir){chev.classList.toggle('on',!!dir);chev.setAttribute('transform',dir==='down'?'rotate(180 480 300)':'');}
+const dot=el('circle',{r:9,fill:NAVY,stroke:'#fff','stroke-width':3,style:'pointer-events:none'},svg);
+/* you-are-here pulse: soft teal rings that follow the dot */
+(function(){
+  const st=document.createElement('style');
+  st.textContent='.pulse-ring{fill:none;stroke:#012169;stroke-width:3.5;pointer-events:none;transform-box:fill-box;transform-origin:center;opacity:0;animation:pulseRing 2.2s ease-out infinite}.pulse-ring.b{animation-delay:1.1s}@keyframes pulseRing{0%{transform:scale(1);opacity:.7}100%{transform:scale(3.4);opacity:0}}@media (prefers-reduced-motion:reduce){.pulse-ring{animation:none;opacity:.45;transform:scale(2)}.pulse-ring.b{display:none}}';
+  document.head.appendChild(st);
+  const rs=[0,1].map(i=>{const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('class','pulse-ring'+(i?' b':''));c.setAttribute('r',dot.getAttribute('r'));dot.parentNode.insertBefore(c,dot);return c;});
+  const sync=()=>{rs.forEach(c=>{c.setAttribute('cx',dot.getAttribute('cx')||0);c.setAttribute('cy',dot.getAttribute('cy')||0);});};
+  new MutationObserver(sync).observe(dot,{attributes:true,attributeFilter:['cx','cy']});sync();
+})();
+
+document.querySelectorAll('.blade,.udchip').forEach(b=>svg.insertBefore(b,document.querySelector('.pulse-ring')));
+const dotG=el('g',{class:'dg',style:'pointer-events:none'},svg);
+dot.setAttribute('r',15);
+const _sa=dot.setAttribute.bind(dot);
+dot.setAttribute=(k,v)=>{_sa(k,v);if(k==='cx'||k==='cy')dotG.setAttribute('transform','translate('+((+dot.getAttribute('cx')||0)-11)+' '+((+dot.getAttribute('cy')||0)-11)+') scale(.92)');};
+function setMode(m){MODE=m;dotG.innerHTML=GLYPH[m];}
+setMode('walk');
+const tagT=el('text',{id:'tagT'},svg);
+let total=0;
+function setRoute(pts){route.setAttribute('d','M'+pts.map(p=>p.join(' ')).join(' L'));total=route.getTotalLength();}
+function snap(dist){
+  const p=route.getPointAtLength(dist);
+  dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);
+  route.setAttribute('stroke-dasharray',dist+' '+(total+10));
+  placeTag(p);
+}
+function placeTag(p){
+  const w=tagT.textContent?tagT.getBBox().width:0;
+  const x=p.x>740?p.x-16-w:p.x+16,y=p.y-20;
+  tagT.setAttribute('x',x);tagT.setAttribute('y',y);tagT.setAttribute('transform','rotate(-4 '+x+' '+y+')');
+}
+function showTag(txt){if(txt==='start'){markStart(+dot.getAttribute('cx')||0,+dot.getAttribute('cy')||0);txt='';}tagT.style.opacity=txt?1:0;tagT.textContent=txt||'';placeTag({x:+dot.getAttribute('cx')||0,y:+dot.getAttribute('cy')||0});}
+function putDot(id){
+  const i=info[id];
+  route.setAttribute('d','M'+i.cx+' '+i.cy+' L'+i.cx+' '+(i.cy+.01));total=.01;
+  route.setAttribute('stroke-dasharray','0 10');
+  dot.setAttribute('cx',i.cx);dot.setAttribute('cy',i.cy);showTag('');
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const REDUCED=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function animate(a,b,dur){
+  return new Promise(res=>{
+    if(REDUCED){snap(b);res();return;}
+    const t0=performance.now();
+    (function f(t){
+      const k=Math.min(1,(t-t0)/dur);
+      const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      snap(a+(b-a)*e);
+      if(k<1)requestAnimationFrame(f);else res();
+    })(t0);
+  });
+}
+
+
+function clearMap(){
+  Object.values(placeEls).forEach(g=>g.classList.remove('dest','focus','sel','miss'));
+  doneTrail.setAttribute('d','M0 0');
+}
+function showRoute(a,b){const p=pathPts(a,b);doneTrail.setAttribute('d','M'+p.map(q=>q.join(' ')).join(' L'));}
+function putAt(id){clearDrawn();const i=info[id];setRoute([[i.cx,i.cy],[i.cx,i.cy+.01]]);dot.setAttribute('cx',i.cx);dot.setAttribute('cy',i.cy);route.setAttribute('stroke-dasharray','0 10');showTag('');}
+
+/* drag the icon to draw your own way, then drop it on the place where you think you arrive */
+const drawn=el('path',{d:'M0 0',fill:'none',stroke:'#012169','stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round',filter:'url(#wob)',style:'pointer-events:none'},svg);
+svg.insertBefore(drawn,dot);
+let dpts=[],dragging=false;
+function clearDrawn(){dpts=[];drawn.setAttribute('d','M0 0');}
+const grab=el('circle',{r:46,fill:'rgba(255,255,255,.01)',style:'cursor:grab;touch-action:none;display:none;-webkit-user-select:none;user-select:none'},svg);
+['dragstart','selectstart','contextmenu'].forEach(t=>svg.addEventListener(t,e=>{if(phase==='draw')e.preventDefault();}));
+function syncGrab(){grab.setAttribute('cx',dot.getAttribute('cx')||0);grab.setAttribute('cy',dot.getAttribute('cy')||0);}
+new MutationObserver(syncGrab).observe(dot,{attributes:true,attributeFilter:['cx','cy']});
+function toMap(e){const m=svg.getScreenCTM().inverse();const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m);return {x:Math.max(8,Math.min(952,p.x)),y:Math.max(-16,Math.min(616,p.y))};}
+function placeAt(p){
+  for(const id in info){const i=info[id];if(p.x>=i.x0&&p.x<=i.x1&&p.y>=i.y0&&p.y<=i.y1)return id;}
+  let best=null,bd=1e9;for(const id in info){const i=info[id],d=Math.hypot(p.x-i.cx,p.y-i.cy);if(d<bd){bd=d;best=id;}}
+  return bd<60?best:null;
+}
+let lastP=null,dragId=null,carry=false,downT=0;
+grab.addEventListener('pointerdown',e=>{
+  if(phase!=='draw'||locked)return;
+  e.preventDefault();dragId=e.pointerId;try{grab.setPointerCapture(e.pointerId);}catch(_){}dragging=true;grab.style.cursor='grabbing';
+  const i=info[R().from];dpts=[[i.cx,i.cy]];lastP=null;carry=false;downT=performance.now();showTag('');
+});
+/* trackpad friendly: one click picks the icon up, the next click drops it */
+window.addEventListener('pointerdown',e=>{if(carry&&dragging){carry=false;endDrag(e);}},true);
+function moveDrag(e){
+  if(!dragging||(dragId!==null&&e.pointerId!==dragId))return;
+  const p=toMap(e),l=dpts[dpts.length-1];lastP=p;
+  if(Math.hypot(p.x-l[0],p.y-l[1])<4)return;
+  dpts.push([Math.round(p.x),Math.round(p.y)]);
+  dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);
+  drawn.setAttribute('d','M'+dpts.map(q=>q.join(' ')).join(' L'));
+}
+window.addEventListener('pointermove',moveDrag);
+function endDrag(e){
+  if(!dragging||(dragId!==null&&e.pointerId!==dragId))return;
+  if(e.type==='pointerup'&&!carry&&dpts.length<3&&performance.now()-downT<500){carry=true;grab.style.cursor='grabbing';const fb0=document.getElementById('fb');if(fb0)fb0.textContent='You have the icon. Move it along the streets, then click on the place.';return;}
+  carry=false;dragging=false;grab.style.cursor='grab';
+  const p=(e.type==='pointercancel'||(!e.clientX&&!e.clientY))&&lastP?lastP:toMap(e),id=placeAt(p),fb=document.getElementById('fb');
+  if(!id||id===R().from||dpts.length<3){
+    const i=info[R().from];putAt(R().from);showTag('start');
+    if(fb)fb.textContent=id===R().from?'That’s where you start. Draw the way, then drop the dot on the place.':'Drop the dot on a place on the map.';
+    return;
+  }
+  dot.setAttribute('cx',info[id].cx);dot.setAttribute('cy',info[id].cy);
+  judge(id);
+}
+window.addEventListener('pointerup',endDrag);
+window.addEventListener('pointercancel',endDrag);
+/* wrong place: the drawn way rubs itself out, the dot walks back to the start */
+function eraseDrawn(){
+  return new Promise(res=>{
+    if(REDUCED||dpts.length<3){clearDrawn();res();return;}
+    const all=dpts.slice(),n=all.length,t0=performance.now(),dur=Math.min(1600,Math.max(700,n*12));
+    (function f(t){
+      const k=Math.min(1,(t-t0)/dur),keep=Math.max(1,Math.round(n*(1-k)));
+      const q=all.slice(0,keep);
+      drawn.setAttribute('d',keep>1?'M'+q.map(p=>p.join(' ')).join(' L'):'M0 0');
+      const last=q[q.length-1];dot.setAttribute('cx',last[0]);dot.setAttribute('cy',last[1]);
+      if(k<1)requestAnimationFrame(f);else{clearDrawn();res();}
+    })(t0);
+  });
+}
+function armGrab(on){svg.style.touchAction=on?'none':'';grab.style.display=on?'':'none';svg.appendChild(grab);syncGrab();}
+
+const panel=document.getElementById('panel');
+const HELP=()=>{const v=cap(VERB[MODE]);return `<div class="say"><span><b>Go out of</b> the building. <b>Turn left / right.</b></span><span><b>${v} along / up / down</b> … Street. <b>${v} across</b> … Street.</span><span><b>${v} two blocks.</b> It’s <b>on the left / on the right</b> / <b>on the corner</b> / <b>between</b> … and … / <b>across from</b> … / <b>near</b> …</span><span class="rl"><b>up / down</b> = toward the UP or DOWN sign. <b>along</b> = following the street.</span></div>`;};
+const R=()=>S;
+const EYE='<p class="eyebrow" style="display:flex;gap:10px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin:0 0 14px"><span style="width:24px;height:3px;background:var(--pen)"></span>London · Be the GPS</p>';
+function hideDot(on){
+  dot.style.display=on?'none':'';dotG.style.display=on?'none':'';
+  document.querySelectorAll('.pulse-ring').forEach(r=>r.style.display=on?'none':'');
+  if(on){startSign.style.display='none';tagT.textContent='';}
+}
+function modeRow(){
+  return '<div class="role" id="modes" style="margin:0 0 14px">'+['walk','bike','drive'].map(m=>{const on=MODE===m;
+    return `<button type="button" data-m="${m}" style="font:800 13px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border:1.5px solid var(--ink);${m==='walk'?'':'border-left-width:0;'}background:${on?'#0A0A0A':'#fff'};color:${on?'#fff':'#0A0A0A'};cursor:pointer">${LABEL[m]}</button>`;}).join('')+'</div>';
+}
+function render(note){
+  let body='';
+  if(phase==='start'){
+    body=`<h1>Where do you start?</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Choose how you go.</span></li><li><span class="n">2</span><span>Tap the place where you start.</span></li></ol>${modeRow()}
+     <p class="pen fb">${note||''}</p>`;
+  }else if(phase==='dest'){
+    body=`<h1>You start at ${PT_NAME[S.from]}. Where do you go?</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Tap the place where you arrive.</span></li></ol>
+     <p class="pen fb">${note||''}</p>
+     <div class="controls"><button class="b" id="reset">Change the start</button></div>`;
+  }else if(phase==='ready'){
+    body=`<h1>From ${PT_NAME[S.from]} to ${PT_NAME[S.to]}.</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Say the way out loud.</span></li><li><span class="n">2</span><span>Show the route to check it.</span></li><li><span class="n">3</span><span>Or draw it: drag the icon along the streets.</span></li></ol>
+     ${modeRow()}<p class="mode"><svg viewBox="0 0 24 24" aria-hidden="true">${GLYPH[MODE]}</svg>You ${MODE==='walk'?'walk':MODE==='bike'?'ride a bike':'drive'}.</p>${HELP()}
+     <div class="controls"><button class="b" id="show">Show the route</button><button class="b" id="draw">Draw it</button><button class="b" id="reset">New route</button></div>`;
+  }else if(phase==='draw'){
+    body=`<h1>Draw the way.</h1>
+     <ol class="steps"><li><span class="n">1</span><span>Press the icon and drag it along the streets. Or click it once, move, and click again.</span></li><li><span class="n">2</span><span>Drop it on ${PT_NAME[S.to]}.</span></li></ol>
+     <p class="pen fb" id="fb">${note||''}</p>
+     <div class="controls"><button class="b" id="show">Show the route</button><button class="b" id="reset">New route</button></div>`;
+  }else{
+    body=`<h1>You arrived.</h1>
+     <p class="sent" style="font-size:clamp(20px,2vw,30px);font-weight:700;line-height:1.6">You are at ${PT_NAME[S.to]}.</p>
+     <p class="pen fb">Same way? The blue line is yours, the red line is the route.</p>
+     <div class="controls" style="margin-top:auto;padding-top:16px"><button class="b" id="draw">Draw it again</button><button class="b" id="reset">New route</button></div>`;
+  }
+  panel.innerHTML=EYE+body;
+  armGrab(phase==='draw');
+  const q=id=>document.getElementById(id);
+  panel.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{setMode(b.dataset.m);render(note);});
+  if(q('reset'))q('reset').onclick=resetAll;
+  if(q('draw'))q('draw').onclick=()=>{if(locked)return;clearMap();placeEls[S.to].classList.add('dest');putAt(S.from);showTag('start');phase='draw';render();};
+  if(q('show'))q('show').onclick=showIt;
+}
+function resetAll(){if(locked)return;S={from:null,to:null};phase='start';clearMap();clearDrawn();hideDot(true);render();}
+async function showIt(){
+  if(locked)return;locked=true;
+  clearMap();placeEls[S.to].classList.add('dest');putAt(S.from);showTag('start');phase='ready';render();
+  const pts=pathPts(S.from,S.to);setRoute(pts);showTag('');
+  await animate(0,total,Math.min(3200,Math.max(1200,total/300*1000)));
+  placeEls[S.to].classList.add('focus');locked=false;
+}
+async function judge(id){
+  if(phase!=='draw'||locked)return;
+  locked=true;
+  if(id===S.to){
+    dot.setAttribute('cx',info[id].cx);dot.setAttribute('cy',info[id].cy);
+    showRoute(S.from,S.to);placeEls[id].classList.add('focus');
+    phase='done';locked=false;render();return;
+  }
+  placeEls[id].classList.add('miss');
+  await eraseDrawn();
+  placeEls[id].classList.remove('miss');
+  putAt(S.from);showTag('start');locked=false;phase='draw';
+  render('That’s '+PT_NAME[id]+'. Not '+PT_NAME[S.to]+'. Try again.');
+}
+function tapPlace(id){
+  if(locked)return;
+  if(phase==='start'){
+    S={from:id,to:null};clearMap();hideDot(false);putAt(id);showTag('start');phase='dest';render();
+  }else if(phase==='dest'){
+    if(id===S.from){render('That’s where you start. Where do you arrive?');return;}
+    S.to=id;clearMap();placeEls[id].classList.add('dest');putAt(S.from);showTag('start');phase='ready';render();
+  }else if(phase==='draw'){
+    /* tapping works too, but dragging is the point */
+    if(id===S.from){return;}
+    judge(id);
+  }
+}
+Object.entries(placeEls).forEach(([id,g])=>{
+  g.addEventListener('click',()=>tapPlace(id));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tapPlace(id);}});
+});
+hideDot(true);render();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>showTag(tagT.textContent));
+</script>
+</body>
+</html>
