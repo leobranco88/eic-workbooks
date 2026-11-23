@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="hub-title" content="Atalhos EIC">
+<meta name="hub-desc" content="Índice com os links dos apps e do site da EIC.">
+<title>Atalhos EIC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+:root{
+  --paper:#F2ECDF; --ink:#16302A; --muted:#5B6B63; --rule:#CFC6B2; --hover:#E9E1CF; --accent:#B8321A;
+  --f-display:'Newsreader',Georgia,serif;
+  --f-body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --paper:#0F211C; --ink:#EFE8D8; --muted:#9DAEA5; --rule:#2B4640; --hover:#16302A; --accent:#F2724F; color-scheme:dark; }
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); font-size:16px; line-height:1.5;
+  padding-block:clamp(28px,6vw,64px);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap{max-width:1040px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-bottom:20px;border-bottom:2px solid var(--ink)}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.stamp{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin:0}
+section{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr);gap:8px 40px;padding-block:28px;border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+.head h2{font-family:var(--f-display);font-weight:600;font-size:1.5rem;line-height:1.15;margin:0 0 6px;text-wrap:balance}
+.head p{margin:0;color:var(--muted);font-size:.9rem;max-width:30ch}
+ul.links{list-style:none;margin:0;padding:0}
+.links li{border-top:1px solid var(--rule)}
+.links li:first-child{border-top:0}
+.links a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 20px;align-items:baseline;padding:12px 10px;margin-inline:-10px;color:inherit;text-decoration:none}
+.links a:hover{background:var(--hover)}
+.links a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.name{font-weight:700}
+.what{grid-column:1;color:var(--muted);font-size:.9rem}
+.host{grid-column:2;grid-row:1 / span 2;align-self:center;font-family:var(--f-mono);font-size:.74rem;color:var(--muted);text-align:right;overflow-wrap:anywhere;max-width:26ch}
+.links a:hover .name{color:var(--accent)}
+@media (max-width:720px){
+  section{grid-template-columns:minmax(0,1fr);gap:14px}
+  .head p{max-width:none}
+  .links a{grid-template-columns:minmax(0,1fr)}
+  .host{grid-column:1;grid-row:auto;text-align:left;max-width:none;align-self:start;margin-top:2px}
+}
+@media (prefers-reduced-motion:no-preference){ .links a{transition:background-color .12s} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Atalhos EIC</h1>
+    <p class="stamp">Atualizado em 23/11/2026</p>
+  </header>
+
+  <section>
+    <div class="head">
+      <h2>Apps da EIC</h2>
+      <p>Páginas da escola no ar.</p>
+    </div>
+    <ul class="links">
+      <li><a href="https://eic-checkpoints.web.app/"><span class="name">Relatórios de checkpoint</span><span class="what">Portal do professor.</span><span class="host">eic-checkpoints.web.app</span></a></li>
+      <li><a href="https://eic-mural.web.app/"><span class="name">Mural de Natal</span><span class="what">Figurinhas e desenhos para colorir.</span><span class="host">eic-mural.web.app</span></a></li>
+      <li><a href="https://eic-worksheets.web.app/"><span class="name">Workbooks</span><span class="what">Materiais publicados para turmas e professores.</span><span class="host">eic-worksheets.web.app</span></a></li>
+      <li><a href="https://eic-familia.web.app/"><span class="name">Workbooks, família</span><span class="what">Versão para as famílias.</span><span class="host">eic-familia.web.app</span></a></li>
+      <li><a href="https://eic-correction.web.app/hands-on/"><span class="name">Treino de correção</span><span class="what">Seis alunos fictícios, Teens 1 a 6.</span><span class="host">eic-correction.web.app/hands-on</span></a></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>Site</h2>
+      <p>O endereço público da escola.</p>
+    </div>
+    <ul class="links">
+      <li><a href="https://eicschool.com.br/"><span class="name">Site da EIC</span><span class="what">Site público da escola.</span><span class="host">eicschool.com.br</span></a></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
