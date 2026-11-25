@@ -24,7 +24,7 @@ const GRUPOS = [
                                         'verb-patterns','speaking practice','on-the-move','neural-dossier'] },
   { nome: 'Viagem e temas',    pastas: ['airport','getting-around','european-garden','wh-questions-airport-hopistal','study-abroad'] },
   { nome: 'Escola',            pastas: ['eic-philosophy','eic-teacher-training','eic_curriculum_system','eic-teaching',
-                                        'internal','gamefik','placement-test','transicao-curriculo'] },
+                                        'internal','gamefik','placement-test','transicao-curriculo','holiday-log'] },
   { nome: 'Clipping',          pastas: ['clipping'] },
 ];
 
@@ -59,6 +59,7 @@ const NOMES = {
   'eic-teacher-training':       'Teacher Training',
   'eic-teaching':               'Teaching',
   'kids-guide':                 'Kids · Guia',
+  'holiday-log':                'Holiday Log',
   'speaking-kids6':             'Kids 6 · Speaking',
   'neural-english-oficial':     'Neural English · Oficial',
   'neural-dossier':             'Neural English · Dossiê',
