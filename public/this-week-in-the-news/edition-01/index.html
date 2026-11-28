@@ -20,9 +20,9 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;-
 
 /* board */
 .board{position:relative;background:var(--paper);border:2px solid var(--ink);padding:18px 18px 20px;min-height:640px}
-.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-bottom:14px;margin-bottom:14px;border-bottom:2px solid var(--ink)}
-.head h1{margin:0;font-size:30px;font-weight:800;letter-spacing:-.035em;line-height:1}
-.head .meta{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.head{padding-bottom:16px;margin-bottom:16px;border-bottom:2px solid var(--ink)}
+.head h1{margin:0;font-size:54px;font-weight:800;letter-spacing:-.045em;line-height:.95}
+.head .meta{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
 .grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:154px;gap:8px}
 
 /* tiles */
@@ -51,7 +51,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;-
 .band h2{margin:0;font-size:30px;font-weight:800;letter-spacing:-.035em;line-height:1.05}
 .band .pt{margin:7px 0 0;font-size:13px;font-style:italic;opacity:.9}
 .band .ico{flex:none}
-.x{position:absolute;top:12px;right:12px;width:40px;height:40px;border:2px solid currentColor;background:transparent;color:inherit;font:700 22px/1 'Inter',sans-serif;cursor:pointer}
+.x{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:8px;border:2px solid currentColor;background:transparent;color:inherit;font:700 22px/1 'Inter',sans-serif;cursor:pointer}
 .x:hover{background:rgba(255,255,255,.18)}
 .c3 .x:hover{background:rgba(0,0,0,.1)}
 .body{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1}
@@ -61,12 +61,12 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;-
 .sec h3{display:flex;align-items:center;gap:9px;margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--wine)}
 .sec p{margin:0 0 10px;font-size:15.5px;line-height:1.55}
 .q{display:flex;gap:11px;margin:0 0 13px;font-size:15.5px;line-height:1.5}
-.q b{flex:none;width:26px;height:26px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.q b{flex:none;width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .q span{flex:1}
 .rev{margin:2px 0 14px 37px}
-.rev button{font:600 13px 'Inter',sans-serif;background:#fff;border:2px solid var(--ink);padding:6px 12px;cursor:pointer}
+.rev button{font:600 13px 'Inter',sans-serif;background:#fff;border:2px solid var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
 .rev button:hover{background:var(--ink);color:#fff}
-.rev .ans{display:none;margin-top:8px;padding:10px 12px;background:var(--mustard);color:#111;font-size:14.5px;line-height:1.45;font-weight:500}
+.rev .ans{display:none;margin-top:8px;padding:10px 12px;border-radius:8px;background:var(--mustard);color:#111;font-size:14.5px;line-height:1.45;font-weight:500}
 .rev.on .ans{display:block}
 .say{border-left:5px solid var(--wine);padding:2px 0 2px 14px}
 .say .en{margin:0;font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
@@ -76,7 +76,7 @@ dl.words dt{font-weight:700}
 dl.words dd{margin:0;font-style:italic;color:#333}
 .src{padding:6px 22px 4px;font-size:11.5px;color:#555}
 .nav{display:flex;justify-content:space-between;gap:10px;padding:12px 20px 16px;border-top:2px solid var(--ink);margin-top:auto;flex:none}
-.nav button{font:600 14px 'Inter',sans-serif;background:#fff;border:2px solid var(--ink);padding:8px 14px;cursor:pointer}
+.nav button{font:600 14px 'Inter',sans-serif;background:#fff;border:2px solid var(--ink);border-radius:8px;padding:8px 14px;cursor:pointer}
 .nav button:hover:not(:disabled){background:var(--ink);color:#fff}
 .nav button:disabled{opacity:.3;cursor:default}
 
@@ -98,6 +98,7 @@ dfn:hover::after,dfn:focus::after,dfn.on::after{opacity:1}
   .body{grid-template-columns:1fr}
   .col+.col{border-left:0;border-top:2px solid var(--ink)}
   .band h2{font-size:23px}
+  .head h1{font-size:40px}
   .band .ico svg{width:42px;height:42px}
   .board{min-height:760px}
 }
@@ -107,8 +108,8 @@ dfn:hover::after,dfn:focus::after,dfn.on::after{opacity:1}
 <div class="wrap">
   <div class="board" id="board">
     <div class="head">
-      <h1>This Week in the News</h1>
       <div class="meta">Edition 01 · Nov 28 · Tap a story</div>
+      <h1>This Week<br>in the News</h1>
     </div>
     <div class="grid" id="grid"></div>
 
