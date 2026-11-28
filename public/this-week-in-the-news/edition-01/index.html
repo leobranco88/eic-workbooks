@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="hub-title" content="This Week in the News · Edition 01 · Nov 28">
+<meta name="hub-desc" content="Quadro com 5 manchetes da semana (UE, SpaceX, Trabuco, GTA VI, marés na Califórnia), nível B1+, com glossário, perguntas gerais e do caso e frase para praticar.">
+<meta name="hub-type" content="Clipping">
+<meta name="hub-level" content="B1">
+<title>This Week in the News · Edition 01 · EIC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111;--paper:#f3f1ec;--wine:#7d1f2e;--mustard:#e0a526}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 20px 48px}
+
+/* board */
+.board{position:relative;background:var(--paper);border:2px solid var(--ink);padding:18px 18px 20px;min-height:640px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-bottom:14px;margin-bottom:14px;border-bottom:2px solid var(--ink)}
+.head h1{margin:0;font-size:30px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.head .meta{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:154px;gap:8px}
+
+/* tiles */
+.t{position:relative;display:flex;flex-direction:column;padding:15px 16px 14px;cursor:pointer;overflow:hidden;color:#fff;outline-offset:3px;user-select:none}
+.t:focus-visible{outline:3px solid var(--ink)}
+.c0{background:#16264f!important;color:#fff!important}
+.c1{background:#7d1f2e!important;color:#fff!important}
+.c2{background:#1d4a38!important;color:#fff!important}
+.c3{background:#e0a526!important;color:#111!important}
+.c4{background:#4a2a63!important;color:#fff!important}
+.t .lab{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.t .ico{position:absolute;top:12px;right:14px;opacity:.95}
+.t .sp{flex:1}
+.t h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.035em;line-height:1.08}
+.t .pt{margin:6px 0 0;font-size:12px;font-style:italic;font-weight:400;line-height:1.3;opacity:.88}
+.t.lead h2{font-size:38px;line-height:1.02;max-width:88%}
+.t.lead .pt{font-size:14px;margin-top:10px;max-width:80%}
+.t:hover h2{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+
+/* overlay */
+.ov{position:absolute;inset:0;background:rgba(17,17,17,.6);display:none;padding:14px;z-index:20}
+.ov.on{display:block}
+.panel{background:#fff;border:2px solid var(--ink);height:100%;overflow:auto;display:flex;flex-direction:column}
+.band{position:relative;display:flex;gap:18px;align-items:center;padding:18px 70px 18px 20px;flex:none}
+.band .lab{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.band h2{margin:0;font-size:30px;font-weight:800;letter-spacing:-.035em;line-height:1.05}
+.band .pt{margin:7px 0 0;font-size:13px;font-style:italic;opacity:.9}
+.band .ico{flex:none}
+.x{position:absolute;top:12px;right:12px;width:40px;height:40px;border:2px solid currentColor;background:transparent;color:inherit;font:700 22px/1 'Inter',sans-serif;cursor:pointer}
+.x:hover{background:rgba(255,255,255,.18)}
+.c3 .x:hover{background:rgba(0,0,0,.1)}
+.body{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1}
+.col{padding:20px 22px 8px}
+.col+.col{border-left:2px solid var(--ink)}
+.sec{margin:0 0 22px}
+.sec h3{display:flex;align-items:center;gap:9px;margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--wine)}
+.sec p{margin:0 0 10px;font-size:15.5px;line-height:1.55}
+.q{display:flex;gap:11px;margin:0 0 13px;font-size:15.5px;line-height:1.5}
+.q b{flex:none;width:26px;height:26px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.q span{flex:1}
+.rev{margin:2px 0 14px 37px}
+.rev button{font:600 13px 'Inter',sans-serif;background:#fff;border:2px solid var(--ink);padding:6px 12px;cursor:pointer}
+.rev button:hover{background:var(--ink);color:#fff}
+.rev .ans{display:none;margin-top:8px;padding:10px 12px;background:var(--mustard);color:#111;font-size:14.5px;line-height:1.45;font-weight:500}
+.rev.on .ans{display:block}
+.say{border-left:5px solid var(--wine);padding:2px 0 2px 14px}
+.say .en{margin:0;font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.say .pt{margin:5px 0 0;font-size:13px;font-style:italic;color:#444}
+dl.words{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14.5px}
+dl.words dt{font-weight:700}
+dl.words dd{margin:0;font-style:italic;color:#333}
+.src{padding:6px 22px 4px;font-size:11.5px;color:#555}
+.nav{display:flex;justify-content:space-between;gap:10px;padding:12px 20px 16px;border-top:2px solid var(--ink);margin-top:auto;flex:none}
+.nav button{font:600 14px 'Inter',sans-serif;background:#fff;border:2px solid var(--ink);padding:8px 14px;cursor:pointer}
+.nav button:hover:not(:disabled){background:var(--ink);color:#fff}
+.nav button:disabled{opacity:.3;cursor:default}
+
+/* tooltips */
+dfn{font-style:normal;position:relative;cursor:help;border-bottom:2px solid var(--wine);outline:none}
+dfn::after{content:attr(data-t);position:absolute;left:0;bottom:calc(100% + 6px);width:max-content;max-width:230px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;padding:5px 9px;opacity:0;pointer-events:none;z-index:30;transition:opacity .12s}
+dfn:hover::after,dfn:focus::after,dfn.on::after{opacity:1}
+
+.foot{margin-top:14px;font-size:12px;color:#555}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr;grid-auto-rows:minmax(128px,auto)}
+  .t{grid-column:auto!important;grid-row:auto!important}
+  .t .ico svg{width:34px;height:34px}
+  .t .sp{min-height:14px}
+  .t h2{padding-right:46px}
+  .t.lead h2{font-size:30px;max-width:100%;padding-right:46px}
+  .t.lead .pt{max-width:100%}
+  .body{grid-template-columns:1fr}
+  .col+.col{border-left:0;border-top:2px solid var(--ink)}
+  .band h2{font-size:23px}
+  .band .ico svg{width:42px;height:42px}
+  .board{min-height:760px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="board" id="board">
+    <div class="head">
+      <h1>This Week in the News</h1>
+      <div class="meta">Edition 01 · Nov 28 · Tap a story</div>
+    </div>
+    <div class="grid" id="grid"></div>
+
+    <div class="ov" id="ov" aria-hidden="true">
+      <div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="ptitle"></div>
+    </div>
+  </div>
+  <div class="foot">EIC · Escola de Idiomas e Cultura · Facts checked on Nov 28, 2026 against the sources listed in each story.</div>
+</div>
+
+<script>
+/* ---------- pictograms ---------- */
+var U=0;
+var P={
+  world:function(u){var id='mw'+u;return '<defs><mask id="'+id+'"><circle cx="50" cy="50" r="35" fill="white"/><path d="M50 15 Q14 50 50 85 M50 15 Q86 50 50 85 M12 50 H88" fill="none" stroke="black" stroke-width="5"/></mask></defs><circle cx="50" cy="50" r="35" mask="url(#'+id+')"/>'},
+  business:function(){return '<path d="M15 67H32V85H15Z M41 57H58V85H41Z M67 47H84V85H67Z M15 48L48 15H34V7H62V35H54V21L21 54Z"/>'},
+  brazil:function(){return '<path fill-rule="evenodd" d="M17 25L28 22 32 15 42 20 49 12 55 21 64 18 70 29 84 33 88 40 81 49 76 61 67 67 62 77 51 89 45 82 48 72 40 65 39 55 29 55 24 47 14 43 11 34Z M61 49a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0 -7Z"/>'},
+  culture:function(){return '<path fill-rule="evenodd" d="M12 27H88V41A9 9 0 0 0 88 59V73H12V59A9 9 0 0 0 12 41Z M50 34L55 45 67 46 58 54 61 66 50 60 39 66 42 54 33 46 45 45Z"/>'},
+  climate:function(){return '<path d="M15 53A13 13 0 0 1 17 27A20 20 0 0 1 55 25A14 14 0 0 1 65 53Z M20 60H30L13 77H3Z M38 60H48L31 77H21Z M56 60H66L49 77H39Z M68 61H84A3 3 0 1 0 81 58H75A9 9 0 1 1 84 67H68Z M62 76H79A3 3 0 1 1 76 79H70A9 9 0 1 0 79 70H62Z"/>'},
+  big:function(){return '<path fill-rule="evenodd" d="M24 20H40V33L44 40H56L60 33V20H76L88 53V66A19 19 0 0 1 50 66A19 19 0 0 1 12 66V53Z M31 54A12 12 0 1 0 31 78A12 12 0 1 0 31 54Z M69 54A12 12 0 1 0 69 78A12 12 0 1 0 69 54Z"/>'},
+  cas:function(){return '<path fill-rule="evenodd" d="M42 13A29 29 0 1 0 58 66L77 85 85 77 66 58A29 29 0 0 0 42 13Z M42 24A18 18 0 1 0 42 60A18 18 0 1 0 42 24Z"/>'},
+  say:function(){return '<path fill-rule="evenodd" d="M12 22H88V70H43L23 87V70H12Z M32 36H46V50L38 59H30L36 50H32Z M54 36H68V50L60 59H52L58 50H54Z"/>'}
+};
+function ic(k,sz){U++;return '<svg viewBox="0 0 100 100" width="'+sz+'" height="'+sz+'" fill="currentColor" aria-hidden="true" style="flex:none">'+P[k](U)+'</svg>'}
+
+/* tooltip helper: d(text, translation, baseForm) */
+function d(t,tr,b){return '<dfn tabindex="0" data-t="'+(b||t)+': '+tr+'">'+t+'</dfn>'}
+
+/* ---------- content ---------- */
+var D=[
+{ s:'World', k:'world', i:'world', h:'EU leaders end budget summit with no deal',
+  p:'Líderes da UE encerram cúpula do orçamento sem acordo', span:'grid-column:span 3;grid-row:span 2', lead:1,
+  w:[
+   'Leaders of the European Union met at a '+d('summit','cúpula')+' in Brussels on Thursday, Nov 26. They talked for about 12 hours. They wanted to agree on two things.',
+   'First, the EU '+d('budget','orçamento')+' for 2028 to 2034, a plan worth nearly $1.76 trillion. Second, a new €45 billion '+d('loan','empréstimo')+' to help Ukraine in 2027.',
+   'They did not '+d('reach a deal','chegar a um acordo')+' on either one. Some leaders '+d('walked out of','saíram em protesto de','walk out of')+' the talks. Germany’s chancellor, Friedrich Merz, said they would not meet again on Friday. The next try will be in December.'
+  ],
+  g:['Why do countries in the same group often disagree about money?',
+     'When many countries must agree, is it better to wait for everyone or to decide with most of them? Why?'],
+  c:['What two things did the leaders want to agree on? Did they get them?',
+     'Germany’s chancellor said Europe must not take on more '+d('debt','dívida')+'. Hungary said it will not accept cuts to farm and regional funds. Which side is closer to your opinion? Why?'],
+  a:'A budget for 2028 to 2034 and a €45 billion loan for Ukraine. They got neither. They will try again in December.',
+  say:['We couldn’t reach a deal, so we’ll try again in December.','Não conseguimos chegar a um acordo, então vamos tentar de novo em dezembro.'],
+  gl:[['summit','cúpula, reunião de líderes'],['budget','orçamento'],['loan','empréstimo'],['reach a deal','chegar a um acordo'],['walk out of','sair em protesto de']],
+  src:'Associated Press, Al Jazeera, Euronews'
+},
+{ s:'Business', k:'business', i:'business', h:'SpaceX gets US approval for up to 1 million satellites',
+  p:'SpaceX recebe aprovação dos EUA para até 1 milhão de satélites', span:'grid-column:span 3',
+  w:[
+   'On Wednesday, Nov 25, a US agency called the FCC gave SpaceX a conditional approval. SpaceX can '+d('launch','lançar')+' up to 1 million satellites. They would work as data centers in space, to process data for AI.',
+   'It is the first time the FCC has approved a plan like this. SpaceX has 7 years to put its first working satellite in orbit and 14 years to finish the whole system.',
+   'The approval is not complete. The FCC has not yet approved SpaceX’s plan for old satellites above 600 km. Amazon, Viasat and a group of astronomers '+d('objected','se opuseram','object')+'. They worry about '+d('space junk','lixo espacial')+' and radio interference. The FCC said some of these concerns were outside its power.',
+   'Analysts also say the idea is still '+d('unproven','não comprovada')+': nobody knows yet if it can work, or make money, at this size.'
+  ],
+  g:['Who should make the rules for space: one country or many countries together? Why?',
+     'Many people worry about the energy that data centers use on Earth. Do you think moving them to space is a good idea? Why or why not?'],
+  c:['How many years does SpaceX have to launch the first working satellite? And to finish the whole system?',
+     'Analysts say nobody knows yet if this idea can work. What would you want to see before you trusted it?'],
+  a:'7 years for the first working satellite, and 14 years for the whole system.',
+  say:['It sounds great on paper, but nobody knows if it will work.','Parece ótimo no papel, mas ninguém sabe se vai funcionar.'],
+  gl:[['launch','lançar'],['object','se opor, discordar'],['space junk','lixo espacial'],['unproven','não comprovado'],['outside its power','fora da sua autoridade']],
+  src:'TechCrunch, CNBC, Via Satellite'
+},
+{ s:'Brazil', k:'brazil', i:'brazil', h:'Lula picks a banker as finance minister',
+  p:'Lula escolhe um banqueiro para a Fazenda', span:'grid-column:span 3',
+  w:[
+   'On Thursday, Nov 26, President Lula announced that Luiz Carlos Trabuco will be Brazil’s next finance minister. He will start in January.',
+   'Trabuco was the head of Bradesco, one of Brazil’s biggest banks, from 2009 to 2018. Today he leads the bank’s '+d('board','conselho de administração')+'.',
+   'News reports describe the choice as a gesture to the financial market. Fernando Haddad, the former minister, '+d('congratulated','parabenizou','congratulate')+' Trabuco on social media. Haddad left the job in the first half of the year to '+d('run for','concorrer a')+' governor of São Paulo. The current minister, Dario Durigan, '+d('took the job','assumiu o cargo','take the job')+' in March.'
+  ],
+  g:['Should a finance minister come from the financial market or from politics? Why?',
+     'Why do people pay so much attention to who the finance minister is?'],
+  c:['Who is the finance minister today, and why is it not Haddad?',
+     'In 2014, Trabuco said no to a similar invitation from President Dilma Rousseff. Why do you think he said yes this time?'],
+  a:'Dario Durigan, since March. Haddad left the job to run for governor of São Paulo.',
+  say:['Let’s wait and see what he does.','Vamos esperar para ver o que ele faz.'],
+  gl:[['board','conselho de administração'],['congratulate','parabenizar'],['run for','concorrer a (um cargo)'],['take the job','assumir o cargo']],
+  src:'CartaCapital, Plantão Brasil'
+},
+{ s:'Culture', k:'culture', i:'culture', h:'GTA VI sells an estimated 53 million copies in a week',
+  p:'GTA VI teria vendido 53 milhões de cópias em uma semana (estimativa)', span:'grid-column:span 3',
+  w:[
+   'Grand Theft Auto VI '+d('came out','foi lançado','come out')+' on Nov 19. One week later, the research '+d('firm','empresa')+' Alinea Analytics estimated that it sold 53 million copies and made about $4.7 billion. About three out of four copies were for PlayStation 5. The rest were for Xbox.',
+   'Be careful: these numbers are estimates. The '+d('publisher','empresa que lança e vende o jogo')+', Take-Two, has not shared official numbers for the first week. Its last official number was about $3.79 billion in sales on launch day.',
+   'Some players '+d('complained about','reclamaram de','complain about')+' technical problems, but the game is still all over the news.'
+  ],
+  g:['Why can a video game make billions of dollars in just a few days?',
+     'Do you buy games on launch day, or do you wait? Why?'],
+  c:['Why should we be careful with the 53 million number?',
+     'Most copies were for PlayStation 5. Why do you think PlayStation sold so much more than Xbox?'],
+  a:'It is an estimate from an outside firm. Take-Two and Rockstar have not confirmed it.',
+  say:['Everybody is talking about it, but I haven’t played it yet.','Todo mundo está falando disso, mas eu ainda não joguei.'],
+  gl:[['come out','ser lançado'],['firm','empresa'],['publisher','empresa que publica e vende o jogo'],['complain about','reclamar de']],
+  src:'Rockstar Report (citing Alinea Analytics), PlayStation Universe'
+},
+{ s:'Climate', k:'climate', i:'climate', h:'King tides and big waves hit the US West Coast',
+  p:'Marés altíssimas e ondas fortes atingem a costa oeste dos EUA', span:'grid-column:span 3',
+  w:[
+   'On Wednesday, Nov 25, the day before Thanksgiving, '+d('king tides','marés extremas: as mais altas do ano','king tide')+' hit the coast of California. This time, strong waves made them even worse, and many places broke all-time water level records.',
+   'In Pacifica, near San Francisco, a huge wave destroyed part of the '+d('pier','píer')+'. The pier was about 350 meters long, and officials had closed it in the summer after finding '+d('cracks','rachaduras','crack')+'. Seawater '+d('flooded','alagou','flood')+' homes close to the beach.',
+   'Weather.com says Pacific storms and very warm ocean water linked to El Niño made the flooding worse. El Niño also affects Brazil: in Santa Catarina, rain was above average in the whole state during November, according to Epagri.'
+  ],
+  g:['Do you think the weather where you live is changing? How?',
+     'How can cities near the sea protect people from floods?'],
+  c:['Why was part of the Pacifica pier so weak when the waves hit?',
+     'El Niño can bring more rain to southern Brazil. Have you, or someone you know, been affected by heavy rain?'],
+  a:'It had cracks. Officials had closed it in the summer after finding them.',
+  say:['We should be ready for the next one.','Precisamos estar preparados para a próxima.'],
+  gl:[['king tide','maré extrema (as mais altas do ano)'],['pier','píer, estrutura que avança sobre o mar'],['crack','rachadura'],['flood','alagar, inundar']],
+  src:'Associated Press (PBS), Weather.com, Epagri/Ciram'
+}
+];
+
+/* ---------- render board ---------- */
+var grid=document.getElementById('grid');
+D.forEach(function(x,n){
+  var sz=x.lead?92:50;
+  var el=document.createElement('div');
+  el.className='t c'+n+(x.lead?' lead':'');
+  el.setAttribute('role','button');el.tabIndex=0;
+  el.setAttribute('style',x.span);
+  el.setAttribute('aria-label','Story '+(n+1)+': '+x.h);
+  el.innerHTML='<div class="lab">'+(n+1)+' · '+x.s+'</div><div class="ico">'+ic(x.i,sz)+'</div><div class="sp"></div><h2>'+x.h+'</h2><p class="pt">'+x.p+'</p>';
+  el.addEventListener('click',function(){openStory(n)});
+  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openStory(n)}});
+  grid.appendChild(el);
+});
+
+/* ---------- overlay ---------- */
+var ov=document.getElementById('ov'),panel=document.getElementById('panel'),cur=-1,lastTile=null;
+function qrow(num,html){return '<div class="q"><b>'+num+'</b><span>'+html+'</span></div>'}
+function openStory(n){
+  var x=D[n];cur=n;
+  lastTile=grid.children[n];
+  var h='';
+  h+='<div class="band c'+n+'"><div class="ico">'+ic(x.i,56)+'</div><div><div class="lab">'+(n+1)+' · '+x.s+'</div><h2 id="ptitle">'+x.h+'</h2><p class="pt">'+x.p+'</p></div><button class="x" id="cl" aria-label="Close story">×</button></div>';
+  h+='<div class="body"><div class="col">';
+  h+='<div class="sec"><h3>What happened</h3>'+x.w.map(function(t){return '<p>'+t+'</p>'}).join('')+'</div>';
+  h+='<div class="sec"><h3>Words</h3><dl class="words">'+x.gl.map(function(g){return '<dt>'+g[0]+'</dt><dd>'+g[1]+'</dd>'}).join('')+'</dl></div>';
+  h+='</div><div class="col">';
+  h+='<div class="sec"><h3>'+ic('big',22)+'Big picture</h3>'+qrow(1,x.g[0])+qrow(2,x.g[1])+'</div>';
+  h+='<div class="sec"><h3>'+ic('cas',22)+'The case</h3>'+qrow(3,x.c[0])+'<div class="rev" id="rev"><button type="button" id="rb">Show answer to 3</button><div class="ans">'+x.a+'</div></div>'+qrow(4,x.c[1])+'</div>';
+  h+='<div class="sec"><h3>'+ic('say',22)+'Say it</h3><div class="say"><p class="en">'+x.say[0]+'</p><p class="pt">'+x.say[1]+'</p></div></div>';
+  h+='</div></div>';
+  h+='<div class="src">Sources: '+x.src+'</div>';
+  h+='<div class="nav"><button type="button" id="pv"'+(n===0?' disabled':'')+'>← Previous story</button><button type="button" id="nx"'+(n===D.length-1?' disabled':'')+'>Next story →</button></div>';
+  panel.innerHTML=h;
+  panel.scrollTop=0;
+  ov.classList.add('on');ov.setAttribute('aria-hidden','false');
+  document.getElementById('cl').onclick=closeStory;
+  document.getElementById('pv').onclick=function(){openStory(cur-1)};
+  document.getElementById('nx').onclick=function(){openStory(cur+1)};
+  document.getElementById('rb').onclick=function(){
+    var r=document.getElementById('rev'),on=r.classList.toggle('on');
+    this.textContent=on?'Hide answer to 3':'Show answer to 3';
+  };
+  Array.prototype.forEach.call(panel.querySelectorAll('dfn'),function(f){
+    f.addEventListener('click',function(e){e.stopPropagation();var was=f.classList.contains('on');clearDfn();if(!was)f.classList.add('on')});
+  });
+  document.getElementById('board').scrollIntoView({block:'start'});
+  document.getElementById('cl').focus({preventScroll:true});
+}
+function clearDfn(){Array.prototype.forEach.call(panel.querySelectorAll('dfn.on'),function(f){f.classList.remove('on')})}
+function closeStory(){
+  ov.classList.remove('on');ov.setAttribute('aria-hidden','true');
+  if(lastTile)lastTile.focus({preventScroll:true});
+  cur=-1;
+}
+ov.addEventListener('click',function(e){if(e.target===ov)closeStory()});
+panel.addEventListener('click',clearDfn);
+document.addEventListener('keydown',function(e){
+  if(!ov.classList.contains('on'))return;
+  if(e.key==='Escape')closeStory();
+  else if(e.key==='ArrowRight'&&cur<D.length-1)openStory(cur+1);
+  else if(e.key==='ArrowLeft'&&cur>0)openStory(cur-1);
+});
+</script>
+</body>
+</html>

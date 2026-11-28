@@ -25,7 +25,7 @@ const GRUPOS = [
   { nome: 'Viagem e temas',    pastas: ['airport','getting-around','european-garden','wh-questions-airport-hopistal','study-abroad'] },
   { nome: 'Escola',            pastas: ['eic-philosophy','eic-teacher-training','eic_curriculum_system','eic-teaching',
                                         'internal','gamefik','placement-test','transicao-curriculo','holiday-log'] },
-  { nome: 'Clipping',          pastas: ['clipping'] },
+  { nome: 'Clipping',          pastas: ['clipping','this-week-in-the-news'] },
 ];
 
 // Banco onde o botão "Organizar" do hub guarda os grupos (coleção hub, documento organizacao).
